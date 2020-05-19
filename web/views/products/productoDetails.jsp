@@ -4,9 +4,7 @@
 
 <%@include file="/views/template/header.jspf"%>
 
-<%@include file="/views/init/carusel.jspf"%>
-<%@include file="/views/init/caruselTwo.jspf"%>
-<%@include file="/views/init/caruselFeo.jspf"%>
+
 
 		<div class="container cuerpo pb-4 pt-4" >
 		  <div class="row h-100 align-items-right" >
@@ -17,7 +15,7 @@
 				
 				<h1 class="font-weight-bold pt-4">Que necesitas?</h1>
 				<p class="lead">Tenemos los mejores productos</p>
-                                <a href="./ProductoDetails" type="button" class="btn btn-primary btn-lg">Descubrir</a>
+				<button type="button" class="btn btn-primary btn-lg">Descubrir</button>
 			
 			</div>
 		  </div>
