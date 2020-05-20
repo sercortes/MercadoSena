@@ -435,7 +435,7 @@
 	}
 	.wishlist_content
 	{
-		margin-left: 6px;
+		margin-left: 0px;
 	}
 	.wishlist_text
 	{
@@ -443,7 +443,7 @@
 	}
 	.cart_text
 	{
-		display: none;
+		font-size: 14px;
 	}
 	.wishlist_text a,
 	.cart_text a
@@ -461,7 +461,7 @@
 	}
 	.cart_content
 	{
-		margin-left: 18px;
+		margin-left: 0px;
 	}
 	.cart_icon
 	{
