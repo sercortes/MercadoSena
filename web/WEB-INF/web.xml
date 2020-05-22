@@ -4,10 +4,19 @@
         <servlet-name>Rutas</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.Rutas</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RutasVendedor</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.RutasVendedor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/ProductoDetails</url-pattern>
         <url-pattern>/Searching...</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RutasVendedor</servlet-name>
+        <url-pattern>/HomeSeller</url-pattern>
+        <url-pattern>/Products</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

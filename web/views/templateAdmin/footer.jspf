@@ -1,0 +1,36 @@
+   <!---Container Fluid-->
+      </div>
+  
+<!-- Footer -->
+      <footer class="sticky-footer bg-white">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+              <span>&copy; <b>SENA</b> 2020
+              <b><a href="#" target="_blank"> - Sergio Cortes</a></b>
+            </span>
+          </div>
+        </div>
+      </footer>
+      <!-- Footer -->
+    </div>
+  </div>
+
+  <!-- Scroll to top -->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  
+
+  <script src="./assetsAdmin/vendor/jquery/jquery.min.js"></script>
+
+  <script src="./assetsAdmin/js/sweet.js"></script>
+
+  <script src="./assetsAdmin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <script src="./assetsAdmin/js/ruang-admin.min.js"></script>
+  
+
+  
+</body>
+
+</html>

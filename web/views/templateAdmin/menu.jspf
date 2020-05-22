@@ -1,0 +1,73 @@
+
+<body id="page-top">
+  <div id="wrapper">
+    <!-- Sidebar -->
+    <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center p-2" href="#">
+        
+        <div class="sidebar-brand-icon">
+            <img src="./assetsAdmin/img/logo/logo.png" class="img-fluid" style="width: 100%;">
+        </div>
+       
+      </a>
+        
+        <div class="p-1">
+            
+        </div>
+     
+      <li class="nav-item" id="menuHome">
+        <a class="nav-link hvr-icon-pop" href="./HomeSeller">
+          <i class="fas fa-fw fa-home hvr-icon"></i>
+          <span>Inicio</span></a>
+      </li>
+      <hr class="sidebar-divider">
+      <div class="sidebar-heading">
+        Opciones
+      </div>
+     
+      <li class="nav-item" id="menuActividad">
+        <a class="nav-link hvr-icon-pop" href="./Products">
+          <i class="far fa-calendar-check hvr-icon"></i>
+          <span>Productos</span>
+        </a>
+      </li>
+      
+     
+   
+      
+
+      <hr class="sidebar-divider">
+      <div class="version"></div>
+    </ul>
+    <!-- Sidebar -->
+    <div id="content-wrapper" class="d-flex flex-column">
+      <div id="content">
+        <!-- TopBar -->
+        <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
+          <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3 hvr-icon-pop">
+            <i class="fa fa-bars hvr-icon"></i>
+          </button>
+          <ul class="navbar-nav ml-auto">
+           
+          
+            <li class="nav-item dropdown no-arrow">
+              <a class="nav-link dropdown-toggle hvr-icon-pop" href="#" id="userDropdown" role="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                <span class="ml-2 d-none d-lg-inline text-white small mr-2"> </span>
+                 <i class="fas fa-user-circle fa-2x hvr-icon" style="max-width: 60px"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <a class="dropdown-item" href="./Profile">
+                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Perfil
+                </a>
+               
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="./Logout">
+                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Salir
+                </a>
+              </div>
+            </li>
+          </ul>
+        </nav>
