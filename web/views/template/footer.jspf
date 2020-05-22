@@ -121,6 +121,7 @@
 
 <script src="./assets/js/init/start.js"></script>
 
+<script src="./assets/js/project/util/functions.js"></script>
 
 </body>
 

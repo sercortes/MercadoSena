@@ -21,7 +21,11 @@
 				
 				<h1 class="font-weight-bold pt-4">Que necesitas?</h1>
 				<p class="lead">Tenemos los mejores productos</p>
-                                <a href="./Searching..." type="button" class="btn btn-primary btn-lg">Descubrir</a>
+                                <a href="./ProductoDetails" type="button" class="btn btn-primary btn-lg">detalles productos</a>
+                                
+                                <a href="./Searching..." type="button" class="btn btn-primary btn-lg">buscador</a>
+                                
+                                
 			
 			</div>
 		  </div>
