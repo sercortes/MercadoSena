@@ -1,8 +1,8 @@
 
 
-<%@include file="/views/templateAdmin/head.jspf"%>
+<%@include file="/views/AdminTemplate/head.jspf"%>
 
-<%@include file="/views/templateAdmin/menu.jspf"%>
+<%@include file="/views/AdminTemplate/menu.jspf"%>
 
 
 
@@ -20,4 +20,4 @@
 
 </div>
 
-	<%@include file="/views/templateAdmin/footer.jspf"%>
+	<%@include file="/views/AdminTemplate/footer.jspf"%>
