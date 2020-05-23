@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.sena.mercado.controller;
+package co.edu.sena.mercado.controller.rutas;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -34,6 +34,10 @@ public class RutasVendedor extends HttpServlet {
                 rd = request.getRequestDispatcher("/views/AdminSeller/products/products.jsp");
                 rd.forward(request, response);
                 break;
+            case "/MercadoSena/newProduct":
+                rd = request.getRequestDispatcher("/views/AdminSeller/products/addProduct.jsp");
+                rd.forward(request, response);
+                break;    
             default:
                 System.out.println("error de la ruta");
                 break;
