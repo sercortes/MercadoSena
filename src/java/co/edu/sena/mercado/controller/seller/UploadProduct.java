@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.fileupload.util.Streams;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -37,6 +39,7 @@ public class UploadProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         
         if (ServletFileUpload.isMultipartContent(request)) {
             
@@ -45,6 +48,12 @@ public class UploadProduct extends HttpServlet {
                 List<FileItem> multiparts = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
                 
                 for(FileItem item : multiparts){
+                    
+                    if (item.isFormField()) {
+                        //reading others inputs
+                            System.out.println(item.getFieldName());
+                            System.out.println(item.getString());
+                    }
                     
                     if (!item.isFormField()) {
                         String name = new File(item.getName()).getName();
