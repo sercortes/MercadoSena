@@ -1,13 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.sena.mercado.controller.seller;
 
+import com.google.gson.Gson;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -40,7 +38,26 @@ public class UploadProduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        getCoor(request, response);
         
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    
+       private void getCoor(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        
+        int codigo = 0;
+          
         if (ServletFileUpload.isMultipartContent(request)) {
             
             try{
@@ -62,32 +79,26 @@ public class UploadProduct extends HttpServlet {
                     
                 }
                 
-                request.setAttribute("MESSAGE", "File upload successfully.");
+                codigo = 1;
                 
             }catch(Exception e){
                 
-                request.setAttribute("MESSAGE", "File upload failed due to "+e);
+                System.out.println(e);
+                codigo = 0;
                 
             }
             
         }else{
         
-            request.setAttribute("MESSAGE", "Sorry this servlet only handles upload request.");
+            codigo = 3;
             
         }
         
-        request.getRequestDispatcher("/views/AdminSeller/products/addProduct.jsp").forward(request, response);
+      
         
+        
+        response.setContentType("application/json");
+        new Gson().toJson(codigo, response.getWriter());
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    
 }
