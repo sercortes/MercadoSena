@@ -26,24 +26,43 @@
     <div class="row d-flex justify-content-center">
         <div class="col-8">
 
-            <form action="UploadProduct" method="POST" name="formProduct" id="formProduct" enctype="multipart/form-data">
+            <form class="needs-validation" action="UploadProduct" method="POST" name="formProduct" id="formProduct" enctype="multipart/form-data">
 
                 <div class="form-group">
                     <label for="exampleInputEmail1">Nombre Producto:</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Nombre de su producto">
+                    <input type="text" class="form-control was-validated" minlength="4" maxlength="150" id="name" name="name" placeholder="Nombre de su producto" required>
+                    <div class="valid-feedback">
+                        :D
+                    </div>
+                    <div class="invalid-feedback">
+                        Escriba un nombre de mínimo 4 carácteres
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1">Descripción:</label>
+                    <textarea class="form-control" id="descrip" name="descrip" rows="3" placeholder="Descripción de su producto" minlength="20" maxlength="500" required></textarea>
+                    <small id="emailHelp" class="form-text text-muted">Si su producto tiene información adicional coloquela en este campo.</small>
+                    <div class="valid-feedback">
+                        :D
+                    </div>
+                    <div class="invalid-feedback">
+                        Escriba una descripción de mínimo 20 carácteres
+                    </div>
                 </div>
 
                 <div class="input-field">
-                    <label class="active">Imagenes producto</label> <a id="reset" href="#" class="hvr-push"><i class="fas fa-eraser fa-2x"></i> </a>
+                    <label class="active">Imagenes producto:</label> 
                     <div class="input-images-1" style="padding-top: .5rem;"></div>
+                    <a id="reset" href="#" class="btn btn-info btn-sm float-right" title="Limpiar imagenes"><i class="fas fa-eraser"></i> Borrar</a>
+                    <small id="emailHelp" class="form-text text-muted">Puedes subir máximo 5 elementos.</small>
                 </div>
 
                 <hr class="sidebar-divider">
 
-                <button type="submit" class="btn btn-primary btn-lg hvr-push float-right"><i class="far fa-file-excel fa-1x"></i> Cargar archivo</button>
+                <button type="submit" class="btn btn-primary hvr-push float-right"><i class="fas fa-save fa-1x"></i> Guardar</button>
             </form>
 
-            <hr class="sidebar-divider">
 
         </div>
     </div>

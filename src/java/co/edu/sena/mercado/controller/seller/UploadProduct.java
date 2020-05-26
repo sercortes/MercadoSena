@@ -37,8 +37,9 @@ public class UploadProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        getCoor(request, response);
+        
+        response.setContentType("application/json");
+        new Gson().toJson(uploadForm(request, response), response.getWriter());
         
     }
 
@@ -53,10 +54,12 @@ public class UploadProduct extends HttpServlet {
     }// </editor-fold>
 
     
-       private void getCoor(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-        request.setCharacterEncoding("UTF-8");
+       private boolean uploadForm(HttpServletRequest request, HttpServletResponse response) 
+               throws UnsupportedEncodingException, IOException {
         
-        int codigo = 0;
+           request.setCharacterEncoding("UTF-8");
+        
+        boolean codigo = false;
           
         if (ServletFileUpload.isMultipartContent(request)) {
             
@@ -79,26 +82,23 @@ public class UploadProduct extends HttpServlet {
                     
                 }
                 
-                codigo = 1;
+                codigo = true;
                 
             }catch(Exception e){
                 
                 System.out.println(e);
-                codigo = 0;
+                codigo = false;
                 
             }
             
         }else{
         
-            codigo = 3;
+            codigo = false;
             
         }
         
-      
+            return codigo;
         
-        
-        response.setContentType("application/json");
-        new Gson().toJson(codigo, response.getWriter());
     }
     
 }

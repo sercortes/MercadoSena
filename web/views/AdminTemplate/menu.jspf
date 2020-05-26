@@ -24,16 +24,41 @@
       <div class="sidebar-heading">
         Opciones
       </div>
-     
-      <li class="nav-item" id="menuActividad">
+      
+      <li class="nav-item" id="idSales">
+        <a class="nav-link hvr-icon-pop" href="./sales">
+          <i class="fas fa-user-tag hvr-icon"></i>
+          <span>Preguntas</span>
+        </a>
+      </li>
+      
+      <li class="nav-item" id="idSales">
+        <a class="nav-link hvr-icon-pop" href="./interested">
+          <i class="fas fa-user-friends hvr-icon"></i>
+          <span>Interesados</span>
+        </a>
+      </li>
+      
+      <li class="nav-item" id="idSales">
+        <a class="nav-link hvr-icon-pop" href="./sales">
+          <i class="fas fa-tags hvr-icon"></i>
+          <span>Ventas</span>
+        </a>
+      </li>
+      
+       <li class="nav-item" id="idProducts">
         <a class="nav-link hvr-icon-pop" href="./Products">
           <i class="far fa-calendar-check hvr-icon"></i>
           <span>Productos</span>
         </a>
       </li>
       
-     
-   
+      <li class="nav-item" id="menuStatistics">
+        <a class="nav-link hvr-icon-pop" href="./Statistics">
+         <i class="fas fa-chart-line hvr-icon"></i>
+          <span>Estadísticas</span>
+        </a>
+      </li>
       
 
       <hr class="sidebar-divider">
