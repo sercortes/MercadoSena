@@ -25,7 +25,7 @@
 
     <div class="row d-flex justify-content-center">
         <div class="col-8 pb-4 card p-4">
-            
+
             <form class="needs-validation" action="UploadProduct" method="POST" name="formProduct" id="formProduct" enctype="multipart/form-data">
 
 
@@ -51,7 +51,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="exampleInputEmail1">Precio del producto:</label>
-                        <input type="number" class="form-control was-validated" minlength="0" max="1500000000000000" id="price" name="price" placeholder="$$" oninput="validity.valid||(value='');" required>
+                        <input type="number" class="form-control was-validated" minlength="0" max="1500000000000000" id="price" name="price" placeholder="$" oninput="validity.valid||(value='');" required>
                         <div class="valid-feedback">
                             :D
                         </div>
@@ -83,10 +83,13 @@
                         </div>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="validationTooltip03">Categoria:</label>
+                        <label for="validationTooltip03">Categoría:</label>
                         <select name="category" class="form-control" id="category" tabindex="4" required>
                             <option value="">No</option>
                         </select>
+                        <div class="invalid-feedback">
+                            Escriba una categoría
+                        </div>
                     </div>
                 </div>
 
@@ -106,7 +109,7 @@
                     <label class="active">Imagenes producto:</label> 
                     <div class="input-images-1" style="padding-top: .5rem;"></div>
                     <a id="reset" href="#" class="btn btn-info btn-sm float-right" title="Limpiar imagenes"><i class="fas fa-eraser"></i> Borrar</a>
-                    <small id="emailHelp" class="form-text text-muted">Puedes subir máximo 5 elementos.</small>
+                    <small id="emailHelp" class="form-text text-muted">Puedes subir máximo 5 elementos. no pueden superar los 8MB</small>
                 </div>
 
                 <hr class="sidebar-divider">

@@ -7,7 +7,6 @@ $(document).ready(function () {
     
     getCategorias()
 
-    
 });
 
 document.getElementById('formProduct').addEventListener('input', e => {
@@ -52,7 +51,7 @@ $('#formProduct').submit(function (e) {
     }
 
     if (!checkSize()) {
-        messageInfo('Los archivos estan muy grandes')
+        messageInfo('Las imagenes estan muy grandes')
         generateOtherDiv()
         return false
     }
@@ -168,7 +167,7 @@ function checkSize() {
         tam += item.size
     }
 
-    if (tam >= 1000000) {
+    if (tam >= 8000000) {
         return false
     }
     return true
@@ -199,10 +198,17 @@ function checkInputs() {
     
     let name = document.getElementById('name').value
     let desc = document.getElementById('descrip').value
+    let price = document.getElementById('price').value
+    let cantidad = document.getElementById('cantidad').value
+    let marca = document.getElementById('marca').value
+    let category = document.getElementById('category').value
     
-    if (name == '' || desc == '' || name.length <= 2 || desc.length <= 19 ) {
+    if (name == '' || desc == '' || name.length <= 2 || 
+            desc.length <= 19 || price == '' || cantidad == '' ||
+            marca == '' || category == '') {
         return false
     }
+    
     return true
 }
 
