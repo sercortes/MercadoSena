@@ -34,13 +34,13 @@
                 </div>
 
                 <div class="input-field">
-                    <label class="active">Imagenes producto</label>
+                    <label class="active">Imagenes producto</label> <a id="reset" href="#" class="hvr-push"><i class="fas fa-eraser fa-2x"></i> </a>
                     <div class="input-images-1" style="padding-top: .5rem;"></div>
                 </div>
 
                 <hr class="sidebar-divider">
 
-                <button type="submit" class="btn btn-primary btn-lg hvr-push"><i class="far fa-file-excel fa-1x"></i> Cargar archivo</button>
+                <button type="submit" class="btn btn-primary btn-lg hvr-push float-right"><i class="far fa-file-excel fa-1x"></i> Cargar archivo</button>
             </form>
 
             <hr class="sidebar-divider">

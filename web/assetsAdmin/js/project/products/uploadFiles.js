@@ -97,6 +97,13 @@ $(document).ready(function () {
             maxFiles: 5
         });
     }
+    
+    $('#reset').on('click', function(){
+   
+         if($('.input-images-1 .has-files').remove().length !== 0){
+             generateOtherDiv()
+         }
+    })
 
     function checkextension() {
         var file = document.getElementsByName("images[]");
