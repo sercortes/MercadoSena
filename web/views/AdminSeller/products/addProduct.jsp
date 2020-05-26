@@ -16,7 +16,7 @@
 
     <div class="row d-flex justify-content-center">
         <div class="col-12">
-            <h3 class="titulos hvr-icon-pop"><i class="fas fa-plus-square hvr-icon-pop"></i> Nuevo Producto</h3>
+            <h5 class="titulos hvr-icon-pop"><i class="fas fa-plus-square hvr-icon-pop"></i> Nuevo Producto</h5>
 
         </div>
     </div>
@@ -24,18 +24,69 @@
     <hr class="sidebar-divider">
 
     <div class="row d-flex justify-content-center">
-        <div class="col-8">
-
+        <div class="col-8 pb-4 card p-4">
+            
             <form class="needs-validation" action="UploadProduct" method="POST" name="formProduct" id="formProduct" enctype="multipart/form-data">
 
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Nombre Producto:</label>
-                    <input type="text" class="form-control was-validated" minlength="4" maxlength="150" id="name" name="name" placeholder="Nombre de su producto" required>
-                    <div class="valid-feedback">
-                        :D
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">Nombre Producto:</label>
+                        <input type="text" class="form-control was-validated" minlength="4" maxlength="150" id="name" name="name" placeholder="Nombre de su producto" required>
+                        <div class="valid-feedback">
+                            :D
+                        </div>
+                        <div class="invalid-feedback">
+                            Escriba un nombre de mínimo 4 carácteres
+                        </div>
                     </div>
-                    <div class="invalid-feedback">
-                        Escriba un nombre de mínimo 4 carácteres
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">Fecha de vencimiento:</label>
+                        <input type="date" class="form-control was-validated"  id="fechaV" name="fechaV">
+                        <small id="emailHelp" class="form-text text-muted">No es obligatorio.</small>
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">Precio del producto:</label>
+                        <input type="number" class="form-control was-validated" minlength="0" max="1500000000000000" id="price" name="price" placeholder="$$" oninput="validity.valid||(value='');" required>
+                        <div class="valid-feedback">
+                            :D
+                        </div>
+                        <div class="invalid-feedback">
+                            Escriba precio válido
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">Cantidad del producto:</label>
+                        <input type="number" class="form-control was-validated" minlength="0" max="100000000" id="cantidad" name="cantidad" placeholder="Stock" oninput="validity.valid||(value='');" required>
+                        <div class="valid-feedback">
+                            :D
+                        </div>
+                        <div class="invalid-feedback">
+                            Escriba precio válido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1">Marca Producto:</label>
+                        <input type="text" class="form-control was-validated" minlength="4" maxlength="150" id="marca" name="marca" placeholder="Marca de su producto" required>
+                        <div class="valid-feedback">
+                            :D
+                        </div>
+                        <div class="invalid-feedback">
+                            Escriba una marca de mínimo 3 carácteres
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="validationTooltip03">Categoria:</label>
+                        <select name="category" class="form-control" id="category" tabindex="4" required>
+                            <option value="">No</option>
+                        </select>
                     </div>
                 </div>
 

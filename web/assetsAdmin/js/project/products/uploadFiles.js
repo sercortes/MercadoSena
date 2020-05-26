@@ -4,6 +4,10 @@ $(document).ready(function () {
         maxSize: 2 * 1024 * 1024,
         maxFiles: 5
     });
+    
+    getCategorias()
+
+    
 });
 
 document.getElementById('formProduct').addEventListener('input', e => {
@@ -103,6 +107,28 @@ $('#formProduct').submit(function (e) {
 
 
 })
+
+function getCategorias(){
+    
+    let cat = document.getElementById('category')
+
+    let text = ``
+
+    $.ajax({
+        type: "POST",
+        url: './getCategorys',
+        datatype: 'json'
+    }).done(function (data) {
+
+        for (var item of data) {
+            text += `<option value="${item.idcategoria}">${item.nombreCategoria}</option>`
+        }
+
+        cat.innerHTML += text;
+    })
+    
+}
+
 
 function generateOtherDiv() {
 

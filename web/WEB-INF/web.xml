@@ -12,6 +12,10 @@
         <servlet-name>UploadProduct</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.seller.UploadProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Selects</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.seller.Selects</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/ProductoDetails</url-pattern>
@@ -26,6 +30,10 @@
     <servlet-mapping>
         <servlet-name>UploadProduct</servlet-name>
         <url-pattern>/UploadProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Selects</servlet-name>
+        <url-pattern>/getCategorys</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
