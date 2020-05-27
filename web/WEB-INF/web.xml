@@ -34,6 +34,7 @@
     <servlet-mapping>
         <servlet-name>Selects</servlet-name>
         <url-pattern>/getCategorys</url-pattern>
+        <url-pattern>/getProducts</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

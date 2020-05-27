@@ -5,6 +5,7 @@
  */
 package co.edu.sena.mercado.dao;
 
+import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.util.Conexion;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
@@ -12,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -61,6 +64,37 @@ public class ProductoDAO {
 
     }
 
+       public ArrayList<Producto> getProductsBySeller(String id) {
+        try {
+            String sql = "SELECT PR.*, EM.idEmpresa, IP.urlProducto, CP.nombreCategoria FROM Producto "
+                    + "PR INNER JOIN Empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
+                    + "INNER JOIN categoriaProducto CP ON PR.idCategoriaFK=CP.idCategoria "
+                    + "INNER JOIN imagenesProductos IP ON PR.idProducto = IP.idProductoImageFK "
+                    + "WHERE EM.idEmpresa = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            List<Producto> list = new ArrayList<Producto>();
+            Producto producto;
+            while (rs.next()) {
+                producto = new Producto();
+                producto.setIdProducto(rs.getString("idProducto"));
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                
+                ImagenesProducto imagenesProducto = new ImagenesProducto();
+                imagenesProducto.setUrl(rs.getString("urlProducto"));
+                
+                producto.setImagenesProducto(imagenesProducto);
+                list.add(producto);
+            }
+            return (ArrayList<Producto>) list;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+     
+     
     public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);

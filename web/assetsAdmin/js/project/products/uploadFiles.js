@@ -4,8 +4,8 @@ $(document).ready(function () {
         maxSize: 2 * 1024 * 1024,
         maxFiles: 5
     });
+    
     getCategorias()
-
 
 });
 

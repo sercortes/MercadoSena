@@ -36,9 +36,15 @@
                         </div>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="exampleInputEmail1">Fecha de vencimiento:</label>
-                        <input type="date" class="form-control was-validated"  id="fechaV" name="fechaV">
-                        <small id="emailHelp" class="form-text text-muted">No es obligatorio.</small>
+                         <label for="exampleInputEmail1">Cantidad:</label>
+                        <input type="number" class="form-control was-validated" minlength="0" max="100000000" id="cantidad" name="cantidad" placeholder="Stock" oninput="validity.valid||(value='');" required>
+                        <div class="valid-feedback">
+                            :D
+                        </div>
+                        <div class="invalid-feedback">
+                            Escriba precio válido
+                        </div>
+                     
                     </div>
                       <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Precio:</label>
@@ -56,14 +62,13 @@
                 <div class="form-row">
                    
                     <div class="form-group col-md-4">
-                        <label for="exampleInputEmail1">Cantidad:</label>
-                        <input type="number" class="form-control was-validated" minlength="0" max="100000000" id="cantidad" name="cantidad" placeholder="Stock" oninput="validity.valid||(value='');" required>
-                        <div class="valid-feedback">
-                            :D
-                        </div>
+                         <label for="validationTooltip03">Categoría:</label>
+                        <select name="category" class="form-control" id="category" tabindex="4" required>
+                            <option value="">No</option>
+                        </select>
                         <div class="invalid-feedback">
-                            Escriba precio válido
-                        </div>
+                            Escriba una categoría
+                        </div> 
                     </div>
                      <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Marca:</label>
@@ -76,13 +81,9 @@
                         </div>
                     </div>
                     <div class="form-group col-md-4">
-                        <label for="validationTooltip03">Categoría:</label>
-                        <select name="category" class="form-control" id="category" tabindex="4" required>
-                            <option value="">No</option>
-                        </select>
-                        <div class="invalid-feedback">
-                            Escriba una categoría
-                        </div>
+                         <label for="exampleInputEmail1">Fecha de vencimiento:</label>
+                        <input type="date" class="form-control was-validated"  id="fechaV" name="fechaV">
+                        <small id="emailHelp" class="form-text text-muted">No es obligatorio.</small>
                     </div>
                 </div>
 
