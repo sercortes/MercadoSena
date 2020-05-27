@@ -4,8 +4,8 @@ $(document).ready(function () {
         maxSize: 2 * 1024 * 1024,
         maxFiles: 5
     });
-    
     getCategorias()
+
 
 });
 
@@ -30,28 +30,28 @@ $('#formProduct').submit(function (e) {
         event.preventDefault()
         event.stopPropagation()
     }
-    
+
     form.addClass('was-validated');
 
     if (!checkOne()) {
-        messageInfo('seleccione las imagenes')
+        messageInfo('seleccione las imágenes')
         return false
     }
 
     if (!checkextension()) {
-        messageInfo('suba imagenes validas png o jpg')
+        messageInfo('suba imágenes válidas png o jpg')
         generateOtherDiv()
         return false
     }
 
     if (!checkSizeItems()) {
-        messageInfo('Seleccione solo 5 imagenes')
+        messageInfo('Seleccione solo 5 imágenes')
         generateOtherDiv()
         return false
     }
 
     if (!checkSize()) {
-        messageInfo('Las imagenes estan muy grandes')
+        messageInfo('Las imágenes estan muy grandes')
         generateOtherDiv()
         return false
     }
@@ -60,6 +60,9 @@ $('#formProduct').submit(function (e) {
         messageInfo('complete el formulario')
         return false
     }
+
+    $('#carga').addClass('is-active');
+    $("#send").attr("disabled", true);
 
     var form = $('#formProduct')[0]
     var data = new FormData(form)
@@ -74,17 +77,11 @@ $('#formProduct').submit(function (e) {
         cache: false,
         success: function (data) {
 
-            console.log(data)
-            
-            $('#formProduct').trigger('reset')
-            var form = $("#formProduct")
-            form.removeClass('was-validated');
-
-            generateOtherDiv()
+            clean()
 
             if (data) {
 
-                messageOk('Subido con éxito')
+                messageOk('Generado con éxito')
 
             } else {
 
@@ -97,18 +94,24 @@ $('#formProduct').submit(function (e) {
         error: function (e) {
 
             messageError('=(' + e)
+            clean()
 
         }
     });
 
-
-
-
-
 })
 
-function getCategorias(){
-    
+function clean() {
+    $('#formProduct').trigger('reset')
+    var form = $("#formProduct")
+    form.removeClass('was-validated');
+    $('#send').attr('disabled', false)
+    generateOtherDiv()
+    $('#carga').removeClass('is-active')
+}
+
+function getCategorias() {
+
     let cat = document.getElementById('category')
 
     let text = ``
@@ -125,7 +128,7 @@ function getCategorias(){
 
         cat.innerHTML += text;
     })
-    
+
 }
 
 
@@ -195,20 +198,22 @@ function checkOne() {
 }
 
 function checkInputs() {
-    
+
     let name = document.getElementById('name').value
     let desc = document.getElementById('descrip').value
     let price = document.getElementById('price').value
     let cantidad = document.getElementById('cantidad').value
     let marca = document.getElementById('marca').value
     let category = document.getElementById('category').value
-    
-    if (name == '' || desc == '' || name.length <= 2 || 
+
+    console.log(name)
+
+    if (name == '' || desc == '' || name.length <= 2 ||
             desc.length <= 19 || price == '' || cantidad == '' ||
             marca == '' || category == '') {
         return false
     }
-    
+
     return true
 }
 

@@ -4,34 +4,29 @@
 
 <%@include file="/views/AdminTemplate/head.jspf"%>
 
-<link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" async>
+<link type="text/css" rel="stylesheet" href="./assetsAdmin/files/material.css" async>
+<link type="text/css" rel="stylesheet" href="./assetsAdmin/files/css-loader.css" async>
 <link href="./assetsAdmin/files/image-uploader.min.css" rel="stylesheet" type="text/css" async>
+
 
 
 <%@include file="/views/AdminTemplate/menu.jspf"%>
 
 
 
-<div class="container-fluid" id="container-wrapper">
+<div class="container-fluid pb-4" id="container-wrapper">
 
     <div class="row d-flex justify-content-center">
-        <div class="col-12">
-            <h5 class="titulos hvr-icon-pop"><i class="fas fa-plus-square hvr-icon-pop"></i> Nuevo Producto</h5>
 
-        </div>
-    </div>
+        <div class="col-10 pb-4 card p-4">
+        <h5 class="titulos card-title hvr-icon-pop text-center pb-3"><i class="fas fa-gifts"></i> Nuevo Producto</h5>
 
-    <hr class="sidebar-divider">
-
-    <div class="row d-flex justify-content-center">
-        <div class="col-8 pb-4 card p-4">
-
-            <form class="needs-validation" action="UploadProduct" method="POST" name="formProduct" id="formProduct" enctype="multipart/form-data">
+            <form class="needs-validation" action="UploadProduct" method="POST" name="formProduct" id="formProduct" enctype="multipart/form-data" acceptcharset="UTF-8">
 
 
                 <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="exampleInputEmail1">Nombre Producto:</label>
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Nombre:</label>
                         <input type="text" class="form-control was-validated" minlength="4" maxlength="150" id="name" name="name" placeholder="Nombre de su producto" required>
                         <div class="valid-feedback">
                             :D
@@ -40,17 +35,13 @@
                             Escriba un nombre de mínimo 4 carácteres
                         </div>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Fecha de vencimiento:</label>
                         <input type="date" class="form-control was-validated"  id="fechaV" name="fechaV">
                         <small id="emailHelp" class="form-text text-muted">No es obligatorio.</small>
                     </div>
-                </div>
-
-
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="exampleInputEmail1">Precio del producto:</label>
+                      <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Precio:</label>
                         <input type="number" class="form-control was-validated" minlength="0" max="1500000000000000" id="price" name="price" placeholder="$" oninput="validity.valid||(value='');" required>
                         <div class="valid-feedback">
                             :D
@@ -59,8 +50,13 @@
                             Escriba precio válido
                         </div>
                     </div>
-                    <div class="form-group col-md-6">
-                        <label for="exampleInputEmail1">Cantidad del producto:</label>
+                </div>
+
+
+                <div class="form-row">
+                   
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Cantidad:</label>
                         <input type="number" class="form-control was-validated" minlength="0" max="100000000" id="cantidad" name="cantidad" placeholder="Stock" oninput="validity.valid||(value='');" required>
                         <div class="valid-feedback">
                             :D
@@ -69,20 +65,17 @@
                             Escriba precio válido
                         </div>
                     </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="exampleInputEmail1">Marca Producto:</label>
-                        <input type="text" class="form-control was-validated" minlength="4" maxlength="150" id="marca" name="marca" placeholder="Marca de su producto" required>
+                     <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Marca:</label>
+                        <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="marca" name="marca" placeholder="Marca de su producto" required>
                         <div class="valid-feedback">
                             :D
                         </div>
                         <div class="invalid-feedback">
-                            Escriba una marca de mínimo 3 carácteres
+                            Escriba una marca de mínimo 2 carácteres
                         </div>
                     </div>
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="validationTooltip03">Categoría:</label>
                         <select name="category" class="form-control" id="category" tabindex="4" required>
                             <option value="">No</option>
@@ -91,6 +84,11 @@
                             Escriba una categoría
                         </div>
                     </div>
+                </div>
+
+                <div class="form-row">
+                   
+                    
                 </div>
 
                 <div class="form-group">
@@ -106,7 +104,7 @@
                 </div>
 
                 <div class="input-field">
-                    <label class="active">Imagenes producto:</label> 
+                    <label class="active">Imagenes:</label> 
                     <div class="input-images-1" style="padding-top: .5rem;"></div>
                     <a id="reset" href="#" class="btn btn-info btn-sm float-right" title="Limpiar imagenes"><i class="fas fa-eraser"></i> Borrar</a>
                     <small id="emailHelp" class="form-text text-muted">Puedes subir máximo 5 elementos. no pueden superar los 8MB</small>
@@ -114,18 +112,21 @@
 
                 <hr class="sidebar-divider">
 
-                <button type="submit" class="btn btn-primary hvr-push float-right"><i class="fas fa-save fa-1x"></i> Guardar</button>
+                <button id="send" type="submit" class="btn btn-primary hvr-push float-right"><i class="fas fa-save fa-1x"></i> Guardar</button>
+      
             </form>
 
 
         </div>
     </div>
 
+    <div id="carga" class="loader loader-bouncing"></div>
 
 </div>
 
 
 <%@include file="/views/AdminTemplate/footer.jspf"%>
-<script src="./assetsAdmin/files/image-uploader.min.js"></script>
-<script src="./assetsAdmin/js/project/util/global.js"></script>
+
+<script src="./assetsAdmin/files/image-uploader.min.js" charset="utf-8"></script>
+<script src="./assetsAdmin/js/project/util/global.js" charset="utf-8"></script>
 <script src="./assetsAdmin/js/project/products/uploadFiles.js" charset="utf-8"></script>
