@@ -36,7 +36,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 public class UploadProduct extends HttpServlet {
     
-    private final String UPLOAD_DIRECTORY = "/home/serfin/Documentos";
+    private final String UPLOAD_DIRECTORY = "/opt/lampp/htdocs/sergio";
+    private final String SERVER_UPLOAD = "http://localhost/sergio/";
     private static final long serialVersionUID = 1L;
     
     @Override
@@ -201,7 +202,7 @@ public class UploadProduct extends HttpServlet {
         item.write(tempFile);
         
         imagenesProducto = new ImagenesProducto();
-        imagenesProducto.setUrl(tempFile.getAbsolutePath());
+        imagenesProducto.setUrl(SERVER_UPLOAD + folder + File.separator + tempFile.getName());
         imagenesProducto.setIdProductoFK(folder);
         lista.add(imagenesProducto);
         

@@ -73,7 +73,7 @@ function generateTableBuscador() {
                                                     <td class="elements">${item.idProducto}</td>
                                                     <td class="elements">${item.nombreProducto}</td>
                                                     <td class="elements">
-         <img src="${item.imagenesProducto.url}" class="img-fluid" alt="Responsive image">
+         <img src="${item.imagenesProducto.url}" class="img-fluid w-25" style="max-height: 150px;"  alt="Responsive image">
 
 </td>
                                                     <td class="elements">${item.responsable}</td>
