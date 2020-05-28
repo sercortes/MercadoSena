@@ -16,6 +16,10 @@
         <servlet-name>Selects</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.seller.Selects</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>comprador</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.comprador.comprador</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/ProductoDetails</url-pattern>
@@ -35,6 +39,10 @@
         <servlet-name>Selects</servlet-name>
         <url-pattern>/getCategorys</url-pattern>
         <url-pattern>/getProducts</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>comprador</servlet-name>
+        <url-pattern>/comprador</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

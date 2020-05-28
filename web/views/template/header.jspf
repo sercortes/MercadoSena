@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="wishlist_content">
                                         
-                                        <div class="cart_text"><a href="#" class="pl-1"> Registrarse</a></div>
+                                        <div class="cart_text" onclick="consultarDatosFormulario()"><a href="#" class="pl-1"> Registrarse</a></div>
                                    
                                     </div>
                                 </div>

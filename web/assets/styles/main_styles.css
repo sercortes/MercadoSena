@@ -837,6 +837,7 @@ select option
 }
 .cat_burger
 {
+    
 	width: 18px;
 	height: 14px;
 }
@@ -948,6 +949,9 @@ select option
 	width: 100%;
 	background: #FFFFFF;
 	box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+}
+.ocLista{
+    display: none !important;
 }
 .cat_menu li:hover > ul
 {
