@@ -37,7 +37,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class UploadProduct extends HttpServlet {
     
     private final String UPLOAD_DIRECTORY = "/opt/lampp/htdocs/sergio";
-    private final String SERVER_UPLOAD = "http://localhost/sergio/";
+    private final String SERVER_UPLOAD = "http://192.168.0.5/sergio/";
     private static final long serialVersionUID = 1L;
     
     @Override

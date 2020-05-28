@@ -66,10 +66,9 @@ public class ProductoDAO {
 
        public ArrayList<Producto> getProductsBySeller(String id) {
         try {
-            String sql = "SELECT PR.*, EM.idEmpresa, IP.urlProducto, CP.nombreCategoria FROM Producto "
+            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM Producto "
                     + "PR INNER JOIN Empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
                     + "INNER JOIN categoriaProducto CP ON PR.idCategoriaFK=CP.idCategoria "
-                    + "INNER JOIN imagenesProductos IP ON PR.idProducto = IP.idProductoImageFK "
                     + "WHERE EM.idEmpresa = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
@@ -80,11 +79,8 @@ public class ProductoDAO {
                 producto = new Producto();
                 producto.setIdProducto(rs.getString("idProducto"));
                 producto.setNombreProducto(rs.getString("nombreProducto"));
-                
-                ImagenesProducto imagenesProducto = new ImagenesProducto();
-                imagenesProducto.setUrl(rs.getString("urlProducto"));
-                
-                producto.setImagenesProducto(imagenesProducto);
+                producto.setValorProducto(rs.getDouble("valorProducto"));
+                producto.setStockProducto(rs.getInt("stockProducto"));
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;

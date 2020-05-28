@@ -6,6 +6,7 @@
 package co.edu.sena.mercado.dto;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
 public class Producto {
 
@@ -22,6 +23,8 @@ public class Producto {
     
     private ImagenesProducto imagenesProducto;
     private Categorys categorys;
+    
+    private ArrayList<ImagenesProducto> lista;
 
     public Producto() {
     }
@@ -147,13 +150,17 @@ public class Producto {
         this.categorys = categorys;
     }
 
-    @Override
-    public String toString() {
-        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", valorProducto=" + valorProducto + ", stockProducto=" + stockProducto + ", marcaProducto=" + marcaProducto + ", fechaVencimiento=" + fechaVencimiento + ", descripcionProducto=" + descripcionProducto + ", idEmpresaFK=" + idEmpresaFK + ", idCategoriaFK=" + idCategoriaFK + ", imagenesProducto=" + imagenesProducto + ", categorys=" + categorys + '}';
+    public ArrayList<ImagenesProducto> getLista() {
+        return lista;
     }
 
+    public void setLista(ArrayList<ImagenesProducto> lista) {
+        this.lista = lista;
+    }
 
-    
-    
+    @Override
+    public String toString() {
+        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", valorProducto=" + valorProducto + ", stockProducto=" + stockProducto + ", marcaProducto=" + marcaProducto + ", fechaVencimiento=" + fechaVencimiento + ", descripcionProducto=" + descripcionProducto + ", idEmpresaFK=" + idEmpresaFK + ", idCategoriaFK=" + idCategoriaFK + ", imagenesProducto=" + imagenesProducto + ", categorys=" + categorys + ", lista=" + lista + '}';
+    }
     
 }

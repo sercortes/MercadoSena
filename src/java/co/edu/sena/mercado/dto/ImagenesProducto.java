@@ -46,6 +46,11 @@ public class ImagenesProducto {
     public void setIdProductoFK(String idProductoFK) {
         this.idProductoFK = idProductoFK;
     }
+
+    @Override
+    public String toString() {
+        return "ImagenesProducto{" + "idImagen=" + idImagen + ", url=" + url + ", idProductoFK=" + idProductoFK + '}';
+    }
     
     
     

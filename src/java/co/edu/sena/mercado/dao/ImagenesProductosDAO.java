@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 /**
  *
  * @author serfin
@@ -48,6 +50,30 @@ public class ImagenesProductosDAO {
             return false;
         }
 
+    }
+     
+       public ArrayList<ImagenesProducto> getImagenesByProduct(String id) {
+        try {
+            String sql = "SELECT idImagenPro, urlProducto, idProductoImageFK FROM imagenesProductos IP "
+                    + "inner join Producto P ON IP.idProductoImageFK = P.idProducto WHERE P.idEmpresaFK = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+           List<ImagenesProducto> list = new ArrayList<ImagenesProducto>();
+            ImagenesProducto imagenesProducto;
+            while (rs.next()) {
+                imagenesProducto = new ImagenesProducto();
+                imagenesProducto.setIdImagen(rs.getString("idImagenPro"));
+                imagenesProducto.setUrl(rs.getString("urlProducto"));
+                imagenesProducto.setIdProductoFK(rs.getString("idProductoImageFK"));
+                
+                list.add(imagenesProducto);
+            }
+            return (ArrayList<ImagenesProducto>) list;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
     }
 
     public void CloseAll() {
