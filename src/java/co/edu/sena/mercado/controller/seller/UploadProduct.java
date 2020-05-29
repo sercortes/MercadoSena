@@ -59,16 +59,6 @@ public class UploadProduct extends HttpServlet {
         
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
     private boolean uploadForm(HttpServletRequest request, HttpServletResponse response)
             throws UnsupportedEncodingException, IOException, SQLException {
         
@@ -209,5 +199,12 @@ public class UploadProduct extends HttpServlet {
         return lista;
         
     }
+    
+ 
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
     
 }

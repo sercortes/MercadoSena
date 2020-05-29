@@ -1,5 +1,17 @@
+.with-chevron[aria-expanded='true'] i {
+    display: block;
+    transform: rotate(180deg) !important;
+}
+#fondo-rojo{
+    background-color: #5eb3191f;
+
+}
+.fondo-rojo{
+    background-color: #5eb3191f;
+
+}
 .material-icons, .naranja{
-  
+
 }
 .k-pdf-export .noexportar {
     visibility: hidden;
@@ -45,7 +57,7 @@
     color:#0090a5;
 }
 .modal {
-  overflow-y:auto;
+    overflow-y:auto;
 }
 .chiquito{
     font-size: x-small;
@@ -57,7 +69,7 @@
     font-size: small;
 }
 .letrablanca{
-	color:#ffffff;	
+    color:#ffffff;	
 }
 
 /* Grow */

@@ -48,7 +48,7 @@
       
        <li class="nav-item" id="idProducts">
         <a class="nav-link hvr-icon-pop" href="./Products">
-          <i class="far fa-calendar-check hvr-icon"></i>
+          <i class="fas fa-gifts hvr-icon"></i>
           <span>Productos</span>
         </a>
       </li>
@@ -66,7 +66,7 @@
     </ul>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
-      <div id="content">
+        <div id="content">
         <!-- TopBar -->
         <nav class="navbar navbar-expand navbar-light bg-navbar topbar mb-4 static-top">
           <button id="sidebarToggleTop" class="btn btn-link rounded-circle mr-3 hvr-icon-pop">

@@ -5,9 +5,11 @@
  */
 package co.edu.sena.mercado.dao;
 
+import co.edu.sena.mercado.dto.Categorys;
 import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.util.Conexion;
+import com.mysql.jdbc.StringUtils;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -66,8 +68,8 @@ public class ProductoDAO {
 
        public ArrayList<Producto> getProductsBySeller(String id) {
         try {
-            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM Producto "
-                    + "PR INNER JOIN Empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
+            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM Producto PR "
+                    + "INNER JOIN Empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
                     + "INNER JOIN categoriaProducto CP ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE EM.idEmpresa = ?";
             ps = conn.prepareStatement(sql);
@@ -75,12 +77,23 @@ public class ProductoDAO {
             rs = ps.executeQuery();
             List<Producto> list = new ArrayList<Producto>();
             Producto producto;
+            Categorys categorys;
             while (rs.next()) {
                 producto = new Producto();
                 producto.setIdProducto(rs.getString("idProducto"));
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setDescripcionProducto(rs.getString("descripcionProducto"));
+                
+                if (!StringUtils.isNullOrEmpty(rs.getString("fechaVencimiento"))) {
+                     producto.setFechaVencimiento(rs.getString("fechaVencimiento"));
+                }
+                categorys = new Categorys();
+                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
+                producto.setCategorys(categorys);
+                
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;
