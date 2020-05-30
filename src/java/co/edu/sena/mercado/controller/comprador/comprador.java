@@ -11,6 +11,7 @@ import co.edu.sena.mercado.dao.*;
 import co.edu.sena.mercado.dto.ciudadDTO;
 import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.*;
+import co.edu.sena.mercado.util.correo;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ public class comprador extends HttpServlet {
     usuarioDTO usuarioDTO =new usuarioDTO();
     usuarioDAO usuarioDAO=new usuarioDAO();
     ArrayList<usuarioDTO> listaUsuario=new ArrayList<>();
+    correo enviar=new correo();
     
     
     
@@ -98,21 +100,25 @@ public class comprador extends HttpServlet {
                 listaTipoDoc=new ArrayList<>();
                 listaTipoDoc=tipoDocDAO.listarTipoDoc();
                 System.out.println( new Gson().toJson(listaTipoDoc));
+                response.setContentType("application/json");
                  new Gson().toJson(listaTipoDoc, response.getWriter());
                 
                 break;
             case "consultaGenero":
                 listaGenero=new ArrayList<>();
                 listaGenero=generoDAO.listarGenero();
+                response.setContentType("application/json");
                 new Gson().toJson(listaGenero,response.getWriter());
                 break;
             case "consultaCiudad":
                 listaCiudad=new ArrayList<>();
                 listaCiudad=ciudadDAO.listarCiudad();
+                response.setContentType("application/json");
                 new Gson().toJson(listaCiudad, response.getWriter());
                 break;
             case "consultaRol":
                 listaRol=rolDAO.listarRol();
+                response.setContentType("application/json");
                 new Gson().toJson(listaRol, response.getWriter());
                 break;
             case "registrarUsuario":
@@ -123,7 +129,7 @@ public class comprador extends HttpServlet {
                 usuarioDTO.setCorreoUsu(request.getParameter("correoUsuario"));
                 usuarioDTO.setEstadoUsu("0");
                 usuarioDTO.setIdRol(Integer.parseInt(request.getParameter("rol")));
-                
+                String clave= usuarioDTO.getClaveUsu();
                 if(usuarioDAO.registroUsuario(usuarioDTO)){
                     //datos persona
                 personaNaturalDTO.setApellidoPer(request.getParameter("apellidoUsuario"));
@@ -141,7 +147,7 @@ public class comprador extends HttpServlet {
                 personaNaturalDTO.setIdUsuario(usuarioDTO.getIdUsuario());
                 
                 if(personaNaturalDAO.registrarPersona(personaNaturalDTO)){
-                    //enviar correo
+                    enviar.envCorreo(usuarioDTO.getCorreoUsu(),clave);
                     response.getWriter().print(true);
                 }else{
                     usuarioDAO.eliminarUsuario(personaNaturalDTO.getCorreoPer(), usuarioDTO.getClaveUsu());

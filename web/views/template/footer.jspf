@@ -125,7 +125,7 @@
 <script src="./assets/js/project/util/functions.js"></script>
 
 <script src="./assets/js/modals/login.js"></script>
-<script src="./assets/js/project/comprador/ajax.js"></script>
+<script src="./assets/js/project/comprador/ajax.js" charset="utf-8"></script>
 
 </body>
 

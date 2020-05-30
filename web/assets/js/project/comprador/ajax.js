@@ -69,16 +69,18 @@ function consultaCiudad() {
 
         }
     })
+
 }
 
 function modalRegistro() {
-  $('#bloqueo').toggle(500);
-  $('#modalRegistro').toggle(500);
+    $('#bloqueo').toggle();
+    $('#modalRegistro').toggle();
 }
 
 function selects(datos, idDiv, idInput) {
     //console.log(datos);
-    var select = '<select id="' + idInput + '" name="' + idInput + '" >';
+    var select = '<select id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" required>';
+    select += '<option value="" selected>Seleccione...</option>';
     if (idDiv === '#genero') {
         for (var i = 0; i < datos.length; i++) {
             select += '<option value="' + datos[i].idGenero + '">' + datos[i].genero + '</option>';
@@ -100,42 +102,58 @@ function selects(datos, idDiv, idInput) {
     $(idDiv).html(select);
 }
 $(function () {
-    
-    
-  
+
+
+
 
     $('#registroUsuario').submit(function (e) {
         e.preventDefault();
         var datos = $('form#registroUsuario').serialize();
         var formulario = $("#registroUsuario");
-        
-        if (formulario[0].checkValidity()) {
-        formulario.addClass('was-validated');
-//        $.ajax({
-//            url: "./comprador?accion=registrarUsuario&" + datos,
-//            type: 'POST',
-//            contentType: false,
-//            processData: false,
-//            success: function (data) {
-//                alert(data);
-//
-//            }
-//        })
-alert('mjhsagd');
-        }else{
+        var datosVal = [
+            nombreUsuario = $('#nombreUsuario').val(),
+            apellidoUsuario = $('#apellidoUsuario').val(),
+            correoUsuario = $('#correoUsuario').val(),
+            celularUsuario = $('#celularUsuario').val(),
+            documentoUsuario = $('#documentoUsuario').val(),
+            ciudadUsuario = $('#ciudadUsuario').val(),
+            tipoDocUsuario = $('#tipoDocUsuario').val,
+            generoUsuario = $('#generoUsuario').val()
+           
+        ];
+        console.log(datosVal);
+
+        if (formulario[0].checkValidity() && valCampos(datosVal) && validarClave()) {
+            var btn = document.getElementById('idBtn');
+            btn.disabled = true;
+
+            $.ajax({
+                url: "./comprador?accion=registrarUsuario&" + datos,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    alert(data);
+                    limpiarFormulario('#registroUsuario');
+                    formulario.addClass('was-validated');
+                    btn.disabled = false;
+                }
+            })
+
+        } else {
+
             formulario.addClass('was-validated');
         }
     })
-    
+
 //    s
 
 //validarclaves
-function validarClave(idBtn) {
 
-    var btn = document.getElementById(idBtn);
-    btn.disabled = true;
-    var con1 = $('#cont1').val();
-    var con2 = $('#cont2').val();
+})
+function validarClave() {
+    var con1 = $('#clave1').val();
+    var con2 = $('#clave2').val();
     if (con1.length >= 10) {
         $('#spValidar1').empty();
         if (con2.length >= 10) {
@@ -148,7 +166,6 @@ function validarClave(idBtn) {
             } else {
                 $('#spValidar2').empty();
                 $('#spValidar1').empty();
-                btn.disabled = false;
                 return true;
             }
         } else {
@@ -162,10 +179,8 @@ function validarClave(idBtn) {
     }
 
 }
-    
-})
 
-  document.getElementById('registroUsuario').addEventListener('input', e => {
+document.getElementById('registroUsuario').addEventListener('input', e => {
 
     e.preventDefault();
     var form = $("#registroUsuario");
@@ -177,5 +192,29 @@ function validarClave(idBtn) {
 
 })
 
+function valCampos(campos) {
+    var rta = true;
+    for (var i = 0; i < campos.length; i++) {
+        if (campos[i] === '' || campos[i] === null) {
+            rta = false;
+            return rta;
+        }
+    }
+    return rta;
+}
 
+function limpiarFormulario(formularioRec) {
+    var formulario = document.querySelector(formularioRec);
+    var campos = formulario.querySelectorAll("input, select");
+
+    for (var i = 0; i < campos.length; i++) {
+        var campo1 = campos[i];
+
+        if (campo1.nodeName === "INPUT" && campo1.type !== "submit" && campo1.type !== "hidden")
+            campo1.value = "";
+        else if (campo1.nodeName === "SELECT")
+            campo1.selectedIndex = 0;
+    }
+    // campo1[0].focus();
+}
  
