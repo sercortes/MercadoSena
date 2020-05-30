@@ -16,7 +16,7 @@
         </div>
         <div class="col-6">
 
-            <h1 class="font-weight-bold pt-4">Que necesitas?</h1>
+            <h1 class="font-weight-bold pt-4">¿Qué necesitas?</h1>
             <p class="lead">Tenemos los mejores productos</p>
             <a href="#" type="button" class="btn btn-primary btn-lg">detalles productos</a>
 

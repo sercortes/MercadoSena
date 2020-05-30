@@ -22,12 +22,10 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
-        <url-pattern>/ProductoDetails</url-pattern>
         <url-pattern>/Searching...</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RutasVendedor</servlet-name>
-        <url-pattern>/HomeSeller</url-pattern>
         <url-pattern>/Products</url-pattern>
         <url-pattern>/newProduct</url-pattern>
     </servlet-mapping>

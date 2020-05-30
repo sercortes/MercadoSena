@@ -56,15 +56,15 @@
                         <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
                             <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
                                 
-                                <div id="register" class="wishlist d-flex flex-row align-items-center justify-content-end">
+                                <div id="register" class="wishlist d-flex flex-row align-items-center justify-content-end" onclick="consultarDatosFormulario()">
                                     <div class="wishlist_icon">
                                         
                                         <a href="#"><img src="./assets/images/icons/add.png" alt=""></a>
                                     
                                     </div>
-                                    <div class="wishlist_content">
+                                    <div class="wishlist_content" >
                                         
-                                        <div class="cart_text" onclick="consultarDatosFormulario()"><a href="#" class="pl-1"> Registrarse</a></div>
+                                        <div class="cart_text" ><a href="#" class="pl-1"> Registrarse</a></div>
                                    
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                                 <div class="cat_menu_container">
                                     <div class="cat_menu_title d-flex flex-row align-items-center justify-content-start" >
                                         <div  onclick="oculMost()" class="cat_burger hvr-bounce-in"><span></span><span></span><span></span></div>
-                                        <div class="cat_menu_text">Categorias</div>
+                                        <div class="cat_menu_text">Categorías</div>
                                     </div>
 
                                     <ul class="cat_menu" id="litaCategoria" action="no">
@@ -162,7 +162,7 @@
                                 <div class="menu_trigger_container ml-auto">
                                     <div class="menu_trigger d-flex flex-row align-items-center justify-content-end">
                                         <div class="menu_burger">
-                                            <div class="menu_trigger_text">menu</div>
+                                            <div class="menu_trigger_text">menú</div>
                                             <div class="cat_burger menu_burger_inner"><span></span><span></span><span></span></div>
                                         </div>
                                     </div>

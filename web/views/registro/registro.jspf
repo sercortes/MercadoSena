@@ -1,39 +1,79 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
-<div id="modalRegistro" >
+<div id="bloqueo" class="bloqueo" onclick="modalRegistro()"></div>
+<div id="modalRegistro" class="modalRegistro" >
+    <i onclick="modalRegistro()">X</i>
     <h3>Registro usuario</h3>
-    <form id="registroUsuario">
+    <form id="registroUsuario" class="needs-validation">
+
         <input type="hidden" name="rol" id="rol" value="">
-    <label>Nombre:</label><br>
-    <input type="text" placeholder="Nombre" id="nombreUsuario" name="nombreUsuario" required><br> 
-    <label>Apellido:</label><br>
-    <input type="text" placeholder="Apellido" id="apellidoUsuario" name="apellidoUsuario" required><br> 
-    <label>Correo:</label><br>
-    <input type="email" placeholder="Correo" id="correoUsuario" name="correoUsuario" required><br> 
-    <label>Dirección:</label><br>
-    <input type="text" placeholder="Opcional" id="direccionUsuario" name="direccionUsuario" required><br> 
-    <label>Celular:</label><br>
-    <input type="number" placeholder="Número" id="celularUsuario" name="celularUsuario" required><br> 
-    <label>Teléfono:</label><br>
-    <input type="text" placeholder="Opcional" id="telefonoUsuario" name="telefonoUsuario" ><br> 
-    <label>Documento:</label><br>
-    <input type="text" placeholder="Documento" id="documentoUsuario" name="documentoUsuario" required><br> 
-    <label>Seleccione su género:</label><br>
-    <div id="genero">
-  
-    </div><br>
-     <label>Tipo documento:</label><br>
-    <div id="tipoDoc">
-        
-    </div><br>
-     <label>Seleccione su ciudad:</label><br>
-    <div id='ciudad'>
-        
-    </div><br>
-    <label>Escriba su contraseña:</label><br>
-    <input type="password" id="clave1" name="clave1">
-    
-    <br>
-    <input type="submit" value="Registrar" id="registrarUsuario">
-</form>
+        <label>Nombre:</label><br>
+        <input type="text" class="form-control was-validated" minlength="1" maxlength="100" placeholder="Nombre" id="nombreUsuario" name="nombreUsuario" required>
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+        </div>
+        <br> 
+        <label>Apellido:</label><br>
+        <input type="text" placeholder="Apellido" class="form-control was-validated" minlength="1" maxlength="100" id="apellidoUsuario" name="apellidoUsuario" required>
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+
+        </div>
+        <br> 
+        <label>Seleccione su género:</label><br>
+        <div id="genero">
+
+        </div>
+        <div class="invalid-feedback">
+            Completa este campo
+        </div>
+        <br>
+        <label>Tipo documento:</label><br>
+        <div id="tipoDoc">
+
+        </div>
+        <div class="invalid-feedback">
+            Completa este campo
+        </div>
+        <br>
+        <label>Documento:</label><br>
+        <input type="number" placeholder="Documento" class="form-control was-validated" id="documentoUsuario" minlength="1" maxlength="50" name="documentoUsuario" required>
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+        </div><br> 
+
+        <label>Celular:</label><br>
+        <input type="number" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularUsuario" name="celularUsuario" required>
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+        </div><br> 
+        <label>Teléfono:</label><br>
+        <input type="text" placeholder="Opcional" class="form-control was-validated" id="telefonoUsuario"  maxlength="50" name="telefonoUsuario" >
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+        </div><br> 
+        <label>Dirección:</label><br>
+        <input type="text" placeholder="Opcional" class="form-control was-validated"  maxlength="100" id="direccionUsuario" name="direccionUsuario" >
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+        </div><br> 
+        <label>Seleccione su ciudad:</label><br>
+        <div id='ciudad'>
+
+        </div><br>
+
+        <h4>Usuario: </h4>
+        <label>Correo:</label><br>
+        <input type="email" placeholder="Correo" class="form-control was-validated" minlength="1" maxlength="100" id="correoUsuario" name="correoUsuario" required>
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+        </div><br>
+        <label>Escriba su contraseña:</label><br>
+        <input type="password" id="clave1" minlength="10" class="form-control was-validated" name="clave1" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar1"></span><br>
+        <label>Confirme su contraseña:</label><br>
+        <input type="password" id="clave2" minlength="10" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
+
+        <br>
+        <input type=" " value="Registrar" class="botonRegistro" id="registrarUsuario">
+    </form>
 </div>

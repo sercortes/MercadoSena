@@ -26,16 +26,12 @@ public class RutasVendedor extends HttpServlet {
         RequestDispatcher rd;
 
         switch (direccion) {
-            case "/MercadoSena/HomeSeller":
-                rd = request.getRequestDispatcher("/views/AdminSeller/home.jsp");
-                rd.forward(request, response);
-                break;
-            case "/MercadoSena/Products":
-                rd = request.getRequestDispatcher("/views/AdminSeller/products/products.jsp");
+             case "/MercadoSena/Products":
+                rd = request.getRequestDispatcher("/views/products/products.jsp");
                 rd.forward(request, response);
                 break;
             case "/MercadoSena/newProduct":
-                rd = request.getRequestDispatcher("/views/AdminSeller/products/addProduct.jsp");
+                rd = request.getRequestDispatcher("/views/products/addProduct.jsp");
                 rd.forward(request, response);
                 break;    
             default:
