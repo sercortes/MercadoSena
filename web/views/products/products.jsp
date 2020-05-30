@@ -4,13 +4,12 @@
 
 <%@include file="/views/template/header.jspf"%>
 
-
 <div class="container-fluid" id="container-wrapper">
 
     <div class="container">
     <div class="row p-2">
         <div class="col-lg-12">
-            <h3 class="titulos hvr-icon-pop"><i class="fas fa-gifts"></i> Productos</h3>
+            <h3 class="titulos hvr-icon-pop"><i class="fas fa-gifts naranja"></i> Productos</h3>
             <a type="button" href="./newProduct" class="btn btn-primary float-right hvr-push"><i class="fas fa-plus-square"></i> Agregar</a>
         </div>
     </div>    
@@ -19,12 +18,14 @@
 
     <div id="fondo-rojo" class="">
         
-  
+        <style>
+ 
+        </style>
 
 <div class="row" >
     <div class="col-lg-11 mx-auto">
         <!-- FIRST EXAMPLE ===================================-->
-        <div class="row py-5" id="tabla">
+        <div class="row pt-4" id="tabla">
 
 
 
@@ -46,12 +47,20 @@
 
 </div>
   </div>
+
+    <%@include file="/views/products/modalVerProducto.jspf"%>
+    <%@include file="/views/products/modalAdd.jspf"%>
     
 <%@include file="/views/login/login.jspf"%>
 <%@include file="/views/template/footer.jspf"%>
 
+<script src="./assetsAdmin/js/project/products/uploadFiles.js" charset="utf-8"></script>
 <script src="./assets/js/project/products/showProducts.js" charset="utf-8"></script>
         
 <script src="./assets/js/pagination/pager.js" charset="utf-8"></script>
 
 <script src="./assets/js/project/comprador/ajax.js"></script>
+
+<script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
+
+<script src="./assetsAdmin/js/project/util/global.js" charset="utf-8"></script>

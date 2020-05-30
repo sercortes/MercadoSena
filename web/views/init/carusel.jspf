@@ -36,9 +36,9 @@
 					</div>
 					<div class="col-6">
 						
-						<h4 class="font-weight-bold pt-4">Que necesitas?</h4>
-						<p class="lead">Tenemos los mejores productos</p>
-						<a href="#">DESCUBRIR</a>
+						<h4 class="font-weight-bold pt-4">Busca los mejores productos?</h4>
+						<p class="lead">Productos marca SENA</p>
+						<a href="#">VER</a>
 						<div class="col-md-10 order-md-2 order-1"><img src="./assets/images/products/box.png" style="max-height: 300px;" class="mx-auto" alt="slide"></div>
 
 						
@@ -58,8 +58,8 @@
 					</div>
 					<div class="col-6">
 						
-						<h4 class="font-weight-bold pt-4">Que necesitas?</h4>
-						<p class="lead">Tenemos los mejores productos</p>
+						<h4 class="font-weight-bold pt-4">Adelante Explora los articulos más vendidos</h4>
+						<p class="lead">=D</p>
 						<a href="#">DESCUBRIR</a>
 						
 						<div class="col-md-10 order-md-2 order-1"><img src="./assets/images/products/cookie.png" style="max-height: 300px;" class="mx-auto" alt="slide"></div>

@@ -5,7 +5,6 @@
 <%@include file="/views/template/header.jspf"%>
 
 <%@include file="/views/init/carusel.jspf"%>
-<%@include file="/views/init/caruselTwo.jspf"%>
 
 
 

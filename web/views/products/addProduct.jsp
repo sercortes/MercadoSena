@@ -2,24 +2,23 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<%@include file="/views/AdminTemplate/head.jspf"%>
+<%@include file="/views/template/head.jspf"%>
 
-<link type="text/css" rel="stylesheet" href="./assetsAdmin/files/material.css" async>
-<link type="text/css" rel="stylesheet" href="./assetsAdmin/files/css-loader.css" async>
-<link href="./assetsAdmin/files/image-uploader.min.css" rel="stylesheet" type="text/css" async>
+<%@include file="/views/template/header.jspf"%>
 
 
+<link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
+<link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
+<link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 
-<%@include file="/views/AdminTemplate/menu.jspf"%>
 
 
+<div class="container-fluid pb-4" id="">
 
-<div class="container-fluid pb-4">
-
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center pb-3" id="fondo-rojo">
 
         <div class="col-10 pb-4 card p-4">
-        <h5 class="titulos card-title hvr-icon-pop text-center pb-3"><i class="fas fa-gifts"></i> Nuevo Producto</h5>
+        <h3 class="titulos card-title hvr-icon-pop text-center pb-3"><i class="fas fa-gifts naranja"></i> Nuevo Producto</h3>
 
             <form class="needs-validation" action="UploadProduct" method="POST" name="formProduct" id="formProduct" enctype="multipart/form-data" acceptcharset="UTF-8">
 
@@ -107,7 +106,7 @@
                 <div class="input-field">
                     <label class="active">Imagenes:</label> 
                     <div class="input-images-1" style="padding-top: .5rem;"></div>
-                    <a id="reset" href="#" class="btn btn-info btn-sm float-right" title="Limpiar imagenes"><i class="fas fa-eraser"></i> Borrar</a>
+                    <button id="resets" class="btn btn-info btn-sm float-right" title="Limpiar imagenes"><i class="fas fa-eraser"></i> Borrar</button>
                     <small id="emailHelp" class="form-text text-muted">Puedes subir máximo 5 elementos. no pueden superar los 8MB</small>
                 </div>
 
@@ -115,6 +114,7 @@
 
                 <button id="send" type="submit" class="btn btn-primary hvr-push float-right"><i class="fas fa-save fa-1x"></i> Guardar</button>
       
+                <a href="./Products" type="" class="btn btn-primary hvr-push float-left"><i class="fas fa-arrow-left"></i> Volver</a>
             </form>
 
 
@@ -126,8 +126,13 @@
 </div>
 
 
-<%@include file="/views/AdminTemplate/footer.jspf"%>
+<%@include file="/views/template/footer.jspf"%>
 
-<script src="./assetsAdmin/files/image-uploader.min.js" charset="utf-8"></script>
-<script src="./assetsAdmin/js/project/util/global.js" charset="utf-8"></script>
-<script src="./assetsAdmin/js/project/products/uploadFiles.js" charset="utf-8"></script>
+<script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
+<script src="./assets/js/project/util/global.js" charset="utf-8"></script>
+
+
+<script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
+<script src="./assets/js/project/util/global.js" charset="utf-8"></script>
+<script src="./assets/js/project/products/uploadFiles.js" charset="utf-8"></script>
+

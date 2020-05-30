@@ -204,7 +204,7 @@
                                             <li><a href="#">Comida<i class="fa fa-angle-down"></i></a></li>
                                         </ul>
                                     </li>
-                                    <li class="page_menu_item"><a href="contact.html">Contacto<i class="fa fa-angle-down"></i></a></li>
+                                    <li class="page_menu_item"><a href="./Products">Mis Productos<i class="fa fa-angle-down"></i></a></li>
                                 </ul>
 
                             </div>

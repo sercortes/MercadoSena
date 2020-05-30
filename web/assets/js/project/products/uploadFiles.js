@@ -142,12 +142,14 @@ function generateOtherDiv() {
     });
 }
 
-$('#reset').on('click', function () {
-
+document.getElementById('resets').addEventListener('click', function(e){
+    e.preventDefault()
     if ($('.input-images-1 .has-files').remove().length !== 0) {
         generateOtherDiv()
     }
+  return false
 })
+
 
 function checkextension() {
     var file = document.getElementsByName("images[]");

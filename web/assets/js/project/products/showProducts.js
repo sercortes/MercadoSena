@@ -3,7 +3,7 @@ var $pagination = $('#pagination'),
         totalRecords = 0,
         records = [],
         displayRecords = [],
-        recPerPage = 3,
+        recPerPage = 4,
         page = 1,
         totalPages = 0,
         initiateStartPageClick = true
@@ -100,8 +100,8 @@ function generateTableBuscador() {
 
     for (var item of displayRecords) {
 
-        str += `<div class="col-lg-4">
-          <figure class="rounded p-3 bg-white shadow-lg" idProducto="${item.idProducto}">`
+        str += `<div class="col-lg-3">
+          <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}">`
         str += '<td>' + getImagen(item.imagen) + '</td>'
         str += `<figcaption class="p-4 card-img-bottom">
               <h2 class="h5 font-weight-bold mb-2 font-italic">${item.nombreProducto}</h2>
@@ -123,10 +123,10 @@ function generateTableBuscador() {
         </div>
       </div>
         
-         <div class="footer">
-                            <a href="#" class="delete btn btn-danger"><i class="fas fa-minus-square"></i> Eliminar</a>
-                            <a href="#" class="btn btn-warning"><i class="fas fa-edit"></i> Editar</a>
-                            <a href="#" class="watch btn btn-primary"><i class="fas fa-laptop-medical"></i> Ver</a>
+         <div class="text-right">
+                            <a href="#" class="delete btn btn-danger"><i class="fas fa-minus-square"></i></a>
+                            <a href="#" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="watch btn btn-primary"><i class="fas fa-laptop-medical"></i></a>
                         </div>
           </figure>
        
@@ -156,7 +156,7 @@ $(document).on('click', '.watch', function (e) {
 })
 
 function detailsProduct(producto) {
-    $('#modalTittle').text(producto.nombreProducto.toString())
+//    $('#modalTittle').text(producto.nombreProducto.toString())
     caruselImagenes(producto.imagen)
     textProduct(producto)
 }
@@ -202,4 +202,10 @@ $(document).on('click', '.delete', function (e) {
     let idPro = $(parent).attr('idProducto')
 
 
+})
+
+
+$(document).on('click', '#btnModalAdd', function (e){
+    console.log('sergio')
+    $('#modalAdd').modal('show')
 })

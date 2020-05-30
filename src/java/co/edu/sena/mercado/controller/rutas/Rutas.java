@@ -26,10 +26,6 @@ public class Rutas extends HttpServlet {
         RequestDispatcher rd;
 
         switch (direccion) {
-            case "/MercadoSena/ProductoDetails":
-                rd = request.getRequestDispatcher("/views/products/productoDetails.jsp");
-                rd.forward(request, response);
-                break;
             case "/MercadoSena/Searching...":
                  rd = request.getRequestDispatcher("/views/searching/search.jsp");
                 rd.forward(request, response);
