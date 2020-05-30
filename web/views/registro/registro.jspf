@@ -74,6 +74,6 @@
         <input type="password" id="clave2" minlength="10" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
 
         <br>
-        <input type=" " value="Registrar" class="botonRegistro" id="registrarUsuario">
+        <input type="submit" value="Registrar" class="botonRegistro" id="registrarUsuario">
     </form>
 </div>
