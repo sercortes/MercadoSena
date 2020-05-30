@@ -81,7 +81,7 @@ function selects(datos, idDiv, idInput) {
     //console.log(datos);
     var select = '<select id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" required>';
     select += '<option value="" selected>Seleccione...</option>';
-    if(datos.length>0){
+    if(datos!==null){
     if (idDiv === '#genero') {
         for (var i = 0; i < datos.length; i++) {
             select += '<option value="' + datos[i].idGenero + '">' + datos[i].genero + '</option>';
