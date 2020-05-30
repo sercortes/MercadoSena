@@ -35,8 +35,8 @@ public class ProductoDAO {
      public int insertReturn(Producto producto) {
         int idActividad = 0;
         String sql = "INSERT INTO Producto (nombreProducto, valorProducto, stockProducto, marcaProducto, "
-                + "fechaVencimiento, descripcionProducto, idEmpresaFK, idCategoriaFK)"
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                + " descripcionProducto, idEmpresaFK, idCategoriaFK)"
+                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -45,10 +45,9 @@ public class ProductoDAO {
             ps.setDouble(2, producto.getValorProducto());
             ps.setInt(3, producto.getStockProducto());
             ps.setString(4, producto.getMarcaProducto());
-            ps.setDate(5, producto.getFechaVencimiento());
-            ps.setString(6, producto.getDescripcionProducto());
-            ps.setString(7, producto.getIdEmpresaFK());
-            ps.setString(8, producto.getIdCategoriaFK());
+            ps.setString(5, producto.getDescripcionProducto());
+            ps.setString(6, producto.getIdEmpresaFK());
+            ps.setString(7, producto.getIdCategoriaFK());
 
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
@@ -87,9 +86,9 @@ public class ProductoDAO {
                 producto.setMarcaProducto(rs.getString("marcaProducto"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 
-                if (!StringUtils.isNullOrEmpty(rs.getString("fechaVencimiento"))) {
-                     producto.setFechaVencimiento(rs.getString("fechaVencimiento"));
-                }
+//                if (!StringUtils.isNullOrEmpty(rs.getString("fechaVencimiento"))) {
+//                     producto.setFechaVencimiento(rs.getString("fechaVencimiento"));
+//                }
                 categorys = new Categorys();
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
                 producto.setCategorys(categorys);
