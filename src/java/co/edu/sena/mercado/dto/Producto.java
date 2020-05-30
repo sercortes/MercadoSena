@@ -15,8 +15,13 @@ public class Producto {
     private Double valorProducto;
     private int stockProducto;
     private String marcaProducto;
-    private Date fechaVencimiento;
     private String descripcionProducto;
+    
+    private String diasEnvios;
+    private String medidaProducto;
+    private String empaqueProducto;
+    private String embalajeProducto;
+    private String ventajaProducto;
     
     private String idEmpresaFK;
     private String idCategoriaFK;
@@ -24,7 +29,6 @@ public class Producto {
     private ImagenesProducto imagenesProducto;
     private Categorys categorys;
     
-    private ArrayList<ImagenesProducto> lista;
 
     public Producto() {
     }
@@ -34,29 +38,6 @@ public class Producto {
         this.valorProducto = valorProducto;
         this.stockProducto = stockProducto;
         this.marcaProducto = marcaProducto;
-        this.descripcionProducto = descripcionProducto;
-        this.idEmpresaFK = idEmpresaFK;
-        this.idCategoriaFK = idCategoriaFK;
-    }
-
-    public Producto(String nombreProducto, Double valorProducto, int stockProducto, String marcaProducto, Date fechaVencimiento, String descripcionProducto, String idEmpresaFK, String idCategoriaFK) {
-        this.nombreProducto = nombreProducto;
-        this.valorProducto = valorProducto;
-        this.stockProducto = stockProducto;
-        this.marcaProducto = marcaProducto;
-        this.fechaVencimiento = fechaVencimiento;
-        this.descripcionProducto = descripcionProducto;
-        this.idEmpresaFK = idEmpresaFK;
-        this.idCategoriaFK = idCategoriaFK;
-    }
-
-    public Producto(String idProducto, String nombreProducto, Double valorProducto, int stockProducto, String marcaProducto, Date fechaVencimiento, String descripcionProducto, String idEmpresaFK, String idCategoriaFK) {
-        this.idProducto = idProducto;
-        this.nombreProducto = nombreProducto;
-        this.valorProducto = valorProducto;
-        this.stockProducto = stockProducto;
-        this.marcaProducto = marcaProducto;
-        this.fechaVencimiento = fechaVencimiento;
         this.descripcionProducto = descripcionProducto;
         this.idEmpresaFK = idEmpresaFK;
         this.idCategoriaFK = idCategoriaFK;
@@ -102,13 +83,13 @@ public class Producto {
         this.marcaProducto = marcaProducto;
     }
 
-    public Date getFechaVencimiento() {
-        return fechaVencimiento;
-    }
-
-    public void setFechaVencimiento(String fechaVencimiento) {
-        this.fechaVencimiento = Date.valueOf(fechaVencimiento);
-    }
+//    public Date getFechaVencimiento() {
+//        return fechaVencimiento;
+//    }
+//
+//    public void setFechaVencimiento(String fechaVencimiento) {
+//        this.fechaVencimiento = Date.valueOf(fechaVencimiento);
+//    }
 
     public String getDescripcionProducto() {
         return descripcionProducto;
@@ -150,17 +131,51 @@ public class Producto {
         this.categorys = categorys;
     }
 
-    public ArrayList<ImagenesProducto> getLista() {
-        return lista;
+    public String getDiasEnvios() {
+        return diasEnvios;
     }
 
-    public void setLista(ArrayList<ImagenesProducto> lista) {
-        this.lista = lista;
+    public void setDiasEnvios(String diasEnvios) {
+        this.diasEnvios = diasEnvios;
+    }
+
+    public String getMedidaProducto() {
+        return medidaProducto;
+    }
+
+    public void setMedidaProducto(String medidaProducto) {
+        this.medidaProducto = medidaProducto;
+    }
+
+    public String getEmpaqueProducto() {
+        return empaqueProducto;
+    }
+
+    public void setEmpaqueProducto(String empaqueProducto) {
+        this.empaqueProducto = empaqueProducto;
+    }
+
+    public String getEmbalajeProducto() {
+        return embalajeProducto;
+    }
+
+    public void setEmbalajeProducto(String embalajeProducto) {
+        this.embalajeProducto = embalajeProducto;
+    }
+
+    public String getVentajaProducto() {
+        return ventajaProducto;
+    }
+
+    public void setVentajaProducto(String ventajaProducto) {
+        this.ventajaProducto = ventajaProducto;
     }
 
     @Override
     public String toString() {
-        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", valorProducto=" + valorProducto + ", stockProducto=" + stockProducto + ", marcaProducto=" + marcaProducto + ", fechaVencimiento=" + fechaVencimiento + ", descripcionProducto=" + descripcionProducto + ", idEmpresaFK=" + idEmpresaFK + ", idCategoriaFK=" + idCategoriaFK + ", imagenesProducto=" + imagenesProducto + ", categorys=" + categorys + ", lista=" + lista + '}';
+        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", valorProducto=" + valorProducto + ", stockProducto=" + stockProducto + ", marcaProducto=" + marcaProducto + ", descripcionProducto=" + descripcionProducto + ", diasEnvios=" + diasEnvios + ", medidaProducto=" + medidaProducto + ", empaqueProducto=" + empaqueProducto + ", embalajeProducto=" + embalajeProducto + ", ventajaProducto=" + ventajaProducto + ", idEmpresaFK=" + idEmpresaFK + ", idCategoriaFK=" + idCategoriaFK + ", imagenesProducto=" + imagenesProducto + ", categorys=" + categorys + '}';
     }
+
+    
     
 }
