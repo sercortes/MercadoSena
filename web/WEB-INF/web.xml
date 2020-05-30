@@ -39,6 +39,7 @@
         <servlet-name>Selects</servlet-name>
         <url-pattern>/getCategorys</url-pattern>
         <url-pattern>/getProducts</url-pattern>
+        <url-pattern>/getImages</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>comprador</servlet-name>

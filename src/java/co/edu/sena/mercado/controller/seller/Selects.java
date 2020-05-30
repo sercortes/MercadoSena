@@ -6,7 +6,10 @@
 package co.edu.sena.mercado.controller.seller;
 
 import co.edu.sena.mercado.dao.CategorysDAO;
+import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
+import co.edu.sena.mercado.dto.ImagenesProducto;
+import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -24,8 +27,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Selects extends HttpServlet {
 
-   
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -38,7 +39,7 @@ public class Selects extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+
     }
 
     /**
@@ -52,31 +53,36 @@ public class Selects extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-      
-        
-         String direccion = request.getRequestURI();
+
+        String direccion = request.getRequestURI();
 
         switch (direccion) {
-            
+
             case "/MercadoSena/getCategorys":
 
                 getCategorys(request, response);
 
                 break;
-                
+
             case "/MercadoSena/getProducts":
 
                 getProducts(request, response);
 
                 break;
 
-        }
+            case "/MercadoSena/getImages":
+
+                getImages(request, response);
+
+                break;
 
         }
+
+    }
 
     private void getCategorys(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-        
-           request.setCharacterEncoding("UTF-8");
+
+        request.setCharacterEncoding("UTF-8");
 
         Conexion conexion = new Conexion();
         CategorysDAO categorysDAO = new CategorysDAO(conexion.getConnection());
@@ -86,33 +92,39 @@ public class Selects extends HttpServlet {
         response.setContentType("application/json");
 
         categorysDAO.CloseAll();
-        
+
         new Gson().toJson(lista, response.getWriter());
-        
+
     }
-    
-     private void getProducts(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-        
-        
-        
-        
-           request.setCharacterEncoding("UTF-8");
+
+    private void getProducts(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
 
         Conexion conexion = new Conexion();
         ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
 
-        ArrayList<?> lista = productoDAO.getProductsBySeller("1");
+        ArrayList<Producto> listaProductos = productoDAO.getProductsBySeller("1");
 
         response.setContentType("application/json");
-
         productoDAO.CloseAll();
-        
-        new Gson().toJson(lista, response.getWriter());
-        
+        new Gson().toJson(listaProductos, response.getWriter());
+
     }
-        
-        
-    
+
+    private void getImages(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+
+        request.setCharacterEncoding("UTF-8");
+
+        Conexion conexion = new Conexion();
+        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
+        ArrayList<ImagenesProducto> listaImagenes = imagenesProductosDAO.getImagenesByProduct("1");
+
+        response.setContentType("application/json");
+        imagenesProductosDAO.CloseAll();
+        new Gson().toJson(listaImagenes, response.getWriter());
+
+    }
 
     /**
      * Returns a short description of the servlet.
