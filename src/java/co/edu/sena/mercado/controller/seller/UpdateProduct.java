@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package co.edu.sena.mercado.controller.seller;
 
 import co.edu.sena.mercado.dao.ImagenesProductosDAO;
@@ -12,7 +17,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,11 +26,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.fileupload.util.Streams;
-
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
@@ -34,36 +34,63 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  *
  * @author serfin
  */
-public class UploadProduct extends HttpServlet {
-
-    private final String UPLOAD_DIRECTORY = "/opt/lampp/htdocs/sergio";
+public class UpdateProduct extends HttpServlet {
+    
+        private final String UPLOAD_DIRECTORY = "/opt/lampp/htdocs/sergio";
     private final String SERVER_UPLOAD = "http://192.168.0.5/sergio/";
     private static final long serialVersionUID = 1L;
 
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+ 
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, UnsupportedEncodingException {
-
-        response.setContentType("application/json");
-        try {
-            new Gson().toJson(uploadForm(request, response), response.getWriter());
-        } catch (SQLException ex) {
-            System.out.println(":( "+ex);
-            Logger.getLogger(UploadProduct.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+     
+           response.setContentType("application/json");
+            try {
+                new Gson().toJson(updateForm(request, response), response.getWriter());
+            } catch (SQLException ex) {
+                System.out.println("=D");
+                Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
     }
 
-    private boolean uploadForm(HttpServletRequest request, HttpServletResponse response)
-            throws UnsupportedEncodingException, IOException, SQLException {
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
-        request.setCharacterEncoding("UTF-8");
+    private boolean updateForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
+        
+         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         boolean codigo = false;
@@ -75,16 +102,16 @@ public class UploadProduct extends HttpServlet {
         List<ImagenesProducto> lista = new ArrayList<>();
 
         // instancia clase conexión
-        Conexion conexion = new Conexion();
-        Connection cone = conexion.getConnection();
-
-        ProductoDAO productoDAO = new ProductoDAO(cone);
-        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(cone);
+//        Conexion conexion = new Conexion();
+//        Connection cone = conexion.getConnection();
+//
+//        ProductoDAO productoDAO = new ProductoDAO(cone);
+//        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(cone);
 
         // desactivando en autocommit
-        if (cone.getAutoCommit()) {
-            cone.setAutoCommit(false);
-        }
+//        if (cone.getAutoCommit()) {
+//            cone.setAutoCommit(false);
+//        }
 
         if (ServletFileUpload.isMultipartContent(request)) {
 
@@ -104,9 +131,10 @@ public class UploadProduct extends HttpServlet {
 
                 producto.setIdEmpresaFK("1");
                 
-
+                System.out.println(":D");
                 //Insert Producto
-                folder = Integer.toString(productoDAO.insertReturn(producto));
+               // folder = Integer.toString(productoDAO.insertReturn(producto));
+                System.out.println(producto.toString());
 
                 for (FileItem item : multiparts) {
 
@@ -116,18 +144,22 @@ public class UploadProduct extends HttpServlet {
                     }
 
                 }
-
-                // insert imagenes productos
-                for (ImagenesProducto item : lista) {
-                    imagenesProductosDAO.insertReturn(item);
+                
+                for(ImagenesProducto item : lista){
+                    System.out.println(item.toString());
                 }
 
-                cone.commit();
+                // insert imagenes productos
+//                for (ImagenesProducto item : lista) {
+//                    imagenesProductosDAO.insertReturn(item);
+//                }
+
+//                cone.commit();
                 codigo = true;
 
             } catch (Exception e) {
 
-                cone.rollback();
+//                cone.rollback();
                 codigo = false;
                 System.out.println(e);
 
@@ -141,28 +173,33 @@ public class UploadProduct extends HttpServlet {
 
         return codigo;
 
+        
     }
 
-    private Producto getParams(FileItem item, Producto producto) throws UnsupportedEncodingException {
+    
+        private Producto getParams(FileItem item, Producto producto) throws UnsupportedEncodingException {
 
         switch (item.getFieldName()) {
 
-            case "name":
+            case "idProductoEs":
+                producto.setIdProducto(item.getString("UTF-8"));
+                break;
+            case "nameE":
                 producto.setNombreProducto(item.getString("UTF-8"));
                 break;
-            case "price":
+            case "priceE":
                 producto.setValorProducto(Double.parseDouble(item.getString("UTF-8")));
                 break;
-            case "cantidad":
+            case "cantidadE":
                 producto.setStockProducto(Integer.parseInt(item.getString("UTF-8")));
                 break;
-            case "marca":
+            case "marcaE":
                 producto.setMarcaProducto(item.getString("UTF-8"));
                 break;
-            case "category":
+            case "categoryE":
                 producto.setIdCategoriaFK(item.getString("UTF-8"));
                 break;
-            case "descrip":
+            case "descripE":
                 producto.setDescripcionProducto(item.getString("UTF-8"));
                 break;
             case "envios":
@@ -231,9 +268,6 @@ public class UploadProduct extends HttpServlet {
 
     }
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    
+    
 }

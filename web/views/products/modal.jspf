@@ -1,18 +1,17 @@
 
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<div class="modal fade text-center" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="width: 80%!important;
+    margin: 1.75rem auto!important;">
+        <div class="modal-content">
+            
+                <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+                    <span class="float-right pr-2" aria-hidden="true">&times;</span>
+                </button>
+           
+            <div class="modal-body">
 
-<%@include file="/views/template/head.jspf"%>
-
-<%@include file="/views/template/header.jspf"%>
-
-
-<link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
-
-
-
+               
 <div class="container-fluid" id="">
 
     <div class="row d-flex justify-content-center pb-3" id="fondo-rojo">
@@ -204,11 +203,10 @@
 
 
 
-        <%@include file="/views/template/footer.jspf"%>
-
-        <script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
-        <script src="./assets/js/project/util/global.js" charset="utf-8"></script>
-
-
-        <script src="./assets/js/project/products/uploadFiles.js" charset="utf-8"></script>
-
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>

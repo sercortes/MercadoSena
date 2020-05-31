@@ -28,7 +28,7 @@ public class RutasVendedor extends HttpServlet {
         RequestDispatcher rd;
         
         HttpSession session = request.getSession();
-        session.setAttribute("ISEMPRESA", 1);
+        session.setAttribute("ISEMPRESA", 0);
         
         switch (direccion) {
              case "/MercadoSena/Products":
@@ -38,7 +38,10 @@ public class RutasVendedor extends HttpServlet {
             case "/MercadoSena/newProduct":
                 rd = request.getRequestDispatcher("/views/products/addProduct.jsp");
                 rd.forward(request, response);
-                break;    
+                break;
+            case "/MercadoSena/editProduct":
+                
+                break; 
             default:
                 System.out.println("error de la ruta");
                 break;

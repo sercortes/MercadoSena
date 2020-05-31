@@ -20,6 +20,10 @@
         <servlet-name>comprador</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.comprador.comprador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateProduct</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.seller.UpdateProduct</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -28,6 +32,7 @@
         <servlet-name>RutasVendedor</servlet-name>
         <url-pattern>/Products</url-pattern>
         <url-pattern>/newProduct</url-pattern>
+        <url-pattern>/editProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadProduct</servlet-name>
@@ -42,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>comprador</servlet-name>
         <url-pattern>/comprador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProduct</servlet-name>
+        <url-pattern>/UpdateProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

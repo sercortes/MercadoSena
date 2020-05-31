@@ -1,18 +1,67 @@
-$(document).ready(function () {
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-    $('.input-images-1').imageUploader({
-        maxSize: 2 * 1024 * 1024,
-        maxFiles: 5
-    });
-    
-    getCategorias()
+function getCategorias(value, name) {
 
-});
+    let cat = document.getElementById('categoryE')
 
-document.getElementById('formProduct').addEventListener('input', e => {
+    let text = `<option value="${value}" selected>${name}</option>`
+
+    $.ajax({
+        type: "POST",
+        url: './getCategorys',
+        datatype: 'json'
+    }).done(function (data) {
+
+        for (var item of data) {
+            if (item.idcategoria !== value) {
+                    text += `<option value="${item.idcategoria}">${item.nombreCategoria}</option>`
+            }
+        }
+
+        cat.innerHTML = text;
+    })
+
+}
+//var imagesG
+
+//function generateImages(data) {
+//
+//     if ($('.input-images-1 .has-files').remove().length !== 0) {
+//          $('.input-images-1 .has-files').remove()
+//    }
+//    
+////    let arregloI = []
+////    
+////    for (var item of data){
+////        var i = 0
+////        let obj = {
+////            id : i,
+////            src : item.url
+////        }
+////        i++
+////        arregloI.push(obj)
+////    }
+//
+//
+//$('.input-images-1').imageUploader({
+//    imagesInputName: 'images',
+//    preloadedInputName: 'images'
+//});
+//
+//imagesG = $('.input-images-1').clone();
+////$('.input-images-1').addClass('has')
+//}
+
+
+
+document.getElementById('formUpdate').addEventListener('input', e => {
 
     e.preventDefault()
-    var form = $("#formProduct")
+    var form = $("#formUpdate")
     if (form[0].checkValidity() === false) {
         event.preventDefault()
         event.stopPropagation()
@@ -21,23 +70,23 @@ document.getElementById('formProduct').addEventListener('input', e => {
 
 })
 
-$('#formProduct').submit(function (e) {
+document.getElementById('formUpdate').addEventListener('submit', e => {
 
     e.preventDefault()
-
-    var form = $("#formProduct")
+    var form = $("#formUpdate")
     if (form[0].checkValidity() === false) {
         event.preventDefault()
         event.stopPropagation()
     }
-
     form.addClass('was-validated');
-
+    
+    
+    
     if (!checkOne()) {
         messageInfo('seleccione las imágenes')
         return false
     }
-
+    
     if (!checkextension()) {
         messageInfo('suba imágenes válidas png o jpg')
         generateOtherDiv()
@@ -59,18 +108,19 @@ $('#formProduct').submit(function (e) {
     if (!checkInputs()) {
         messageInfo('complete el formulario')
         return false
-    }
-
-    $('#carga').addClass('is-active');
-    $("#send").attr("disabled", true);
-
-    var form = $('#formProduct')[0]
+    }  
+    
+    
+    var form = $('#formUpdate')[0]
     var data = new FormData(form)
 
-    $.ajax({
+    
+    $('#carga').addClass('is-active');
+    
+      $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: "UploadProduct",
+        url: "UpdateProduct",
         data: data,
         processData: false,
         contentType: false,
@@ -78,8 +128,8 @@ $('#formProduct').submit(function (e) {
         success: function (data) {
 
         console.log(data)
-            clean()
-
+            
+    $('#carga').removeClass('is-active')
             if (data) {
 
                 messageOk('Generado con éxito')
@@ -94,44 +144,53 @@ $('#formProduct').submit(function (e) {
         },
         error: function (e) {
 
+        console.log(e)
             messageError('=(' + e)
-            clean()
+             $('#carga').removeClass('is-active')
 
         }
     });
 
+
+
+    
+    
+    
+    
+
 })
 
-function clean() {
-    $('#formProduct').trigger('reset')
-    var form = $("#formProduct")
-    form.removeClass('was-validated');
-    $('#send').attr('disabled', false)
-    generateOtherDiv()
-    $('#carga').removeClass('is-active')
-}
+$(document).ready(function () {
 
-function getCategorias() {
+    $('.input-images-1').imageUploader({
+        maxSize: 2 * 1024 * 1024,
+        maxFiles: 5
+    });
+    
 
-    let cat = document.getElementById('category')
+imagesG = $('.input-images-1').clone();
 
-    let text = ``
+});
 
-    $.ajax({
-        type: "POST",
-        url: './getCategorys',
-        datatype: 'json'
-    }).done(function (data) {
+$("#modal-top").on("show.bs.modal", function(){
+   
+    
+})
 
-        for (var item of data) {
-            text += `<option value="${item.idcategoria}">${item.nombreCategoria}</option>`
-        }
+$("#modal-top").on("hide.bs.modal", function () {
 
-        cat.innerHTML += text;
-    })
+ if ($('.input-images-1 .has-files').remove().length !== 0) {
+        generateOtherDiv()
+    }
+});
 
-}
-
+document.getElementById('resets').addEventListener('click', function(e){
+    e.preventDefault()
+    if ($('.input-images-1 .has-files').remove().length !== 0) {
+        generateOtherDiv()
+    }
+  return false
+})
 
 function generateOtherDiv() {
 
@@ -142,15 +201,6 @@ function generateOtherDiv() {
         maxFiles: 5
     });
 }
-
-document.getElementById('resets').addEventListener('click', function(e){
-    e.preventDefault()
-    if ($('.input-images-1 .has-files').remove().length !== 0) {
-        generateOtherDiv()
-    }
-  return false
-})
-
 
 function checkextension() {
     var file = document.getElementsByName("images[]");
@@ -190,8 +240,10 @@ function checkSizeItems() {
     return true
 }
 
+
 function checkOne() {
     var file = document.getElementsByName("images[]");
+
     let array = file[0].files
 
     if (array.length <= 0) {
@@ -209,8 +261,6 @@ function checkInputs() {
     let marca = document.getElementById('marcaE').value
     let category = document.getElementById('categoryE').value
 
-    console.log(name)
-
     if (name == '' || desc == '' || name.length <= 2 ||
             desc.length <= 19 || price == '' || cantidad == '' ||
             marca == '' || category == '') {
@@ -219,4 +269,3 @@ function checkInputs() {
 
     return true
 }
-

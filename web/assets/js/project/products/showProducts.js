@@ -1,3 +1,4 @@
+var num = 1
 var input = ''
 var $pagination = $('#pagination'),
         totalRecords = 0,
@@ -13,6 +14,8 @@ $(function () {
     listarProductoByVendedor()
 
     $('.collapse').collapse()
+    
+    
  
 
 })
@@ -125,7 +128,7 @@ function generateTableBuscador() {
         
          <div class="text-right">
                             <a href="#" class="delete btn btn-danger"><i class="fas fa-minus-square"></i></a>
-                            <a href="#" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="editProduct btn btn-warning"><i class="fas fa-edit"></i></a>
                             <a href="#" class="watch btn btn-primary"><i class="fas fa-laptop-medical"></i></a>
                         </div>
           </figure>
@@ -133,6 +136,8 @@ function generateTableBuscador() {
         </div>`
         num++
     }
+    
+    
 
     select.innerHTML = str;
 }
@@ -204,8 +209,29 @@ $(document).on('click', '.delete', function (e) {
 
 })
 
+$(document).on('click', '.editProduct', function (e){
+    
+    e.preventDefault()
+   
+    let parent = $(this)[0].parentElement.parentElement
+    let idPro = $(parent).attr('idProducto')
+    $('#modal-top').modal('show')
+    
+    let producto = records.find(element => element.idProducto === idPro)
 
-$(document).on('click', '#btnModalAdd', function (e){
-    console.log('sergio')
-    $('#modalAdd').modal('show')
+    console.log(producto)
+    
+    document.getElementById('idProductoE').value = producto.idProducto
+    document.getElementById('nameE').value = producto.nombreProducto
+    document.getElementById('marcaE').value = producto.marcaProducto
+    
+    getCategorias(producto.idCategoriaFK, producto.categorys.nombreCategoria)
+    
+    document.getElementById('priceE').value = producto.valorProducto
+    document.getElementById('cantidadE').value = producto.stockProducto
+    document.getElementById('descripE').value = producto.descripcionProducto
+    
 })
+
+
+

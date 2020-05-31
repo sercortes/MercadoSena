@@ -1,6 +1,12 @@
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@include file="/views/template/head.jspf"%>
+
+<link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
+<link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
+<link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
+
 
 <%@include file="/views/template/header.jspf"%>
 
@@ -48,19 +54,27 @@
 </div>
   </div>
 
+
     <%@include file="/views/products/modalVerProducto.jspf"%>
-    <%@include file="/views/products/modalAdd.jspf"%>
+    <%@include file="/views/products/modal2.jspf"%>
     
 <%@include file="/views/login/login.jspf"%>
 <%@include file="/views/template/footer.jspf"%>
+  
+<script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
+<script src="./assets/js/project/util/global.js" charset="utf-8"></script>
 
-<script src="./assetsAdmin/js/project/products/uploadFiles.js" charset="utf-8"></script>
+
 <script src="./assets/js/project/products/showProducts.js" charset="utf-8"></script>
+<script src="./assets/js/project/products/updateProduct.js" charset="utf-8"></script>
         
 <script src="./assets/js/pagination/pager.js" charset="utf-8"></script>
 
 <script src="./assets/js/project/comprador/ajax.js"></script>
 
-<script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
 
-<script src="./assetsAdmin/js/project/util/global.js" charset="utf-8"></script>
+
+
+
+    
+  
