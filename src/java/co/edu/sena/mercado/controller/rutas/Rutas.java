@@ -5,6 +5,7 @@
  */
 package co.edu.sena.mercado.controller.rutas;
 
+import co.edu.sena.mercado.dao.usuarioDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
@@ -19,8 +20,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Rutas extends HttpServlet {
 
-   
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    usuarioDAO usuarioDAO=new usuarioDAO();
+            
+            protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String direccion = request.getRequestURI();
         RequestDispatcher rd;
@@ -28,6 +30,15 @@ public class Rutas extends HttpServlet {
         switch (direccion) {
             case "/MercadoSena/Searching...":
                  rd = request.getRequestDispatcher("/views/searching/search.jsp");
+                rd.forward(request, response);
+                break;
+            case "/MercadoSena/activarCuenta":
+                boolean activa;
+                String usuario=request.getParameter("usuario");
+                String codigo=request.getParameter("codigo");
+                activa=usuarioDAO.activarUsuario(usuario, codigo);
+                request.setAttribute("activa", activa);
+                 rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
                 rd.forward(request, response);
                 break;
             default:

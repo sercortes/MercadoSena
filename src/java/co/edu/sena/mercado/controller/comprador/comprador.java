@@ -12,6 +12,7 @@ import co.edu.sena.mercado.dto.ciudadDTO;
 import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.*;
 import co.edu.sena.mercado.util.correo;
+import co.edu.sena.mercado.util.codActivacion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -25,29 +26,27 @@ import javax.servlet.http.HttpServletResponse;
  * @author DELL
  */
 public class comprador extends HttpServlet {
-    
-    personaNaturalDAO personaNaturalDAO=new personaNaturalDAO();
-    personaNaturalDTO personaNaturalDTO=new personaNaturalDTO();
-    ArrayList<personaNaturalDTO> listaPersona=new ArrayList<>();
-    ciudadDAO ciudadDAO=new ciudadDAO();
-    ciudadDTO ciudadDTO= new ciudadDTO();
-    ArrayList<ciudadDTO> listaCiudad=new ArrayList<>();
-    tipoDocumentoDAO tipoDocDAO=new tipoDocumentoDAO();
-    tipoDocumentoDTO tipoDocDTO =new tipoDocumentoDTO();
-    ArrayList<tipoDocumentoDTO> listaTipoDoc=new ArrayList<>();
-    generoDAO generoDAO =new generoDAO();
-    generoDTO generoDTO=new generoDTO();
-    ArrayList<generoDTO> listaGenero=new ArrayList<>();
-    rolUsuarioDAO rolDAO =new rolUsuarioDAO();
-    rolDTO rolDTO=new rolDTO();
-    ArrayList<rolDTO> listaRol=new ArrayList<>();
-    usuarioDTO usuarioDTO =new usuarioDTO();
-    usuarioDAO usuarioDAO=new usuarioDAO();
-    ArrayList<usuarioDTO> listaUsuario=new ArrayList<>();
-    correo enviar=new correo();
-    
-    
-    
+
+    personaNaturalDAO personaNaturalDAO = new personaNaturalDAO();
+    personaNaturalDTO personaNaturalDTO = new personaNaturalDTO();
+    ArrayList<personaNaturalDTO> listaPersona = new ArrayList<>();
+    ciudadDAO ciudadDAO = new ciudadDAO();
+    ciudadDTO ciudadDTO = new ciudadDTO();
+    ArrayList<ciudadDTO> listaCiudad = new ArrayList<>();
+    tipoDocumentoDAO tipoDocDAO = new tipoDocumentoDAO();
+    tipoDocumentoDTO tipoDocDTO = new tipoDocumentoDTO();
+    ArrayList<tipoDocumentoDTO> listaTipoDoc = new ArrayList<>();
+    generoDAO generoDAO = new generoDAO();
+    generoDTO generoDTO = new generoDTO();
+    ArrayList<generoDTO> listaGenero = new ArrayList<>();
+    rolUsuarioDAO rolDAO = new rolUsuarioDAO();
+    rolDTO rolDTO = new rolDTO();
+    ArrayList<rolDTO> listaRol = new ArrayList<>();
+    usuarioDTO usuarioDTO = new usuarioDTO();
+    usuarioDAO usuarioDAO = new usuarioDAO();
+    ArrayList<usuarioDTO> listaUsuario = new ArrayList<>();
+    correo enviar = new correo();
+    codActivacion codigo = new codActivacion();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -60,8 +59,7 @@ public class comprador extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-     
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -76,9 +74,7 @@ public class comprador extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        
-        
+
     }
 
     /**
@@ -93,43 +89,57 @@ public class comprador extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        
-        String accion=request.getParameter("accion");
-        switch(accion){
+
+        String accion = request.getParameter("accion");
+        switch (accion) {
             case "consultaTipoDoc":
-                listaTipoDoc=new ArrayList<>();
-                listaTipoDoc=tipoDocDAO.listarTipoDoc();
-                System.out.println( new Gson().toJson(listaTipoDoc));
+                listaTipoDoc = new ArrayList<>();
+                listaTipoDoc = tipoDocDAO.listarTipoDoc();
+                System.out.println(new Gson().toJson(listaTipoDoc));
                 response.setContentType("application/json");
-                 new Gson().toJson(listaTipoDoc, response.getWriter());
-                
+                new Gson().toJson(listaTipoDoc, response.getWriter());
+
                 break;
             case "consultaGenero":
-                listaGenero=new ArrayList<>();
-                listaGenero=generoDAO.listarGenero();
+                listaGenero = new ArrayList<>();
+                listaGenero = generoDAO.listarGenero();
                 response.setContentType("application/json");
-                new Gson().toJson(listaGenero,response.getWriter());
+                new Gson().toJson(listaGenero, response.getWriter());
                 break;
             case "consultaCiudad":
-                listaCiudad=new ArrayList<>();
-                listaCiudad=ciudadDAO.listarCiudad();
+                listaCiudad = new ArrayList<>();
+                listaCiudad = ciudadDAO.listarCiudad();
                 response.setContentType("application/json");
                 new Gson().toJson(listaCiudad, response.getWriter());
                 break;
             case "consultaRol":
-                listaRol=rolDAO.listarRol();
+                listaRol = rolDAO.listarRol();
                 response.setContentType("application/json");
                 new Gson().toJson(listaRol, response.getWriter());
                 break;
             case "registrarUsuario":
-                usuarioDTO =new usuarioDTO();
-                personaNaturalDTO=new personaNaturalDTO();
-                //datos usuario
+                usuarioDTO = new usuarioDTO();
+                personaNaturalDTO = new personaNaturalDTO();
+                listaRol = rolDAO.listarRol();
                 usuarioDTO.setClaveUsu(request.getParameter("clave1"));
                 usuarioDTO.setCorreoUsu(request.getParameter("correoUsuario"));
-                usuarioDTO.setEstadoUsu("0");
-                usuarioDTO.setIdRol(Integer.parseInt(request.getParameter("rol")));
-                String clave= usuarioDTO.getClaveUsu();
+                usuarioDTO.setEstadoUsu("1");
+                String clave = usuarioDTO.getClaveUsu();
+                usuarioDTO.setCodigo(codigo.generarCod());
+                String[] correo = usuarioDTO.getCorreoUsu().split("@");
+                String dominio = correo[1];
+                for (rolDTO rol : listaRol) { 
+                    if (dominio.equalsIgnoreCase("misena.edu.co") || dominio.equalsIgnoreCase("sena.edu.co")) {
+                        if (rol.getRol().equalsIgnoreCase("misena")) {
+                            usuarioDTO.setIdRol(rol.getIdRol());
+                        }
+                    } else {
+                        if (rol.getRol().equalsIgnoreCase("comprador")) {
+                            usuarioDTO.setIdRol(rol.getIdRol());
+                        }
+                    }
+                }
+               
                 if(usuarioDAO.registroUsuario(usuarioDTO)){
                     //datos persona
                 personaNaturalDTO.setApellidoPer(request.getParameter("apellidoUsuario"));
@@ -147,26 +157,24 @@ public class comprador extends HttpServlet {
                 personaNaturalDTO.setIdUsuario(usuarioDTO.getIdUsuario());
                 
                 if(personaNaturalDAO.registrarPersona(personaNaturalDTO)){
-                    enviar.envCorreo(usuarioDTO.getCorreoUsu(),clave);
+                    enviar.envCorreo(usuarioDTO.getCorreoUsu(),clave,usuarioDTO.getCodigo());
                     response.getWriter().print(true);
                 }else{
                     usuarioDAO.eliminarUsuario(personaNaturalDTO.getCorreoPer(), usuarioDTO.getClaveUsu());
-                     response.getWriter().print(false);
+                     response.getWriter().print("error al registrar persona");
                 }
                 }else{
-                response.getWriter().print(false);
+                response.getWriter().print("error al registrar usuario");
                 usuarioDTO= new usuarioDTO();
                 }
-                
                 //System.out.println("......."+usuarioDTO.toString());
-
                 break;
-           
-                default:
-                    throw new AssertionError("Esa accion no existe");
-                
+
+            default:
+                throw new AssertionError("Esa accion no existe");
+
         }
-        
+
     }
 
     /**

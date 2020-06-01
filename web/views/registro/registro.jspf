@@ -64,7 +64,7 @@
 
         <h4>Usuario: </h4>
         <label>Correo:</label><br>
-        <input type="email" placeholder="Correo" class="form-control was-validated" minlength="1" maxlength="100" id="correoUsuario" name="correoUsuario" required>
+        <input type="email" placeholder="Correo" class="form-control was-validated" minlength="1" maxlength="100" id="correoUsuario" name="correoUsuario" required >
         <div class="invalid-feedback">
             Completa este campo correctamente
         </div><br>
@@ -74,6 +74,7 @@
         <input type="password" id="clave2" minlength="10" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
 
         <br>
-        <input type="submit" value="Registrar" class="botonRegistro" id="registrarUsuario">
+        <button class="botonRegistro" id="registrarUsuario">Registrar</button>
+       
     </form>
 </div>

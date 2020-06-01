@@ -16,19 +16,31 @@ public class usuarioDTO {
     String claveUsu;
     String fechaClave;
     String estadoUsu;
+    String codigo;
     int idRol;
 
     public usuarioDTO() {
     }
 
-    public usuarioDTO(int idUsuario, String correoUsu, String claveUsu, String fechaClave, String estadoUsu, int idRol) {
+    public usuarioDTO(int idUsuario, String correoUsu, String claveUsu, String fechaClave, String estadoUsu, String codigo, int idRol) {
         this.idUsuario = idUsuario;
         this.correoUsu = correoUsu;
         this.claveUsu = claveUsu;
         this.fechaClave = fechaClave;
         this.estadoUsu = estadoUsu;
+        this.codigo = codigo;
         this.idRol = idRol;
     }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+   
 
     
     
@@ -80,11 +92,12 @@ public class usuarioDTO {
         this.idRol = idRol;
     }
 
-    
     @Override
     public String toString() {
-        return "usuarioDTO{" + "idUsuario=" + idUsuario + ", correoUsu=" + correoUsu + ", claveUsu=" + claveUsu + ", fechaClave=" + fechaClave + ", estadoUsu=" + estadoUsu + ", idRol=" + idRol + '}';
+        return "usuarioDTO{" + "idUsuario=" + idUsuario + ", correoUsu=" + correoUsu + ", claveUsu=" + claveUsu + ", fechaClave=" + fechaClave + ", estadoUsu=" + estadoUsu + ", codigo=" + codigo + ", idRol=" + idRol + '}';
     }
+
     
+   
     
 }

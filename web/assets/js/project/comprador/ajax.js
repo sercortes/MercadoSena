@@ -4,7 +4,7 @@ function consultarDatosFormulario() {
     consultaTipoDoc();
     consultagenero();
     consultaCiudad();
-    consultaRol();
+    // consultaRol('comprador');
     modalRegistro();
 }
 
@@ -16,19 +16,17 @@ function consultaRol() {
         contentType: false,
         processData: false,
         success: function (data) {
-            //console.log(data);
-            for (var i = 0; i < data.length; i++) {
-                //console.log( data[i].rol); 
-                if (data[i].rol === 'Vendedor') {
-                    $('#rol').val(data[i].idRol);
-                }
 
-            }
+            // console.log(data);
+            //console.log(rol);
 
         }
-    })
+
+    }
+    )
 }
 function consultaTipoDoc() {
+
     $.ajax({
         url: "./comprador?accion=consultaTipoDoc",
         type: 'POST',
@@ -41,6 +39,7 @@ function consultaTipoDoc() {
 
         }
     })
+
 }
 function consultagenero() {
     $.ajax({
@@ -81,35 +80,37 @@ function selects(datos, idDiv, idInput) {
     //console.log(datos);
     var select = '<select id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" required>';
     select += '<option value="" selected>Seleccione...</option>';
-    if(datos!==null){
-    if (idDiv === '#genero') {
-        for (var i = 0; i < datos.length; i++) {
-            select += '<option value="' + datos[i].idGenero + '">' + datos[i].genero + '</option>';
-        }
+    if (datos !== null) {
+        if (idDiv === '#genero') {
+            for (var i = 0; i < datos.length; i++) {
+                select += '<option value="' + datos[i].idGenero + '">' + datos[i].genero + '</option>';
+            }
 
-    } else if (idDiv === '#tipoDoc') {
-        for (var i = 0; i < datos.length; i++) {
-            select += '<option value="' + datos[i].idTipoDoc + '">' + datos[i].tipoDoc + '</option>';
-        }
+        } else if (idDiv === '#tipoDoc') {
+            for (var i = 0; i < datos.length; i++) {
+                select += '<option value="' + datos[i].idTipoDoc + '">' + datos[i].tipoDoc + '</option>';
+            }
 
-    } else if (idDiv === '#ciudad') {
-        for (var i = 0; i < datos.length; i++) {
-            select += '<option value="' + datos[i].idCiudad + '">' + datos[i].nombreCiudad + '</option>';
+        } else if (idDiv === '#ciudad') {
+            for (var i = 0; i < datos.length; i++) {
+                select += '<option value="' + datos[i].idCiudad + '">' + datos[i].nombreCiudad + '</option>';
+            }
         }
-    }
     }
     //  console.log(select);
     select += '</select>';
     $(idDiv).html(select);
 }
-$(function () {
 
 
 
-
+ 
     $('#registroUsuario').submit(function (e) {
+
+        // $('#registrarUsuario').click(function(e) {
         e.preventDefault();
-        var datos = $('form#registroUsuario').serialize();
+        e.stopPropagation();
+
         var formulario = $("#registroUsuario");
         var datosVal = [
             nombreUsuario = $('#nombreUsuario').val(),
@@ -120,14 +121,18 @@ $(function () {
             ciudadUsuario = $('#ciudadUsuario').val(),
             tipoDocUsuario = $('#tipoDocUsuario').val,
             generoUsuario = $('#generoUsuario').val()
-           
+
         ];
-        console.log(datosVal);
+        // console.log(datosVal);
 
-        if (formulario[0].checkValidity() && valCampos(datosVal) && validarClave()) {
-            var btn = document.getElementById('idBtn');
+        if ($('#registroUsuario')[0].checkValidity() && valCampos(datosVal) && validarClave()) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            var datos = $('form#registroUsuario').serialize();
+            var btn = document.getElementById('registrarUsuario');
             btn.disabled = true;
-
+       
             $.ajax({
                 url: "./comprador?accion=registrarUsuario&" + datos,
                 type: 'POST',
@@ -151,7 +156,7 @@ $(function () {
 
 //validarclaves
 
-})
+
 function validarClave() {
     var con1 = $('#clave1').val();
     var con2 = $('#clave2').val();
@@ -188,6 +193,9 @@ document.getElementById('registroUsuario').addEventListener('input', e => {
     if (form[0].checkValidity() === false) {
         event.preventDefault();
         event.stopPropagation();
+    } else {
+        event.preventDefault();
+        event.stopPropagation();
     }
     form.addClass('was-validated');
 
@@ -218,4 +226,3 @@ function limpiarFormulario(formularioRec) {
     }
     // campo1[0].focus();
 }
- 

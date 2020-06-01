@@ -7,6 +7,7 @@ package co.edu.sena.mercado.util;
 
 import java.util.Properties;
 import javax.mail.Message;
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
@@ -18,52 +19,65 @@ import javax.mail.internet.MimeMessage;
  */
 public class correo {
     
-      public boolean envCorreo(String dest, String clave) {
-
-        Properties propiedad = new Properties();
-        propiedad.setProperty("mail.smtp.host", "smtp.gmail.com");
-        propiedad.setProperty("mail.smtp.starttls.enable", "true");
-        propiedad.setProperty("mail.smtp.port", "587");
-        //propiedad.setProperty(¡);
-
-//         Properties propiedades=new Properties();
-//        propiedades.put("mail.smtp.auth", "true");
-//        propiedades.put("mail.smtp.starttls.enable", "true");
-//        propiedades.put("mail.smtp.host", "smtp.gmail.com");
-//        propiedades.put("mail.amtp.port", "587");
-        String cuerpoMensaje = "Bienvenido al sistema mercado Sena <br>"
-                + "Tu usuario es: " + dest + "<br>"
-                + "Tu contraseña es: " + clave + "<br>"
-                + "te estamos esperando!!";
-
-        Session sesion = Session.getDefaultInstance(propiedad);
-        String correoEnvia = "mercadosena2020@gmail.com";
-        String contrasena = "m3rc4d0$3n4";
-        String receptor = dest;
-        String asunto = "Registro Sistema de reportes";
-        String mensaje = cuerpoMensaje;
-
-        MimeMessage mail = new MimeMessage(sesion);
+       public boolean envCorreo(String dest, String clave,String codigo) {
         try {
-            mail.setFrom(new InternetAddress(correoEnvia));
-            mail.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
-            mail.setSubject(asunto);
-            mail.setText(mensaje);
-            mail.setContent("<h3>" + cuerpoMensaje + "</h3>", "text/html");
 
-            Transport transportar = sesion.getTransport("smtp");
-            transportar.connect(correoEnvia, contrasena);
-            transportar.sendMessage(mail, mail.getRecipients(Message.RecipientType.TO));
+            Properties props = new Properties();
 
-            transportar.close();
-            // System.out.println("xxx____correo enviado");
+// Nombre del host de correo, es smtp.gmail.com
+            props.setProperty("mail.smtp.host", "smtp.gmail.com");
+
+// TLS si está disponible
+            props.setProperty("mail.smtp.starttls.enable", "true");
+
+// Puerto de gmail para envio de correos
+            props.setProperty("mail.smtp.port", "587");
+
+// Nombre del usuario
+            props.setProperty("mail.smtp.user", "mercadosena2020@gmail.com");
+
+// Si requiere o no usuario y password para conectarse.
+            props.setProperty("mail.smtp.auth", "true");
+
+            Session session = Session.getDefaultInstance(props);
+            session.setDebug(true);
+
+            MimeMessage message = new MimeMessage(session);
+
+// Quien envia el correo
+            message.setFrom(new InternetAddress("mercadosena2020@gmail.com"));
+
+// A quien va dirigido
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(dest));
+
+            message.setSubject("Activación cuenta");
+            message.setText(
+                    "<p>Bienvenido al sistema mercado Sena:</p>"
+                    + "<p>Usuario: <b>" + dest + "</b></p>"
+                    + "<p>Nueva clave: <b>" + clave + "</b></p>"
+                    + "<p>Click aquí para activar su cuenta: <a href='http://localhost:8080/MercadoSena/activarCuenta?usuario="+dest+"&codigo="+codigo+"'>Activar cuenta</a></p>",
+                    "ISO-8859-1",
+                    "html");
+
+            Transport t = session.getTransport("smtp");
+
+            t.connect("mercadosena2020@gmail.com", "m3rc4d0$3n4");
+
+            t.sendMessage(message, message.getAllRecipients());
+
+            t.close();
+            //System.out.println("xxx____correo enviado");
             return true;
 
-        } catch (Exception e) {
+        } catch (MessagingException e) {
+
             System.out.println("xxx____correo No enviado " + e);
             return false;
         }
 
     }
+
+      
+      
     
 }
