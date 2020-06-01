@@ -14,9 +14,9 @@ $(function () {
     listarProductoByVendedor()
 
     $('.collapse').collapse()
-    
-    
- 
+
+
+
 
 })
 
@@ -46,6 +46,10 @@ function listarProductoByVendedor() {
         }
 
         console.log(arrayFinal)
+        if (arrayFinal.length == 0) {
+            queryEmphy()
+            return false
+        }
 
         records = arrayFinal
         totalRecords = arrayFinal.length
@@ -55,6 +59,23 @@ function listarProductoByVendedor() {
     })
 
 
+}
+
+function queryEmphy() {
+    let select = document.getElementById('tabla');
+    let str =
+            `<div class="col-lg-3">
+</div>
+    <div class="col-lg-6">
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+  No hay elementos!<strong> Publique un producto :D</strong>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+    
+</div>`
+    select.innerHTML = str;
 }
 
 function getImages() {
@@ -128,23 +149,25 @@ function generateTableBuscador() {
         
          <div class="text-right">
                             <a href="#" class="delete btn btn-danger"><i class="fas fa-minus-square"></i></a>
-                            <a href="#" class="editProduct btn btn-warning"><i class="fas fa-edit"></i></a>
-                            <a href="#" class="watch btn btn-primary"><i class="fas fa-laptop-medical"></i></a>
+                            <a href="#" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="watch btn btn-primary"><i class="far fa-images"></i></a>
                         </div>
           </figure>
        
         </div>`
         num++
     }
-    
-    
 
     select.innerHTML = str;
 }
 
+
+
 function getImagen(array) {
     let mensaje = ""
-    mensaje += `<img src="${array[0].url}" alt="" class="w-100 card-img-top">`
+    if (array.length !== 0) {
+        mensaje += `<img src="${array[0].url}" alt="" class="w-100 card-img-top">`
+    }
     return mensaje;
 }
 
@@ -166,7 +189,7 @@ function detailsProduct(producto) {
     textProduct(producto)
 }
 
-function textProduct(item){
+function textProduct(item) {
     let str = ''
     let element = document.getElementById('details')
     str += `<h2 class="h5 font-weight-bold mb-2 font-italic">${item.nombreProducto}</h2>
@@ -176,8 +199,8 @@ function textProduct(item){
               <p class="mb-0 text-small text-muted">Categoría: ${item.categorys.nombreCategoria}</p>`
     if (item.fechaVencimiento !== undefined) {
         str += `<p class="mb-0 text-small text-muted">Fecha de vencimiento: ${item.fechaVencimiento}</p>`
-    }          
-         str += `<p class="mb-0 text-small text-muted">Descripción: ${item.descripcionProducto}</p>`
+    }
+    str += `<p class="mb-0 text-small text-muted">Descripción: ${item.descripcionProducto}</p>`
     element.innerHTML = str
 }
 
@@ -202,35 +225,83 @@ function caruselImagenes(data) {
 }
 
 $(document).on('click', '.delete', function (e) {
+
     e.preventDefault()
+
     let parent = $(this)[0].parentElement.parentElement
     let idPro = $(parent).attr('idProducto')
 
+    Swal.fire({
+        title: 'esta seguro?',
+        text: "No se pueden revertir los cambios!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, Eliminar!'
+    }).then((result) => {
+
+        if (result.value) {
+            deleteOk(idPro)
+        }
+
+    })
 
 })
 
-$(document).on('click', '.editProduct', function (e){
-    
+
+function deleteOk(id) {
+
+    $('#carga').addClass('is-active');
+
+    $.ajax({
+        type: "POST",
+        url: './delProduct',
+        datatype: 'json',
+        data: {
+            id: id
+        }
+    }).done(function (data) {
+
+        console.log(data)
+
+        if (data) {
+            messageOk('Eliminado con éxito')
+            $pagination.twbsPagination('destroy');
+            listarProductoByVendedor()
+        } else {
+            messageError('=( up ocurrio un error')
+        }
+
+        $('#carga').removeClass('is-active')
+
+    })
+
+
+}
+
+$(document).on('click', '.editProduct', function (e) {
+
     e.preventDefault()
-   
+
     let parent = $(this)[0].parentElement.parentElement
     let idPro = $(parent).attr('idProducto')
     $('#modal-top').modal('show')
-    
+
     let producto = records.find(element => element.idProducto === idPro)
 
     console.log(producto)
-    
+
     document.getElementById('idProductoE').value = producto.idProducto
     document.getElementById('nameE').value = producto.nombreProducto
     document.getElementById('marcaE').value = producto.marcaProducto
-    
+
     getCategorias(producto.idCategoriaFK, producto.categorys.nombreCategoria)
-    
+
     document.getElementById('priceE').value = producto.valorProducto
     document.getElementById('cantidadE').value = producto.stockProducto
     document.getElementById('descripE').value = producto.descripcionProducto
-    
+
 })
 
 
