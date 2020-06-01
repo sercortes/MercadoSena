@@ -32,7 +32,7 @@
         <servlet-name>RutasVendedor</servlet-name>
         <url-pattern>/Products</url-pattern>
         <url-pattern>/newProduct</url-pattern>
-        <url-pattern>/editProduct</url-pattern>
+        <url-pattern>/delProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadProduct</servlet-name>

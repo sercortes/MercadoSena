@@ -72,6 +72,20 @@ public class ProductoDAO {
 
     }
 
+      public boolean delete(String id) {
+        try {
+            String sql = "DELETE FROM Producto WHERE idProducto = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            int rows = ps.executeUpdate();
+            boolean estado = rows > 0;
+            return estado;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+     
        public ArrayList<Producto> getProductsBySeller(String id) {
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM Producto PR "

@@ -75,6 +75,21 @@ public class ImagenesProductosDAO {
             return null;
         }
     }
+       
+        public boolean delete(String id) {
+        try {
+            String sql = "DELETE FROM imagenesProductos WHERE idProductoImageFK = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            int rows = ps.executeUpdate();
+            boolean estado = rows > 0;
+            return estado;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+       
 
     public void CloseAll() {
         Conexion.close(conn);
