@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,17 +30,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 
 /**
  *
  * @author serfin
  */
 public class UpdateProduct extends HttpServlet {
-    
-        private final String UPLOAD_DIRECTORY = "/opt/lampp/htdocs/sergio";
+
+    private final String UPLOAD_DIRECTORY = "/opt/lampp/htdocs/sergio";
     private final String SERVER_UPLOAD = "http://192.168.0.5/sergio/";
     private static final long serialVersionUID = 1L;
-
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -53,7 +54,7 @@ public class UpdateProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+
     }
 
     /**
@@ -67,15 +68,15 @@ public class UpdateProduct extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, UnsupportedEncodingException {
-     
-           response.setContentType("application/json");
-            try {
-                new Gson().toJson(updateForm(request, response), response.getWriter());
-            } catch (SQLException ex) {
-                System.out.println("=D");
-                Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        
+
+        response.setContentType("application/json");
+        try {
+            new Gson().toJson(updateForm(request, response), response.getWriter());
+        } catch (SQLException ex) {
+            System.out.println("=D");
+            Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     /**
@@ -89,9 +90,11 @@ public class UpdateProduct extends HttpServlet {
     }// </editor-fold>
 
     private boolean updateForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
-        
-         request.setCharacterEncoding("UTF-8");
+
+        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+
+        int hasFiles = Integer.parseInt(request.getParameter("files"));
 
         boolean codigo = false;
         String folder = "";
@@ -100,19 +103,18 @@ public class UpdateProduct extends HttpServlet {
         //lista contiene las rutas de las imagenes
         Producto producto = new Producto();
         List<ImagenesProducto> lista = new ArrayList<>();
+        List<ImagenesProducto> listaExistentes = new ArrayList<>();
 
         // instancia clase conexión
-//        Conexion conexion = new Conexion();
-//        Connection cone = conexion.getConnection();
-//
-//        ProductoDAO productoDAO = new ProductoDAO(cone);
-//        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(cone);
+        Conexion conexion = new Conexion();
+        Connection cone = conexion.getConnection();
 
-        // desactivando en autocommit
-//        if (cone.getAutoCommit()) {
-//            cone.setAutoCommit(false);
-//        }
-
+        ProductoDAO productoDAO = new ProductoDAO(cone);
+        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(cone);
+        //  desactivando en autocommit
+        if (cone.getAutoCommit()) {
+            cone.setAutoCommit(false);
+        }
         if (ServletFileUpload.isMultipartContent(request)) {
 
             try {
@@ -129,40 +131,64 @@ public class UpdateProduct extends HttpServlet {
 
                 }
 
-                producto.setIdEmpresaFK("1");
-                
-                System.out.println(":D");
-                //Insert Producto
-               // folder = Integer.toString(productoDAO.insertReturn(producto));
                 System.out.println(producto.toString());
 
-                for (FileItem item : multiparts) {
+                folder = producto.getIdProducto();
 
-                    if (!item.isFormField()) {
-                        // writen files and get List images
-                        lista = getLista(item, folder, (ArrayList<ImagenesProducto>) lista);
+                if (hasFiles == 1) {
+
+                    listaExistentes = imagenesProductosDAO.getImagenesByProduc(folder);
+
+                    for (FileItem item : multiparts) {
+
+                        if (!item.isFormField()) {
+                            // writen files and get List images
+                            lista = getLista(item, folder, (ArrayList<ImagenesProducto>) lista);
+                        }
+
                     }
 
+                    if (lista.size() + listaExistentes.size() > 5) {
+
+                        File tempFile;
+//
+
+                        URL url;
+                        for (ImagenesProducto item : listaExistentes) {
+                            
+                            url = new URL(item.getUrl());
+                            String nameFile = FilenameUtils.getName(url.getPath());
+                            tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder + File.separator + nameFile);
+                            
+                            if (tempFile.exists()) {
+                                tempFile.delete();
+                            }
+
+                            imagenesProductosDAO.deleteByidImagen(item.getIdImagen());
+                        }
+
+                    }
+
+                     // insert imagenes productos
+                for (ImagenesProducto item : lista) {
+                    imagenesProductosDAO.insertReturn(item);
                 }
-                
-                for(ImagenesProducto item : lista){
-                    System.out.println(item.toString());
+                    
                 }
 
-                // insert imagenes productos
-//                for (ImagenesProducto item : lista) {
-//                    imagenesProductosDAO.insertReturn(item);
-//                }
-
-//                cone.commit();
+               
+                cone.commit();
                 codigo = true;
 
             } catch (Exception e) {
 
-//                cone.rollback();
+                cone.rollback();
                 codigo = false;
                 System.out.println(e);
 
+            } finally {
+                productoDAO.CloseAll();
+                imagenesProductosDAO.CloseAll();
             }
 
         } else {
@@ -173,11 +199,9 @@ public class UpdateProduct extends HttpServlet {
 
         return codigo;
 
-        
     }
 
-    
-        private Producto getParams(FileItem item, Producto producto) throws UnsupportedEncodingException {
+    private Producto getParams(FileItem item, Producto producto) throws UnsupportedEncodingException {
 
         switch (item.getFieldName()) {
 
@@ -246,12 +270,17 @@ public class UpdateProduct extends HttpServlet {
 
     }
 
-    public List<ImagenesProducto> getLista(FileItem item, String folder, ArrayList<ImagenesProducto> lista) throws Exception {
+    public List<ImagenesProducto> getLista(FileItem item, String folder, ArrayList<ImagenesProducto> lista
+    ) throws Exception {
 
         ImagenesProducto imagenesProducto;
 
         String name = new File(item.getName()).getName();
         File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder + File.separator + name);
+
+        if (StringUtils.isNullOrEmpty(name)) {
+            throw new Exception();
+        }
 
         if (tempFile.exists()) {
             tempFile.delete();
@@ -268,6 +297,4 @@ public class UpdateProduct extends HttpServlet {
 
     }
 
-    
-    
 }

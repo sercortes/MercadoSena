@@ -291,6 +291,7 @@ $(document).on('click', '.editProduct', function (e) {
     let producto = records.find(element => element.idProducto === idPro)
 
     console.log(producto)
+    generateImages(producto.imagen)
 
     document.getElementById('idProductoE').value = producto.idProducto
     document.getElementById('nameE').value = producto.nombreProducto

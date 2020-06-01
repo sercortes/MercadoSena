@@ -52,14 +52,14 @@ public class ImagenesProductosDAO {
 
     }
      
-       public ArrayList<ImagenesProducto> getImagenesByProduct(String id) {
+       public ArrayList<ImagenesProducto> getImagenesByProduc(String id) {
+           List<ImagenesProducto> list = new ArrayList<ImagenesProducto>();
         try {
             String sql = "SELECT idImagenPro, urlProducto, idProductoImageFK FROM imagenesProductos IP "
-                    + "inner join Producto P ON IP.idProductoImageFK = P.idProducto WHERE P.idEmpresaFK = ?";
+                    + "inner join Producto P ON IP.idProductoImageFK = P.idProducto WHERE IP.idProductoImageFK = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
-           List<ImagenesProducto> list = new ArrayList<ImagenesProducto>();
             ImagenesProducto imagenesProducto;
             while (rs.next()) {
                 imagenesProducto = new ImagenesProducto();
@@ -73,6 +73,44 @@ public class ImagenesProductosDAO {
         } catch (Exception e) {
             System.out.println(e);
             return null;
+        }
+    }
+     
+       public ArrayList<ImagenesProducto> getImagenesByEmpresa(String id) {
+           List<ImagenesProducto> list = new ArrayList<ImagenesProducto>();
+        try {
+            String sql = "SELECT idImagenPro, urlProducto, idProductoImageFK FROM imagenesProductos IP "
+                    + "inner join Producto P ON IP.idProductoImageFK = P.idProducto WHERE P.idEmpresaFK = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            ImagenesProducto imagenesProducto;
+            while (rs.next()) {
+                imagenesProducto = new ImagenesProducto();
+                imagenesProducto.setIdImagen(rs.getString("idImagenPro"));
+                imagenesProducto.setUrl(rs.getString("urlProducto"));
+                imagenesProducto.setIdProductoFK(rs.getString("idProductoImageFK"));
+                
+                list.add(imagenesProducto);
+            }
+            return (ArrayList<ImagenesProducto>) list;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+       
+       public boolean deleteByidImagen(String id) {
+        try {
+            String sql = "DELETE FROM imagenesProductos WHERE idImagenPro = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            int rows = ps.executeUpdate();
+            boolean estado = rows > 0;
+            return estado;
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+            return false;
         }
     }
        

@@ -1,8 +1,6 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+var imagesG
+var arregloIma
+var arregloRes
 
 function getCategorias(value, name) {
 
@@ -26,35 +24,57 @@ function getCategorias(value, name) {
     })
 
 }
-//var imagesG
 
-//function generateImages(data) {
-//
-//     if ($('.input-images-1 .has-files').remove().length !== 0) {
-//          $('.input-images-1 .has-files').remove()
-//    }
-//    
-////    let arregloI = []
-////    
-////    for (var item of data){
-////        var i = 0
-////        let obj = {
-////            id : i,
-////            src : item.url
-////        }
-////        i++
-////        arregloI.push(obj)
-////    }
-//
-//
-//$('.input-images-1').imageUploader({
-//    imagesInputName: 'images',
-//    preloadedInputName: 'images'
-//});
-//
-//imagesG = $('.input-images-1').clone();
-////$('.input-images-1').addClass('has')
-//}
+
+function cleanInput(){
+//    $('.input-images-1').replaceWith(imagesG)
+//    arregloIma = arregloRes
+    generateDivClean()
+}
+
+function generateDivClean(){
+        $('.input-images-1 .has-files').remove()
+    
+    $('.input-images-1').imageUploader({
+        preloaded: arregloRes,
+        imagesInputName: 'images',
+        preloadedInputName: 'pre'
+});
+
+}
+
+function generateImages(data) {
+    
+       $('.input-images-1 .has-files').remove()
+       
+    let arregloI = []
+    
+    for (var item of data){
+        var i = 0
+        let obj = {
+            id : i,
+            src : item.url
+        }
+        i++
+        arregloI.push(obj)
+    }
+
+arregloIma = arregloI
+arregloRes = arregloI
+
+$('.input-images-1').imageUploader({
+        preloaded: arregloI,
+    imagesInputName: 'images',
+    preloadedInputName: 'pre'
+});
+
+imagesG = $('.input-images-1').clone();
+
+}
+
+$("#modal-top").on("hide.bs.modal", function () {
+    $('.input-images-1').replaceWith(imagesG) 
+});
 
 
 
@@ -80,28 +100,26 @@ document.getElementById('formUpdate').addEventListener('submit', e => {
     }
     form.addClass('was-validated');
     
-    
-    
     if (!checkOne()) {
-        messageInfo('seleccione las imágenes')
-        return false
+        messageInfo('Seleccione alguna imagen')
+        return false;
     }
-    
-    if (!checkextension()) {
-        messageInfo('suba imágenes válidas png o jpg')
-        generateOtherDiv()
-        return false
-    }
-
+   
     if (!checkSizeItems()) {
         messageInfo('Seleccione solo 5 imágenes')
-        generateOtherDiv()
+        cleanInput()
+        return false
+    }
+   
+    if (!checkextension()) {
+        messageInfo('suba imágenes válidas png o jpg')
+        cleanInput()
         return false
     }
 
     if (!checkSize()) {
         messageInfo('Las imágenes estan muy grandes')
-        generateOtherDiv()
+        cleanInput()
         return false
     }
 
@@ -110,17 +128,22 @@ document.getElementById('formUpdate').addEventListener('submit', e => {
         return false
     }  
     
+    let files = ''
+    if (checkIsNewFiles()) {
+        files = 1;
+    }else{
+        files = 0
+    }
     
     var form = $('#formUpdate')[0]
     var data = new FormData(form)
-
     
     $('#carga').addClass('is-active');
     
       $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: "UpdateProduct",
+        url: "UpdateProduct?files="+files,
         data: data,
         processData: false,
         contentType: false,
@@ -133,6 +156,8 @@ document.getElementById('formUpdate').addEventListener('submit', e => {
             if (data) {
 
                 messageOk('Generado con éxito')
+                $pagination.twbsPagination('destroy');
+                listarProductoByVendedor()
 
             } else {
 
@@ -140,55 +165,36 @@ document.getElementById('formUpdate').addEventListener('submit', e => {
 
             }
 
-
         },
         error: function (e) {
 
-        console.log(e)
+            console.log(e)
             messageError('=(' + e)
              $('#carga').removeClass('is-active')
 
         }
     });
 
-
-
-    
-    
-    
-    
-
 })
 
-$(document).ready(function () {
-
-    $('.input-images-1').imageUploader({
-        maxSize: 2 * 1024 * 1024,
-        maxFiles: 5
-    });
+function checkIsNewFiles(){
     
-
-imagesG = $('.input-images-1').clone();
-
-});
-
-$("#modal-top").on("show.bs.modal", function(){
-   
+    var file = document.getElementsByName("images[]");
+    let array = file[0].files
     
-})
-
-$("#modal-top").on("hide.bs.modal", function () {
-
- if ($('.input-images-1 .has-files').remove().length !== 0) {
-        generateOtherDiv()
+    if (array.length>0) {
+        return true
     }
-});
+    return false
+    
+}
 
 document.getElementById('resets').addEventListener('click', function(e){
     e.preventDefault()
     if ($('.input-images-1 .has-files').remove().length !== 0) {
         generateOtherDiv()
     }
+    arregloIma = []
   return false
 })
 
@@ -234,7 +240,7 @@ function checkSizeItems() {
     var file = document.getElementsByName("images[]");
     let array = file[0].files
 
-    if (array.length >= 6) {
+    if (array.length+arregloIma.length >= 6) {
         return false
     }
     return true
@@ -243,12 +249,10 @@ function checkSizeItems() {
 
 function checkOne() {
     var file = document.getElementsByName("images[]");
-
     let array = file[0].files
-
-    if (array.length <= 0) {
-        return false
-    }
+         if (array.length+arregloIma.length <= 0) {
+            return false
+        }  
     return true
 }
 
