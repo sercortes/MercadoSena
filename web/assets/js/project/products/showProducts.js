@@ -149,7 +149,7 @@ function generateTableBuscador() {
         
          <div class="text-right">
                             <a href="#" class="delete btn btn-danger"><i class="fas fa-minus-square"></i></a>
-                            <a href="#" class="btn btn-warning"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="editProduct btn btn-warning"><i class="fas fa-edit"></i></a>
                             <a href="#" class="watch btn btn-primary"><i class="far fa-images"></i></a>
                         </div>
           </figure>
@@ -166,7 +166,7 @@ function generateTableBuscador() {
 function getImagen(array) {
     let mensaje = ""
     if (array.length !== 0) {
-        mensaje += `<img src="${array[0].url}" alt="" class="w-100 card-img-top">`
+        mensaje += `<img src="${array[0].url}" alt="" class="img-fluid fit-image">`
     }
     return mensaje;
 }

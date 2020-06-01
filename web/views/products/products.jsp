@@ -24,10 +24,6 @@
 
     <div id="fondo-rojo" class="">
         
-        <style>
- 
-        </style>
-
 <div class="row" >
     <div class="col-lg-11 mx-auto">
         <!-- FIRST EXAMPLE ===================================-->
