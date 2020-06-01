@@ -202,12 +202,12 @@ function checkOne() {
 
 function checkInputs() {
 
-    let name = document.getElementById('nameE').value
-    let desc = document.getElementById('descripE').value
-    let price = document.getElementById('priceE').value
-    let cantidad = document.getElementById('cantidadE').value
-    let marca = document.getElementById('marcaE').value
-    let category = document.getElementById('categoryE').value
+    let name = document.getElementById('name').value
+    let desc = document.getElementById('descrip').value
+    let price = document.getElementById('price').value
+    let cantidad = document.getElementById('cantidad').value
+    let marca = document.getElementById('marca').value
+    let category = document.getElementById('category').value
 
     console.log(name)
 
