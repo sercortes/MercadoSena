@@ -118,7 +118,7 @@ public class Selects extends HttpServlet {
 
         Conexion conexion = new Conexion();
         ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
-        ArrayList<ImagenesProducto> listaImagenes = imagenesProductosDAO.getImagenesByProduct("1");
+        ArrayList<ImagenesProducto> listaImagenes = imagenesProductosDAO.getImagenesByEmpresa("1");
 
         response.setContentType("application/json");
         imagenesProductosDAO.CloseAll();

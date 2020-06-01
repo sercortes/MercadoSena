@@ -1,10 +1,11 @@
-<div class="page-content page-container" id="page-content">
-    <div class="padding">
-        <div class="row container d-flex justify-content-center">
-            <div class="col-sm-6">
-                <div id="modal-top" class="modal fade" data-backdrop="true">
-                    <div class="modal-dialog modal-top">
-                        <div class="modal-content no-radius">
+
+                            
+                            
+<div class="modal fade text-center" id="modal-top" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document" >
+        <div class="modal-content">
+                            
+                            
                             <div class="modal-header">
                                 <div class="modal-title text-md">
                                     <h3 class="titulos card-title hvr-icon-pop text-center pb-3">
@@ -14,11 +15,11 @@
                             <div class="modal-body" id="fondo-rojo">
 
                                     
-                                <div class="container-fluid" id="">
+                                <div class="container" id="">
 
                                     <div class="row  d-flex justify-content-center" >
 
-                                        <div class="col-10 pb-4 card p-5 shadow-sm" >
+                                    
 
 
                                             <form class="needs-validation" method="POST" name="formUpdate" id="formUpdate" enctype="multipart/form-data" acceptcharset="UTF-8">
@@ -195,7 +196,7 @@
 
                                                 </div>
 
-                                        </div>
+                                   
 
                                         <div id="carga" class="loader loader-bouncing"></div>
 
@@ -209,7 +210,4 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+          

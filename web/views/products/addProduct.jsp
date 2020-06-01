@@ -17,7 +17,7 @@
 
     <div class="row d-flex justify-content-center pb-3" id="fondo-rojo">
 
-        <div class="col-10 pb-4 card p-5 shadow-sm">
+        <div class="col-10 pb-4 pt-2 shadow-sm">
             <h3 class="titulos card-title hvr-icon-pop text-center pb-3"><i class="fas fa-gifts naranja"></i> Nuevo Producto</h3>
 
             <form class="needs-validation" action="UploadProduct" method="POST" name="formProduct" id="formProduct" enctype="multipart/form-data" acceptcharset="UTF-8">
