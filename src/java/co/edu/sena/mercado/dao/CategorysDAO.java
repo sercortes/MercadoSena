@@ -29,7 +29,7 @@ public class CategorysDAO {
     
        public ArrayList<Categorys> getCategorys() {
         try {
-            String sql = "SELECT idCategoria, nombreCategoria FROM categoriaProducto";
+            String sql = "SELECT idCategoria, nombreCategoria FROM categoriaproducto";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             List<Categorys> list = new ArrayList<Categorys>();

@@ -132,8 +132,8 @@ public class UpdateProduct extends HttpServlet {
                 }
 
                 System.out.println(producto.toString());
-
                 folder = producto.getIdProducto();
+                productoDAO.updateProduct(producto);
 
                 if (hasFiles == 1) {
 
@@ -226,14 +226,14 @@ public class UpdateProduct extends HttpServlet {
             case "descripE":
                 producto.setDescripcionProducto(item.getString("UTF-8"));
                 break;
-            case "envios":
+            case "enviosE":
                 if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
                     //  producto.setFechaVencimiento("2020-01-01");
                 } else {
                     producto.setDiasEnvios(item.getString("UTF-8"));
                 }
                 break;
-            case "medidas":
+            case "medidasE":
                 if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
                     //  producto.setFechaVencimiento("2020-01-01");
                 } else {
@@ -241,7 +241,7 @@ public class UpdateProduct extends HttpServlet {
                 }
                 break;
 
-            case "empaque":
+            case "empaqueE":
                 if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
                     //  producto.setFechaVencimiento("2020-01-01");
                 } else {
@@ -249,14 +249,14 @@ public class UpdateProduct extends HttpServlet {
                 }
                 break;
 
-            case "embalaje":
+            case "embalajeE":
                 if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
                     //  producto.setFechaVencimiento("2020-01-01");
                 } else {
                     producto.setEmbalajeProducto(item.getString("UTF-8"));
                 }
                 break;
-            case "ventajas":
+            case "ventajasE":
                 if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
                     //  producto.setFechaVencimiento("2020-01-01");
                 } else {

@@ -14,10 +14,7 @@ $(function () {
     listarProductoByVendedor()
 
     $('.collapse').collapse()
-
-
-
-
+    
 })
 
 function listarProductoByVendedor() {
@@ -131,11 +128,10 @@ function generateTableBuscador() {
               <h2 class="h5 font-weight-bold mb-2 font-italic">${item.nombreProducto}</h2>
               <p class="mb-0 text-small text-muted">Cantidad: ${item.stockProducto}</p>
               <p class="mb-0 text-small text-muted">Valor: ${item.valorProducto}</p>
-              <p class="mb-0 text-small text-muted">Marca: ${item.marcaProducto}</p>
             </figcaption>
        
-      <div class="col-lg-12 mb-5">
-       <a data-toggle="collapse" href="#collapseExample${num}" role="button" aria-expanded="true" aria-controls="collapseExample1" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
+      <div class="col-lg-12 mb-5 p-0">
+       <a data-toggle="collapse" href="#collapseExample${num}" role="button" aria-expanded="false" aria-controls="collapseExample1" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
           <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Descripción</strong><i class="fa fa-angle-down"></i></p>
         </a>
         <div id="collapseExample${num}" class="collapse shadow-sm">
@@ -190,17 +186,35 @@ function detailsProduct(producto) {
 }
 
 function textProduct(item) {
+    console.log(item)
     let str = ''
     let element = document.getElementById('details')
-    str += `<h2 class="h5 font-weight-bold mb-2 font-italic">${item.nombreProducto}</h2>
+    str += `<h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
               <p class="mb-0 text-small text-muted">Cantidad: ${item.stockProducto}</p>
-              <p class="mb-0 text-small text-muted">Valor: ${item.valorProducto}</p>
+              <p class="mb-0 text-small text-muted">Valor: $ ${item.valorProducto}</p>
               <p class="mb-0 text-small text-muted">Marca: ${item.marcaProducto}</p>
-              <p class="mb-0 text-small text-muted">Categoría: ${item.categorys.nombreCategoria}</p>`
-    if (item.fechaVencimiento !== undefined) {
-        str += `<p class="mb-0 text-small text-muted">Fecha de vencimiento: ${item.fechaVencimiento}</p>`
+              <p class="mb-0 text-small text-muted">Categoría: ${item.categorys.nombreCategoria}</p>
+              <p class="mb-0 text-small text-muted">Descripción : ${item.descripcionProducto}</p>`
+    if (item.diasEnvios !== undefined) {   
+        str += `
+        <hr>
+        <div class="col-lg-12 mb-5 p-0">
+       <a data-toggle="collapse" href="#collapseExample${item.idProducto}" role="button" aria-expanded="false" aria-controls="collapseExample1" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
+          <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Información Adicional</strong><i class="fa fa-angle-down"></i></p>
+        </a>
+        <div id="collapseExample${item.idProducto}" class="collapse shadow-sm">
+          <div class="card">
+            <div class="card-body">
+             <p class="mb-0 text-small text-muted">Días de envío: ${item.diasEnvios}</p>
+         <p class="mb-0 text-small text-muted">Medidas : ${item.medidaProducto}</p>
+         <p class="mb-0 text-small text-muted">Empaque : ${item.empaqueProducto}</p>
+         <p class="mb-0 text-small text-muted">Embalaje : ${item.embalajeProducto}</p>
+         <p class="mb-0 text-small text-muted">Ventajas : ${item.ventajaProducto}</p>
+            </div>
+          </div>
+        </div>
+      </div>`
     }
-    str += `<p class="mb-0 text-small text-muted">Descripción: ${item.descripcionProducto}</p>`
     element.innerHTML = str
 }
 
@@ -289,19 +303,21 @@ $(document).on('click', '.editProduct', function (e) {
     $('#modal-top').modal('show')
 
     let producto = records.find(element => element.idProducto === idPro)
-
     console.log(producto)
+    
     generateImages(producto.imagen)
-
     document.getElementById('idProductoE').value = producto.idProducto
     document.getElementById('nameE').value = producto.nombreProducto
     document.getElementById('marcaE').value = producto.marcaProducto
-
     getCategorias(producto.idCategoriaFK, producto.categorys.nombreCategoria)
-
     document.getElementById('priceE').value = producto.valorProducto
     document.getElementById('cantidadE').value = producto.stockProducto
     document.getElementById('descripE').value = producto.descripcionProducto
+    document.getElementById('enviosE').value = producto.diasEnvios
+    document.getElementById('medidasE').value = producto.medidaProducto
+    document.getElementById('empaqueE').value = producto.empaqueProducto
+    document.getElementById('embalajeE').value = producto.embalajeProducto
+    document.getElementById('ventajasE').value = producto.ventajaProducto
 
 })
 

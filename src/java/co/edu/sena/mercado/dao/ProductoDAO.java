@@ -34,7 +34,7 @@ public class ProductoDAO {
     
      public int insertReturn(Producto producto) {
         int idActividad = 0;
-        String sql = "INSERT INTO Producto (nombreProducto, valorProducto, stockProducto, marcaProducto, "
+        String sql = "INSERT INTO producto (nombreProducto, valorProducto, stockProducto, marcaProducto, "
                 + "descripcionProducto, diasEnvioProducto, medidasProducto, empaqueProducto, "
                 + "embalajeProducto, ventajasProducto, "
                 + "idEmpresaFK, idCategoriaFK) "
@@ -74,7 +74,7 @@ public class ProductoDAO {
 
       public boolean delete(String id) {
         try {
-            String sql = "DELETE FROM Producto WHERE idProducto = ?";
+            String sql = "DELETE FROM producto WHERE idProducto = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             int rows = ps.executeUpdate();
@@ -85,12 +85,44 @@ public class ProductoDAO {
             return false;
         }
     }
+      
+        public boolean updateProduct(Producto producto) {
+            try {
+           
+            String sql = "UPDATE producto set nombreProducto = ?, valorProducto = ?, "
+                    + "stockProducto = ?, marcaProducto = ?, descripcionProducto = ?, "
+                    + "diasEnvioProducto = ?, medidasProducto = ?, empaqueProducto = ?,"
+                    + "embalajeProducto = ?, ventajasProducto = ? "
+                    + "WHERE idProducto = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            ps.setString(1, producto.getNombreProducto());
+            ps.setDouble(2, producto.getValorProducto());
+            ps.setInt(3, producto.getStockProducto());
+            ps.setString(4, producto.getMarcaProducto());
+            ps.setString(5, producto.getDescripcionProducto());
+            ps.setString(6, producto.getDiasEnvios());
+            ps.setString(7, producto.getMedidaProducto());
+            ps.setString(8, producto.getEmpaqueProducto());
+            ps.setString(9, producto.getEmbalajeProducto());
+            ps.setString(10, producto.getVentajaProducto());
+            
+            ps.setString(11, producto.getIdProducto());
+            
+            int rows = ps.executeUpdate();
+            boolean estado = rows > 0;
+            return estado;
+        } catch (Exception ex) {
+            System.out.println("Error edit " + ex.getMessage());
+            return false;
+        }
+    }
      
        public ArrayList<Producto> getProductsBySeller(String id) {
         try {
-            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM Producto PR "
-                    + "INNER JOIN Empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
-                    + "INNER JOIN categoriaProducto CP ON PR.idCategoriaFK=CP.idCategoria "
+            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR "
+                    + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
+                    + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE EM.idEmpresa = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
@@ -107,6 +139,11 @@ public class ProductoDAO {
                 producto.setMarcaProducto(rs.getString("marcaProducto"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setIdCategoriaFK(rs.getString("idCategoriaFK"));
+                producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
+                producto.setMedidaProducto(rs.getString("medidasProducto"));
+                producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
+                producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
+                producto.setVentajaProducto(rs.getString("ventajasProducto"));
                 
 //                if (!StringUtils.isNullOrEmpty(rs.getString("fechaVencimiento"))) {
 //                     producto.setFechaVencimiento(rs.getString("fechaVencimiento"));

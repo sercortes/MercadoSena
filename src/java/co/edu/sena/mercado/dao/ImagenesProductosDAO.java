@@ -30,7 +30,7 @@ public class ImagenesProductosDAO {
     
      public boolean insertReturn(ImagenesProducto imagenes) {
 
-        String sql = "INSERT INTO imagenesProductos (urlProducto, idProductoImageFK) "
+        String sql = "INSERT INTO imagenesproductos (urlProducto, idProductoImageFK) "
                 + "VALUES (?, ?)";
 
         try {
@@ -39,6 +39,8 @@ public class ImagenesProductosDAO {
             ps.setString(1, imagenes.getUrl());
             ps.setString(2, imagenes.getIdProductoFK());
 
+            
+            System.out.println(ps.toString());
             ps.executeUpdate();
             
             return true;
@@ -55,8 +57,8 @@ public class ImagenesProductosDAO {
        public ArrayList<ImagenesProducto> getImagenesByProduc(String id) {
            List<ImagenesProducto> list = new ArrayList<ImagenesProducto>();
         try {
-            String sql = "SELECT idImagenPro, urlProducto, idProductoImageFK FROM imagenesProductos IP "
-                    + "inner join Producto P ON IP.idProductoImageFK = P.idProducto WHERE IP.idProductoImageFK = ?";
+            String sql = "SELECT idImagenPro, urlProducto, idProductoImageFK FROM imagenesproductos IP "
+                    + "inner join producto P ON IP.idProductoImageFK = P.idProducto WHERE IP.idProductoImageFK = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
@@ -79,8 +81,8 @@ public class ImagenesProductosDAO {
        public ArrayList<ImagenesProducto> getImagenesByEmpresa(String id) {
            List<ImagenesProducto> list = new ArrayList<ImagenesProducto>();
         try {
-            String sql = "SELECT idImagenPro, urlProducto, idProductoImageFK FROM imagenesProductos IP "
-                    + "inner join Producto P ON IP.idProductoImageFK = P.idProducto WHERE P.idEmpresaFK = ?";
+            String sql = "SELECT idImagenPro, urlProducto, idProductoImageFK FROM imagenesproductos IP "
+                    + "inner join producto P ON IP.idProductoImageFK = P.idProducto WHERE P.idEmpresaFK = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
@@ -102,7 +104,7 @@ public class ImagenesProductosDAO {
        
        public boolean deleteByidImagen(String id) {
         try {
-            String sql = "DELETE FROM imagenesProductos WHERE idImagenPro = ?";
+            String sql = "DELETE FROM imagenesproductos WHERE idImagenPro = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             int rows = ps.executeUpdate();
@@ -116,7 +118,7 @@ public class ImagenesProductosDAO {
        
         public boolean delete(String id) {
         try {
-            String sql = "DELETE FROM imagenesProductos WHERE idProductoImageFK = ?";
+            String sql = "DELETE FROM imagenesproductos WHERE idProductoImageFK = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             int rows = ps.executeUpdate();
