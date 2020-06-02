@@ -94,6 +94,7 @@ public class registro extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
 
         String accion = request.getParameter("accion");
+         System.out.println("...........hpta 11");
         switch (accion) {
             case "consultaTipoDoc":
                 listaTipoDoc = new ArrayList<>();
@@ -183,6 +184,7 @@ public class registro extends HttpServlet {
                 empresaDTO.setIdCiudad(Integer.parseInt( request.getParameter("idCiudadEmpresa")));
                 //se la sesion
                 empresaDTO.setIdUsuario(Integer.parseInt("4"));
+                System.out.println("...........hpta");
                 if(empresaDAO.registroEmpresa(empresaDTO)){
                 response.getWriter().print(true);
                 }else{
