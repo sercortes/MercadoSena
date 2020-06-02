@@ -32,5 +32,6 @@
 
 <%@include file="/views/login/login.jspf"%>
 <%@include file="/views/registro/registro.jspf"%>
+<%@include file="/views/registro/registroEmpresa.jspf"%>
 
 <%@include file="/views/template/footer.jspf"%>

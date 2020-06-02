@@ -3,14 +3,14 @@
 function consultarDatosFormulario() {
     consultaTipoDoc();
     consultagenero();
-    consultaCiudad();
+    consultaCiudad('#ciudad','ciudadUsuario');
     // consultaRol('comprador');
     modalRegistro();
 }
 
 function consultaRol() {
     $.ajax({
-        url: "./comprador?accion=consultaRol",
+        url: "./registro?accion=consultaRol",
         type: 'POST',
         dataType: 'json',
         contentType: false,
@@ -28,7 +28,7 @@ function consultaRol() {
 function consultaTipoDoc() {
 
     $.ajax({
-        url: "./comprador?accion=consultaTipoDoc",
+        url: "./registro?accion=consultaTipoDoc",
         type: 'POST',
         dataType: 'json',
         contentType: false,
@@ -43,7 +43,7 @@ function consultaTipoDoc() {
 }
 function consultagenero() {
     $.ajax({
-        url: "./comprador?accion=consultaGenero",
+        url: "./registro?accion=consultaGenero",
         type: 'POST',
         dataType: 'json',
         contentType: false,
@@ -55,7 +55,7 @@ function consultagenero() {
         }
     })
 }
-function consultaCiudad() {
+function consultaCiudad(idDiv,idInput) {
     $.ajax({
         url: "./comprador?accion=consultaCiudad",
         type: 'POST',
@@ -63,7 +63,7 @@ function consultaCiudad() {
         contentType: false,
         processData: false,
         success: function (data) {
-            selects(data, '#ciudad', 'ciudadUsuario');
+            selects(data, idDiv, idInput);
 
 
         }
@@ -95,8 +95,12 @@ function selects(datos, idDiv, idInput) {
             for (var i = 0; i < datos.length; i++) {
                 select += '<option value="' + datos[i].idCiudad + '">' + datos[i].nombreCiudad + '</option>';
             }
-        }
+        } else if (idDiv === '#ciudadEmpresa') {
+            for (var i = 0; i < datos.length; i++) {
+                select += '<option value="' + datos[i].idCiudad + '">' + datos[i].nombreCiudad + '</option>';
+            }
     }
+}
     //  console.log(select);
     select += '</select>';
     $(idDiv).html(select);
@@ -134,7 +138,7 @@ function selects(datos, idDiv, idInput) {
             btn.disabled = true;
        
             $.ajax({
-                url: "./comprador?accion=registrarUsuario&" + datos,
+                url: "./registro?accion=registrarUsuario&" + datos,
                 type: 'POST',
                 contentType: false,
                 processData: false,
@@ -206,6 +210,7 @@ function valCampos(campos) {
     for (var i = 0; i < campos.length; i++) {
         if (campos[i] === '' || campos[i] === null) {
             rta = false;
+           // alert('akskhhd');
             return rta;
         }
     }
@@ -226,3 +231,54 @@ function limpiarFormulario(formularioRec) {
     }
     // campo1[0].focus();
 }
+
+function consultarDatosFormularioEmpresa(){
+    consultaCiudad('#ciudadEmpresa','idCiudadEmpresa');
+}
+
+
+ $('#registroEmpresa').submit(function (e) {
+
+        // $('#registrarUsuario').click(function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        var formulario = $("#registroEmpresa");
+        var datosVal = [
+            nombreEmpresa = $('#nombreEmpresa').val(),
+            celularEmpresa = $('#celularEmpresa').val(),
+            telefonoEmpresa = $('#telefonoEmpresa').val(),
+            correoEmpresa = $('#correoEmpresa').val(),
+            direccionEmpresa = $('#direccionEmpresa').val(),
+            idCiudadEmpresa = $('#idCiudadEmpresa').val()
+            
+
+        ];
+         //console.log(datosVal);
+
+        if ($('#registroEmpresa')[0].checkValidity() && valCampos(datosVal)) {
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            var datos = $('#registroEmpresa').serialize();
+            var btn = document.getElementById('registrarEmpresa');
+            btn.disabled = true;
+       
+            $.ajax({
+                url: "./registro?accion=registroEmpresa&" + datos,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                success: function (data) {
+                    alert(data);
+                    limpiarFormulario('#registroEmpresa');
+                    formulario.addClass('was-validated');
+                    btn.disabled = false;
+                }
+            })
+
+        } else {
+
+            formulario.addClass('was-validated');
+        }
+    })

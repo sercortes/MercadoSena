@@ -1,0 +1,44 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+ <h3>Registro empresa</h3>
+ <form id="registroEmpresa" class="needs-validation" >
+
+        <input type="hidden" name="rol" id="rol" value="">
+        <label>Nombre:</label><br>
+        <input type="text" class="form-control was-validated" minlength="1" maxlength="100" placeholder="Nombre" id="nombreEmpresa" name="nombreEmpresa" required>
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+        </div>
+        <br> 
+       
+        <label>Celular:</label><br>
+        <input type="number" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularEmpresa" name="celularEmpresa" required>
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+        </div><br> 
+        <label>Teléfono:</label><br>
+        <input type="text" placeholder="Número" class="form-control was-validated" id="telefonoEmpresa"  maxlength="50" name="telefonoEmpresa" required >
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+        </div><br> 
+        <label>Correo:</label><br>
+        <input type="text" placeholder="Correo" class="form-control was-validated"  maxlength="100" id="correoEmpresa" name="correoEmpresa" required >
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+        </div><br> 
+        <label>Seleccione su ciudad:</label><br>
+        <div id='ciudadEmpresa'>
+
+        </div><br>
+         <label>Dirección:</label><br>
+        <input type="text" placeholder="Dirección" class="form-control was-validated" minlength="1" maxlength="100" id="direccionEmpresa" name="direccionEmpresa" required>
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+
+        </div>
+        <br> 
+
+        <button class="botonRegistro" id="registrarEmpresa">Registrar</button>
+       
+    </form>
+ <input type="submit" value="cuidad" onclick="consultarDatosFormularioEmpresa()">

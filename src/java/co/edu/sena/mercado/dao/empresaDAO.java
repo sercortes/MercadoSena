@@ -22,17 +22,17 @@ public class empresaDAO {
     Connection cn;
     PreparedStatement ps;
     ResultSet rs;
-    Conexion con = new Conexion();
+    Conexion con=new Conexion();
     String consulta;
     empresaDTO empresaDTO = new empresaDTO();
     ArrayList<empresaDTO> listaEmpresa = new ArrayList<>();
 
     public boolean registroEmpresa(empresaDTO empresaDTO) {
-        con=new Conexion();
+        con = new Conexion();
         consulta = "INSERT INTO empresa( esEmpresa, nombreEmpresa, direccionEmpresa, telefonoEmpresa, celularEmpresa, correoEmpresa, idCiudadFK, idUsuarioFK) VALUES (?,?,?,?,?,?,?,?)";
         try {
-            cn=con.getConnection();
-            ps=cn.prepareStatement(consulta);
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
             ps.setInt(1, empresaDTO.getEsEmpresa());
             ps.setString(2, empresaDTO.getNombreEmpresa());
             ps.setString(3, empresaDTO.getDirEmpresa());
@@ -42,16 +42,69 @@ public class empresaDAO {
             ps.setInt(7, empresaDTO.getIdCiudad());
             ps.setInt(8, empresaDTO.getIdUsuario());
             ps.executeUpdate();
-            System.out.println("..... registro de empresa realizado consulta "+ps.toString());
+            System.out.println("..... registro de empresa realizado consulta " + ps.toString());
+              //cerrarCon(ps, cn, rs);
             return true;
-          
 
         } catch (SQLException e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxx error al registrar empresa "+e);
-            System.out.println("xxxxxxxxxxxxxxxxxxx consulta "+ps.toString());
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al registrar empresa " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+             // cerrarCon(ps, cn, rs);
             return false;
         }
 
     }
 
+    public empresaDTO buscarEmpresa(int idUsuario) {
+        con = new Conexion();
+        consulta = "SELECT * FROM empresa WHERE idUsuarioFK=?";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                empresaDTO = new empresaDTO();
+                empresaDTO.setIdEmpresa(rs.getInt("idEmpresa"));
+                empresaDTO.setEsEmpresa(rs.getInt("esEmpresa"));
+                empresaDTO.setNombreEmpresa(rs.getString("nombreEmpresa "));
+                empresaDTO.setDirEmpresa(rs.getString("direccionEmpresa"));
+                empresaDTO.setTelEmpresa(rs.getString("telefonoEmpresa "));
+                empresaDTO.setCelEmpresa(rs.getString("celularEmpresa"));
+                empresaDTO.setCorreoEmpresa(rs.getString("correoEmpresa"));
+                empresaDTO.setIdCiudad(rs.getInt("idCiudadFK"));
+                empresaDTO.setIdUsuario(rs.getInt("idUsuarioFK"));
+
+            }
+            System.out.println(".....  empresa encontrada consulta " + ps.toString());
+            System.out.println(".....  empresa encontrada  " + empresaDTO.toString());
+            //cerrarCon(ps, cn, rs);
+            return empresaDTO;
+
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al buscar empresa " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+             // cerrarCon(ps, cn, rs);
+            return null;
+        }
+
+    }
+
+//    public void cerrarCon(PreparedStatement ps, Connection con, ResultSet rs) {
+//        try {
+//            if (con != null) {
+//                con.close();
+//            }
+//            if (ps != null) {
+//                ps.close();
+//            }
+//            if (rs != null) {
+//                rs.close();
+//            }
+//
+//            // System.out.println("conexxion cerrada");
+//        } catch (SQLException e) {
+//            System.out.println("error al cerrar conexion " + e);
+//        }
+//
+//    }
 }

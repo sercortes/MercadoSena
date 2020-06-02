@@ -18,7 +18,7 @@
     </servlet>
     <servlet>
         <servlet-name>comprador</servlet-name>
-        <servlet-class>co.edu.sena.mercado.controller.comprador.comprador</servlet-class>
+        <servlet-class>co.edu.sena.mercado.controller.registro.registro</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateProduct</servlet-name>
