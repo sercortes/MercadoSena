@@ -17,9 +17,7 @@
 						<input type="password" class="form-control" name="password" placeholder="Password" required="required">	
 					</div>        
 					<div class="form-group">
-						<button type="submit" class="btn btn-primary btn-lg btn-block login-btn">Login</button>
-                                                <a href="./HomeSeller"  class="btn btn-primary btn-lg btn-block login-btn">Vendedor</a>
-                                                
+						<button type="submit" class="btn btn-primary btn-lg btn-block login-btn">Ingresar</button>  
 					</div>
 				</form>
 			</div>

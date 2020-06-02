@@ -1,5 +1,4 @@
-<%-- any content can be specified here e.g.: --%>
-<%@ page pageEncoding="UTF-8" %>
+
 <div id="bloqueo" class="bloqueo" onclick="modalRegistro()"></div>
 <div id="modalRegistro" class="modalRegistro" >
     <i onclick="modalRegistro()">X</i>
@@ -20,7 +19,7 @@
 
         </div>
         <br> 
-        <label>Seleccione su gÃ©nero:</label><br>
+        <label>Seleccione su género:</label><br>
         <div id="genero">
 
         </div>
@@ -43,16 +42,16 @@
         </div><br> 
 
         <label>Celular:</label><br>
-        <input type="number" placeholder="NÃºmero" class="form-control was-validated" minlength="8" maxlength="50" id="celularUsuario" name="celularUsuario" required>
+        <input type="number" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularUsuario" name="celularUsuario" required>
         <div class="invalid-feedback">
             Completa este campo correctamente
         </div><br> 
-        <label>TelÃ©fono:</label><br>
+        <label>Teléfono:</label><br>
         <input type="text" placeholder="Opcional" class="form-control was-validated" id="telefonoUsuario"  maxlength="50" name="telefonoUsuario" >
         <div class="invalid-feedback">
             Completa este campo correctamente
         </div><br> 
-        <label>DirecciÃ³n:</label><br>
+        <label>Dirección:</label><br>
         <input type="text" placeholder="Opcional" class="form-control was-validated"  maxlength="100" id="direccionUsuario" name="direccionUsuario" >
         <div class="invalid-feedback">
             Completa este campo correctamente
@@ -68,9 +67,9 @@
         <div class="invalid-feedback">
             Completa este campo correctamente
         </div><br>
-        <label>Escriba su contraseÃ±a:</label><br>
+        <label>Escriba su contraseña:</label><br>
         <input type="password" id="clave1" minlength="10" class="form-control was-validated" name="clave1" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar1"></span><br>
-        <label>Confirme su contraseÃ±a:</label><br>
+        <label>Confirme su contraseña:</label><br>
         <input type="password" id="clave2" minlength="10" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
 
         <br>

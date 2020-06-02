@@ -54,18 +54,15 @@
     <%@include file="/views/products/modalVerProducto.jspf"%>
     <%@include file="/views/products/modal2.jspf"%>
     
+<%@include file="/views/registro/registro.jspf"%>
 <%@include file="/views/login/login.jspf"%>
+
 <%@include file="/views/template/footer.jspf"%>
   
 <script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
-<script src="./assets/js/project/util/global.js" charset="utf-8"></script>
-
-
 <script src="./assets/js/project/products/showProducts.js" charset="utf-8"></script>
 <script src="./assets/js/project/products/updateProduct.js" charset="utf-8"></script>
-        
 <script src="./assets/js/pagination/pager.js" charset="utf-8"></script>
-
 <script src="./assets/js/project/comprador/ajax.js"></script>
 
 
