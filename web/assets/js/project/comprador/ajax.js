@@ -57,7 +57,7 @@ function consultagenero() {
 }
 function consultaCiudad(idDiv,idInput) {
     $.ajax({
-        url: "./registros?accion=consultaCiudad",
+        url: "./registro?accion=consultaCiudad",
         type: 'POST',
         dataType: 'json',
         contentType: false,

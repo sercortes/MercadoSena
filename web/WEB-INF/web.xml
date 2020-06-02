@@ -17,12 +17,12 @@
         <servlet-class>co.edu.sena.mercado.controller.seller.Selects</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>registro</servlet-name>
-        <servlet-class>co.edu.sena.mercado.controller.registro.registro</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UpdateProduct</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.seller.UpdateProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>registro</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.registro.registro</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
@@ -46,12 +46,12 @@
         <url-pattern>/getImages</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>comprador</servlet-name>
-        <url-pattern>/comprador</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>UpdateProduct</servlet-name>
         <url-pattern>/UpdateProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registro</servlet-name>
+        <url-pattern>/registro</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
