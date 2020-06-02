@@ -10,7 +10,7 @@ import co.edu.sena.mercado.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.SQLException; 
 import java.util.ArrayList;
 
 /**
@@ -47,6 +47,41 @@ public class usuarioDAO {
             return false;
         }
     }
+    
+    
+       public usuarioDTO login(usuarioDTO usuario) {
+
+        try {
+            con = new Conexion();
+            String sql = "SELECT * FROM usuario WHERE emailUsuario = ? AND passwordUsuario"
+                    + " = md5(?) AND estadoUsuario = 1 limit 1";
+            PreparedStatement ps = con.getConnection().prepareStatement(sql);
+            ps.setString(1, usuario.getCorreoUsu());
+            ps.setString(2, usuario.getClaveUsu());
+            ResultSet rs = ps.executeQuery();
+            usuarioDTO usua = new usuarioDTO();
+            while (rs.next()) {
+
+                usua.setIdUsuario(rs.getInt("idUsuario"));
+                usua.setCorreoUsu(rs.getString("emailUsuario"));
+                usua.setEstadoUsu(rs.getString("estadoUsuario"));
+                usua.setIdRol(rs.getInt("fkRol"));
+
+            }
+            return usua;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+
+    }
+    
+    
+    
     public usuarioDTO buscarUsuario(String correo, String clave) {
         con = new Conexion();
      

@@ -41,6 +41,16 @@ public class Rutas extends HttpServlet {
                  rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
                 rd.forward(request, response);
                 break;
+            case "/MercadoSena/logout":
+                request.getSession().removeAttribute("USER");
+                request.getSession().invalidate();
+                response.sendRedirect("/MercadoSena/home");
+                break;
+            case "/MercadoSena/home":
+                rd = request.getRequestDispatcher("index.jsp");
+                rd.forward(request, response);
+                response.sendRedirect("/MercadoSena/Start");
+                break;
             default:
                 System.out.println("error de la ruta");
                 break;

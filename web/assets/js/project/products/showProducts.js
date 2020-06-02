@@ -9,7 +9,16 @@ var $pagination = $('#pagination'),
         totalPages = 0,
         initiateStartPageClick = true
 
+    
+    $(document).on('click', '.page-item', function(){
+            let currentPage = $pagination.twbsPagination('getCurrentPage');
+            console.log(currentPage)
+            localStorage.setItem('page', currentPage);
+    })
+
 $(function () {
+
+    $('#cargas').addClass('is-active');
 
     listarProductoByVendedor()
 
@@ -26,6 +35,8 @@ function listarProductoByVendedor() {
         async: true,
         datatype: 'json'
     }).done(function (data) {
+
+     $('#cargas').removeClass('is-active');
 
         let arrayI = getImages()
 
@@ -53,6 +64,8 @@ function listarProductoByVendedor() {
         totalPages = Math.ceil(totalRecords / recPerPage)
 
         apply_pagination()
+        
+       
     })
 
 

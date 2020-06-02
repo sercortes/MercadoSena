@@ -1,4 +1,4 @@
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body>
 
 
@@ -52,6 +52,7 @@
                             </div>
                         </div>
 
+                        <c:if test="${ empty USER.idRol}">
                         <!-- Wishlist -->
                         <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
                             <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
@@ -86,6 +87,8 @@
                                 </div>
                             </div>
                         </div>
+                        </c:if>
+                        
                     </div>
                 </div>
             </div>
@@ -140,20 +143,26 @@
                                          
                                         <li><a href="../MercadoSena/">Inicio<i class="fas fa-chevron-down"></i></a></li>
 
+                                         <c:if test="${USER.idRol == 3}">
+                                            <li><a href="./Products">Mis Productos<i class="fas fa-chevron-down"></i></a></li>
+                                        </c:if>
 
                                         <li class="hassubs">
-                                            <a href="#">Paginas<i class="fas fa-chevron-down"></i></a>
+                                            <a href="#">Opciones<i class="fas fa-chevron-down"></i></a>
                                             <ul>
-                                                <li><a href="shop.html">Shop<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="product.html">Product<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="blog.html">Blog<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="blog_single.html">Blog Post<i class="fas fa-chevron-down"></i></a></li>
                                                 <li><a href="regular.html">Regular Post<i class="fas fa-chevron-down"></i></a></li>
                                                 <li><a href="cart.html">Cart<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="contact.html">Contact<i class="fas fa-chevron-down"></i></a></li>
+                                                <li><a href="./logout">Salir<i class="fas fa-chevron-down"></i></a></li>
                                             </ul>
                                         </li>
-                                        <li><a href="./Products">Mis Productos<i class="fas fa-chevron-down"></i></a></li>
+                                        <c:if test="${ not empty USER.idRol}">
+                                        <li class="hassubs">
+                                            <a href="#">Usuario<i class="far fa-user"></i></a>
+                                            <ul>
+                                                <li><a href="./logout">Salir<i class="fas fa-chevron-down"></i></a></li>
+                                            </ul>
+                                        </li>
+                                      </c:if>
                                     </ul>
                                 </div>
 

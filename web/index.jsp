@@ -1,7 +1,7 @@
 
 
 <%@include file="/views/template/head.jspf"%>
-
+<link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 <%@include file="/views/template/header.jspf"%>
 
 <%@include file="/views/init/carusel.jspf"%>
@@ -21,7 +21,7 @@
 
             <a href="./Searching..." type="button" class="btn btn-primary btn-lg">buscador</a>
 
-
+                       <div id="carga" class="loader loader-bouncing"></div>
 
         </div>
     </div>
@@ -34,3 +34,5 @@
 <%@include file="/views/registro/registro.jspf"%>
 
 <%@include file="/views/template/footer.jspf"%>
+
+

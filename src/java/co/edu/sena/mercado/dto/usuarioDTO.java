@@ -32,6 +32,13 @@ public class usuarioDTO {
         this.idRol = idRol;
     }
 
+    public usuarioDTO(String correoUsu, String claveUsu) {
+        this.correoUsu = correoUsu;
+        this.claveUsu = claveUsu;
+    }
+
+    
+    
     public String getCodigo() {
         return codigo;
     }
