@@ -57,18 +57,19 @@ public class empresaDAO {
 
     public empresaDTO buscarEmpresa(int idUsuario) {
         con = new Conexion();
-        consulta = "SELECT * FROM empresa WHERE idUsuarioFK=?";
+        consulta = "SELECT * FROM empresa WHERE idUsuarioFK = ?";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
+            ps.setInt(1, idUsuario);
             rs = ps.executeQuery();
             while (rs.next()) {
                 empresaDTO = new empresaDTO();
                 empresaDTO.setIdEmpresa(rs.getInt("idEmpresa"));
                 empresaDTO.setEsEmpresa(rs.getInt("esEmpresa"));
-                empresaDTO.setNombreEmpresa(rs.getString("nombreEmpresa "));
+                empresaDTO.setNombreEmpresa(rs.getString("nombreEmpresa"));
                 empresaDTO.setDirEmpresa(rs.getString("direccionEmpresa"));
-                empresaDTO.setTelEmpresa(rs.getString("telefonoEmpresa "));
+                empresaDTO.setTelEmpresa(rs.getString("telefonoEmpresa"));
                 empresaDTO.setCelEmpresa(rs.getString("celularEmpresa"));
                 empresaDTO.setCorreoEmpresa(rs.getString("correoEmpresa"));
                 empresaDTO.setIdCiudad(rs.getInt("idCiudadFK"));

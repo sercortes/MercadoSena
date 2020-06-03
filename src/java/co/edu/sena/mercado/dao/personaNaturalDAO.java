@@ -54,5 +54,42 @@ public class personaNaturalDAO {
             return false;
         }
     }
+    
+      public personaNaturalDTO getDataById(String id) {
+
+        try {
+            con = new Conexion();
+            String sql = "SELECT * FROM personanatural WHERE idUsuarioFK = ? LIMIT 1";
+            PreparedStatement ps = con.getConnection().prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            personaNaturalDTO persona = new personaNaturalDTO();
+            while (rs.next()) {
+
+                persona.setIdPer(rs.getInt("idPersona"));
+                persona.setNumeroDocPer(rs.getString("documentoPersona"));
+                persona.setNombrePer(rs.getString("nombrePersona"));
+                persona.setApellidoPer(rs.getString("apellidoPersona"));
+                persona.setCorreoPer(rs.getString("correoPersona"));
+                persona.setDireccionPer(rs.getString("direccionPersona"));
+                persona.setNumCelularPer(rs.getString("celularPersona"));
+                persona.setTelPer(rs.getString("telefonoPersona"));
+                persona.setIdCiudad(rs.getInt("idCiudadFK"));
+                persona.setIdTipoDoc(rs.getInt("idTipoDocFK"));
+                persona.setIdGenero(rs.getInt("idGeneroFK"));
+
+            }
+            return persona;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+
+    }
+    
 
 }

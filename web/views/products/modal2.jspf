@@ -114,7 +114,7 @@
 
                             <div>
 
-                                <c:if test="${ISEMPRESA == 1}">
+                                <c:if test="${USER.empresa.esEmpresa == 1}">
                                     <div class="camposAdd">
 
                                         <div class="form-row">

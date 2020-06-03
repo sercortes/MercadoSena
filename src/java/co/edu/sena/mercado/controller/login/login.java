@@ -5,7 +5,11 @@
  */
 package co.edu.sena.mercado.controller.login;
 
+import co.edu.sena.mercado.dao.empresaDAO;
+import co.edu.sena.mercado.dao.personaNaturalDAO;
 import co.edu.sena.mercado.dao.usuarioDAO;
+import co.edu.sena.mercado.dto.empresaDTO;
+import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -60,9 +64,26 @@ public class login extends HttpServlet {
         response.setContentType("application/json");
 
         if (usuario.getIdUsuario() > 0) {
-            
+           
+            personaNaturalDAO perDAO = new personaNaturalDAO();
+            personaNaturalDTO perDTO = perDAO.getDataById(Integer.toString(usuario.getIdUsuario()));
+            usuario.setPersona(perDTO);
+            // get data company
+            if (usuario.getIdRol() == 3) {
+                empresaDAO empDAO = new empresaDAO();
+                empresaDTO emDTO = new empresaDTO();
+                emDTO = empDAO.buscarEmpresa(usuario.getIdUsuario());
+                System.out.println(emDTO);
+                if (emDTO.getIdEmpresa() > 0) {
+                    usuario.setActualizoEmpresa(1);
+                    usuario.setEmpresa(emDTO);
+                }else{
+                    usuario.setActualizoEmpresa(0);
+                }
+                
+            }
+            System.out.println(usuario.toString());
             session.setAttribute("USER", usuario);
-            System.out.println("okkkkkk");
             new Gson().toJson(true, response.getWriter());
             
             

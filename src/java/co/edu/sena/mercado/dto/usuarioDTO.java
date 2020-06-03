@@ -18,6 +18,11 @@ public class usuarioDTO {
     String estadoUsu;
     String codigo;
     int idRol;
+    
+    private personaNaturalDTO persona;
+    private empresaDTO empresa;
+    
+    private int actualizoEmpresa;
 
     public usuarioDTO() {
     }
@@ -99,12 +104,35 @@ public class usuarioDTO {
         this.idRol = idRol;
     }
 
-    @Override
-    public String toString() {
-        return "usuarioDTO{" + "idUsuario=" + idUsuario + ", correoUsu=" + correoUsu + ", claveUsu=" + claveUsu + ", fechaClave=" + fechaClave + ", estadoUsu=" + estadoUsu + ", codigo=" + codigo + ", idRol=" + idRol + '}';
+    public personaNaturalDTO getPersona() {
+        return persona;
     }
 
-    
-   
+    public void setPersona(personaNaturalDTO persona) {
+        this.persona = persona;
+    }
+
+    public empresaDTO getEmpresa() {
+        return empresa;
+    }
+
+    public void setEmpresa(empresaDTO empresa) {
+        this.empresa = empresa;
+    }
+
+    public int getActualizoEmpresa() {
+        return actualizoEmpresa;
+    }
+
+    public void setActualizoEmpresa(int estado) {
+        this.actualizoEmpresa = estado;
+    }
+
+    @Override
+    public String toString() {
+        return "usuarioDTO{" + "idUsuario=" + idUsuario + ", correoUsu=" + correoUsu + ", claveUsu=" + claveUsu + ", fechaClave=" + fechaClave + ", estadoUsu=" + estadoUsu + ", codigo=" + codigo + ", idRol=" + idRol + ", persona=" + persona + ", empresa=" + empresa + ", actualizoEmpresa=" + actualizoEmpresa + '}';
+    }
+
+  
     
 }

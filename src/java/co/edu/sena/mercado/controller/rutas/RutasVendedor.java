@@ -7,6 +7,7 @@ package co.edu.sena.mercado.controller.rutas;
 
 import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
+import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.File;
@@ -39,14 +40,21 @@ public class RutasVendedor extends HttpServlet {
 
         String direccion = request.getRequestURI();
         RequestDispatcher rd;
-
+        
+        usuarioDTO usuario = (usuarioDTO) request.getSession().getAttribute("USER");
+        System.out.println(usuario.toString());
+        if (usuario.getActualizoEmpresa() != 1) {
+           //formulario emanuel
+           
+        }
+        
         HttpSession session = request.getSession();
         session.setAttribute("ISEMPRESA", 1);
-
+        
         switch (direccion) {
             case "/MercadoSena/Products":
-                rd = request.getRequestDispatcher("/views/products/products.jsp");
-                rd.forward(request, response);
+                    rd = request.getRequestDispatcher("/views/products/products.jsp");
+                    rd.forward(request, response);  
                 break;
             case "/MercadoSena/newProduct":
                 rd = request.getRequestDispatcher("/views/products/addProduct.jsp");

@@ -57,7 +57,7 @@ document.getElementById('formOnes').addEventListener('submit', e => {
     sessionStorage.fall++
     
     if(sessionStorage.getItem('fall') <= 9){
-        
+        sessionStorage.setItem('fall', 0)
     $.ajax({
         type: "POST",
         url: './login',
