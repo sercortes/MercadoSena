@@ -54,26 +54,28 @@ public class login extends HttpServlet {
             throws ServletException, IOException {
         
         request.setCharacterEncoding("UTF-8");
+        
         String userParam = request.getParameter("email");
         String passParam = request.getParameter("pass");
        
         usuarioDTO UsuarioParam = new usuarioDTO(userParam, passParam);
-        HttpSession session = request.getSession();
         usuarioDAO userdao = new usuarioDAO();
         usuarioDTO usuario = userdao.login(UsuarioParam);
         response.setContentType("application/json");
 
         if (usuario.getIdUsuario() > 0) {
            
+            HttpSession session = request.getSession();
             personaNaturalDAO perDAO = new personaNaturalDAO();
             personaNaturalDTO perDTO = perDAO.getDataById(Integer.toString(usuario.getIdUsuario()));
             usuario.setPersona(perDTO);
             // get data company
             if (usuario.getIdRol() == 3) {
+                
                 empresaDAO empDAO = new empresaDAO();
                 empresaDTO emDTO = new empresaDTO();
                 emDTO = empDAO.buscarEmpresa(usuario.getIdUsuario());
-                System.out.println(emDTO);
+
                 if (emDTO.getIdEmpresa() > 0) {
                     usuario.setActualizoEmpresa(1);
                     usuario.setEmpresa(emDTO);
@@ -82,11 +84,10 @@ public class login extends HttpServlet {
                 }
                 
             }
-            System.out.println(usuario.toString());
+
             session.setAttribute("USER", usuario);
             new Gson().toJson(true, response.getWriter());
-            
-            
+           
             
         } else {
 

@@ -1,10 +1,8 @@
 
 $(function(){
-    let ob = new Date().getTime()
-   
-    if (sessionStorage.getItem('fall') === null) {
-        localStorage.setItem('key', JSON.stringify(ob))
-        sessionStorage.setItem('fall', 0)
+ 
+    if (sessionStorage.getItem('falls') === null) {
+        sessionStorage.setItem('falls', 0)
     }
         
 })
@@ -54,18 +52,20 @@ document.getElementById('formOnes').addEventListener('submit', e => {
         url : url
     }
     $('#carga').addClass('is-active');
-    sessionStorage.fall++
+   
+    parseInt(sessionStorage.falls++)
+    sessionStorage.getItem('falls')
     
-    if(sessionStorage.getItem('fall') <= 9){
-        sessionStorage.setItem('fall', 0)
+    if(sessionStorage.getItem('falls') <= 9){
+        
     $.ajax({
         type: "POST",
         url: './login',
         datatype: 'json',
         data:datas
     }).done(function (data) {
-
         if (data) {
+            sessionStorage.setItem('falls', 0)
             window.location.replace(window.location.pathname);
         }else{
             messageInfo('cuenta incorrecta')
