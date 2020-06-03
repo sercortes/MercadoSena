@@ -8,6 +8,13 @@
     height: 250px; /* only if you want fixed height */
 }
 
+.fit-imageModal{
+    width: 100%;
+    object-fit: cover;
+    height: 350px; /* only if you want fixed height */
+}
+
+
 
 .modal.fade .modal-bottom,
 .modal.fade .modal-left,
@@ -3800,7 +3807,7 @@ select:hover
                                                                                    animation-fill-mode: both;
 }
 #myCarousel .container {max-width: 1430px;  }
-#myCarousel .carousel-item{height:100%; min-height:500px; }
+#myCarousel .carousel-item{height:100%; min-height:430px; }
 
 #myCarousel{position:relative; z-index:1; background:url(../images/banners/woman2.jpg) center center no-repeat; background-size:cover; }
 

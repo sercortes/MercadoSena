@@ -6,6 +6,10 @@
 
 <%@include file="/views/template/header.jspf"%>
 
+<c:if test="${USER.idRol != 3}">
+    <c:redirect url="./home"/>
+</c:if>
+
 
 <link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
 <link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>

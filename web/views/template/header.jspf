@@ -53,42 +53,66 @@
                         </div>
 
                         <c:if test="${ empty USER.idRol}">
-                        <!-- Wishlist -->
-                        <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
-                            <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
-                                
-                                <div id="register" class="wishlist d-flex flex-row align-items-center justify-content-end" onclick="consultarDatosFormulario()">
-                                    <div class="wishlist_icon">
-                                        
-                                        <a href="#"><img src="./assets/images/icons/add.png" alt=""></a>
-                                    
-                                    </div>
-                                    <div class="wishlist_content" >
-                                        
-                                        <div class="cart_text" ><a href="#" class="pl-1"> Registrarse</a></div>
-                                   
-                                    </div>
-                                </div>
+                            <!-- Wishlist -->
+                            <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
+                                <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
 
-                                <!-- Cart -->
-                                <div class="cart">
-                                    <div id="login" class="cart_container d-flex flex-row align-items-center justify-content-end">
+                                    <div id="register" class="wishlist d-flex flex-row align-items-center justify-content-end" onclick="consultarDatosFormulario()">
                                         <div class="wishlist_icon">
-                                            
-                                            <a href="#"><img src="./assets/images/icons/user12.png" alt=""></a>
-                                            
+
+                                            <a href="#"><img src="./assets/images/icons/add.png" alt=""></a>
+
                                         </div>
-                                        <div class="cart_content">
-                                            
-                                            <div class="cart_text"><a href="#" data-target="#modalLoginForm">Ingresar</a></div>
-                                        
+                                        <div class="wishlist_content" >
+
+                                            <div class="cart_text" ><a href="#" class="pl-1"> Registrarse</a></div>
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Cart -->
+                                    <div class="cart">
+                                        <div id="login" class="cart_container d-flex flex-row align-items-center justify-content-end">
+                                            <div class="wishlist_icon">
+
+                                                <a id="userDropdown" href="#"><img src="./assets/images/icons/user12.png" alt=""></a>
+
+                                            </div>
+                                            <div class="cart_content">
+
+                                                <div class="cart_text"><a href="#" data-target="#modalLoginForm">Ingresar</a></div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         </c:if>
-                        
+
+                        <c:if test="${not empty USER.idRol}">
+                            <div class="col-lg-2 col-9 order-lg-3 order-2 text-lg-left">
+                                  <div class="cart">
+                                        <div id="" class="">
+                            <nav class="navbar navbar-expand-sm"> 
+                             
+                                    <ul class="navbar-nav">
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <img src="./assets/images/icons/user12.png" width="30" height="30" class="rounded-circle"> ${USER.correoUsu}
+                                            </a>
+                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                <a class="dropdown-item" href="#">Usuario</a>
+                                                <a class="dropdown-item" href="./logout">Salir</a>
+                                            </div>
+                                        </li>   
+                                    </ul>
+                           
+                            </nav>
+                                </div>
+                                </div>
+                                </div>
+                        </c:if> 
+
                     </div>
                 </div>
             </div>
@@ -114,21 +138,8 @@
                                         <li><a href="#">Belleza <i class="fas fa-chevron-right ml-auto"></i></a></li>
                                         <li><a href="#">Celulares<i class="fas fa-chevron-right"></i></a></li>
                                         <li class="hassubs">
-                                            <a href="#">Computadores<i class="fas fa-chevron-right"></i></a>
-                                            <ul>
-                                                <li class="hassubs">
-                                                    <a href="#">Menu Item<i class="fas fa-chevron-right"></i></a>
-                                                    <ul>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                        <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                    </ul>
-                                                </li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                                <li><a href="#">Menu Item<i class="fas fa-chevron-right"></i></a></li>
-                                            </ul>
+                                            <a href="#">Computadores</a>
+
                                         </li>
                                         <li><a href="#">Accesorios<i class="fas fa-chevron-right"></i></a></li>
                                         <li><a href="#">Comida<i class="fas fa-chevron-right"></i></a></li>
@@ -139,30 +150,31 @@
 
                                 <div class="main_nav_menu ml-auto">
                                     <ul class="standard_dropdown main_nav_dropdown">
-                                       
-                                         
+
+
                                         <li><a href="../MercadoSena/">Inicio<i class="fas fa-chevron-down"></i></a></li>
 
-                                         <c:if test="${USER.idRol == 3}">
+                                        <c:if test="${USER.idRol == 3}">
                                             <li><a href="./Products">Mis Productos<i class="fas fa-chevron-down"></i></a></li>
-                                        </c:if>
+                                                </c:if>
+
+                                        <li><a href="./Searching...">Descubrir<i class="fas fa-chevron-down"></i></a></li>
 
                                         <li class="hassubs">
-                                            <a href="#">Opciones<i class="fas fa-chevron-down"></i></a>
+                                            <a href="#">Páginas<i class="fas fa-chevron-down"></i></a>
                                             <ul>
-                                                <li><a href="regular.html">Regular Post<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="cart.html">Cart<i class="fas fa-chevron-down"></i></a></li>
-                                                <li><a href="./logout">Salir<i class="fas fa-chevron-down"></i></a></li>
+                                                <li><a href="regular.html">Nosotros<i class="fas fa-chevron-down"></i></a></li>
+                                                <li><a href="cart.html">Contacto<i class="fas fa-chevron-down"></i></a></li>
                                             </ul>
                                         </li>
                                         <c:if test="${ not empty USER.idRol}">
-                                        <li class="hassubs">
-                                            <a href="#">Usuario<i class="far fa-user"></i></a>
-                                            <ul>
-                                                <li><a href="./logout">Salir<i class="fas fa-chevron-down"></i></a></li>
-                                            </ul>
-                                        </li>
-                                      </c:if>
+                                            <li class="hassubs">
+                                                <a href="#">Usuario<i class="far fa-user"></i></a>
+                                                <ul>
+                                                    <li><a href="./logout">Salir<i class="fas fa-chevron-down"></i></a></li>
+                                                </ul>
+                                            </li>
+                                        </c:if>
                                     </ul>
                                 </div>
 
@@ -201,19 +213,16 @@
 
 
                                     <li class="page_menu_item">
-                                        <a href="#">Inicio<i class="fa fa-angle-down"></i></a>
+                                        <a href="../MercadoSena/">Inicio<i class="fa fa-angle-down"></i></a>
                                     </li>
 
-
-                                    <li class="page_menu_item has-children">
-                                        <a href="#">Productos<i class="fa fa-angle-down"></i></a>
-                                        <ul class="page_menu_selection">
-                                            <li><a href="#">Belleza<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Tecnología<i class="fa fa-angle-down"></i></a></li>
-                                            <li><a href="#">Comida<i class="fa fa-angle-down"></i></a></li>
-                                        </ul>
+                                    <li class="page_menu_item">
+                                        <a href="./Searching...">Descubrir<i class="fa fa-angle-down"></i></a>
                                     </li>
-                                    <li class="page_menu_item"><a href="./Products">Mis Productos<i class="fa fa-angle-down"></i></a></li>
+
+                                    <c:if test="${USER.idRol == 3}">
+                                        <li class="page_menu_item"><a href="./Products">Mis Productos<i class="fa fa-angle-down"></i></a></li>
+                                            </c:if>
                                 </ul>
 
                             </div>

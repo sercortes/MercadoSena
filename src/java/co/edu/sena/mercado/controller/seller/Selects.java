@@ -75,6 +75,18 @@ public class Selects extends HttpServlet {
                 getImages(request, response);
 
                 break;
+                
+            case "/MercadoSena/getProductsByDateTime":
+                
+                getProductsByDateTime(request, response);
+                
+                break;
+                
+             case "/MercadoSena/getImagesByProduct":
+                
+                getImagesByProduct(request, response);
+                
+                break;
 
         }
 
@@ -135,5 +147,34 @@ public class Selects extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void getProductsByDateTime(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+
+        Conexion conexion = new Conexion();
+        ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
+
+        ArrayList<Producto> listaProductos = productoDAO.getProductsByDateTimeAsc();
+
+        productoDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaProductos, response.getWriter());
+        
+    }
+
+    private void getImagesByProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+         request.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
+        ArrayList<ImagenesProducto> listaImagenes = 
+                imagenesProductosDAO.getImagenesByProduc(request.getParameter("id"));
+
+        response.setContentType("application/json");
+        imagenesProductosDAO.CloseAll();
+        new Gson().toJson(listaImagenes, response.getWriter());
+        
+    }
 
 }

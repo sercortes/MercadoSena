@@ -49,7 +49,6 @@ public class Rutas extends HttpServlet {
             case "/MercadoSena/home":
                 rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
-                response.sendRedirect("/MercadoSena/Start");
                 break;
             default:
                 System.out.println("error de la ruta");

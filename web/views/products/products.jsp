@@ -3,10 +3,14 @@
 
 <%@include file="/views/template/head.jspf"%>
 
+<c:if test="${USER.idRol != 3}">
+    <c:redirect url="./home"/>
+</c:if>
+
+
 <link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
 <link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
-
 
 <%@include file="/views/template/header.jspf"%>
 
@@ -15,7 +19,7 @@
     <div class="container">
     <div class="row p-2">
         <div class="col-lg-12">
-            <h3 class="titulos hvr-icon-pop"><i class="fas fa-gifts naranja"></i> Productos ${USER.idRol}</h3>
+            <h3 class="titulos hvr-icon-pop"><i class="fas fa-gifts naranja"></i> Productos</h3>
             <a type="button" href="./newProduct" class="btn btn-primary float-right hvr-push"><i class="fas fa-laptop"></i> Vender</a>
         </div>
     </div>    
