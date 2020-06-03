@@ -34,14 +34,14 @@
                                             <input type="search" required="required" class="header_search_input" placeholder="Buscar Productos...">
                                             <div class="custom_dropdown">
                                                 <div class="custom_dropdown_list">
-                                                    <span class="custom_dropdown_placeholder clc">Categorias</span>
+                                                    <span class="custom_dropdown_placeholder clc">Ciudades</span>
                                                     <i class="fas fa-chevron-down"></i>
                                                     <ul class="custom_list clc">
-                                                        <li><a class="clc" href="#">Todo</a></li>
-                                                        <li><a class="clc" href="#">Comida</a></li>
-                                                        <li><a class="clc" href="#">Accesorios</a></li>
-                                                        <li><a class="clc" href="#">Celulares</a></li>
-                                                        <li><a class="clc" href="#">Otros</a></li>
+                                                        <li><a class="clc" href="#">Bogotá</a></li>
+                                                        <li><a class="clc" href="#">Cartagena</a></li>
+                                                        <li><a class="clc" href="#">Medellín</a></li>
+                                                        <li><a class="clc" href="#">San gil</a></li>
+                                                        <li><a class="clc" href="#">Soacha</a></li>
                                                     </ul>
                                                 </div>
                                             </div>

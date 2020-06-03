@@ -13,7 +13,7 @@
                 <form class="needs-validation" action="#" method="post" id="formOnes"  >
                    <div class="form-group">
                         <label for="exampleInputEmail1">Correo:</label>
-                        <input type="email" class="form-control was-validated" minlength="4" maxlength="150" id="emails" name="emails" placeholder="@misena @sena" required>
+                        <input type="email" class="form-control was-validated" minlength="4" maxlength="150" id="emails" name="emails" placeholder="example@misena.edu.co" required>
                         <div class="valid-feedback">
                             :D
                         </div>
@@ -25,7 +25,7 @@
 
 
                         <label for="exampleInputEmail1">Contraseña:</label>
-                        <input type="password" class="form-control was-validated" minlength="8" maxlength="20" id="passs" name="passs" placeholder="Marca de su producto" required>
+                        <input type="password" class="form-control was-validated" minlength="8" maxlength="20" id="passs" name="passs" placeholder="*********" required>
                         <div class="valid-feedback">
                             :D
                         </div>
