@@ -128,7 +128,7 @@ function generateTableBuscador() {
                 </div>`
 
         str += `<figcaption class="p-3 card-img-bottom">
-              <h2 class="h5 font-weight-bold mb-2">$ ${item.valorProducto}</h2>
+              <h2 class="h5 font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
               <h4 class="text-left text-muted">${item.nombreProducto}</h4>
             </figcaption>
        
@@ -231,7 +231,7 @@ function queryEmphy() {
 </div>
     <div class="col-lg-6">
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  No hay elementos!<strong> Publique un producto :D</strong>
+  No hay elementos!<strong> :D</strong>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>

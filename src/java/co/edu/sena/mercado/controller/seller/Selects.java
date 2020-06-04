@@ -10,6 +10,7 @@ import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
 import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -116,7 +117,8 @@ public class Selects extends HttpServlet {
         Conexion conexion = new Conexion();
         ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
 
-        ArrayList<Producto> listaProductos = productoDAO.getProductsBySeller("1");
+        usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
+        ArrayList<Producto> listaProductos = productoDAO.getProductsBySeller(Integer.toString(user.getEmpresa().getIdEmpresa()));
 
         response.setContentType("application/json");
         productoDAO.CloseAll();
@@ -130,7 +132,9 @@ public class Selects extends HttpServlet {
 
         Conexion conexion = new Conexion();
         ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
-        ArrayList<ImagenesProducto> listaImagenes = imagenesProductosDAO.getImagenesByEmpresa("1");
+        
+           usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
+        ArrayList<ImagenesProducto> listaImagenes = imagenesProductosDAO.getImagenesByEmpresa(Integer.toString(user.getEmpresa().getIdEmpresa()));
 
         response.setContentType("application/json");
         imagenesProductosDAO.CloseAll();

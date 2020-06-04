@@ -64,7 +64,7 @@ document.getElementById('formOnes').addEventListener('submit', e => {
             datatype: 'json',
             data: datas
         }).done(function (data) {
-            console.log(data);
+            
              sessionStorage.setItem('falls', 0)
             if (data.length > 1) {
                

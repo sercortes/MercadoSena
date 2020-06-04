@@ -4,6 +4,14 @@
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 <%@include file="/views/template/header.jspf"%>
 
+  <div class="container">
+    <div class="row p-2">
+        <div class="col-lg-12">
+            <h3 class="titulos hvr-icon-pop"><i class="fas fa-gifts naranja"></i></h3>
+            <a type="button" href="#" class="btn btn-primary float-right hvr-push"><i class="fas fa-laptop"></i> Vender</a>
+        </div>
+    </div>    
+</div>
 
 
   <div id="fondo-rojo" class="">

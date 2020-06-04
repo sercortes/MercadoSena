@@ -4,6 +4,7 @@ import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
 import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import com.mysql.jdbc.StringUtils;
@@ -101,10 +102,10 @@ public class UploadProduct extends HttpServlet {
                     }
 
                 }
-
-                producto.setIdEmpresaFK("1");
                 
-
+                usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
+                producto.setIdEmpresaFK(Integer.toString(usu.getEmpresa().getIdEmpresa()));
+                 
                 //Insert Producto
                 folder = Integer.toString(productoDAO.insertReturn(producto));
 

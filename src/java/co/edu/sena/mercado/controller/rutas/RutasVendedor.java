@@ -43,13 +43,8 @@ public class RutasVendedor extends HttpServlet {
         
         usuarioDTO usuario = (usuarioDTO) request.getSession().getAttribute("USER");
         System.out.println(usuario.toString());
-        if (usuario.getActualizoEmpresa() != 1) {
-           //formulario emanuel
-           
-        }
         
         HttpSession session = request.getSession();
-        session.setAttribute("ISEMPRESA", 1);
         
         switch (direccion) {
             case "/MercadoSena/Products":
