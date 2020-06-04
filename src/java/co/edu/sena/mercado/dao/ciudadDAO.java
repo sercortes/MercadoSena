@@ -43,13 +43,17 @@ public class ciudadDAO {
                 listaCiudad.add(ciudadDTO);
 
             }
-            System.out.println(".........resultado " + listaCiudad.toString());
-            System.out.println("......... consulta " + ps.toString());
+           // System.out.println(".........resultado " + listaCiudad.toString());
+           // System.out.println("......... consulta " + ps.toString());
             return listaCiudad;
         } catch (SQLException e) {
             System.out.println(".........Error al listar cidades " + e);
             System.out.println("......... consulta" + ps.toString());
             return null;
+         }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
 }

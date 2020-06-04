@@ -42,13 +42,17 @@ public class generoDAO {
                listaGenero.add(generoDTO);
 
             }
-            System.out.println(".........resultado " + listaGenero.toString());
-            System.out.println("......... consulta " + ps.toString());
+           // System.out.println(".........resultado " + listaGenero.toString());
+           // System.out.println("......... consulta " + ps.toString());
             return listaGenero;
         } catch (SQLException e) {
             System.out.println(".........Error al listar generos " + e);
             System.out.println("......... consulta" + ps.toString());
             return null;
+         }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
     

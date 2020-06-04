@@ -20,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -47,9 +48,10 @@ public class registro extends HttpServlet {
     ArrayList<usuarioDTO> listaUsuario = new ArrayList<>();
     correo enviar = new correo();
     codActivacion codigo = new codActivacion();
-    empresaDAO empresaDAO=new empresaDAO();
-    empresaDTO empresaDTO=new empresaDTO();
-    ArrayList<empresaDTO> listaEmpresa=new ArrayList<>();
+    empresaDAO empresaDAO = new empresaDAO();
+    empresaDTO empresaDTO = new empresaDTO();
+    ArrayList<empresaDTO> listaEmpresa = new ArrayList<>();
+   
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -92,9 +94,9 @@ public class registro extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
+        HttpSession sesion = (HttpSession) request.getSession();
         String accion = request.getParameter("accion");
-         System.out.println("...........hpta 11");
+        System.out.println("...........hpta 11");
         switch (accion) {
             case "consultaTipoDoc":
                 listaTipoDoc = new ArrayList<>();
@@ -122,12 +124,13 @@ public class registro extends HttpServlet {
                 new Gson().toJson(listaRol, response.getWriter());
                 break;
             case "registrarUsuario":
+                boolean respuesta=false;
                 usuarioDTO = new usuarioDTO();
                 personaNaturalDTO = new personaNaturalDTO();
                 listaRol = rolDAO.listarRol();
                 usuarioDTO.setClaveUsu(request.getParameter("clave1"));
                 usuarioDTO.setCorreoUsu(request.getParameter("correoUsuario"));
-                usuarioDTO.setEstadoUsu("1");
+                usuarioDTO.setEstadoUsu("0");
                 String clave = usuarioDTO.getClaveUsu();
                 usuarioDTO.setCodigo(codigo.generarCod());
                 String[] correo = usuarioDTO.getCorreoUsu().split("@");
@@ -136,7 +139,7 @@ public class registro extends HttpServlet {
                     if (dominio.equalsIgnoreCase("misena.edu.co") || dominio.equalsIgnoreCase("sena.edu.co")) {
                         if (rol.getRol().equalsIgnoreCase("misena")) {
                             usuarioDTO.setIdRol(rol.getIdRol());
-                        }
+                                                   }
                     } else {
                         if (rol.getRol().equalsIgnoreCase("comprador")) {
                             usuarioDTO.setIdRol(rol.getIdRol());
@@ -144,7 +147,7 @@ public class registro extends HttpServlet {
                     }
                 }
 
-                if (usuarioDAO.registroUsuario(usuarioDTO)) {
+                if (usuarioDAO.registroUsuario(usuarioDTO) ) {
                     //datos persona
                     personaNaturalDTO.setApellidoPer(request.getParameter("apellidoUsuario"));
                     personaNaturalDTO.setCorreoPer(request.getParameter("correoUsuario"));
@@ -161,38 +164,61 @@ public class registro extends HttpServlet {
                     personaNaturalDTO.setIdUsuario(usuarioDTO.getIdUsuario());
 
                     if (personaNaturalDAO.registrarPersona(personaNaturalDTO)) {
-                        enviar.envCorreo(usuarioDTO.getCorreoUsu(), clave, usuarioDTO.getCodigo());
-                        response.getWriter().print(true);
+                       if(enviar.envCorreo(usuarioDTO.getCorreoUsu(), clave, usuarioDTO.getCodigo())){
+                           respuesta=true;
+                           if(usuarioDTO.getIdRol()==3){
+                               empresaDTO=new empresaDTO();
+                               empresaDTO.setCelEmpresa(personaNaturalDTO.getNumCelularPer());
+                               empresaDTO.setCorreoEmpresa(personaNaturalDTO.getCorreoPer());
+                               empresaDTO.setDirEmpresa(personaNaturalDTO.getDireccionPer());
+                               empresaDTO.setEsEmpresa(1);
+                               empresaDTO.setIdCiudad(personaNaturalDTO.getIdCiudad());
+                               empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
+                               empresaDTO.setNombreEmpresa(personaNaturalDTO.getNombrePer());
+                               empresaDTO.setTelEmpresa(personaNaturalDTO.getTelPer());
+                               if(empresaDAO.registroEmpresa(empresaDTO)){
+                                   respuesta=true;
+                              
+                               }else{
+                                   respuesta=false;
+                                
+                               }    
+                           }else{
+                               //borrar usuario
+                               //usuarioDAO.eliminarUsuario( usuarioDTO.getIdUsuario());
+                        respuesta=false;}
+                       }
+                       
                     } else {
                         usuarioDAO.eliminarUsuario(personaNaturalDTO.getCorreoPer(), usuarioDTO.getClaveUsu());
-                        response.getWriter().print("error al registrar persona");
+                        respuesta=false;
                     }
                 } else {
-                    response.getWriter().print("error al registrar usuario");
+                    respuesta=false;
                     usuarioDTO = new usuarioDTO();
                 }
+                response.getWriter().print(respuesta);
                 //System.out.println("......."+usuarioDTO.toString());
                 break;
 
             case "registroEmpresa":
-                empresaDTO=new empresaDTO();
+                empresaDTO = new empresaDTO();
+                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
                 empresaDTO.setNombreEmpresa(request.getParameter("nombreEmpresa"));
                 empresaDTO.setCelEmpresa(request.getParameter("celularEmpresa"));
                 empresaDTO.setTelEmpresa(request.getParameter("telefonoEmpresa"));
                 empresaDTO.setCorreoEmpresa(request.getParameter("correoEmpresa"));
                 empresaDTO.setDirEmpresa(request.getParameter("direccionEmpresa"));
-                empresaDTO.setIdCiudad(Integer.parseInt( request.getParameter("idCiudadEmpresa")));
+                empresaDTO.setIdCiudad(Integer.parseInt(request.getParameter("idCiudadEmpresa")));
                 //se la sesion
-                empresaDTO.setIdUsuario(Integer.parseInt("4"));
-                System.out.println("...........hpta");
-                if(empresaDAO.registroEmpresa(empresaDTO)){
-                response.getWriter().print(true);
-                }else{
-                response.getWriter().print(false);
+                empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
+                if (empresaDAO.actualizarEmpresa(empresaDTO,usuarioDTO.getIdUsuario())) {
+                    response.getWriter().print(true);
+                } else {
+                    response.getWriter().print(false);
                 }
 
                 break;
-            
 
             default:
                 throw new AssertionError("Esa accion no existe");

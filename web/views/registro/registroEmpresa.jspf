@@ -1,5 +1,8 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
+
+<div id="modalRegistroEmpresa" class="modalRegistro" >
+    <i onclick="cerrar('#modalRegistroEmpresa')">X</i>
  <h3>Registro empresa</h3>
  <form id="registroEmpresa" class="needs-validation" >
 
@@ -41,4 +44,11 @@
         <button class="botonRegistro" id="registrarEmpresa">Registrar</button>
        
     </form>
- <input type="submit" value="cuidad" onclick="consultarDatosFormularioEmpresa()">
+</div>
+<div id="modalPregunta" class="modalRegistro" style=" height: auto; overflow-y: hidden" >
+    <i onclick="cerrar('#modalPregunta')">X</i>
+    <h3>¿Desea Registrar empresa?</h3>
+
+    <input type="submit" value="SI" class="botonRegistro" onclick=" modalRegistroEmpresa()" ><br>
+    <input type="submit" value="NO" class="botonRegistro" onclick="cerrar('#modalPregunta')">
+</div>

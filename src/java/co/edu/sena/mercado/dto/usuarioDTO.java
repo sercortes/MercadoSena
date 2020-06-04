@@ -18,6 +18,7 @@ public class usuarioDTO {
     String estadoUsu;
     String codigo;
     int idRol;
+    int numIngreso;
     
     private personaNaturalDTO persona;
     private empresaDTO empresa;
@@ -27,7 +28,7 @@ public class usuarioDTO {
     public usuarioDTO() {
     }
 
-    public usuarioDTO(int idUsuario, String correoUsu, String claveUsu, String fechaClave, String estadoUsu, String codigo, int idRol) {
+    public usuarioDTO(int idUsuario, String correoUsu, String claveUsu, String fechaClave, String estadoUsu, String codigo, int idRol, int numIngreso, personaNaturalDTO persona, empresaDTO empresa, int actualizoEmpresa) {
         this.idUsuario = idUsuario;
         this.correoUsu = correoUsu;
         this.claveUsu = claveUsu;
@@ -35,7 +36,13 @@ public class usuarioDTO {
         this.estadoUsu = estadoUsu;
         this.codigo = codigo;
         this.idRol = idRol;
+        this.numIngreso = numIngreso;
+        this.persona = persona;
+        this.empresa = empresa;
+        this.actualizoEmpresa = actualizoEmpresa;
     }
+
+  
 
     public usuarioDTO(String correoUsu, String claveUsu) {
         this.correoUsu = correoUsu;
@@ -127,6 +134,15 @@ public class usuarioDTO {
     public void setActualizoEmpresa(int estado) {
         this.actualizoEmpresa = estado;
     }
+
+    public int getNumIngreso() {
+        return numIngreso;
+    }
+
+    public void setNumIngreso(int numIngreso) {
+        this.numIngreso = numIngreso;
+    }
+    
 
     @Override
     public String toString() {

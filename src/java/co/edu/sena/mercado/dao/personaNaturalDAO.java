@@ -52,6 +52,10 @@ public class personaNaturalDAO {
             System.out.println("........error al relizar el registro pde personaDAO "+e);
             System.out.println("........ consulta "+ps.toString());
             return false;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
     

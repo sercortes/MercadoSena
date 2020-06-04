@@ -32,7 +32,7 @@ public class rolUsuarioDAO {
            ps=cn.prepareStatement(consulta);
            ps.setString(1, rol);
            ps.executeUpdate();
-           System.out.println("registro rol realizado consulta "+ps.toString());
+          // System.out.println("registro rol realizado consulta "+ps.toString());
            return true;
        } catch (SQLException e) {
            System.out.println("error al registrar rol "+e);
@@ -56,13 +56,17 @@ public class rolUsuarioDAO {
                listaRol.add(rolDTO);
            
            }
-           System.out.println(".........resultado "+listaRol.toString());
-           System.out.println("......... consulta "+ps.toString());
+          // System.out.println(".........resultado "+listaRol.toString());
+           //System.out.println("......... consulta "+ps.toString());
            return listaRol;
        } catch (SQLException e) {
             System.out.println(".........Error al listar el rol "+e);
            System.out.println("......... consulta"+ps.toString());
            return null;
-       }
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
    }
 }

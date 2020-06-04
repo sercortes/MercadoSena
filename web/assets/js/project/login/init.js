@@ -1,10 +1,10 @@
 
-$(function(){
- 
+$(function () {
+
     if (sessionStorage.getItem('falls') === null) {
         sessionStorage.setItem('falls', 0)
     }
-        
+
 })
 
 
@@ -23,66 +23,76 @@ document.getElementById('formOnes').addEventListener('input', e => {
 document.getElementById('formOnes').addEventListener('submit', e => {
 
     e.preventDefault()
-    
+
     var form = $("#formOnes")
     if (form[0].checkValidity() === false) {
         event.preventDefault()
         event.stopPropagation()
     }
     form.addClass('was-validated');
-    
+
     if (!checkInputs()) {
         messageInfo('complete el formulario')
         return false
     }
-    
+
     if (!checkInputsTwo()) {
         messageInfo('complete el formularios')
         return false
     }
-    
+
     let ema = document.getElementById('emails').value
     let pas = document.getElementById('passs').value
     let url = window.location.pathname;
-    
+
     url = localStorage.getItem('page')
     let datas = {
-        email : ema,
-        pass : pas,
-        url : url
+        email: ema,
+        pass: pas,
+        url: url
     }
     $('#carga').addClass('is-active');
-   
+
     parseInt(sessionStorage.falls++)
     sessionStorage.getItem('falls')
-    
-    if(sessionStorage.getItem('falls') <= 9){
-        
-    $.ajax({
-        type: "POST",
-        url: './login',
-        datatype: 'json',
-        data:datas
-    }).done(function (data) {
-        if (data) {
-            sessionStorage.setItem('falls', 0)
-            window.location.replace(window.location.pathname);
-        }else{
-            messageInfo('cuenta incorrecta')
-        }
-        clean()
-       
-    }).fail(function (data){
-        
-        clean()
-        
-    })
-    
-    }else{
+
+    if (sessionStorage.getItem('falls') <= 9) {
+
+        $.ajax({
+            type: "POST",
+            url: './login',
+            datatype: 'json',
+            data: datas
+        }).done(function (data) {
+            console.log(data);
+             sessionStorage.setItem('falls', 0)
+            if (data.length > 1) {
+               
+                if (data[1]==='true' && data[0]==='true' ) {
+                    sessionStorage.setItem('falls', 0);
+                    window.location.replace(window.location.pathname);
+                     
+                    
+                }else if(data[0]==='false'){
+                    $('#exampleModal').toggle();                   
+                    modalPregunta();
+                }
+            } else if (!data) {
+                messageInfo('Datos incorrectos o cuenta sin activar');
+            }
+            clean()
+
+        }).fail(function (data) {
+
+            clean()
+
+        })
+
+    } else {
         clean()
         messageInfo('cuenta incorrecta')
     }
-    
+
 })
 
 function clean() {
@@ -110,7 +120,7 @@ function checkInputsTwo() {
     let ema = document.getElementById('emails').value
     let pas = document.getElementById('passs').value
 
-    if (!ema.replace(/\s/g, '').length || !pas.replace(/\s/g, '').length ) {
+    if (!ema.replace(/\s/g, '').length || !pas.replace(/\s/g, '').length) {
         return false
     }
 

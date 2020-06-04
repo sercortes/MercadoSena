@@ -51,6 +51,41 @@ public class empresaDAO {
             System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
              // cerrarCon(ps, cn, rs);
             return false;
+         }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+
+    }
+    public boolean actualizarEmpresa(empresaDTO empresaDTO,int idUsuario) {
+        con = new Conexion();
+        consulta = "UPDATE empresa SET esEmpresa=? ,nombreEmpresa=?,direccionEmpresa=?,telefonoEmpresa=?,celularEmpresa=?,correoEmpresa=?,idCiudadFK=? WHERE idUsuarioFK=?";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setInt(1, empresaDTO.getEsEmpresa());
+            ps.setString(2, empresaDTO.getNombreEmpresa());
+            ps.setString(3, empresaDTO.getDirEmpresa());
+            ps.setString(4, empresaDTO.getTelEmpresa());
+            ps.setString(5, empresaDTO.getCelEmpresa());
+            ps.setString(6, empresaDTO.getCorreoEmpresa());
+            ps.setInt(7, empresaDTO.getIdCiudad());
+            ps.setInt(8, idUsuario);
+            ps.executeUpdate();
+            System.out.println("..... actualizacion de empresa realizado consulta " + ps.toString());
+              //cerrarCon(ps, cn, rs);
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al actualizar empresa " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+             // cerrarCon(ps, cn, rs);
+            return false;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
 
     }
@@ -86,6 +121,10 @@ public class empresaDAO {
             System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
              // cerrarCon(ps, cn, rs);
             return null;
+         }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
 
     }

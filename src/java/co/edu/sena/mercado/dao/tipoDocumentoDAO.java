@@ -34,7 +34,7 @@ public class tipoDocumentoDAO {
            ps=cn.prepareStatement(consulta);
            ps.setString(1,tipoDocumento.getTipoDoc());
            ps.executeUpdate();
-           System.out.println("registro tipoDocumento realizado consulta "+ps.toString());
+           //System.out.println("registro tipoDocumento realizado consulta "+ps.toString());
            return true;
        } catch (SQLException e) {
            System.out.println("error al registrar tipoDocumento "+e);
@@ -58,14 +58,18 @@ public class tipoDocumentoDAO {
               listaTipoDocumento.add(tipoDocumentoDTO);
            
            }
-           System.out.println(".........resultado "+listaTipoDocumento.toString());
-           System.out.println("......... consulta "+ps.toString());
+          // System.out.println(".........resultado "+listaTipoDocumento.toString());
+          // System.out.println("......... consulta "+ps.toString());
            return listaTipoDocumento;
        } catch (SQLException e) {
             System.out.println(".........Error al listar el tipoDocumento "+e);
            System.out.println("......... consulta"+ps.toString());
            return null;
-       }
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
    }
    
 }

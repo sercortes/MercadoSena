@@ -66,6 +66,7 @@ public class usuarioDAO {
                 usua.setCorreoUsu(rs.getString("emailUsuario"));
                 usua.setEstadoUsu(rs.getString("estadoUsuario"));
                 usua.setIdRol(rs.getInt("fkRol"));
+                usua.setNumIngreso(rs.getInt("numeroIngreso"));
 
             }
             return usua;
@@ -101,6 +102,7 @@ public class usuarioDAO {
             usuarioDTO.setIdRol(rs.getInt("fkRol"));
             usuarioDTO.setIdUsuario(rs.getInt("idUsuario"));
             usuarioDTO.setCodigo(rs.getString("codActivacion"));
+            usuarioDTO.setNumIngreso(rs.getInt("numeroIngreso"));
            
             
             }
@@ -112,13 +114,17 @@ public class usuarioDAO {
             System.out.println("error al consultar  usuario " + e);
             System.out.println("consulta " + ps.toString());
             return null;
+         }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
     public boolean activarUsuario(String correo, String codigo) {
         con = new Conexion();
      
         
-        consulta="UPDATE usuario SET estadoUsuario=0 WHERE codActivacion=? and emailusuario=?";
+        consulta="UPDATE usuario SET estadoUsuario=1 WHERE codActivacion=? and emailusuario=?";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
@@ -130,6 +136,33 @@ public class usuarioDAO {
             System.out.println("error al activar  usuario " + e);
             System.out.println("consulta " + ps.toString());
             return false;
+        
+         }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+    }
+    public boolean actEnteda(int numIngreso, int id) {
+        con = new Conexion();
+     
+        
+        consulta="UPDATE usuario SET numeroIngreso=?  WHERE idUsuario=?";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setInt(1, numIngreso);
+            ps.setInt(2, id);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("error al actualizar numero de ingreso usuario " + e);
+            System.out.println("consulta " + ps.toString());
+            return false;
+         }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
     public boolean eliminarUsuario(String correo, String clave) {
@@ -152,6 +185,10 @@ public class usuarioDAO {
             System.out.println("error al eliminar  usuario " + e);
             System.out.println("consulta " + ps.toString());
             return false;
+         }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
 }

@@ -1,5 +1,5 @@
 
-<div id="bloqueo" class="bloqueo" onclick="modalRegistro()"></div>
+<div id="bloqueo" class="bloqueo" ></div>
 <div id="modalRegistro" class="modalRegistro" >
     <i onclick="modalRegistro()">X</i>
     <h3>Registro usuario</h3>

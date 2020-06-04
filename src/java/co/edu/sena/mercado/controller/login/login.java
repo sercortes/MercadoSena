@@ -28,9 +28,6 @@ import javax.servlet.http.HttpSession;
  */
 public class login extends HttpServlet {
 
-  
-
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -52,49 +49,60 @@ public class login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
-        
+
         String userParam = request.getParameter("email");
         String passParam = request.getParameter("pass");
-       
+
         usuarioDTO UsuarioParam = new usuarioDTO(userParam, passParam);
         usuarioDAO userdao = new usuarioDAO();
         usuarioDTO usuario = userdao.login(UsuarioParam);
         response.setContentType("application/json");
+        String[] restpuesta = new String[2];
+        restpuesta[0] = "true";
 
-        if (usuario.getIdUsuario() > 0) {
-           
+        if ((usuario.getIdUsuario() > 0) && (usuario.getEstadoUsu().equals("1"))) {
+
+            userdao.actEnteda(usuario.getNumIngreso() + 1, usuario.getIdUsuario());
             HttpSession session = request.getSession();
             personaNaturalDAO perDAO = new personaNaturalDAO();
             personaNaturalDTO perDTO = perDAO.getDataById(Integer.toString(usuario.getIdUsuario()));
             usuario.setPersona(perDTO);
-            // get data company
+            // get company data 
             if (usuario.getIdRol() == 3) {
-                
+
                 empresaDAO empDAO = new empresaDAO();
                 empresaDTO emDTO = new empresaDTO();
                 emDTO = empDAO.buscarEmpresa(usuario.getIdUsuario());
+                //validar #ingreso
 
+                //validacion para vender creo
                 if (emDTO.getIdEmpresa() > 0) {
                     usuario.setActualizoEmpresa(1);
                     usuario.setEmpresa(emDTO);
-                }else{
+                    session.setAttribute("EMPRESA", emDTO);
+
+                } else {
                     usuario.setActualizoEmpresa(0);
+
                 }
-                
+                if (usuario.getNumIngreso() == 0) {
+                    restpuesta[0] = "false";
+                }
+
             }
 
+            restpuesta[1] = "true";
             session.setAttribute("USER", usuario);
-            new Gson().toJson(true, response.getWriter());
-           
-            
+            session.setAttribute("PER_NATURAL", perDTO);
+            new Gson().toJson(restpuesta, response.getWriter());
+
         } else {
 
             new Gson().toJson(false, response.getWriter());
 
         }
-
 
     }
 

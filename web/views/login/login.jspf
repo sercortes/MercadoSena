@@ -1,5 +1,5 @@
 <div id="exampleModal" class="modal fade">
-    <div class="modal-dialog modal-login">
+    <div class="modal-dialog modal-login" >
         <div class="modal-content">
             <div class="modal-header">
                 <div class="avatar">
@@ -13,7 +13,7 @@
                 <form class="needs-validation" action="#" method="post" id="formOnes"  >
                    <div class="form-group">
                         <label for="exampleInputEmail1">Correo:</label>
-                        <input type="email" class="form-control was-validated" minlength="4" maxlength="150" id="emails" name="emails" placeholder="example@misena.edu.co" required>
+                        <input type="email" class="form-control was-validated" minlength="10" maxlength="150" id="emails" name="emails" placeholder="example@misena.edu.co" required>
                         <div class="valid-feedback">
                             :D
                         </div>
