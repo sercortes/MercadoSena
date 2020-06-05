@@ -24,7 +24,7 @@
     <script src="./assets/js/project/comprador/ajax.js" charset="utf-8"></script>
 
     <!-- plugin responsive sidebar-->
-    <script src="./assets/plugins/greensock/TweenMax.min.js"></script>
+    <script src="./assets/js/TweenMax.min.js"></script>
     <script src="./assets/js/custom.js"></script>
 
     <script src="./assets/js/project/util/functions.js"></script>

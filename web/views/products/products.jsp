@@ -14,7 +14,7 @@
 
 <%@include file="/views/template/header.jspf"%>
 
-<div class="container-fluid" id="container-wrapper">
+<div class="container-fluid pl-0 pr-0" id="container-wrapper">
 
     <div class="container">
     <div class="row p-2">

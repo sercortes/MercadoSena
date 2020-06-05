@@ -53,7 +53,6 @@ function listarProductoByVendedor() {
             arrayFinal.push(itemP)
         }
 
-        console.log(arrayFinal)
         if (arrayFinal.length == 0) {
             queryEmphy()
             return false
