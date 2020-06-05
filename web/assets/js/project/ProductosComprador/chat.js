@@ -64,6 +64,7 @@ var interacion
         sendMessage('Hola Sergio :D');
         function generate() {
             sendMessage(getMessageText());
+            enviarMensaje();
             setTimeout(()=> sendMessage('El Mensaje ha sido enviado'), 1000)
         }
 //        return setTimeout(function () {
@@ -72,6 +73,6 @@ var interacion
     });
 }.call(this));
 
-function enviar(){
+function enviarMensaje(){
     console.log('enviar al servidor')
 }
