@@ -60,7 +60,7 @@ public class login extends HttpServlet {
         usuarioDTO usuario = userdao.login(UsuarioParam);
         
         response.setContentType("application/json");
-        String[] restpuesta = new String[2];
+        String[] restpuesta = new String[3];
         restpuesta[0] = "true";
 
         if ((usuario.getIdUsuario() > 0) && (usuario.getEstadoUsu().equals("1"))) {
@@ -76,6 +76,7 @@ public class login extends HttpServlet {
 
                 // asignando empresa
                 empresaDTO emDTO = new empresaDAO().buscarEmpresa(usuario.getIdUsuario());
+                restpuesta[2] = Integer.toString(emDTO.getIdEmpresa());
                 usuario.setEmpresa(emDTO);
                     
                 if (usuario.getNumIngreso() == 0) {

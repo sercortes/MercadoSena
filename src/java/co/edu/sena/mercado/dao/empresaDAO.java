@@ -128,6 +128,45 @@ public class empresaDAO {
         }
 
     }
+    
+      public empresaDTO buscarEmpresaXProducto(String idProducto) {
+        con = new Conexion();
+        consulta = "SELECT * FROM empresa WHERE idEmpresa = ?";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setString(1, idProducto);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                empresaDTO = new empresaDTO();
+                empresaDTO.setIdEmpresa(rs.getInt("idEmpresa"));
+                empresaDTO.setEsEmpresa(rs.getInt("esEmpresa"));
+                empresaDTO.setNombreEmpresa(rs.getString("nombreEmpresa"));
+                empresaDTO.setDirEmpresa(rs.getString("direccionEmpresa"));
+                empresaDTO.setTelEmpresa(rs.getString("telefonoEmpresa"));
+                empresaDTO.setCelEmpresa(rs.getString("celularEmpresa"));
+                empresaDTO.setCorreoEmpresa(rs.getString("correoEmpresa"));
+                empresaDTO.setIdCiudad(rs.getInt("idCiudadFK"));
+                empresaDTO.setIdUsuario(rs.getInt("idUsuarioFK"));
+
+            }
+            System.out.println(".....  empresa encontrada consulta " + ps.toString());
+            System.out.println(".....  empresa encontrada  " + empresaDTO.toString());
+            //cerrarCon(ps, cn, rs);
+            return empresaDTO;
+
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al buscar empresa " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+             // cerrarCon(ps, cn, rs);
+            return null;
+         }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+
+    }
 
 //    public void cerrarCon(PreparedStatement ps, Connection con, ResultSet rs) {
 //        try {

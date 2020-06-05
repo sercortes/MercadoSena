@@ -185,6 +185,7 @@ public class ProductoDAO {
                 producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
+                producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
 
                 categorys = new Categorys();
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));

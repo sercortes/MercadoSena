@@ -1,5 +1,5 @@
 
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="/views/template/head.jspf"%>
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 <%@include file="/views/template/header.jspf"%>

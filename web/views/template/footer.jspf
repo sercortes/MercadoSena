@@ -26,8 +26,6 @@
     <script src="./assets/plugins/greensock/TweenMax.min.js"></script>
     <script src="./assets/js/custom.js"></script>
 
-    <script src="./assets/js/init/start.js"></script>
-
     <script src="./assets/js/project/util/functions.js"></script>
 
     <script src="./assets/js/modals/login.js"></script>

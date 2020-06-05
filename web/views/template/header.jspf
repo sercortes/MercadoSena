@@ -102,7 +102,7 @@
                                                     </a>
                                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                                         <a class="dropdown-item" href="#">Usuario</a>
-                                                        <a class="dropdown-item" href="./logout">Salir</a>
+                                                        <a id="logoutFire" class="dropdown-item" href="./logout">Salir</a>
                                                     </div>
                                                 </li>   
                                             </ul>

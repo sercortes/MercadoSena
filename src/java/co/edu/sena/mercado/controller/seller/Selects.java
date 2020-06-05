@@ -8,8 +8,10 @@ package co.edu.sena.mercado.controller.seller;
 import co.edu.sena.mercado.dao.CategorysDAO;
 import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
+import co.edu.sena.mercado.dao.empresaDAO;
 import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.empresaDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
@@ -86,6 +88,12 @@ public class Selects extends HttpServlet {
              case "/MercadoSena/getImagesByProduct":
                 
                 getImagesByProduct(request, response);
+                
+                break;
+                
+             case "/MercadoSena/getInfoCompanyByProduct":
+                
+                getInfoCompanyByProduct(request, response);
                 
                 break;
 
@@ -178,6 +186,19 @@ public class Selects extends HttpServlet {
         response.setContentType("application/json");
         imagenesProductosDAO.CloseAll();
         new Gson().toJson(listaImagenes, response.getWriter());
+        
+    }
+
+    private void getInfoCompanyByProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        empresaDAO empresaDao = new empresaDAO();
+        empresaDTO empresaDto = 
+                empresaDao.buscarEmpresaXProducto(request.getParameter("idProducto"));
+
+        response.setContentType("application/json");
+        new Gson().toJson(empresaDto, response.getWriter());
+        
         
     }
 

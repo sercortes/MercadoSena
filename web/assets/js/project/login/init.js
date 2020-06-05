@@ -65,20 +65,22 @@ document.getElementById('formOnes').addEventListener('submit', e => {
             data: datas
         }).done(function (data) {
             
-             sessionStorage.setItem('falls', 0)
+
             if (data.length > 1) {
                
                 if (data[1]==='true' && data[0]==='true' ) {
                     sessionStorage.setItem('falls', 0);
                     window.location.replace(window.location.pathname);
-                     
+                    sessionStorage.setItem('idCompany',data[2]);
                     
                 }else if(data[0]==='false'){
                     $('#exampleModal').toggle();                   
+                    sessionStorage.setItem('falls', 0)
+                    sessionStorage.setItem('idCompany',data[2]);
                     modalPregunta();
                 }
             } else if (!data) {
-                messageInfo('Datos incorrectos o cuenta sin activar');
+                messageInfo('Datos incorrectos');
             }
             clean()
 

@@ -107,11 +107,12 @@ function generateTableBuscador() {
     let select = document.getElementById('tabla');
     let str = ``
     let num = 1
-
+    
     for (var item of displayRecords) {
 
+ if (sessionStorage.getItem('idCompany') !== item.idEmpresaFK ) {
         str += `<div class="col-lg-3">
-          <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}">`
+          <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">`
 
         str += `<div id="carouselExampleControls${num}" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" id="caruselOne">`
@@ -143,15 +144,19 @@ function generateTableBuscador() {
             </div>
           </div>
         </div>
-      </div>
-         <div class="text-right">
+      </div>`
+            
+                str +=  `<div class="text-right">
                             <a href="#" class="botonChat btn btn-primary"><i class="fas fa-comments"></i></a>
-                            <a href="#" class="watch btn btn-primary"><i class="fas fa-images"></i> Ver más</a>
-                        </div>
-          </figure>
+                    <a href="#" class="watch btn btn-primary"><i class="fas fa-images"></i> Ver</a>
+                        </div>`       
+                  
+       str +=   `</figure>
         </div>`
         num++
     }
+
+}
 
     select.innerHTML = str;
 }
@@ -241,5 +246,3 @@ function queryEmphy() {
 </div>`
     select.innerHTML = str;
 }
-
-

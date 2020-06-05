@@ -52,6 +52,7 @@
         <url-pattern>/getImages</url-pattern>
         <url-pattern>/getProductsByDateTime</url-pattern>
         <url-pattern>/getImagesByProduct</url-pattern>
+        <url-pattern>/getInfoCompanyByProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateProduct</servlet-name>

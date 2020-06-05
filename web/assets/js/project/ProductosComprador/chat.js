@@ -1,12 +1,34 @@
-
+var interacion 
 
 $(document).on('click', '.botonChat', function (e){
     e.preventDefault()
+    
+    let parent = $(this)[0].parentElement.parentElement
+    let idPro = $(parent).attr('idEmpresa')
+    console.log(idPro)
+    getEmpresa(idPro)
+    
     $('#preguntarModal').modal('show')
     interacion = 0
 })
 
-var interacion 
+function getEmpresa(idpro){
+    
+     $.ajax({
+        type: "POST",
+        url: './getInfoCompanyByProduct',
+        async: true,
+        data:{
+            idProducto:idpro
+        },
+        datatype: 'json'
+    }).done(function (data) {
+
+        console.log(data)
+        
+    })
+    
+}
 
 (function () {
     var Message;

@@ -685,7 +685,6 @@ section
 .custom_dropdown
 {
     width: calc((100% - 50px) * 0.399);
-    height: 50px;
     float: left;
     padding-left: 26px;
 }

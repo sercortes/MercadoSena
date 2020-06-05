@@ -1,3 +1,16 @@
+$(function(){
+    
+   $('#myCarousel').carousel({
+    interval: 3000,
+ })
+
+    if (window.location.pathname !== "/MercadoSena/") {   
+        oculMost() 
+    }
+    
+})
+
+
 function oculMost() {
     
     var accion = $('#litaCategoria').attr('action');
@@ -12,7 +25,16 @@ function oculMost() {
         $('#litaCategoria').attr('action', 'no');
         $('#litaCategoria').show();
     }
+    
 }
+
+
+$(document).on('click', '#logoutFire', function(){
+    
+    sessionStorage.removeItem('idCompany')
+    sessionStorage.removeItem('falls')
+    
+})
 
 function messageOk(message) {
     Swal.fire({
