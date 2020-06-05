@@ -65,7 +65,7 @@ var interacion
         function generate() {
             sendMessage(getMessageText());
             enviarMensaje();
-            setTimeout(()=> sendMessage('El Mensaje ha sido enviado'), 1000)
+            setTimeout(()=> sendMessage('El Mensaje ha sido enviado :D'), 1000)
         }
 //        return setTimeout(function () {
 //            return sendMessage('I\'m fine, thank you!');
