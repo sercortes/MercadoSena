@@ -43,6 +43,7 @@
 </div>
 
 <%@include file="/views/searching/modalVerProducto.jspf"%>
+<%@include file="/views/searching/modalPreguntar.jspf"%>
 
 <%@include file="/views/login/login.jspf"%>
 
@@ -51,3 +52,4 @@
 
 <script src="./assets/js/pagination/pager.js" charset="utf-8"></script> 
 <script src="./assets/js/project/ProductosComprador/ProductsInit.js" charset="utf-8"></script>
+<script src="./assets/js/project/ProductosComprador/chat.js" charset="utf-8"></script>

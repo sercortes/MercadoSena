@@ -123,7 +123,7 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Días de Envío:</label>
-                                <input type="text" class="form-control was-validated" minlength="4" maxlength="150" id="envios" name="envios" placeholder="Nombre de su producto" required>
+                                <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="envios" name="envios" placeholder="Nombre de su producto" required>
                                 <div class="valid-feedback">
                                     :D
                                 </div>

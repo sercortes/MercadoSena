@@ -145,7 +145,8 @@ function generateTableBuscador() {
         </div>
       </div>
          <div class="text-right">
-                            <a href="#" class="watch btn btn-primary"><i class="fas fa-gift"></i> Me interesa</a>
+                            <a href="#" class="botonChat btn btn-primary"><i class="fas fa-comments"></i></a>
+                            <a href="#" class="watch btn btn-primary"><i class="fas fa-images"></i> Ver más</a>
                         </div>
           </figure>
         </div>`
