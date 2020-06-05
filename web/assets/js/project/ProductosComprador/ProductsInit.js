@@ -15,6 +15,10 @@ $(function () {
 
     listarProductoByVendedor()
 
+    $('#caruselDetails').carousel({
+        interval: 2800,
+    })
+
 
 })
 
@@ -107,17 +111,17 @@ function generateTableBuscador() {
     let select = document.getElementById('tabla');
     let str = ``
     let num = 1
-    
+
     for (var item of displayRecords) {
 
- if (sessionStorage.getItem('idCompany') !== item.idEmpresaFK ) {
-        str += `<div class="col-lg-3">
+        if (sessionStorage.getItem('idCompany') !== item.idEmpresaFK) {
+            str += `<div class="col-lg-3">
           <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">`
 
-        str += `<div id="carouselExampleControls${num}" class="carousel slide" data-ride="carousel">
+            str += `<div id="carouselExampleControls${num}" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" id="caruselOne">`
-        str += getImages(item.idProducto)
-        str += ` </div>
+            str += getImages(item.idProducto)
+            str += ` </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls${num}" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Anterior</span>
@@ -128,7 +132,7 @@ function generateTableBuscador() {
                     </a>
                 </div>`
 
-        str += `<figcaption class="p-3 card-img-bottom">
+            str += `<figcaption class="p-3 card-img-bottom">
               <h2 class="h5 font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
               <h4 class="text-left text-muted">${item.nombreProducto}</h4>
             </figcaption>
@@ -145,18 +149,19 @@ function generateTableBuscador() {
           </div>
         </div>
       </div>`
-            
-                str +=  `<div class="text-right">
+
+            str += `<div class="text-right">
                             <a href="#" class="botonChat btn btn-primary"><i class="fas fa-comments"></i></a>
                     <a href="#" class="watch btn btn-primary"><i class="fas fa-images"></i> Ver</a>
-                        </div>`       
-                  
-       str +=   `</figure>
-        </div>`
-        num++
-    }
+                        </div>`
 
-}
+            str += `</figure>
+        </div>`
+            num++
+        }
+      
+
+    }
 
     select.innerHTML = str;
 }
@@ -170,6 +175,7 @@ $(document).on('click', '.watch', function (e) {
     let idPro = $(parent).attr('idProducto')
     let producto = arregloFinal.find(element => element.idProducto === idPro)
     $('#detailsProduct').modal('show')
+
     detailsProduct(producto)
 
 })
@@ -177,6 +183,7 @@ $(document).on('click', '.watch', function (e) {
 function detailsProduct(producto) {
     caruselImagenes(producto.imagenes)
     textProduct(producto)
+
 }
 
 function textProduct(item) {
@@ -234,7 +241,7 @@ function queryEmphy() {
     let select = document.getElementById('tabla');
     let str =
             `<div class="col-lg-3">
-</div>
+                </div>
     <div class="col-lg-6">
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
   No hay elementos!<strong> :D</strong>
@@ -242,7 +249,6 @@ function queryEmphy() {
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-    
 </div>`
     select.innerHTML = str;
 }

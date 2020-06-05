@@ -7,6 +7,10 @@ $(function () {
 
 })
 
+$('#login').click(function(){
+     $('#exampleModal').modal('show');
+})
+
 
 document.getElementById('formOnes').addEventListener('input', e => {
 

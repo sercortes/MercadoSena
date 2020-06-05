@@ -55,7 +55,7 @@
                         <c:if test="${ empty USER.idRol}">
                             <!-- Wishlist -->
                             <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
-                                <div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
+                                <div class="wishlist_cart d-flex flex-row align-items-center">
 
                                     <div id="register" class="wishlist d-flex flex-row align-items-center justify-content-end" onclick="consultarDatosFormulario()">
                                         <div class="wishlist_icon">
