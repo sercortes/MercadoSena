@@ -24,6 +24,10 @@ $(function () {
 
     $('.collapse').collapse()
     
+    console.log(idCompany)
+    
+    redirect()
+    
 })
 
 function listarProductoByVendedor() {

@@ -12,7 +12,7 @@
     
     <c:if test="${USER == null}">
         <script>
-            sessionStorage.removeItem('idCompanys')
+            sessionStorage.removeItem('idCompany')
         </script>
     </c:if>
 

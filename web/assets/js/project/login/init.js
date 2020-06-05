@@ -1,4 +1,4 @@
-
+var idCompany
 $(function () {
 
     if (sessionStorage.getItem('falls') === null) {
@@ -75,12 +75,14 @@ document.getElementById('formOnes').addEventListener('submit', e => {
                 if (data[1]==='true' && data[0]==='true' ) {
                     sessionStorage.setItem('falls', 0);
                     window.location.replace(window.location.pathname);
+                    idCompany = data[2]
                     sessionStorage.setItem('idCompany',data[2]);
                     
                 }else if(data[0]==='false'){
                     $('#exampleModal').toggle();                   
                     sessionStorage.setItem('falls', 0)
                     sessionStorage.setItem('idCompany',data[2]);
+                    idCompany = data[2]
                     modalPregunta();
                 }
             } else if (!data) {

@@ -7,8 +7,14 @@ $(function(){
     if (window.location.pathname !== "/MercadoSena/") {   
         oculMost() 
     }
-    
+ 
 })
+
+function redirect(){
+    if (sessionStorage.getItem('idCompany') == null) {
+        window.location.replace('./logout');
+    }
+}
 
 
 function oculMost() {
