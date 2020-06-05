@@ -8,7 +8,7 @@
                     <span class="float-right pr-2" aria-hidden="true">&times;</span>
                 </button>
            
-            <div class="modal-body">
+            <div class="modal-body pt-0">
 
                 <div id="caruselDetails" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner" id="carusel">
@@ -23,7 +23,8 @@
                         <span class="sr-only">Siguiente</span>
                     </a>
                 </div>
-                
+                     
+                     
                 <div id="details" class="text-justify pt-2">
                     
                 </div>
@@ -31,7 +32,7 @@
                 <div class="container">
                     
                 </div>
-                
+           
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

@@ -16,7 +16,7 @@ $(function () {
     listarProductoByVendedor()
 
     $('#caruselDetails').carousel({
-        interval: 2800,
+        interval: 2100,
     })
 
 
@@ -118,8 +118,8 @@ function generateTableBuscador() {
             str += `<div class="col-lg-3">
           <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">`
 
-            str += `<div id="carouselExampleControls${num}" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner" id="caruselOne">`
+            str += `<div id="carouselExampleControls${num}" class="carousel slide hijueputa" data-ride="carousel">
+                    <div class="carousel-inner" id="caruselOne${num}">`
             str += getImages(item.idProducto)
             str += ` </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls${num}" role="button" data-slide="prev">
@@ -152,14 +152,14 @@ function generateTableBuscador() {
 
             str += `<div class="text-right">
                             <a href="#" class="botonChat btn btn-primary"><i class="fas fa-comments"></i></a>
-                    <a href="#" class="watch btn btn-primary"><i class="fas fa-images"></i> Ver</a>
+                    <a href="#" class="watch btn btn-primary"><i class="fas fa-images"></i></a>
                         </div>`
 
             str += `</figure>
         </div>`
             num++
         }
-      
+
 
     }
 
@@ -181,15 +181,29 @@ $(document).on('click', '.watch', function (e) {
 })
 
 function detailsProduct(producto) {
+
+
     caruselImagenes(producto.imagenes)
     textProduct(producto)
+
+    setTimeout(() => $('.hijueputa').carousel({
+            interval: 6100,
+        }), 1000)
 
 }
 
 function textProduct(item) {
     let str = ''
     let element = document.getElementById('details')
-    str += `<h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
+    str += `  <div id="detail" class="text-justify pt-2" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
+<h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
+    <a id="meInteresa" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">
+                     <i class="fas fa-gift"></i> Me interesa</a>
+    <select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;">`
+    for (var i = 1; i <= item.stockProducto; i++) {
+        str += `<option>${i}</option>`
+    }
+    str += `</select>
               <p class="mb-0 text-small text-muted">Valor: $ ${item.valorProducto}</p>
               <p class="mb-0 text-small text-muted">Marca: ${item.marcaProducto}</p>
               <p class="mb-0 text-small text-muted">Categoría: ${item.categorys.nombreCategoria}</p>
@@ -212,7 +226,8 @@ function textProduct(item) {
             </div>
           </div>
         </div>
-      </div>`
+      </div>
+    </div>`
     }
     element.innerHTML = str
 }
@@ -227,7 +242,7 @@ function caruselImagenes(data) {
                             <img class="img-fluid fit-imageModal" src="${item.url}">
                         </div>`
         } else {
-            str += `<div class="carousel-item ssss">
+            str += `<div class="carousel-item">
                             <img class="img-fluid fit-imageModal" src="${item.url}">
                         </div>`
         }
@@ -251,4 +266,93 @@ function queryEmphy() {
 </div>
 </div>`
     select.innerHTML = str;
+}
+
+$(document).on('click', '#meInteresa', function (e) {
+    e.preventDefault()
+    let parent = $(this)[0].parentElement
+    let idEmpresa = $(parent).attr('idEmpresa')
+    let idProducto = $(parent).attr('idProducto')
+    let cantidad = $('#cantidadSelect').val()
+    
+    let datos = {
+        idEmpresa: idEmpresa,
+        idProducto: idProducto,
+        Cantidad:cantidad
+    }
+
+    Swal.fire({
+        title: 'Pregunta?',
+        text: 'Deseas que el vendedor pueda ver tus datos para contactarte!',
+        icon: 'info',
+        showCancelButton: true,
+        showCloseButton: true,
+        cancelButtonText: 'No',
+        confirmButtonText: 'Si',
+    }).then((result) => {
+        if (result.value) {
+            messageOk('enviado')
+            generateTables(datos, true)
+            datosVendedor(idEmpresa)
+
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            messageError('cancelado')
+            generateTables(datos, false)
+            datosVendedor(idEmpresa)
+            
+        }
+    })
+
+})
+
+function generateTables(datos, contacto){
+    datos.contacto = contacto
+    console.log(datos)
+}
+
+function datosVendedor(data){
+  
+  let datos;
+  
+  $.ajax({
+        type: "POST",
+        url: './getInfoCompanyByProduct',
+        async: false,
+        data:{
+            idProducto:data
+        },
+        datatype: 'json'
+    }).done(function (data) {
+  
+          datos = data
+
+    })
+  
+
+Swal.fire({
+  title: '<strong>Datos Vendedor</strong>',
+  icon: 'success',
+  html:
+    'Nombre: ' + datos.nombreEmpresa+
+    '<hr> ' +
+    'Dirección: ' + datos.DirEmpresa+
+    '<hr>' +
+    'Celular: ' + datos.CelEmpresa+ 
+    '<hr> ' +
+    'Teléfono: ' + datos.telEmpresa+ 
+    '<hr> ' +
+    'Email: ' + datos.correoEmpresa+'',
+  showCloseButton: true,
+  focusConfirm: false,
+  confirmButtonText:
+    '<i class="fas fa-handshake"></i> Genial!',
+  confirmButtonAriaLabel: 'Thumbs up, great!',
+   width: 600,
+  backdrop: `
+    rgba(0,0,123,0.4)
+    left top
+    no-repeat`
+})
+
+
 }

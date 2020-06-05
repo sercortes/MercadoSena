@@ -24,10 +24,10 @@
                     </a>
                 </div>
                 
-                <div id="details" class="text-justify pt-2">
+                <div class="details">
                     
                 </div>
-
+      
 
             </div>
             <div class="modal-footer">

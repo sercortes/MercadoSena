@@ -5,7 +5,6 @@ $(document).on('click', '.botonChat', function (e){
     
     let parent = $(this)[0].parentElement.parentElement
     let idPro = $(parent).attr('idEmpresa')
-    console.log(idPro)
     getEmpresa(idPro)
     
     $('#preguntarModal').modal('show')
