@@ -1,32 +1,36 @@
-var interacion 
-
-$(document).on('click', '.botonChat', function (e){
+var interacion;
+var idProducto;
+$(document).on('click', '.botonChat', function (e) {
     e.preventDefault()
-    
-    let parent = $(this)[0].parentElement.parentElement
-    let idPro = $(parent).attr('idEmpresa')
-    getEmpresa(idPro)
-    
-    $('#preguntarModal').modal('show')
-    interacion = 0
+    if ($('#nombreUsuarioInicio').val()!=='no'){
+        let parent = $(this)[0].parentElement.parentElement;
+        idpro = $(parent).attr('idEmpresa');
+        idProducto = $(parent).attr('idProducto');
+        //getEmpresa(idPro);
+        $('#preguntarModal').modal('show');
+        interacion = 0;
+    }else{
+        modalPreguntaRegistro();
+    }
+    console.log($('#nombreUsuarioInicio').val());
 })
 
-function getEmpresa(idpro){
-    
-     $.ajax({
+function getEmpresa(idpro) {
+
+    $.ajax({
         type: "POST",
         url: './getInfoCompanyByProduct',
         async: true,
-        data:{
-            idProducto:idpro
+        data: {
+            idProducto: idpro
         },
         datatype: 'json'
     }).done(function (data) {
 
-        console.log(data)
-        
+        console.log(data);
+
     })
-    
+
 }
 
 (function () {
@@ -47,12 +51,14 @@ function getEmpresa(idpro){
         return this;
     };
     $(function () {
-         var interacion = 0;
+        var interacion = 0;
         var getMessageText, message_side, sendMessage;
         message_side = 'right';
         getMessageText = function () {
             var $message_input;
             $message_input = $('.message_input');
+            enviarMensaje($message_input.val());
+
             return $message_input.val();
         };
         sendMessage = function (text) {
@@ -68,32 +74,77 @@ function getEmpresa(idpro){
                 message_side: message_side
             });
             message.draw();
-            return $messages.animate({ scrollTop: $messages.prop('scrollHeight') }, 300);
+            return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 300);
         };
         $('.send_message').click(function (e) {
-            
-                            if (interacion < 1) {
-                                interacion++
-                                generate()
-                            }
+
+            if (interacion < 1) {
+                interacion++;
+                generate();
+            }
         });
         $('.message_input').keyup(function (e) {
             if (e.which === 13) {
                 return sendMessage(getMessageText());
             }
         });
-        sendMessage('Hola Sergio :D');
+        sendMessage('Hola ' + $('#nombreUsuarioInicio').val());
         function generate() {
             sendMessage(getMessageText());
-            enviarMensaje();
-            setTimeout(()=> sendMessage('El Mensaje ha sido enviado :D'), 1000)
         }
+
+        function enviarMensaje(mensaje) {
+
+
+            if (mensaje !== null && mensaje !=='') {
+                $.ajax({
+                    url: './registro',
+                    data: {
+                        accion: 'registroPregunta',
+                        mensaje: mensaje,
+                        idProducto: idProducto
+                    },
+                    type: 'POST',
+                    success: function (data) {
+                        console.log(data);
+                        console.log(typeof data);
+                        if (data === 'true') {
+                            setTimeout(() => sendMessage('Hemos enviado su mensaje al vendedor, quién pronto se pondrá en contacto.'), 1000);
+                        } else {
+                            interacion = interacion - 1;
+                            messageError('Error al enviar el mensaje');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        interacion = interacion - 1;
+                        messageInfo('Ha ocurrido un error con el servidor,favor intentar más tarde.');
+
+
+                    }})
+            }
+
+
+        }
+
+
+
 //        return setTimeout(function () {
 //            return sendMessage('I\'m fine, thank you!');
 //        }, 2000);
     });
 }.call(this));
 
-function enviarMensaje(){
-    console.log('enviar al servidor')
+function modalRegistroSi() {
+    modalPreguntaRegistro();
+    consultarDatosFormulario();
+}
+function modalPreguntaRegistro() {
+    $('#modalPreguntaRegistro').toggle();
+    $('#bloqueo').toggle();
+}
+
+
+function consultaPreguntas(e) {
+    e.preventDefault();
+    
 }

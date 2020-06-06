@@ -53,6 +53,9 @@
                         </div>
 
                         <c:if test="${ empty USER.idRol}">
+                            <input type="hidden" value="no" id="nombreUsuarioInicio">
+
+
                             <!-- Wishlist -->
                             <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
                                 <div class="wishlist_cart d-flex flex-row align-items-center">
@@ -90,6 +93,7 @@
                         </c:if>
 
                         <c:if test="${not empty USER.idRol}">
+                            <input type="hidden" value="${USER.persona.nombrePer}" id="nombreUsuarioInicio">
                             <div class="col-lg-2 col-9 order-lg-3 order-2 text-lg-left">
                                 <div class="cart">
                                     <div id="" class="">
@@ -165,6 +169,9 @@
 
                                         <c:if test="${USER.idRol == 3}">
                                             <li><a href="./Products">Mis Productos<i class="fas fa-chevron-down"></i></a></li>
+                                                </c:if>
+                                                <c:if test="${not empty USER.idRol}">
+                                            <li  ><a href="./preguntas"  >Mensajes<i class="fas fa-chevron-down"></i></a></li>
                                                 </c:if>
 
 

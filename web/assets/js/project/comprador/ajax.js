@@ -4,27 +4,9 @@ function consultarDatosFormulario() {
     consultaTipoDoc();
     consultagenero();
     consultaCiudad('#ciudad', 'ciudadUsuario');
-    // consultaRol('comprador');
     modalRegistro();
 }
 
-function consultaRol() {
-    $.ajax({
-        url: "./registro?accion=consultaRol",
-        type: 'POST',
-        dataType: 'json',
-        contentType: false,
-        processData: false,
-        success: function (data) {
-
-            // console.log(data);
-            //console.log(rol);
-
-        }
-
-    }
-    )
-}
 function consultaTipoDoc() {
 
     $.ajax({
@@ -33,6 +15,11 @@ function consultaTipoDoc() {
         dataType: 'json',
         contentType: false,
         processData: false,
+         error: function (jqXHR, textStatus, errorThrown) {
+            modalRegistro();
+            // $('#carga').removeClass('is-active');
+            messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
+        },
         success: function (data) {
             selects(data, '#tipoDoc', 'tipoDocUsuario');
 
@@ -48,6 +35,11 @@ function consultagenero() {
         dataType: 'json',
         contentType: false,
         processData: false,
+        error: function (jqXHR, textStatus, errorThrown) {
+            modalRegistro();
+            // $('#carga').removeClass('is-active');
+            messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
+        },
         success: function (data) {
             selects(data, '#genero', 'generoUsuario');
 
@@ -61,7 +53,13 @@ function consultaCiudad(idDiv, idInput) {
         type: 'POST',
         dataType: 'json',
         contentType: false,
-        processData: false,
+        processData: false, 
+        error: function (jqXHR, textStatus, errorThrown) {
+            $('#bloqueo').hide();
+            $('#modalRegistro').hide();
+            // $('#carga').removeClass('is-active');
+            messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
+        },
         success: function (data) {
             selects(data, idDiv, idInput);
 
@@ -130,7 +128,7 @@ $('#registroUsuario').submit(function (e) {
     // console.log(datosVal);
 
     if ($('#registroUsuario')[0].checkValidity() && valCampos(datosVal) && validarClave()) {
-         $('#carga').addClass('is-active');
+        $('#carga').addClass('is-active');
         event.preventDefault();
         event.stopPropagation();
         event.stopImmediatePropagation();
@@ -143,16 +141,21 @@ $('#registroUsuario').submit(function (e) {
             type: 'POST',
             contentType: false,
             processData: false,
+            error: function (jqXHR, textStatus, errorThrown) {
+                $('#carga').removeClass('is-active');
+                modalRegistro();
+                messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
+            },
             success: function (data) {
-                 $('#carga').removeClass('is-active');
-                 modalRegistro();
-                if(data){
-                    
+                $('#carga').removeClass('is-active');
+                modalRegistro();
+                if (data==='true') {
+
                     messageInfo('Registro realizado, hemos enviado al correo registrado sus datos de ingreso y el link de activación para su cuenta.')
-                }else{
+                } else {
                     messageError('Error al relizar el registro');
                 }
-               
+
                 limpiarFormulario('#registroUsuario');
                 formulario.addClass('was-validated');
                 btn.disabled = false;
@@ -278,12 +281,19 @@ $('#registroEmpresa').submit(function (e) {
             url: "./registro?accion=registroEmpresa&" + datos,
             type: 'POST',
             contentType: false,
-            processData: false,
-            success: function (data) {
+            processData: false,  error: function (jqXHR, textStatus, errorThrown) {
                 $('#carga').removeClass('is-active');
-                if(data){
-                    messageOk('Empresa registrada exitosamente');
-                }else{
+                 $('#modalRegistroEmpresa').hide();
+                 $('#bloqueo').hide();
+                messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
+            },
+            success: function (data) {
+                
+                $('#carga').removeClass('is-active');
+                if (data==='true') {
+                    cerrar('#modalRegistroEmpresa');
+                    //messageOk('Empresa registrada exitosamente');
+                } else {
                     messageError('Error al realizar el registro');
                 }
                 limpiarFormulario('#registroEmpresa');

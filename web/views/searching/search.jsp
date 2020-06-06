@@ -47,8 +47,12 @@
 
 <%@include file="/views/login/login.jspf"%>
 
-
+<c:if test="${ empty USER.idRol}">
+    <%@include file="/views/registro/registro.jspf"%>
+</c:if>
 <%@include file="/views/template/footer.jspf"%>
+
+
 
 <script src="./assets/js/pagination/pager.js" charset="utf-8"></script> 
 <script src="./assets/js/project/ProductosComprador/ProductsInit.js" charset="utf-8"></script>
