@@ -51,9 +51,12 @@ public class registro extends HttpServlet {
     empresaDAO empresaDAO = new empresaDAO();
     empresaDTO empresaDTO = new empresaDTO();
     ArrayList<empresaDTO> listaEmpresa = new ArrayList<>();
-    preguntasDAO preguntaDAO=new preguntasDAO();
-    preguntasDTO preguntaDTO=new preguntasDTO();
-    ArrayList<preguntasDTO> listaPregunta=new ArrayList<>();
+    preguntasDAO preguntaDAO = new preguntasDAO();
+    preguntasDTO preguntaDTO = new preguntasDTO();
+    ArrayList<preguntasDTO> listaPregunta = new ArrayList<>();
+    respuestaDAO respuestaDAO = new respuestaDAO();
+    respuestaDTO respuestaDTO = new respuestaDTO();
+    ArrayList<respuestaDTO> listaRespuesta = new ArrayList<>();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -226,28 +229,51 @@ public class registro extends HttpServlet {
 
                 break;
             case "registroPregunta":
-                usuarioDTO=(usuarioDTO) sesion.getAttribute("USER");
-                preguntaDTO=new preguntasDTO();
+                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
+                preguntaDTO = new preguntasDTO();
                 preguntaDTO.setEstadoPregunta(0);
                 preguntaDTO.setIdProducto(Integer.parseInt(request.getParameter("idProducto")));
                 preguntaDTO.setIdUsuarioPregunta(usuarioDTO.getIdUsuario());
                 preguntaDTO.setPregunta(request.getParameter("mensaje"));
-               // System.out.println("......."+preguntaDTO.toString());
+                // System.out.println("......."+preguntaDTO.toString());
                 if (preguntaDAO.resgistroPregunta(preguntaDTO)) {
                     response.getWriter().print(true);
-                }else{
-                response.getWriter().print(false);}
+                } else {
+                    response.getWriter().print(false);
+                }
                 break;
             case "listarPreguntas":
-                 response.setContentType("application/json");
-                listaPregunta=new ArrayList<>();
-                 usuarioDTO=(usuarioDTO) sesion.getAttribute("USER");
-                listaPregunta=preguntaDAO.listarPregustas(usuarioDTO.getEmpresa().getIdEmpresa());
-                if (listaPregunta!=null) {
-                 new Gson().toJson(listaPregunta, response.getWriter());
-                }else{
-                response.getWriter().print(false);
+                response.setContentType("application/json");
+                listaPregunta = new ArrayList<>();
+                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
+                listaPregunta = preguntaDAO.listarPregustas(usuarioDTO.getEmpresa().getIdEmpresa());
+                if (listaPregunta != null) {
+                    new Gson().toJson(listaPregunta, response.getWriter());
                 }
+                break;
+            case "registroRespuesta":
+                respuestaDTO = new respuestaDTO();
+                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
+                respuestaDTO.setIdEmpresa(usuarioDTO.getEmpresa().getIdEmpresa());
+                respuestaDTO.setIdPregunta(Integer.parseInt(request.getParameter("idPregunta")));
+                respuestaDTO.setRespuesta(request.getParameter("respuesta"));
+
+                if (respuestaDAO.resgistroRespuesta(respuestaDTO)) {
+                    if (preguntaDAO.responderPregunta(1, respuestaDTO.getIdPregunta())) {
+                        response.getWriter().print(true);
+                    } else {
+                        response.getWriter().print(false);
+                    }
+                } else {
+                    response.getWriter().print(false);
+                }
+                break;
+            case "listarPreguntasRespuesta":
+                response.setContentType("application/json");
+                listaPregunta = new ArrayList<>();
+                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
+                listaPregunta=preguntaDAO.listarPregustasRespuesta(usuarioDTO.getIdUsuario());
+                new Gson().toJson(listaPregunta, response.getWriter());
                 break;
             default:
                 throw new AssertionError("Esa accion no existe");

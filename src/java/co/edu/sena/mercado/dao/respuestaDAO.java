@@ -18,33 +18,32 @@ import java.util.ArrayList;
  * @author DELL
  */
 public class respuestaDAO {
-    
+
     Connection cn;
     PreparedStatement ps;
     ResultSet rs;
     Conexion con;
     String consulta;
-    respuestaDTO respuestaDTO=new respuestaDTO();
-    ArrayList<respuestaDTO> listaRespuesta=new ArrayList<>();
-    
-    public boolean resgistroRespuesta(respuestaDTO respuestaDTO){
-  
-       consulta="INSERT INTO respuesta( respuesta, idEmpresaFK, idPreguntaFK) VALUES (?,?,?)";
-    try {
-            cn=con.getConnection();
-            ps=cn.prepareStatement(consulta);
+    respuestaDTO respuestaDTO = new respuestaDTO();
+    ArrayList<respuestaDTO> listaRespuesta = new ArrayList<>();
+
+    public boolean resgistroRespuesta(respuestaDTO respuestaDTO) {
+        con = new Conexion();
+        consulta = "INSERT INTO respuesta( respuesta, idEmpresaFK, idPreguntaFK) VALUES (?,?,?)";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
             ps.setString(1, consulta);
-           ps.setString(1,respuestaDTO.getRespuesta());
+            ps.setString(1, respuestaDTO.getRespuesta());
             ps.setInt(2, respuestaDTO.getIdEmpresa());
             ps.setInt(3, respuestaDTO.getIdPregunta());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("xxxxxxxxxxxxxx error al registrar la respuesta "+e);
-            System.out.println("xxxxxxxxxxxxxx consulta "+ps.toString());
+            System.out.println("xxxxxxxxxxxxxx error al registrar la respuesta " + e);
+            System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             return false;
         }
     }
-    
-    
+
 }

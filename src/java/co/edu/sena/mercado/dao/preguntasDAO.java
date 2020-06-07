@@ -34,7 +34,6 @@ public class preguntasDAO {
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
-            ps.setString(1, consulta);
             ps.setString(1, preguntasDTO.getPregunta());
             ps.setInt(2, preguntasDTO.getEstadoPregunta());
             ps.setInt(3, preguntasDTO.getIdUsuarioPregunta());
@@ -43,6 +42,23 @@ public class preguntasDAO {
             return true;
         } catch (SQLException e) {
             System.out.println("xxxxxxxxxxxxxx error al registrar la pregunta " + e);
+            System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
+            return false;
+        }
+    }
+    public boolean responderPregunta(int estado,int idPregunta) {
+        con = new Conexion();
+        consulta = "update preguntas set estadoPregunta=? where idPregunta=?";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setInt(1, estado);
+            ps.setInt(2, idPregunta);
+            
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxx error al cambiar estado de la pregunta " + e);
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             return false;
         }
@@ -69,6 +85,32 @@ public class preguntasDAO {
             return listaPregunta;
         } catch (SQLException e) {
             System.out.println("xxxxxxxxxxxxxxxxx error al consultar preguntas "+e);
+            System.out.println("xxxxxxxxxxxxxxxxx consulta "+ps.toString());
+            return null;
+        }
+    }
+    public ArrayList<preguntasDTO> listarPregustasRespuesta(int idUsusario) {
+        con = new Conexion();
+        listaPregunta=new ArrayList<>();
+        consulta = "SELECT pre.idPregunta, pre.pregunta, pre.estadoPregunta, pre.idUsuarioPreguntaFK, pre.idProductoFK,res.respuesta FROM preguntas pre INNER JOIN respuesta res on pre.idPregunta=res.idPreguntaFK WHERE pre.idUsuarioPreguntaFK=?";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setInt(1, idUsusario);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                preguntaDTO=new preguntasDTO();
+                preguntaDTO.setEstadoPregunta(rs.getInt("estadoPregunta"));
+                preguntaDTO.setIdPregunta(rs.getInt("idPregunta"));
+                preguntaDTO.setIdProducto(rs.getInt("idProductoFK"));
+                preguntaDTO.setIdUsuarioPregunta(rs.getInt("idUsuarioPreguntaFK"));
+                preguntaDTO.setPregunta(rs.getString("pregunta"));
+                preguntaDTO.setRespuesta(rs.getString("respuesta"));
+                listaPregunta.add(preguntaDTO);
+            }
+            return listaPregunta;
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxxxxx error al consultar preguntas con respuesta "+e);
             System.out.println("xxxxxxxxxxxxxxxxx consulta "+ps.toString());
             return null;
         }

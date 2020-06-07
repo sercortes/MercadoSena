@@ -15,20 +15,32 @@ public class preguntasDTO {
    int estadoPregunta;
    int idUsuarioPregunta;
    int idProducto;
+   String respuesta;
 
     public preguntasDTO() {
     }
 
-    public preguntasDTO(int idPregunta, String pregunta, int estadoPregunta, int idUsuarioPregunta, int idProducto) {
+   
+
+    public int getIdPregunta() {
+        return idPregunta;
+    }
+
+    public String getRespuesta() {
+        return respuesta;
+    }
+
+    public void setRespuesta(String respuesta) {
+        this.respuesta = respuesta;
+    }
+
+    public preguntasDTO(int idPregunta, String pregunta, int estadoPregunta, int idUsuarioPregunta, int idProducto, String respuesta) {
         this.idPregunta = idPregunta;
         this.pregunta = pregunta;
         this.estadoPregunta = estadoPregunta;
         this.idUsuarioPregunta = idUsuarioPregunta;
         this.idProducto = idProducto;
-    }
-
-    public int getIdPregunta() {
-        return idPregunta;
+        this.respuesta = respuesta;
     }
 
     public void setIdPregunta(int idPregunta) {

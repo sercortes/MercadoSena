@@ -14,16 +14,28 @@ public class respuestaDTO {
    String respuesta;
    int idEmpresa;
    int idPregunta;
+   String pregunta;
 
     public respuestaDTO() {
     }
 
-    public respuestaDTO(int idRespuesta, String respuesta, int idEmpresa, int idPregunta) {
+    public respuestaDTO(int idRespuesta, String respuesta, int idEmpresa, int idPregunta, String pregunta) {
         this.idRespuesta = idRespuesta;
         this.respuesta = respuesta;
         this.idEmpresa = idEmpresa;
         this.idPregunta = idPregunta;
+        this.pregunta = pregunta;
     }
+
+    public String getPregunta() {
+        return pregunta;
+    }
+
+    public void setPregunta(String pregunta) {
+        this.pregunta = pregunta;
+    }
+
+ 
 
     public int getIdRespuesta() {
         return idRespuesta;

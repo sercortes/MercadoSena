@@ -93,7 +93,7 @@
                         </c:if>
 
                         <c:if test="${not empty USER.idRol}">
-                            <input type="hidden" value="${USER.persona.nombrePer}" id="nombreUsuarioInicio">
+                            <input type="hidden" value="${USER.persona.nombrePer}" id="nombreUsuarioInicio" data-rol="${USER.idRol}">
                             <div class="col-lg-2 col-9 order-lg-3 order-2 text-lg-left">
                                 <div class="cart">
                                     <div id="" class="">
