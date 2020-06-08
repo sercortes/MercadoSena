@@ -1,4 +1,4 @@
-$(document).ready(consultarRolInicio()());
+$(document).ready(consultarRolInicio());
 
 function consultarRolInicio() {
 
