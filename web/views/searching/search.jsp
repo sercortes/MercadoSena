@@ -31,10 +31,18 @@
 
 <div class="row justify-content-md-center pb-3">
 <div id="pager" class="col-md-auto">
+    <c:if test="${not empty USER}">
+        <input type="hidden" id="companyss" value="${USER.empresa.idEmpresa}" disabled=""/>
+    </c:if>
+         <c:if test="${empty USER}">
+        <input type="hidden" id="idcompanyss" value="0" disabled=""/>
+        <input type="hidden" id="idUsers" value="0" disabled=""/>
+        <input type="hidden" id="companyss" value="0" disabled=""/>
+    </c:if>
+        
     <nav aria-label="Page navigation example">
         <ul id="pagination" class="pagination"></ul>
     </nav>
-
 </div>
 </div>
 

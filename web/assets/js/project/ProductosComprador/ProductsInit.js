@@ -108,13 +108,14 @@ function getImagen(array) {
 
 function generateTableBuscador() {
 
+    let idcompanyss = document.getElementById('companyss').value
     let select = document.getElementById('tabla');
     let str = ``
     let num = 1
 
     for (var item of displayRecords) {
 
-        if (sessionStorage.getItem('idCompany') !== item.idEmpresaFK) {
+        if (idcompanyss !== item.idEmpresaFK) {
             str += `<div class="col-lg-3">
           <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">`
 
