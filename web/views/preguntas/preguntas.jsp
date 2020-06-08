@@ -35,11 +35,11 @@
                                 <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <a onclick="consultarPreguntas()" class="nav-link mb-3 p-3 shadow active ocultarRespuesta" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
                                         <i class="fa fa-user-circle-o mr-2"></i>
-                                        <span class="font-weight-bold small text-uppercase">Preguntas</span></a>
+                                        <span class="font-weight-bold small text-uppercase" >Preguntas</span></a>
 
-                                        <a  onclick="consultarRespuestas()" class="nav-link mb-3 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                                        <a  onclick="consultarRespuestas()" class="nav-link mb-3 p-3 shadow ocultarRespuesta" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                                         <i class="fa fa-calendar-minus-o mr-2"></i>
-                                        <span class="font-weight-bold small text-uppercase">Respuestas </span><b id="noRespuestas"></b></a>
+                                        <span class="font-weight-bold small text-uppercase">Respuestas </span><b id="noRespuestas" style="font-size: xx-small;" class="notificaciones"></b></a>
 
 
                                 </div>
@@ -49,14 +49,14 @@
                             <div class="col-md-9">
                                 <!-- Tabs content -->
                                 <div class="tab-content" id="v-pills-tabContent">
-                                    <div class="tab-pane fade shadow rounded bg-white show active p-5" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                                    <div class="tab-pane fade shadow rounded bg-white show active p-5 ocultarRespuesta" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                         <h4 class="font-italic mb-4">Preguntas</h4>
                                         <di id="preguntas" class="preguntas">
                                             
                                         </di>
                                     </div>
 
-                                    <div class="tab-pane fade shadow rounded bg-white p-5 ocultarRespuesta" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                    <div class="tab-pane fade shadow rounded bg-white p-5 mostrarRespuesta" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                                         <h4 class="font-italic mb-4">Respuestas</h4>
                                          <di id="preguntas" class="preguntas">
                                             

@@ -56,6 +56,7 @@ function consultaNotiRespuestas(hacer) {
             if (data > 0) {
                 if(hacer==='si'){
                     $('#noRespuestas').text('+'+data);
+                    $('#noRespuestas').show();
                 }
                 not = not + data;
                 // $('#nroNoti').text('+'+data);
@@ -70,6 +71,7 @@ function consultaNotiRespuestas(hacer) {
 function  mostrarNot() {
 
     if (not > 0) {
+        $('#nroNoti').show();
         $('#nroNoti').text('+' + not);
         not=0;
     }

@@ -3,7 +3,7 @@ $(document).ready(consultarRolInicio());
 function consultarRolInicio() {
 
     var rol = $('#nombreUsuarioInicio').data('rol');
-
+$('#nroNoti').hide();
     if (rol === 3) {
         consultarPreguntas();
         consultarNoRespuestas();
@@ -11,6 +11,7 @@ function consultarRolInicio() {
     } else if (rol === 2) {
         consultarRespuestas();
         $('.ocultarRespuesta').hide();
+        $('#v-pills-profile-tab').click();
         
     }
 
@@ -22,7 +23,7 @@ function  consultarPreguntas() {
         type: 'POST',
         dataType: 'json',
         error: function (jqXHR, textStatus, errorThrown) {
-            messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde');
+           // messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde');
 
         }, success: function (data) {
             if (data !== 'false') {
@@ -57,7 +58,7 @@ function responderPregunta(idPregunta) {
             type: 'POST',
             dataType: 'json',
             error: function (jqXHR, textStatus, errorThrown) {
-                messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
+               // messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
             }, success: function (data) {
 
                 if (data) {
@@ -71,6 +72,7 @@ function responderPregunta(idPregunta) {
 }
 
 function consultarRespuestas() {
+    $('#noRespuestas').hide();
     $.ajax({
         url: './registro?accion=listarPreguntasRespuesta',
         type: 'POST',
@@ -98,6 +100,7 @@ function  generarRespuestas(respuestas) {
 }
 
 function consultarNoRespuestas(){
+    
     setInterval( function (){
             
     consultaNotiRespuestas('si')},3000);
