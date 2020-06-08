@@ -204,6 +204,7 @@ public class ProductoDAO {
     public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);
+        Conexion.close(rs);
     }
 
 }

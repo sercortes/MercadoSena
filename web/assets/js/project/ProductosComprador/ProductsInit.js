@@ -196,7 +196,7 @@ function detailsProduct(producto) {
 function textProduct(item) {
     let str = ''
     let element = document.getElementById('details')
-    str += `  <div id="detail" class="text-justify pt-2" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
+    str += `  <div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
 <h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
     <a id="meInteresa" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">
                      <i class="fas fa-gift"></i> Me interesa</a>
@@ -274,12 +274,14 @@ $(document).on('click', '#meInteresa', function (e) {
     let parent = $(this)[0].parentElement
     let idEmpresa = $(parent).attr('idEmpresa')
     let idProducto = $(parent).attr('idProducto')
+    let precio = $(parent).attr('precioProducto')
     let cantidad = $('#cantidadSelect').val()
     
-    let datos = {
+    let datos = { 
         idEmpresa: idEmpresa,
         idProducto: idProducto,
-        Cantidad:cantidad
+        Cantidad:cantidad,
+        Precio:precio
     }
 
     Swal.fire({
@@ -293,12 +295,12 @@ $(document).on('click', '#meInteresa', function (e) {
     }).then((result) => {
         if (result.value) {
             messageOk('enviado')
-            generateTables(datos, true)
+            generateTables(datos, 1)
             datosVendedor(idEmpresa)
 
         } else if (result.dismiss === Swal.DismissReason.cancel) {
             messageError('cancelado')
-            generateTables(datos, false)
+            generateTables(datos, 0)
             datosVendedor(idEmpresa)
             
         }
@@ -307,8 +309,28 @@ $(document).on('click', '#meInteresa', function (e) {
 })
 
 function generateTables(datos, contacto){
+    
     datos.contacto = contacto
     console.log(datos)
+    
+     $.ajax({
+        type: "POST",
+        url: './generateSale',
+        async: true,
+        data:{
+            cantidad:datos.Cantidad,
+            contacto:datos.contacto,
+            idEmpresa:datos.idEmpresa,
+            idProducto:datos.idProducto,
+            precioProducto:datos.Precio
+        },
+        datatype: 'json'
+    }).done(function (data) {
+  
+          console.log(data)
+
+    })
+    
 }
 
 function datosVendedor(data){
