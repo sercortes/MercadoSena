@@ -6,8 +6,10 @@ function consultarRolInicio() {
 
     if (rol === 3) {
         consultarPreguntas();
+        
     } else if (rol === 2) {
         consultarRespuestas();
+        
     }
 
 }
@@ -92,3 +94,4 @@ function  generarRespuestas(respuestas) {
     $('#preguntas').empty();
     $('#preguntas').html(respuesta);
 }
+

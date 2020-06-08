@@ -46,6 +46,21 @@ public class preguntasDAO {
             return false;
         }
     }
+    public boolean marcarVistaPregunta(int idUsuario) {
+        con = new Conexion();
+        consulta = "UPDATE preguntas SET vista=1 WHERE idUsuarioPreguntaFK=? AND estadoPregunta=1;";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setInt(1, idUsuario);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxx error al actualizar el visto de la pregunta " + e);
+            System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
+            return false;
+        }
+    }
     public boolean responderPregunta(int estado,int idPregunta) {
         con = new Conexion();
         consulta = "update preguntas set estadoPregunta=? where idPregunta=?";
@@ -67,7 +82,7 @@ public class preguntasDAO {
     public ArrayList<preguntasDTO> listarPregustas(int idEmpresa) {
         con = new Conexion();
         listaPregunta=new ArrayList<>();
-        consulta = "SELECT * FROM preguntas WHERE (SELECT pro.idEmpresaFK FROM producto pro WHERE idProductoFK=pro.idProducto )=?";
+        consulta = "SELECT * FROM preguntas WHERE (SELECT pro.idEmpresaFK FROM producto pro WHERE idProductoFK=pro.idProducto )=? ORDER by idPregunta DESC";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
@@ -89,10 +104,30 @@ public class preguntasDAO {
             return null;
         }
     }
+    public int consultaNotiPreguntas(int idEmpresa) {
+        int respuesta=0;
+        con = new Conexion();
+        listaPregunta=new ArrayList<>();
+        consulta = "SELECT COUNT(pregunta) as respuesta FROM preguntas WHERE (SELECT pro.idEmpresaFK FROM producto pro WHERE idProductoFK=pro.idProducto )=? AND estadoPregunta=0";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setInt(1, idEmpresa);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+               respuesta=rs.getInt("respuesta");
+            }
+            return respuesta;
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxxxxx error al consultar numero preguntas "+e);
+            System.out.println("xxxxxxxxxxxxxxxxx consulta "+ps.toString());
+            return respuesta=0;
+        }
+    }
     public ArrayList<preguntasDTO> listarPregustasRespuesta(int idUsusario) {
         con = new Conexion();
         listaPregunta=new ArrayList<>();
-        consulta = "SELECT pre.idPregunta, pre.pregunta, pre.estadoPregunta, pre.idUsuarioPreguntaFK, pre.idProductoFK,res.respuesta FROM preguntas pre INNER JOIN respuesta res on pre.idPregunta=res.idPreguntaFK WHERE pre.idUsuarioPreguntaFK=?";
+        consulta = "SELECT pre.idPregunta, pre.pregunta, pre.estadoPregunta, pre.idUsuarioPreguntaFK, pre.idProductoFK,res.respuesta FROM preguntas pre INNER JOIN respuesta res on pre.idPregunta=res.idPreguntaFK WHERE pre.idUsuarioPreguntaFK=? ORDER by pre.idPregunta DESC";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
@@ -113,6 +148,26 @@ public class preguntasDAO {
             System.out.println("xxxxxxxxxxxxxxxxx error al consultar preguntas con respuesta "+e);
             System.out.println("xxxxxxxxxxxxxxxxx consulta "+ps.toString());
             return null;
+        }
+    }
+    public int consultaNotiRespuestas(int idUsusario) {
+        int respuesta=0;
+        con = new Conexion();
+        listaPregunta=new ArrayList<>();
+        consulta = "SELECT COUNT(pregunta) as respuesta FROM preguntas pre INNER JOIN respuesta res on pre.idPregunta=res.idPreguntaFK WHERE pre.idUsuarioPreguntaFK=? and vista=0";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setInt(1, idUsusario);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+               respuesta=rs.getInt("respuesta");
+            }
+            return respuesta;
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxxxxx error al consultar numero preguntas con respuesta "+e);
+            System.out.println("xxxxxxxxxxxxxxxxx consulta "+ps.toString());
+            return respuesta=0;
         }
     }
 }

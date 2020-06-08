@@ -51,13 +51,15 @@ function getEmpresa(idpro) {
         return this;
     };
     $(function () {
-        var interacion = 0;
+       
         var getMessageText, message_side, sendMessage;
         message_side = 'right';
         getMessageText = function () {
             var $message_input;
             $message_input = $('.message_input');
             enviarMensaje($message_input.val());
+            
+            
 
             return $message_input.val();
         };
@@ -147,4 +149,13 @@ function modalPreguntaRegistro() {
 function consultaPreguntas(e) {
     e.preventDefault();
     
+}
+
+function limpiarPlantilla(){
+ var lista=  $('#listaPreguntas').children();
+ if(lista.length===3){
+   $('#listaPreguntas').children().last().remove();
+   $('#listaPreguntas').children().last().remove();
+ }
+ interacion=0;
 }

@@ -273,8 +273,22 @@ public class registro extends HttpServlet {
                 listaPregunta = new ArrayList<>();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
                 listaPregunta=preguntaDAO.listarPregustasRespuesta(usuarioDTO.getIdUsuario());
+                preguntaDAO.marcarVistaPregunta(usuarioDTO.getIdUsuario());
                 new Gson().toJson(listaPregunta, response.getWriter());
                 break;
+            case "consultaNotiPreguntas":
+                usuarioDTO=new usuarioDTO();
+                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
+                int notPreguntas=preguntaDAO.consultaNotiPreguntas(usuarioDTO.getEmpresa().getIdEmpresa());
+                response.getWriter().print(notPreguntas);
+                break;
+            case "consultaNotiRespuestas":
+                usuarioDTO=new usuarioDTO();
+                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
+                int notRespuestas=preguntaDAO.consultaNotiRespuestas(usuarioDTO.getIdUsuario());
+                response.getWriter().print(notRespuestas);
+                break;
+                
             default:
                 throw new AssertionError("Esa accion no existe");
 

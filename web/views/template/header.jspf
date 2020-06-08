@@ -171,7 +171,7 @@
                                             <li><a href="./Products">Mis Productos<i class="fas fa-chevron-down"></i></a></li>
                                                 </c:if>
                                                 <c:if test="${not empty USER.idRol}">
-                                            <li  ><a href="./preguntas"  >Mensajes<i class="fas fa-chevron-down"></i></a></li>
+                                                <li  ><a href="./preguntas"  >Mensajes <b id="nroNoti"></b><i class="fas fa-chevron-down" ></i></a> </li>
                                                 </c:if>
 
 

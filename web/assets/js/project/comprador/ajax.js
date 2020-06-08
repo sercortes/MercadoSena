@@ -15,7 +15,7 @@ function consultaTipoDoc() {
         dataType: 'json',
         contentType: false,
         processData: false,
-         error: function (jqXHR, textStatus, errorThrown) {
+        error: function (jqXHR, textStatus, errorThrown) {
             modalRegistro();
             // $('#carga').removeClass('is-active');
             messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
@@ -53,7 +53,7 @@ function consultaCiudad(idDiv, idInput) {
         type: 'POST',
         dataType: 'json',
         contentType: false,
-        processData: false, 
+        processData: false,
         error: function (jqXHR, textStatus, errorThrown) {
             $('#bloqueo').hide();
             $('#modalRegistro').hide();
@@ -149,7 +149,7 @@ $('#registroUsuario').submit(function (e) {
             success: function (data) {
                 $('#carga').removeClass('is-active');
                 modalRegistro();
-                if (data==='true') {
+                if (data === 'true') {
 
                     messageInfo('Registro realizado, hemos enviado al correo registrado sus datos de ingreso y el link de activación para su cuenta.')
                 } else {
@@ -281,16 +281,16 @@ $('#registroEmpresa').submit(function (e) {
             url: "./registro?accion=registroEmpresa&" + datos,
             type: 'POST',
             contentType: false,
-            processData: false,  error: function (jqXHR, textStatus, errorThrown) {
+            processData: false, error: function (jqXHR, textStatus, errorThrown) {
                 $('#carga').removeClass('is-active');
-                 $('#modalRegistroEmpresa').hide();
-                 $('#bloqueo').hide();
+                $('#modalRegistroEmpresa').hide();
+                $('#bloqueo').hide();
                 messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
             },
             success: function (data) {
-                
+
                 $('#carga').removeClass('is-active');
-                if (data==='true') {
+                if (data === 'true') {
                     cerrar('#modalRegistroEmpresa');
                     //messageOk('Empresa registrada exitosamente');
                 } else {
@@ -326,3 +326,54 @@ function modalRegistroEmpresa() {
     $('#modalRegistroEmpresa').toggle();
 
 }
+
+
+$(document).ready(function () {
+
+    setInterval(
+            function () {
+                var rol = $('#nombreUsuarioInicio').data('rol');
+                if (rol === 3) {
+                   
+                    consultaNotiPreguntas();
+                } else if (rol === 2) {
+                  
+                    consultaNotiRespuestas();
+                }
+            }, 5000
+            );
+
+
+})
+
+
+function  consultaNotiPreguntas(){
+    $.ajax({
+        url:'./registro?accion=consultaNotiPreguntas',
+        type: 'POST',
+        dataType: 'json',
+        error: function (jqXHR, textStatus, errorThrown) {
+            
+        },success: function (data) {
+            if(data>0){
+            $('#nroNoti').text('+'+data);
+        }
+        }
+    })
+}
+
+function consultaNotiRespuestas(){
+      $.ajax({
+        url:'./registro?accion=consultaNotiRespuestas',
+        type: 'POST',
+        dataType: 'json',
+        error: function (jqXHR, textStatus, errorThrown) {
+            
+        },success: function (data) {
+            if(data>0){
+            $('#nroNoti').text('+'+data);
+        }
+        }
+    })
+}
+
