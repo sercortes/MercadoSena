@@ -327,8 +327,11 @@ function generateTables(datos, contacto){
         datatype: 'json'
     }).done(function (data) {
   
-          console.log(data)
+          console.log('ok')
 
+    }).fail(function(data){
+        
+        
     })
     
 }
