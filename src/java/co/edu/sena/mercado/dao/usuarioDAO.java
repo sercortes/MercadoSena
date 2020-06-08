@@ -169,7 +169,7 @@ public class usuarioDAO {
         con = new Conexion();
      
         
-        consulta="delete * from usuario where passwordUsuario=md5(?) and  emailusuario=?";
+        consulta="delete from usuario where passwordUsuario=md5(?) and  emailusuario=?";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);

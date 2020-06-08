@@ -147,9 +147,11 @@ $('#registroUsuario').submit(function (e) {
                 messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
             },
             success: function (data) {
+                alert(data);
+                alert(typeof data);
                 $('#carga').removeClass('is-active');
                 modalRegistro();
-                if (data === 'true') {
+                if (data) {
 
                     messageInfo('Registro realizado, hemos enviado al correo registrado sus datos de ingreso y el link de activación para su cuenta.')
                 } else {
@@ -327,53 +329,4 @@ function modalRegistroEmpresa() {
 
 }
 
-
-$(document).ready(function () {
-
-    setInterval(
-            function () {
-                var rol = $('#nombreUsuarioInicio').data('rol');
-                if (rol === 3) {
-                   
-                    consultaNotiPreguntas();
-                } else if (rol === 2) {
-                  
-                    consultaNotiRespuestas();
-                }
-            }, 5000
-            );
-
-
-})
-
-
-function  consultaNotiPreguntas(){
-    $.ajax({
-        url:'./registro?accion=consultaNotiPreguntas',
-        type: 'POST',
-        dataType: 'json',
-        error: function (jqXHR, textStatus, errorThrown) {
-            
-        },success: function (data) {
-            if(data>0){
-            $('#nroNoti').text('+'+data);
-        }
-        }
-    })
-}
-
-function consultaNotiRespuestas(){
-      $.ajax({
-        url:'./registro?accion=consultaNotiRespuestas',
-        type: 'POST',
-        dataType: 'json',
-        error: function (jqXHR, textStatus, errorThrown) {
-            
-        },success: function (data) {
-            if(data>0){
-            $('#nroNoti').text('+'+data);
-        }
-        }
-    })
-}
 

@@ -6,9 +6,11 @@ function consultarRolInicio() {
 
     if (rol === 3) {
         consultarPreguntas();
+        consultarNoRespuestas();
         
     } else if (rol === 2) {
         consultarRespuestas();
+        $('.ocultarRespuesta').hide();
         
     }
 
@@ -43,8 +45,8 @@ function  generarPreguntas(preguntas) {
         pregunta += '<hr>';
     }
 
-    $('#preguntas').empty();
-    $('#preguntas').html(pregunta);
+    $('.preguntas').empty();
+    $('.preguntas').html(pregunta);
 }
 
 function responderPregunta(idPregunta) {
@@ -91,7 +93,12 @@ function  generarRespuestas(respuestas) {
         respuesta += '<hr>';
     }
 
-    $('#preguntas').empty();
-    $('#preguntas').html(respuesta);
+    $('.preguntas').empty();
+    $('.preguntas').html(respuesta);
 }
 
+function consultarNoRespuestas(){
+    setInterval( function (){
+            
+    consultaNotiRespuestas('si')},3000);
+}

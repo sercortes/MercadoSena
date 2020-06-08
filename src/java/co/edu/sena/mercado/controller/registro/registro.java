@@ -197,7 +197,7 @@ public class registro extends HttpServlet {
                         }
 
                     } else {
-                        usuarioDAO.eliminarUsuario(personaNaturalDTO.getCorreoPer(), usuarioDTO.getClaveUsu());
+                        usuarioDAO.eliminarUsuario(personaNaturalDTO.getCorreoPer(), request.getParameter("correoUsuario"));
                         respuesta = false;
                     }
                 } else {
@@ -278,7 +278,7 @@ public class registro extends HttpServlet {
                 break;
             case "consultaNotiPreguntas":
                 usuarioDTO=new usuarioDTO();
-                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
+                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
                 int notPreguntas=preguntaDAO.consultaNotiPreguntas(usuarioDTO.getEmpresa().getIdEmpresa());
                 response.getWriter().print(notPreguntas);
                 break;
