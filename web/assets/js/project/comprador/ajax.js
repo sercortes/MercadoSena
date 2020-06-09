@@ -147,11 +147,10 @@ $('#registroUsuario').submit(function (e) {
                 messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
             },
             success: function (data) {
-                alert(data);
-                alert(typeof data);
+          
                 $('#carga').removeClass('is-active');
                 modalRegistro();
-                if (data) {
+                if (data==='true') {
 
                     messageInfo('Registro realizado, hemos enviado al correo registrado sus datos de ingreso y el link de activación para su cuenta.')
                 } else {
