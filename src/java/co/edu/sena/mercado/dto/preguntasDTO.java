@@ -16,8 +16,41 @@ public class preguntasDTO {
    int idUsuarioPregunta;
    int idProducto;
    String respuesta;
+   String nombreUsuarioPregunta;
+   String apellidoUsuarioPregunta;
+   String usuarioResponde;
 
     public preguntasDTO() {
+    }
+
+    public preguntasDTO(int idPregunta, String pregunta, int estadoPregunta, int idUsuarioPregunta, int idProducto, String respuesta, String nombreUsuarioPregunta, String apellidoUsuarioPregunta, String usuarioResponde) {
+        this.idPregunta = idPregunta;
+        this.pregunta = pregunta;
+        this.estadoPregunta = estadoPregunta;
+        this.idUsuarioPregunta = idUsuarioPregunta;
+        this.idProducto = idProducto;
+        this.respuesta = respuesta;
+        this.nombreUsuarioPregunta = nombreUsuarioPregunta;
+        this.apellidoUsuarioPregunta = apellidoUsuarioPregunta;
+        this.usuarioResponde = usuarioResponde;
+    }
+
+    public String getUsuarioResponde() {
+        return usuarioResponde;
+    }
+
+    public void setUsuarioResponde(String usuarioResponde) {
+        this.usuarioResponde = usuarioResponde;
+    }
+
+   
+
+    public String getApellidoUsuarioPregunta() {
+        return apellidoUsuarioPregunta;
+    }
+
+    public void setApellidoUsuarioPregunta(String apellidoUsuarioPregunta) {
+        this.apellidoUsuarioPregunta = apellidoUsuarioPregunta;
     }
 
    
@@ -34,14 +67,17 @@ public class preguntasDTO {
         this.respuesta = respuesta;
     }
 
-    public preguntasDTO(int idPregunta, String pregunta, int estadoPregunta, int idUsuarioPregunta, int idProducto, String respuesta) {
-        this.idPregunta = idPregunta;
-        this.pregunta = pregunta;
-        this.estadoPregunta = estadoPregunta;
-        this.idUsuarioPregunta = idUsuarioPregunta;
-        this.idProducto = idProducto;
-        this.respuesta = respuesta;
+   
+
+    public String getNombreUsuarioPregunta() {
+        return nombreUsuarioPregunta;
     }
+
+    public void setNombreUsuarioPregunta(String nombreUsuarioPregunta) {
+        this.nombreUsuarioPregunta = nombreUsuarioPregunta;
+    }
+
+   
 
     public void setIdPregunta(int idPregunta) {
         this.idPregunta = idPregunta;

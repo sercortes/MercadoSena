@@ -13,6 +13,32 @@
     object-fit: cover;
     height: 350px; /* only if you want fixed height */
 }
+.enviar{
+    border: none;
+    width: auto;
+    height: auto;
+    color: rgb(252, 115, 30);
+    background: none;
+    font-size: 18px;
+}
+.linea{
+    border: solid 1px;
+    border-color: rgba(252, 115, 30, 0.48);
+}
+.respuesta{
+   color: black;
+    border: solid 1px;
+    border-color: #fc731e;
+    border-radius: 27px;
+    padding: 3px;
+    background: rgba(254, 210, 146, 0.38);
+}
+.divEnviar{
+    border: solid 1px;
+    width: 195px;
+    border-radius: 27px 27px 27px 27px;
+    border-color: rgba(252, 115, 30, 0.67);
+}
 
 .notificaciones{
     display: none;

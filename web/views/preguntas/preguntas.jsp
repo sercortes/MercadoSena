@@ -40,7 +40,7 @@
                                         <a  onclick="consultarRespuestas()" class="nav-link mb-3 p-3 shadow ocultarRespuesta" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                                         <i class="fa fa-calendar-minus-o mr-2"></i>
                                         <span class="font-weight-bold small text-uppercase">Respuestas </span><b id="noRespuestas" style="font-size: xx-small;" class="notificaciones"></b></a>
-
+                                       
 
                                 </div>
                             </div>
@@ -91,7 +91,6 @@
 
 
 
-<!--                                        <p class="font-italic text-muted mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>-->
 
 
 

@@ -82,7 +82,7 @@ public class preguntasDAO {
     public ArrayList<preguntasDTO> listarPregustas(int idEmpresa) {
         con = new Conexion();
         listaPregunta=new ArrayList<>();
-        consulta = "SELECT * FROM preguntas WHERE (SELECT pro.idEmpresaFK FROM producto pro WHERE idProductoFK=pro.idProducto )=? ORDER by idPregunta DESC";
+        consulta = "SELECT pre.idPregunta, pre.pregunta, pre.estadoPregunta, pre.vista, pre.idUsuarioPreguntaFK, pre.idProductoFK,per.nombrePersona,per.apellidoPersona FROM preguntas pre INNER join usuario usu ON pre.idUsuarioPreguntaFK=usu.idUsuario INNER JOIN personanatural per ON usu.idUsuario=per.idUsuarioFK WHERE (SELECT pro.idEmpresaFK FROM producto pro WHERE idProductoFK=pro.idProducto )=? ORDER by idPregunta DESC";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
@@ -95,6 +95,8 @@ public class preguntasDAO {
                 preguntaDTO.setIdProducto(rs.getInt("idProductoFK"));
                 preguntaDTO.setIdUsuarioPregunta(rs.getInt("idUsuarioPreguntaFK"));
                 preguntaDTO.setPregunta(rs.getString("pregunta"));
+                preguntaDTO.setNombreUsuarioPregunta(rs.getString("nombrePersona"));
+                preguntaDTO.setApellidoUsuarioPregunta(rs.getString("apellidoPersona"));
                 listaPregunta.add(preguntaDTO);
             }
             return listaPregunta;
@@ -127,7 +129,7 @@ public class preguntasDAO {
     public ArrayList<preguntasDTO> listarPregustasRespuesta(int idUsusario) {
         con = new Conexion();
         listaPregunta=new ArrayList<>();
-        consulta = "SELECT pre.idPregunta, pre.pregunta, pre.estadoPregunta, pre.idUsuarioPreguntaFK, pre.idProductoFK,res.respuesta FROM preguntas pre INNER JOIN respuesta res on pre.idPregunta=res.idPreguntaFK WHERE pre.idUsuarioPreguntaFK=? ORDER by pre.idPregunta DESC";
+        consulta = "SELECT pre.idPregunta, pre.pregunta, pre.estadoPregunta, pre.idUsuarioPreguntaFK, pre.idProductoFK,res.respuesta,emp.nombreEmpresa FROM preguntas pre INNER JOIN respuesta res on pre.idPregunta=res.idPreguntaFK INNER JOIN empresa emp ON res.idEmpresaFK=emp.idEmpresa WHERE pre.idUsuarioPreguntaFK=? AND pre.estadoPregunta=1 ORDER by pre.idPregunta DESC";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
@@ -141,6 +143,7 @@ public class preguntasDAO {
                 preguntaDTO.setIdUsuarioPregunta(rs.getInt("idUsuarioPreguntaFK"));
                 preguntaDTO.setPregunta(rs.getString("pregunta"));
                 preguntaDTO.setRespuesta(rs.getString("respuesta"));
+                preguntaDTO.setUsuarioResponde(rs.getString("nombreEmpresa"));
                 listaPregunta.add(preguntaDTO);
             }
             return listaPregunta;
