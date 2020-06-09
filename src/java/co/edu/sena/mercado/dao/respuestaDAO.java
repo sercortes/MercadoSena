@@ -43,6 +43,10 @@ public class respuestaDAO {
             System.out.println("xxxxxxxxxxxxxx error al registrar la respuesta " + e);
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             return false;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
 

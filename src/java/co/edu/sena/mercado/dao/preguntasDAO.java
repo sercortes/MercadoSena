@@ -44,6 +44,10 @@ public class preguntasDAO {
             System.out.println("xxxxxxxxxxxxxx error al registrar la pregunta " + e);
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             return false;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
     public boolean marcarVistaPregunta(int idUsuario) {
@@ -59,6 +63,10 @@ public class preguntasDAO {
             System.out.println("xxxxxxxxxxxxxx error al actualizar el visto de la pregunta " + e);
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             return false;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
     public boolean responderPregunta(int estado,int idPregunta) {
@@ -76,6 +84,10 @@ public class preguntasDAO {
             System.out.println("xxxxxxxxxxxxxx error al cambiar estado de la pregunta " + e);
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             return false;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
 
@@ -104,6 +116,10 @@ public class preguntasDAO {
             System.out.println("xxxxxxxxxxxxxxxxx error al consultar preguntas "+e);
             System.out.println("xxxxxxxxxxxxxxxxx consulta "+ps.toString());
             return null;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
     public int consultaNotiPreguntas(int idEmpresa) {
@@ -124,6 +140,10 @@ public class preguntasDAO {
             System.out.println("xxxxxxxxxxxxxxxxx error al consultar numero preguntas "+e);
             System.out.println("xxxxxxxxxxxxxxxxx consulta "+ps.toString());
             return respuesta=0;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
     public ArrayList<preguntasDTO> listarPregustasRespuesta(int idUsusario) {
@@ -151,6 +171,10 @@ public class preguntasDAO {
             System.out.println("xxxxxxxxxxxxxxxxx error al consultar preguntas con respuesta "+e);
             System.out.println("xxxxxxxxxxxxxxxxx consulta "+ps.toString());
             return null;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
     public int consultaNotiRespuestas(int idUsusario) {
@@ -171,6 +195,10 @@ public class preguntasDAO {
             System.out.println("xxxxxxxxxxxxxxxxx error al consultar numero preguntas con respuesta "+e);
             System.out.println("xxxxxxxxxxxxxxxxx consulta "+ps.toString());
             return respuesta=0;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
 }
