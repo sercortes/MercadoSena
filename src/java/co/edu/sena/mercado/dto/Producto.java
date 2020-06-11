@@ -28,6 +28,7 @@ public class Producto {
     
     private ImagenesProducto imagenesProducto;
     private Categorys categorys;
+    private String nombreCategoria;
     
 
     public Producto() {
@@ -171,6 +172,32 @@ public class Producto {
         this.ventajaProducto = ventajaProducto;
     }
 
+    public String getNombreCategoria() {
+        return nombreCategoria;
+    }
+
+    public void setNombreCategoria(String nombreCategoria) {
+        this.nombreCategoria = nombreCategoria;
+    }
+
+    public Producto(String idProducto, String nombreProducto, Double valorProducto, int stockProducto, String marcaProducto, String descripcionProducto, String diasEnvios, String medidaProducto, String empaqueProducto, String embalajeProducto, String ventajaProducto, String idEmpresaFK, String idCategoriaFK) {
+        this.idProducto = idProducto;
+        this.nombreProducto = nombreProducto;
+        this.valorProducto = valorProducto;
+        this.stockProducto = stockProducto;
+        this.marcaProducto = marcaProducto;
+        this.descripcionProducto = descripcionProducto;
+        this.diasEnvios = diasEnvios;
+        this.medidaProducto = medidaProducto;
+        this.empaqueProducto = empaqueProducto;
+        this.embalajeProducto = embalajeProducto;
+        this.ventajaProducto = ventajaProducto;
+        this.idEmpresaFK = idEmpresaFK;
+        this.idCategoriaFK = idCategoriaFK;
+    }
+
+    
+    
     @Override
     public String toString() {
         return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", valorProducto=" + valorProducto + ", stockProducto=" + stockProducto + ", marcaProducto=" + marcaProducto + ", descripcionProducto=" + descripcionProducto + ", diasEnvios=" + diasEnvios + ", medidaProducto=" + medidaProducto + ", empaqueProducto=" + empaqueProducto + ", embalajeProducto=" + embalajeProducto + ", ventajaProducto=" + ventajaProducto + ", idEmpresaFK=" + idEmpresaFK + ", idCategoriaFK=" + idCategoriaFK + ", imagenesProducto=" + imagenesProducto + ", categorys=" + categorys + '}';

@@ -280,12 +280,14 @@ public class registro extends HttpServlet {
                 usuarioDTO=new usuarioDTO();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
                 int notPreguntas=preguntaDAO.consultaNotiPreguntas(usuarioDTO.getEmpresa().getIdEmpresa());
+                System.out.println("........................"+notPreguntas);
                 response.getWriter().print(notPreguntas);
                 break;
             case "consultaNotiRespuestas":
                 usuarioDTO=new usuarioDTO();
                  usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
                 int notRespuestas=preguntaDAO.consultaNotiRespuestas(usuarioDTO.getIdUsuario());
+                System.out.println("........................"+notRespuestas);
                 response.getWriter().print(notRespuestas);
                 break;
                 

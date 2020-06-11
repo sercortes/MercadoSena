@@ -189,9 +189,9 @@ $(document).on('click', '.watch', function (e) {
     let parent = $(this)[0].parentElement.parentElement
     let idPro = $(parent).attr('idProducto')
     let producto = records.find(element => element.idProducto === idPro)
-
+    console.log('..............'+records);
     $('#detailsProduct').modal('show')
-    detailsProduct(producto)
+    detailsProduct(producto);
 
 })
 

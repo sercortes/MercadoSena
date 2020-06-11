@@ -82,6 +82,7 @@
 
 
 
+<%@include file="/views/preguntas/modalVerProductoPregunta.jspf"%>
 <%@include file="/views/template/footer.jspf"%>
 
 
