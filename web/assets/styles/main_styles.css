@@ -21,6 +21,21 @@
     background: none;
     font-size: 18px;
 }
+.textoActivacion{
+   color: black;
+    text-align: center;
+    font-size: xx-large;
+}
+.divActivacion{
+        margin-top: 40px;
+   background: rgba(152, 239, 66, 0.84);
+    width: 50%;
+    margin-left: 25%;
+    border-radius: 27px;
+    padding: 25px;
+    margin-bottom: 25px;
+    text-align: center;
+}
 .linea{
     border: solid 1px;
     border-color: rgba(252, 115, 30, 0.48);
