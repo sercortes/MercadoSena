@@ -39,7 +39,7 @@ public class correo {
 // Si requiere o no usuario y password para conectarse.
             props.setProperty("mail.smtp.auth", "true");
 
-            Session session = Session.getDefaultInstance(props);
+           Session session = Session.getDefaultInstance(props);
             session.setDebug(true);
 
             MimeMessage message = new MimeMessage(session);

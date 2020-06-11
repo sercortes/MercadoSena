@@ -129,7 +129,7 @@ public class registro extends HttpServlet {
                 new Gson().toJson(listaRol, response.getWriter());
                 break;
             case "registrarUsuario":
-                boolean respuesta = false;
+                boolean respuesta ;
                 usuarioDTO = new usuarioDTO();
                 personaNaturalDTO = new personaNaturalDTO();
                 listaRol = rolDAO.listarRol();
@@ -167,10 +167,12 @@ public class registro extends HttpServlet {
 
                     usuarioDTO = usuarioDAO.buscarUsuario(personaNaturalDTO.getCorreoPer(), usuarioDTO.getClaveUsu());
                     personaNaturalDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-
+                    respuesta = true;
                     if (personaNaturalDAO.registrarPersona(personaNaturalDTO)) {
+                        respuesta = true;
                         if (enviar.envCorreo(usuarioDTO.getCorreoUsu(), clave, usuarioDTO.getCodigo())) {
                             respuesta = true;
+                           
                             if (usuarioDTO.getIdRol() == 3) {
                                 empresaDTO = new empresaDTO();
                                 empresaDTO.setCelEmpresa(personaNaturalDTO.getNumCelularPer());
@@ -189,22 +191,25 @@ public class registro extends HttpServlet {
                                     respuesta = false;
 
                                 }
-                            } else {
-                                //borrar usuario
-                                //usuarioDAO.eliminarUsuario( usuarioDTO.getIdUsuario());
-                                respuesta = false;
+                                
                             }
+                        }else{
+                            //borrar usuario
+                        respuesta=false;
+                        
                         }
 
                     } else {
                         usuarioDAO.eliminarUsuario(personaNaturalDTO.getCorreoPer(), request.getParameter("correoUsuario"));
                         respuesta = false;
+                        
                     }
                 } else {
                     respuesta = false;
                     usuarioDTO = new usuarioDTO();
+                    
                 }
-
+              
                 response.getWriter().print(respuesta);
                 //System.out.println("......."+usuarioDTO.toString());
                 break;
