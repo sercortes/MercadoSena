@@ -80,8 +80,8 @@
 
 <div id="modalPreguntaRegistro" class="modalRegistro" style="height: auto; overflow-y: hidden;" >
      <i onclick="cerrar('#modalPreguntaRegistro')">X</i>
-    <h3>¿Desea Registrarse?</h3>
-    <p style="color: black">Para poder acceder a todas nuestras opciones es necesario que te registres...</p>
+    <h3>¿Desea ingresar?</h3>
+    <p style="color: black">Para poder acceder a todas nuestras opciones es necesario iniciar sesión...</p>
 
     <input type="submit" id="botonPreguntaRegistro" value="Continuar" class="botonRegistro" onclick=" modalRegistroSi()" ><br>
     <input type="submit" value="No" class="botonRegistro" onclick="cerrar('#modalPreguntaRegistro')">

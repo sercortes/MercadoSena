@@ -138,7 +138,8 @@ function getEmpresa(idpro) {
 
 function modalRegistroSi() {
     modalPreguntaRegistro();
-    consultarDatosFormulario();
+    //consultarDatosFormulario();
+    $('#exampleModal').modal('show');
 }
 function modalPreguntaRegistro() {
     $('#modalPreguntaRegistro').toggle();

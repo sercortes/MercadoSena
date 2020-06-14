@@ -1,10 +1,16 @@
 
 
-function consultarDatosFormulario() {
+function consultarDatosFormulario(res) {
+  
+    $('#exampleModal').modal('hide');
     consultaTipoDoc();
     consultagenero();
     consultaCiudad('#ciudad', 'ciudadUsuario');
+    if(res==='si'){
+        modalRegistroRe();
+    }else{
     modalRegistro();
+    }
 }
 
 function consultaTipoDoc() {
@@ -70,6 +76,16 @@ function consultaCiudad(idDiv, idInput) {
 }
 
 function modalRegistro() {
+ $('body').attr('Style',''); 
+    $('#bloqueo').toggle();
+    $('#modalRegistro').toggle();
+}
+function modalRegistroRe() {
+ 
+         $('body').attr('Style','overflow: hidden');
+       
+    
+   
     $('#bloqueo').toggle();
     $('#modalRegistro').toggle();
 }

@@ -41,7 +41,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <a href="#">Olvido Contraseña?</a>
+                <a href="#">Olvido Contraseña?</a><br>
+                <a style="cursor: pointer" onclick="consultarDatosFormulario('si')">Regístrate aquí</a>
             </div>
         </div>
     </div>
