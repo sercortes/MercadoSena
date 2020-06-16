@@ -20,7 +20,7 @@
             Completa este campo correctamente
         </div><br> 
         <label>Teléfono:</label><br>
-        <input type="text" placeholder="Número" class="form-control was-validated" id="telefonoEmpresa"  maxlength="50" name="telefonoEmpresa" required >
+        <input type="number" placeholder="Número" class="form-control was-validated" id="telefonoEmpresa"  maxlength="50" name="telefonoEmpresa" required >
         <div class="invalid-feedback">
             Completa este campo correctamente
         </div><br> 

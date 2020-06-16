@@ -105,7 +105,7 @@
                                                         <img src="./assets/images/icons/user12.png" width="30" height="30" class="rounded-circle"> ${USER.correoUsu}
                                                     </a>
                                                     <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                        <a class="dropdown-item" href="#">Usuario</a>
+                                                        <a class="dropdown-item" href="./usuario">Usuario</a>
                                                         <a id="logoutFire" class="dropdown-item" href="./logout">Salir</a>
                                                     </div>
                                                 </li>   

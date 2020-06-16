@@ -135,8 +135,9 @@ public class preguntasDAO {
             ps = cn.prepareStatement(consulta);
             ps.setInt(1, idEmpresa);
             rs = ps.executeQuery();
+            if (rs != null) {
             while (rs.next()) {
-                if (rs.getString("respuesta") != null) {
+                
                     respuesta = rs.getInt("respuesta");
                 }
             }
@@ -144,7 +145,7 @@ public class preguntasDAO {
         } catch (SQLException e) {
             System.out.println("xxxxxxxxxxxxxxxxx error al consultar numero preguntas " + e);
             System.out.println("xxxxxxxxxxxxxxxxx consulta " + ps.toString());
-            return respuesta = 0;
+            return  0;
         } finally {
             Conexion.close(cn);
             Conexion.close(ps);
@@ -185,7 +186,7 @@ public class preguntasDAO {
     }
 
     public int consultaNotiRespuestas(int idUsusario) {
-        int respuesta = 0;
+        int respuestaNot = 0;
         con = new Conexion();
         listaPregunta = new ArrayList<>();
         consulta = "SELECT COUNT(pregunta) as respuesta FROM preguntas pre INNER JOIN respuesta res on pre.idPregunta=res.idPreguntaFK WHERE pre.idUsuarioPreguntaFK=? and vista=0";
@@ -194,17 +195,17 @@ public class preguntasDAO {
             ps = cn.prepareStatement(consulta);
             ps.setInt(1, idUsusario);
             rs = ps.executeQuery();
+            if (rs != null) {
+                while (rs.next()) {
 
-            while (rs.next()) {
-                if (rs.getString("respuesta") != null) {
-                    respuesta = rs.getInt("respuesta");
+                    respuestaNot = rs.getInt("respuesta");
                 }
             }
-            return respuesta;
+            return respuestaNot;
         } catch (SQLException e) {
             System.out.println("xxxxxxxxxxxxxxxxx error al consultar numero preguntas con respuesta " + e);
             System.out.println("xxxxxxxxxxxxxxxxx consulta " + ps.toString());
-            return respuesta = 0;
+            return 0;
         } finally {
             Conexion.close(cn);
             Conexion.close(ps);

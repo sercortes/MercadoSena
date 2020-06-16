@@ -39,6 +39,7 @@
         <url-pattern>/logout</url-pattern>
         <url-pattern>/home</url-pattern>
         <url-pattern>/preguntas</url-pattern>
+        <url-pattern>/usuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RutasVendedor</servlet-name>

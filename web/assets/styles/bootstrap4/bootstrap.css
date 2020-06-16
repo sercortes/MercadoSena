@@ -175,7 +175,7 @@ a {
 }
 
 a:hover {
-  color: #224abe;
+  color: rgb(252, 115, 30);
   text-decoration: underline;
 }
 
@@ -4840,7 +4840,8 @@ input[type="button"].btn-block {
 .nav-pills .nav-link.active,
 .nav-pills .show>.nav-link {
   color: #fff;
-  background-color: #6777EF;
+  background-color: rgba(94, 179, 25, 0.7294117647058823);
+
 }
 
 .nav-fill .nav-item {

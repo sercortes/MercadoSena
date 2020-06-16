@@ -78,6 +78,7 @@ document.getElementById('formOnes').addEventListener('submit', e => {
                     idCompany = data[2]
                     sessionStorage.setItem('idCompany',data[2]);
                     
+                    
                 }else if(data[0]==='false'){
                     $('#exampleModal').toggle();                   
                     sessionStorage.setItem('falls', 0)
