@@ -58,6 +58,36 @@ public class personaNaturalDAO {
             Conexion.close(rs);
         }
     }
+    public boolean actualizarPersona(personaNaturalDTO persona){
+    con=new Conexion();
+    consulta="UPDATE personanatural SET documentoPersona=?,nombrePersona=?,apellidoPersona=?,direccionPersona=?,celularPersona=?,telefonoPersona=?,urlImgPersona=?,idUsuarioFK=?,idGeneroFK=?,idTipoDocFK=?,idCiudadFK=? WHERE idPersona=?";
+        try {
+            cn=con.getConnection();
+            ps=cn.prepareStatement(consulta);
+            ps.setString(1, persona.getNumeroDocPer());
+            ps.setString(2, persona.getNombrePer());
+            ps.setString(3, persona.getApellidoPer());
+            ps.setString(4, persona.getDireccionPer());
+            ps.setString(5, persona.getNumCelularPer());
+            ps.setString(6, persona.getTelPer());
+            ps.setString(7, persona.getUrlImg());
+            ps.setInt(8, persona.getIdUsuario());
+            ps.setInt(9, persona.getIdGenero());
+            ps.setInt(10, persona.getIdTipoDoc());
+            ps.setInt(11, persona.getIdCiudad());
+            ps.setInt(12, persona.getIdPer());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("........error al relizar actualizar  personaDAO "+e);
+            System.out.println("........ consulta "+ps.toString());
+            return false;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+    }
     
       public personaNaturalDTO getDataById(String id) {
 
@@ -81,6 +111,7 @@ public class personaNaturalDAO {
                 persona.setIdCiudad(rs.getInt("idCiudadFK"));
                 persona.setIdTipoDoc(rs.getInt("idTipoDocFK"));
                 persona.setIdGenero(rs.getInt("idGeneroFK"));
+                persona.setUrlImg(rs.getString("urlImgPersona"));
 
             }
             return persona;

@@ -28,19 +28,19 @@
                 <!-- Credit card form tabs -->
                 <ul role="tablist" class="nav bg-light nav-pills rounded-pill nav-fill mb-3">
                     <li class="nav-item">
-                        <a data-toggle="pill" href="#nav-tab-persona" class="nav-link active rounded-pill">
+                        <a data-toggle="pill" href="#nav-tab-persona" class="nav-link active rounded-pill" >
                             <i class="fa fa-user" style="color: rgb(252, 115, 30)" ></i>
                             Modificar datos personales
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a data-toggle="pill" href="#nav-tab-usuario" class="nav-link rounded-pill">
+                        <a data-toggle="pill" href="#nav-tab-usuario" class="nav-link rounded-pill" >
                             <i class="fa fa-user-circle" style="color: rgb(252, 115, 30)"></i>
                             Modificar usuario
                         </a>
                     </li>
                     <li class="nav-item ocultar" >
-                        <a data-toggle="pill" href="#nav-tab-empresa" class="nav-link rounded-pill" id="opcionEmpresa">
+                        <a data-toggle="pill" href="#nav-tab-empresa" class="nav-link rounded-pill" id="opcionEmpresa" >
                             <i class="fa fa-building" style="color: rgb(252, 115, 30)" ></i>
                             Registrar empresa
                         </a>
@@ -54,9 +54,11 @@
                     <!-- peresona-->
                     <div id="nav-tab-persona" class="tab-pane fade show active">
 
-                        <form class="needs-validation">
+                        <form class="needs-validation" enctype="multipart/form-data;charset=UTF-8" id="datosActualizarpresona" >
                             <h4 style="color: rgb(252, 115, 30);margin-top: 36px;">Datos personales: </h4>
                             <input type="hidden" name="rolUsuario" id="rolUsuario" value="${USER.idRol}">
+                            <input type="text" value="${USER.persona.urlImg}">
+                            <input type="file" id="fotoUsuario" name="fotoUsuario" value="${USER.persona.urlImg}">
                             <label>Nombre:</label><br>
                             <input type="text" class="form-control was-validated" value="${USER.persona.nombrePer}" minlength="1" maxlength="100" placeholder="Nombre" id="nombreUsuario" name="nombreUsuario" required>
                             <div class="invalid-feedback">
@@ -114,7 +116,7 @@
                                 <input type="hidden" value="${USER.persona.idCiudad}" id="ciudadUsusario">
                             </div>
                             <br>
-                            <button class="botonRegistro" id="registrarUsuario">Actualizar</button>
+                            <button class="botonRegistro" id="actualizarPersona">Actualizar</button>
 
                         </form>
                     </div>
@@ -129,13 +131,13 @@
                             <div class="invalid-feedback">
                                 Completa este campo correctamente
                             </div><br>
-                            <label>Escriba su contraseña:</label><br>
+                            <label>Escriba su nueva contraseña:</label><br>
                             <input type="password" id="clave1" minlength="10" class="form-control was-validated" name="clave1" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar1"></span><br>
                             <label>Confirme su contraseña:</label><br>
                             <input type="password" id="clave2" minlength="10" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
 
                             <br>
-                            <button class="botonRegistro" id="registrarUsuario">Actualizar</button>
+                            <button class="botonRegistro" id="btnActualizarUsuario">Actualizar</button>
                         </form>
                     </div>
                     <!-- fin -->
@@ -193,7 +195,7 @@
     </div>
 
 
-    <div id="cargas" class="loader loader-bouncing"></div>
+    <div id="cargando" class="loader loader-bouncing"></div>
 
 </div>
 </div>

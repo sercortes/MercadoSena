@@ -13,6 +13,7 @@ import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.*;
 import co.edu.sena.mercado.util.correo;
 import co.edu.sena.mercado.util.codActivacion;
+import co.edu.sena.mercado.util.datosSesion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,6 +58,7 @@ public class registro extends HttpServlet {
     respuestaDAO respuestaDAO = new respuestaDAO();
     respuestaDTO respuestaDTO = new respuestaDTO();
     ArrayList<respuestaDTO> listaRespuesta = new ArrayList<>();
+    datosSesion datSesion=new datosSesion();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -164,6 +166,7 @@ public class registro extends HttpServlet {
                     personaNaturalDTO.setNombrePer(request.getParameter("nombreUsuario"));
                     personaNaturalDTO.setNumeroDocPer(request.getParameter("documentoUsuario"));
                     personaNaturalDTO.setTelPer(request.getParameter("telefonoUsuario"));
+                    personaNaturalDTO.setUrlImg("./assets/images/imagenDefecto.png");
 
                     usuarioDTO = usuarioDAO.buscarUsuario(personaNaturalDTO.getCorreoPer(), usuarioDTO.getClaveUsu());
                     personaNaturalDTO.setIdUsuario(usuarioDTO.getIdUsuario());
@@ -227,7 +230,14 @@ public class registro extends HttpServlet {
                 //de la sesion
                 empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
                 if (empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario())) {
+                    
+                     // sesion.removeAttribute("USER");
+                      
+
                     response.getWriter().print(true);
+                    System.out.println(".............hola "+usuarioDTO);
+                    usuarioDTO=datSesion.consultarDatos(usuarioDTO);
+                    sesion.setAttribute("USER", usuarioDTO);
                 } else {
                     response.getWriter().print(false);
                 }

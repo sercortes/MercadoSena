@@ -45,6 +45,33 @@ public class usuarioDAO {
             System.out.println("error al registrar usuario " + e);
             System.out.println("consulta " + ps.toString());
             return false;
+       }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+    }
+    public boolean actualizarUsuario(usuarioDTO datosUsu) {
+        con = new Conexion();
+        consulta = "UPDATE usuario SET emailusuario=?,passwordUsuario=md5(?),fechaPassword=now() WHERE idUsuario=?";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setString(1, datosUsu.getCorreoUsu());
+            ps.setString(2, datosUsu.getClaveUsu());
+            ps.setInt(3, datosUsu.getIdUsuario());
+            
+            ps.executeUpdate();
+           
+            return true;
+        } catch (SQLException e) {
+            System.out.println("error al registrar usuario " + e);
+            System.out.println("consulta " + ps.toString());
+            return false;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
         }
     }
     

@@ -32,6 +32,10 @@
         <servlet-name>generateSale</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.ventas.generateSale</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>actualizaUsuEmp</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.actualizacion.actualizaUsuEmp</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -76,6 +80,12 @@
     <servlet-mapping>
         <servlet-name>generateSale</servlet-name>
         <url-pattern>/generateSale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>actualizaUsuEmp</servlet-name>
+        <url-pattern>/actualizaUsuEmp</url-pattern>
+        <url-pattern>/actualizarPersona</url-pattern>
+        <url-pattern>/actualizarUsuario</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
