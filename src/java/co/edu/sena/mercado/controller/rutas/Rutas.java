@@ -85,9 +85,9 @@ public class Rutas extends HttpServlet {
                 rd = request.getRequestDispatcher("/views/actualizar/actualizarDatos.jsp");
                 rd.forward(request, response);
 //
-//                break;
+                  break;
             default:
-                System.out.println("error de la ruta");
+                System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error de la ruta");
                 break;
         }
     }

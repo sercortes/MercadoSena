@@ -36,10 +36,6 @@
         <servlet-name>actualizaUsuEmp</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.actualizacion.actualizaUsuEmp</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>rutaUsuario</servlet-name>
-        <servlet-class>co.edu.sena.mercado.controller.rutas.rutaUsuario</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -47,6 +43,7 @@
         <url-pattern>/logout</url-pattern>
         <url-pattern>/home</url-pattern>
         <url-pattern>/preguntas</url-pattern>
+        <url-pattern>/usuario</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RutasVendedor</servlet-name>
@@ -90,13 +87,6 @@
         <url-pattern>/actualizarPersona</url-pattern>
         <url-pattern>/actualizarUsuario</url-pattern>
         <url-pattern>/recuperarClave</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>rutaUsuario</servlet-name>
-        <url-pattern>/rutaUsuario</url-pattern>
-        <url-pattern>/usuario</url-pattern>
-
-       
     </servlet-mapping>
     <session-config>
         <session-timeout>
