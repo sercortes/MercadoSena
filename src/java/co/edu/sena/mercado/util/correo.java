@@ -5,6 +5,7 @@
  */
 package co.edu.sena.mercado.util;
 
+import co.edu.sena.mercado.dto.usuarioDTO;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -18,8 +19,8 @@ import javax.mail.internet.MimeMessage;
  * @author DELL
  */
 public class correo {
-    
-       public boolean envCorreo(String dest, String clave,String codigo) {
+
+    public boolean envCorreo(String dest, String clave, String codigo) {
         try {
 
             Properties props = new Properties();
@@ -39,7 +40,7 @@ public class correo {
 // Si requiere o no usuario y password para conectarse.
             props.setProperty("mail.smtp.auth", "true");
 
-           Session session = Session.getDefaultInstance(props);
+            Session session = Session.getDefaultInstance(props);
             session.setDebug(true);
 
             MimeMessage message = new MimeMessage(session);
@@ -54,8 +55,8 @@ public class correo {
             message.setText(
                     "<p>Bienvenido al sistema mercado Sena:</p>"
                     + "<p>Usuario: <b>" + dest + "</b></p>"
-                    + "<p>Nueva clave: <b>" + clave + "</b></p>"
-                    + "<p>Click aquí para activar su cuenta: <a href='http://localhost:8080/MercadoSena/activarCuenta?usuario="+dest+"&codigo="+codigo+"'>Activar cuenta</a></p>",
+                    + "<p>Clave: <b>" + clave + "</b></p>"
+                    + "<p>Click aquí para activar su cuenta: <a href='http://localhost:8080/MercadoSena/activarCuenta?usuario=" + dest + "&codigo=" + codigo + "'>Activar cuenta</a></p>",
                     "ISO-8859-1",
                     "html");
 
@@ -77,7 +78,62 @@ public class correo {
 
     }
 
-      
-      
-    
+    public boolean correoRec(usuarioDTO usuario) {
+        try {
+
+            Properties props = new Properties();
+
+// Nombre del host de correo, es smtp.gmail.com
+            props.setProperty("mail.smtp.host", "smtp.gmail.com");
+
+// TLS si está disponible
+            props.setProperty("mail.smtp.starttls.enable", "true");
+
+// Puerto de gmail para envio de correos
+            props.setProperty("mail.smtp.port", "587");
+
+// Nombre del usuario
+            props.setProperty("mail.smtp.user", "mercadosena2020@gmail.com");
+
+// Si requiere o no usuario y password para conectarse.
+            props.setProperty("mail.smtp.auth", "true");
+
+            Session session = Session.getDefaultInstance(props);
+            session.setDebug(true);
+
+            MimeMessage message = new MimeMessage(session);
+
+// Quien envia el correo
+            message.setFrom(new InternetAddress("mercadosena2020@gmail.com"));
+
+// A quien va dirigido
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(usuario.getCorreoUsu()));
+
+            message.setSubject("Recuperación de contraseña");
+            message.setText(
+                    "<p>Hemos reestablecido su contraseña:</p>"
+                    + "<p>Por su comodidad le recomendamos que cambie su contraseña al iniciar sesión</p>"
+                    + "<p>Usuario: <b>" + usuario.getCorreoUsu() + "</b></p>"
+                    + "<p>Nueva contraseña: <b>" + usuario.getClaveUsu() + "</b></p>",
+                     "ISO-8859-1",
+                    "html");
+
+            Transport t = session.getTransport("smtp");
+
+            t.connect("mercadosena2020@gmail.com", "m3rc4d0$3n4");
+
+            t.sendMessage(message, message.getAllRecipients());
+
+            t.close();
+            //System.out.println("xxx____correo enviado");
+            return true;
+
+        } catch (MessagingException e) {
+
+            System.out.println("xxxxxxxxxxxx____correo No enviado " + e);
+            return false;
+        }
+
+    }
+
 }

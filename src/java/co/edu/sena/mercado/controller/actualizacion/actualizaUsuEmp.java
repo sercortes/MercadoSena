@@ -9,6 +9,8 @@ import co.edu.sena.mercado.dao.personaNaturalDAO;
 import co.edu.sena.mercado.dao.usuarioDAO;
 import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
+import co.edu.sena.mercado.util.codActivacion;
+import co.edu.sena.mercado.util.correo;
 import co.edu.sena.mercado.util.datosSesion;
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +38,8 @@ public class actualizaUsuEmp extends HttpServlet {
     personaNaturalDAO personaDAO = new personaNaturalDAO();
     personaNaturalDTO personaDTO;
     datosSesion datSesion = new datosSesion();
+    codActivacion cod = new codActivacion();
+    correo correo = new correo();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -104,7 +108,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     personaDTO.setDireccionPer(lista1.get(8));
                     personaDTO.setIdCiudad(Integer.parseInt(lista1.get(9)));
                     if (personaDAO.actualizarPersona(personaDTO)) {
-                        
+
                         response.getWriter().print(true);
                         sesion.removeAttribute("USER");
                         sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
@@ -125,10 +129,33 @@ public class actualizaUsuEmp extends HttpServlet {
                 if (usuarioDAO.actualizarUsuario(usuarioDTO)) {
 
                     response.getWriter().print(true);
-                    
+
                 } else {
                     response.getWriter().print(false);
                 }
+                break;
+            case "/MercadoSena/recuperarClave":
+                String clave = cod.generarCod();
+                usuarioDTO = new usuarioDTO();
+                String documento = request.getParameter("numeroDocAct");
+                String tipoDoc = request.getParameter("tipoDocUsuarioRec");
+                usuarioDTO = personaDAO.buscarRecu(documento, tipoDoc);
+                if (usuarioDTO != null) {
+                    usuarioDTO.setClaveUsu(clave);
+                    System.out.println("..................usuario "+usuarioDTO);
+                    if (usuarioDAO.actualizarUsuario(usuarioDTO)) {
+                        if (correo.correoRec(usuarioDTO)) {
+                            response.getWriter().print(true);
+                        } else {
+                            response.getWriter().print(false);
+                        }
+                    } else {
+                        response.getWriter().print(false);
+                    }
+                } else {
+                    response.getWriter().print(false);
+                }
+
                 break;
             default:
                 throw new AssertionError("xxxxxxxxxxxxxxxxxxxxxx esa accion no existe");

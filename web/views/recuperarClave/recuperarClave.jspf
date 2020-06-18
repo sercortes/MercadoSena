@@ -1,0 +1,23 @@
+<div id="modalRecuperarClave" class="modalRegistro" style="overflow-y: hidden;height: auto;" >
+    <i onclick="modalRecuperar()">X</i>
+    <h3>Recuperar clave</h3>
+    <form id="recuperarClave" class="needs-validation" >
+        <p style="color: black">Para poder recuperar su clave es necesario que complete los siguientes datos:</p>
+        <label>Seleccione tipo de documento:</label><br>
+        <div id="tipoDocActu">
+        </div>
+        <div class="invalid-feedback">
+            Completa este campo
+        </div>
+        <br>
+        <label>Documento:</label><br>
+        <input  type="number" placeholder="Número de documento" class="form-control was-validated" minlength="5" maxlength="100" id="numeroDocAct" name="numeroDocAct" required>
+        <div class="invalid-feedback">
+            Completa este campo correctamente
+        </div>
+        <br> 
+
+        <button class="botonRegistro" id="btnRecuperarClave">Recuperar</button>
+
+    </form>
+</div>

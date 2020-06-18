@@ -6,6 +6,7 @@
 package co.edu.sena.mercado.dao;
 
 import co.edu.sena.mercado.dto.personaNaturalDTO;
+import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -126,5 +127,42 @@ public class personaNaturalDAO {
 
     }
     
-
+ public usuarioDTO buscarRecu(String documento, String tipoDoc) {
+        con = new Conexion();
+    usuarioDTO usuarioDTO = new usuarioDTO();
+    usuarioDTO = null;
+        
+        consulta="SELECT usu.* FROM personanatural per INNER JOIN usuario usu on per.idUsuarioFK=usu.idUsuario  WHERE per.idTipoDocFK=? AND per.documentoPersona=?";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setString(1, tipoDoc);
+            ps.setString(2, documento);
+            rs= ps.executeQuery();
+            while(rs.next()){
+            usuarioDTO=new usuarioDTO();
+            usuarioDTO.setCorreoUsu(rs.getString("emailusuario"));
+            usuarioDTO.setEstadoUsu(rs.getString("estadoUsuario"));
+            usuarioDTO.setFechaClave(rs.getString("fechaPassword"));
+            usuarioDTO.setIdRol(rs.getInt("fkRol"));
+            usuarioDTO.setIdUsuario(rs.getInt("idUsuario"));
+            usuarioDTO.setCodigo(rs.getString("codActivacion"));
+            usuarioDTO.setNumIngreso(rs.getInt("numeroIngreso"));
+           
+            
+            }
+           
+           
+            return usuarioDTO;
+        } catch (SQLException e) {
+            System.out.println("error al consultar  usuario " + e);
+            System.out.println("consulta " + ps.toString());
+            return null;
+         }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+    }
+      
 }

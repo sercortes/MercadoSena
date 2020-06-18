@@ -1,6 +1,6 @@
 $(document).ready(validarEmpresa());
 function validarEmpresa() {
-    consultaCiudad('#ciudad', 'ciudadUsuarioActualizar', $('#ciudadUsusario').val());
+    //consultaCiudad('#ciudad', 'ciudadUsuarioActualizar', $('#ciudadUsusario').val());
     consultaTipoDoc($('#tipoDocUsusario').val());
     consultagenero($('#generoUsusario').val());
 
@@ -61,8 +61,10 @@ $('#datosActualizarpresona').submit(function (e) {
             processData: false,
             error: function (jqXHR, textStatus, errorThrown) {
                 $('#cargando').removeClass('is-active');
+                btn.disabled = false;
                 messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
             }, success: function (data, textStatus, jqXHR) {
+                btn.disabled = false;
                 $('#cargando').removeClass('is-active');
                 if (data === true || data === 'true') {
                     messageOk('Se ha actualizado correctamente!!');
@@ -117,9 +119,11 @@ $('#actualizarUsuario').submit(function (e) {
             type: 'POST',
             data: datos,
             error: function (jqXHR, textStatus, errorThrown) {
+                btn.disabled = false;
                 $('#cargando').removeClass('is-active');
                 messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
             }, success: function (data, textStatus, jqXHR) {
+                btn.disabled = false;
                 $('#cargando').removeClass('is-active');
                 if (data === true || data === 'true') {
                     messageOk('Su usuario ha sido actualizado!!');
@@ -176,34 +180,32 @@ $('#actualizarEmpresa').submit(function (e) {
         var btn = document.getElementById('btnActualizarEmpresa');
         $('#cargando').addClass('is-active');
         btn.disabled = true;
-
         $.ajax({
             url: "./registro?accion=registroEmpresa&" + datos,
             type: 'POST',
             contentType: false,
             processData: false, error: function (jqXHR, textStatus, errorThrown) {
                 $('#cargando').removeClass('is-active');
-                messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
+                messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
+                btn.disabled = false;
             },
             success: function (data) {
-
                 $('#cargando').removeClass('is-active');
                 if (data === 'true') {
                     messageOk('Operación realizada!!');
                 } else {
                     messageError('Ha ocurrido un error, favor verificar datos.');
                 }
-
                 formulario.addClass('was-validated');
                 btn.disabled = false;
             }
         })
-
     } else {
-
         formulario.addClass('was-validated');
     }
 })
+
+
 
 
 

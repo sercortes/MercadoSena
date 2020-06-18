@@ -13,8 +13,17 @@ function consultarDatosFormulario(res) {
     }
 }
 
-function consultaTipoDoc(valor) {
-
+function consultaTipoDoc(valor,div) {
+    var divE='#tipoDoc';
+    var tipDoc='tipoDocUsuario';
+if(div!== undefined && div!==null && div!=='undefined' && div!==''){
+    divE=div;
+    tipDoc='tipoDocUsuarioRec';
+}
+    console.log(divE);
+    console.log(tipDoc);
+    console.log(div);
+     $('#carga').addClass('is-active');
     $.ajax({
         url: "./registro?accion=consultaTipoDoc",
         type: 'POST',
@@ -22,12 +31,14 @@ function consultaTipoDoc(valor) {
         contentType: false,
         processData: false,
         error: function (jqXHR, textStatus, errorThrown) {
+             $('#carga').removeClass('is-active');
             modalRegistro();
             // $('#carga').removeClass('is-active');
             messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
         },
         success: function (data) {
-            selects(data, '#tipoDoc', 'tipoDocUsuario', valor);
+             $('#carga').removeClass('is-active');
+            selects(data, divE, tipDoc, valor);
 
 
         }
@@ -35,6 +46,7 @@ function consultaTipoDoc(valor) {
 
 }
 function consultagenero(valor) {
+     $('#carga').addClass('is-active');
     $.ajax({
         url: "./registro?accion=consultaGenero",
         type: 'POST',
@@ -42,17 +54,20 @@ function consultagenero(valor) {
         contentType: false,
         processData: false,
         error: function (jqXHR, textStatus, errorThrown) {
+             $('#carga').removeClass('is-active');
             modalRegistro();
             // $('#carga').removeClass('is-active');
             messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
         },
         success: function (data) {
+             $('#carga').removeClass('is-active');
             selects(data, '#genero', 'generoUsuario', valor);
 
         }
     })
 }
 function consultaCiudad(idDiv, idInput, valor) {
+     $('#carga').addClass('is-active');
     $.ajax({
         url: "./registro?accion=consultaCiudad",
         type: 'POST',
@@ -60,12 +75,14 @@ function consultaCiudad(idDiv, idInput, valor) {
         contentType: false,
         processData: false,
         error: function (jqXHR, textStatus, errorThrown) {
+             $('#carga').removeClass('is-active');
             $('#bloqueo').hide();
             $('#modalRegistro').hide();
             // $('#carga').removeClass('is-active');
             messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
         },
         success: function (data) {
+             $('#carga').removeClass('is-active');
             selects(data, idDiv, idInput, valor);
 
 
@@ -109,7 +126,7 @@ function selects(datos, idDiv, idInput, valor) {
                 }
             }
 
-        } else if (idDiv === '#tipoDoc') {
+        } else if (idDiv === '#tipoDoc' || idDiv==='#tipoDocActu') {
             for (var i = 0; i < datos.length; i++) {
 
                 if (valor !== undefined && valor !== '' && valor !== null) {
@@ -124,7 +141,7 @@ function selects(datos, idDiv, idInput, valor) {
                 }
             }
 
-        } else if (idDiv === '#ciudad') {
+        } else if (idDiv === '#ciudad' ) {
             for (var i = 0; i < datos.length; i++) {
 
                 if (valor !== undefined && valor !== '' && valor !== null) {
@@ -198,6 +215,7 @@ $('#registroUsuario').submit(function (e) {
             contentType: false,
             processData: false,
             error: function (jqXHR, textStatus, errorThrown) {
+                btn.disabled = false;
                 $('#carga').removeClass('is-active');
                 modalRegistro();
                 messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
@@ -339,6 +357,7 @@ $('#registroEmpresa').submit(function (e) {
             type: 'POST',
             contentType: false,
             processData: false, error: function (jqXHR, textStatus, errorThrown) {
+                btn.disabled = false;
                 $('#carga').removeClass('is-active');
                 $('#modalRegistroEmpresa').hide();
                 $('#bloqueo').hide();

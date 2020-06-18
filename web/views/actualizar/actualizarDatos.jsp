@@ -57,8 +57,20 @@
                         <form class="needs-validation" enctype="multipart/form-data;charset=UTF-8" id="datosActualizarpresona" >
                             <h4 style="color: rgb(252, 115, 30);margin-top: 36px;">Datos personales: </h4>
                             <input type="hidden" name="rolUsuario" id="rolUsuario" value="${USER.idRol}">
-                            <input type="text" value="${USER.persona.urlImg}">
-                            <input type="file" id="fotoUsuario" name="fotoUsuario" value="${USER.persona.urlImg}">
+
+
+                            <div class="contenedorImagen">
+                                <div id="previsualizar">
+                                    <img id="fotoPerfil" class="fotoPerfil"  src="${USER.persona.urlImg}" width="200px" height="200"/>                   
+                                </div>
+                                <div class="file">
+                                    <p class="texto"><i class="fa fa-file-image" aria-hidden="true"></i></p>
+                                    <input type="file" id="fotoUsuario" class="archivo" name="fotoUsuario" value="${USER.persona.urlImg}">
+                                </div>
+                            </div>
+
+
+
                             <label>Nombre:</label><br>
                             <input type="text" class="form-control was-validated" value="${USER.persona.nombrePer}" minlength="1" maxlength="100" placeholder="Nombre" id="nombreUsuario" name="nombreUsuario" required>
                             <div class="invalid-feedback">
@@ -112,9 +124,19 @@
                                 Completa este campo correctamente
                             </div><br> 
                             <label>Seleccione su ciudad:</label><br>
-                            <div id='ciudad'>
-                                <input type="hidden" value="${USER.persona.idCiudad}" id="ciudadUsusario">
-                            </div>
+                            <select required id="ciudadUsuarioActualizar" name="ciudadUsuarioActualizar" class="form-control">
+                                <option value="">Seleccione...</option>
+                                <c:forEach items="${listaCiudad}" var="ciudad"> 
+                                <c:if test="${ciudad.idCiudad==USER.persona.idCiudad}">
+                                    <option value="${ciudad.idCiudad}" selected>${ciudad.nombreCiudad}</option> 
+                                </c:if>
+                                <c:if test="${ciudad.idCiudad!=USER.persona.idCiudad}">
+                                    <option value="${ciudad.idCiudad}">${ciudad.nombreCiudad}</option> 
+                                </c:if>
+                                </c:forEach>
+                            </select>
+
+
                             <br>
                             <button class="botonRegistro" id="actualizarPersona">Actualizar</button>
 
@@ -132,9 +154,9 @@
                                 Completa este campo correctamente
                             </div><br>
                             <label>Escriba su nueva contraseña:</label><br>
-                            <input type="password" id="clave1" minlength="10" class="form-control was-validated" name="clave1" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar1"></span><br>
+                            <input placeholder="Mínimo 10 Caráteres" type="password" id="clave1" minlength="10" class="form-control was-validated" name="clave1" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar1"></span><br>
                             <label>Confirme su contraseña:</label><br>
-                            <input type="password" id="clave2" minlength="10" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
+                            <input placeholder="Mínimo 10 Caráteres" type="password" id="clave2" minlength="10" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
 
                             <br>
                             <button class="botonRegistro" id="btnActualizarUsuario">Actualizar</button>
@@ -171,7 +193,7 @@
                             </div><br> 
                             <label>Seleccione su ciudad:</label><br>
                             <div id='ciudadEmpresa'>
-                                
+
                                 <input type="hidden" id="ciudEmpresaActualizar" value="${USER.empresa.idCiudad}">
 
                             </div><br>
@@ -201,5 +223,5 @@
 </div>
 <%@include file="/views/template/footer.jspf"%>
 <script src="./assets/js/project/actualizar/actualizarUsuEmp.js" type="text/javascript"></script>
-
+<script src="./assets/js/project/actualizar/validarImagen.js" type="text/javascript"></script>
 

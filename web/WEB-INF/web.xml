@@ -86,6 +86,7 @@
         <url-pattern>/actualizaUsuEmp</url-pattern>
         <url-pattern>/actualizarPersona</url-pattern>
         <url-pattern>/actualizarUsuario</url-pattern>
+        <url-pattern>/recuperarClave</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

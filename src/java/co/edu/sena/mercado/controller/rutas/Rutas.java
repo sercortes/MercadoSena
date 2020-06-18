@@ -5,9 +5,16 @@
  */
 package co.edu.sena.mercado.controller.rutas;
 
+import co.edu.sena.mercado.dao.ciudadDAO;
+import co.edu.sena.mercado.dao.generoDAO;
+import co.edu.sena.mercado.dao.tipoDocumentoDAO;
 import co.edu.sena.mercado.dao.usuarioDAO;
+import co.edu.sena.mercado.dto.ciudadDTO;
+import co.edu.sena.mercado.dto.generoDTO;
+import co.edu.sena.mercado.dto.tipoDocumentoDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -20,25 +27,31 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Rutas extends HttpServlet {
 
-    usuarioDAO usuarioDAO=new usuarioDAO();
-            
-            protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    usuarioDAO usuarioDAO = new usuarioDAO();
+    ciudadDAO ciudadDAO= new ciudadDAO();
+    ArrayList<ciudadDTO> listaCiudad;
+    generoDAO generoDAO=new generoDAO();
+    ArrayList<generoDTO> listaGenero;
+    tipoDocumentoDAO tipoDocDAO=new tipoDocumentoDAO();
+    ArrayList<tipoDocumentoDTO> listaTipoDoc;
+
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String direccion = request.getRequestURI();
         RequestDispatcher rd;
 
         switch (direccion) {
             case "/MercadoSena/Searching...":
-                 rd = request.getRequestDispatcher("/views/searching/search.jsp");
+                rd = request.getRequestDispatcher("/views/searching/search.jsp");
                 rd.forward(request, response);
                 break;
             case "/MercadoSena/activarCuenta":
                 boolean activa;
-                String usuario=request.getParameter("usuario");
-                String codigo=request.getParameter("codigo");
-                activa=usuarioDAO.activarUsuario(usuario, codigo);
+                String usuario = request.getParameter("usuario");
+                String codigo = request.getParameter("codigo");
+                activa = usuarioDAO.activarUsuario(usuario, codigo);
                 request.setAttribute("activa", activa);
-                 rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
+                rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
                 rd.forward(request, response);
                 break;
             case "/MercadoSena/logout":
@@ -53,10 +66,24 @@ public class Rutas extends HttpServlet {
             case "/MercadoSena/home":
                 rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
-            case "/MercadoSena/usuarios":
-                 rd = request.getRequestDispatcher("/views/actualizar/actualizarDatos.jsp");
-                rd.forward(request, response);
+            case "/MercadoSena/usuario":
                 
+                listaCiudad = new ArrayList<>();
+                listaCiudad = ciudadDAO.listarCiudad();
+
+//                listaTipoDoc = new ArrayList<>();
+//                listaTipoDoc = tipoDocDAO.listarTipoDoc();
+//
+//                listaGenero = new ArrayList<>();
+//                listaGenero = generoDAO.listarGenero();
+                
+                request.setAttribute("listaCiudad", listaCiudad);
+//                request.setAttribute("listaTipoDoc", listaTipoDoc);
+//                request.setAttribute("listaGenero", listaGenero);
+                
+                rd = request.getRequestDispatcher("/views/actualizar/actualizarDatos.jsp");
+                rd.forward(request, response);
+
                 break;
             default:
                 System.out.println("error de la ruta");
@@ -70,14 +97,12 @@ public class Rutas extends HttpServlet {
         processRequest(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    
     @Override
     public String getServletInfo() {
         return "Short description";

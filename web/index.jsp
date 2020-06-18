@@ -33,6 +33,7 @@
 <%@include file="/views/login/login.jspf"%>
 <%@include file="/views/registro/registro.jspf"%>
 <%@include file="/views/registro/registroEmpresa.jspf"%>
+<%@include file="/views/recuperarClave/recuperarClave.jspf"%>
 
 <%@include file="/views/template/footer.jspf"%>
 

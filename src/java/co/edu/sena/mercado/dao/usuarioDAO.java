@@ -147,6 +147,7 @@ public class usuarioDAO {
             Conexion.close(rs);
         }
     }
+   
     public boolean activarUsuario(String correo, String codigo) {
         con = new Conexion();
      

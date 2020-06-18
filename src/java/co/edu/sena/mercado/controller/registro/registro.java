@@ -166,7 +166,7 @@ public class registro extends HttpServlet {
                     personaNaturalDTO.setNombrePer(request.getParameter("nombreUsuario"));
                     personaNaturalDTO.setNumeroDocPer(request.getParameter("documentoUsuario"));
                     personaNaturalDTO.setTelPer(request.getParameter("telefonoUsuario"));
-                    personaNaturalDTO.setUrlImg("./assets/images/imagenDefecto.png");
+                    personaNaturalDTO.setUrlImg("./assets/images/usuario/imagenDefecto.png");
 
                     usuarioDTO = usuarioDAO.buscarUsuario(personaNaturalDTO.getCorreoPer(), usuarioDTO.getClaveUsu());
                     personaNaturalDTO.setIdUsuario(usuarioDTO.getIdUsuario());
