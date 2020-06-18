@@ -23,16 +23,16 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author serfin
+ * @author DELL
  */
-public class Rutas extends HttpServlet {
+public class rutaUsuario extends HttpServlet {
 
     usuarioDAO usuarioDAO = new usuarioDAO();
-    ciudadDAO ciudadDAO= new ciudadDAO();
+    ciudadDAO ciudadDAO = new ciudadDAO();
     ArrayList<ciudadDTO> listaCiudad;
-    generoDAO generoDAO=new generoDAO();
+    generoDAO generoDAO = new generoDAO();
     ArrayList<generoDTO> listaGenero;
-    tipoDocumentoDAO tipoDocDAO=new tipoDocumentoDAO();
+    tipoDocumentoDAO tipoDocDAO = new tipoDocumentoDAO();
     ArrayList<tipoDocumentoDTO> listaTipoDoc;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -41,34 +41,8 @@ public class Rutas extends HttpServlet {
         RequestDispatcher rd;
 
         switch (direccion) {
-            case "/MercadoSena/Searching...":
-                rd = request.getRequestDispatcher("/views/searching/search.jsp");
-                rd.forward(request, response);
-                break;
-            case "/MercadoSena/activarCuenta":
-                boolean activa;
-                String usuario = request.getParameter("usuario");
-                String codigo = request.getParameter("codigo");
-                activa = usuarioDAO.activarUsuario(usuario, codigo);
-                request.setAttribute("activa", activa);
-                rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
-                rd.forward(request, response);
-                break;
-            case "/MercadoSena/logout":
-                request.getSession().removeAttribute("USER");
-                request.getSession().invalidate();
-                response.sendRedirect("/MercadoSena/home");
-                break;
-            case "/MercadoSena/preguntas":
-                rd = request.getRequestDispatcher("/views/preguntas/preguntas.jsp");
-                rd.forward(request, response);
-                break;
-            case "/MercadoSena/home":
-                rd = request.getRequestDispatcher("index.jsp");
-                rd.forward(request, response);
-                break;
             case "/MercadoSena/usuario":
-                
+
                 listaCiudad = new ArrayList<>();
                 listaCiudad = ciudadDAO.listarCiudad();
 
@@ -77,33 +51,54 @@ public class Rutas extends HttpServlet {
 //
 //                listaGenero = new ArrayList<>();
 //                listaGenero = generoDAO.listarGenero();
-                
                 request.setAttribute("listaCiudad", listaCiudad);
 //                request.setAttribute("listaTipoDoc", listaTipoDoc);
 //                request.setAttribute("listaGenero", listaGenero);
-                
+
                 rd = request.getRequestDispatcher("/views/actualizar/actualizarDatos.jsp");
                 rd.forward(request, response);
-//
-//                break;
+
+                break;
             default:
-                System.out.println("error de la ruta");
+                System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error de la ruta");
                 break;
         }
     }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
