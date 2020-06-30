@@ -169,10 +169,10 @@
 
                                         <c:if test="${USER.idRol == 3}">
                                             <li><a href="./Products">Mis Productos<i class="fas fa-chevron-down"></i></a></li>
+                                            <li><a href="./ventasVendedor">Pedidos<i class="fas fa-chevron-down"></i></a></li>
                                                 </c:if>
-                                                <c:if test="${not empty USER.idRol}">
-                                                <li  ><a href="./preguntas"  >Mensajes <b id="nroNoti" class="notificaciones"></b><i class="fas fa-chevron-down" ></i></a> </li>
-                                                </c:if>
+
+
 
 
                                     </ul>
@@ -222,7 +222,11 @@
 
                                     <c:if test="${USER.idRol == 3}">
                                         <li class="page_menu_item"><a href="./Products">Mis Productos<i class="fa fa-angle-down"></i></a></li>
-                                            </c:if>
+                                        <li class="page_menu_item"><a href="./ventasVendedor">Pedidos<i class="fa fa-angle-down"></i></a></li> 
+                                    </c:if>
+
+
+
                                 </ul>
 
                             </div>

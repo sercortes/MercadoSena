@@ -39,7 +39,7 @@
 
                                         <a  onclick="consultarRespuestas()" class="nav-link mb-3 p-3 shadow ocultarRespuesta" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                                         <i class="fa fa-calendar-minus-o mr-2"></i>
-                                        <span class="font-weight-bold small text-uppercase">Respuestas </span><b id="noRespuestas" style="font-size: xx-small;" class="notificaciones"></b></a>
+                                        <span class="font-weight-bold small text-uppercase">Respuestas </span><b id="noRespuestas" style="font-size: xx-small;" class="notificaciones2"></b></a>
                                        
 
                                 </div>

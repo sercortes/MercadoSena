@@ -212,7 +212,5 @@
 
         <script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
         <script src="./assets/js/project/util/global.js" charset="utf-8"></script>
-
-
         <script src="./assets/js/project/products/uploadFiles.js" charset="utf-8"></script>
 

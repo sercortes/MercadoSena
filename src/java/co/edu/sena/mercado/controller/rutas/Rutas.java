@@ -28,11 +28,11 @@ import javax.servlet.http.HttpServletResponse;
 public class Rutas extends HttpServlet {
 
     usuarioDAO usuarioDAO = new usuarioDAO();
-    ciudadDAO ciudadDAO= new ciudadDAO();
+    ciudadDAO ciudadDAO = new ciudadDAO();
     ArrayList<ciudadDTO> listaCiudad;
-    generoDAO generoDAO=new generoDAO();
+    generoDAO generoDAO = new generoDAO();
     ArrayList<generoDTO> listaGenero;
-    tipoDocumentoDAO tipoDocDAO=new tipoDocumentoDAO();
+    tipoDocumentoDAO tipoDocDAO = new tipoDocumentoDAO();
     ArrayList<tipoDocumentoDTO> listaTipoDoc;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -68,7 +68,7 @@ public class Rutas extends HttpServlet {
                 rd.forward(request, response);
                 break;
             case "/MercadoSena/usuario":
-                
+
                 listaCiudad = new ArrayList<>();
                 listaCiudad = ciudadDAO.listarCiudad();
 
@@ -77,18 +77,19 @@ public class Rutas extends HttpServlet {
 //
 //                listaGenero = new ArrayList<>();
 //                listaGenero = generoDAO.listarGenero();
-                
                 request.setAttribute("listaCiudad", listaCiudad);
 //                request.setAttribute("listaTipoDoc", listaTipoDoc);
 //                request.setAttribute("listaGenero", listaGenero);
-                
+
                 rd = request.getRequestDispatcher("/views/actualizar/actualizarDatos.jsp");
                 rd.forward(request, response);
 //
-                  break;
+                break;
+            case "/MercadoSena/ventasVendedor":
+                request.getRequestDispatcher("/views/ventas/ventasVendedor.jsp").forward(request, response);
+                break;
             default:
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error de la ruta");
-                break;
         }
     }
 

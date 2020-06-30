@@ -58,7 +58,7 @@ public class registro extends HttpServlet {
     respuestaDAO respuestaDAO = new respuestaDAO();
     respuestaDTO respuestaDTO = new respuestaDTO();
     ArrayList<respuestaDTO> listaRespuesta = new ArrayList<>();
-    datosSesion datSesion=new datosSesion();
+    datosSesion datSesion = new datosSesion();
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -131,7 +131,7 @@ public class registro extends HttpServlet {
                 new Gson().toJson(listaRol, response.getWriter());
                 break;
             case "registrarUsuario":
-                boolean respuesta ;
+                boolean respuesta;
                 usuarioDTO = new usuarioDTO();
                 personaNaturalDTO = new personaNaturalDTO();
                 listaRol = rolDAO.listarRol();
@@ -175,7 +175,7 @@ public class registro extends HttpServlet {
                         respuesta = true;
                         if (enviar.envCorreo(usuarioDTO.getCorreoUsu(), clave, usuarioDTO.getCodigo())) {
                             respuesta = true;
-                           
+
                             if (usuarioDTO.getIdRol() == 3) {
                                 empresaDTO = new empresaDTO();
                                 empresaDTO.setCelEmpresa(personaNaturalDTO.getNumCelularPer());
@@ -194,25 +194,25 @@ public class registro extends HttpServlet {
                                     respuesta = false;
 
                                 }
-                                
+
                             }
-                        }else{
+                        } else {
                             //borrar usuario
-                        respuesta=false;
-                        
+                            respuesta = false;
+
                         }
 
                     } else {
                         usuarioDAO.eliminarUsuario(personaNaturalDTO.getCorreoPer(), request.getParameter("correoUsuario"));
                         respuesta = false;
-                        
+
                     }
                 } else {
                     respuesta = false;
                     usuarioDTO = new usuarioDTO();
-                    
+
                 }
-              
+
                 response.getWriter().print(respuesta);
                 //System.out.println("......."+usuarioDTO.toString());
                 break;
@@ -230,13 +230,11 @@ public class registro extends HttpServlet {
                 //de la sesion
                 empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
                 if (empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario())) {
-                    
-                     // sesion.removeAttribute("USER");
-                      
 
+                    // sesion.removeAttribute("USER");
                     response.getWriter().print(true);
-                    System.out.println(".............hola "+usuarioDTO);
-                    usuarioDTO=datSesion.consultarDatos(usuarioDTO);
+                    System.out.println(".............hola " + usuarioDTO);
+                    usuarioDTO = datSesion.consultarDatos(usuarioDTO);
                     sesion.setAttribute("USER", usuarioDTO);
                 } else {
                     response.getWriter().print(false);
@@ -287,25 +285,29 @@ public class registro extends HttpServlet {
                 response.setContentType("application/json");
                 listaPregunta = new ArrayList<>();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                listaPregunta=preguntaDAO.listarPregustasRespuesta(usuarioDTO.getIdUsuario());
+                listaPregunta = preguntaDAO.listarPregustasRespuesta(usuarioDTO.getIdUsuario());
                 preguntaDAO.marcarVistaPregunta(usuarioDTO.getIdUsuario());
                 new Gson().toJson(listaPregunta, response.getWriter());
                 break;
             case "consultaNotiPreguntas":
-                usuarioDTO=new usuarioDTO();
+
+                usuarioDTO = new usuarioDTO();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                int notPreguntas=preguntaDAO.consultaNotiPreguntas(usuarioDTO.getEmpresa().getIdEmpresa());
-                System.out.println("........................"+notPreguntas);
-                response.getWriter().print(notPreguntas);
+                // if(usuarioDTO.getEmpresa().getIdEmpresa()==5){
+                int notPreguntas = 0;
+                notPreguntas = preguntaDAO.consultaNotiPreguntas(usuarioDTO.getEmpresa().getIdEmpresa());
+                System.out.println("........................preguntas " + notPreguntas);
+                response.getWriter().print(notPreguntas);//}
                 break;
             case "consultaNotiRespuestas":
-                usuarioDTO=new usuarioDTO();
-                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                int notRespuestas=preguntaDAO.consultaNotiRespuestas(usuarioDTO.getIdUsuario());
-                System.out.println("........................"+notRespuestas);
+                usuarioDTO = new usuarioDTO();
+                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
+                int notRespuestas = 0;
+                notRespuestas = preguntaDAO.consultaNotiRespuestas(usuarioDTO.getIdUsuario());
+                System.out.println("........................" + notRespuestas);
                 response.getWriter().print(notRespuestas);
                 break;
-                
+
             default:
                 throw new AssertionError("Esa accion no existe");
 

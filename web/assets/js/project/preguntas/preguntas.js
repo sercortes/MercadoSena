@@ -2,10 +2,11 @@ $(document).ready(consultarRolInicio());
 function consultarRolInicio() {
     not = 0;
     var rol = $('#nombreUsuarioInicio').data('rol');
+    $('.notificaciones').text('');
     $('#nroNoti').hide();
     if (rol === 3) {
         consultarPreguntas();
-        consultarNoRespuestas();
+        consultaNotiRespuestas('si');
 
     } else if (rol === 2) {
         consultarRespuestas();
@@ -64,9 +65,11 @@ function responderPregunta(idPregunta) {
 
                 if (data) {
                     consultarPreguntas();
+                    enviarNot('respuesta');
                 } else {
                     messageError('Error al enviar su respuesta.');
                 }
+                
             }
         })
     }
@@ -105,13 +108,13 @@ function  generarRespuestas(respuestas) {
     $('.preguntas').html(respuesta);
 }
 
-function consultarNoRespuestas() {
-
-    setInterval(function () {
-
-        consultaNotiRespuestas('si');
-    }, 3000);
-}
+//function consultarNoRespuestas() {
+//
+//    setInterval(function () {
+//
+//        consultaNotiRespuestas('si');
+//    }, 3000);
+//}
 
 function verProductoPregunta(id) {
     //ajax
@@ -186,7 +189,7 @@ function textoProducto(item) {
       </div>
     </div>`
     }
-    element.innerHTML = str
+    element.innerHTML = str;
 }
 
 function caruselImagenesProducto(data) {
@@ -205,6 +208,6 @@ function caruselImagenesProducto(data) {
         }
         num++;
     }
-    ele.innerHTML = str
+    ele.innerHTML = str;
 
 }
