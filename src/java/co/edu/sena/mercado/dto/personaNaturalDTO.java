@@ -20,6 +20,7 @@ public class personaNaturalDTO {
     String numCelularPer;
     String telPer;
     String urlImg;
+    String nombreCiudad;
     int idUsuario;
     int idGenero;
     int idTipoDoc;
@@ -28,7 +29,7 @@ public class personaNaturalDTO {
     public personaNaturalDTO() {
     }
 
-    public personaNaturalDTO(int idPer, String numeroDocPer, String nombrePer, String apellidoPer, String correoPer, String direccionPer, String numCelularPer, String telPer, String urlImg, int idUsuario, int idGenero, int idTipoDoc, int idCiudad) {
+    public personaNaturalDTO(int idPer, String numeroDocPer, String nombrePer, String apellidoPer, String correoPer, String direccionPer, String numCelularPer, String telPer, String urlImg, String nombreCiudad, int idUsuario, int idGenero, int idTipoDoc, int idCiudad) {
         this.idPer = idPer;
         this.numeroDocPer = numeroDocPer;
         this.nombrePer = nombrePer;
@@ -38,11 +39,22 @@ public class personaNaturalDTO {
         this.numCelularPer = numCelularPer;
         this.telPer = telPer;
         this.urlImg = urlImg;
+        this.nombreCiudad = nombreCiudad;
         this.idUsuario = idUsuario;
         this.idGenero = idGenero;
         this.idTipoDoc = idTipoDoc;
         this.idCiudad = idCiudad;
     }
+
+    public String getNombreCiudad() {
+        return nombreCiudad;
+    }
+
+    public void setNombreCiudad(String nombreCiudad) {
+        this.nombreCiudad = nombreCiudad;
+    }
+
+ 
 
     public int getIdPer() {
         return idPer;

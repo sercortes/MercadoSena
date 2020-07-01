@@ -8,15 +8,20 @@ package co.edu.sena.mercado.controller.ventas;
 import co.edu.sena.mercado.dao.CompradorDAO;
 import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
-import co.edu.sena.mercado.dto.ImagenesProducto;
+import co.edu.sena.mercado.dao.VentaDAO;
+import co.edu.sena.mercado.dao.empresaDAO;
+import co.edu.sena.mercado.dao.estadoVentaDAO;
+import co.edu.sena.mercado.dao.personaNaturalDAO;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.VentaDTO;
+import co.edu.sena.mercado.dto.empresaDTO;
 import co.edu.sena.mercado.dto.pedidoDTO;
+import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.productoImagenesDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -40,7 +45,10 @@ public class gestionarPedidos extends HttpServlet {
     Producto productoDTO;
     ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conn);
     productoImagenesDTO producImagen;
-    ProductoDAO productoDAO=new ProductoDAO(conn);
+    ProductoDAO productoDAO = new ProductoDAO(conn);
+    personaNaturalDAO personaDAO = new personaNaturalDAO();
+    estadoVentaDAO estadoPedDAO = new estadoVentaDAO();
+    empresaDAO empresaDAO = new empresaDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -64,22 +72,81 @@ public class gestionarPedidos extends HttpServlet {
 
         switch (accion) {
             case "pedidosVendedor":
-                listaPedido = compradorDAO.consultaPedido(usuarioDTO.getEmpresa().getIdEmpresa(), "vendedor");
+                String tipoUsuCon = request.getParameter("tipoUsu");
+                if (tipoUsuCon.equals("vendedor")) {
+                    listaPedido = compradorDAO.consultaPedido(usuarioDTO.getEmpresa().getIdEmpresa(), tipoUsuCon);
+                } else if (tipoUsuCon.equals("comprador")) {
+                    listaPedido = compradorDAO.consultaPedido(usuarioDTO.getPersona().getIdPer(), tipoUsuCon);
+                }
 
                 for (int i = 0; i < listaPedido.size(); i++) {
-                    System.out.println("..................." + i);
+
                     producImagen = new productoImagenesDTO();
                     pedidoDTO = new pedidoDTO();
                     pedidoDTO = listaPedido.get(i);
                     producImagen.setProducto(productoDAO.buscarProducto(Integer.parseInt((pedidoDTO.getProdPedidoDTO().getIdProductoFK()))));
-                    producImagen.setImagenes( imagenesProductosDAO.getImagenesByProduc(pedidoDTO.getProdPedidoDTO().getIdProductoFK()));
+                    producImagen.setImagenes(imagenesProductosDAO.getImagenesByProduc(pedidoDTO.getProdPedidoDTO().getIdProductoFK()));
                     pedidoDTO.setProdImagen(producImagen);
+                    pedidoDTO.setListaEstadoPedido(estadoPedDAO.listarEstadoVenta());
                     //imagenesProductosDAO.CloseAll();
-                   // productoDAO.CloseAll();
+                    // productoDAO.CloseAll();
                 }
                 //compradorDAO.CloseAll();
                 response.setContentType("application/json");
                 new Gson().toJson(listaPedido, response.getWriter());
+                break;
+            case "consultaUsu":
+
+                String tipoUsu = request.getParameter("tipoUsu");
+                String id = request.getParameter("idUsuario");
+                personaNaturalDTO personaDTO = new personaNaturalDTO();
+                empresaDTO empresaDTO = new empresaDTO();
+                if (tipoUsu.equals("comprador")) {
+                    response.setContentType("application/json");
+                    personaDTO = personaDAO.buscarPersona(id);
+                    //System.out.println("....................."+personaDTO);
+                    new Gson().toJson(personaDTO, response.getWriter());
+                }
+                if (tipoUsu.equals("vendedor")) {
+                    response.setContentType("application/json");
+                    empresaDTO = empresaDAO.buscarEmpresaXProducto(id);
+                    //System.out.println("....................."+personaDTO);
+                    new Gson().toJson(empresaDTO, response.getWriter());
+                }
+                break;
+            case "actEstPed":
+
+                conexion = new Conexion();
+                conn = conexion.getConnection();
+
+                VentaDAO ventaDAO = new VentaDAO(conn);
+                VentaDTO ventaDTO = new VentaDTO();
+                
+                productoDAO=new ProductoDAO(conn);
+
+                ventaDTO.setIdVenta(request.getParameter("idVenta"));
+                ventaDTO.setIdEstadoVentaFK(request.getParameter("idEstado"));
+
+                if (ventaDTO.getIdEstadoVentaFK().equalsIgnoreCase("2")) {
+                    System.out.println("....................... actualizar cantidad");
+                    productoDTO = new Producto();
+                    productoDTO.setStockProducto(Integer.parseInt(request.getParameter("cantidadVendida")));
+                    productoDTO.setIdProducto(request.getParameter("idProducto"));
+
+                    if (ventaDAO.actualizarVenta(ventaDTO) && productoDAO.actualizarCantidad(productoDTO)) {
+                        response.getWriter().print("true");
+                    } else {
+                        response.getWriter().print("false");
+                    }
+                } else {
+                    if (ventaDAO.actualizarVenta(ventaDTO)) {
+                        response.getWriter().print("true");
+                    } else {
+                        response.getWriter().print("false");
+                    }
+                }
+               // productoDAO.CloseAll();
+                //ventaDAO.CloseAll();
                 break;
             default:
                 throw new AssertionError("XXXXXXXXXXXXXXXXXXX esa accion no existe");

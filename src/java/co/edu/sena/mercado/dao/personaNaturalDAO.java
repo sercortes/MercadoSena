@@ -164,5 +164,44 @@ public class personaNaturalDAO {
             Conexion.close(rs);
         }
     }
+ 
+  public personaNaturalDTO buscarPersona(String idPersona) {
+
+        try {
+            con = new Conexion();
+            String sql = "SELECT perN.*,ciu.nombreCiudad FROM personanatural perN INNER JOIN ciudad ciu on perN.idCiudadFK=ciu.idCiudad WHERE idPersona = ? LIMIT 1";
+            PreparedStatement ps = con.getConnection().prepareStatement(sql);
+            ps.setString(1, idPersona);
+            ResultSet rs = ps.executeQuery();
+            personaNaturalDTO persona = new personaNaturalDTO();
+            while (rs.next()) {
+
+                persona.setIdPer(rs.getInt("idPersona"));
+                persona.setNumeroDocPer(rs.getString("documentoPersona"));
+                persona.setNombrePer(rs.getString("nombrePersona"));
+                persona.setApellidoPer(rs.getString("apellidoPersona"));
+                persona.setCorreoPer(rs.getString("correoPersona"));
+                persona.setDireccionPer(rs.getString("direccionPersona"));
+                persona.setNumCelularPer(rs.getString("celularPersona"));
+                persona.setTelPer(rs.getString("telefonoPersona"));
+                persona.setIdCiudad(rs.getInt("idCiudadFK"));
+                persona.setIdTipoDoc(rs.getInt("idTipoDocFK"));
+                persona.setIdGenero(rs.getInt("idGeneroFK"));
+                persona.setUrlImg(rs.getString("urlImgPersona"));
+                persona.setNombreCiudad(rs.getString("nombreCiudad"));
+
+            }
+            return persona;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+
+    }
+ 
       
 }

@@ -17,13 +17,14 @@ public class empresaDTO {
     String telEmpresa;
     String CelEmpresa;
     String correoEmpresa;
+    String nombreCiudad;
     int idCiudad;
     int idUsuario;
 
     public empresaDTO() {
     }
 
-    public empresaDTO(int idEmpresa, int esEmpresa, String nombreEmpresa, String DirEmpresa, String telEmpresa, String CelEmpresa, String correoEmpresa, int idCiudad, int idUsuario) {
+    public empresaDTO(int idEmpresa, int esEmpresa, String nombreEmpresa, String DirEmpresa, String telEmpresa, String CelEmpresa, String correoEmpresa, String nombreCiudad, int idCiudad, int idUsuario) {
         this.idEmpresa = idEmpresa;
         this.esEmpresa = esEmpresa;
         this.nombreEmpresa = nombreEmpresa;
@@ -31,9 +32,20 @@ public class empresaDTO {
         this.telEmpresa = telEmpresa;
         this.CelEmpresa = CelEmpresa;
         this.correoEmpresa = correoEmpresa;
+        this.nombreCiudad = nombreCiudad;
         this.idCiudad = idCiudad;
         this.idUsuario = idUsuario;
     }
+
+    public String getNombreCiudad() {
+        return nombreCiudad;
+    }
+
+    public void setNombreCiudad(String nombreCiudad) {
+        this.nombreCiudad = nombreCiudad;
+    }
+
+  
 
     public int getIdEmpresa() {
         return idEmpresa;

@@ -18,7 +18,7 @@ import java.sql.Statement;
  * @author serfin
  */
 public class VentaDAO {
-    
+
     private Connection conn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
@@ -26,16 +26,16 @@ public class VentaDAO {
     public VentaDAO(Connection conn) {
         this.conn = conn;
     }
-    
-      public int insertReturn(VentaDTO ventaDTO) {
-         
+
+    public int insertReturn(VentaDTO ventaDTO) {
+
         int idComprador = 0;
-        
+
         String sql = "INSERT INTO ventas (valorVenta, contacto, idCompradorFK, idCiudadFK) "
                 + "VALUES (?, ?, ?, ?)";
         try {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
+
             ps.setDouble(1, ventaDTO.getValorVenta());
             ps.setString(2, ventaDTO.getContactoVenta());
             ps.setString(3, ventaDTO.getIdCompradorFK());
@@ -55,13 +55,33 @@ public class VentaDAO {
         }
 
     }
-    
-           
-     public void CloseAll() {
+
+    public Boolean actualizarVenta(VentaDTO ventaDTO) {
+
+        String sql = "UPDATE ventas SET idEstadoVentasFK=? WHERE idVenta=?";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, ventaDTO.getIdEstadoVentaFK());
+            ps.setString(2, ventaDTO.getIdVenta());
+            ps.executeUpdate();
+
+            return true;
+        } catch (MySQLIntegrityConstraintViolationException e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al realizar la actualizacion de estado venta" + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxx consulta" + ps.toString());
+            return false;
+        } catch (Exception e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al realizar la actualizacion de estado venta" + e);
+
+            return false;
+        }
+
+    }
+
+    public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);
         Conexion.close(rs);
     }
-    
-    
+
 }

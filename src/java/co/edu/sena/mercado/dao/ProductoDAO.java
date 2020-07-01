@@ -85,6 +85,22 @@ public class ProductoDAO {
             return false;
         }
     }
+    public boolean actualizarCantidad(Producto productoDTO) {
+        try {
+            String sql = "UPDATE producto SET stockProducto=(SELECT stockProducto from producto WHERE idProducto=?)-? WHERE idProducto=?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1,productoDTO.getIdProducto());
+            ps.setInt(2,productoDTO.getStockProducto());
+            ps.setString(3,productoDTO.getIdProducto());
+           ps.executeUpdate();
+            System.out.println("..........................."+ps.toString());
+            return true;
+        } catch (Exception ex) {
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar actualizarCantidad PrpductoDAO "+ex);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX consulta "+ps.toString());
+            return false;
+        }
+    }
 
     public boolean updateProduct(Producto producto) {
         try {

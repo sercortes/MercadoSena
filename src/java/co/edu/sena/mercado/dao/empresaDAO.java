@@ -92,7 +92,7 @@ public class empresaDAO {
 
     public empresaDTO buscarEmpresa(int idUsuario) {
         con = new Conexion();
-        consulta = "SELECT * FROM empresa WHERE idUsuarioFK = ?";
+        consulta = "SELECT * FROM empresa WHERE idUsuarioFK = ? limit 1";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
@@ -131,7 +131,7 @@ public class empresaDAO {
     
       public empresaDTO buscarEmpresaXProducto(String idProducto) {
         con = new Conexion();
-        consulta = "SELECT * FROM empresa WHERE idEmpresa = ?";
+        consulta = "SELECT emp.*,ciud.nombreCiudad FROM empresa emp INNER JOIN ciudad ciud ON ciud.idCiudad=emp.idCiudadFK WHERE idEmpresa = ?";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
@@ -148,6 +148,7 @@ public class empresaDAO {
                 empresaDTO.setCorreoEmpresa(rs.getString("correoEmpresa"));
                 empresaDTO.setIdCiudad(rs.getInt("idCiudadFK"));
                 empresaDTO.setIdUsuario(rs.getInt("idUsuarioFK"));
+                empresaDTO.setNombreCiudad(rs.getString("nombreCiudad"));
 
             }
             System.out.println(".....  empresa encontrada consulta " + ps.toString());

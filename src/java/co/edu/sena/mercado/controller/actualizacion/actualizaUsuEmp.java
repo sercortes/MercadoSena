@@ -118,7 +118,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     }
 
                 } catch (Exception e) {
-                    response.getWriter().println(false);
+                    response.getWriter().print(false);
                 }
                 break;
             case "/MercadoSena/actualizarUsuario":

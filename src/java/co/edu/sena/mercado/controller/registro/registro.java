@@ -296,7 +296,7 @@ public class registro extends HttpServlet {
                 // if(usuarioDTO.getEmpresa().getIdEmpresa()==5){
                 int notPreguntas = 0;
                 notPreguntas = preguntaDAO.consultaNotiPreguntas(usuarioDTO.getEmpresa().getIdEmpresa());
-                System.out.println("........................preguntas " + notPreguntas);
+                //System.out.println("........................preguntas " + notPreguntas);
                 response.getWriter().print(notPreguntas);//}
                 break;
             case "consultaNotiRespuestas":
@@ -304,12 +304,12 @@ public class registro extends HttpServlet {
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
                 int notRespuestas = 0;
                 notRespuestas = preguntaDAO.consultaNotiRespuestas(usuarioDTO.getIdUsuario());
-                System.out.println("........................" + notRespuestas);
+               // System.out.println("........................" + notRespuestas);
                 response.getWriter().print(notRespuestas);
                 break;
 
             default:
-                throw new AssertionError("Esa accion no existe");
+                throw new AssertionError("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx Esa accion no existe");
 
         }
 

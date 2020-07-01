@@ -5,6 +5,8 @@
  */
 package co.edu.sena.mercado.dto;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author DELL
@@ -19,21 +21,29 @@ public class pedidoDTO {
   //info producto
   productoPedidosDTO prodPedidoDTO;
   productoImagenesDTO prodImagen;
+  ArrayList<estadoVentaDTO> listaEstadoPedido;
 
     public pedidoDTO() {
     }
 
-    public pedidoDTO(CompradorDTO compradorDTO, EmpresaPedidoDTO empPedidoDTO, VentaDTO ventaDTO, String estadoVenta, productoPedidosDTO prodPedidoDTO, productoImagenesDTO prodImagen) {
+    public pedidoDTO(CompradorDTO compradorDTO, EmpresaPedidoDTO empPedidoDTO, VentaDTO ventaDTO, String estadoVenta, productoPedidosDTO prodPedidoDTO, productoImagenesDTO prodImagen, ArrayList<estadoVentaDTO> listaEstadoPedido) {
         this.compradorDTO = compradorDTO;
         this.empPedidoDTO = empPedidoDTO;
         this.ventaDTO = ventaDTO;
         this.estadoVenta = estadoVenta;
         this.prodPedidoDTO = prodPedidoDTO;
         this.prodImagen = prodImagen;
+        this.listaEstadoPedido = listaEstadoPedido;
     }
 
-  
-  
+    public ArrayList<estadoVentaDTO> getListaEstadoPedido() {
+        return listaEstadoPedido;
+    }
+
+    public void setListaEstadoPedido(ArrayList<estadoVentaDTO> listaEstadoPedido) {
+        this.listaEstadoPedido = listaEstadoPedido;
+    }
+
     public CompradorDTO getCompradorDTO() {
         return compradorDTO;
     }

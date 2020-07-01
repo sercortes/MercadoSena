@@ -49,6 +49,7 @@
         <url-pattern>/preguntas</url-pattern>
         <url-pattern>/usuario</url-pattern>
         <url-pattern>/ventasVendedor</url-pattern>
+        <url-pattern>/misPedidos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RutasVendedor</servlet-name>

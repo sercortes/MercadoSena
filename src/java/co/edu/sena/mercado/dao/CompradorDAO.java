@@ -75,7 +75,7 @@ public class CompradorDAO {
         } else {
             tipoUsuario = "comp.idPersonaFK";
         }
-        consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idVenta INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE " + tipoUsuario + " =?";
+        consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idVenta INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE " + tipoUsuario + " =? ORDER BY ven.fechaVenta DESC";
 
         try {
             ps = conn.prepareStatement(consulta);

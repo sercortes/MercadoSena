@@ -1,23 +1,17 @@
-<div class="modal" id="modalUsuario">
+<div class="modal" id="modalUsuarioVendedor">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header" >
 
-                <h4 class="modal-title" style="color: black;margin-left: 45%;">Cliente</h4>
+                <h4 class="modal-title" style="color: black;margin-left: 42%;">Vendedor</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body" style="text-align: center">
-                <d1>
-                    <div class="contenedorImagen">
-                        <div id="imagenUsuario">
-                        </div>
 
-                    </div>
-                </d1><br>
                 <dl>
                     <dt>Nombre</dt>
                     <dd id="nombreUsu"> hola qtal</dd>
@@ -55,4 +49,5 @@
         </div>
     </div>
 </div>
+
 

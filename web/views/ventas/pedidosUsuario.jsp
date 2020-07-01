@@ -22,14 +22,16 @@
         height: 50%;
     }
 </style>
-<input type="hidden" value="pedidos" id="nombreVista">
+<input type="hidden" value="misPedidos" id="nombreVista">
 <div class="container py-5">
-
     <div class="col-lg-9 mx-auto text-black text-center">
-      <h1 class="display-4">Pedidos</h1>     
+        <h1 class="display-4">Mis Pedidos</h1>     
     </div>
-    
     <div class="p-5 bg-white rounded shadow mb-5">
+
+
+
+
         <!-- Rounded tabs -->
         <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav">
             <li class="nav-item flex-sm-fill">
@@ -45,22 +47,21 @@
         <div id="myTabContent" class="tab-content">
             <div id="mostarPedidos" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active" style="padding-left: 0rem !important;padding-right: 0rem !important;">
 
-                    <div class="row">
-                        <div class="col-lg-9 mx-auto">
-                            <!-- Accordion -->
-                            <div id="accordionExample" class="accordion shadow">
-                                <div id="pedidos">
-                                    <!-- Accordion item 1 -->
-                    
-                                </div>
-                            </div>
+                <div class="row">
+                    <div class="col-lg-9 mx-auto">
+                        <div id="accordionExample" class="accordion shadow">
+                            <div id="pedidos">
 
-                        
+
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
 
             </div>
-            
+
         </div>
     </div>
 
@@ -69,7 +70,6 @@
 </div>
 
 <div id="carga" class="loader loader-bouncing"></div>
-<%@include file="/views/ventas/modalVerUsuario.jspf"%>
+<%@include file="/views/ventas/modalVerVendedor.jspf"%>
 <%@include file="/views/template/footer.jspf"%>
 <script src="./assets/js/project/ventas/pedidosVendedor.js" type="text/javascript"></script>
-<script src="./assets/js/project/ventas/actualizarEstPedido.js" type="text/javascript"></script>
