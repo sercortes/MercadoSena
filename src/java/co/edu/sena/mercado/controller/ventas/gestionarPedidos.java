@@ -121,8 +121,8 @@ public class gestionarPedidos extends HttpServlet {
 
                 VentaDAO ventaDAO = new VentaDAO(conn);
                 VentaDTO ventaDTO = new VentaDTO();
-                
-                productoDAO=new ProductoDAO(conn);
+
+                productoDAO = new ProductoDAO(conn);
 
                 ventaDTO.setIdVenta(request.getParameter("idVenta"));
                 ventaDTO.setIdEstadoVentaFK(request.getParameter("idEstado"));
@@ -145,8 +145,33 @@ public class gestionarPedidos extends HttpServlet {
                         response.getWriter().print("false");
                     }
                 }
-               // productoDAO.CloseAll();
+                // productoDAO.CloseAll();
                 //ventaDAO.CloseAll();
+                break;
+
+            case "consultaNotiPedidos":
+                String datRec=request.getParameter("idEmpresa");
+                int idEmpresa=0;
+                 usuarioDTO=(usuarioDTO) sesion.getAttribute("USER");
+                if(datRec.equalsIgnoreCase("no")){
+                idEmpresa=usuarioDTO.getEmpresa().getIdEmpresa();
+                }else{
+                idEmpresa=Integer.parseInt(datRec);
+                }
+               
+                if (idEmpresa == usuarioDTO.getEmpresa().getIdEmpresa()) {
+                    conexion = new Conexion();
+                    conn = conexion.getConnection();
+                    compradorDAO = new CompradorDAO(conn);
+                    try {
+                        int nroVentas = compradorDAO.consultaNotiPedidos(idEmpresa);
+                        response.getWriter().print(nroVentas);
+                    } catch (Exception e) {
+                        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXx error al realizar la consulta de nro Ventas");
+                    }
+                    
+                }
+                
                 break;
             default:
                 throw new AssertionError("XXXXXXXXXXXXXXXXXXX esa accion no existe");

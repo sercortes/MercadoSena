@@ -62,12 +62,11 @@ public class CompradorDAO {
 
     public ArrayList<pedidoDTO> consultaPedido(int id, String tipoUsu) {
         //id = comprador o vendedor
-        ArrayList<pedidoDTO> listaPedido=new ArrayList<>();
+        ArrayList<pedidoDTO> listaPedido = new ArrayList<>();
         pedidoDTO pedidoDTO;
         CompradorDTO compradorDTO;
         VentaDTO ventaDTO;
         productoPedidosDTO prodPedDTO;
-        
 
         String tipoUsuario = "", consulta;
         if (tipoUsu.equalsIgnoreCase("vendedor")) {
@@ -86,11 +85,11 @@ public class CompradorDAO {
                 compradorDTO = new CompradorDTO();
                 ventaDTO = new VentaDTO();
                 prodPedDTO = new productoPedidosDTO();
-                
+
                 compradorDTO.setIdComprador(rs.getString("idComprador"));
                 compradorDTO.setIdEmpresa(rs.getString("idEmpresaFK"));
                 compradorDTO.setIdPersona(rs.getString("idPersonaFK"));
-                
+
                 ventaDTO.setContactoVenta(rs.getString("contacto"));
                 ventaDTO.setFechaVenta(rs.getDate("fechaVenta"));
                 ventaDTO.setIdCiudadFK(rs.getString("idCiudadFK"));
@@ -98,26 +97,49 @@ public class CompradorDAO {
                 ventaDTO.setIdEstadoVentaFK(rs.getString("idEstadoVentas"));
                 ventaDTO.setIdVenta(rs.getString("idVenta"));
                 ventaDTO.setValorVenta(rs.getDouble("valorVenta"));
-                
+
                 prodPedDTO.setCantidad(rs.getInt("cantidadProductoVenta"));
                 prodPedDTO.setIdProductoFK(rs.getString("idProductoFK"));
                 prodPedDTO.setIdProductoPedidos(rs.getString("idProductosVentas"));
                 prodPedDTO.setIdVentaFK(rs.getString("idVentaFK"));
-                
+
                 pedidoDTO.setEstadoVenta(rs.getString("nombreEstado"));
                 pedidoDTO.setCompradorDTO(compradorDTO);
                 pedidoDTO.setVentaDTO(ventaDTO);
                 pedidoDTO.setProdPedidoDTO(prodPedDTO);
-                
+
                 listaPedido.add(pedidoDTO);
-               
 
             }
             return listaPedido;
         } catch (Exception e) {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar la consulta del pedido "+e);
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX consulta "+ps.toString());
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar la consulta del pedido " + e);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX consulta " + ps.toString());
             return null;
+        }
+
+    }
+
+    public int consultaNotiPedidos(int idEmpresa) {
+        int nroPedidos = 0;
+        String sql = "SELECT COUNT(ven.idVenta) as nroVentas FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idVenta INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas WHERE comp.idEmpresaFK=? AND ven.idEstadoVentasFK=1";
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idEmpresa);
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                nroPedidos = rs.getInt("nroVentas");
+            }
+            return nroPedidos;
+        } catch (MySQLIntegrityConstraintViolationException e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al realizar la consulta de nroVentas venta" + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxx consulta" + ps.toString());
+            return 0;
+        } catch (Exception e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al realizar la actualizacion de estado venta" + e);
+
+            return 0;
         }
 
     }

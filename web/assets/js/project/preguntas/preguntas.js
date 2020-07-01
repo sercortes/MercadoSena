@@ -65,7 +65,7 @@ function responderPregunta(idPregunta) {
 
                 if (data) {
                     consultarPreguntas();
-                    enviarNot('respuesta');
+                    enviarNot('respuesta',0);
                 } else {
                     messageError('Error al enviar su respuesta.');
                 }

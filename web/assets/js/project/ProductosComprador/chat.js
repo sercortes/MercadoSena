@@ -116,7 +116,7 @@ function getEmpresa(idpro) {
                             interacion = interacion - 1;
                             messageError('Error al enviar el mensaje');
                         }
-                        enviarNot('pregunta');
+                        enviarNot('pregunta',0);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         interacion = interacion - 1;

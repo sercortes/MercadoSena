@@ -32,7 +32,7 @@ function consultaPedidos(hacer) {
             messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
         }, success: function (data) {
             $('#carga').removeClass('is-active');
-            console.log(data);
+            //console.log(data);
             todosPedidos = data;
             if (hacer) {
                 generarLista(todosPedidos, 'En espera');
@@ -153,7 +153,7 @@ function generarLista(dataR, estado) {
             if (data[i].estadoVenta === 'En espera' && vista === 'pedidos') {
 
                 pedidos += '<p class="text-muted">Por favor al terminar el proceso con el cliente seleccione un estado</p>' +
-                        '<select id="estadoPedido' + data[i].ventaDTO.idVenta + '" class="form-control" style="width: 50%;display: initial;">';
+                        '<select id="estadoPedido' + data[i].ventaDTO.idVenta + '" class="form-control" style="width: 50%;display: initial;" onchange="validarBtn(' + data[i].ventaDTO.idVenta + ')">';
 
                 for (var y = 0; y < data[i].listaEstadoPedido.length; y++) {
                     if (data[i].listaEstadoPedido[y].idEstado === data[i].ventaDTO.idEstadoVentaFK) {
@@ -162,7 +162,7 @@ function generarLista(dataR, estado) {
                     pedidos += '<option value="' + data[i].listaEstadoPedido[y].idEstado + '">' + data[i].listaEstadoPedido[y].nombreEstado + '</option>';
 
                 }
-                pedidos += '</select> <input type="submit" class="btn btn-success" value="Actualizar" style="margin: 10px;margin-top: 5px;" onclick="actualizarEstadoPed(' + data[i].ventaDTO.idVenta + ')">';
+                pedidos += '</select> <input type="submit" class="btn btn-success" value="Actualizar" disabled style="margin: 10px;margin-top: 5px;" onclick="actualizarEstadoPed(' + data[i].ventaDTO.idVenta + ')">';
 
             } else {
                 pedidos += '<p class="text-muted">' + data[i].estadoVenta + '</p>';

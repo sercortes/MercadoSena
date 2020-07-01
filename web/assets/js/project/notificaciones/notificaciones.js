@@ -4,9 +4,11 @@ $(document).ready(consultarTodo());
 function consultarTodo() {
     var rol = $('#nombreUsuarioInicio').data('rol');
     if (rol === 3) {
-       
+
         consultaNotiPreguntas();
         consultaNotiRespuestas('no');
+        consultaNotiPedidos('no');
+        $('#notPedidos').hide();
 
     } else if (rol === 2) {
 
@@ -35,6 +37,11 @@ var url = 'ws://' + window.window.location.host + '/MercadoSena/not',
 
     function onMessage(evt) {
         var obj = JSON.parse(evt.data);
+
+        console.log(obj);
+        console.log(obj.idEmpresa);
+        consultaNotiPedidos(obj.idEmpresa);
+
         if (obj.tipoConsulta === 'consultaNotiPreguntas') {
             var rol = $('#nombreUsuarioInicio').data('rol');
             if (rol === 3) {
@@ -45,14 +52,18 @@ var url = 'ws://' + window.window.location.host + '/MercadoSena/not',
         } else if (obj.tipoConsulta === 'consultaNotiRespuestas') {
             // alert('hay una respuesta nueva');
             consultaNotiRespuestas('');
+        } else if (obj.tipoConsulta === 'consultaNotiPedidos') {
+            
+            consultaNotiPedidos(obj.idEmpresa);
         }
-
     }
 
 
 })(window, document, JSON);
-function enviarNot(tipoCon) {
+function enviarNot(tipoCon, id) {
     var msg;
+    
+    id=parseInt(id);
     if (tipoCon === 'pregunta') {
 
         msg = {
@@ -72,6 +83,15 @@ function enviarNot(tipoCon) {
             idEmpresa: 0,
             tipoConsulta: 'consultaNotiRespuestas'
         };
+    } else if (tipoCon === 'pedidos') {
+
+        msg = {
+            idUsuarioPregunta: 0,
+            idUsuario: 0,
+            idProducto: 0,
+            idEmpresa: id,
+            tipoConsulta: 'consultaNotiPedidos'
+        };
     }
 
     ws.send(JSON.stringify(msg));
@@ -90,7 +110,7 @@ function  consultaNotiPreguntas() {
         error: function (jqXHR, textStatus, errorThrown) {
 
         }, success: function (data) {
-             
+
             if (data > 0) {
                 notPre = data;
                 // $('#nroNoti').text('+'+data);
@@ -124,17 +144,39 @@ function consultaNotiRespuestas(hacer) {
                 } else {
                     mostrarNot();
                 }
-               // console.log('notRes ' + notRes)
+                // console.log('notRes ' + notRes)
                 //console.log('not ' + not)
 
                 // $('#nroNoti').text('+'+data);
             } else {
                 //$('.notificaciones').text('');
-                
+
             }
         }
     })
 
+}
+
+function consultaNotiPedidos(id) {
+     $.ajax({
+        url: './gestionarPedidos',
+        type: 'POST',
+        dataType: 'json',
+        data:{
+            accion:'consultaNotiPedidos',
+            consulta:'consultaNotiPedidos',
+            idEmpresa:id
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+
+        }, success: function (data) {
+          data=parseInt(data);          
+                mostrarNotPedido(data);
+                console.log(data);
+          
+        }
+    })
+    
 }
 
 function  mostrarNot() {
@@ -152,11 +194,11 @@ function  mostrarNot() {
 //    console.log('not res ' + notRes);
     var n = 0;
     n = not + notPre + notRes;
-   // console.log(not + '+' + notPre + '+' + notRes + '=' + n);
+    // console.log(not + '+' + notPre + '+' + notRes + '=' + n);
     not = not + notPre + notRes;
-   // console.log('despues de sumar de sumar not mostrar ' + not);
+    // console.log('despues de sumar de sumar not mostrar ' + not);
     if (not > 0) {
-       
+
         if (not > 9) {
             $('.notificaciones').show();
             $('.notificaciones').text('9+');
@@ -168,4 +210,15 @@ function  mostrarNot() {
     }
 }
 
-
+function  mostrarNotPedido(data) {
+    if(data>0){
+         $('#notPedidos').show();
+        $('.notificacionesPedidos').show();
+        if(data>9){
+            $('.notificacionesPedidos').text('9+');
+        }else{
+        $('.notificacionesPedidos').text('+'+data);}
+    }else{
+        $('#notPedidos').hide();
+    }
+}

@@ -329,6 +329,7 @@ function generateTables(datos, contacto){
     }).done(function (data) {
   
           console.log('ok')
+          enviarNot('pedidos',datos.idEmpresa);
 
     }).fail(function(data){
         

@@ -2,7 +2,8 @@
 
 <c:if test="${not empty USER.idRol}">
    <!-- <a href="./preguntas" class="chat"><i id="nnnnn" class="fas fa-comments chatIcono" style="display: inline-grid" ><b class="notificaciones"></b></i></a>-->
-   <div class="chat" ><a href="./preguntas"><i class="fas fa-comments"></i><b class="notificaciones"></b></a></div>   
+   <div class="chat" id="notPedidos" style="bottom: 109px;text-align: center;" ><a href="./ventasVendedor" title="Pedidos"><i class="fa fa-shopping-bag" ></i><b class="notificacionesPedidos" style="right: -11%;"></b></a></div>   
+   <div class="chat" ><a href="./preguntas" title="Mensajes"><i class="fas fa-comments"></i><b class="notificaciones"></b></a></div>   
 </c:if>
 <footer class="page-footer font-small mdb-color lighten-3">
 
