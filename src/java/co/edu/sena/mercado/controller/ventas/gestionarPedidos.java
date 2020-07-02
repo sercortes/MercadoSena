@@ -169,7 +169,7 @@ public class gestionarPedidos extends HttpServlet {
                     } catch (Exception e) {
                         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXx error al realizar la consulta de nro Ventas");
                     }
-                    
+                    //compradorDAO.CloseAll();
                 }
                 
                 break;
