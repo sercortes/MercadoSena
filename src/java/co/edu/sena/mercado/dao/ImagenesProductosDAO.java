@@ -77,6 +77,28 @@ public class ImagenesProductosDAO {
             return null;
         }
     }
+       public ArrayList<ImagenesProducto> consultarTodas() {
+           List<ImagenesProducto> list = new ArrayList<ImagenesProducto>();
+        try {
+            String sql = "SELECT * FROM imagenesproductos";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            ImagenesProducto imagenesProducto;
+            while (rs.next()) {
+                imagenesProducto = new ImagenesProducto();
+                imagenesProducto.setIdImagen(rs.getString("idImagenPro"));
+                imagenesProducto.setUrl(rs.getString("urlProducto"));
+                imagenesProducto.setIdProductoFK(rs.getString("idProductoImageFK"));
+                
+                list.add(imagenesProducto);
+            }
+            return (ArrayList<ImagenesProducto>) list;
+        } catch (Exception e) {
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX error al consultar todas las imagenes "+e);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX consulta "+ps.toString());
+            return null;
+        }
+    }
      
        public ArrayList<ImagenesProducto> getImagenesByEmpresa(String id) {
            List<ImagenesProducto> list = new ArrayList<ImagenesProducto>();

@@ -41,7 +41,7 @@ function  generarPreguntas(preguntas) {
     for (var i = 0; i < preguntas.length; i++) {
         pregunta += '<p style="color:rgb(252, 115, 30);"  ><b>' + preguntas[i].nombreUsuarioPregunta + ' ' + preguntas[i].apellidoUsuarioPregunta + ':</b></p>';
         pregunta += '<p style="color:black; margin-bottom: -3px;" idPregunta=' + preguntas[i].idPregunta + ' >' + preguntas[i].pregunta + '</p>';
-        pregunta += '<p style="color:rgb(252, 115, 30);  font-size: x-small"  ><a href="#" onclick="verProductoPregunta(' + preguntas[i].idProducto + ')">Ver producto</a></p>';
+        pregunta += '<p style="color:rgb(252, 115, 30);  font-size: x-small"  ><a href="#" onclick="verProductoPregunta(event,' + preguntas[i].idProducto + ')">Ver producto</a></p>';
         if (preguntas[i].estadoPregunta === 0) {
             pregunta += '<div class="divEnviar"><input placeholder="Responda aquí..." type="text" style="border: none;margin-left: 9px;" id="' + preguntas[i].idPregunta + '"> <button class="enviar" onclick="responderPregunta(' + preguntas[i].idPregunta + ')"><i class="fa fa-paper-plane"></i></button></div>';
         }
@@ -65,11 +65,11 @@ function responderPregunta(idPregunta) {
 
                 if (data) {
                     consultarPreguntas();
-                    enviarNot('respuesta',0);
+                    enviarNot('respuesta', 0);
                 } else {
                     messageError('Error al enviar su respuesta.');
                 }
-                
+
             }
         })
     }
@@ -86,7 +86,7 @@ function consultarRespuestas() {
             messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
         }, success: function (data) {
             generarRespuestas(data);
-           
+
         }
     })
 }
@@ -99,7 +99,7 @@ function  generarRespuestas(respuestas) {
         respuesta += '<p style="color:rgb(252, 115, 30);"><b>Tú:</b></p><p style="color:black;" idPregunta=' + respuestas[i].idPregunta + ' >' + respuestas[i].pregunta + '</p>';
         respuesta += '<p style="color:rgb(252, 115, 30);"  ><b>' + respuestas[i].usuarioResponde + ':</b></p>';
         respuesta += '<p class="respuesta" >' + respuestas[i].respuesta + ' </p>';
-        respuesta += '<p style="color:rgb(252, 115, 30);  font-size: x-small"  ><a href="#" onclick="verProductoPregunta(' + respuestas[i].idProducto + ')">Ver producto</a></p>';
+        respuesta += '<p style="color:rgb(252, 115, 30);  font-size: x-small"  ><a href="#" onclick="verProductoPregunta(event,'+ respuestas[i].idProducto + ')">Ver producto</a></p>';
 
         respuesta += '<hr class="linea">';
     }
@@ -116,9 +116,9 @@ function  generarRespuestas(respuestas) {
 //    }, 3000);
 //}
 
-function verProductoPregunta(id) {
+function verProductoPregunta(event, id) {
     //ajax
-
+    event.preventDefault();
     $.ajax({
         url: './obtenerProducto',
         type: 'POST',

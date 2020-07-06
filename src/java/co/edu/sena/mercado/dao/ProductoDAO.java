@@ -8,6 +8,7 @@ package co.edu.sena.mercado.dao;
 import co.edu.sena.mercado.dto.Categorys;
 import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.productoImagenesDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.mysql.jdbc.StringUtils;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
@@ -211,6 +212,45 @@ public class ProductoDAO {
             return (ArrayList<Producto>) list;
         } catch (Exception e) {
             System.out.println(e);
+            return null;
+        }
+    }
+    public ArrayList<Producto> todosProductosConVendedor() {
+        try {
+            String sql = "SELECT pro.*,emp.nombreEmpresa,emp.idCiudadFK,CP.nombreCategoria FROM producto pro INNER join empresa emp on pro.idEmpresaFK=emp.idEmpresa INNER JOIN categoriaproducto CP on pro.idCategoriaFK=CP.idCategoria ORDER by rand()";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            List<Producto> list = new ArrayList<Producto>();
+            Producto producto;
+            Categorys categorys;
+            while (rs.next()) {
+                producto = new Producto();
+                producto.setIdProducto(rs.getString("idProducto"));
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                producto.setValorProducto(rs.getDouble("valorProducto"));
+                producto.setStockProducto(rs.getInt("stockProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setDescripcionProducto(rs.getString("descripcionProducto"));
+                producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
+                producto.setMedidaProducto(rs.getString("medidasProducto"));
+                producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
+                producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
+                producto.setVentajaProducto(rs.getString("ventajasProducto"));
+                producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+                producto.setNombreEmpresa(rs.getString("nombreEmpresa"));
+                producto.setIdCiudad(rs.getInt("idCiudadFK"));
+
+                categorys = new Categorys();
+                categorys.setNombreCategoria(rs.getString("nombreCategoria"));
+                categorys.setIdcategoria(rs.getString("idCategoriaFK"));
+                producto.setCategorys(categorys);
+
+                list.add(producto);
+            }
+            return (ArrayList<Producto>) list;
+        } catch (Exception e) {
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX errror al consultar todos los productos con vendedor "+e);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX consulta "+ps.toString());
             return null;
         }
     }

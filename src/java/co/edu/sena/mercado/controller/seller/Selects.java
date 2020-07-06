@@ -216,6 +216,7 @@ public class Selects extends HttpServlet {
         response.setContentType("application/json");
         imagenesProductosDAO.CloseAll();
         productoDAO.CloseAll();
+        
         new Gson().toJson(productoImagenesDTO, response.getWriter());
 
     }

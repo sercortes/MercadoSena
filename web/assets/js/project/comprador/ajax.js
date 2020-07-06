@@ -13,17 +13,17 @@ function consultarDatosFormulario(res) {
     }
 }
 
-function consultaTipoDoc(valor,div) {
-    var divE='#tipoDoc';
-    var tipDoc='tipoDocUsuario';
-if(div!== undefined && div!==null && div!=='undefined' && div!==''){
-    divE=div;
-    tipDoc='tipoDocUsuarioRec';
-}
+function consultaTipoDoc(valor, div) {
+    var divE = '#tipoDoc';
+    var tipDoc = 'tipoDocUsuario';
+    if (div !== undefined && div !== null && div !== 'undefined' && div !== '') {
+        divE = div;
+        tipDoc = 'tipoDocUsuarioRec';
+    }
     console.log(divE);
     console.log(tipDoc);
     console.log(div);
-     $('#carga').addClass('is-active');
+    $('#carga').addClass('is-active');
     $.ajax({
         url: "./registro?accion=consultaTipoDoc",
         type: 'POST',
@@ -31,13 +31,13 @@ if(div!== undefined && div!==null && div!=='undefined' && div!==''){
         contentType: false,
         processData: false,
         error: function (jqXHR, textStatus, errorThrown) {
-             $('#carga').removeClass('is-active');
+            $('#carga').removeClass('is-active');
             modalRegistro();
             // $('#carga').removeClass('is-active');
             messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
         },
         success: function (data) {
-             $('#carga').removeClass('is-active');
+            $('#carga').removeClass('is-active');
             selects(data, divE, tipDoc, valor);
 
 
@@ -46,7 +46,7 @@ if(div!== undefined && div!==null && div!=='undefined' && div!==''){
 
 }
 function consultagenero(valor) {
-     $('#carga').addClass('is-active');
+    $('#carga').addClass('is-active');
     $.ajax({
         url: "./registro?accion=consultaGenero",
         type: 'POST',
@@ -54,20 +54,20 @@ function consultagenero(valor) {
         contentType: false,
         processData: false,
         error: function (jqXHR, textStatus, errorThrown) {
-             $('#carga').removeClass('is-active');
+            $('#carga').removeClass('is-active');
             modalRegistro();
             // $('#carga').removeClass('is-active');
             messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
         },
         success: function (data) {
-             $('#carga').removeClass('is-active');
+            $('#carga').removeClass('is-active');
             selects(data, '#genero', 'generoUsuario', valor);
 
         }
     })
 }
 function consultaCiudad(idDiv, idInput, valor) {
-     $('#carga').addClass('is-active');
+    $('#carga').addClass('is-active');
     $.ajax({
         url: "./registro?accion=consultaCiudad",
         type: 'POST',
@@ -75,14 +75,14 @@ function consultaCiudad(idDiv, idInput, valor) {
         contentType: false,
         processData: false,
         error: function (jqXHR, textStatus, errorThrown) {
-             $('#carga').removeClass('is-active');
+            $('#carga').removeClass('is-active');
             $('#bloqueo').hide();
             $('#modalRegistro').hide();
             // $('#carga').removeClass('is-active');
             messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
         },
         success: function (data) {
-             $('#carga').removeClass('is-active');
+            $('#carga').removeClass('is-active');
             selects(data, idDiv, idInput, valor);
 
 
@@ -106,9 +106,9 @@ function modalRegistroRe() {
     $('#modalRegistro').toggle();
 }
 
-function selects(datos, idDiv, idInput, valor) {
+function selects(datos, idDiv, idInput, valor, accion) {
     valor = parseInt(valor);
-    //console.log(datos);
+    //console.log(idDiv + ' ' + idInput + ' ' + valor + ' ' + accion);
     var select = '<select id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" required>';
     select += '<option value="" selected>Seleccione...</option>';
     if (datos !== null) {
@@ -126,7 +126,7 @@ function selects(datos, idDiv, idInput, valor) {
                 }
             }
 
-        } else if (idDiv === '#tipoDoc' || idDiv==='#tipoDocActu') {
+        } else if (idDiv === '#tipoDoc' || idDiv === '#tipoDocActu') {
             for (var i = 0; i < datos.length; i++) {
 
                 if (valor !== undefined && valor !== '' && valor !== null) {
@@ -141,19 +141,24 @@ function selects(datos, idDiv, idInput, valor) {
                 }
             }
 
-        } else if (idDiv === '#ciudad' ) {
+        } else if (idDiv === '#ciudad' || idDiv === '#ciudadBucar') {
+            if (idDiv === '#ciudadBucar') {
+                select = '<select id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" >';
+                select += '<option value="" selected>Seleccione...</option>';
+            }
+
             for (var i = 0; i < datos.length; i++) {
 
                 if (valor !== undefined && valor !== '' && valor !== null) {
-                 
+
                     if (datos[i].idCiudad === valor) {
-                        
+
                         select += '<option value="' + datos[i].idCiudad + '" selected>' + datos[i].nombreCiudad + '</option>';
                     } else {
-                         select += '<option value="' + datos[i].idCiudad + '">' + datos[i].nombreCiudad + '</option>';
+                        select += '<option value="' + datos[i].idCiudad + '">' + datos[i].nombreCiudad + '</option>';
                     }
                 } else {
-                     select += '<option value="' + datos[i].idCiudad + '">' + datos[i].nombreCiudad + '</option>';
+                    select += '<option value="' + datos[i].idCiudad + '">' + datos[i].nombreCiudad + '</option>';
                 }
             }
         } else if (idDiv === '#ciudadEmpresa') {
@@ -170,13 +175,29 @@ function selects(datos, idDiv, idInput, valor) {
                     select += '<option value="' + datos[i].idCiudad + '">' + datos[i].nombreCiudad + '</option>';
                 }
             }
-        }
-    }
-    //  console.log(select);
-    select += '</select>';
-    $(idDiv).html(select);
-}
+        } else if (accion === 'categorias') {
+            select = '<select id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" >';
+            select += '<option value="" selected>Seleccione...</option>';
+            for (var i = 0; i < datos.length; i++) {
 
+                if (valor !== undefined && valor !== '' && valor !== null) {
+
+                    if (datos[i].idCiudad === valor) {
+                        select += '<option value="' + datos[i].idcategoria + '" selected>' + datos[i].nombreCategoria + '</option>';
+                    } else {
+                        select += '<option value="' + datos[i].idcategoria + '">' + datos[i].nombreCategoria + '</option>';
+                    }
+                } else {
+                    select += '<option value="' + datos[i].idcategoria + '">' + datos[i].nombreCategoria + '</option>';
+                }
+            }
+        }
+
+        //  console.log(select);
+        select += '</select>';
+        $(idDiv).html(select);
+    }
+}
 
 
 

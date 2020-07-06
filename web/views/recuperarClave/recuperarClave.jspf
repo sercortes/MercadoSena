@@ -2,7 +2,7 @@
     <i onclick="modalRecuperar()">X</i>
     <h3>Recuperar clave</h3>
     <form id="recuperarClave" class="needs-validation" >
-        <p style="color: black">Para poder recuperar su clave es necesario que complete los siguientes datos:</p>
+        <p style="color: black">Para poder recuperar su clave es necesario que complete los siguientes campos:</p>
         <label>Seleccione tipo de documento:</label><br>
         <div id="tipoDocActu">
         </div>

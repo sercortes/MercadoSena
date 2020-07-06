@@ -29,12 +29,14 @@ public class Producto {
     private ImagenesProducto imagenesProducto;
     private Categorys categorys;
     private String nombreCategoria;
+    private String nombreEmpresa;
+    private int idCiudad;
     
 
     public Producto() {
     }
 
-    public Producto(String nombreProducto, Double valorProducto, int stockProducto, String marcaProducto, String descripcionProducto, String idEmpresaFK, String idCategoriaFK) {
+    public Producto(String nombreProducto, Double valorProducto, int stockProducto, String marcaProducto, String descripcionProducto, String idEmpresaFK, String idCategoriaFK,String nombreEmpresa,int idCiudad) {
         this.nombreProducto = nombreProducto;
         this.valorProducto = valorProducto;
         this.stockProducto = stockProducto;
@@ -42,8 +44,27 @@ public class Producto {
         this.descripcionProducto = descripcionProducto;
         this.idEmpresaFK = idEmpresaFK;
         this.idCategoriaFK = idCategoriaFK;
+        this.nombreEmpresa = nombreEmpresa;
+        this.idCiudad=idCiudad;
     }
 
+    public int getIdCiudad() {
+        return idCiudad;
+    }
+
+    public void setIdCiudad(int idCiudad) {
+        this.idCiudad = idCiudad;
+    }
+
+    public String getNombreEmpresa() {
+        return nombreEmpresa;
+    }
+
+    public void setNombreEmpresa(String nombreEmpresa) {
+        this.nombreEmpresa = nombreEmpresa;
+    }
+
+    
     public String getIdProducto() {
         return idProducto;
     }

@@ -40,6 +40,10 @@
         <servlet-name>gestionarPedidos</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.ventas.gestionarPedidos</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>filtro</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.filtro.filtro</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -97,6 +101,10 @@
     <servlet-mapping>
         <servlet-name>gestionarPedidos</servlet-name>
         <url-pattern>/gestionarPedidos</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>filtro</servlet-name>
+        <url-pattern>/filtro</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

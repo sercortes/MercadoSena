@@ -23,7 +23,10 @@ import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,16 +39,16 @@ import javax.servlet.http.HttpSession;
  */
 public class gestionarPedidos extends HttpServlet {
 
-    Conexion conexion = new Conexion();
-    Connection conn = conexion.getConnection();
-    CompradorDAO compradorDAO = new CompradorDAO(conn);
+    Conexion conexion ;
+    //Connection conn = conexion.getConnection();
+    //CompradorDAO compradorDAO = new CompradorDAO(conn);
     ArrayList<pedidoDTO> listaPedido = new ArrayList<>();
     usuarioDTO usuarioDTO = new usuarioDTO();
     pedidoDTO pedidoDTO;
     Producto productoDTO;
-    ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conn);
+    //ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conn);
     productoImagenesDTO producImagen;
-    ProductoDAO productoDAO = new ProductoDAO(conn);
+    // ProductoDAO productoDAO = new ProductoDAO(conn);
     personaNaturalDAO personaDAO = new personaNaturalDAO();
     estadoVentaDAO estadoPedDAO = new estadoVentaDAO();
     empresaDAO empresaDAO = new empresaDAO();
@@ -72,6 +75,10 @@ public class gestionarPedidos extends HttpServlet {
 
         switch (accion) {
             case "pedidosVendedor":
+                conexion=new Conexion();
+                Connection conn = conexion.getConnection();
+                CompradorDAO compradorDAO = new CompradorDAO(conn);
+
                 String tipoUsuCon = request.getParameter("tipoUsu");
                 if (tipoUsuCon.equals("vendedor")) {
                     listaPedido = compradorDAO.consultaPedido(usuarioDTO.getEmpresa().getIdEmpresa(), tipoUsuCon);
@@ -80,6 +87,10 @@ public class gestionarPedidos extends HttpServlet {
                 }
 
                 for (int i = 0; i < listaPedido.size(); i++) {
+                    conexion=new Conexion();
+                    Connection con = conexion.getConnection();
+                    ProductoDAO productoDAO = new ProductoDAO(con);
+                    ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(con);
 
                     producImagen = new productoImagenesDTO();
                     pedidoDTO = new pedidoDTO();
@@ -88,10 +99,15 @@ public class gestionarPedidos extends HttpServlet {
                     producImagen.setImagenes(imagenesProductosDAO.getImagenesByProduc(pedidoDTO.getProdPedidoDTO().getIdProductoFK()));
                     pedidoDTO.setProdImagen(producImagen);
                     pedidoDTO.setListaEstadoPedido(estadoPedDAO.listarEstadoVenta());
-                    //imagenesProductosDAO.CloseAll();
-                    // productoDAO.CloseAll();
+            
+                //con.close();
+                imagenesProductosDAO.CloseAll();
+                productoDAO.CloseAll();
+               
+            
                 }
-                //compradorDAO.CloseAll();
+
+                compradorDAO.CloseAll();
                 response.setContentType("application/json");
                 new Gson().toJson(listaPedido, response.getWriter());
                 break;
@@ -117,12 +133,12 @@ public class gestionarPedidos extends HttpServlet {
             case "actEstPed":
 
                 conexion = new Conexion();
-                conn = conexion.getConnection();
+                Connection co = conexion.getConnection();
 
-                VentaDAO ventaDAO = new VentaDAO(conn);
+                VentaDAO ventaDAO = new VentaDAO(co);
                 VentaDTO ventaDTO = new VentaDTO();
 
-                productoDAO = new ProductoDAO(conn);
+                ProductoDAO productoDAO = new ProductoDAO(co);
 
                 ventaDTO.setIdVenta(request.getParameter("idVenta"));
                 ventaDTO.setIdEstadoVentaFK(request.getParameter("idEstado"));
@@ -145,33 +161,33 @@ public class gestionarPedidos extends HttpServlet {
                         response.getWriter().print("false");
                     }
                 }
-                // productoDAO.CloseAll();
-                //ventaDAO.CloseAll();
+                 productoDAO.CloseAll();
+                ventaDAO.CloseAll();
                 break;
 
             case "consultaNotiPedidos":
-                String datRec=request.getParameter("idEmpresa");
-                int idEmpresa=0;
-                 usuarioDTO=(usuarioDTO) sesion.getAttribute("USER");
-                if(datRec.equalsIgnoreCase("no")){
-                idEmpresa=usuarioDTO.getEmpresa().getIdEmpresa();
-                }else{
-                idEmpresa=Integer.parseInt(datRec);
+                String datRec = request.getParameter("idEmpresa");
+                int idEmpresa = 0;
+                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
+                if (datRec.equalsIgnoreCase("no")) {
+                    idEmpresa = usuarioDTO.getEmpresa().getIdEmpresa();
+                } else {
+                    idEmpresa = Integer.parseInt(datRec);
                 }
-               
+
                 if (idEmpresa == usuarioDTO.getEmpresa().getIdEmpresa()) {
                     conexion = new Conexion();
-                    conn = conexion.getConnection();
-                    compradorDAO = new CompradorDAO(conn);
+                    Connection c = conexion.getConnection();
+                    CompradorDAO compradoDAO = new CompradorDAO(c);
                     try {
-                        int nroVentas = compradorDAO.consultaNotiPedidos(idEmpresa);
+                        int nroVentas = compradoDAO.consultaNotiPedidos(idEmpresa);
                         response.getWriter().print(nroVentas);
                     } catch (Exception e) {
                         System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXx error al realizar la consulta de nro Ventas");
                     }
-                    //compradorDAO.CloseAll();
+                    compradoDAO.CloseAll();
                 }
-                
+
                 break;
             default:
                 throw new AssertionError("XXXXXXXXXXXXXXXXXXX esa accion no existe");

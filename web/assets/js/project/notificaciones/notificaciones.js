@@ -172,7 +172,7 @@ function consultaNotiPedidos(id) {
         }, success: function (data) {
           data=parseInt(data);          
                 mostrarNotPedido(data);
-                console.log(data);
+               // console.log(data);
           
         }
     })

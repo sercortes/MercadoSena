@@ -11,6 +11,7 @@ import co.edu.sena.mercado.dao.*;
 import co.edu.sena.mercado.dto.ciudadDTO;
 import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.*;
+import co.edu.sena.mercado.util.Conexion;
 import co.edu.sena.mercado.util.correo;
 import co.edu.sena.mercado.util.codActivacion;
 import co.edu.sena.mercado.util.datosSesion;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.sql.Connection;
+
 
 /**
  *
@@ -59,6 +62,7 @@ public class registro extends HttpServlet {
     respuestaDTO respuestaDTO = new respuestaDTO();
     ArrayList<respuestaDTO> listaRespuesta = new ArrayList<>();
     datosSesion datSesion = new datosSesion();
+   
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -125,10 +129,17 @@ public class registro extends HttpServlet {
                 response.setContentType("application/json");
                 new Gson().toJson(listaCiudad, response.getWriter());
                 break;
-            case "consultaRol":
-                listaRol = rolDAO.listarRol();
+            case "listarCategorias":
+                Conexion conexion=new Conexion();
+                ArrayList<Categorys>listaCategoria=new ArrayList<>();
+                
+                 Connection conn = conexion.getConnection();
+                 CategorysDAO categoriasDAO=new CategorysDAO(conn);
+                listaCategoria=categoriasDAO.getCategorys();
+                categoriasDAO.CloseAll();
                 response.setContentType("application/json");
-                new Gson().toJson(listaRol, response.getWriter());
+                
+                new Gson().toJson(listaCategoria, response.getWriter());
                 break;
             case "registrarUsuario":
                 boolean respuesta;

@@ -76,8 +76,10 @@ function generarLista(dataR, estado) {
                     '<h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#' + i + '" aria-expanded="false" aria-controls="1" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">' + data[i].ventaDTO.fechaVenta + '</a></h6>' +
                     '</div>' +
                     '<div id="' + i + '"  class="collapse ">' +
-                    '<div class="card-body p-5" style="padding: 1.5rem !important;">' +
-                    '<h6>' + data[i].prodImagen.producto.nombreProducto + '</h6>' +
+                    '<div class="card-body p-5" style="padding: 1.5rem !important;">' +                   
+                    '<dt>Producto solicitado:</dt>' +
+                    '<h6>' + data[i].prodImagen.producto.nombreProducto+ '</h6>' +
+                    '</dl>' +
                     '<dl>' +
                     '<dt>Cantidad solicitada:</dt>' +
                     '<dd>' + data[i].prodPedidoDTO.cantidad + '</dd>' +
@@ -139,12 +141,12 @@ function generarLista(dataR, estado) {
                 pedidos += '<dt>Información del cliente:</dt>';
                 if (data[i].ventaDTO.contactoVenta === '1' || data[i].ventaDTO.contactoVenta === 1) {
                    
-                    pedidos += '<dd><a href="#" style="border-bottom: solid 1px rgb(252, 115, 30);" class="verUsuario" onclick="datosUsuario(' + data[i].compradorDTO.idPersona + ')" >click aquí para ver la información del cliente...</a></dd>';
+                    pedidos += '<dd><a href="#" style="border-bottom: solid 1px rgb(252, 115, 30);" class="verUsuario" onclick="datosUsuario(event,' + data[i].compradorDTO.idPersona + ')" >click aquí para ver la información del cliente...</a></dd>';
                 } else {
                     pedidos += '<br><dd><b><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: rgb(216, 98, 25); font-size: 20px;"></i> El usuario no desea que veas sus datos.</b></dd>';
                 }
             } else {
-                pedidos += '<dt>Información del vendedor:</dt>' + '<dd><a href="#" style="border-bottom: solid 1px rgb(252, 115, 30);" class="verUsuario" onclick="datosUsuario(' + data[i].compradorDTO.idEmpresa + ')" >click aquí para ver la información del vendedor...</a></dd>';
+                pedidos += '<dt>Información del vendedor:</dt>' + '<dd><a href="#" style="border-bottom: solid 1px rgb(252, 115, 30);" class="verUsuario" onclick="datosUsuario(event,' + data[i].compradorDTO.idEmpresa + ')" >click aquí para ver la información del vendedor...</a></dd>';
             }
             pedidos += '</dl>' +
                     '<dl>' +
@@ -185,8 +187,8 @@ function generarLista(dataR, estado) {
 }
 
 
-function datosUsuario(idUsuario) {
-
+function datosUsuario(event,idUsuario) {
+event.preventDefault();
     var tipoUsu;
 
     if (vista === 'pedidos') {

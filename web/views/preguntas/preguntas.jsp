@@ -30,7 +30,7 @@
 
 
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-3" >
                                 <!-- Tabs nav -->
                                 <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                     <a onclick="consultarPreguntas()" class="nav-link mb-3 p-3 shadow active ocultarRespuesta" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
