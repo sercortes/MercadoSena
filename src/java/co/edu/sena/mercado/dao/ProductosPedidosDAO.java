@@ -38,7 +38,7 @@ public class ProductosPedidosDAO {
             ps.setString(2, pedidosDTO.getIdVentaFK());
             ps.setInt(3, pedidosDTO.getCantidad());
             ps.executeUpdate();
-
+System.out.println("............................."+ps.toString());
             return true;
         } catch (MySQLIntegrityConstraintViolationException e) {
             System.out.println(e);

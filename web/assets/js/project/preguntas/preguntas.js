@@ -146,13 +146,12 @@ function detallesProducto(producto) {
     caruselImagenesProducto(producto.imagenes)
     textoProducto(producto.producto);
 
-    setTimeout(() => $('.hijueputa').carousel({
-            interval: 6100,
-        }), 1000)
+
 
 }
 
 function textoProducto(item) {
+    console.log(item);
     let str = ''
     let element = document.getElementById('details')
     str += `  <div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">

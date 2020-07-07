@@ -39,7 +39,7 @@ import javax.servlet.http.HttpSession;
  */
 public class gestionarPedidos extends HttpServlet {
 
-    Conexion conexion ;
+    Conexion conexion;
     //Connection conn = conexion.getConnection();
     //CompradorDAO compradorDAO = new CompradorDAO(conn);
     ArrayList<pedidoDTO> listaPedido = new ArrayList<>();
@@ -75,7 +75,7 @@ public class gestionarPedidos extends HttpServlet {
 
         switch (accion) {
             case "pedidosVendedor":
-                conexion=new Conexion();
+                conexion = new Conexion();
                 Connection conn = conexion.getConnection();
                 CompradorDAO compradorDAO = new CompradorDAO(conn);
 
@@ -87,7 +87,7 @@ public class gestionarPedidos extends HttpServlet {
                 }
 
                 for (int i = 0; i < listaPedido.size(); i++) {
-                    conexion=new Conexion();
+                    conexion = new Conexion();
                     Connection con = conexion.getConnection();
                     ProductoDAO productoDAO = new ProductoDAO(con);
                     ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(con);
@@ -99,12 +99,11 @@ public class gestionarPedidos extends HttpServlet {
                     producImagen.setImagenes(imagenesProductosDAO.getImagenesByProduc(pedidoDTO.getProdPedidoDTO().getIdProductoFK()));
                     pedidoDTO.setProdImagen(producImagen);
                     pedidoDTO.setListaEstadoPedido(estadoPedDAO.listarEstadoVenta());
-            
-                //con.close();
-                imagenesProductosDAO.CloseAll();
-                productoDAO.CloseAll();
-               
-            
+
+                    //con.close();
+                    imagenesProductosDAO.CloseAll();
+                    productoDAO.CloseAll();
+
                 }
 
                 compradorDAO.CloseAll();
@@ -161,7 +160,7 @@ public class gestionarPedidos extends HttpServlet {
                         response.getWriter().print("false");
                     }
                 }
-                 productoDAO.CloseAll();
+                productoDAO.CloseAll();
                 ventaDAO.CloseAll();
                 break;
 
@@ -169,25 +168,26 @@ public class gestionarPedidos extends HttpServlet {
                 String datRec = request.getParameter("idEmpresa");
                 int idEmpresa = 0;
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                if (datRec.equalsIgnoreCase("no")) {
-                    idEmpresa = usuarioDTO.getEmpresa().getIdEmpresa();
-                } else {
-                    idEmpresa = Integer.parseInt(datRec);
-                }
-
-                if (idEmpresa == usuarioDTO.getEmpresa().getIdEmpresa()) {
-                    conexion = new Conexion();
-                    Connection c = conexion.getConnection();
-                    CompradorDAO compradoDAO = new CompradorDAO(c);
-                    try {
-                        int nroVentas = compradoDAO.consultaNotiPedidos(idEmpresa);
-                        response.getWriter().print(nroVentas);
-                    } catch (Exception e) {
-                        System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXx error al realizar la consulta de nro Ventas");
+                if (usuarioDTO.getIdRol() == 3) {
+                    if (datRec.equalsIgnoreCase("no")) {
+                        idEmpresa = usuarioDTO.getEmpresa().getIdEmpresa();
+                    } else {
+                        idEmpresa = Integer.parseInt(datRec);
                     }
-                    compradoDAO.CloseAll();
-                }
 
+                    if (idEmpresa == usuarioDTO.getEmpresa().getIdEmpresa()) {
+                        conexion = new Conexion();
+                        Connection c = conexion.getConnection();
+                        CompradorDAO compradoDAO = new CompradorDAO(c);
+                        try {
+                            int nroVentas = compradoDAO.consultaNotiPedidos(idEmpresa);
+                            response.getWriter().print(nroVentas);
+                        } catch (Exception e) {
+                            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXx error al realizar la consulta de nro Ventas");
+                        }
+                        compradoDAO.CloseAll();
+                    }
+                }
                 break;
             default:
                 throw new AssertionError("XXXXXXXXXXXXXXXXXXX esa accion no existe");

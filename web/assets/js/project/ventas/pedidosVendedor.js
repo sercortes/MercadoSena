@@ -32,7 +32,7 @@ function consultaPedidos(hacer) {
             messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
         }, success: function (data) {
             $('#carga').removeClass('is-active');
-            //console.log(data);
+            console.log(data);
             todosPedidos = data;
             if (hacer) {
                 generarLista(todosPedidos, 'En espera');

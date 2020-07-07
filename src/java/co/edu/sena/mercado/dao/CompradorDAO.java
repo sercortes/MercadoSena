@@ -47,6 +47,7 @@ public class CompradorDAO {
             if (rs.next()) {
                 idComprador = rs.getInt(1);
             }
+            System.out.println("............................."+ps.toString());
             return idComprador;
         } catch (MySQLIntegrityConstraintViolationException e) {
             System.out.println(e);
@@ -75,6 +76,7 @@ public class CompradorDAO {
             tipoUsuario = "comp.idPersonaFK";
         }
         consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idVenta INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE " + tipoUsuario + " =? ORDER BY ven.fechaVenta DESC";
+//SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idVenta INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idEmpresaFK =5 ORDER BY ven.fechaVenta DESC
 
         try {
             ps = conn.prepareStatement(consulta);

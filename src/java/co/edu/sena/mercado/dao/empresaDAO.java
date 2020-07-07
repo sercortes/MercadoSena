@@ -129,6 +129,46 @@ public class empresaDAO {
 
     }
     
+    public ArrayList<empresaDTO> listarEmpresas() {
+        con = new Conexion();
+      listaEmpresa=new ArrayList<>();
+        consulta = "SELECT * FROM empresa ";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                empresaDTO = new empresaDTO();
+                empresaDTO.setIdEmpresa(rs.getInt("idEmpresa"));
+                empresaDTO.setEsEmpresa(rs.getInt("esEmpresa"));
+                empresaDTO.setNombreEmpresa(rs.getString("nombreEmpresa"));
+                empresaDTO.setDirEmpresa(rs.getString("direccionEmpresa"));
+                empresaDTO.setTelEmpresa(rs.getString("telefonoEmpresa"));
+                empresaDTO.setCelEmpresa(rs.getString("celularEmpresa"));
+                empresaDTO.setCorreoEmpresa(rs.getString("correoEmpresa"));
+                empresaDTO.setIdCiudad(rs.getInt("idCiudadFK"));
+                empresaDTO.setIdUsuario(rs.getInt("idUsuarioFK"));
+                listaEmpresa.add(empresaDTO);
+
+            }
+           
+            //cerrarCon(ps, cn, rs);
+            return listaEmpresa;
+
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al buscar empresa " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+             // cerrarCon(ps, cn, rs);
+            return null;
+         }finally{
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+
+    }
+    
       public empresaDTO buscarEmpresaXProducto(String idProducto) {
         con = new Conexion();
         consulta = "SELECT emp.*,ciud.nombreCiudad FROM empresa emp INNER JOIN ciudad ciud ON ciud.idCiudad=emp.idCiudadFK WHERE idEmpresa = ?";

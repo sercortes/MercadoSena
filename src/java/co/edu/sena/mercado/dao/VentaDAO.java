@@ -45,6 +45,7 @@ public class VentaDAO {
             if (rs.next()) {
                 idComprador = rs.getInt(1);
             }
+            System.out.println("............................."+ps.toString());
             return idComprador;
         } catch (MySQLIntegrityConstraintViolationException e) {
             System.out.println(e);

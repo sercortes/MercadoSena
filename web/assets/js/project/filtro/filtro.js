@@ -5,6 +5,7 @@ $(document).ready(function () {
     consultaCiudad('#ciudadBucar', 'ciudadCriBusqueda');
     listarCategorias('#categoriasBuscar', 'categoriasCriBuscar', 'categorias');
     consultarTodosProductos();
+    vendedores('#vendedores', 'vendedorCriBuscar', 'vendedor', '');
 
 })
 
@@ -52,11 +53,7 @@ function productosMasVendidos() {
     })
 }
 
-function verProducto(id,event) {
-    if(event!==null && event!==undefined){
-    event.preventDefault();}
-    alert(id);
-}
+
 
 function consultarTodosProductos() {
     $('#carga').addClass('is-active');
@@ -73,7 +70,8 @@ function consultarTodosProductos() {
             $('#carga').removeClass('is-active');
             if (data !== null && data !== '') {
                 todosProductos = data;
-                mostrarProductos(todosProductos,0);
+                mostrarProductos(todosProductos, 0);
+
                 console.log(todosProductos);
             }
         }
@@ -82,9 +80,10 @@ function consultarTodosProductos() {
 
 function filtrar() {
 
-    var ciudadCriBuscar = $('#ciudadCriBusqueda').val(), catCriBuscar = $('#categoriasCriBuscar').val(), nomProBuscar = $('#nombreProductoFiltar').val();
+    var vendedorCriBuscar = $('#vendedorCriBuscar').val(), ciudadCriBuscar = $('#ciudadCriBusqueda').val(), catCriBuscar = $('#categoriasCriBuscar').val(), nomProBuscar = $('#nombreProductoFiltar').val();
 
-    if (ciudadCriBuscar !== '' && catCriBuscar === '' && nomProBuscar === '') {
+//por ciudad
+    if (ciudadCriBuscar !== '' && catCriBuscar === '' && nomProBuscar === '' && vendedorCriBuscar === '') {
         ciudadCriBuscar = parseInt(ciudadCriBuscar);
         for (var i = 0; i < todosProductos.length; i++) {
 
@@ -93,7 +92,8 @@ function filtrar() {
             }
         }
     }
-    if (catCriBuscar !== '' && ciudadCriBuscar === '' && nomProBuscar === '') {
+    //por categoria
+    if (catCriBuscar !== '' && ciudadCriBuscar === '' && nomProBuscar === '' && vendedorCriBuscar === '') {
 
         for (var i = 0; i < todosProductos.length; i++) {
 
@@ -103,46 +103,111 @@ function filtrar() {
         }
 
     }
-    if (nomProBuscar !== '' && catCriBuscar === '' && ciudadCriBuscar === '') {
+    //por nombre
+    if (nomProBuscar !== '' && catCriBuscar === '' && ciudadCriBuscar === '' && vendedorCriBuscar === '') {
         for (var i = 0; i < todosProductos.length; i++) {
             if (todosProductos[i].producto.nombreProducto === nomProBuscar) {
                 resultadoBusqueda.push(todosProductos[i]);
             }
         }
     }
-
-    //opciones con ciudad
-    if (ciudadCriBuscar !== '' && catCriBuscar !== '' && nomProBuscar === '') {
-        ciudadCriBuscar = parseInt(ciudadCriBuscar);
-        resultadoBusqueda = [];
+    //por vendedor
+    if (nomProBuscar === '' && catCriBuscar === '' && ciudadCriBuscar === '' && vendedorCriBuscar !== '') {
 
         for (var i = 0; i < todosProductos.length; i++) {
-            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar) {
-                resultadoBusqueda.push(todosProductos[i]);
-            }
-        }
-    }
-    if (ciudadCriBuscar !== '' && catCriBuscar === '' && nomProBuscar !== '') {
-        ciudadCriBuscar = parseInt(ciudadCriBuscar);
-        resultadoBusqueda = [];
-        for (var i = 0; i < todosProductos.length; i++) {
-            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar) {
-                resultadoBusqueda.push(todosProductos[i]);
-            }
-        }
-    }
-    if (ciudadCriBuscar !== '' && catCriBuscar !== '' && nomProBuscar !== '') {
-        ciudadCriBuscar = parseInt(ciudadCriBuscar);
-        resultadoBusqueda = [];
-        for (var i = 0; i < todosProductos.length; i++) {
-            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar) {
+            if (todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
+
                 resultadoBusqueda.push(todosProductos[i]);
             }
         }
     }
 
-//opciones categoría
-    if (catCriBuscar !== '' && ciudadCriBuscar === '' && nomProBuscar !== '') {
+    //por ciudad,cate,vendedor
+    if (ciudadCriBuscar !== '' && catCriBuscar !== '' && nomProBuscar === '' && vendedorCriBuscar !== '') {
+        ciudadCriBuscar = parseInt(ciudadCriBuscar);
+        resultadoBusqueda = [];
+
+        for (var i = 0; i < todosProductos.length; i++) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
+                resultadoBusqueda.push(todosProductos[i]);
+            }
+        }
+    }
+    //por ciudad,cate
+    if (ciudadCriBuscar !== '' && catCriBuscar !== '' && nomProBuscar === '' && vendedorCriBuscar === '') {
+        ciudadCriBuscar = parseInt(ciudadCriBuscar);
+        resultadoBusqueda = [];
+
+        for (var i = 0; i < todosProductos.length; i++) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar ) {
+                resultadoBusqueda.push(todosProductos[i]);
+            }
+        }
+    }
+    //por ciudad,nombre
+    if (ciudadCriBuscar !== '' && catCriBuscar === '' && nomProBuscar !== '' && vendedorCriBuscar === '') {
+        ciudadCriBuscar = parseInt(ciudadCriBuscar);
+        resultadoBusqueda = [];
+
+        for (var i = 0; i < todosProductos.length; i++) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar ) {
+                resultadoBusqueda.push(todosProductos[i]);
+            }
+        }
+    }
+    //por ciudad,nombre,vendedor
+    if (ciudadCriBuscar !== '' && catCriBuscar === '' && nomProBuscar !== '' && vendedorCriBuscar !== '') {
+        ciudadCriBuscar = parseInt(ciudadCriBuscar);
+        resultadoBusqueda = [];
+        for (var i = 0; i < todosProductos.length; i++) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
+                resultadoBusqueda.push(todosProductos[i]);
+            }
+        }
+    }
+    //ciudad,cat,nombre,vendedor
+    if (ciudadCriBuscar !== '' && catCriBuscar !== '' && nomProBuscar !== '' && vendedorCriBuscar !== '') {
+        ciudadCriBuscar = parseInt(ciudadCriBuscar);
+        resultadoBusqueda = [];
+        for (var i = 0; i < todosProductos.length; i++) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
+                resultadoBusqueda.push(todosProductos[i]);
+            }
+        }
+    }
+    //ciudad,cat,nombre
+    if (ciudadCriBuscar !== '' && catCriBuscar !== '' && nomProBuscar !== '' && vendedorCriBuscar === '') {
+        ciudadCriBuscar = parseInt(ciudadCriBuscar);
+        resultadoBusqueda = [];
+        for (var i = 0; i < todosProductos.length; i++) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar ) {
+                resultadoBusqueda.push(todosProductos[i]);
+            }
+        }
+    }
+
+//ciudad,vendedor
+    if (ciudadCriBuscar !== '' && catCriBuscar === '' && nomProBuscar === '' && vendedorCriBuscar !== '') {
+        ciudadCriBuscar = parseInt(ciudadCriBuscar);
+        resultadoBusqueda = [];
+        for (var i = 0; i < todosProductos.length; i++) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
+                resultadoBusqueda.push(todosProductos[i]);
+            }
+        }
+    }
+    //cate,vendedor
+    if (ciudadCriBuscar === '' && catCriBuscar !== '' && nomProBuscar === '' && vendedorCriBuscar !== '') {
+        ciudadCriBuscar = parseInt(ciudadCriBuscar);
+        resultadoBusqueda = [];
+        for (var i = 0; i < todosProductos.length; i++) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
+                resultadoBusqueda.push(todosProductos[i]);
+            }
+        }
+    }
+//cat,nombre,
+    if (catCriBuscar !== '' && ciudadCriBuscar === '' && nomProBuscar !== '' && vendedorCriBuscar === '') {
         resultadoBusqueda = [];
         for (var i = 0; i < todosProductos.length; i++) {
             if (todosProductos[i].producto.nombreProducto === nomProBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar) {
@@ -150,15 +215,69 @@ function filtrar() {
             }
         }
     }
-    if (catCriBuscar === '' && ciudadCriBuscar === '' && nomProBuscar === '') {
+
+  //nombre vendedor
+
+    if (ciudadCriBuscar === '' && catCriBuscar === '' && nomProBuscar !== '' && vendedorCriBuscar !== '') {
+        ciudadCriBuscar = parseInt(ciudadCriBuscar);
+        resultadoBusqueda = [];
+        for (var i = 0; i < todosProductos.length; i++) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
+                resultadoBusqueda.push(todosProductos[i]);
+            }
+        }
+    }
+//todos
+    if (catCriBuscar === '' && ciudadCriBuscar === '' && nomProBuscar === '' && vendedorCriBuscar === '') {
         resultadoBusqueda = [];
         resultadoBusqueda = todosProductos;
 
     }
-    mostrarProductos(resultadoBusqueda,1);
+    mostrarProductos(resultadoBusqueda, 1);
 
     resultadoBusqueda = [];
 
 }
 
+function verProducto(id, event) {
+
+    var producto = [];
+    if (event !== null && event !== undefined) {
+        event.preventDefault();
+    }
+    for (var i = 0; i < todosProductos.length; i++) {
+        id = id.toString()
+
+        if (todosProductos[i].producto.idProducto === id) {
+            producto = todosProductos[i];
+            i = todosProductos.length;
+        }
+    }
+
+    generarCaruselImagenesProducto(producto.imagenes);
+    generarTextoProducto(producto.producto);
+    $('#detailsProduct').modal('show');
+//    setTimeout(() => $('.hijueputa').carousel({
+//            interval: 6100,
+//        }), 1000)
+
+}
+function vendedores(idDiv, idInput, accion, valor) {
+    var vendedores = [];
+    $('#carga').addClass('is-active');
+    $.ajax({
+        url: "./filtro",
+        type: 'POST',
+        data: {
+            accion: 'listarVendedores'
+        }, dataType: 'json',
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('error');
+        }, success: function (data, textStatus, jqXHR) {
+            console.log(data);
+            selects(data, idDiv, idInput, valor, accion);
+        }
+    })
+
+}
 

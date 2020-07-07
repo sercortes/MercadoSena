@@ -143,8 +143,8 @@ function selects(datos, idDiv, idInput, valor, accion) {
 
         } else if (idDiv === '#ciudad' || idDiv === '#ciudadBucar') {
             if (idDiv === '#ciudadBucar') {
-                select = '<select id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" >';
-                select += '<option value="" selected>Seleccione...</option>';
+                select = '<select title="Ciudades" id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" >';
+                select += '<option value="" selected>Ciudades...</option>';
             }
 
             for (var i = 0; i < datos.length; i++) {
@@ -176,8 +176,8 @@ function selects(datos, idDiv, idInput, valor, accion) {
                 }
             }
         } else if (accion === 'categorias') {
-            select = '<select id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" >';
-            select += '<option value="" selected>Seleccione...</option>';
+            select = '<select id="' + idInput + '" title="Categorías" name="' + idInput + '" class="form-control was-validated" >';
+            select += '<option value="" selected>Categorías...</option>';
             for (var i = 0; i < datos.length; i++) {
 
                 if (valor !== undefined && valor !== '' && valor !== null) {
@@ -189,6 +189,23 @@ function selects(datos, idDiv, idInput, valor, accion) {
                     }
                 } else {
                     select += '<option value="' + datos[i].idcategoria + '">' + datos[i].nombreCategoria + '</option>';
+                }
+            }
+        
+        } else if (accion === 'vendedor') {
+            select = '<select id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" title="Vendedores" >';
+            select += '<option value="" selected>Vendedores...</option>';
+            for (var i = 0; i < datos.length; i++) {
+
+                if (valor !== undefined && valor !== '' && valor !== null) {
+
+                    if (datos[i].idEmpresa === valor) {
+                        select += '<option value="' + datos[i].idEmpresa + '" selected>' + datos[i].nombreEmpresa + '</option>';
+                    } else {
+                        select += '<option value="' + datos[i].idEmpresa + '">' + datos[i].nombreEmpresa + '</option>';
+                    }
+                } else {
+                    select += '<option value="' + datos[i].idEmpresa + '">' + datos[i].nombreEmpresa + '</option>';
                 }
             }
         }

@@ -12,7 +12,7 @@ $(document).on('click', '.botonChat', function (e) {
     }else{
         modalPreguntaRegistro();
     }
-    console.log($('#nombreUsuarioInicio').val());
+   // console.log($('#nombreUsuarioInicio').val());
 })
 
 function getEmpresa(idpro) {

@@ -57,3 +57,4 @@
 <script src="./assets/js/project/ProductosComprador/chat.js" type="text/javascript"></script>
 <script src="./assets/js/project/filtro/filtro.js" type="text/javascript"></script>
 <script src="./assets/js/project/filtro/productosHtml.js" type="text/javascript"></script>
+<script src="./assets/js/project/compra/realizarPedido.js" type="text/javascript"></script>

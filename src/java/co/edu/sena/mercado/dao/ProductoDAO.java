@@ -278,6 +278,7 @@ public class ProductoDAO {
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
                 producto.setNombreCategoria(rs.getString("CP.nombreCategoria"));
+                producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
 
 //                if (!StringUtils.isNullOrEmpty(rs.getString("fechaVencimiento"))) {
 //                     producto.setFechaVencimiento(rs.getString("fechaVencimiento"));

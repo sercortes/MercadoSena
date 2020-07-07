@@ -8,8 +8,10 @@ package co.edu.sena.mercado.controller.filtro;
 import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
 import co.edu.sena.mercado.dao.ProductosPedidosDAO;
+import co.edu.sena.mercado.dao.empresaDAO;
 import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.empresaDTO;
 import co.edu.sena.mercado.dto.productoImagenesDTO;
 import co.edu.sena.mercado.dto.productoPedidosDTO;
 import co.edu.sena.mercado.dto.productosMasSolicitadosDTO;
@@ -130,6 +132,14 @@ public class filtro extends HttpServlet {
                 }
                 response.setContentType("application/json");
                 new Gson().toJson(listaProductoImagenes, response.getWriter());
+                break;
+            case "listarVendedores":
+               empresaDAO empresaDAO=new empresaDAO();
+               ArrayList<empresaDTO>listaEmpresa=new ArrayList<>();
+               listaEmpresa=empresaDAO.listarEmpresas();
+                 response.setContentType("application/json");
+                new Gson().toJson(listaEmpresa, response.getWriter());
+
                 break;
             default:
                 throw new AssertionError("XXXXXXXXXXXXXXXXXXXXXXXXXXXX esa accionno existe");

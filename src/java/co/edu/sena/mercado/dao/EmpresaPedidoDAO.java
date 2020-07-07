@@ -37,7 +37,7 @@ public class EmpresaPedidoDAO {
             ps.setString(1, empresaPedidoDTO.getIdEmpresaFK());
             ps.setString(2, empresaPedidoDTO.getIdVentaFK());
             ps.executeUpdate();
-            
+            System.out.println("............................."+ps.toString());
             return true;
         } catch (MySQLIntegrityConstraintViolationException e) {
             System.out.println(e);
