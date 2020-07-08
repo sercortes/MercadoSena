@@ -30,7 +30,7 @@ function carruselImagenes(datos) {
 
 }
 
-function mostrarProductos(productos,mosTit) {
+function mostrarProductos(productos, mosTit) {
     console.log(productos);
     resultadoBusqueda = [];
     console.log(resultadoBusqueda);
@@ -107,13 +107,13 @@ function mostrarProductos(productos,mosTit) {
         str = '<div style="width: 100%;padding: 20px;"><i class="fa fa-frown" style="font-size: 69px;" aria-hidden="true"></i><p style="color: black;font-size: 24px;font-weight: 600;font-family: cursive;">Lo sentimos, no se encontraron productos.</p></div>';
     }
     select.innerHTML = str;
-    if(mosTit===1){
-    $('#tituloResultado').html('<div style="width: 100%; text-align:center;margin-top: 20px; "><i class="fa fa-search" style="font-size: 69px;" aria-hidden="true"></i><h3 style="color: black;font-size: 24px;font-weight: 600;font-family: cursive;">Resultados de su búsqueda...</h3></div>');
+    if (mosTit === 1) {
+        $('#tituloResultado').html('<div style="width: 100%; text-align:center;margin-top: 20px; "><i class="fa fa-search" style="font-size: 69px;" aria-hidden="true"></i><h3 style="color: black;font-size: 24px;font-weight: 600;font-family: cursive;">Resultados de tu búsqueda...</h3></div>');
     }
 }
 
 function generarTextoProducto(item) {
-    
+
     let str = ''
     let element = document.getElementById('details')
     str += `  <div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
@@ -170,6 +170,31 @@ function generarCaruselImagenesProducto(data) {
         num++;
     }
     ele.innerHTML = str;
-    
-}
 
+}
+function  textoPreductivo(nombrePosibles) {
+    var lista = '';
+    $('.predictivo').empty();
+    if (nombrePosibles.length > 0) {
+        for (var i = 0; i < nombrePosibles.length; i++) {
+            lista += '<a href="#" id="posiblePalabra'+i+'" onclick="asignarPalabra('+ i+ ')">' + nombrePosibles[i] + '</a><br>';
+        }
+        $('.predictivo').show();
+        $('.predictivo').html(lista);
+
+    } else {
+        $('.predictivo').hide();
+
+    }
+    //$('#mostrarResultados').next().empty();
+
+    nombrePosibles = [];
+}
+function asignarPalabra(id){
+    var nombre=$('#posiblePalabra'+id).text();
+    $('#nombreProductoFiltar').val(nombre);
+    seleccionarNombres();
+    filtrar();
+    
+   
+}

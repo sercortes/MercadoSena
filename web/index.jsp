@@ -3,7 +3,38 @@
 <%@include file="/views/template/head.jspf"%>
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 <%@include file="/views/template/header.jspf"%>
+<div class="barraBusqueda">
+    <p class="text-black" style="color: black; margin-bottom: 0px;padding-top: 3px;text-align: center;font-size: 16px;font-weight: 500;font-family: cursive;">Para una búsqueda más personalizada selecciona un criterio:</p>
+    <nav class="navbar navbar-expand-sm " >
+        
+            <ul class="navbar-nav">
+                <li class="nav-item">
 
+                    <div id="ciudadBucar" style="margin: 5px">
+
+                    </div>
+                </li>
+                <li class="nav-item">
+
+
+                    <div id="categoriasBuscar" style="margin: 5px"></div>
+                </li>
+                <li class="nav-item">
+                    <div id="vendedores" style="margin: 5px">
+
+                    </div>
+
+                </li>
+            </ul>
+
+            <div class="header_search_form_container">
+                <input accesskey="" type="search" required="required" id="nombreProductoFiltar" class="header_search_input" placeholder="Nombre producto..." style="width: 100%" onkeyup="seleccionarNombres()">
+                <a  id="mostrarResultados"> <button type="submit" title="Buscar" class="header_search_button trans_300" value="Buscar" onclick="filtrar()"><img src="./assets/images/icons/search.png" alt=""></button></a>
+                <div class="predictivo" ></div>
+            </div>
+        
+    </nav>
+</div>
 <%@include file="/views/init/carusel.jspf"%>
 
 

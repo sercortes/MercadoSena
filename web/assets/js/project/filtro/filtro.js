@@ -1,4 +1,5 @@
 var todosProductos, resultadoBusqueda = [];
+var nombres = [];
 $(document).ready(function () {
 
     productosMasVendidos();
@@ -71,7 +72,7 @@ function consultarTodosProductos() {
             if (data !== null && data !== '') {
                 todosProductos = data;
                 mostrarProductos(todosProductos, 0);
-
+                seleccionarNombres(true);
                 console.log(todosProductos);
             }
         }
@@ -106,10 +107,15 @@ function filtrar() {
     //por nombre
     if (nomProBuscar !== '' && catCriBuscar === '' && ciudadCriBuscar === '' && vendedorCriBuscar === '') {
         for (var i = 0; i < todosProductos.length; i++) {
-            if (todosProductos[i].producto.nombreProducto === nomProBuscar) {
+
+
+            if (String(todosProductos[i].producto.nombreProducto.toLowerCase()).match(String(nomProBuscar.toLowerCase()))) {
+
                 resultadoBusqueda.push(todosProductos[i]);
             }
         }
+
+
     }
     //por vendedor
     if (nomProBuscar === '' && catCriBuscar === '' && ciudadCriBuscar === '' && vendedorCriBuscar !== '') {
@@ -139,7 +145,7 @@ function filtrar() {
         resultadoBusqueda = [];
 
         for (var i = 0; i < todosProductos.length; i++) {
-            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar ) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar) {
                 resultadoBusqueda.push(todosProductos[i]);
             }
         }
@@ -150,7 +156,7 @@ function filtrar() {
         resultadoBusqueda = [];
 
         for (var i = 0; i < todosProductos.length; i++) {
-            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar ) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && String(todosProductos[i].producto.nombreProducto.toLowerCase()).match(String(nomProBuscar.toLowerCase()))) {
                 resultadoBusqueda.push(todosProductos[i]);
             }
         }
@@ -160,7 +166,7 @@ function filtrar() {
         ciudadCriBuscar = parseInt(ciudadCriBuscar);
         resultadoBusqueda = [];
         for (var i = 0; i < todosProductos.length; i++) {
-            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && String(todosProductos[i].producto.nombreProducto.toLowerCase()).match(String(nomProBuscar.toLowerCase())) && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
                 resultadoBusqueda.push(todosProductos[i]);
             }
         }
@@ -170,7 +176,7 @@ function filtrar() {
         ciudadCriBuscar = parseInt(ciudadCriBuscar);
         resultadoBusqueda = [];
         for (var i = 0; i < todosProductos.length; i++) {
-            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && String(todosProductos[i].producto.nombreProducto.toLowerCase()).match(String(nomProBuscar.toLowerCase())) && todosProductos[i].producto.categorys.idcategoria === catCriBuscar && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
                 resultadoBusqueda.push(todosProductos[i]);
             }
         }
@@ -180,7 +186,7 @@ function filtrar() {
         ciudadCriBuscar = parseInt(ciudadCriBuscar);
         resultadoBusqueda = [];
         for (var i = 0; i < todosProductos.length; i++) {
-            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar ) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && String(todosProductos[i].producto.nombreProducto.toLowerCase()).match(String(nomProBuscar.toLowerCase())) && todosProductos[i].producto.categorys.idcategoria === catCriBuscar) {
                 resultadoBusqueda.push(todosProductos[i]);
             }
         }
@@ -210,19 +216,19 @@ function filtrar() {
     if (catCriBuscar !== '' && ciudadCriBuscar === '' && nomProBuscar !== '' && vendedorCriBuscar === '') {
         resultadoBusqueda = [];
         for (var i = 0; i < todosProductos.length; i++) {
-            if (todosProductos[i].producto.nombreProducto === nomProBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar) {
+            if (String(todosProductos[i].producto.nombreProducto.toLowerCase()).match(String(nomProBuscar.toLowerCase())) && todosProductos[i].producto.categorys.idcategoria === catCriBuscar) {
                 resultadoBusqueda.push(todosProductos[i]);
             }
         }
     }
 
-  //nombre vendedor
+    //nombre vendedor
 
     if (ciudadCriBuscar === '' && catCriBuscar === '' && nomProBuscar !== '' && vendedorCriBuscar !== '') {
         ciudadCriBuscar = parseInt(ciudadCriBuscar);
         resultadoBusqueda = [];
         for (var i = 0; i < todosProductos.length; i++) {
-            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && todosProductos[i].producto.nombreProducto === nomProBuscar && todosProductos[i].producto.categorys.idcategoria === catCriBuscar && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
+            if (todosProductos[i].producto.idCiudad === ciudadCriBuscar && String(todosProductos[i].producto.nombreProducto.toLowerCase()).match(String(nomProBuscar.toLowerCase())) && todosProductos[i].producto.categorys.idcategoria === catCriBuscar && todosProductos[i].producto.idEmpresaFK === vendedorCriBuscar) {
                 resultadoBusqueda.push(todosProductos[i]);
             }
         }
@@ -234,8 +240,10 @@ function filtrar() {
 
     }
     mostrarProductos(resultadoBusqueda, 1);
-
+    $("html, body").animate({scrollTop: $('#tabla').offset().top}, 500);
     resultadoBusqueda = [];
+    $('.predictivo').empty();
+    $('.predictivo').hide();
 
 }
 
@@ -281,3 +289,26 @@ function vendedores(idDiv, idInput, accion, valor) {
 
 }
 
+function seleccionarNombres(hacer) {
+    var nombre = $('#nombreProductoFiltar').val();
+    var nombrePosibles = [];
+    if (nombre !== 'undefined' && nombre !== undefined && nombre !== '') {
+
+        for (var i = 0; i < nombres.length; i++) {
+            if (String(nombres[i].toLowerCase()).match(String(nombre.toLowerCase()))) {
+                nombrePosibles.push(nombres[i]);
+            }
+        }
+        textoPreductivo(nombrePosibles);
+        nombrePosibles = [];
+    } else if (hacer) {
+
+        for (var i = 0; i < todosProductos.length; i++) {
+            nombres.push(todosProductos[i].producto.nombreProducto);
+        }
+        console.log(nombres);
+
+        // textoPreductivo(nombres);
+    }
+
+}
