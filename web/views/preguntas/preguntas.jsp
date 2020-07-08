@@ -88,7 +88,7 @@
 
 <script src="./assets/js/pagination/pager.js" charset="utf-8"></script>
 <script src="./assets/js/project/preguntas/preguntas.js" charset="utf-8"></script>
-<!--<script src="./assets/js/project/compra/realizarPedido.js" type="text/javascript"></script>-->
+<script src="./assets/js/project/compra/realizarPedido.js" type="text/javascript"></script>
 
 
 

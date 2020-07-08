@@ -104,11 +104,11 @@ function mostrarProductos(productos, mosTit) {
 
         }
     } else {
-        str = '<div style="width: 100%;padding: 20px;"><i class="fa fa-frown" style="font-size: 69px;" aria-hidden="true"></i><p style="color: black;font-size: 24px;font-weight: 600;font-family: cursive;">Lo sentimos, no se encontraron productos.</p></div>';
+        str = '<div style="width: 100%;padding: 20px;"><i class="fa fa-frown" style="font-size: 69px;" aria-hidden="true"></i><p style="color: black;font-size: 24px;font-weight: 600;">Lo sentimos, no se encontraron productos.</p></div>';
     }
     select.innerHTML = str;
     if (mosTit === 1) {
-        $('#tituloResultado').html('<div style="width: 100%; text-align:center;margin-top: 20px; "><i class="fa fa-search" style="font-size: 69px;" aria-hidden="true"></i><h3 style="color: black;font-size: 24px;font-weight: 600;font-family: cursive;">Resultados de tu búsqueda...</h3></div>');
+        $('#tituloResultado').html('<div style="width: 100%; text-align:center;margin-top: 20px; "><i class="fa fa-search" style="font-size: 69px;" aria-hidden="true"></i><h3 style="color: black;font-size: 24px;font-weight: 600;">Resultados de tu búsqueda...</h3></div>');
     }
 }
 

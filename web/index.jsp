@@ -4,7 +4,7 @@
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 <%@include file="/views/template/header.jspf"%>
 <div class="barraBusqueda">
-    <p class="text-black" style="color: black; margin-bottom: 0px;padding-top: 3px;text-align: center;font-size: 16px;font-weight: 500;font-family: cursive;">Para una búsqueda más personalizada selecciona un criterio:</p>
+    <p class="text-black" style="color: black; margin-bottom: 0px;padding: 5px;text-align: center;font-size: 16px;font-weight: 500;font-family: unset;">Para una búsqueda más personalizada selecciona un criterio:</p>
     <nav class="navbar navbar-expand-sm " >
         
             <ul class="navbar-nav">
@@ -41,11 +41,11 @@
 
 <div  class="">
 
-    <div class="row" >
+    <div class="row" style="width: 100%" >
         <div class="col-lg-11 mx-auto">
-            <div style="width: 100%; text-align:center;margin-top: 20px; " id="tituloResultado"><h3 style="color: black;font-size: 24px;font-weight: 600;font-family: cursive;">Todos los productos</h3></div>
+            <div style="width: 100%; text-align:center;margin-top: 20px; " id="tituloResultado"><h3 style="color: black;font-size: 24px;font-weight: 600;">Todos los productos</h3></div>
             <center>
-                <div class="row pt-4" id="tabla" style="border-radius: 36px;border-top: solid 2px rgba(94, 179, 25, 0.7490196078431373);"> 
+                <div class="row pt-4" id="tabla" style="border-radius: 36px;border-top: solid 2px rgba(94, 179, 25, 0.7490196078431373); width: 100%;"> 
 
 
 
@@ -56,7 +56,7 @@
 
     <div class="separator my-3"></div>
 
-    <div class="row justify-content-md-center pb-3">
+    <div class="row justify-content-md-center pb-3" style="width: 100%">
         <div id="pager" class="col-md-auto">
             <c:if test="${not empty USER}">
                 <input type="hidden" id="companyss" value="${USER.empresa.idEmpresa}" disabled=""/>
@@ -75,8 +75,8 @@
 </div>
 <div id="carga" class="loader loader-bouncing"></div>
 
-
-<%@include file="/views/searching/modalVerProducto.jspf"%>
+<div style="position: inherit;">
+<%@include file="/views/searching/modalVerProducto.jspf"%></div>
 <%@include file="/views/searching/modalPreguntar.jspf"%>
 
 <%@include file="/views/login/login.jspf"%>

@@ -1,26 +1,11 @@
 
 <div class="container mt-3" style="max-height: 700px; ">
-    <h2 style="color: black;font-size: 24px;font-weight: 600;font-family: cursive;text-align: center; margin-bottom: 20px;">Productos más solicitados</h2>
+    <h2 style="color: black;font-size: 24px;font-weight: 600;text-align: center; margin-bottom: 20px;">Productos más solicitados</h2>
     <div id="myCarousel" class="carousel slide" data-ride="carousel" >
 
 
         <div id="carruselImagenes"  style="background: white;">
-            <ul class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-
-            </ul>
-
-            <!-- The slideshow -->
-            <div class="carousel-inner" style="background-image:url(./assets/images/products/fondo.jpg); ">
-                <div class="carousel-item active" style="min-height: 500px">
-                    <a href="#" title="Ver producto" style="background: none" onclick="verProducto(event, )"><img src="la.jpg" alt="Imagen producto" width="1100" height="500" class="imagenCarrusel"></a>
-                </div>
-                <div class="carousel-item" style="height: 500px;">
-                    <a href="#" title="Ver producto"  style="background: none" onclick="verProducto(event, )"><img src="./assets/images/products/box.png" width="1100" height="500" class="imagenCarrusel" alt="Imagen producto"></a>
-                </div>
-
-            </div>
+            
         </div>
         
 

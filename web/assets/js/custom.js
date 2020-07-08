@@ -10,7 +10,7 @@ $(document).ready(function()
 	setHeader();
 	initPageMenu();
 
-	initCustomDropdown();
+	//initCustomDropdown();
 
 	$(window).on('resize', function()
 	{

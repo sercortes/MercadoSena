@@ -154,7 +154,7 @@
 }
 
 .bottom_wrapper {
-  position: relative;
+  position: relative !important;
   width: 100%;
   background-color: #fff;
   padding: 20px 20px;

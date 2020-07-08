@@ -58,8 +58,8 @@ public class CompradorDAO {
         }
 
     }
-    //SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idVenta INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idEmpresaFK=6
-    //SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idVenta INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idPersonaFK=5
+    //SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFKINNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idEmpresaFK=6
+    //SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idPersonaFK=5
 
     public ArrayList<pedidoDTO> consultaPedido(int id, String tipoUsu) {
         //id = comprador o vendedor
@@ -75,8 +75,8 @@ public class CompradorDAO {
         } else {
             tipoUsuario = "comp.idPersonaFK";
         }
-        consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idVenta INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE " + tipoUsuario + " =? ORDER BY ven.fechaVenta DESC";
-//SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idVenta INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idEmpresaFK =5 ORDER BY ven.fechaVenta DESC
+        consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE " + tipoUsuario + " =? ORDER BY ven.fechaVenta DESC";
+//SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idEmpresaFK =5 ORDER BY ven.fechaVenta DESC
 
         try {
             ps = conn.prepareStatement(consulta);
@@ -124,7 +124,7 @@ public class CompradorDAO {
 
     public int consultaNotiPedidos(int idEmpresa) {
         int nroPedidos = 0;
-        String sql = "SELECT COUNT(ven.idVenta) as nroVentas FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idVenta INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas WHERE comp.idEmpresaFK=? AND ven.idEstadoVentasFK=1";
+        String sql = "SELECT COUNT(ven.idVenta) as nroVentas FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas WHERE comp.idEmpresaFK=? AND ven.idEstadoVentasFK=1";
         try {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, idEmpresa);

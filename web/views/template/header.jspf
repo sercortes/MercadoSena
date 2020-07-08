@@ -216,12 +216,12 @@
                 <ul class="navbar-nav mr-auto" >
                     <li class="nav-item dropdown opcinoes">
                         <a class="nav-link  encabezadoOpciones" onclick="consultarDatosFormulario()" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-plus" aria-hidden="true" style="font-size: 20px;"></i> Registrarse         
+                           aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-plus" aria-hidden="true" style="font-size: 20px; margin-right: 2px;"></i>  Registrarse         
                         </a>
                     </li>
                     <li class="nav-item dropdown opciones2">
                         <a class="nav-link  encabezadoOpciones"  id="login" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                           onclick="abrirIngreso()"  aria-haspopup="true" aria-expanded="false"><i class="flaticon-iniciar-sesion" ></i> Ingresar         
+                           onclick="abrirIngreso()"  aria-haspopup="true" aria-expanded="false"><i class="flaticon-iniciar-sesion" style="margin-right: 2px;"></i>  Ingresar         
                         </a>
                     </li>
 
