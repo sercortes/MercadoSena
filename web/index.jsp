@@ -4,35 +4,36 @@
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 <%@include file="/views/template/header.jspf"%>
 <div class="barraBusqueda">
-    <p class="text-black" style="color: black; margin-bottom: 0px;padding: 5px;text-align: center;font-size: 16px;font-weight: 500;font-family: unset;">Para una búsqueda más personalizada selecciona un criterio:</p>
+    <p class="text-black" style="color: black; margin-bottom: 0px;padding: 5px;text-align: center;font-size: 16px;font-weight: 500;font-family: unset;">Para una búsqueda más personalizada selecciona un criterio <i id="desplegarMenu" class="fa fa-caret-down colorCursor" ></i></p>
     <nav class="navbar navbar-expand-sm " >
-        
-            <ul class="navbar-nav">
-                <li class="nav-item">
+        <form style="width: 100%">
+            <div class="busquedaAvanzada">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
 
-                    <div id="ciudadBucar" style="margin: 5px">
+                        <div id="ciudadBucar" style="margin: 5px">
 
-                    </div>
-                </li>
-                <li class="nav-item">
+                        </div>
+                    </li>
+                    <li class="nav-item">
 
 
-                    <div id="categoriasBuscar" style="margin: 5px"></div>
-                </li>
-                <li class="nav-item">
-                    <div id="vendedores" style="margin: 5px">
+                        <div id="categoriasBuscar" style="margin: 5px"></div>
+                    </li>
+                    <li class="nav-item">
+                        <div id="vendedores" style="margin: 5px">
 
-                    </div>
+                        </div>
 
-                </li>
-            </ul>
-
-            <div class="header_search_form_container">
+                    </li>
+                </ul>
+            </div>
+            <div class="header_search_form_container" style="    width: 80%; margin-left: 10%;">
                 <input accesskey="" type="search" required="required" id="nombreProductoFiltar" class="header_search_input" placeholder="Nombre producto..." style="width: 100%" onkeyup="seleccionarNombres()">
-                <a  id="mostrarResultados"> <button type="submit" title="Buscar" class="header_search_button trans_300" value="Buscar" onclick="filtrar()"><img src="./assets/images/icons/search.png" alt=""></button></a>
+                <a  id="mostrarResultados"> <button type="submit" title="Buscar" class="header_search_button trans_300" value="Buscar" onclick="filtrar(event)"><img src="./assets/images/icons/search.png" alt=""></button></a>
                 <div class="predictivo" ></div>
             </div>
-        
+        </form>
     </nav>
 </div>
 <%@include file="/views/init/carusel.jspf"%>
@@ -76,8 +77,8 @@
 <div id="carga" class="loader loader-bouncing"></div>
 
 <div style="position: inherit;">
-<%@include file="/views/searching/modalVerProducto.jspf"%></div>
-<%@include file="/views/searching/modalPreguntar.jspf"%>
+    <%@include file="/views/searching/modalVerProducto.jspf"%></div>
+    <%@include file="/views/searching/modalPreguntar.jspf"%>
 
 <%@include file="/views/login/login.jspf"%>
 <%@include file="/views/registro/registro.jspf"%>

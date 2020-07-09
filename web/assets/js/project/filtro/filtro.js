@@ -79,8 +79,10 @@ function consultarTodosProductos() {
     })
 }
 
-function filtrar() {
-
+function filtrar(event) {
+    if (event !== '' && event !== undefined) {
+        event.preventDefault();
+    }
     var vendedorCriBuscar = $('#vendedorCriBuscar').val(), ciudadCriBuscar = $('#ciudadCriBusqueda').val(), catCriBuscar = $('#categoriasCriBuscar').val(), nomProBuscar = $('#nombreProductoFiltar').val();
 
 //por ciudad
@@ -312,3 +314,7 @@ function seleccionarNombres(hacer) {
     }
 
 }
+
+$('#desplegarMenu').click(function () {
+    $('.busquedaAvanzada').toggle();
+})

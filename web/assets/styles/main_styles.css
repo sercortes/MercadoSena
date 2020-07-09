@@ -42,6 +42,16 @@
 /**{
     border: solid 1px red; 
 }*/
+
+.colorCursor:hover{
+    cursor: pointer;
+   color:  rgb(252, 115, 30);
+}
+.busquedaAvanzada{
+    display: none;
+    width: 50%;
+    margin-left: 25%;
+}
 .encabezado{
     border: solid rgb(94, 179, 25) 2px;
     /* border-bottom: solid 2px #fc731e; */
