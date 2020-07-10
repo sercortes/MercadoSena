@@ -44,6 +44,10 @@
         <servlet-name>filtro</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.filtro.filtro</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>informes</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.informes.informes</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -54,6 +58,7 @@
         <url-pattern>/usuario</url-pattern>
         <url-pattern>/ventasVendedor</url-pattern>
         <url-pattern>/misPedidos</url-pattern>
+        <url-pattern>/realizarInformes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RutasVendedor</servlet-name>
@@ -105,6 +110,10 @@
     <servlet-mapping>
         <servlet-name>filtro</servlet-name>
         <url-pattern>/filtro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>informes</servlet-name>
+        <url-pattern>/informes</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

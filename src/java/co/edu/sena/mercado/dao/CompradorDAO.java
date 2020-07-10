@@ -7,6 +7,7 @@ package co.edu.sena.mercado.dao;
 
 import co.edu.sena.mercado.dto.CompradorDTO;
 import co.edu.sena.mercado.dto.VentaDTO;
+import co.edu.sena.mercado.dto.informePedidosDTO;
 import co.edu.sena.mercado.dto.pedidoDTO;
 import co.edu.sena.mercado.dto.productoPedidosDTO;
 import co.edu.sena.mercado.util.Conexion;
@@ -47,7 +48,7 @@ public class CompradorDAO {
             if (rs.next()) {
                 idComprador = rs.getInt(1);
             }
-            System.out.println("............................."+ps.toString());
+            System.out.println("............................." + ps.toString());
             return idComprador;
         } catch (MySQLIntegrityConstraintViolationException e) {
             System.out.println(e);
@@ -116,6 +117,65 @@ public class CompradorDAO {
             return listaPedido;
         } catch (Exception e) {
             System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar la consulta del pedido " + e);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX consulta " + ps.toString());
+            return null;
+        }
+
+    }
+
+    public ArrayList<informePedidosDTO> informePedidos(String tipo, String fechaIni, String fechaFin, int idEmpresa) {
+
+        ArrayList<informePedidosDTO> listaInformePedido = new ArrayList<>();
+        informePedidosDTO informePedidoDTO;
+
+        String consulta = "";
+//SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idEmpresaFK =5 ORDER BY ven.fechaVenta DESC
+
+        try {
+
+            switch (tipo) {
+                case "1":
+                    consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? ORDER BY ven.fechaVenta DESC";
+                    ps = conn.prepareStatement(consulta);
+
+                    break;
+                case "2":
+                    consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? and ven.fechaVenta like ? ORDER BY ven.fechaVenta DESC";
+                    ps = conn.prepareStatement(consulta);
+                    fechaIni = fechaIni + "%";
+                    ps.setString(2, fechaIni);
+
+                    break;
+                case "3":
+                    consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? and ven.fechaVenta BETWEEN ? and ? ORDER BY ven.fechaVenta DESC";
+                    ps = conn.prepareStatement(consulta);
+                    fechaFin = fechaFin + " 23:59:59";
+                    ps.setString(2, fechaIni);
+                    ps.setString(3, fechaFin);
+                    break;
+            }
+
+           
+            ps.setInt(1, idEmpresa);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                informePedidoDTO = new informePedidosDTO();
+
+                informePedidoDTO.setCantidadProductos(rs.getString("cantidadProductoVenta"));
+                informePedidoDTO.setFechaVenta(rs.getDate("fechaVenta"));
+                informePedidoDTO.setIdEstado(rs.getInt("idEstadoVentas"));
+                informePedidoDTO.setNombreEstado(rs.getString("nombreEstado"));
+                informePedidoDTO.setNombreProducto(rs.getString("nombreProducto"));
+                informePedidoDTO.setValor(rs.getString("valorVenta"));
+                informePedidoDTO.setValorProducto(rs.getString("valorProducto"));
+                
+
+                listaInformePedido.add(informePedidoDTO);
+
+            }
+            return listaInformePedido;
+        } catch (Exception e) {
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar la consulta informe pedidos pedido " + e);
             System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX consulta " + ps.toString());
             return null;
         }

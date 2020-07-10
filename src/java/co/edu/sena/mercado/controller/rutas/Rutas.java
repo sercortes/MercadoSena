@@ -91,6 +91,9 @@ public class Rutas extends HttpServlet {
             case "/MercadoSena/misPedidos":
                 request.getRequestDispatcher("/views/ventas/pedidosUsuario.jsp").forward(request, response);
                 break;
+            case "/MercadoSena/realizarInformes":
+                request.getRequestDispatcher("/views/informes/informes.jsp").forward(request, response);
+                break;
             default:
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error de la ruta");
         }

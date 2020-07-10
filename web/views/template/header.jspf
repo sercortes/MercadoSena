@@ -6,82 +6,82 @@
 
         <!-- Header -->
 
-        
-
-            <!-- Header Main -->
-
-            <div class="header_main">
-                <div class="container-fluid">
-                    <div class="row">
 
 
+        <!-- Header Main -->
 
-                        <c:if test="${ empty USER.idRol}">
-                            <input type="hidden" value="no" id="nombreUsuarioInicio">
+        <div class="header_main">
+            <div class="container-fluid">
+                <div class="row">
 
 
-                            <!-- Wishlist 
-                            <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
-                                <div class="wishlist_cart d-flex flex-row align-items-center">
 
-                                    <div id="register" class="wishlist d-flex flex-row align-items-center justify-content-end" onclick="consultarDatosFormulario()">
-                                        <div class="wishlist_icon">
+                    <c:if test="${ empty USER.idRol}">
+                        <input type="hidden" value="no" id="nombreUsuarioInicio">
 
-                                            <a href="#"><img src="./assets/images/icons/add.png" alt=""></a>
 
-                                        </div>
-                                        <div class="wishlist_content" >
+                        <!-- Wishlist 
+                        <div class="col-lg-3 col-9 order-lg-3 order-2 text-lg-left text-right">
+                            <div class="wishlist_cart d-flex flex-row align-items-center">
 
-                                            <div class="cart_text" ><a href="#" class="pl-1"> Registrarse</a></div>
-
-                                        </div>
-                                    </div>
-                            -->
-                            <!-- Cart -->
-                            <div class="cart">
-                                <!--<div id="login" class="cart_container d-flex flex-row align-items-center justify-content-end">
+                                <div id="register" class="wishlist d-flex flex-row align-items-center justify-content-end" onclick="consultarDatosFormulario()">
                                     <div class="wishlist_icon">
 
-                                        <a id="userDropdown" href="#"><img src="./assets/images/icons/user12.png" alt=""></a>
+                                        <a href="#"><img src="./assets/images/icons/add.png" alt=""></a>
 
                                     </div>
-                                    <div class="cart_content">
+                                    <div class="wishlist_content" >
 
-                                        <div class="cart_text"><a href="#" data-target="#modalLoginForm">Ingresar</a></div>
+                                        <div class="cart_text" ><a href="#" class="pl-1"> Registrarse</a></div>
 
                                     </div>
-                                </div>-->
-                            </div>
+                                </div>
+                        -->
+                        <!-- Cart -->
+                        <div class="cart">
+                            <!--<div id="login" class="cart_container d-flex flex-row align-items-center justify-content-end">
+                                <div class="wishlist_icon">
+
+                                    <a id="userDropdown" href="#"><img src="./assets/images/icons/user12.png" alt=""></a>
+
+                                </div>
+                                <div class="cart_content">
+
+                                    <div class="cart_text"><a href="#" data-target="#modalLoginForm">Ingresar</a></div>
+
+                                </div>
+                            </div>-->
                         </div>
                     </div>
-                </c:if>
-                <!--
-                                <cif test="{not empty USER.idRol}">
-                                    <input type="hidden" value="{USER.persona.nombrePer}" id="nombreUsuarioInicio" data-rol="${USER.idRol}">
-                                    <div class="col-lg-2 col-9 order-lg-3 order-2 text-lg-left">
-                                        <div class="cart">
-                                            <div id="" class="">
-                                                <nav class="navbar navbar-expand-sm"> 
-                
-                                                    <ul class="navbar-nav">
-                                                        <li class="nav-item dropdown">
-                                                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                                <img src="./assets/images/icons/user12.png" width="30" height="30" class="rounded-circle"> ${USER.correoUsu}
-                                                            </a>
-                                                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                                                <a class="dropdown-item" href="./usuario">Usuario</a>
-                                                                <a id="logoutFire" class="dropdown-item" href="./logout">Salir</a>
-                                                            </div>
-                                                        </li>   
-                                                    </ul>
-                
-                                                </nav>
-                                            </div>
+                </div>
+            </c:if>
+            <!--
+                            <cif test="{not empty USER.idRol}">
+                                <input type="hidden" value="{USER.persona.nombrePer}" id="nombreUsuarioInicio" data-rol="${USER.idRol}">
+                                <div class="col-lg-2 col-9 order-lg-3 order-2 text-lg-left">
+                                    <div class="cart">
+                                        <div id="" class="">
+                                            <nav class="navbar navbar-expand-sm"> 
+            
+                                                <ul class="navbar-nav">
+                                                    <li class="nav-item dropdown">
+                                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                            <img src="./assets/images/icons/user12.png" width="30" height="30" class="rounded-circle"> ${USER.correoUsu}
+                                                        </a>
+                                                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                            <a class="dropdown-item" href="./usuario">Usuario</a>
+                                                            <a id="logoutFire" class="dropdown-item" href="./logout">Salir</a>
+                                                        </div>
+                                                    </li>   
+                                                </ul>
+            
+                                            </nav>
                                         </div>
                                     </div>
-                                </cif> -->
+                                </div>
+                            </cif> -->
 
-            </div>
+        </div>
     </div>
 
 
@@ -155,146 +155,151 @@
 
 
     <!--Navbar-->
-<header class="header">
+    <header class="header">
 
-    <nav class="navbar navbar-expand-lg navbar-dark primary-color encabezado" >
+        <nav class="navbar navbar-expand-lg navbar-dark primary-color encabezado" >
 
-        <!-- Navbar brand -->
+            <!-- Navbar brand -->
 
-        <div class="navbar-brand">
+            <div class="navbar-brand">
 
-            <a href="../MercadoSena/"><img src="./assets/images/icons/image.png" style="width: 250px;" class="img-fluid" alt="Responsive image"></a>
+                <a href="../MercadoSena/"><img src="./assets/images/icons/image.png" style="width: 250px;" class="img-fluid" alt="Responsive image"></a>
 
-        </div>
-
-
-
-        <!-- Collapse button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation" style="background: rgba(252, 115, 30, 0.88);">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- Collapsible content -->
-        <div class=" navbar-collapse collapse fondoMenu" id="basicExampleNav" >
-
-            <!-- Links -->
-            <ul class="navbar-nav mr-auto" style="color:black ">
-                <li class="nav-item active">                     
-                    <a class="nav-link encabezadoOpciones" href="../MercadoSena/">Inicio
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link encabezadoOpciones" href="./Searching...">Descubrir</a>
-                </li>
-
-                <c:if test="${USER.idRol == 3}">
-                    <li class="nav-item">
-                        <a class="nav-link encabezadoOpciones" href="./Products">Mis Productos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link encabezadoOpciones" href="./ventasVendedor">Pedidos</a>
-                    </li>
-                </c:if>
-
-                <c:if test="${USER.idRol != null}">
-                    <li class="nav-item">
-                        <a class="nav-link encabezadoOpciones" href="./misPedidos">Mis Pedidos</a>
-                    </li>
-                </c:if>
+            </div>
 
 
-                <!-- Dropdown -->
 
+            <!-- Collapse button -->
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation" style="background: rgba(252, 115, 30, 0.88);">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            </ul>
-            <!-- Links -->
+            <!-- Collapsible content -->
+            <div class=" navbar-collapse collapse fondoMenu" id="basicExampleNav" >
 
-            <c:if test="${ empty USER.idRol}">
-
-                <ul class="navbar-nav mr-auto" >
-                    <li class="nav-item dropdown opcinoes">
-                        <a class="nav-link  encabezadoOpciones" onclick="consultarDatosFormulario()" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-plus" aria-hidden="true" style="font-size: 20px; margin-right: 2px;"></i>  Registrarse         
+                <!-- Links -->
+                <ul class="navbar-nav mr-auto" style="color:black ">
+                    <li class="nav-item active">                     
+                        <a class="nav-link encabezadoOpciones" href="../MercadoSena/">Inicio
+                            <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li class="nav-item dropdown opciones2">
-                        <a class="nav-link  encabezadoOpciones"  id="login" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                           onclick="abrirIngreso()"  aria-haspopup="true" aria-expanded="false"><i class="flaticon-iniciar-sesion" style="margin-right: 2px;"></i>  Ingresar         
-                        </a>
+                    <li class="nav-item">
+                        <a class="nav-link encabezadoOpciones" href="./Searching...">Descubrir</a>
                     </li>
+                    <c:if test="${USER.idRol != null}">
+                        <li class="nav-item">
+                            <a class="nav-link encabezadoOpciones" href="./misPedidos">Mis pedidos</a>
+                        </li>
+                    </c:if>
+
+                    <c:if test="${USER.idRol == 3}">
+                        <li class="nav-item">
+                            <a class="nav-link encabezadoOpciones" href="./ventasVendedor">Pedidos</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link encabezadoOpciones" href="./Products">Mis productos</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link encabezadoOpciones" href="./realizarInformes">Informes</a>
+                        </li>
+                    </c:if>
+
+
+
+
+                    <!-- Dropdown -->
+
 
                 </ul>
+                <!-- Links -->
 
-            </c:if>
+                <c:if test="${ empty USER.idRol}">
 
-            <c:if test="${not empty USER.idRol}">
-                <input type="hidden" value="${USER.persona.nombrePer}" id="nombreUsuarioInicio" data-rol="${USER.idRol}">
-                <ul class="navbar-nav mr-auto" >
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle encabezadoOpciones" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" style="font-size: 20px;"></i> ${USER.correoUsu}</a>
-                        <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item" href="./usuario"> Usuario</a>
-                            <a class="dropdown-item" href="./logout">Salir</a>
+                    <ul class="navbar-nav mr-auto" >
+                        <li class="nav-item dropdown opcinoes">
+                            <a class="nav-link  encabezadoOpciones" onclick="consultarDatosFormulario()" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-plus" aria-hidden="true" style="font-size: 20px; margin-right: 2px;"></i>  Registrarse         
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown opciones2">
+                            <a class="nav-link  encabezadoOpciones"  id="login" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                               onclick="abrirIngreso()"  aria-haspopup="true" aria-expanded="false"><i class="flaticon-iniciar-sesion" style="margin-right: 2px;"></i>  Ingresar         
+                            </a>
+                        </li>
 
-                        </div>
-                    </li>
-                </ul>
-            </c:if> 
+                    </ul>
 
-        </div>
-        <!-- Collapsible content -->
+                </c:if>
 
-    </nav>
-    <!--/.Navbar-->
+                <c:if test="${not empty USER.idRol}">
+                    <input type="hidden" value="${USER.persona.nombrePer}" id="nombreUsuarioInicio" data-rol="${USER.idRol}">
+                    <ul class="navbar-nav mr-auto" >
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle encabezadoOpciones" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" style="font-size: 20px;"></i> ${USER.correoUsu}</a>
+                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                <a class="dropdown-item" href="./usuario"> Usuario</a>
+                                <a class="dropdown-item" href="./logout">Salir</a>
 
-
-
-    <!-- Menu responsive celular-->
-    <!--
-        <div class="page_menu">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-    
-                        <div class="page_menu_content">
-    
-                            <div class="page_menu_search">
-                                <form action="#">
-                                    <input type="search" required="required" class="page_menu_search_input" placeholder="Buscar Productos">
-                                </form>
                             </div>
-                            <ul class="page_menu_nav">
-    
-    
-                                <li class="page_menu_item">
-                                    <a href="../MercadoSena/">Inicio<i class="fa fa-angle-down"></i></a>
-                                </li>
-    
-                                <li class="page_menu_item">
-                                    <a href="./Searching...">Descubrir<i class="fa fa-angle-down"></i></a>
-                                </li>
-    
-                                <cif test="{USER.idRol == 3}">
-                                    <li class="page_menu_item"><a href="./Products">Mis Productos<i class="fa fa-angle-down"></i></a></li>
-                                    <li class="page_menu_item"><a href="./ventasVendedor">Pedidos<i class="fa fa-angle-down"></i></a></li> 
-                                        </cif>
-                                        <cif test="{USER.idRol != null}">
-                                    <li class="page_menu_item"><a href="./misPedidos">Mis Pedidos<i class="fa fa-angle-down"></i></a></li>
-                                        </cif>
-    
-    
-    
-                            </ul>
-    
+                        </li>
+                    </ul>
+                </c:if> 
+
+            </div>
+            <!-- Collapsible content -->
+
+        </nav>
+        <!--/.Navbar-->
+
+
+
+        <!-- Menu responsive celular-->
+        <!--
+            <div class="page_menu">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+        
+                            <div class="page_menu_content">
+        
+                                <div class="page_menu_search">
+                                    <form action="#">
+                                        <input type="search" required="required" class="page_menu_search_input" placeholder="Buscar Productos">
+                                    </form>
+                                </div>
+                                <ul class="page_menu_nav">
+        
+        
+                                    <li class="page_menu_item">
+                                        <a href="../MercadoSena/">Inicio<i class="fa fa-angle-down"></i></a>
+                                    </li>
+        
+                                    <li class="page_menu_item">
+                                        <a href="./Searching...">Descubrir<i class="fa fa-angle-down"></i></a>
+                                    </li>
+        
+                                    <cif test="{USER.idRol == 3}">
+                                        <li class="page_menu_item"><a href="./Products">Mis Productos<i class="fa fa-angle-down"></i></a></li>
+                                        <li class="page_menu_item"><a href="./ventasVendedor">Pedidos<i class="fa fa-angle-down"></i></a></li> 
+                                            </cif>
+                                            <cif test="{USER.idRol != null}">
+                                        <li class="page_menu_item"><a href="./misPedidos">Mis Pedidos<i class="fa fa-angle-down"></i></a></li>
+                                            </cif>
+        
+        
+        
+                                </ul>
+        
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    
-    -->
+        
+        -->
 
-</header>
+    </header>
