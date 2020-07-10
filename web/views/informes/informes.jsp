@@ -53,20 +53,21 @@
                     <label>Fecha inicial o día para el que desea el informe:</label>
                     <div class="datepicker date input-group p-0 shadow-sm">
                         
-                        <input type="text" placeholder="Fecha" class="form-control py-4 px-4" id="fechaInicial">
+                        <input type="text" placeholder="Fecha" class="form-control py-4 px-4" id="fechaInicial" onchange="validarFechas()" onkeyup="validarFechas()" onclick="validarFechas()">
                         <div class="input-group-append colorCursor"><span class="input-group-text px-4"><i class="fa fa-calendar colorCursor"></i></span></div>
                     </div>
+                    <span class="invalido" id="avisoFechaIni"></span>
                 </div>
                 <div class="form-group mb-3 ">
                     <label>Fecha final (complete sólo si desea un rango):</label>
                     <div class="datepicker date input-group p-0 shadow-sm">
                         
-                        <input type="text" placeholder="fecha final" class="form-control py-4 px-4" id="fechaFinal">
+                        <input type="text" placeholder="fecha final" class="form-control py-4 px-4" id="fechaFinal" onchange="validarFechas()" onkeyup="validarFechas()">
                         <div class="input-group-append colorCursor"><span class="input-group-text px-4"><i class="fa fa-calendar colorCursor"></i></span></div>
                     </div>
                 </div>
                 <div style="width: 100%;text-align: center;">
-                    <input type="submit" value="Generar" class="btn btn-success" onclick="generarInforme(event)">
+                    <input id="generarInfo" type="submit" value="Generar" class="btn btn-success" onclick="generarInforme(event)">
                 </div>
             </form>
 

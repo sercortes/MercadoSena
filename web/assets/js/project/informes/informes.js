@@ -45,7 +45,7 @@ function generarInforme(event) {
 
 }
 function consultaProductos(tipo, fechaInicial, fechaFinal) {
-$('#cargas').addClass('is-active');
+    $('#cargas').addClass('is-active');
     $.ajax({
         url: "./informes",
         data: {
@@ -96,4 +96,19 @@ function consultaPedidos(tipo, fechaInicial, fechaFinal) {
         }
     })
 
+}
+
+function validarFechas() {
+    
+    var fechaFinal = $('#fechaFinal').val();
+    var fechaIni = $('#fechaInicial').val();
+    console.log(fechaFinal);
+    console.log(fechaFinal.length);
+    if (fechaIni === '' && fechaFinal!=='') {
+        $("#generarInfo").prop('disabled', true);
+        $('#avisoFechaIni').text('Por favor complete este campo!!');
+    } else {
+        $("#generarInfo").prop('disabled', false);
+        $('#avisoFechaIni').text('');
+    }
 }
