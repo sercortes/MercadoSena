@@ -217,7 +217,7 @@ public class ProductoDAO {
     }
     public ArrayList<Producto> todosProductosConVendedor() {
         try {
-            String sql = "SELECT pro.*,emp.nombreEmpresa,emp.idCiudadFK,CP.nombreCategoria FROM producto pro INNER join empresa emp on pro.idEmpresaFK=emp.idEmpresa INNER JOIN categoriaproducto CP on pro.idCategoriaFK=CP.idCategoria ORDER by rand()";
+            String sql = "SELECT pro.*,emp.nombreEmpresa,emp.idCiudadFK,CP.nombreCategoria FROM producto pro INNER join empresa emp on pro.idEmpresaFK=emp.idEmpresa INNER JOIN categoriaproducto CP on pro.idCategoriaFK=CP.idCategoria WHERE pro.stockProducto>0 ORDER by rand()";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             List<Producto> list = new ArrayList<Producto>();

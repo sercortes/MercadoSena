@@ -35,12 +35,20 @@
                 <h3>Completa los datos correspondientes para el tipo de informe que desea:</h3>
                 <div >
                     <label>Tipo de informe que desea:</label>
-                    <select id="tipoInforme" class="form-control ">
+                    <select id="tipoInforme" class="form-control " onchange="mostrarFiltroPed()">
                         <option value="1">Informe de productos</option>
                         <option value="2">Informe de pedidos</option>
                     </select> 
                 </div>
-                <div>
+                <div id="divFitroPedido" class="mb-3 col-6" style="display: none;">
+                    <label>Fiiltrar pedidos:</label>
+                    <select id="filtroPedidos" class="form-control " >
+                        <option value="0">Todos</option>
+                        <option value="1">Concretados</option>
+                        <option value="2">No concretados</option>
+                    </select> 
+                </div>
+                <div class="mb-3">
                     <label>Tipo de gráfico si desea:</label>
                     <select id="tipoGrafico" class="form-control ">
                         <option value="0">Ninguno</option>
@@ -48,7 +56,7 @@
                         <option value="2">Gráfico tipo pastel</option>
                     </select> 
                 </div>
-                <br>
+                
                 <div class="form-group mb-3">
                     <label>Fecha inicial o día para el que desea el informe:</label>
                     <div class="datepicker date input-group p-0 shadow-sm">
@@ -67,7 +75,7 @@
                     </div>
                 </div>
                 <div style="width: 100%;text-align: center;">
-                    <input id="generarInfo" type="submit" value="Generar" class="btn btn-success" onclick="generarInforme(event)">
+                    <input id="generarInfo" type="submit" value="Generar" class="btn btn-success" onclick="generarInforme(event)" data-target="#modalInforme" data-toggle="modal">
                 </div>
             </form>
 
@@ -92,6 +100,7 @@
 
 <%@include file="/views/informes/modalInforme.jspf" %>
 <%@include file="/views/template/footer.jspf"%>
+<script src="./assets/js/project/chart/Chart.js" type="text/javascript"></script>
 <script src="./assets/js/project/informes/informes.js" type="text/javascript"></script>
 <script src="./assets/styles/bootstrap4/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script src="./assets/js/project/informes/informesHtml.js" type="text/javascript"></script>

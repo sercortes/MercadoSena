@@ -51,7 +51,8 @@ public class ProductosPedidosDAO {
 
     }
 //SELECT pP.*, count(*) as total,pro.* FROM productospedidos pP INNER JOIN producto pro on pro.idEmpresaFK=6 GROUP BY pP.idProductoFKSELECT pP.*, count(*) as total,pro.* FROM productospedidos pP INNER JOIN producto pro on pro.idEmpresaFK=6 WHERE pP.idProductoFk=pro.idProducto GROUP BY pP.idProductoFK
-
+//consulta para los productos mas solicitados que tengan disponibilidad en bodega
+//SELECT pP.*,COUNT(*) as cantidadVentas FROM productospedidos pP INNER JOIN producto pro on pro.idProducto=pP.idProductoFk where pro.stockProducto>0 GROUP BY idProductoFK HAVING COUNT(*)>2
     public ArrayList<productoPedidosDTO> produstosMasSolicitados() {
         String consulta = "SELECT *,COUNT(*) as cantidadVentas FROM productospedidos GROUP BY idProductoFK HAVING COUNT(*)>2";
         ArrayList<productoPedidosDTO> listaProducto = new ArrayList<>();

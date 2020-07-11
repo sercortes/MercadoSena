@@ -43,7 +43,7 @@ function  generarPreguntas(preguntas) {
         pregunta += '<p style="color:black; margin-bottom: -3px;" idPregunta=' + preguntas[i].idPregunta + ' >' + preguntas[i].pregunta + '</p>';
         pregunta += '<p style="color:rgb(252, 115, 30);  font-size: x-small"  ><a href="#" onclick="verProductoPregunta(event,' + preguntas[i].idProducto + ')">Ver producto</a></p>';
         if (preguntas[i].estadoPregunta === 0) {
-            pregunta += '<div class="divEnviar"><input placeholder="Responda aquí..." type="text" style="border: none;margin-left: 9px;" id="' + preguntas[i].idPregunta + '"> <button class="enviar" onclick="responderPregunta(' + preguntas[i].idPregunta + ')"><i class="fa fa-paper-plane"></i></button></div>';
+            pregunta += '<div class="divEnviar"><div  style="border: none;margin-left: 9px;width: 70%;"><input  style="border: none;" placeholder="Responda aquí..." type="text" id="' + preguntas[i].idPregunta + '"></div><div class="divBtnEnv" > <button class="enviar" onclick="responderPregunta(' + preguntas[i].idPregunta + ')"><i class="fa fa-paper-plane"></i></button></div></div>';
         }
         pregunta += '<hr class="linea">';
     }

@@ -34,9 +34,11 @@ function genTablaPro(datos) {
     $('#informe').html(tabla);
 }
 function genTablaPedi(datos) {
-
+    var filtro = $('#filtroPedidos').val();
+    var productos = [];
     var tabla = '';
     if (datos.length > 0) {
+
         tabla =
                 '<table class="table table-hover">' +
                 ' <thead>' +
@@ -51,27 +53,61 @@ function genTablaPedi(datos) {
                 ' </thead>' +
                 '<tbody>';
         for (var i = 0; i < datos.length; i++) {
-            if (datos[i].idEstado === 3) {
-                tabla += '<tr  class="table-danger">';
-            }else if(datos[i].idEstado === 2){
-                tabla+='<tr class="table-success">';
-            }else{
-                tabla+='<tr>';
-            }
-            
-            tabla+=
-                    '<td>' + datos[i].fechaVenta + '</td>' +
-                    '<td>' + datos[i].nombreProducto + '</td>' +
-                    '<td>' + datos[i].cantidadProductos + '</td>' +
-                    '<td>$' + datos[i].valorProducto + '</td>' +
-                    '<td>$' + datos[i].valor + '</td>' +
-                    '<td>' + datos[i].nombreEstado + '</td></tr>';
+            if (filtro === '0') {
+                if (datos[i].idEstado === 3) {
+                    tabla += '<tr  class="table-danger">';
+                } else if (datos[i].idEstado === 2) {
+                    tabla += '<tr class="table-success">';
+                } else {
+                    tabla += '<tr>';
+                }
 
+                tabla +=
+                        '<td>' + datos[i].fechaVenta + '</td>' +
+                        '<td>' + datos[i].nombreProducto + '</td>' +
+                        '<td>' + datos[i].cantidadProductos + '</td>' +
+                        '<td>$' + datos[i].valorProducto + '</td>' +
+                        '<td>$' + datos[i].valor + '</td>' +
+                        '<td>' + datos[i].nombreEstado + '</td></tr>';
+
+            } else if (filtro === '1') {
+                if (datos[i].idEstado === 2) {
+                    tabla += '<tr>';
+                    tabla +=
+                            '<td>' + datos[i].fechaVenta + '</td>' +
+                            '<td>' + datos[i].nombreProducto + '</td>' +
+                            '<td>' + datos[i].cantidadProductos + '</td>' +
+                            '<td>$' + datos[i].valorProducto + '</td>' +
+                            '<td>$' + datos[i].valor + '</td>' +
+                            '<td>' + datos[i].nombreEstado + '</td></tr>';
+                    productos.push(datos[i]);
+                }
+            } else if (filtro === '2') {
+                if (datos[i].idEstado === 3) {
+                    tabla += '<tr>';
+                    tabla +=
+                            '<td>' + datos[i].fechaVenta + '</td>' +
+                            '<td>' + datos[i].nombreProducto + '</td>' +
+                            '<td>' + datos[i].cantidadProductos + '</td>' +
+                            '<td>$' + datos[i].valorProducto + '</td>' +
+                            '<td>$' + datos[i].valor + '</td>' +
+                            '<td>' + datos[i].nombreEstado + '</td></tr>';
+                    productos.push(datos[i]);
+                }
+            }
+        }
+
+        parametrosGraficarPed(productos);
+        if (filtro !== '0') {
+            var estado = productos[0].nombreEstado;
+            $('#textoInfo').empty();
+            $('#textoInfo').text('Informe ' + textoInfoFech + ' de sus pedidos con estado "' + estado + '":');
         }
 
         tabla +=
                 '</tbody>' +
                 ' </table>';
+
     } else {
         tabla = '<h3>No se encontraron pedidos</h3>';
     }
@@ -79,4 +115,24 @@ function genTablaPedi(datos) {
     $('#informe').html(tabla);
 }
 
+function graficar(nombres, ventas, label, tipo, colores, opciones) {
+    $('#graficoCanvas').empty();
+    $('#graficoCanvas').html('<canvas id="grafico" width="500px" ></canvas>');
+    let canvas = document.getElementById('grafico').getContext('2d');
+    var chart = new Chart(canvas, {
+        type: tipo,
+        data: {
+            labels: nombres,
+            datasets: [
+                {
+                    label: label,
+                    data: ventas,
+                    backgroundColor: colores
+                }
+            ]
+        },
+        options: opciones
+
+    });
+}
 
