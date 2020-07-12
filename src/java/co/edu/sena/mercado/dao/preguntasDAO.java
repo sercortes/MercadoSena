@@ -20,15 +20,16 @@ import java.util.ArrayList;
  */
 public class preguntasDAO {
 
-    Connection cn;
+    
     PreparedStatement ps;
     ResultSet rs;
     Conexion con;
-    String consulta;
+    String consulta="";
     preguntasDTO preguntaDTO = new preguntasDTO();
     ArrayList<preguntasDTO> listaPregunta = new ArrayList<>();
 
     public boolean resgistroPregunta(preguntasDTO preguntasDTO) {
+        Connection cn=null;
         con = new Conexion();
         consulta = "INSERT INTO preguntas( pregunta,estadoPregunta, idUsuarioPreguntaFK, idProductoFK) VALUES (?,?,?,?)";
         try {
@@ -52,6 +53,7 @@ public class preguntasDAO {
     }
 
     public boolean marcarVistaPregunta(int idUsuario) {
+         Connection cn=null;
         con = new Conexion();
         consulta = "UPDATE preguntas SET vista=1 WHERE idUsuarioPreguntaFK=? AND estadoPregunta=1;";
         try {
@@ -72,6 +74,7 @@ public class preguntasDAO {
     }
 
     public boolean responderPregunta(int estado, int idPregunta) {
+         Connection cn=null;
         con = new Conexion();
         consulta = "update preguntas set estadoPregunta=? where idPregunta=?";
         try {
@@ -94,6 +97,7 @@ public class preguntasDAO {
     }
 
     public ArrayList<preguntasDTO> listarPregustas(int idEmpresa) {
+         Connection cn=null;
         con = new Conexion();
         listaPregunta = new ArrayList<>();
         consulta = "SELECT pre.idPregunta, pre.pregunta, pre.estadoPregunta, pre.vista, pre.idUsuarioPreguntaFK, pre.idProductoFK,per.nombrePersona,per.apellidoPersona FROM preguntas pre INNER join usuario usu ON pre.idUsuarioPreguntaFK=usu.idUsuario INNER JOIN personanatural per ON usu.idUsuario=per.idUsuarioFK WHERE (SELECT pro.idEmpresaFK FROM producto pro WHERE idProductoFK=pro.idProducto )=? ORDER by idPregunta DESC";
@@ -126,6 +130,7 @@ public class preguntasDAO {
     }
 
     public int consultaNotiPreguntas(int idEmpresa) {
+         Connection cn=null;
         int respuesta = 0;
         con = new Conexion();
         listaPregunta = new ArrayList<>();
@@ -138,9 +143,10 @@ public class preguntasDAO {
             if (rs != null) {
             while (rs.next()) {
                 
-                    respuesta = rs.getInt("respuesta");
+                    respuesta =Integer.parseInt(rs.getString("respuesta"));
                 }
             }
+            //System.out.println("............................ consultaNotiPreguntas "+ps.toString());
             return respuesta;
         } catch (SQLException e) {
             System.out.println("xxxxxxxxxxxxxxxxx error al consultar numero preguntas " + e);
@@ -154,6 +160,7 @@ public class preguntasDAO {
     }
 
     public ArrayList<preguntasDTO> listarPregustasRespuesta(int idUsusario) {
+         Connection cn=null;
         con = new Conexion();
         listaPregunta = new ArrayList<>();
         consulta = "SELECT pre.idPregunta, pre.pregunta, pre.estadoPregunta, pre.idUsuarioPreguntaFK, pre.idProductoFK,res.respuesta,emp.nombreEmpresa FROM preguntas pre INNER JOIN respuesta res on pre.idPregunta=res.idPreguntaFK INNER JOIN empresa emp ON res.idEmpresaFK=emp.idEmpresa WHERE pre.idUsuarioPreguntaFK=? AND pre.estadoPregunta=1 ORDER by pre.idPregunta DESC";
@@ -186,6 +193,7 @@ public class preguntasDAO {
     }
 
     public int consultaNotiRespuestas(int idUsusario) {
+         Connection cn=null;
         int respuestaNot = 0;
         con = new Conexion();
         listaPregunta = new ArrayList<>();
@@ -198,7 +206,7 @@ public class preguntasDAO {
             if (rs != null) {
                 while (rs.next()) {
 
-                    respuestaNot = rs.getInt("respuesta");
+                    respuestaNot =Integer.parseInt(rs.getString("respuesta"));
                 }
             }
             return respuestaNot;

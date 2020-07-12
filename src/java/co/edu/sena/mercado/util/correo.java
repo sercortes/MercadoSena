@@ -53,12 +53,21 @@ public class correo {
 
             message.setSubject("Activación cuenta");
             message.setText(
-                    "<p>Bienvenido al sistema mercado Sena:</p>"
-                    + "<p>Usuario: <b>" + dest + "</b></p>"
-                    + "<p>Clave: <b>" + clave + "</b></p>"
-                    + "<p>Click aquí para activar su cuenta: <a href='http://localhost:8080/MercadoSena/activarCuenta?usuario=" + dest + "&codigo=" + codigo + "'>Activar cuenta</a></p>",
+                    " <div style='padding: 20px;border: solid 2px green;border-radius: 10px;padding-bottom: 0px;'>"
+                    + "            <h3 style='text-align: center'>Mercado sena</h3>"
+                    + "            <p>De parte de todo el equipo te damos la bienvenida a nuestro sistema, para poder activar tu cuenta por favor sigue los pasos:</p>"
+                    + "            <p><b>Usuario:</b>" + dest + "</p>"
+                    + "            <p><b>clave:</b>" + clave + "</p>"
+                    + "<a style='color: rgb(0, 128, 0);' href='http://localhost:8080/MercadoSena/activarCuenta?usuario=" + dest + "&codigo=" + codigo + "'><p>Click aquí para activar tu cuenta</p></a>"
+                    +"            <footer style=' background: rgb(252, 252, 252);height: 39px;padding: 15px;text-align: center;'>"
+                    + "                <div >"
+                    + "                    <p style='color: rgb(117, 117, 117);'>SENA 2020 - CGMLTI</p>"
+                    + "                </div>"
+                    + "            </footer>"
+                    + "        </div>",
                     "ISO-8859-1",
                     "html");
+           
 
             Transport t = session.getTransport("smtp");
 
@@ -111,11 +120,18 @@ public class correo {
 
             message.setSubject("Recuperación de contraseña");
             message.setText(
-                    "<p>Hemos reestablecido su contraseña:</p>"
-                    + "<p>Por su comodidad le recomendamos que cambie su contraseña al iniciar sesión</p>"
-                    + "<p>Usuario: <b>" + usuario.getCorreoUsu() + "</b></p>"
-                    + "<p>Nueva contraseña: <b>" + usuario.getClaveUsu() + "</b></p>",
-                     "ISO-8859-1",
+                    " <div style='padding: 20px;border: solid 2px green;border-radius: 10px;padding-bottom: 0px;'>"
+                    + "            <h3 style='text-align: center'>Mercado sena</h3>"
+                    + "            <p>Nuestro equipo le informa que se ha reestablesido su contraseña, por su comodidad le recomendamos cambiarla</p>"
+                    + "            <p><b>Usuario:</b>" + usuario.getCorreoUsu() + "</p>"
+                    + "            <p><b>clave:</b>" + usuario.getClaveUsu() + "</p>"
+                    + "            <footer style=' background: rgb(252, 252, 252);height: 39px;padding: 15px;text-align: center;'>"
+                    + "                <div >"
+                    + "                    <p style='color: rgb(117, 117, 117);'>SENA 2020 - CGMLTI</p>"
+                    + "                </div>"
+                    + "            </footer>"
+                    + "        </div>",
+                    "ISO-8859-1",
                     "html");
 
             Transport t = session.getTransport("smtp");

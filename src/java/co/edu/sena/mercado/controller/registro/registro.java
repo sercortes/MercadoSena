@@ -25,7 +25,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
 
-
 /**
  *
  * @author DELL
@@ -62,7 +61,6 @@ public class registro extends HttpServlet {
     respuestaDTO respuestaDTO = new respuestaDTO();
     ArrayList<respuestaDTO> listaRespuesta = new ArrayList<>();
     datosSesion datSesion = new datosSesion();
-   
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -130,15 +128,15 @@ public class registro extends HttpServlet {
                 new Gson().toJson(listaCiudad, response.getWriter());
                 break;
             case "listarCategorias":
-                Conexion conexion=new Conexion();
-                ArrayList<Categorys>listaCategoria=new ArrayList<>();
-                
-                 Connection conn = conexion.getConnection();
-                 CategorysDAO categoriasDAO=new CategorysDAO(conn);
-                listaCategoria=categoriasDAO.getCategorys();
+                Conexion conexion = new Conexion();
+                ArrayList<Categorys> listaCategoria = new ArrayList<>();
+
+                Connection conn = conexion.getConnection();
+                CategorysDAO categoriasDAO = new CategorysDAO(conn);
+                listaCategoria = categoriasDAO.getCategorys();
                 categoriasDAO.CloseAll();
                 response.setContentType("application/json");
-                
+
                 new Gson().toJson(listaCategoria, response.getWriter());
                 break;
             case "registrarUsuario":
@@ -244,7 +242,7 @@ public class registro extends HttpServlet {
 
                     // sesion.removeAttribute("USER");
                     response.getWriter().print(true);
-                    System.out.println(".............hola " + usuarioDTO);
+
                     usuarioDTO = datSesion.consultarDatos(usuarioDTO);
                     sesion.setAttribute("USER", usuarioDTO);
                 } else {
@@ -270,9 +268,13 @@ public class registro extends HttpServlet {
                 response.setContentType("application/json");
                 listaPregunta = new ArrayList<>();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                listaPregunta = preguntaDAO.listarPregustas(usuarioDTO.getEmpresa().getIdEmpresa());
-                if (listaPregunta != null) {
-                    new Gson().toJson(listaPregunta, response.getWriter());
+                try {
+                    listaPregunta = preguntaDAO.listarPregustas(usuarioDTO.getEmpresa().getIdEmpresa());
+                    if (listaPregunta != null) {
+                        new Gson().toJson(listaPregunta, response.getWriter());
+                    }
+                } catch (Exception e) {
+                    System.out.println("XXXXXXXXXXXXXXXXXXXXxxxx error al listarPreguntas ln 277 registro " + e);
                 }
                 break;
             case "registroRespuesta":
@@ -296,9 +298,13 @@ public class registro extends HttpServlet {
                 response.setContentType("application/json");
                 listaPregunta = new ArrayList<>();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                listaPregunta = preguntaDAO.listarPregustasRespuesta(usuarioDTO.getIdUsuario());
-                preguntaDAO.marcarVistaPregunta(usuarioDTO.getIdUsuario());
-                new Gson().toJson(listaPregunta, response.getWriter());
+                try {
+                    listaPregunta = preguntaDAO.listarPregustasRespuesta(usuarioDTO.getIdUsuario());
+                    preguntaDAO.marcarVistaPregunta(usuarioDTO.getIdUsuario());
+                    new Gson().toJson(listaPregunta, response.getWriter());
+                }catch(Exception e){
+                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXX error al listarPreguntasRespuesta registro ln 306"+e);
+                }
                 break;
             case "consultaNotiPreguntas":
 
@@ -306,7 +312,13 @@ public class registro extends HttpServlet {
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
                 // if(usuarioDTO.getEmpresa().getIdEmpresa()==5){
                 int notPreguntas = 0;
-                notPreguntas = preguntaDAO.consultaNotiPreguntas(usuarioDTO.getEmpresa().getIdEmpresa());
+
+                try {
+                    notPreguntas = preguntaDAO.consultaNotiPreguntas(usuarioDTO.getEmpresa().getIdEmpresa());
+                } catch (Exception e) {
+                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX error al consultaNotiPreguntas regitro ln 313 " + e);
+                }
+
                 //System.out.println("........................preguntas " + notPreguntas);
                 response.getWriter().print(notPreguntas);//}
                 break;
@@ -314,8 +326,13 @@ public class registro extends HttpServlet {
                 usuarioDTO = new usuarioDTO();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
                 int notRespuestas = 0;
-                notRespuestas = preguntaDAO.consultaNotiRespuestas(usuarioDTO.getIdUsuario());
-               // System.out.println("........................" + notRespuestas);
+                try {
+                    notRespuestas = preguntaDAO.consultaNotiRespuestas(usuarioDTO.getIdUsuario());
+                } catch (Exception e) {
+                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX error al consultaNotiRespuestas ln 328 registro " + e);
+                }
+
+                // System.out.println("........................" + notRespuestas);
                 response.getWriter().print(notRespuestas);
                 break;
 

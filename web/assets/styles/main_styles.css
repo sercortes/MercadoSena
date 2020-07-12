@@ -96,7 +96,18 @@
     max-width: 90% !important;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 640px) {
+    .grafico{
+
+        position: relative !important;
+        
+    }
+    .graficoCircular{
+
+        right: 173px !important;
+    }
+
+
     .modalTitulo{
         top: 86px;
     }
@@ -109,15 +120,15 @@
         margin: 2px !important;
         margin-top: 25px !important;
     }
-    
+
     .imagen{
         width: 302px;
     }
-    
+
     #modalCuerpo{
         padding: 0px;
     }
-   
+
 
     #modalContenido{
         width: 100% !important;

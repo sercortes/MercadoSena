@@ -12,10 +12,17 @@ $(function () {
 var textoInfoFech;
 function generarInforme(event) {
     event.preventDefault();
+    $('#laX').show();
     var tipo;
     var tipoInforme = $('#tipoInforme').val();
     var fechaInicial = $('#fechaInicial').val();
     var fechaFinal = $('#fechaFinal').val();
+    if($('#tipoGrafico').val()!=='0'){
+        $('#paginaGrafico').addClass('page-break');
+    }else{
+         $('#paginaGrafico').removeClass('page-break');
+    }
+    
     if (fechaInicial === '') {
         tipo = 1;
         textoInfoFech = 'general';
@@ -144,7 +151,7 @@ function parametrosGraficarPro(productos) {
         $('#tituloGrafico').empty();
         $('#graficoCanvas').empty();
     } else {
-        $('#tituloGrafico').html('Gráfico:');
+        $('#tituloGrafico').html('Diagrama:');
 
     }
 
@@ -159,9 +166,15 @@ function parametrosGraficarPro(productos) {
     }
     if (tipoGrafico === '1') {
         graficar(nombres, ventas, 'Unidades vendidas', 'horizontalBar', colores, opciones);
+        $('#graficoCanvas').addClass('grafico');
+        $('#graficoCanvas').removeClass('graficoCircular');
+        
+
     }
     if (tipoGrafico === '2') {
         graficar(nombres, ventas, 'Unidades vendidas', 'doughnut', colores);
+        $('#graficoCanvas').addClass('grafico');
+        $('#graficoCanvas').addClass('graficoCircular');
     }
 
 }
@@ -172,7 +185,7 @@ function parametrosGraficarPed(pedidos) {
         $('#tituloGrafico').empty();
         $('#graficoCanvas').empty();
     } else {
-        $('#tituloGrafico').html('Gráfico:');
+        $('#tituloGrafico').html('Diagrama:');
 
     }
     if (filtro === '0') {
@@ -196,10 +209,14 @@ function parametrosGraficarPed(pedidos) {
         if (tipoGrafico === '1') {
 
             graficar(nombres, ventas, 'Pedidos', 'horizontalBar', colores, opciones);
+            $('#graficoCanvas').addClass('grafico');
+            $('#graficoCanvas').removeClass('graficoCircular');
         }
         if (tipoGrafico === '2') {
 
             graficar(nombres, ventas, 'Pedidos', 'doughnut', colores);
+            $('#graficoCanvas').addClass('grafico');
+            $('#graficoCanvas').addClass('graficoCircular');
         }
         $('#textoInfo').empty();
         $('#textoInfo').text('Informe ' + textoInfoFech + ' de todos sus pedidos:');
@@ -220,11 +237,14 @@ function parametrosGraficarPed(pedidos) {
 
         if (tipoGrafico === '1') {
 
-
-            graficar(nombress, ventass, 'Unidades pedidas', 'horizontalBar', coloress, opciones)
+            graficar(nombress, ventass, 'Unidades pedidas', 'horizontalBar', coloress, opciones);
+            $('#graficoCanvas').addClass('grafico');
+            $('#graficoCanvas').removeClass('graficoCircular');
         }
         if (tipoGrafico === '2') {
-            graficar(nombress, ventass, 'Unidades pedidas', 'doughnut', coloress)
+            graficar(nombress, ventass, 'Unidades pedidas', 'doughnut', coloress);
+            $('#graficoCanvas').addClass('grafico');
+            $('#graficoCanvas').addClass('graficoCircular');
         }
 
 

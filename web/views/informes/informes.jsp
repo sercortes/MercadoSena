@@ -49,11 +49,11 @@
                     </select> 
                 </div>
                 <div class="mb-3">
-                    <label>Tipo de gráfico si desea:</label>
+                    <label>Tipo de diagrama si desea:</label>
                     <select id="tipoGrafico" class="form-control ">
                         <option value="0">Ninguno</option>
-                        <option value="1">Gráfico de barras</option>
-                        <option value="2">Gráfico tipo pastel</option>
+                        <option value="1">Diagrama de barras</option>
+                        <option value="2">Diagrama Circular</option>
                     </select> 
                 </div>
                 
@@ -105,8 +105,9 @@
 <script src="./assets/styles/bootstrap4/bootstrap-datepicker.min.js" type="text/javascript"></script>
 <script src="./assets/js/project/informes/informesHtml.js" type="text/javascript"></script>
 
-
-
+<script src="./assets/js/kendoJs/jszip.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="./assets/js/kendoJs/kendo.all.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="./assets/js/project/informes/genPdf.js" type="text/javascript" charset="utf-8"></script>
 
 
 

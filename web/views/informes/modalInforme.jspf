@@ -2,23 +2,28 @@
     <center>
         <div id="modalDialogo" class="modal-dialog">
             <div class="modal-content " id="modalContenido" >
-                <div class="modal-header">
-                    <div class="mb-4" >
-                        <img class="imagen" src="./assets/images/icons/logo.png" alt="Logo sena"/>
+                <div id="informePdf">
+                    <div class="modal-header">
+                        <div class="mb-4" >
+                            <img class="imagen" src="./assets/images/icons/logo.png" alt="Logo sena"/>
+                        </div>
+                        <h4 class="text-center modalTitulo" >Informe</h4>
+                        <button id="laX" type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <h4 class="text-center modalTitulo" >Informe</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body" id="modalCuerpo" >
-                    <p style="color: black;" id="textoInfo">Informe general para todos los productos</p>
-                    <div id="informe">
+                    <div class="modal-body" id="modalCuerpo" >
+                        <p style="color: black;" id="textoInfo">Informe general para todos los productos</p>
+                        <div id="informe">
 
+                        </div>
+                        <div id="paginaGrafico" class="page-break">
+                            <h3 class="text-center" style="margin: 20px; " id="tituloGrafico">Gráfico:</h3>
+                            <div id="graficoCanvas" style="width: 700px" class="grafico graficoCircular" ></div>
+                           
+                        </div>
                     </div>
-                    <h3 class="text-center" style="margin: 20px" id="tituloGrafico">Gráfico:</h3>
-                    <div id="graficoCanvas"></div>
-
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-info"  onclick="genPDF()">Descargar</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
                 </div>
             </div>

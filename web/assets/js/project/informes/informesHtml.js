@@ -117,7 +117,7 @@ function genTablaPedi(datos) {
 
 function graficar(nombres, ventas, label, tipo, colores, opciones) {
     $('#graficoCanvas').empty();
-    $('#graficoCanvas').html('<canvas id="grafico" width="500px" ></canvas>');
+    $('#graficoCanvas').html('<canvas id="grafico" width="400px" style="min-height:300px;max-height: 2000px" ></canvas>');
     let canvas = document.getElementById('grafico').getContext('2d');
     var chart = new Chart(canvas, {
         type: tipo,
