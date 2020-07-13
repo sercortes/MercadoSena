@@ -13,8 +13,16 @@ function validarBtn(id) {
 
 
 function actualizarEstadoPed(id) {
-    if (confirm('Seguro que desea realizar esa acción??')) {
-        var cant, idPro;
+    Swal.fire({
+        title:'Confirmación',
+        text:'¿Está seguro que desea actualizar el pedido?',
+        showCancelButton:true,
+        showCloseButton:true,
+        cancelButtonText:'No',
+        confirmButtonText:'Si'
+    }).then((result)=>{
+        if(result.value){
+             var cant, idPro;
         for (var i = 0; i < todosPedidos.length; i++) {
             if (parseInt(todosPedidos[i].ventaDTO.idVenta) === id) {
                 cant = todosPedidos[i].prodPedidoDTO.cantidad;
@@ -52,7 +60,11 @@ function actualizarEstadoPed(id) {
                 }
             }
         })
-    }
+            
+        }
+    })
+       
+    
 }
 
 

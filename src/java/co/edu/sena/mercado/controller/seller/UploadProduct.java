@@ -38,7 +38,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class UploadProduct extends HttpServlet {
 
     private final String UPLOAD_DIRECTORY = "C:\\xampp\\htdocs\\mercadoSena";
-    private final String SERVER_UPLOAD = "http://192.168.0.3/mercadoSena/";
+    private final String SERVER_UPLOAD = "http://192.168.0.6/mercadoSena/";
     private static final long serialVersionUID = 1L;
 
     @Override
