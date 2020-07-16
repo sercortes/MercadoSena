@@ -12,6 +12,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -37,8 +39,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 public class UploadProduct extends HttpServlet {
 
-    private final String UPLOAD_DIRECTORY = "C:\\xampp\\htdocs\\mercadoSena";
-    private final String SERVER_UPLOAD = "http://192.168.0.6/mercadoSena/";
+    private final String UPLOAD_DIRECTORY = "/home/bienestar/Descargas/glassfish4/glassfish/domains/domain1/docroot/files";
+   private final String SERVER_UPLOAD = "http://181.48.181.131/files/";
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -108,11 +110,21 @@ public class UploadProduct extends HttpServlet {
                  
                 //Insert Producto
                 folder = Integer.toString(productoDAO.insertReturn(producto));
-
+                
+                File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder);
+                
+                System.out.println("XXXXXXXXXXXXXXXXXXXx");
+                System.out.println(tempFile.toString());
+                
+                if (!tempFile.exists()) {
+                    tempFile.mkdirs();
+                }
+                
                 for (FileItem item : multiparts) {
 
                     if (!item.isFormField()) {
                         // writen files and get List images
+                        
                         lista = getLista(item, folder, (ArrayList<ImagenesProducto>) lista);
                     }
 
@@ -213,14 +225,14 @@ public class UploadProduct extends HttpServlet {
     public List<ImagenesProducto> getLista(FileItem item, String folder, ArrayList<ImagenesProducto> lista) throws Exception {
 
         ImagenesProducto imagenesProducto;
-
+        
         String name = new File(item.getName()).getName();
         File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder + File.separator + name);
 
         if (tempFile.exists()) {
             tempFile.delete();
         }
-
+        
         item.write(tempFile);
 
         imagenesProducto = new ImagenesProducto();

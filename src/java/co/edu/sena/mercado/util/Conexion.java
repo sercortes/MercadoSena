@@ -22,8 +22,10 @@ public class Conexion {
            conn = DriverManager.getConnection(url, user, pass);
            
        }catch(SQLException e){
+           System.out.println(e);
            e.getMessage();
        }catch(ClassNotFoundException e){
+           System.out.println(e);
            e.getMessage();
        }
        

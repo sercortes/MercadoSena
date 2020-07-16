@@ -86,13 +86,28 @@ public class ProductoDAO {
             return false;
         }
     }
+    
+   
     public boolean actualizarCantidad(Producto productoDTO) {
         try {
-            String sql = "UPDATE producto SET stockProducto=(SELECT stockProducto from producto WHERE idProducto=?)-? WHERE idProducto=?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1,productoDTO.getIdProducto());
-            ps.setInt(2,productoDTO.getStockProducto());
-            ps.setString(3,productoDTO.getIdProducto());
+            
+            String sql1 = "SELECT stockProducto FROM producto WHERE idProducto = ? LIMIT 1";
+            PreparedStatement ps = conn.prepareStatement(sql1);
+            ps.setString(1, productoDTO.getIdProducto());
+            rs = ps.executeQuery();
+            
+            int actual = 0;
+            
+            while(rs.next()){
+                actual = rs.getInt("stockProducto");
+            }
+            
+            productoDTO.setStockProducto(actual - productoDTO.getStockProducto());
+            
+            String sql = "UPDATE producto SET stockProducto = ? WHERE idProducto=?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1,productoDTO.getStockProducto());
+            ps.setString(2,productoDTO.getIdProducto());
            ps.executeUpdate();
             System.out.println("..........................."+ps.toString());
             return true;

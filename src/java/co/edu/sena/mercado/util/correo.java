@@ -58,7 +58,7 @@ public class correo {
                     + "            <p>De parte de todo el equipo te damos la bienvenida a nuestro sistema, para poder activar tu cuenta por favor sigue los pasos:</p>"
                     + "            <p><b>Usuario:</b>" + dest + "</p>"
                     + "            <p><b>clave:</b>" + clave + "</p>"
-                    + "<a style='color: rgb(0, 128, 0);' href='http://localhost:8080/MercadoSena/activarCuenta?usuario=" + dest + "&codigo=" + codigo + "'><p>Click aquí para activar tu cuenta</p></a>"
+                    + "<a style='color: rgb(0, 128, 0);' href='http://181.48.181.131/MercadoSena/activarCuenta?usuario=" + dest + "&codigo=" + codigo + "'><p>Click aquí para activar tu cuenta</p></a>"
                     +"            <footer style=' background: rgb(252, 252, 252);height: 39px;padding: 15px;text-align: center;'>"
                     + "                <div >"
                     + "                    <p style='color: rgb(117, 117, 117);'>SENA 2020 - CGMLTI</p>"

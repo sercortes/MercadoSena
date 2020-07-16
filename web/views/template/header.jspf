@@ -219,7 +219,7 @@
                 <c:if test="${ empty USER.idRol}">
 
                     <ul class="navbar-nav mr-auto" >
-                        <li class="nav-item dropdown opcinoes">
+                        <li class="nav-item dropdown opcinoes pt-1" style="">
                             <a class="nav-link  encabezadoOpciones" onclick="consultarDatosFormulario()" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                                aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-plus" aria-hidden="true" style="font-size: 20px; margin-right: 2px;"></i>  Registrarse         
                             </a>

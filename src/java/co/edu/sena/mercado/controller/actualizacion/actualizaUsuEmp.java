@@ -86,12 +86,14 @@ public class actualizaUsuEmp extends HttpServlet {
                             String nombre = fileItem.getName();
                             if (nombre.equals("")) {
                             } else {
-                                File f = new File("C:\\xampp\\htdocs\\mercadoSena\\usuarios\\" + usuarioDTO.getIdUsuario() + ".jpg");
+                    System.out.println("XXXXXXXXXXXXXXXXXx");
+                                File f = new File("/home/bienestar/Descargas/glassfish4/glassfish/domains/domain1/docroot/usuarios/" + usuarioDTO.getIdUsuario() + ".jpg");
                                 if (f.exists() == true) {
                                     f.delete();
                                 }
+                                System.out.println(f.toString());
                                 fileItem.write(f);
-                                personaDTO.setUrlImg("http://localhost/mercadoSena/usuarios/" + usuarioDTO.getIdUsuario() + ".jpg");
+                                personaDTO.setUrlImg("http://181.48.181.131/usuarios/" + usuarioDTO.getIdUsuario() + ".jpg");
                             }
                         } else {
                             lista1.add(new String(fileItem.getString().getBytes("ISO-8859-1"), "UTF-8"));
@@ -118,6 +120,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     }
 
                 } catch (Exception e) {
+                    System.out.println(e);
                     response.getWriter().print(false);
                 }
                 break;

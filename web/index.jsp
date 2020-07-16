@@ -5,7 +5,9 @@
 <%@include file="/views/template/header.jspf"%>
 <div class="barraBusqueda">
     <p class="text-black" style="color: black; margin-bottom: 0px;padding: 5px;text-align: center;font-size: 16px;font-weight: 500;font-family: unset;">Para una búsqueda más personalizada selecciona un criterio <i id="desplegarMenu" class="fa fa-caret-down colorCursor" ></i></p>
-    <nav class="navbar navbar-expand-sm " >
+    <nav class="navbar navbar-expand-sm " style="
+    padding-bottom: 30px;
+">
         <form style="width: 100%">
             <div class="busquedaAvanzada">
                 <ul class="navbar-nav">
@@ -46,7 +48,7 @@
         <div class="col-lg-11 mx-auto">
             <div style="width: 100%; text-align:center;margin-top: 20px; " id="tituloResultado"><h3 style="color: black;font-size: 24px;font-weight: 600;">Todos los productos</h3></div>
             <center>
-                <div class="row pt-4" id="tabla" style="border-radius: 36px;border-top: solid 2px rgba(94, 179, 25, 0.7490196078431373); width: 100%;"> 
+                <div class="row pt-4 pb-3" id="tabla" style="border-top: solid 1px rgba(94, 179, 25, 0.7490196078431373);width: 100%;"> 
 
 
 

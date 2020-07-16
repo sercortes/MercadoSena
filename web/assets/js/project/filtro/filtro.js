@@ -2,7 +2,7 @@ var todosProductos, resultadoBusqueda = [];
 var nombres = [];
 $(document).ready(function () {
 
-    productosMasVendidos();
+//    productosMasVendidos();
     consultaCiudad('#ciudadBucar', 'ciudadCriBusqueda');
     listarCategorias('#categoriasBuscar', 'categoriasCriBuscar', 'categorias');
     consultarTodosProductos();
@@ -32,27 +32,27 @@ function listarCategorias(idDiv, idInput, accion) {
     })
 }
 
-function productosMasVendidos() {
-
-    $('#carga').addClass('is-active');
-    $.ajax({
-        url: "./filtro",
-        type: 'POST',
-        data: {
-            accion: 'producMasSolicitados'
-        }, dataType: 'json',
-        error: function (jqXHR, textStatus, errorThrown) {
-            //messageInfo('error');
-            //location.reload();
-        }, success: function (data, textStatus, jqXHR) {
-            if (data !== null && data !== '') {
-                console.log(data);
-                carruselImagenes(data);
-                $('#carga').removeClass('is-active');
-            }
-        }
-    })
-}
+//function productosMasVendidos() {
+//
+//    $('#carga').addClass('is-active');
+//    $.ajax({
+//        url: "./filtro",
+//        type: 'POST',
+//        data: {
+//            accion: 'producMasSolicitados'
+//        }, dataType: 'json',
+//        error: function (jqXHR, textStatus, errorThrown) {
+//            //messageInfo('error');
+//            //location.reload();
+//        }, success: function (data, textStatus, jqXHR) {
+//            if (data !== null && data !== '') {
+//                console.log(data);
+//                carruselImagenes(data);
+//                $('#carga').removeClass('is-active');
+//            }
+//        }
+//    })
+//}
 
 
 
