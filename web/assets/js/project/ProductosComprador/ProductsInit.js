@@ -24,6 +24,8 @@ $(function () {
 
 function listarProductoByVendedor() {
 
+    let idcompanyss = document.getElementById('companyss').value
+    
     $.ajax({
         type: "POST",
         url: './getProductsByDateTime',
@@ -37,6 +39,8 @@ function listarProductoByVendedor() {
             queryEmphy()
             return false
         }
+
+        data = data.filter(producto => producto.idEmpresaFK != idcompanyss);
 
         records = data
         totalRecords = data.length
@@ -108,14 +112,12 @@ function getImagen(array) {
 
 function generateTableBuscador() {
 
-    let idcompanyss = document.getElementById('companyss').value
     let select = document.getElementById('tabla');
     let str = ``
     let num = 1
 
     for (var item of displayRecords) {
 
-        if (idcompanyss !== item.idEmpresaFK) {
             str += `<div class="col-lg-3">
           <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">`
 
@@ -159,7 +161,7 @@ function generateTableBuscador() {
             str += `</figure>
         </div>`
             num++
-        }
+        
 
 
     }
@@ -261,7 +263,7 @@ function queryEmphy() {
                 </div>
     <div class="col-lg-6">
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  No hay elementos!<strong> :D</strong>
+  No hay elementos!<strong></strong>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>

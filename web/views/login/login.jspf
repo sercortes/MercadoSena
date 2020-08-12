@@ -5,7 +5,7 @@
                 <div class="avatar">
                     <img src="./assets/images/icons/screen2.png" alt="Avatar">
                 </div>				
-                <h4 class="modal-title">Ingresar :D</h4>	
+                <h4 class="modal-title">Ingresar</h4>	
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
@@ -14,9 +14,7 @@
                    <div class="form-group">
                         <label for="exampleInputEmail1">Correo:</label>
                         <input type="email" class="form-control was-validated" minlength="10" maxlength="150" id="emails" name="emails" placeholder="example@misena.edu.co" required>
-                        <div class="valid-feedback">
-                            :D
-                        </div>
+                       
                         <div class="invalid-feedback">
                             Escriba un correo válido
                         </div>
@@ -26,9 +24,7 @@
 
                         <label for="exampleInputEmail1">Contraseña:</label>
                         <input type="password" class="form-control was-validated" minlength="8" maxlength="20" id="passs" name="passs" placeholder="*********" required>
-                        <div class="valid-feedback">
-                            :D
-                        </div>
+                       
                         <div class="invalid-feedback">
                             Contraseña esta muy corta
                         </div>

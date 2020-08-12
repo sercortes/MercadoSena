@@ -37,9 +37,9 @@ public class ProductoDAO {
         int idActividad = 0;
         String sql = "INSERT INTO producto (nombreProducto, valorProducto, stockProducto, marcaProducto, "
                 + "descripcionProducto, diasEnvioProducto, medidasProducto, empaqueProducto, "
-                + "embalajeProducto, ventajasProducto, "
+                + "embalajeProducto, ventajasProducto, estadoProducto, "
                 + "idEmpresaFK, idCategoriaFK) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -54,8 +54,9 @@ public class ProductoDAO {
             ps.setString(8, producto.getEmpaqueProducto());
             ps.setString(9, producto.getEmbalajeProducto());
             ps.setString(10, producto.getVentajaProducto());
-            ps.setString(11, producto.getIdEmpresaFK());
-            ps.setString(12, producto.getIdCategoriaFK());
+            ps.setString(11, "1");
+            ps.setString(12, producto.getIdEmpresaFK());
+            ps.setString(13, producto.getIdCategoriaFK());
 
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
@@ -155,7 +156,7 @@ public class ProductoDAO {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
-                    + "WHERE EM.idEmpresa = ?";
+                    + "WHERE EM.idEmpresa = ? AND PR.estadoProducto = 1";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
@@ -197,6 +198,7 @@ public class ProductoDAO {
         try {
             String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
+                    + "WHERE PR.estadoProducto = 1 "
                     + "ORDER BY PR.agregado ASC";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -312,6 +314,25 @@ public class ProductoDAO {
         }
     }
 
+     public boolean disabledProduct(String id) {
+        try {
+
+            String sql = "UPDATE producto set estadoProducto = ? "
+                    + "WHERE idProducto = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, "0");
+            ps.setString(2, id);
+
+            int rows = ps.executeUpdate();
+            boolean estado = rows > 0;
+            return estado;
+        } catch (Exception ex) {
+            System.out.println("Error edit " + ex.getMessage());
+            return false;
+        }
+    }
+    
     public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);

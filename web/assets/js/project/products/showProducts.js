@@ -81,7 +81,7 @@ function queryEmphy() {
 </div>
     <div class="col-lg-6">
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  No hay elementos!<strong> Publique un producto :D</strong>
+  No hay elementos!<strong> Publique un producto </strong>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>
@@ -262,7 +262,7 @@ $(document).on('click', '.delete', function (e) {
     let idPro = $(parent).attr('idProducto')
 
     Swal.fire({
-        title: 'esta seguro?',
+        title: '¿ está seguro?',
         text: "No se pueden revertir los cambios!",
         icon: 'warning',
         showCancelButton: true,

@@ -31,9 +31,7 @@
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Nombre:</label>
                         <input type="text" class="form-control was-validated" minlength="4" maxlength="150" id="name" name="name" placeholder="Nombre de su producto" required>
-                        <div class="valid-feedback">
-                            :D
-                        </div>
+                        
                         <div class="invalid-feedback">
                             Escriba un nombre de mínimo 4 carácteres
                         </div>
@@ -43,9 +41,7 @@
 
                         <label for="exampleInputEmail1">Marca:</label>
                         <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="marca" name="marca" placeholder="Marca de su producto" required>
-                        <div class="valid-feedback">
-                            :D
-                        </div>
+                      
                         <div class="invalid-feedback">
                             Escriba una marca de mínimo 2 carácteres
                         </div>
@@ -70,9 +66,7 @@
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Precio:</label>
                         <input type="number" class="form-control was-validated" minlength="0" max="1500000000000000" id="price" name="price" placeholder="$" oninput="validity.valid||(value='');" required>
-                        <div class="valid-feedback">
-                            :D
-                        </div>
+                      
                         <div class="invalid-feedback">
                             Escriba precio válido
                         </div>
@@ -80,9 +74,7 @@
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Cantidad:</label>
                         <input type="number" class="form-control was-validated" minlength="0" max="100000000" id="cantidad" name="cantidad" placeholder="Stock" oninput="validity.valid||(value='');" required>
-                        <div class="valid-feedback">
-                            :D
-                        </div>
+                      
                         <div class="invalid-feedback">
                             Escriba precio válido
                         </div>
@@ -99,9 +91,7 @@
                     <label for="exampleFormControlTextarea1">Descripción:</label>
                     <textarea class="form-control" id="descrip" name="descrip" rows="3" placeholder="Descripción de su producto" minlength="20" maxlength="500" required></textarea>
                     <small id="emailHelp" class="form-text text-muted">Si su producto tiene información adicional coloquela en este campo.</small>
-                    <div class="valid-feedback">
-                        :D
-                    </div>
+                  
                     <div class="invalid-feedback">
                         Escriba una descripción de mínimo 20 carácteres
                     </div>
@@ -124,9 +114,7 @@
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Días de Envío:</label>
                                 <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="envios" name="envios" placeholder="Nombre de su producto" required>
-                                <div class="valid-feedback">
-                                    :D
-                                </div>
+                             
                                 <div class="invalid-feedback">
                                     Escriba los días de envío del producto
                                 </div>
@@ -136,9 +124,7 @@
 
                                 <label for="exampleInputEmail1">Medidas:</label>
                                 <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="medidas" name="medidas" placeholder="Dimesiones de su producto" required>
-                                <div class="valid-feedback">
-                                    :D
-                                </div>
+                              
                                 <div class="invalid-feedback">
                                     Escriba las medidas del producto
                                 </div>
@@ -153,9 +139,7 @@
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Empaque:</label>
                                 <input type="text" class="form-control was-validated" minlength="2" max="40" id="empaque" name="empaque" placeholder="Empaque del producto" required>
-                                <div class="valid-feedback">
-                                    :D
-                                </div>
+                              
                                 <div class="invalid-feedback">
                                     Escriba un empaque
                                 </div>
@@ -163,9 +147,7 @@
                             <div class="form-group col-md-6">
                                 <label for="exampleInputEmail1">Embalaje:</label>
                                 <input type="text" class="form-control was-validated" minlength="2" max="40" id="embalaje" name="embalaje" placeholder="Embalaje del producto" required>
-                                <div class="valid-feedback">
-                                    :D
-                                </div>
+                                
                                 <div class="invalid-feedback">
                                     Escriba un embalaje
                                 </div>
@@ -177,9 +159,7 @@
                                 <label for="exampleFormControlTextarea1">Ventajas:</label>
                                 <textarea class="form-control" id="ventajas" name="ventajas" rows="3" placeholder="Ventajas de su producto" minlength="20" maxlength="500" required></textarea>
                                 <small id="emailHelp" class="form-text text-muted">Si su producto tiene información adicional coloquela en este campo.</small>
-                                <div class="valid-feedback">
-                                    :D
-                                </div>
+                              
                                 <div class="invalid-feedback">
                                     Escriba las ventajas con por lo menos 10 carácteres
                                 </div>

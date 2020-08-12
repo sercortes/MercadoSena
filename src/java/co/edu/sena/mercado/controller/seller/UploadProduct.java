@@ -39,10 +39,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 public class UploadProduct extends HttpServlet {
 
-    private final String UPLOAD_DIRECTORY = "/home/bienestar/Descargas/glassfish4/glassfish/domains/domain1/docroot/files";
-   private final String SERVER_UPLOAD = "http://181.48.181.131/files/";
-    private static final long serialVersionUID = 1L;
+   
+   private final String UPLOAD_DIRECTORY = "/home/equipo/servers2/glassfish4/glassfish/domains/domain1/docroot/files/";
+   private final String SERVER_UPLOAD = "http://192.168.0.3:8080/files/";
+   private static final long serialVersionUID = 1L;
 
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

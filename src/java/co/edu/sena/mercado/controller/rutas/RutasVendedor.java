@@ -101,16 +101,13 @@ public class RutasVendedor extends HttpServlet {
                 cone.setAutoCommit(false);
             }
             
-             ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(cone);
              ProductoDAO productoDAO = new ProductoDAO(cone);
         
         try {
             
             
-            imagenesProductosDAO.delete(request.getParameter("id"));
-            productoDAO.delete(request.getParameter("id"));
+            productoDAO.disabledProduct(request.getParameter("id"));
             
-            delProductsImages(request, response);
             response.setContentType("application/json");
 
             cone.commit();
@@ -123,7 +120,6 @@ public class RutasVendedor extends HttpServlet {
 
         }finally{
             productoDAO.CloseAll();
-            imagenesProductosDAO.CloseAll();
         }
 
     }
