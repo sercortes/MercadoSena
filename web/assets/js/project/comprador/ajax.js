@@ -430,7 +430,6 @@ function modalPregunta() {
 function cerrar(id) {
     $(id).toggle();
     $('#bloqueo').hide();
-    location.reload();
 }
 
 function modalRegistroEmpresa() {

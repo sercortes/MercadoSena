@@ -122,7 +122,7 @@ public class correo {
             message.setText(
                     " <div style='padding: 20px;border: solid 2px green;border-radius: 10px;padding-bottom: 0px;'>"
                     + "            <h3 style='text-align: center'>Mercado sena</h3>"
-                    + "            <p>Nuestro equipo le informa que se ha reestablesido su contraseña, por su comodidad le recomendamos cambiarla</p>"
+                    + "            <p>Nuestro equipo le informa que se ha restablecido su contraseña, por su seguridad le recomendamos cambiarla</p>"
                     + "            <p><b>Usuario:</b>" + usuario.getCorreoUsu() + "</p>"
                     + "            <p><b>clave:</b>" + usuario.getClaveUsu() + "</p>"
                     + "            <footer style=' background: rgb(252, 252, 252);height: 39px;padding: 15px;text-align: center;'>"

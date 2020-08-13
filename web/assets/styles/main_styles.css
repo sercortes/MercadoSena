@@ -231,6 +231,12 @@ body{
     height: 250px; /* only if you want fixed height */
 }
 
+.fit-text{
+    width: 100%;
+    object-fit: cover;
+    height: 40px; /* only if you want fixed height */
+}
+
 .fit-imageModal{
     width: 100%;
     object-fit: cover;

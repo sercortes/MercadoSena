@@ -136,8 +136,8 @@ function generateTableBuscador() {
                 </div>`
 
             str += `<figcaption class="p-3 card-img-bottom">
+              <h2 class="h5 text-left text-muted mb-4 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
               <h2 class="h5 font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
-              <h4 class="text-left text-muted">${item.nombreProducto}</h4>
             </figcaption>
        
       <div class="col-lg-12 mb-4 p-0">
@@ -167,6 +167,7 @@ function generateTableBuscador() {
     }
 
     select.innerHTML = str;
+    
 }
 
 
@@ -208,9 +209,8 @@ function textProduct(item) {
         str += `<option>${i}</option>`
     }
     str += `</select>
-              <p class="mb-0 text-small text-muted">Valor: $ ${item.valorProducto}</p>
+              <p class="font-weight-bold text-muted h5 text-center">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</p>
               <p class="mb-0 text-small text-muted">Marca: ${item.marcaProducto}</p>
-              <p class="mb-0 text-small text-muted">Categoría: ${item.categorys.nombreCategoria}</p>
               <p class="mb-0 text-small text-muted">Descripción : ${item.descripcionProducto}</p>`
     if (item.diasEnvios !== undefined) {
         str += `

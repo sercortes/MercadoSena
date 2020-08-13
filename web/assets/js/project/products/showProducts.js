@@ -141,7 +141,7 @@ function generateTableBuscador() {
           <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}">`
         str += '<td>' + getImagen(item.imagen) + '</td>'
         str += `<figcaption class="p-4 card-img-bottom">
-              <h2 class="h5 font-weight-bold mb-2 font-italic">${item.nombreProducto}</h2>
+              <h2 class="h5 font-weight-bold mb-3 font-italic img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
               <p class="mb-0 text-small text-muted">Cantidad: ${item.stockProducto}</p>
               <p class="mb-0 text-small text-muted">Valor: ${item.valorProducto}</p>
             </figcaption>

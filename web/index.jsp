@@ -79,16 +79,26 @@
 <div id="carga" class="loader loader-bouncing"></div>
 
 <div style="position: inherit;">
-    <%@include file="/views/searching/modalVerProducto.jspf"%></div>
+    
+    <%@include file="/views/searching/modalVerProducto.jspf"%>
+
+</div>
+    
     <%@include file="/views/searching/modalPreguntar.jspf"%>
 
+    <c:if test="${ empty USER.idRol}">
+            
 <%@include file="/views/login/login.jspf"%>
 <%@include file="/views/registro/registro.jspf"%>
 <%@include file="/views/registro/registroEmpresa.jspf"%>
 <%@include file="/views/recuperarClave/recuperarClave.jspf"%>
 
+    </c:if>
+
 <%@include file="/views/template/footer.jspf"%>
+
 <script src="./assets/js/project/ProductosComprador/chat.js" type="text/javascript"></script>
+
 <script src="./assets/js/project/filtro/filtro.js" type="text/javascript"></script>
 <script src="./assets/js/project/filtro/productosHtml.js" type="text/javascript"></script>
 <script src="./assets/js/project/compra/realizarPedido.js" type="text/javascript"></script>

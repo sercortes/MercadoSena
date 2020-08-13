@@ -52,15 +52,21 @@
 <%@include file="/views/searching/modalVerProducto.jspf"%>
 <%@include file="/views/searching/modalPreguntar.jspf"%>
 
-<%@include file="/views/login/login.jspf"%>
 
 <c:if test="${ empty USER.idRol}">
-    <%@include file="/views/registro/registro.jspf"%>
+
+<%@include file="/views/login/login.jspf"%>
+<%@include file="/views/registro/registro.jspf"%>
+<%@include file="/views/registro/registroEmpresa.jspf"%>
+<%@include file="/views/recuperarClave/recuperarClave.jspf"%>
+
 </c:if>
+
+
 <%@include file="/views/template/footer.jspf"%>
 
 
 
+<script src="./assets/js/project/ProductosComprador/chat.js" charset="utf-8"></script>
 <script src="./assets/js/pagination/pager.js" charset="utf-8"></script> 
 <script src="./assets/js/project/ProductosComprador/ProductsInit.js" charset="utf-8"></script>
-<script src="./assets/js/project/ProductosComprador/chat.js" charset="utf-8"></script>
