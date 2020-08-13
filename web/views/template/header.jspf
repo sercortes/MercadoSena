@@ -178,16 +178,21 @@
             <!-- Collapsible content -->
             <div class=" navbar-collapse collapse fondoMenu" id="basicExampleNav" >
 
-                <!-- Links -->
+                <!-- Links -->  
                 <ul class="navbar-nav mr-auto" style="color:black ">
                     <li class="nav-item active">                     
-                        <a class="nav-link encabezadoOpciones" href="../MercadoSena/">Inicio
+                        <a class="nav-link encabezadoOpciones" href="../MercadoSena/"><i class="fas fa-home fa-lg"></i> Inicio
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link encabezadoOpciones" href="./Searching...">Descubrir</a>
+                        <a class="nav-link encabezadoOpciones" href="./Searching..."><i class="fas fa-gift fa-lg"></i> Descubrir</a>
                     </li>
+                    
+                    <li class="nav-item" id="buttonSearch">
+                        <a class="nav-link encabezadoOpciones" href="#"><i class="fas fa-search fa-lg"></i> Buscar</a>
+                    </li>
+                    
                     <c:if test="${USER.idRol != null}">
                         <li class="nav-item">
                             <a class="nav-link encabezadoOpciones" href="./misPedidos">Mis pedidos</a>

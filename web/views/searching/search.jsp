@@ -4,6 +4,42 @@
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 <%@include file="/views/template/header.jspf"%>
 
+<div class="barraBusqueda" id="barraBusqueda">
+    <p class="text-black" style="color: black; margin-bottom: 0px;padding: 5px;text-align: center;font-size: 16px;font-weight: 500;font-family: unset;">Para una búsqueda más personalizada selecciona un criterio <i id="desplegarMenu" class="fa fa-caret-down colorCursor" ></i></p>
+    <nav class="navbar navbar-expand-sm " style="
+         padding-bottom: 30px;
+         ">
+        <form style="width: 100%">
+            <div class="busquedaAvanzada">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+
+                        <div id="ciudadBucar" style="margin: 5px">
+
+                        </div>
+                    </li>
+                    <li class="nav-item">
+
+
+                        <div id="categoriasBuscar" style="margin: 5px"></div>
+                    </li>
+                    <li class="nav-item">
+                        <div id="vendedores" style="margin: 5px">
+
+                        </div>
+
+                    </li>
+                </ul>
+            </div>
+            <div class="header_search_form_container" style="    width: 80%; margin-left: 10%;">
+                <input accesskey="" type="search" required="required" id="nombreProductoFiltar" class="header_search_input" placeholder="Nombre producto..." style="width: 100%" onkeyup="seleccionarNombres()">
+                <a  id="mostrarResultados"> <button type="submit" title="Buscar" class="header_search_button trans_300" value="Buscar" onclick="filtrar(event)"><img src="./assets/images/icons/search.png" alt=""></button></a>
+                <div class="predictivo" ></div>
+            </div>
+        </form>
+    </nav>
+</div>
+
   <div class="container">
     <div class="row p-2">
         <div class="col-lg-12">

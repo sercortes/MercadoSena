@@ -1,4 +1,8 @@
+var bande = 0
+
 $(function(){
+    
+     $('#barraBusqueda').hide()
     
    $('#myCarousel').carousel({
     interval: 3000,
@@ -64,3 +68,15 @@ function messageError(message) {
         showConfirmButton: true
     })
 }
+
+$(document).on('click','#buttonSearch', function(){
+    console.log('sergio')
+    if (bande === 0) {
+        $('#barraBusqueda').show('slow')
+        bande = 1
+    }else{
+        $('#barraBusqueda').hide('slow')
+        bande = 0
+    }
+    
+})

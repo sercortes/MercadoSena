@@ -3,11 +3,11 @@
 <%@include file="/views/template/head.jspf"%>
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 <%@include file="/views/template/header.jspf"%>
-<div class="barraBusqueda">
+<div class="barraBusqueda" id="barraBusqueda">
     <p class="text-black" style="color: black; margin-bottom: 0px;padding: 5px;text-align: center;font-size: 16px;font-weight: 500;font-family: unset;">Para una búsqueda más personalizada selecciona un criterio <i id="desplegarMenu" class="fa fa-caret-down colorCursor" ></i></p>
     <nav class="navbar navbar-expand-sm " style="
-    padding-bottom: 30px;
-">
+         padding-bottom: 30px;
+         ">
         <form style="width: 100%">
             <div class="busquedaAvanzada">
                 <ul class="navbar-nav">
@@ -78,22 +78,26 @@
 </div>
 <div id="carga" class="loader loader-bouncing"></div>
 
-<div style="position: inherit;">
-    
-    <%@include file="/views/searching/modalVerProducto.jspf"%>
+<c:if test="${not empty USER.idRol}">
 
-</div>
-    
+    <div style="position: inherit;">
+
+        <%@include file="/views/searching/modalVerProducto.jspf"%>
+
+    </div>
+
     <%@include file="/views/searching/modalPreguntar.jspf"%>
 
-    <c:if test="${ empty USER.idRol}">
-            
-<%@include file="/views/login/login.jspf"%>
-<%@include file="/views/registro/registro.jspf"%>
-<%@include file="/views/registro/registroEmpresa.jspf"%>
-<%@include file="/views/recuperarClave/recuperarClave.jspf"%>
+</c:if>
 
-    </c:if>
+<c:if test="${ empty USER.idRol}">
+
+    <%@include file="/views/login/login.jspf"%>
+    <%@include file="/views/registro/registro.jspf"%>
+    <%@include file="/views/registro/registroEmpresa.jspf"%>
+    <%@include file="/views/recuperarClave/recuperarClave.jspf"%>
+
+</c:if>
 
 <%@include file="/views/template/footer.jspf"%>
 
