@@ -115,7 +115,7 @@ public class filtro extends HttpServlet {
 //                Conexion co=new Conexion();
 //                Connection cio=co.getConnection();
                 ImagenesProductosDAO imagenesDAO = new ImagenesProductosDAO(c);
-                listaProductos = productoDAO.todosProductosConVendedor();
+//                listaProductos = productoDAO.todosProductosConVendedor();
                 listaImagenes = imagenesDAO.consultarTodas();
 
                 for (Producto productosDTO : listaProductos) {

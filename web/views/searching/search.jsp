@@ -101,8 +101,5 @@
 
 <%@include file="/views/template/footer.jspf"%>
 
-
-
-<script src="./assets/js/project/ProductosComprador/chat.js" charset="utf-8"></script>
 <script src="./assets/js/pagination/pager.js" charset="utf-8"></script> 
 <script src="./assets/js/project/ProductosComprador/ProductsInit.js" charset="utf-8"></script>

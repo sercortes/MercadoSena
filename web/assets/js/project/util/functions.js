@@ -70,7 +70,6 @@ function messageError(message) {
 }
 
 $(document).on('click','#buttonSearch', function(){
-    console.log('sergio')
     if (bande === 0) {
         $('#barraBusqueda').show('slow')
         bande = 1
@@ -80,3 +79,10 @@ $(document).on('click','#buttonSearch', function(){
     }
     
 })
+
+function cerrar(id) {
+   
+    $(id).hide(400)
+    $('#bloqueo').hide();
+   
+}

@@ -83,6 +83,8 @@ public class login extends HttpServlet {
                     restpuesta[0] = "false";
                 }
 
+            }else{
+                usuario.setEmpresa(new empresaDTO());
             }
 
             restpuesta[1] = "true";

@@ -11,6 +11,7 @@ function consultarDatosFormulario(res) {
     } else {
         modalRegistro();
     }
+    
 }
 
 function consultaTipoDoc(valor, div) {
@@ -92,18 +93,19 @@ function consultaCiudad(idDiv, idInput, valor) {
 }
 
 function modalRegistro() {
+    
     $('body').attr('Style', '');
     $('#bloqueo').toggle();
-    $('#modalRegistro').toggle();
+    $('#modalRegistro').show(400);
+    
 }
 function modalRegistroRe() {
 
     $('body').attr('Style', 'overflow: hidden');
-
-
-
     $('#bloqueo').toggle();
-    $('#modalRegistro').toggle();
+    
+    $('#modalRegistro').show(400);
+    
 }
 
 function selects(datos, idDiv, idInput, valor, accion) {
@@ -425,11 +427,6 @@ $('#registroEmpresa').submit(function (e) {
 function modalPregunta() {
     $('#modalPregunta').toggle();
     $('#bloqueo').toggle();
-}
-
-function cerrar(id) {
-    $(id).toggle();
-    $('#bloqueo').hide();
 }
 
 function modalRegistroEmpresa() {

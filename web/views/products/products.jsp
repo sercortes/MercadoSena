@@ -7,12 +7,14 @@
     <c:redirect url="./home"/>
 </c:if>
 
-
 <link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
 <link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 
 <%@include file="/views/template/header.jspf"%>
+
+<%@include file="/views/searching/buscador.jspf"%>
+
 
 <div class="container-fluid pl-0 pr-0" id="container-wrapper">
 

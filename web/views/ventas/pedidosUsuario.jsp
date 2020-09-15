@@ -1,8 +1,3 @@
-<%-- 
-    Document   : ventasVededor
-    Created on : 26/06/2020, 06:30:53 PM
-    Author     : DELL
---%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -11,27 +6,21 @@
 <c:if test="${ empty USER.idRol}">
     <c:redirect url="./home"/>
 </c:if>
+
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 
 <%@include file="/views/template/header.jspf"%>
 
-<style>
-    /* Make the image fully responsive */
-    .carousel-inner img {
-        width: 50%;
-        height: 50%;
-    }
-</style>
+<%@include file="/views/searching/buscador.jspf"%>
+
 <input type="hidden" value="misPedidos" id="nombreVista">
+
 <div class="container py-5">
     <div class="col-lg-9 mx-auto text-black text-center">
         <h1 class="display-4">Mis Pedidos</h1>     
     </div>
     <div class="p-5 bg-white rounded shadow mb-5">
-
-
-
-
+        
         <!-- Rounded tabs -->
         <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav">
             <li class="nav-item flex-sm-fill">

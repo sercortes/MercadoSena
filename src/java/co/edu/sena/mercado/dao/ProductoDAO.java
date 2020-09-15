@@ -194,13 +194,15 @@ public class ProductoDAO {
         }
     }
 
-    public ArrayList<Producto> getProductsByDateTimeAsc() {
+    public ArrayList<Producto> getProductsByDateTimeAsc(String id) {
         try {
             String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
-                    + "WHERE PR.estadoProducto = 1 "
+                    + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
+                    + "WHERE PR.estadoProducto = 1 AND EM.idEmpresa <> ?"
                     + "ORDER BY PR.agregado ASC";
             ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
             rs = ps.executeQuery();
             List<Producto> list = new ArrayList<Producto>();
             Producto producto;
@@ -232,10 +234,16 @@ public class ProductoDAO {
             return null;
         }
     }
-    public ArrayList<Producto> todosProductosConVendedor() {
+    
+     public ArrayList<Producto> getProductsRandom(String id) {
         try {
-            String sql = "SELECT pro.*,emp.nombreEmpresa,emp.idCiudadFK,CP.nombreCategoria FROM producto pro INNER join empresa emp on pro.idEmpresaFK=emp.idEmpresa INNER JOIN categoriaproducto CP on pro.idCategoriaFK=CP.idCategoria WHERE pro.stockProducto>0 ORDER by rand()";
+            String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
+                    + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
+                    + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
+                    + "WHERE PR.estadoProducto = 1 AND EM.idEmpresa <> ? "
+                    + "ORDER by rand() LIMIT 9";
             ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
             rs = ps.executeQuery();
             List<Producto> list = new ArrayList<Producto>();
             Producto producto;
@@ -254,24 +262,20 @@ public class ProductoDAO {
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
                 producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
-                producto.setNombreEmpresa(rs.getString("nombreEmpresa"));
-                producto.setIdCiudad(rs.getInt("idCiudadFK"));
 
                 categorys = new Categorys();
-                categorys.setNombreCategoria(rs.getString("nombreCategoria"));
-                categorys.setIdcategoria(rs.getString("idCategoriaFK"));
+                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
                 producto.setCategorys(categorys);
 
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;
         } catch (Exception e) {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX errror al consultar todos los productos con vendedor "+e);
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX consulta "+ps.toString());
+            System.out.println(e);
             return null;
         }
     }
-
+ 
     public Producto buscarProducto(int idProducto) {
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria WHERE PR.idProducto= ?";

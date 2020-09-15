@@ -1,36 +1,27 @@
 var interacion;
 var idProducto;
 $(document).on('click', '.botonChat', function (e) {
+    
     e.preventDefault()
+    
     if ($('#nombreUsuarioInicio').val()!=='no'){
+        
         let parent = $(this)[0].parentElement.parentElement;
         idpro = $(parent).attr('idEmpresa');
         idProducto = $(parent).attr('idProducto');
-        //getEmpresa(idPro);
-        $('#preguntarModal').modal('show');
+         $('#preguntarModal').show(400)
         interacion = 0;
+        
     }else{
+        
         modalPreguntaRegistro();
+        
     }
-    console.log($('#nombreUsuarioInicio').val());
+
 })
 
-function getEmpresa(idpro) {
-
-    $.ajax({
-        type: "POST",
-        url: './getInfoCompanyByProduct',
-        async: true,
-        data: {
-            idProducto: idpro
-        },
-        datatype: 'json'
-    }).done(function (data) {
-
-        console.log(data);
-
-    })
-
+function hola(){
+    
 }
 
 (function () {
@@ -58,8 +49,6 @@ function getEmpresa(idpro) {
             var $message_input;
             $message_input = $('.message_input');
             enviarMensaje($message_input.val());
-            
-            
 
             return $message_input.val();
         };
@@ -97,7 +86,6 @@ function getEmpresa(idpro) {
 
         function enviarMensaje(mensaje) {
 
-
             if (mensaje !== null && mensaje !=='') {
                 $.ajax({
                     url: './registro',
@@ -126,29 +114,32 @@ function getEmpresa(idpro) {
                     }})
             }
 
-
         }
-
-
 
 //        return setTimeout(function () {
 //            return sendMessage('I\'m fine, thank you!');
 //        }, 2000);
+
     });
 }.call(this));
 
 function modalRegistroSi() {
-    modalPreguntaRegistro();
-    //consultarDatosFormulario();
+    
+    $('#modalPreguntaRegistro').hide();
     $('#exampleModal').modal('show');
+    
 }
+
 function modalPreguntaRegistro() {
-    $('#modalPreguntaRegistro').toggle();
+    
+    $('#modalPreguntaRegistro').show(400)
     $('#bloqueo').toggle();
+    
 }
 
 
 function consultaPreguntas(e) {
+    
     e.preventDefault();
     
 }

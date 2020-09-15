@@ -17,7 +17,11 @@
 <link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 <link href="./assets/styles/bootstrap4/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
+
 <%@include file="/views/template/header.jspf"%>
+
+<%@include file="/views/searching/buscador.jspf"%>
+
 <div class="container py-5">
     <header class="text-center">
         <div class="col-lg-9 mx-auto text-black text-center">

@@ -112,7 +112,7 @@ function generarLista(dataR, estado) {
                     pedidos += ' <li data-target="#myCarousel' + i + '" data-slide-to="' + j + '"></li>';
                 }
                 pedidos += '</ul>' +
-                        '<div class="carousel-inner">' +
+                        '<div class="carousel-inners">' +
                         ' <div class="carousel-item active" style="min-height: 50px;max-height: 500px;background: white;text-align: center;">' +
                         '<img  src="' + data[i].prodImagen.imagenes[0].url + '" alt="Imagen del producto" >' +
                         '</div>';

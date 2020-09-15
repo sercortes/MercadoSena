@@ -15,13 +15,8 @@
 
 <%@include file="/views/template/header.jspf"%>
 
-<style>
-    /* Make the image fully responsive */
-    .carousel-inner img {
-        width: 50%;
-        height: 50%;
-    }
-</style>
+<%@include file="/views/searching/buscador.jspf"%>
+
 <input type="hidden" value="pedidos" id="nombreVista">
 <div class="container py-5">
 

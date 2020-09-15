@@ -85,6 +85,12 @@ public class Selects extends HttpServlet {
                 getProductsByDateTime(request, response);
 
                 break;
+                
+           case "/MercadoSena/getProductsRandom":
+
+                getProductsRandom(request, response);
+
+                break;
 
             case "/MercadoSena/getImagesByProduct":
 
@@ -163,7 +169,18 @@ public class Selects extends HttpServlet {
         Conexion conexion = new Conexion();
         ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
 
-        ArrayList<Producto> listaProductos = productoDAO.getProductsByDateTimeAsc();
+        
+        String id = "";
+        usuarioDTO user;
+        
+        if (request.getSession().getAttribute("USER") == null) {
+            id = "0"   ;
+        }else{
+            user = (usuarioDTO) request.getSession().getAttribute("USER");
+            id = Integer.toString(user.getEmpresa().getIdEmpresa());
+        }
+        
+        ArrayList<Producto> listaProductos = productoDAO.getProductsByDateTimeAsc(id);
 
         productoDAO.CloseAll();
         response.setContentType("application/json");
@@ -221,7 +238,34 @@ public class Selects extends HttpServlet {
 
     }
 
-    /**
+
+    private void getProductsRandom(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+        
+        request.setCharacterEncoding("UTF-8");
+
+        Conexion conexion = new Conexion();
+        ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
+
+        String id = "";
+        usuarioDTO user;
+        
+        if (request.getSession().getAttribute("USER") == null) {
+            id = "0"   ;
+        }else{
+            user = (usuarioDTO) request.getSession().getAttribute("USER");
+            id = Integer.toString(user.getEmpresa().getIdEmpresa());
+        }
+        
+        ArrayList<Producto> listaProductos = productoDAO.getProductsRandom(id);
+
+        productoDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaProductos, response.getWriter());
+        
+    }
+    
+        /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
@@ -230,5 +274,6 @@ public class Selects extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }

@@ -1,7 +1,7 @@
 
 <div id="bloqueo" class="bloqueo" ></div>
 <div id="modalRegistro" class="modalRegistro" >
-    <i onclick="modalRegistro()">X</i>
+    <i onclick="cerrar('#modalRegistro')">X</i>
     <h3>Registro usuario</h3>
     <form id="registroUsuario" class="needs-validation">
 
