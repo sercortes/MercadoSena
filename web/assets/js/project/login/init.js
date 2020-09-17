@@ -56,7 +56,7 @@ document.getElementById('formOnes').addEventListener('submit', e => {
     let datas = {
         email: ema,
         pass: pas,
-        url: url
+        url: url,
     }
     $('#carga').addClass('is-active');
 
@@ -64,6 +64,8 @@ document.getElementById('formOnes').addEventListener('submit', e => {
     sessionStorage.getItem('falls')
 
     if (sessionStorage.getItem('falls') <= 9) {
+
+    datas.fall = sessionStorage.getItem('falls')
 
         $.ajax({
             type: "POST",

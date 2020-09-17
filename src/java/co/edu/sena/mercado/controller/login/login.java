@@ -50,7 +50,11 @@ public class login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setCharacterEncoding("UTF-8");
+        System.out.println("xXXXXxxxXXXX");
+        System.out.println(request.getParameter("fall"));
+        
+        if (request.getParameter("fall") != null) {
+            request.setCharacterEncoding("UTF-8");
 
         String userParam = request.getParameter("email");
         String passParam = request.getParameter("pass");
@@ -97,6 +101,13 @@ public class login extends HttpServlet {
 
             new Gson().toJson(false, response.getWriter());
 
+        }
+        
+        
+        }else{
+        
+            new Gson().toJson(false, response.getWriter());
+            
         }
 
     }
