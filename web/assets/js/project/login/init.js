@@ -63,7 +63,7 @@ document.getElementById('formOnes').addEventListener('submit', e => {
     parseInt(sessionStorage.falls++)
     sessionStorage.getItem('falls')
 
-    if (sessionStorage.getItem('falls') <= 9) {
+    if (sessionStorage.getItem('fall') <= 9) {
 
     datas.ok = sessionStorage.getItem('ok')
     datas.fall = sessionStorage.getItem('falls')
