@@ -63,10 +63,10 @@ document.getElementById('formOnes').addEventListener('submit', e => {
     parseInt(sessionStorage.falls++)
     sessionStorage.getItem('falls')
 
-    if (sessionStorage.getItem('fall') <= 9) {
+    if (sessionStorage.getItem('falls') <= 9) {
 
     datas.ok = sessionStorage.getItem('ok')
-    datas.fall = sessionStorage.getItem('falls')
+    datas.fall = sessionStorage.getItem('fall')
     datas.check = 1
 
         $.ajax({
