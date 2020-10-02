@@ -65,7 +65,9 @@ document.getElementById('formOnes').addEventListener('submit', e => {
 
     if (sessionStorage.getItem('falls') <= 9) {
 
+    datas.ok = sessionStorage.getItem('ok')
     datas.fall = sessionStorage.getItem('falls')
+    datas.check = 1
 
         $.ajax({
             type: "POST",
