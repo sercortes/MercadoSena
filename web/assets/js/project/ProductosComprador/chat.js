@@ -3,25 +3,35 @@ var idProducto;
 $(document).on('click', '.botonChat', function (e) {
     
     e.preventDefault()
-    
     if ($('#nombreUsuarioInicio').val()!=='no'){
-        
         let parent = $(this)[0].parentElement.parentElement;
         idpro = $(parent).attr('idEmpresa');
         idProducto = $(parent).attr('idProducto');
-         $('#preguntarModal').show(400)
+        //getEmpresa(idPro);
+        $('#preguntarModal').modal('show');
         interacion = 0;
-        
     }else{
-        
-        modalPreguntaRegistro();
-        
+             modalPreguntaRegistro();
     }
 
 })
 
-function hola(){
-    
+function getEmpresa(idpro) {
+
+    $.ajax({
+        type: "POST",
+        url: './getInfoCompanyByProduct',
+        async: true,
+        data: {
+            idProducto: idpro
+        },
+        datatype: 'json'
+    }).done(function (data) {
+
+        console.log(data);
+
+    })
+
 }
 
 (function () {
@@ -49,6 +59,8 @@ function hola(){
             var $message_input;
             $message_input = $('.message_input');
             enviarMensaje($message_input.val());
+            
+            
 
             return $message_input.val();
         };
@@ -86,6 +98,7 @@ function hola(){
 
         function enviarMensaje(mensaje) {
 
+
             if (mensaje !== null && mensaje !=='') {
                 $.ajax({
                     url: './registro',
@@ -114,32 +127,29 @@ function hola(){
                     }})
             }
 
+
         }
+
+
 
 //        return setTimeout(function () {
 //            return sendMessage('I\'m fine, thank you!');
 //        }, 2000);
-
     });
 }.call(this));
 
 function modalRegistroSi() {
-    
-    $('#modalPreguntaRegistro').hide();
+    modalPreguntaRegistro();
+    //consultarDatosFormulario();
     $('#exampleModal').modal('show');
-    
 }
-
 function modalPreguntaRegistro() {
-    
-    $('#modalPreguntaRegistro').show(400)
+    $('#modalPreguntaRegistro').toggle();
     $('#bloqueo').toggle();
-    
 }
 
 
 function consultaPreguntas(e) {
-    
     e.preventDefault();
     
 }

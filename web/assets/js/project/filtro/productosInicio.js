@@ -228,6 +228,8 @@ $(document).on('click', '#meInteresa', function (e) {
     e.preventDefault();
     let id = $('#idUsers').val()
     
+    console.log(id !== '0')
+    
     if (id !== '0') {
 
         let parent = $(this)[0].parentElement
