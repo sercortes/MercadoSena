@@ -2,6 +2,8 @@ var interacion;
 var idProducto;
 $(document).on('click', '.botonChat', function (e) {
     
+    
+    console.log('sergio')
     e.preventDefault()
     if ($('#nombreUsuarioInicio').val()!=='no'){
         let parent = $(this)[0].parentElement.parentElement;
