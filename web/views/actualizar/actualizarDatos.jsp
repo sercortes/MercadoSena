@@ -221,7 +221,9 @@
 
 </div>
 </div>
+<script src="./assets/js/project/comprador/ajax.js" charset="utf-8"></script>
+
 <%@include file="/views/template/footer.jspf"%>
 <script src="./assets/js/project/actualizar/actualizarUsuEmp.js" type="text/javascript"></script>
 <script src="./assets/js/project/actualizar/validarImagen.js" type="text/javascript"></script>
-
+ 
