@@ -171,7 +171,7 @@ public class registro extends HttpServlet {
                     personaNaturalDTO.setIdGenero(Integer.parseInt(request.getParameter("generoUsuario")));
                     personaNaturalDTO.setIdTipoDoc(Integer.parseInt(request.getParameter("tipoDocUsuario")));
                     personaNaturalDTO.setNumCelularPer(request.getParameter("celularUsuario"));
-                    personaNaturalDTO.setNombrePer(request.getParameter("nombreUsuario"));                                  
+                    personaNaturalDTO.setNombrePer(request.getParameter("nombreUsuario"));
                     personaNaturalDTO.setUrlImg("./assets/images/usuario/imagenDefecto.png");
 
                     usuarioDTO = usuarioDAO.buscarUsuario(personaNaturalDTO.getCorreoPer(), usuarioDTO.getClaveUsu());
@@ -182,26 +182,24 @@ public class registro extends HttpServlet {
                         if (enviar.envCorreo(usuarioDTO.getCorreoUsu(), clave, usuarioDTO.getCodigo())) {
                             respuesta = true;
 
-//                            if (usuarioDTO.getIdRol() == 3) {
-//                                empresaDTO = new empresaDTO();
-//                                empresaDTO.setCelEmpresa(personaNaturalDTO.getNumCelularPer());
-//                                empresaDTO.setCorreoEmpresa(personaNaturalDTO.getCorreoPer());
-//                                empresaDTO.setDirEmpresa(personaNaturalDTO.getDireccionPer());
-//                                empresaDTO.setEsEmpresa(1);
-//                                empresaDTO.setIdCiudad(personaNaturalDTO.getIdCiudad());
-//                                empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-//                                empresaDTO.setNombreEmpresa(personaNaturalDTO.getNombrePer());
-//                                empresaDTO.setTelEmpresa(personaNaturalDTO.getTelPer());
-//                                empresaDTO.setEsEmpresa(0);
-//                                if (empresaDAO.registroEmpresa(empresaDTO)) {
-//                                    respuesta = true;
-//
-//                                } else {
-//                                    respuesta = false;
-//
-//                                }
-//
-//                            }
+                            if (usuarioDTO.getIdRol() == 3) {
+                                empresaDTO = new empresaDTO();
+    
+                                empresaDTO.setCorreoEmpresa(personaNaturalDTO.getCorreoPer());
+                                empresaDTO.setEsEmpresa(1);
+                                empresaDTO.setIdCiudad(personaNaturalDTO.getIdCiudad());
+                                empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
+                                empresaDTO.setNombreEmpresa(personaNaturalDTO.getNombrePer());
+                                empresaDTO.setEsEmpresa(0);
+                                if (empresaDAO.registroEmpresa(empresaDTO, usuarioDTO.getIdUsuario())) {
+                                    respuesta = true;
+
+                                } else {
+                                    respuesta = false;
+
+                                }
+
+                            }
                         } else {
                             //borrar usuario
                             respuesta = false;
@@ -235,7 +233,7 @@ public class registro extends HttpServlet {
                 empresaDTO.setEsEmpresa(1);
                 //de la sesion
                 empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-                if (empresaDAO.registroEmpresa(empresaDTO, usuarioDTO.getIdUsuario())) {
+                if (empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario())) {
 
                     // sesion.removeAttribute("USER");
                     response.getWriter().print(true);
@@ -299,8 +297,8 @@ public class registro extends HttpServlet {
                     listaPregunta = preguntaDAO.listarPregustasRespuesta(usuarioDTO.getIdUsuario());
                     preguntaDAO.marcarVistaPregunta(usuarioDTO.getIdUsuario());
                     new Gson().toJson(listaPregunta, response.getWriter());
-                }catch(Exception e){
-                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXX error al listarPreguntasRespuesta registro ln 306"+e);
+                } catch (Exception e) {
+                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXX error al listarPreguntasRespuesta registro ln 306" + e);
                 }
                 break;
             case "consultaNotiPreguntas":
