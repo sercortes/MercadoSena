@@ -69,8 +69,6 @@
                                 </div>
                             </div>
 
-
-
                             <label>Nombre:</label><br>
                             <input type="text" class="form-control was-validated" value="${USER.persona.nombrePer}" minlength="1" maxlength="100" placeholder="Nombre" id="nombreUsuario" name="nombreUsuario" required>
                             <div class="invalid-feedback">
@@ -83,60 +81,71 @@
                                 Completa este campo correctamente
 
                             </div>
-                            <br> 
-                            <label>Seleccione su género:</label><br>
-                            <div id="genero">
-                                <input type="hidden" value="${USER.persona.idGenero}" id="generoUsusario">
-
-                            </div>
-                            <div class="invalid-feedback">
-                                Completa este campo
-                            </div>
                             <br>
-                            <label>Tipo documento:</label><br>
-                            <div id="tipoDoc">
-
-                                <input type="hidden" value="${USER.persona.idTipoDoc}" id="tipoDocUsusario">
-                            </div>
-                            <div class="invalid-feedback">
-                                Completa este campo
-                            </div>
-                            <br>
-                            <label>Documento:</label><br>
-                            <input  value="${USER.persona.numeroDocPer}" type="number" placeholder="Documento" class="form-control was-validated" id="documentoUsuario" minlength="1" maxlength="50" name="documentoUsuario" required>
-                            <div class="invalid-feedback">
-                                Completa este campo correctamente
-                            </div><br> 
-
-                            <label>Celular:</label><br>
-                            <input  value="${USER.persona.numCelularPer}" type="number" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularUsuario" name="celularUsuario" required>
-                            <div class="invalid-feedback">
-                                Completa este campo correctamente
-                            </div><br> 
-                            <label>Teléfono:</label><br>
-                            <input  value="${USER.persona.telPer}" type="text" placeholder="Opcional" class="form-control was-validated" id="telefonoUsuario"  maxlength="50" name="telefonoUsuario" >
-                            <div class="invalid-feedback">
-                                Completa este campo correctamente
-                            </div><br> 
-                            <label>Dirección:</label><br>
-                            <input  value="${USER.persona.direccionPer}" type="text" placeholder="Opcional" class="form-control was-validated"  maxlength="100" id="direccionUsuario" name="direccionUsuario" >
-                            <div class="invalid-feedback">
-                                Completa este campo correctamente
-                            </div><br> 
                             <label>Seleccione su ciudad:</label><br>
                             <select required id="ciudadUsuarioActualizar" name="ciudadUsuarioActualizar" class="form-control">
                                 <option value="">Seleccione...</option>
                                 <c:forEach items="${listaCiudad}" var="ciudad"> 
-                                <c:if test="${ciudad.idCiudad==USER.persona.idCiudad}">
-                                    <option value="${ciudad.idCiudad}" selected>${ciudad.nombreCiudad}</option> 
-                                </c:if>
-                                <c:if test="${ciudad.idCiudad!=USER.persona.idCiudad}">
-                                    <option value="${ciudad.idCiudad}">${ciudad.nombreCiudad}</option> 
-                                </c:if>
+                                    <c:if test="${ciudad.idCiudad==USER.persona.idCiudad}">
+                                        <option value="${ciudad.idCiudad}" selected>${ciudad.nombreCiudad}</option> 
+                                    </c:if>
+                                    <c:if test="${ciudad.idCiudad!=USER.persona.idCiudad}">
+                                        <option value="${ciudad.idCiudad}">${ciudad.nombreCiudad}</option> 
+                                    </c:if>
                                 </c:forEach>
                             </select>
 
+                            <hr>
 
+                            <div class="titulo_boton">
+                                Información adicional
+                                <a style='cursor: pointer;' onClick="muestra_oculta('contenido')" title="" class="boton_mostrar">Mostrar / Ocultar</a>
+                            </div>
+                            <br>
+                            <div id="contenido">
+                                   
+                                <label>Tipo documento:</label><br>
+                                <div id="tipoDoc">
+
+                                    <input type="hidden" value="${USER.persona.idTipoDoc}" id="tipoDocUsusario">
+                                </div>
+                                <div class="invalid-feedback">
+                                    Completa este campo
+                                </div>
+                                <br>
+                                
+                                <label>Documento:</label><br>
+                                <input  value="${USER.persona.numeroDocPer}" type="number" placeholder="Documento" class="form-control was-validated" id="documentoUsuario" minlength="1" maxlength="50" name="documentoUsuario">
+                                <div class="invalid-feedback">
+                                    Completa este campo correctamente
+                                </div><br> 
+                                <label>Seleccione su género:</label><br>
+                                <div id="genero">
+                                    <input type="hidden" value="${USER.persona.idGenero}" id="generoUsusario">
+
+                                </div>
+                                <div class="invalid-feedback">
+                                    Completa este campo
+                                </div>
+                                <br> 
+                                <label>Celular:</label><br>
+                                <input  value="${USER.persona.numCelularPer}" type="number" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularUsuario" name="celularUsuario">
+                                <div class="invalid-feedback">
+                                    Completa este campo correctamente
+                                </div><br> 
+                                <label>Teléfono:</label><br>
+                                <input  value="${USER.persona.telPer}" type="text" placeholder="Opcional" class="form-control was-validated" id="telefonoUsuario"  maxlength="50" name="telefonoUsuario" >
+                                <div class="invalid-feedback">
+                                    Completa este campo correctamente
+                                </div><br> 
+                                <label>Dirección:</label><br>
+                                <input  value="${USER.persona.direccionPer}" type="text" placeholder="Opcional" class="form-control was-validated"  maxlength="100" id="direccionUsuario" name="direccionUsuario" >
+                                <div class="invalid-feedback">
+                                    Completa este campo correctamente
+                                </div><br> 
+
+                            </div>
+                            <br>
                             <br>
                             <button class="botonRegistro" id="actualizarPersona">Actualizar</button>
 
@@ -226,4 +235,3 @@
 <%@include file="/views/template/footer.jspf"%>
 <script src="./assets/js/project/actualizar/actualizarUsuEmp.js" type="text/javascript"></script>
 <script src="./assets/js/project/actualizar/validarImagen.js" type="text/javascript"></script>
- 

@@ -241,7 +241,7 @@ public class ProductoDAO {
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
                     + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
                     + "WHERE PR.estadoProducto = 1 AND EM.idEmpresa <> ? "
-                    + "ORDER by rand() LIMIT 9";
+                    + "ORDER by rand() LIMIT 8";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();

@@ -2,7 +2,7 @@
 
 function consultarDatosFormulario(res) {
 
-    $('#exampleModal').modal('hide');
+
     consultaTipoDoc();
     consultagenero();
     consultaCiudad('#ciudad', 'ciudadUsuario');
@@ -11,7 +11,7 @@ function consultarDatosFormulario(res) {
     } else {
         modalRegistro();
     }
-    
+
 }
 
 function consultaTipoDoc(valor, div) {
@@ -21,9 +21,9 @@ function consultaTipoDoc(valor, div) {
         divE = div;
         tipDoc = 'tipoDocUsuarioRec';
     }
-    console.log(divE);
-    console.log(tipDoc);
-    console.log(div);
+//    console.log(divE);
+//    console.log(tipDoc);
+//    console.log(div);
     $('#carga').addClass('is-active');
     $.ajax({
         url: "./registro?accion=consultaTipoDoc",
@@ -79,10 +79,12 @@ function consultaCiudad(idDiv, idInput, valor) {
             $('#carga').removeClass('is-active');
             $('#bloqueo').hide();
             $('#modalRegistro').hide();
+
             // $('#carga').removeClass('is-active');
             messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
         },
         success: function (data) {
+
             $('#carga').removeClass('is-active');
             selects(data, idDiv, idInput, valor);
 
@@ -93,19 +95,19 @@ function consultaCiudad(idDiv, idInput, valor) {
 }
 
 function modalRegistro() {
-    
+
     $('body').attr('Style', '');
-    $('#bloqueo').toggle();
+
     $('#modalRegistro').show(400);
-    
+
 }
 function modalRegistroRe() {
 
     $('body').attr('Style', 'overflow: hidden');
     $('#bloqueo').toggle();
-    
+
     $('#modalRegistro').show(400);
-    
+
 }
 
 function selects(datos, idDiv, idInput, valor, accion) {
@@ -193,7 +195,7 @@ function selects(datos, idDiv, idInput, valor, accion) {
                     select += '<option value="' + datos[i].idcategoria + '">' + datos[i].nombreCategoria + '</option>';
                 }
             }
-        
+
         } else if (accion === 'vendedor') {
             select = '<select id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" title="Vendedores" >';
             select += '<option value="" selected>Vendedores...</option>';
@@ -240,42 +242,54 @@ $('#registroUsuario').submit(function (e) {
     ];
     // console.log(datosVal);
 
+    var arrayinputs = ["#nombreUsuario", "#apellidoUsuario", "#correoUsuario", "#celularUsuario", "#documentoUsuario", "#ciudadUsuario", "#tipoDocUsuario", "generoUsuario"];
+
+    for (var i = 0; i < formulario.datosVal; i++) {
+        $(datosVal[i]).removeClass('is-invalid');
+    }
+
     if ($('#registroUsuario')[0].checkValidity() && valCampos(datosVal) && validarClave()) {
-        $('#carga').addClass('is-active');
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-        var datos = $('form#registroUsuario').serialize();
-        var btn = document.getElementById('registrarUsuario');
-        btn.disabled = true;
+        if (validarLetras(nombreUsuario) === false) {
+            mensajeError1('Por favor ingrese solo letras', '#nombreUsuario');
+        } else if (validarLetras(apellidoUsuario) === false) {
+            mensajeError1('Por favor ingrese solo letras', '#apellidoUsuario');
+        } else {
+            $('#carga').addClass('is-active');
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            var datos = $('form#registroUsuario').serialize();
+            var btn = document.getElementById('registrarUsuario');
+            btn.disabled = true;
 
-        $.ajax({
-            url: "./registro?accion=registrarUsuario&" + datos,
-            type: 'POST',
-            contentType: false,
-            processData: false,
-            error: function (jqXHR, textStatus, errorThrown) {
-                btn.disabled = false;
-                $('#carga').removeClass('is-active');
-                modalRegistro();
-                messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
-            },
-            success: function (data) {
+            $.ajax({
+                url: "./registro?accion=registrarUsuario&" + datos,
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                error: function (jqXHR, textStatus, errorThrown) {
+                    btn.disabled = false;
+                    $('#carga').removeClass('is-active');
+                    modalRegistro();
+                    messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
+                },
+                success: function (data) {
 
-                $('#carga').removeClass('is-active');
-                modalRegistro();
-                if (data === 'true') {
+                    $('#carga').removeClass('is-active');
+                    modalRegistro();
+                    if (data === 'true') {
 
-                    messageInfo('Registro realizado, hemos enviado al correo registrado sus datos de ingreso y el link de activación para su cuenta.')
-                } else {
-                    messageError('Error al relizar el registro');
+                        messageExito('Registro realizado, hemos enviado al correo registrado sus datos de ingreso y el link de activación para su cuenta.');
+                    } else {
+                        messageError('Error al relizar el registro');
+                    }
+
+                    limpiarFormulario('#registroUsuario');
+                    formulario.addClass('was-validated');
+                    btn.disabled = false;
                 }
-
-                limpiarFormulario('#registroUsuario');
-                formulario.addClass('was-validated');
-                btn.disabled = false;
-            }
-        })
+            })
+        }
 
     } else {
 
@@ -287,6 +301,29 @@ $('#registroUsuario').submit(function (e) {
 
 //validarclaves
 
+function validarLetras(telefono) {
+    if (/^([a-z A-Z])*$/.test(telefono)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validarNumero(telefono) {
+    if (/^([0-9])*$/.test(telefono)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validarEmail(correo) {
+    if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/.test(correo)) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
 function validarClave() {
     var con1 = $('#clave1').val();
@@ -382,47 +419,69 @@ $('#registroEmpresa').submit(function (e) {
 
     ];
     //console.log(datosVal);
+    var arrayinputs = ["#nombreEmpresa", "#celularEmpresa", "#telefonoEmpresa", "#correoEmpresa", "#direccionEmpresa", "#idCiudadEmpresa"];
+
+    for (var i = 0; i < formulario.datosVal; i++) {
+        $(datosVal[i]).removeClass('is-invalid');
+    }
 
     if ($('#registroEmpresa')[0].checkValidity() && valCampos(datosVal)) {
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-        var datos = $('#registroEmpresa').serialize();
-        var btn = document.getElementById('registrarEmpresa');
-        $('#carga').addClass('is-active');
-        btn.disabled = true;
+        if (validarNumero(celularEmpresa) === false) {
+            mensajeError1('Por favor ingrese solo números', '#celularEmpresa');
+        } else if (validarNumero(telefonoEmpresa) === false) {
+            mensajeError1('Por favor ingrese solo números', '#telefonoEmpresa');
+        } else if (validarEmail(correoEmpresa) === false) {
+            mensajeError1('Por favor complete correctamente el campo correo', '#correoEmpresa');
+        } else {
 
-        $.ajax({
-            url: "./registro?accion=registroEmpresa&" + datos,
-            type: 'POST',
-            contentType: false,
-            processData: false, error: function (jqXHR, textStatus, errorThrown) {
-                btn.disabled = false;
-                $('#carga').removeClass('is-active');
-                $('#modalRegistroEmpresa').hide();
-                $('#bloqueo').hide();
-                messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
-            },
-            success: function (data) {
+            var arrayinputs = ["#nombreEmpresa", "#celularEmpresa", "#telefonoEmpresa", "#correoEmpresa", "#direccionEmpresa", "#idCiudadEmpresa"];
 
-                $('#carga').removeClass('is-active');
-                if (data === 'true') {
-                    cerrar('#modalRegistroEmpresa');
-                    //messageOk('Empresa registrada exitosamente');
-                } else {
-                    messageError('Error al realizar el registro');
-                }
-                limpiarFormulario('#registroEmpresa');
-                formulario.addClass('was-validated');
-                btn.disabled = false;
+            for (var i = 0; i < arrayinputs.length; i++) {
+                $(arrayinputs[i]).removeClass('is-invalid').addClass('is-valid');
             }
-        })
 
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            var datos = $('#registroEmpresa').serialize();
+            var btn = document.getElementById('registrarEmpresa');
+            $('#carga').addClass('is-active');
+            btn.disabled = true;
+
+            $.ajax({
+                url: "./registro?accion=registroEmpresa&" + datos,
+                type: 'POST',
+                contentType: false,
+                processData: false, error: function (jqXHR, textStatus, errorThrown) {
+                    btn.disabled = false;
+                    $('#carga').removeClass('is-active');
+                    $('#modalRegistroEmpresa').hide();
+                    $('#bloqueo').hide();
+                    messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
+                },
+                success: function (data) {
+
+                    $('#carga').removeClass('is-active');
+                    if (data === 'true') {
+//                    cerrar('#modalregistrarEmp');
+                        messageExitoEmpresa('Empresa registrada exitosamente');
+                        //messageOk('Empresa registrada exitosamente');
+                    } else {
+                        messageError('Error al realizar el registro');
+                    }
+                    limpiarFormulario('#registroEmpresa');
+                    formulario.addClass('was-validated');
+                    btn.disabled = false;
+                }
+            })
+        }
     } else {
 
         formulario.addClass('was-validated');
     }
+
 })
+
 
 function modalPregunta() {
     $('#modalPregunta').toggle();
@@ -431,10 +490,99 @@ function modalPregunta() {
 
 function modalRegistroEmpresa() {
     consultarDatosFormularioEmpresa();
-    //$('#bloqueo').toggle();
-    $('#modalPregunta').toggle();
-    $('#modalRegistroEmpresa').toggle();
+    $('#modalPregunta').remove();
+    $('#bloqueo').toggle();
+    $('#modalregistrarEmp').modal();
+
+
+
 
 }
 
+function cerrarmodla() {
+    location.reload();
+}
 
+function mensajeError1(mensaje, caja, caja2) {
+    Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Datos invalidos!',
+        html: '<h5 style="color:#f27474;">' + mensaje + '</h5>',
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        padding: '2rem',
+        width: '25%',
+        timer: 2000
+
+    });
+    $(caja).removeClass('form-control is-valid').addClass('form-control is-invalid');
+    $(caja2).removeClass('form-control is-valid').addClass('form-control is-invalid');
+}
+
+function messageExito(mensaje) {
+    Swal.fire({
+        title: 'Usuario Registrado!',
+        icon: 'success',
+        html: '<h4 style="color:#3c8c40;">' + mensaje + '</h4>',
+        timer: 3500,
+        timerProgressBar: true,
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        padding: '2rem',
+        width: '25%',
+        onBeforeOpen: () => {
+            timerInterval = setInterval(() => {
+
+            }, 100)
+        },
+        onClose: () => {
+            clearInterval(timerInterval)
+        }
+    }).then((result) => {
+
+        if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('I was closed by the timer');
+            window.location = ``;
+        }
+    });
+
+}
+
+function messageExitoEmpresa(mensaje) {
+    Swal.fire({
+        title: 'Empresa Registrado!',
+        icon: 'success',
+        html: '<h4 style="color:#3c8c40;">' + mensaje + '</h4>',
+        timer: 1500,
+        timerProgressBar: true,
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        padding: '2rem',
+        width: '25%',
+        onBeforeOpen: () => {
+            timerInterval = setInterval(() => {
+
+            }, 100)
+        },
+        onClose: () => {
+            clearInterval(timerInterval)
+        }
+    }).then((result) => {
+
+        if (result.dismiss === Swal.DismissReason.timer) {
+            console.log('I was closed by the timer');
+            window.location = ``;
+        }
+    });
+
+}

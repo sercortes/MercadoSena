@@ -1,54 +1,64 @@
 <%-- any content can be specified here e.g.: --%>
 <%@ page pageEncoding="UTF-8" %>
 
-<div id="modalRegistroEmpresa" class="modalRegistro" >
-    <i onclick="cerrar('#modalRegistroEmpresa')">X</i>
- <h3>Registro empresa</h3>
- <form id="registroEmpresa" class="needs-validation" >
+<div class="modal fade" data-backdrop="static" data-keyboard="false" id="modalregistrarEmp" tabindex="-1" role="dialog" aria-labelledby="modalregistrarEmp" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 style="text-align: center;font-size: 26px;margin: 0px 0 -15px;color: orangered;font-weight: 500;">Registro empresa</h3>
+                <hr>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="cerrarmodla()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="registroEmpresa" class="needs-validation" >
 
-        <input type="hidden" name="rol" id="rol" value="">
-        <label>Nombre:</label><br>
-        <input type="text" class="form-control was-validated" minlength="1" maxlength="100" placeholder="Nombre" id="nombreEmpresa" name="nombreEmpresa" required>
-        <div class="invalid-feedback">
-            Completa este campo correctamente
+                    <input type="hidden" name="rol" id="rol" value="">
+                    <label>Nombre:</label><br>
+                    <input type="text" class="form-control was-validated" minlength="1" maxlength="100" placeholder="Nombre de la empresa" id="nombreEmpresa" name="nombreEmpresa" required>
+                    <div class="invalid-feedback">
+                        Completa este campo correctamente
+                    </div>
+                    <br> 
+                    <label>Celular:</label><br>
+                    <input type="number" placeholder="Celular de la empresa" pattern="{9,48}" class="form-control was-validated" minlength="8" maxlength="50" id="celularEmpresa" name="celularEmpresa" required>
+                    <div class="invalid-feedback">
+                        Completa este campo correctamente
+                    </div><br> 
+                    <label>Teléfono:</label><br>
+                    <input type="number" placeholder="Telefono de la empresa" pattern="{5,48}" class="form-control was-validated" id="telefonoEmpresa"  maxlength="50" name="telefonoEmpresa" required >
+                    <div class="invalid-feedback">
+                        Completa este campo correctamente
+                    </div><br> 
+                    <label>Correo:</label><br>
+                    <input type="email" placeholder="example@gmail.com"  class="form-control was-validated"  maxlength="100" id="correoEmpresa" name="correoEmpresa" required>
+                    <div class="invalid-feedback">
+                        Completa este campo correctamente
+                    </div><br> 
+                    <label>Seleccione su ciudad:</label><br>
+                    <div id='ciudadEmpresa'>
+
+                    </div><br>
+                    <label>Dirección:</label><br>
+                    <input type="text" placeholder="Dirección de la empresa" class="form-control was-validated" minlength="1" maxlength="100" id="direccionEmpresa" name="direccionEmpresa" required>
+                    <div class="invalid-feedback">
+                        Completa este campo correctamente
+
+                    </div>
+                    <br> 
+                    <hr>
+                    <button class="botonRegistro" id="registrarEmpresa">Registrar</button>
+                </form>
+            </div>
         </div>
-        <br> 
-       
-        <label>Celular:</label><br>
-        <input type="number" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularEmpresa" name="celularEmpresa" required>
-        <div class="invalid-feedback">
-            Completa este campo correctamente
-        </div><br> 
-        <label>Teléfono:</label><br>
-        <input type="number" placeholder="Número" class="form-control was-validated" id="telefonoEmpresa"  maxlength="50" name="telefonoEmpresa" required >
-        <div class="invalid-feedback">
-            Completa este campo correctamente
-        </div><br> 
-        <label>Correo:</label><br>
-        <input type="text" placeholder="Correo" class="form-control was-validated"  maxlength="100" id="correoEmpresa" name="correoEmpresa" required >
-        <div class="invalid-feedback">
-            Completa este campo correctamente
-        </div><br> 
-        <label>Seleccione su ciudad:</label><br>
-        <div id='ciudadEmpresa'>
-
-        </div><br>
-         <label>Dirección:</label><br>
-        <input type="text" placeholder="Dirección" class="form-control was-validated" minlength="1" maxlength="100" id="direccionEmpresa" name="direccionEmpresa" required>
-        <div class="invalid-feedback">
-            Completa este campo correctamente
-
-        </div>
-        <br> 
-
-        <button class="botonRegistro" id="registrarEmpresa">Registrar</button>
-       
-    </form>
+    </div>
 </div>
-<div id="modalPregunta" class="modalRegistro" style=" height: auto; overflow-y: hidden" >
-    <i onclick="cerrar('#modalPregunta')">X</i>
+
+<div id="modalPregunta" class="modalRegistro" style=" height: auto; overflow-y: hidden;">
+    <i onclick="cerrarmodla()">X</i>
     <h3>¿Desea Registrar empresa?</h3>
 
-    <input type="submit" value="SI" class="botonRegistro" onclick=" modalRegistroEmpresa()" ><br>
-    <input type="submit" value="NO" class="botonRegistro" onclick="cerrar('#modalPregunta')">
+    <input type="submit" id="botonPreguntaRegistro" value="Si" class="botonRegistro" onclick="modalRegistroEmpresa()" ><br>
+    <input type="submit" value="NO" class="botonRegistro" onclick="cerrarmodla()">
 </div>

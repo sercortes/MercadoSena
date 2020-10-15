@@ -5678,7 +5678,7 @@ input[type="button"].btn-block {
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 1.25;
-  color: #6777EF;
+  color: #758e5b;
   background-color: #fff;
   border: 1px solid #dddfeb;
   -webkit-box-shadow: 0 0.125rem 0.25rem 0 rgba(58, 59, 69, 0.2) !important;
@@ -5687,7 +5687,7 @@ input[type="button"].btn-block {
 
 .page-link:hover {
   z-index: 2;
-  color: #224abe;
+  color: #68802e;
   text-decoration: none;
   background-color: #eaecf4;
   border-color: #dddfeb;
@@ -5714,8 +5714,8 @@ input[type="button"].btn-block {
 .page-item.active .page-link {
   z-index: 1;
   color: #fff;
-  background-color: #6777EF;
-  border-color: #6777EF;
+  background-color: #5eb319;
+  border-color: #5eb319;
 }
 
 .page-item.disabled .page-link {

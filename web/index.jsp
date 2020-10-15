@@ -14,7 +14,7 @@
 
     <div class="row pb-3" style="width: 100%" >
         <div class="col-lg-11 mx-auto">
-            <div style="width: 100%; text-align:center;margin-top: 20px; " id="tituloResultado"><h3 style="color: black;font-size: 24px;font-weight: 600;">Descubrir</h3></div>
+            <div style="width: 100%; text-align:center;margin-top: 20px; " id="tituloResultado"><h3 style="color: black;font-size: 25px;">Productos</h3></div>
             <center>
                 <div class="row pt-4 pb-3" id="tabla" style="border-top: solid 1px rgba(94, 179, 25, 0.7490196078431373);width: 100%;"> 
 
@@ -38,8 +38,9 @@
             </c:if>
         </div>
     </div>
-    
+
 </div>
+
 
 <div id="fondo-rojo" class="">
 
@@ -57,6 +58,7 @@
     <div id="cargas" class="loader loader-bouncing"></div>
 
 </div>
+
 
 <%@include file="/views/searching/modalVerProducto.jspf"%>
 <%@include file="/views/searching/modalPreguntar.jspf"%>

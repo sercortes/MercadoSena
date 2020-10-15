@@ -30,3 +30,30 @@ and open the template in the editor.
     Author     : serfin
 */
 
+.titulo_boton {
+   
+  padding:5px;  
+  background-color:#e6e6e6;
+  width:100%;
+  font-family:helvetica;
+  font-size:16px;
+  font-weight:bold;
+}
+.boton_mostrar {
+  float:right;
+  font-size:12px;
+  line-height:20px;
+  color:#DE7217 !important;
+}
+#contenido{
+  
+  clear:both;
+  border:1px solid #fc731e;
+  margin-top:2px;
+  padding:15px;
+  width:100%;
+  overflow:auto;
+  font-family:helvetica;
+  font-size:14px;
+  text-align: justify;
+}

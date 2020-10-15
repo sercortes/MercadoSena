@@ -27,7 +27,7 @@ public class empresaDAO {
     empresaDTO empresaDTO = new empresaDTO();
     ArrayList<empresaDTO> listaEmpresa = new ArrayList<>();
 
-    public boolean registroEmpresa(empresaDTO empresaDTO) {
+    public boolean registroEmpresa(empresaDTO empresaDTO,int idUsuario) {
         con = new Conexion();
         consulta = "INSERT INTO empresa( esEmpresa, nombreEmpresa, direccionEmpresa, telefonoEmpresa, celularEmpresa, correoEmpresa, idCiudadFK, idUsuarioFK) VALUES (?,?,?,?,?,?,?,?)";
         try {
