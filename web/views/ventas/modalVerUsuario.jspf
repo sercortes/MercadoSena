@@ -39,10 +39,10 @@
                     <dt>Ciudad:</dt>
                     <dd id="ciuUsu">CZ7775877975656</dd>
                 </dl>
-                <dl>
+               <!-- <dl>
                     <dt>Dirección:</dt>
                     <dd id="dirUsu">CZ7775877975656</dd>
-                </dl>
+                </dl>-->
 
 
             </div>

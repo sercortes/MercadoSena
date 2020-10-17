@@ -99,7 +99,7 @@ function  generarRespuestas(respuestas) {
         respuesta += '<p style="color:rgb(252, 115, 30);"><b>Tú:</b></p><p style="color:black;" idPregunta=' + respuestas[i].idPregunta + ' >' + respuestas[i].pregunta + '</p>';
         respuesta += '<p style="color:rgb(252, 115, 30);"  ><b>' + respuestas[i].usuarioResponde + ':</b></p>';
         respuesta += '<p class="respuesta" >' + respuestas[i].respuesta + ' </p>';
-        respuesta += '<p style="color:rgb(252, 115, 30);  font-size: x-small"  ><a href="#" onclick="verProductoPregunta(event,'+ respuestas[i].idProducto + ')">Ver producto</a></p>';
+        respuesta += '<p style="color:rgb(252, 115, 30);  font-size: x-small"  ><a href="#" onclick="verProductoPregunta(event,' + respuestas[i].idProducto + ')">Ver producto</a></p>';
 
         respuesta += '<hr class="linea">';
     }
@@ -155,13 +155,13 @@ function textoProducto(item) {
     let str = ''
     let element = document.getElementById('details')
     str += `  <div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
-<h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
-    <a id="meInteresa" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">
-                     <i class="fas fa-gift"></i> Me interesa</a>
-    <select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;">`
-    for (var i = 1; i <= item.stockProducto; i++) {
-        str += `<option>${i}</option>`
-    }
+<h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>`
+    // <a id="meInteresa" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">
+    //                <i class="fas fa-gift"></i> Me interesa</a>
+    //<select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;">
+    //for (var i = 1; i <= item.stockProducto; i++) {
+    //   str += `<option>${i}</option>`
+    // }
     str += `</select>
               <p class="mb-0 text-small text-muted">Valor: $ ${item.valorProducto}</p>
               <p class="mb-0 text-small text-muted">Marca: ${item.marcaProducto}</p>

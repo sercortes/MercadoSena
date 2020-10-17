@@ -76,9 +76,9 @@ function generarLista(dataR, estado) {
                     '<h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#' + i + '" aria-expanded="false" aria-controls="1" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">' + data[i].ventaDTO.fechaVenta + '</a></h6>' +
                     '</div>' +
                     '<div id="' + i + '"  class="collapse ">' +
-                    '<div class="card-body p-5" style="padding: 1.5rem !important;">' +                   
+                    '<div class="card-body p-5" style="padding: 1.5rem !important;">' +
                     '<dt>Producto solicitado:</dt>' +
-                    '<h6>' + data[i].prodImagen.producto.nombreProducto+ '</h6>' +
+                    '<h6>' + data[i].prodImagen.producto.nombreProducto + '</h6>' +
                     '</dl>' +
                     '<dl>' +
                     '<dt>Cantidad solicitada:</dt>' +
@@ -86,11 +86,11 @@ function generarLista(dataR, estado) {
                     '</dl>' +
                     '<dl>' +
                     '<dt>Valor por unidad:</dt>' +
-                    '<dd>$' + data[i].prodImagen.producto.valorProducto + '</dd>' +
+                    '<dd>$' + data[i].prodImagen.producto.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + '</dd>' +
                     '</dl>' +
                     '<dl>' +
                     '<dt>Valor total:</dt>' +
-                    '<dd>$' + cst + '</dd>' +
+                    '<dd>$' + cst.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + '</dd>' +
                     '</dl>' +
                     '<dl>' +
                     ' <dt>Descripción del producto:</dt>' +
@@ -98,49 +98,13 @@ function generarLista(dataR, estado) {
                     '<p class="text-muted">' + data[i].prodImagen.producto.descripcionProducto + '</p>' +
                     '</dd>' +
                     '</dl>' +
-                    '<dl>' +
-                    '<dt>Imágenes:</dt><br>';
-
-            if (data[i].prodImagen.imagenes.length > 0) {
-
-                pedidos += '<div id="myCarousel' + i + '" class="carousel slide" data-ride="carousel">' +
-                        '<ul class="carousel-indicators">' +
-                        '<li data-target="#myCarousel' + i + '" data-slide-to="0" class="active"></li>';
-
-                for (var j = 1; j < data[i].prodImagen.imagenes.length; j++) {
-
-                    pedidos += ' <li data-target="#myCarousel' + i + '" data-slide-to="' + j + '"></li>';
-                }
-                pedidos += '</ul>' +
-                        '<div class="carousel-inners">' +
-                        ' <div class="carousel-item active" style="min-height: 50px;max-height: 500px;background: white;text-align: center;">' +
-                        '<img  src="' + data[i].prodImagen.imagenes[0].url + '" alt="Imagen del producto" >' +
-                        '</div>';
-
-                for (var j = 1; j < data[i].prodImagen.imagenes.length; j++) {
-                    pedidos += '<div class="carousel-item" style="min-height: 50px; max-height: 500px;background: white;text-align: center;">' +
-                            '<img  src="' + data[i].prodImagen.imagenes[j].url + '" alt="Imagen del producto" >' +
-                            ' </div>';
-                }
-                pedidos += '' +
-                        '<a class="carousel-control-prev" href="#myCarousel' + i + '" data-slide="prev">' +
-                        ' <span class="carousel-control-prev-icon"></span>' +
-                        ' </a>' +
-                        '<a class="carousel-control-next" href="#myCarousel' + i + '" data-slide="next">' +
-                        '<span class="carousel-control-next-icon"></span>' +
-                        ' </a>' +
-                        '</div>' +
-                        '</div>';
-
-            } else {
-
-            }
-            pedidos += '</dl>' +
+                    '<dl>',
+                    pedidos += '</dl>' +
                     '<dl>';
             if (vista === 'pedidos') {
                 pedidos += '<dt>Información del cliente:</dt>';
                 if (data[i].ventaDTO.contactoVenta === '1' || data[i].ventaDTO.contactoVenta === 1) {
-                   
+
                     pedidos += '<dd><a href="#" style="border-bottom: solid 1px rgb(252, 115, 30);" class="verUsuario" onclick="datosUsuario(event,' + data[i].compradorDTO.idPersona + ')" >click aquí para ver la información del cliente...</a></dd>';
                 } else {
                     pedidos += '<br><dd><b><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: rgb(216, 98, 25); font-size: 20px;"></i> El usuario no desea que veas sus datos.</b></dd>';
@@ -171,14 +135,51 @@ function generarLista(dataR, estado) {
             }
 
 
+
+            if (data[i].prodImagen.imagenes.length > 0) {
+
+                pedidos += '<dt>Imágenes:</dt><br>';
+                pedidos += '<div id="myCarousel' + i + '" class="carousel slide" data-ride="carousel">' +
+                        '<ul class="carousel-indicators" style="position: inherit !important;">' +
+                        '<li data-target="#myCarousel' + i + '" data-slide-to="0" class="active"></li>';
+
+                for (var j = 1; j < data[i].prodImagen.imagenes.length; j++) {
+
+                    pedidos += ' <li data-target="#myCarousel' + i + '" data-slide-to="' + j + '"></li>';
+                }
+                pedidos += '<div class="carousel-inners">' +
+                        ' <div class="carousel-item active" style="min-height: 50px;max-height: 500px;background: white;text-align: center;width: 120%;margin-left: -15%;">' +
+                        '<img  src="' + data[i].prodImagen.imagenes[0].url + '" alt="Imagen del producto" >' +
+                        '</div>';
+                for (var j = 1; j < data[i].prodImagen.imagenes.length; j++) {
+                    pedidos += '<div class="carousel-item" style="min-height: 50px; max-height: 500px;background: white;text-align: center;width: 120%;margin-left: -15%;">' +
+                            '<img  src="' + data[i].prodImagen.imagenes[j].url + '" alt="Imagen del producto" >' +
+                            ' </div>';
+                }
+                pedidos += '</ul>'; 
+
+
+                
+                pedidos += '' +
+                        '<a class="carousel-control-prev" href="#myCarousel' + i + '" data-slide="prev">' +
+                        ' <span class="carousel-control-prev-icon"></span>' +
+                        ' </a>' +
+                        '<a class="carousel-control-next" href="#myCarousel' + i + '" data-slide="next">' +
+                        '<span class="carousel-control-next-icon"></span>' +
+                        ' </a>' +
+                        '</div>' +
+                        '</div>';
+
+            }
+
             pedidos += ' </dl>' +
                     '</div>' +
                     ' </div>' +
                     '</div>';
 
         }
-    }else{
-        pedidos+='<h3 style="text-align: center;padding: 27px;font-size: 37px;">Sin Pedidos.</h3>';
+    } else {
+        pedidos += '<h3 style="text-align: center;padding: 27px;font-size: 37px;">Sin Pedidos.</h3>';
     }
     $('#carga').removeClass('is-active');
     $('#pedidos').empty();
@@ -187,8 +188,8 @@ function generarLista(dataR, estado) {
 }
 
 
-function datosUsuario(event,idUsuario) {
-event.preventDefault();
+function datosUsuario(event, idUsuario) {
+    event.preventDefault();
     var tipoUsu;
 
     if (vista === 'pedidos') {
@@ -230,9 +231,9 @@ function llenarModalUsu(datos) {
         $('#correoUsu').text(datos.correoPer);
         $('#ciuUsu').text(datos.nombreCiudad);
         $('#dirUsu').text(datos.direccionPer);
-    }else if(vista === 'misPedidos'){
+    } else if (vista === 'misPedidos') {
         $("#modalUsuarioVendedor").modal("show");
-         $('#nombreUsu').text(datos.nombreEmpresa);
+        $('#nombreUsu').text(datos.nombreEmpresa);
         $('#celUsu').text(datos.CelEmpresa);
         $('#telUsu').text(datos.telEmpresa);
         $('#correoUsu').text(datos.correoEmpresa);

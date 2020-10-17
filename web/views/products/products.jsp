@@ -21,7 +21,7 @@
     <div class="container">
     <div class="row p-2">
         <div class="col-lg-12">
-            <h3 class="titulos hvr-icon-pop"><i class="fas fa-gifts naranja"></i> Productos </h3>
+            <h3 class="titulos hvr-icon-pop"><i class="fas fa-gifts naranja"></i> Mis productos </h3>
             <a type="button" href="./newProduct" class="btn btn-primary float-right hvr-push"><i class="fas fa-laptop"></i> Vender</a>
         </div>
     </div>    

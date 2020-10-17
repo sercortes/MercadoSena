@@ -305,12 +305,7 @@ $(document).on('click', '#meInteresa', function (e) {
                 generateTables(datos, 1)
                 datosVendedor(idEmpresa)
 
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                messageError('cancelado')
-                generateTables(datos, 0)
-                datosVendedor(idEmpresa)
-
-            }
+            } 
         })
     } else {
         $('#detailsProduct').modal('hide');

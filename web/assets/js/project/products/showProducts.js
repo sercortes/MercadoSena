@@ -9,12 +9,12 @@ var $pagination = $('#pagination'),
         totalPages = 0,
         initiateStartPageClick = true
 
-    
-    $(document).on('click', '.page-item', function(){
-            let currentPage = $pagination.twbsPagination('getCurrentPage');
-            console.log(currentPage)
-            localStorage.setItem('page', currentPage);
-    })
+
+$(document).on('click', '.page-item', function () {
+    let currentPage = $pagination.twbsPagination('getCurrentPage');
+    console.log(currentPage)
+    localStorage.setItem('page', currentPage);
+})
 
 $(function () {
 
@@ -23,11 +23,11 @@ $(function () {
     listarProductoByVendedor()
 
     $('.collapse').collapse()
-    
+
     console.log(idCompany)
-    
+
     redirect()
-    
+
 })
 
 function listarProductoByVendedor() {
@@ -40,7 +40,7 @@ function listarProductoByVendedor() {
         datatype: 'json'
     }).done(function (data) {
 
-     $('#cargas').removeClass('is-active');
+        $('#cargas').removeClass('is-active');
 
         let arrayI = getImages()
 
@@ -67,8 +67,8 @@ function listarProductoByVendedor() {
         totalPages = Math.ceil(totalRecords / recPerPage)
 
         apply_pagination()
-        
-       
+
+
     })
 
 
@@ -140,10 +140,12 @@ function generateTableBuscador() {
         str += `<div class="col-lg-3">
           <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}">`
         str += '<td>' + getImagen(item.imagen) + '</td>'
-        str += `<figcaption class="p-4 card-img-bottom">
-              <h2 class="h5 font-weight-bold mb-3 font-italic img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
+        str += `<figcaption class="p-3 card-img-bottom">
+                
+              <h1 class="h4 font-weight-bold mb-2 font-italic img-fluid">${item.nombreProducto.toString().substr(0, 36)}</h1>
+              <hr>
+              <h2 class="h5 text-muted img-fluid" style="margin-top: -2%;">$${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
               <p class="mb-0 text-small text-muted">Cantidad: ${item.stockProducto}</p>
-              <p class="mb-0 text-small text-muted">Valor: ${item.valorProducto}</p>
             </figcaption>
        
       <div class="col-lg-12 mb-5 p-0">
@@ -189,7 +191,7 @@ $(document).on('click', '.watch', function (e) {
     let parent = $(this)[0].parentElement.parentElement
     let idPro = $(parent).attr('idProducto')
     let producto = records.find(element => element.idProducto === idPro)
-    console.log('..............'+records);
+    console.log('..............' + records);
     $('#detailsProduct').modal('show')
     detailsProduct(producto);
 
@@ -211,7 +213,7 @@ function textProduct(item) {
               <p class="mb-0 text-small text-muted">Marca: ${item.marcaProducto}</p>
               <p class="mb-0 text-small text-muted">Categoría: ${item.categorys.nombreCategoria}</p>
               <p class="mb-0 text-small text-muted">Descripción : ${item.descripcionProducto}</p>`
-    if (item.diasEnvios !== undefined) {   
+    if (item.diasEnvios !== undefined) {
         str += `
         <hr>
         <div class="col-lg-12 mb-5 p-0">
@@ -320,7 +322,7 @@ $(document).on('click', '.editProduct', function (e) {
 
     let producto = records.find(element => element.idProducto === idPro)
     console.log(producto)
-    
+
     generateImages(producto.imagen)
     document.getElementById('idProductoE').value = producto.idProducto
     document.getElementById('nameE').value = producto.nombreProducto

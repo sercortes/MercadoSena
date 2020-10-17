@@ -5,7 +5,7 @@
             <!-- Modal Header -->
             <div class="modal-header" >
 
-                <h4 class="modal-title" style="color: black;margin-left: 42%;">Vendedor</h4>
+                <h4 class="modal-title" style="color: #fc731e;margin-left: 42%;">Vendedor</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -22,7 +22,7 @@
                 </dl>
                 <dl>
                     <dt>Número de teléfono:</dt>
-                    <dd id="telUsu">CZ7775877975656</dd>
+                    <dd id="telUsu">Null</dd>
                 </dl>
 
                 <dl>
@@ -33,10 +33,10 @@
                     <dt>Ciudad:</dt>
                     <dd id="ciuUsu">CZ7775877975656</dd>
                 </dl>
-                <dl>
+                <!--<dl>
                     <dt>Dirección:</dt>
                     <dd id="dirUsu">CZ7775877975656</dd>
-                </dl>
+                </dl>-->
 
 
             </div>

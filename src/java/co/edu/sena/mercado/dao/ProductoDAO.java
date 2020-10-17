@@ -156,7 +156,7 @@ public class ProductoDAO {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
-                    + "WHERE EM.idEmpresa = ? AND PR.estadoProducto = 1";
+                    + "WHERE EM.idEmpresa = ? AND PR.estadoProducto = 1 AND PR.stockProducto > 0 ";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
@@ -199,7 +199,7 @@ public class ProductoDAO {
             String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
                     + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
-                    + "WHERE PR.estadoProducto = 1 AND EM.idEmpresa <> ?"
+                    + "WHERE PR.estadoProducto = 1 AND PR.stockProducto > 0 AND EM.idEmpresa <> ?"
                     + "ORDER BY PR.agregado ASC";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
@@ -240,7 +240,7 @@ public class ProductoDAO {
             String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
                     + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
-                    + "WHERE PR.estadoProducto = 1 AND EM.idEmpresa <> ? "
+                    + "WHERE PR.estadoProducto = 1 AND PR.stockProducto > 0 AND EM.idEmpresa <> ?"
                     + "ORDER by rand() LIMIT 8";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
