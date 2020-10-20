@@ -237,5 +237,31 @@ public class personaNaturalDAO {
         }
         return persona;
     }
+    
+    
+    public personaNaturalDTO buscarCorreo(int id){
+        personaNaturalDTO persona = new personaNaturalDTO();
+        try {
+            con = new Conexion();
+            String sql = "SELECT correoPersona FROM personanatural WHERE idUsuarioFK = ?";
+            PreparedStatement pss = con.getConnection().prepareStatement(sql);
+            pss.setInt(1, id);
+            ResultSet rss = ps.executeQuery();
+            
+            
+             if (rss.next()) {
+                persona.setCorreoPer(rs.getString("correoPersona"));
+            }
+            
+        } catch (Exception ee){ 
+            System.out.println(ee);
+        }finally {
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+        
+        return persona;
+    }
 
 }

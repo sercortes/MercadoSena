@@ -114,24 +114,58 @@ public class actualizaUsuEmp extends HttpServlet {
                     personaDTO.setTelPer(lista1.get(8));
                     personaDTO.setDireccionPer(lista1.get(9));
 
+                    empresaDTO.setNombreEmpresa(lista1.get(1));
+                    empresaDTO.setIdCiudad(Integer.parseInt(lista1.get(3)));
+                    empresaDTO.setCelEmpresa(lista1.get(7));
+                    empresaDTO.setTelEmpresa(lista1.get(8));
+                    personaDAO.buscarCorreo(usuarioDTO.getIdUsuario());
+                    empresaDTO.setCorreoEmpresa(personaDTO.getCorreoPer());
+                    empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
+
+                    empresaDTO empDAO = new empresaDAO().buscarEmpresa(usuarioDTO.getIdUsuario());
                     personaNaturalDTO perDAO = new personaNaturalDAO().buscarDocumenPerson(personaDTO.getNumeroDocPer(), personaDTO.getNumCelularPer());
                     if (personaDTO.getNumeroDocPer().equals(perDAO.getNumeroDocPer()) || personaDTO.getNumCelularPer().equals(perDAO.getNumCelularPer())) {
 
                         if (perDAO.getNumeroDocPer().equals("") || perDAO.getNumCelularPer().equals("")) {
-                            
+
                             personaDAO.actualizarPersona(personaDTO);
+
+                            if (empDAO.getEsEmpresa() < 1) {
+
+                                empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
+
+                            }
 
                             response.getWriter().print(true);
                             sesion.removeAttribute("USER");
                             sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
 
-                        }else{
+                        } else if (personaDTO.getIdPer() == perDAO.getIdPer()) {
+
+                            personaDAO.actualizarPersona(personaDTO);
+
+                            if (empDAO.getEsEmpresa() < 1) {
+
+                                empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
+
+                            }
+                            response.getWriter().print(true);
+                            sesion.removeAttribute("USER");
+                            sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
+
+                        } else {
                             response.getWriter().print(false);
                         }
 
                     } else {
 
                         if (personaDAO.actualizarPersona(personaDTO)) {
+
+                            if (empDAO.getEsEmpresa() < 1) {
+
+                                empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
+
+                            }
 
                             response.getWriter().print(true);
                             sesion.removeAttribute("USER");
