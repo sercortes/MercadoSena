@@ -1,9 +1,13 @@
 package co.edu.sena.mercado.controller.seller;
 
 import co.edu.sena.mercado.dao.ImagenesProductosDAO;
+import co.edu.sena.mercado.dao.personaNaturalDAO;
+import co.edu.sena.mercado.dao.empresaDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
 import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.empresaDTO;
+import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
@@ -12,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import static java.lang.System.out;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.Connection;
@@ -39,12 +44,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 public class UploadProduct extends HttpServlet {
 
-   
-   private final String UPLOAD_DIRECTORY = "/home/equipo/servers2/glassfish4/glassfish/domains/domain1/docroot/files/";
-   private final String SERVER_UPLOAD = "http://192.168.0.3:8080/files/";
-   private static final long serialVersionUID = 1L;
+    private final String UPLOAD_DIRECTORY = "/home/equipo/servers2/glassfish4/glassfish/domains/domain1/docroot/files/";
+    private final String SERVER_UPLOAD = "http://192.168.0.3:8080/files/";
+    private static final long serialVersionUID = 1L;
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -59,7 +62,7 @@ public class UploadProduct extends HttpServlet {
         try {
             new Gson().toJson(uploadForm(request, response), response.getWriter());
         } catch (SQLException ex) {
-            System.out.println(":( "+ex);
+            System.out.println(":( " + ex);
             Logger.getLogger(UploadProduct.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -106,39 +109,49 @@ public class UploadProduct extends HttpServlet {
                     }
 
                 }
-                
-                usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
-                producto.setIdEmpresaFK(Integer.toString(usu.getEmpresa().getIdEmpresa()));
-                 
-                //Insert Producto
-                folder = Integer.toString(productoDAO.insertReturn(producto));
-                
-                File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder);
-                
-                System.out.println("XXXXXXXXXXXXXXXXXXXx");
-                System.out.println(tempFile.toString());
-                
-                if (!tempFile.exists()) {
-                    tempFile.mkdirs();
-                }
-                
-                for (FileItem item : multiparts) {
 
-                    if (!item.isFormField()) {
-                        // writen files and get List images
-                        
-                        lista = getLista(item, folder, (ArrayList<ImagenesProducto>) lista);
+                usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
+
+                //Insert Producto
+                personaNaturalDTO perDAO = new personaNaturalDAO().getDataById(Integer.toString(usu.getIdUsuario()));
+
+                if (perDAO.getNumCelularPer().equals("") || perDAO.getNumeroDocPer().equals("") || perDAO.getTelPer().equals("")) {
+
+                    out.print("false");
+
+                } else if (!perDAO.getNumCelularPer().equals("") && !perDAO.getNumeroDocPer().equals("") && !perDAO.getTelPer().equals("")) {
+
+                    producto.setIdEmpresaFK(Integer.toString(usu.getEmpresa().getIdEmpresa()));
+
+                    folder = Integer.toString(productoDAO.insertReturn(producto));
+
+                    File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder);
+
+                    System.out.println("XXXXXXXXXXXXXXXXXXXx");
+                    System.out.println(tempFile.toString());
+
+                    if (!tempFile.exists()) {
+                        tempFile.mkdirs();
                     }
 
-                }
+                    for (FileItem item : multiparts) {
 
-                // insert imagenes productos
-                for (ImagenesProducto item : lista) {
-                    imagenesProductosDAO.insertReturn(item);
-                }
+                        if (!item.isFormField()) {
+                            // writen files and get List images
 
-                cone.commit();
-                codigo = true;
+                            lista = getLista(item, folder, (ArrayList<ImagenesProducto>) lista);
+                        }
+
+                    }
+
+                    // insert imagenes productos
+                    for (ImagenesProducto item : lista) {
+                        imagenesProductosDAO.insertReturn(item);
+                    }
+
+                    cone.commit();
+                    codigo = true;
+                }
 
             } catch (Exception e) {
 
@@ -227,14 +240,14 @@ public class UploadProduct extends HttpServlet {
     public List<ImagenesProducto> getLista(FileItem item, String folder, ArrayList<ImagenesProducto> lista) throws Exception {
 
         ImagenesProducto imagenesProducto;
-        
+
         String name = new File(item.getName()).getName();
         File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder + File.separator + name);
 
         if (tempFile.exists()) {
             tempFile.delete();
         }
-        
+
         item.write(tempFile);
 
         imagenesProducto = new ImagenesProducto();

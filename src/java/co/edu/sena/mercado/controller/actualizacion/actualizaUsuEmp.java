@@ -71,8 +71,9 @@ public class actualizaUsuEmp extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String accion = request.getRequestURI();
         HttpSession sesion = (HttpSession) request.getSession();
-        switch (accion) {
-            case "/MercadoSena/actualizarPersona":
+        String accion2 = request.getParameter("accion");
+        switch (accion2) {
+            case "actualizarPersonas":
 
                 personaDTO = new personaNaturalDTO();
                 usuarioDTO = new usuarioDTO();
@@ -118,6 +119,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     empresaDTO.setIdCiudad(Integer.parseInt(lista1.get(3)));
                     empresaDTO.setCelEmpresa(lista1.get(7));
                     empresaDTO.setTelEmpresa(lista1.get(8));
+                    empresaDTO.setDirEmpresa(lista1.get(9));
                     personaDAO.buscarCorreo(usuarioDTO.getIdUsuario());
                     empresaDTO.setCorreoEmpresa(personaDTO.getCorreoPer());
                     empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
@@ -182,7 +184,7 @@ public class actualizaUsuEmp extends HttpServlet {
                 }
 
                 break;
-            case "/MercadoSena/actualizarUsuario":
+            case "actualizarUsuarios":
 
                 usuarioDTO = new usuarioDTO();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
@@ -195,7 +197,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     response.getWriter().print(false);
                 }
                 break;
-            case "/MercadoSena/actualizaUsuEmp":
+            case "actualizarEmpresa":
 
                 empresaDTO = new empresaDTO();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
@@ -238,6 +240,73 @@ public class actualizaUsuEmp extends HttpServlet {
                         response.getWriter().print(false);
                     }
 
+                }
+                break;
+            case "actualizaDatosFaltantes":
+
+                personaDTO = new personaNaturalDTO();
+                empresaDTO = new empresaDTO();
+                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
+
+                personaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
+                personaDTO.setNumeroDocPer(request.getParameter("documentoUsuario"));
+                personaDTO.setNumCelularPer(request.getParameter("celularUsuario"));
+                personaDTO.setTelPer(request.getParameter("telefonoUsuario"));
+                personaDTO.setDireccionPer(request.getParameter("direccionUsuario"));
+
+                empresaDTO.setCelEmpresa(request.getParameter("celularUsuario"));
+                empresaDTO.setTelEmpresa(request.getParameter("telefonoUsuario"));
+                empresaDTO.setDirEmpresa(request.getParameter("direccionUsuario"));
+                empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
+
+                empresaDTO emDTOs = new empresaDAO().buscarEmpresa(usuarioDTO.getIdUsuario());
+                personaNaturalDTO perDAOs = new personaNaturalDAO().getDataById(Integer.toString(usuarioDTO.getIdUsuario()));
+                personaNaturalDTO perDAo = new personaNaturalDAO().buscarDocumenPerson(personaDTO.getNumeroDocPer(), personaDTO.getNumCelularPer());
+
+                if (emDTOs.getEsEmpresa() < 1) {
+
+                    if (perDAOs.getNumCelularPer().equals("") || perDAOs.getTelPer().equals("") || perDAOs.getNumeroDocPer().equals("")) {
+
+                        if (personaDTO.getNumeroDocPer().equals(perDAo.getNumeroDocPer()) && perDAo.getIdUsuario() == emDTOs.getIdUsuario() || perDAo.getNumeroDocPer() == null) {
+
+                            if (perDAo.getIdUsuario() == 0 || perDAo.getNumCelularPer().equals(0) || perDAo.getTelPer().equals(0)) {
+
+                                if (empresaDAO.actualizarDatosFaltantes(empresaDTO, usuarioDTO.getIdUsuario())) {
+
+                                    // sesion.removeAttribute("USER");
+                                    personaDAO.actualizarDatosFaltantes(personaDTO, usuarioDTO.getIdUsuario());
+                                    response.getWriter().print(true);
+
+                                    usuarioDTO = datSesion.consultarDatos(usuarioDTO);
+                                    sesion.setAttribute("USER", usuarioDTO);
+                                } else {
+                                    response.getWriter().print(false);
+                                }
+
+                            } else if (perDAo.getNumCelularPer().equals("") || perDAo.getTelPer().equals("")) {
+                                if (empresaDAO.actualizarDatosFaltantes(empresaDTO, usuarioDTO.getIdUsuario())) {
+
+                                    // sesion.removeAttribute("USER");
+                                    personaDAO.actualizarDatosFaltantes(personaDTO, usuarioDTO.getIdUsuario());
+                                    response.getWriter().print(true);
+
+                                    usuarioDTO = datSesion.consultarDatos(usuarioDTO);
+                                    sesion.setAttribute("USER", usuarioDTO);
+                                } else {
+                                    response.getWriter().print(false);
+                                }
+                            } else {
+                                response.getWriter().print(false);
+                            }
+
+                        } else {
+                            response.getWriter().print(false);
+                        }
+
+                    }
+
+                } else {
+                    System.out.println("no entro");
                 }
                 break;
             case "/MercadoSena/recuperarClave":

@@ -22,12 +22,12 @@ public class empresaDAO {
     Connection cn;
     PreparedStatement ps;
     ResultSet rs;
-    Conexion con=new Conexion();
+    Conexion con = new Conexion();
     String consulta;
     empresaDTO empresaDTO = new empresaDTO();
     ArrayList<empresaDTO> listaEmpresa = new ArrayList<>();
 
-    public boolean registroEmpresa(empresaDTO empresaDTO,int idUsuario) {
+    public boolean registroEmpresa(empresaDTO empresaDTO, int idUsuario) {
         con = new Conexion();
         consulta = "INSERT INTO empresa( esEmpresa, nombreEmpresa, direccionEmpresa, telefonoEmpresa, celularEmpresa, correoEmpresa, idCiudadFK, idUsuarioFK) VALUES (?,?,?,?,?,?,?,?)";
         try {
@@ -43,22 +43,23 @@ public class empresaDAO {
             ps.setInt(8, empresaDTO.getIdUsuario());
             ps.executeUpdate();
             System.out.println("..... registro de empresa realizado consulta " + ps.toString());
-              //cerrarCon(ps, cn, rs);
+            //cerrarCon(ps, cn, rs);
             return true;
 
         } catch (SQLException e) {
             System.out.println("xxxxxxxxxxxxxxxxxxx error al registrar empresa " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
-             // cerrarCon(ps, cn, rs);
+            // cerrarCon(ps, cn, rs);
             return false;
-         }finally{
+        } finally {
             Conexion.close(cn);
             Conexion.close(ps);
             Conexion.close(rs);
         }
 
     }
-    public boolean actualizarEmpresa(empresaDTO empresaDTO,int idUsuario) {
+
+    public boolean actualizarEmpresa(empresaDTO empresaDTO, int idUsuario) {
         con = new Conexion();
         consulta = "UPDATE empresa SET esEmpresa=? ,nombreEmpresa=?,direccionEmpresa=?,telefonoEmpresa=?,celularEmpresa=?,correoEmpresa=?,idCiudadFK=? WHERE idUsuarioFK=?";
         try {
@@ -74,15 +75,43 @@ public class empresaDAO {
             ps.setInt(8, idUsuario);
             ps.executeUpdate();
             System.out.println("..... actualizacion de empresa realizado consulta " + ps.toString());
-              //cerrarCon(ps, cn, rs);
+            //cerrarCon(ps, cn, rs);
             return true;
 
         } catch (SQLException e) {
             System.out.println("xxxxxxxxxxxxxxxxxxx error al actualizar empresa " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
-             // cerrarCon(ps, cn, rs);
+            // cerrarCon(ps, cn, rs);
             return false;
-        }finally{
+        } finally {
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+
+    }
+
+    public boolean actualizarDatosFaltantes(empresaDTO empresaDTO, int idUsuario) {
+        con = new Conexion();
+        consulta = "UPDATE empresa SET direccionEmpresa=?,telefonoEmpresa=?,celularEmpresa=? WHERE idUsuarioFK=?";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setString(1, empresaDTO.getDirEmpresa());
+            ps.setString(2, empresaDTO.getTelEmpresa());
+            ps.setString(3, empresaDTO.getCelEmpresa());
+            ps.setInt(4, idUsuario);
+            ps.executeUpdate();
+            System.out.println("..... actualizacion de empresa realizado consulta " + ps.toString());
+            //cerrarCon(ps, cn, rs);
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al actualizar empresa " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+            // cerrarCon(ps, cn, rs);
+            return false;
+        } finally {
             Conexion.close(cn);
             Conexion.close(ps);
             Conexion.close(rs);
@@ -119,24 +148,24 @@ public class empresaDAO {
         } catch (SQLException e) {
             System.out.println("xxxxxxxxxxxxxxxxxxx error al buscar empresa " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
-             // cerrarCon(ps, cn, rs);
+            // cerrarCon(ps, cn, rs);
             return null;
-         }finally{
+        } finally {
             Conexion.close(cn);
             Conexion.close(ps);
             Conexion.close(rs);
         }
 
     }
-    
+
     public ArrayList<empresaDTO> listarEmpresas() {
         con = new Conexion();
-      listaEmpresa=new ArrayList<>();
+        listaEmpresa = new ArrayList<>();
         consulta = "SELECT * FROM empresa ";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
-            
+
             rs = ps.executeQuery();
             while (rs.next()) {
                 empresaDTO = new empresaDTO();
@@ -152,24 +181,24 @@ public class empresaDAO {
                 listaEmpresa.add(empresaDTO);
 
             }
-           
+
             //cerrarCon(ps, cn, rs);
             return listaEmpresa;
 
         } catch (SQLException e) {
             System.out.println("xxxxxxxxxxxxxxxxxxx error al buscar empresa " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
-             // cerrarCon(ps, cn, rs);
+            // cerrarCon(ps, cn, rs);
             return null;
-         }finally{
+        } finally {
             Conexion.close(cn);
             Conexion.close(ps);
             Conexion.close(rs);
         }
 
     }
-    
-      public empresaDTO buscarEmpresaXProducto(String idProducto) {
+
+    public empresaDTO buscarEmpresaXProducto(String idProducto) {
         con = new Conexion();
         consulta = "SELECT emp.*,ciud.nombreCiudad FROM empresa emp INNER JOIN ciudad ciud ON ciud.idCiudad=emp.idCiudadFK WHERE idEmpresa = ?";
         try {
@@ -199,16 +228,15 @@ public class empresaDAO {
         } catch (SQLException e) {
             System.out.println("xxxxxxxxxxxxxxxxxxx error al buscar empresa " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
-             // cerrarCon(ps, cn, rs);
+            // cerrarCon(ps, cn, rs);
             return null;
-         }finally{
+        } finally {
             Conexion.close(cn);
             Conexion.close(ps);
             Conexion.close(rs);
         }
 
     }
-      
 
 //    public void cerrarCon(PreparedStatement ps, Connection con, ResultSet rs) {
 //        try {

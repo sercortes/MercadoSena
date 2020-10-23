@@ -23,6 +23,29 @@ function validarEmpresa() {
     }
 }
 ;
+
+function validarEmail(correo) {
+    if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/.test(correo)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+function validarNumero(telefono) {
+    if (/^([0-9]{5,13})*$/.test(telefono)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+function validarLetras(leetras) {
+    if (/^([a-z A-Z]{3,20})*$/.test(leetras)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 //actualizar persona
 
 function muestra_oculta(id){
@@ -64,7 +87,7 @@ $('#datosActualizarpresona').submit(function (e) {
         $('#cargando').addClass('is-active');
         btn.disabled = true;
         $.ajax({
-            url: "actualizarPersona",
+            url: "./actualizaUsuEmp?accion=actualizarPersonas",
             type: 'POST',
             data: datos,
             contentType: false,
@@ -125,7 +148,7 @@ $('#actualizarUsuario').submit(function (e) {
 
         var datos = $('#actualizarUsuario').serialize();
         $.ajax({
-            url: "actualizarUsuario",
+            url: "./actualizaUsuEmp?accion=actualizarUsuarios",
             type: 'POST',
             data: datos,
             error: function (jqXHR, textStatus, errorThrown) {

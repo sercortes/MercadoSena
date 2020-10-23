@@ -31,7 +31,7 @@
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Nombre:</label>
                         <input type="text" class="form-control was-validated" minlength="4" maxlength="150" id="name" name="name" placeholder="Nombre de su producto" required>
-                        
+
                         <div class="invalid-feedback">
                             Escriba un nombre de mínimo 4 carácteres
                         </div>
@@ -41,7 +41,7 @@
 
                         <label for="exampleInputEmail1">Marca:</label>
                         <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="marca" name="marca" placeholder="Marca de su producto" required>
-                      
+
                         <div class="invalid-feedback">
                             Escriba una marca de mínimo 2 carácteres
                         </div>
@@ -66,7 +66,7 @@
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Precio:</label>
                         <input type="number" class="form-control was-validated" minlength="0" max="1500000000000000" id="price" name="price" placeholder="$" oninput="validity.valid||(value='');" required>
-                      
+
                         <div class="invalid-feedback">
                             Escriba precio válido
                         </div>
@@ -74,7 +74,7 @@
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Cantidad:</label>
                         <input type="number" class="form-control was-validated" minlength="0" max="100000000" id="cantidad" name="cantidad" placeholder="Stock" oninput="validity.valid||(value='');" required>
-                      
+
                         <div class="invalid-feedback">
                             Escriba precio válido
                         </div>
@@ -91,7 +91,7 @@
                     <label for="exampleFormControlTextarea1">Descripción:</label>
                     <textarea class="form-control" id="descrip" name="descrip" rows="3" placeholder="Descripción de su producto" minlength="20" maxlength="500" required></textarea>
                     <small id="emailHelp" class="form-text text-muted">Si su producto tiene información adicional coloquela en este campo.</small>
-                  
+
                     <div class="invalid-feedback">
                         Escriba una descripción de mínimo 20 carácteres
                     </div>
@@ -108,58 +108,58 @@
                 <div>
 
                     <c:if test="${USER.empresa.esEmpresa == 1}">
-                    <div class="camposAdd">
+                        <div class="camposAdd">
 
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1">Días de Envío:</label>
-                                <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="envios" name="envios" placeholder="Nombre de su producto" required>
-                             
-                                <div class="invalid-feedback">
-                                    Escriba los días de envío del producto
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Días de Envío:</label>
+                                    <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="envios" name="envios" placeholder="Nombre de su producto" required>
+
+                                    <div class="invalid-feedback">
+                                        Escriba los días de envío del producto
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group col-md-6">
+                                <div class="form-group col-md-6">
 
 
-                                <label for="exampleInputEmail1">Medidas:</label>
-                                <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="medidas" name="medidas" placeholder="Dimesiones de su producto" required>
-                              
-                                <div class="invalid-feedback">
-                                    Escriba las medidas del producto
-                                </div>
+                                    <label for="exampleInputEmail1">Medidas:</label>
+                                    <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="medidas" name="medidas" placeholder="Dimesiones de su producto" required>
 
-                            </div>
+                                    <div class="invalid-feedback">
+                                        Escriba las medidas del producto
+                                    </div>
 
-                        </div>
-
-
-                        <div class="form-row">
-
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1">Empaque:</label>
-                                <input type="text" class="form-control was-validated" minlength="2" max="40" id="empaque" name="empaque" placeholder="Empaque del producto" required>
-                              
-                                <div class="invalid-feedback">
-                                    Escriba un empaque
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label for="exampleInputEmail1">Embalaje:</label>
-                                <input type="text" class="form-control was-validated" minlength="2" max="40" id="embalaje" name="embalaje" placeholder="Embalaje del producto" required>
-                                
-                                <div class="invalid-feedback">
-                                    Escriba un embalaje
                                 </div>
 
                             </div>
+
+
+                            <div class="form-row">
+
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Empaque:</label>
+                                    <input type="text" class="form-control was-validated" minlength="2" max="40" id="empaque" name="empaque" placeholder="Empaque del producto" required>
+
+                                    <div class="invalid-feedback">
+                                        Escriba un empaque
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Embalaje:</label>
+                                    <input type="text" class="form-control was-validated" minlength="2" max="40" id="embalaje" name="embalaje" placeholder="Embalaje del producto" required>
+
+                                    <div class="invalid-feedback">
+                                        Escriba un embalaje
+                                    </div>
+
+                                </div>
                             </div>
 
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Ventajas:</label>
                                 <textarea class="form-control" id="ventajas" name="ventajas" rows="3" placeholder="Ventajas de su producto" minlength="20" maxlength="500" required></textarea>
                                 <small id="emailHelp" class="form-text text-muted">Si su producto tiene información adicional coloquela en este campo.</small>
-                              
+
                                 <div class="invalid-feedback">
                                     Escriba las ventajas con por lo menos 10 carácteres
                                 </div>
@@ -170,27 +170,29 @@
                     </c:if>
 
 
-                        <div class="form-group pb-2">
-                            <button id="send" type="submit" class="btn btn-primary hvr-push float-right"><i class="fas fa-save fa-1x"></i> Guardar</button>
-                            <a href="./Products" type="" class="btn btn-warning hvr-push float-left"><i class="fas fa-arrow-left"></i> Volver</a>
-                        </div>
-                        </form>
-
-
+                    <div class="form-group pb-2">
+                        <button id="send" type="submit" class="btn btn-primary hvr-push float-right"><i class="fas fa-save fa-1x"></i> Guardar</button>
+                        <a href="./Products" type="" class="btn btn-warning hvr-push float-left"><i class="fas fa-arrow-left"></i> Volver</a>
                     </div>
-                    
-                </div>
+            </form>
 
-                <div id="carga" class="loader loader-bouncing"></div>
 
         </div>
-        </div>
+
+    </div>
+
+    <div id="carga" class="loader loader-bouncing"></div>
+
+</div>
+</div>
 
 
+<%@include file="/views/products/modalDatosFaltantes.jspf"%>
+<%@include file="/views/template/footer.jspf"%>
 
-        <%@include file="/views/template/footer.jspf"%>
-
-        <script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
-        <script src="./assets/js/project/util/global.js" charset="utf-8"></script>
-        <script src="./assets/js/project/products/uploadFiles.js" charset="utf-8"></script>
+<script src="./assets/js/project/comprador/ajax.js" charset="utf-8"></script>
+<script src="./assets/js/project/products/modalDatosFaltantes.js" charset="utf-8"></script>
+<script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
+<script src="./assets/js/project/util/global.js" charset="utf-8"></script>
+<script src="./assets/js/project/products/uploadFiles.js" charset="utf-8"></script>
 

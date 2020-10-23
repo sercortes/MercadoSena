@@ -4,7 +4,6 @@ $(document).ready(function () {
         maxSize: 2 * 1024 * 1024,
         maxFiles: 5
     });
-    
     getCategorias()
 
 });
@@ -61,8 +60,8 @@ $('#formProduct').submit(function (e) {
         return false
     }
 
-    $('#carga').addClass('is-active');
-    $("#send").attr("disabled", true);
+//    $('#carga').addClass('is-active');
+//    $("#send").attr("disabled", true);
 
     var form = $('#formProduct')[0]
     var data = new FormData(form)
@@ -77,17 +76,16 @@ $('#formProduct').submit(function (e) {
         cache: false,
         success: function (data) {
 
-        console.log(data)
-            clean()
-
             if (data) {
 
-                messageOk('Generado con éxito')
+                mensajeExito('Producto agregado con éxito!');
+                setTimeout(function () {
+                    window.location = './Products';
+                }, 1800);
 
             } else {
-
-                messageInfo('Error')
-
+                mensajeinfo('Para poder agregar un producto debes actulizar tus datos!');
+                $('#modaldatosfalltantes').modal('show');
             }
 
 
@@ -108,7 +106,7 @@ function clean() {
     form.removeClass('was-validated');
     $('#send').attr('disabled', false)
     generateOtherDiv()
-    $('#carga').removeClass('is-active')
+
 }
 
 function getCategorias() {
@@ -132,6 +130,41 @@ function getCategorias() {
 
 }
 
+function mensajeinfo(mensaje) {
+    Swal.fire({
+        position: 'center',
+        icon: 'info',
+        title: 'Actuliza tus datos!',
+        html: '<h4 style="color:#060e06;">' + mensaje + '</h4>',
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        padding: '2rem',
+        width: '25%',
+        timer: 1800
+    });
+
+}
+
+function mensajeExito(mensaje) {
+    Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Éxito!',
+        html: '<h4 style="color:#449d48;">' + mensaje + '</h4>',
+        showCancelButton: false,
+        showConfirmButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        allowEnterKey: false,
+        padding: '2rem',
+        width: '25%',
+        timer: 1800
+    });
+
+}
 
 function generateOtherDiv() {
 
@@ -143,12 +176,12 @@ function generateOtherDiv() {
     });
 }
 
-document.getElementById('resets').addEventListener('click', function(e){
+document.getElementById('resets').addEventListener('click', function (e) {
     e.preventDefault()
     if ($('.input-images-1 .has-files').remove().length !== 0) {
         generateOtherDiv()
     }
-  return false
+    return false
 })
 
 

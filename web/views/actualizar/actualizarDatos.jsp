@@ -70,13 +70,13 @@
                             </div>
 
                             <label>Nombre:</label><br>
-                            <input type="text" class="form-control was-validated" value="${USER.persona.nombrePer}" minlength="1" maxlength="100" placeholder="Nombre" id="nombreUsuario" name="nombreUsuario" required>
+                            <input type="text" class="form-control was-validated" pattern="[a-zA-Z]{3,25}" value="${USER.persona.nombrePer}" minlength="1" maxlength="100" placeholder="Nombre" id="nombreUsuario" name="nombreUsuario" required>
                             <div class="invalid-feedback">
                                 Completa este campo correctamente
                             </div>
                             <br> 
                             <label>Apellido:</label><br>
-                            <input  value="${USER.persona.apellidoPer}" type="text" placeholder="Apellido" class="form-control was-validated" minlength="1" maxlength="100" id="apellidoUsuario" name="apellidoUsuario" required>
+                            <input  value="${USER.persona.apellidoPer}" type="text" pattern="[a-zA-Z]{3,25}" placeholder="Apellido" class="form-control was-validated" minlength="1" maxlength="100" id="apellidoUsuario" name="apellidoUsuario" required>
                             <div class="invalid-feedback">
                                 Completa este campo correctamente
 
@@ -103,7 +103,7 @@
                             </div>
                             <br>
                             <div id="contenido">
-                                   
+
                                 <label>Tipo documento:</label><br>
                                 <div id="tipoDoc">
 
@@ -113,9 +113,9 @@
                                     Completa este campo
                                 </div>
                                 <br>
-                                
+
                                 <label>Documento:</label><br>
-                                <input  value="${USER.persona.numeroDocPer}" type="number" placeholder="Documento" class="form-control was-validated" id="documentoUsuario" minlength="1" maxlength="50" name="documentoUsuario">
+                                <input  value="${USER.persona.numeroDocPer}" type="text" pattern="[0-9]{5,10}" placeholder="Documento" class="form-control was-validated" id="documentoUsuario" name="documentoUsuario">
                                 <div class="invalid-feedback">
                                     Completa este campo correctamente
                                 </div><br> 
@@ -129,12 +129,12 @@
                                 </div>
                                 <br> 
                                 <label>Celular:</label><br>
-                                <input  value="${USER.persona.numCelularPer}" type="number" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularUsuario" name="celularUsuario">
+                                <input  value="${USER.persona.numCelularPer}" type="text" pattern="[0-9]{5,13}" placeholder="Número" class="form-control was-validated" id="celularUsuario" name="celularUsuario">
                                 <div class="invalid-feedback">
                                     Completa este campo correctamente
                                 </div><br> 
                                 <label>Teléfono:</label><br>
-                                <input  value="${USER.persona.telPer}" type="text" placeholder="Opcional" class="form-control was-validated" id="telefonoUsuario"  maxlength="50" name="telefonoUsuario" >
+                                <input  value="${USER.persona.telPer}" type="text" placeholder="Opcional" pattern="[0-9]{5,13}" class="form-control was-validated" id="telefonoUsuario"  name="telefonoUsuario" >
                                 <div class="invalid-feedback">
                                     Completa este campo correctamente
                                 </div><br> 
@@ -186,17 +186,17 @@
                             <br> 
 
                             <label>Celular:</label><br>
-                            <input value="${USER.empresa.celEmpresa}" type="text" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularEmpresa" name="celularEmpresa" required>
+                            <input value="${USER.empresa.celEmpresa}" type="number" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularEmpresa" name="celularEmpresa" required>
                             <div class="invalid-feedback">
                                 Completa este campo correctamente
                             </div><br> 
                             <label>Teléfono:</label><br>
-                            <input type="number" placeholder="Número" class="form-control was-validated" id="telefonoEmpresa"  maxlength="50" name="telefonoEmpresa" required value="${USER.empresa.telEmpresa}" >
+                            <input type="number" placeholder="Teléfono" class="form-control was-validated" id="telefonoEmpresa"  maxlength="50" name="telefonoEmpresa" required value="${USER.empresa.telEmpresa}" >
                             <div class="invalid-feedback">
                                 Completa este campo correctamente
                             </div><br> 
                             <label>Correo:</label><br>
-                            <input type="text" placeholder="Correo" class="form-control was-validated"  maxlength="100" id="correoEmpresa" name="correoEmpresa" required value="${USER.empresa.correoEmpresa}" >
+                            <input type="email" placeholder="example@misena.edu.co" class="form-control was-validated" maxlength="100" id="correoEmpresa" name="correoEmpresa" required value="${USER.empresa.correoEmpresa}" >
                             <div class="invalid-feedback">
                                 Completa este campo correctamente
                             </div><br> 

@@ -89,6 +89,30 @@ public class personaNaturalDAO {
         }
     }
 
+    public boolean actualizarDatosFaltantes(personaNaturalDTO persona, int idUsuario) {
+        con = new Conexion();
+        consulta = "UPDATE personanatural SET documentoPersona=?,direccionPersona=?,celularPersona=?,telefonoPersona=? WHERE idUsuarioFK=?";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+            ps.setString(1, persona.getNumeroDocPer());
+            ps.setString(2, persona.getDireccionPer());
+            ps.setString(3, persona.getNumCelularPer());
+            ps.setString(4, persona.getTelPer());
+            ps.setInt(5, idUsuario);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("........error al relizar actualizar  personaDAO " + e);
+            System.out.println("........ consulta " + ps.toString());
+            return false;
+        } finally {
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+    }
+
     public personaNaturalDTO getDataById(String id) {
 
         try {
@@ -220,10 +244,11 @@ public class personaNaturalDAO {
                 persona.setDireccionPer(rs.getString("direccionPersona"));
                 persona.setNumCelularPer(rs.getString("celularPersona"));
                 persona.setTelPer(rs.getString("telefonoPersona"));
-                persona.setIdCiudad(rs.getInt("idCiudadFK"));
-                persona.setIdTipoDoc(rs.getInt("idTipoDocFK"));
-                persona.setIdGenero(rs.getInt("idGeneroFK"));
                 persona.setUrlImg(rs.getString("urlImgPersona"));
+                persona.setIdUsuario(rs.getInt("idUsuarioFK"));
+                persona.setIdGenero(rs.getInt("idGeneroFK"));
+                persona.setIdTipoDoc(rs.getInt("idTipoDocFK"));
+                persona.setIdCiudad(rs.getInt("idCiudadFK"));
                 persona.setNombreCiudad(rs.getString("nombreCiudad"));
 
             }
@@ -237,9 +262,8 @@ public class personaNaturalDAO {
         }
         return persona;
     }
-    
-    
-    public personaNaturalDTO buscarCorreo(int id){
+
+    public personaNaturalDTO buscarCorreo(int id) {
         personaNaturalDTO persona = new personaNaturalDTO();
         try {
             con = new Conexion();
@@ -247,20 +271,19 @@ public class personaNaturalDAO {
             PreparedStatement pss = con.getConnection().prepareStatement(sql);
             pss.setInt(1, id);
             ResultSet rss = ps.executeQuery();
-            
-            
-             if (rss.next()) {
+
+            if (rss.next()) {
                 persona.setCorreoPer(rs.getString("correoPersona"));
             }
-            
-        } catch (Exception ee){ 
+
+        } catch (Exception ee) {
             System.out.println(ee);
-        }finally {
+        } finally {
             Conexion.close(cn);
             Conexion.close(ps);
             Conexion.close(rs);
         }
-        
+
         return persona;
     }
 
