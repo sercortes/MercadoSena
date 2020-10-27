@@ -79,12 +79,6 @@ public class Selects extends HttpServlet {
                 getImages(request, response);
 
                 break;
-
-            case "/MercadoSena/getProductsByDateTime":
-
-                getProductsByDateTime(request, response);
-
-                break;
                 
            case "/MercadoSena/getProductsRandom":
 
@@ -159,32 +153,6 @@ public class Selects extends HttpServlet {
         response.setContentType("application/json");
         imagenesProductosDAO.CloseAll();
         new Gson().toJson(listaImagenes, response.getWriter());
-
-    }
-
-    private void getProductsByDateTime(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        request.setCharacterEncoding("UTF-8");
-
-        Conexion conexion = new Conexion();
-        ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
-
-        
-        String id = "";
-        usuarioDTO user;
-        
-        if (request.getSession().getAttribute("USER") == null) {
-            id = "0"   ;
-        }else{
-            user = (usuarioDTO) request.getSession().getAttribute("USER");
-            id = Integer.toString(user.getEmpresa().getIdEmpresa());
-        }
-        
-        ArrayList<Producto> listaProductos = productoDAO.getProductsByDateTimeAsc(id);
-
-        productoDAO.CloseAll();
-        response.setContentType("application/json");
-        new Gson().toJson(listaProductos, response.getWriter());
 
     }
 
