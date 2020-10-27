@@ -350,7 +350,6 @@ public class ProductoDAO {
 
     public ArrayList<Producto> buscadorLike(String Text) {
         List<Producto> list = new ArrayList<Producto>();
-        // es un cometario gay
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
                     + "FROM producto PR INNER JOIN empresa EM "
@@ -391,7 +390,12 @@ public class ProductoDAO {
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
              return null;
         }
-
+            
     }
+    
+    
+    // trabajo hay
+    
 
+    
 }
