@@ -309,7 +309,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     System.out.println("no entro");
                 }
                 break;
-            case "/MercadoSena/recuperarClave":
+            case "recuperarClave":
                 String clave = cod.generarCod();
                 usuarioDTO = new usuarioDTO();
                 String documento = request.getParameter("numeroDocAct");

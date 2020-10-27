@@ -71,9 +71,3 @@
 <script src="./assets/js/pagination/pager.js" charset="utf-8"></script>
 <script src="./assets/js/project/comprador/ajax.js"></script>
 
-
-
-
-
-    
-  

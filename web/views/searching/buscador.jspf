@@ -3,9 +3,9 @@
     <nav class="navbar navbar-expand-sm " style="
          padding-bottom: 30px;
          ">
-        <form style="width: 100%">
+        <form id="buscadorlike" style="width: 100%">
             <div class="busquedaAvanzada">
-                <ul class="navbar-nav">
+                <ul class="navbar-nav" style="margin-left: 19.2%">
                     <li class="nav-item">
 
                         <div id="ciudadBucar" style="margin: 5px">
@@ -27,8 +27,8 @@
             </div>
             
             <div class="header_search_form_container" style="width: 80%; margin-left: 10%;">
-                <input accesskey="" type="search" required="required" id="nombreProductoFiltar" class="header_search_input" placeholder="Nombre producto..." style="width: 100%" onkeyup="seleccionarNombres()">
-                <a  id="mostrarResultados"> <button type="submit" title="Buscar" class="header_search_button trans_300" value="Buscar"><img src="./assets/images/icons/search.png" alt=""></button></a>
+                <input type="text" id="nombreProductoFiltar" name="nombreProductoFiltar" class="header_search_input" placeholder="Escribe en el buscador lo que quieres encontrar" style="width: 100%">
+                <a  id="mostrarResultados"> <button id="senddatoslike" type="submit" title="Buscar" class="header_search_button trans_300" value="Buscar"><img src="./assets/images/icons/search.png" alt=""></button></a>
                 
                 <div class="predictivo" ></div>
                 

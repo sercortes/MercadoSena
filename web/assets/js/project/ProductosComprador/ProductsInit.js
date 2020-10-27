@@ -25,7 +25,7 @@ $(function () {
 function listarProductoByVendedor() {
 
     let idcompanyss = document.getElementById('companyss').value
-    
+
     $.ajax({
         type: "POST",
         url: './getProductsByDateTime',
@@ -118,13 +118,13 @@ function generateTableBuscador() {
 
     for (var item of displayRecords) {
 
-            str += `<div class="col-lg-3">
+        str += `<div class="col-lg-3">
           <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">`
 
-            str += `<div id="carouselExampleControls${num}" class="carousel slide hijueputa" data-ride="carousel">
+        str += `<div id="carouselExampleControls${num}" class="carousel slide hijueputa" data-ride="carousel">
                     <div class="carousel-inner" id="caruselOne${num}">`
-            str += getImages(item.idProducto)
-            str += ` </div>
+        str += getImages(item.idProducto)
+        str += ` </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls${num}" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="sr-only">Anterior</span>
@@ -135,7 +135,7 @@ function generateTableBuscador() {
                     </a>
                 </div>`
 
-            str += `<figcaption class="p-3 card-img-bottom">
+        str += `<figcaption class="p-3 card-img-bottom">
               <h2 class="h5 text-left text-muted mb-3 img-fluid">${item.nombreProducto.toString().substr(0, 36)}</h2>
               <h2 class="h5 font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
             </figcaption>
@@ -153,21 +153,20 @@ function generateTableBuscador() {
         </div>
       </div>`
 
-            str += `<div class="text-right">
+        str += `<div class="text-right">
                             <a href="#" class="botonChat btn btn-primary"><i class="fas fa-comments"></i></a>
                     <a href="#" class="watch btn btn-primary"><i class="fas fa-images"></i></a>
                         </div>`
 
-            str += `</figure>
+        str += `</figure>
         </div>`
-            num++
-        
+        num++
+
 
 
     }
 
     select.innerHTML = str;
-    
 }
 
 
@@ -305,7 +304,7 @@ $(document).on('click', '#meInteresa', function (e) {
                 generateTables(datos, 1)
                 datosVendedor(idEmpresa)
 
-            } 
+            }
         })
     } else {
         $('#detailsProduct').modal('hide');

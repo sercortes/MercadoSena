@@ -33,6 +33,10 @@ public class ProductoDAO {
         this.conn = conn;
     }
 
+    public ProductoDAO() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public int insertReturn(Producto producto) {
         int idActividad = 0;
         String sql = "INSERT INTO producto (nombreProducto, valorProducto, stockProducto, marcaProducto, "
@@ -87,34 +91,33 @@ public class ProductoDAO {
             return false;
         }
     }
-    
-   
+
     public boolean actualizarCantidad(Producto productoDTO) {
         try {
-            
+
             String sql1 = "SELECT stockProducto FROM producto WHERE idProducto = ? LIMIT 1";
             PreparedStatement ps = conn.prepareStatement(sql1);
             ps.setString(1, productoDTO.getIdProducto());
             rs = ps.executeQuery();
-            
+
             int actual = 0;
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 actual = rs.getInt("stockProducto");
             }
-            
+
             productoDTO.setStockProducto(actual - productoDTO.getStockProducto());
-            
+
             String sql = "UPDATE producto SET stockProducto = ? WHERE idProducto=?";
             ps = conn.prepareStatement(sql);
-            ps.setInt(1,productoDTO.getStockProducto());
-            ps.setString(2,productoDTO.getIdProducto());
-           ps.executeUpdate();
-            System.out.println("..........................."+ps.toString());
+            ps.setInt(1, productoDTO.getStockProducto());
+            ps.setString(2, productoDTO.getIdProducto());
+            ps.executeUpdate();
+            System.out.println("..........................." + ps.toString());
             return true;
         } catch (Exception ex) {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar actualizarCantidad PrpductoDAO "+ex);
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX consulta "+ps.toString());
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar actualizarCantidad PrpductoDAO " + ex);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX consulta " + ps.toString());
             return false;
         }
     }
@@ -234,8 +237,8 @@ public class ProductoDAO {
             return null;
         }
     }
-    
-     public ArrayList<Producto> getProductsRandom(String id) {
+
+    public ArrayList<Producto> getProductsRandom(String id) {
         try {
             String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
@@ -275,14 +278,14 @@ public class ProductoDAO {
             return null;
         }
     }
- 
+
     public Producto buscarProducto(int idProducto) {
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria WHERE PR.idProducto= ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, idProducto);
             rs = ps.executeQuery();
-            Producto producto= new Producto();
+            Producto producto = new Producto();
             Categorys categorys;
             while (rs.next()) {
                 producto = new Producto();
@@ -308,17 +311,16 @@ public class ProductoDAO {
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
                 producto.setCategorys(categorys);
 
-               
             }
             return producto;
         } catch (Exception e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la consulta del producto "+e);
-            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta "+ps.toString());
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la consulta del producto " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             return null;
         }
     }
 
-     public boolean disabledProduct(String id) {
+    public boolean disabledProduct(String id) {
         try {
 
             String sql = "UPDATE producto set estadoProducto = ? "
@@ -336,11 +338,52 @@ public class ProductoDAO {
             return false;
         }
     }
-    
+
     public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);
         Conexion.close(rs);
+    }
+
+    public ArrayList<Producto> buscadorLike(String Text) {
+        List<Producto> list = new ArrayList<Producto>();
+        //
+        try {
+            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria WHERE PR.nombreProducto LIKE ? AND estadoProducto = 1 AND PR.stockProducto > 0";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, Text + '%');
+            rs = ps.executeQuery(); 
+            Producto producto;
+            Categorys categorys;
+            while (rs.next()) {
+                producto = new Producto();
+                producto.setIdProducto(rs.getString("idProducto"));
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                producto.setValorProducto(rs.getDouble("valorProducto"));
+                producto.setStockProducto(rs.getInt("stockProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setDescripcionProducto(rs.getString("descripcionProducto"));
+                producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
+                producto.setMedidaProducto(rs.getString("medidasProducto"));
+                producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
+                producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
+                producto.setVentajaProducto(rs.getString("ventajasProducto"));
+                producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+
+                categorys = new Categorys();
+                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
+                producto.setCategorys(categorys);
+
+                list.add(producto);
+            }
+            return (ArrayList<Producto>) list;
+            
+        } catch (Exception e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+             return null;
+        }
+
     }
 
 }
