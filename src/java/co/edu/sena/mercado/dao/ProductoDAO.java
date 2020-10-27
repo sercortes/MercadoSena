@@ -197,6 +197,8 @@ public class ProductoDAO {
             return null;
         }
     }
+    
+    //es un comentario gay
 
     public ArrayList<Producto> getProductsByDateTimeAsc(String id) {
         try {
