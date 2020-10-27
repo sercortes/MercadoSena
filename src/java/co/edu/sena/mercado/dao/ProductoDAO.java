@@ -193,6 +193,7 @@ public class ProductoDAO {
             return (ArrayList<Producto>) list;
         } catch (Exception e) {
             System.out.println(e);
+            System.out.println("ddd");
             return null;
         }
     }
