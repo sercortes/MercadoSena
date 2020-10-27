@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class Conexion {
 
-    private static String bd = "mercadoSena";
+    private static String bd = "mercadosena";
     private static String user = "root";
     private static String pass = "";
     private static String url = "jdbc:mysql://localhost/" + bd +"?useUnicode=true&amp;characterEncoding=utf8";
