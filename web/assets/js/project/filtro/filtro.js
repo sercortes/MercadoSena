@@ -57,7 +57,7 @@ function vendedores(idDiv, idInput, accion, valor) {
 }
 
 $('#buscadorlike').submit(function (e) {
-
+    
     e.preventDefault();
     e.stopPropagation();
     var nombreProductoFiltar = $('#nombreProductoFiltar').val();
@@ -66,28 +66,22 @@ $('#buscadorlike').submit(function (e) {
         mensaje('Por favor complete el campo');
     } else {
 
-        console.log(nombreProductoFiltar);
         var btn = document.getElementById('senddatoslike');
-        var datos = $('#buscadorlike').serialize();
         btn.disabled = true;
         $.ajax({
 
-            url: "./filtro?accion=buscadorlikes&" + datos,
+            url: "./getProductsByWord",
             type: 'POST',
-            contentType: false,
-            processData: false, error: function (jqXHR, textStatus, errorThrown) {
-                messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
-                btn.disabled = false;
+            async: true,
+            datatype: 'json',
+            data: {
+                word:nombreProductoFiltar
             },
             success: function (data) {
 
-                if (data === 'true') {
                     setTimeout(function () {
-                        window.location = "./Searching...";
-                    }, 1800);
-                } else {
-                    mensajesdeErrors('Este producto no disponible!!');
-                }
+                          generatePageQuery(data)
+                    }, 500);
 
                 btn.disabled = false;
             }

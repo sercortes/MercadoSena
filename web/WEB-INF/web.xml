@@ -48,6 +48,10 @@
         <servlet-name>informes</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.informes.informes</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.filtro.Search</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -75,7 +79,7 @@
         <url-pattern>/getCategorys</url-pattern>
         <url-pattern>/getProducts</url-pattern>
         <url-pattern>/getImages</url-pattern>
-        <url-pattern>/getProductsByDateTime</url-pattern>
+
         <url-pattern>/getImagesByProduct</url-pattern>
         <url-pattern>/getInfoCompanyByProduct</url-pattern>
         <url-pattern>/obtenerProducto</url-pattern>
@@ -115,6 +119,11 @@
     <servlet-mapping>
         <servlet-name>informes</servlet-name>
         <url-pattern>/informes</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/getProductsByWord</url-pattern>
+        <url-pattern>/getProductsByDateTime</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

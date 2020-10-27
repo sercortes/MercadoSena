@@ -348,17 +348,19 @@ public class ProductoDAO {
         Conexion.close(rs);
     }
 
-    public ArrayList<Producto> buscadorLike(String Text) {
+    public ArrayList<Producto> buscadorLike(String Text, String id) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
                     + "FROM producto PR INNER JOIN empresa EM "
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
-                    + "WHERE PR.nombreProducto LIKE ? AND estadoProducto = 1 "
+                    + "WHERE PR.nombreProducto LIKE ? AND estadoProducto = 1 AND EM.idEmpresa <> ? "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
             ps.setString(1, Text + '%');
+            ps.setString(2, id);
+            System.out.println(ps.toString());
             rs = ps.executeQuery(); 
             Producto producto;
             Categorys categorys;

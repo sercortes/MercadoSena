@@ -9,6 +9,9 @@ var $pagination = $('#pagination'),
         initiateStartPageClick = true
 
 $(function () {
+    
+    console.log(window.location.pathname)
+    console.log(window.location)
 
     $('#cargas').addClass('is-active');
     $('.collapse').collapse()
@@ -24,7 +27,6 @@ $(function () {
 
 function listarProductoByVendedor() {
 
-    let idcompanyss = document.getElementById('companyss').value
 
     $.ajax({
         type: "POST",
@@ -33,22 +35,29 @@ function listarProductoByVendedor() {
         datatype: 'json'
     }).done(function (data) {
 
-        $('#cargas').removeClass('is-active');
+        generatePageQuery(data)
 
+    })
+
+}
+
+function generatePageQuery(data){
+    
+   $pagination.twbsPagination('destroy');
+    
+    let idcompanyss = document.getElementById('companyss').value
+    
+      $('#cargas').removeClass('is-active');
         if (data.length == 0) {
             queryEmphy()
             return false
         }
-
         data = data.filter(producto => producto.idEmpresaFK != idcompanyss);
 
         records = data
         totalRecords = data.length
         totalPages = Math.ceil(totalRecords / recPerPage)
         apply_pagination()
-
-    })
-
 }
 
 function apply_pagination() {

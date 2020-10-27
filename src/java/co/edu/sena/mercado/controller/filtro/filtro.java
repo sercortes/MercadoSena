@@ -150,13 +150,13 @@ public class filtro extends HttpServlet {
                 Conexion co = new Conexion();
                 Connection connn = co.getConnection();
 
-                ArrayList<Producto> prodDAOs = new ProductoDAO(connn).buscadorLike(productoDTO.getNombreProducto());
+//                ArrayList<Producto> prodDAOs = new ProductoDAO(connn).buscadorLike(productoDTO.getNombreProducto());
                 //contuniar mas adelante
-                if (prodDAOs.size() == 0) {
-                    System.out.println("no encontro nada");
-                } else {
-                    response.getWriter().print(true);
-                }
+//                if (prodDAOs.size() == 0) {
+//                    System.out.println("no encontro nada");
+//                } else {
+//                    response.getWriter().print(true);
+//                }
 
                 break;
             default:
