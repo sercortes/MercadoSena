@@ -350,9 +350,13 @@ public class ProductoDAO {
 
     public ArrayList<Producto> buscadorLike(String Text) {
         List<Producto> list = new ArrayList<Producto>();
-        //comtario
         try {
-            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria WHERE PR.nombreProducto LIKE ? AND estadoProducto = 1 AND PR.stockProducto > 0";
+            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
+                    + "FROM producto PR INNER JOIN empresa EM "
+                    + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
+                    + "ON PR.idCategoriaFK=CP.idCategoria "
+                    + "WHERE PR.nombreProducto LIKE ? AND estadoProducto = 1 "
+                    + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
             ps.setString(1, Text + '%');
             rs = ps.executeQuery(); 
