@@ -1,5 +1,3 @@
-var todosProductos, resultadoBusqueda = [];
-var nombres = [];
 
 $(document).ready(function () {
 
@@ -103,15 +101,39 @@ $(document).on('click', '#searching', function (e) {
         return false
         
     }
+    
+    if (nombreProductoFiltar.length >= 30) {
+        
+        messageInfo('Espera, palabra muy larga');
+        document.getElementById('nombreProductoFiltar').value = ''
+        document.getElementById('nombreProductoFiltar').focus()
+        return false
+        
+    }
 
-     var btn = document.getElementById('searching');
-     btn.disabled = true;
+     document.getElementById('searching').disabled = true;
      $('#cargas').addClass('is-active');
+     let data = {
+         word:nombreProductoFiltar,
+         categorias:categorias,
+         ciudades:ciudades,
+         vendedores:vendedores
+     }
     
     if(nombreProductoFiltar !== '' && categorias === '' 
             && ciudades === '' && vendedores === ''){
      
-        queryWord(nombreProductoFiltar)
+        queryWord(data)
+        
+    }else if(nombreProductoFiltar === '' && categorias !== '' 
+            && ciudades === '' && vendedores === ''){
+     
+        queryCategory(data)
+        
+    }else if(nombreProductoFiltar === '' && categorias === '' 
+            && ciudades !== '' && vendedores === ''){
+     
+        queryCity(data)
         
     }else if(nombreProductoFiltar !== '' && categorias !== '' 
             && ciudades === '' && vendedores === ''){
@@ -133,12 +155,10 @@ $(document).on('click', '#searching', function (e) {
         console.log('filtro mix')
         
     }
-    
-
 
 })
 
-function queryWord(nombreProductoFiltar){
+function queryWord(datos){
     
         $.ajax({
 
@@ -147,18 +167,72 @@ function queryWord(nombreProductoFiltar){
             async: true,
             datatype: 'json',
             data: {
-                word: nombreProductoFiltar
+                word:datos.word,
+                categorias:datos.categorias,
+                ciudades:datos.ciudades,
+                vendedores:datos.vendedores
             },
             success: function (data) {
 
                 webPageAnimations()
                 generatePageQuery(data, 4)
-                btn.disabled = false;
+                document.getElementById('searching').disabled = false;
 
             }
         });
 
 }
+
+function queryCategory(datos){
+    
+     $.ajax({
+
+            url: "./getProductsByCategory",
+            type: 'POST',
+            async: true,
+            datatype: 'json',
+            data: {
+                word:datos.word,
+                categorias:datos.categorias,
+                ciudades:datos.ciudades,
+                vendedores:datos.vendedores
+            },
+            success: function (data) {
+
+                webPageAnimations()
+                generatePageQuery(data, 4)
+                document.getElementById('searching').disabled = false;
+
+            }
+        });
+    
+}
+
+function queryCity(datos){
+    
+     $.ajax({
+
+            url: "./getProductsByCity",
+            type: 'POST',
+            async: true,
+            datatype: 'json',
+            data: {
+                word:datos.word,
+                categorias:datos.categorias,
+                ciudades:datos.ciudades,
+                vendedores:datos.vendedores
+            },
+            success: function (data) {
+                
+                webPageAnimations()
+                generatePageQuery(data, 4)
+                document.getElementById('searching').disabled = false;
+
+            }
+        });
+    
+}
+
 
 function webPageAnimations() {
 
