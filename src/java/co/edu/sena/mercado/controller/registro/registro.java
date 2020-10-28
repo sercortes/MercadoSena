@@ -34,8 +34,6 @@ public class registro extends HttpServlet {
     personaNaturalDAO personaNaturalDAO = new personaNaturalDAO();
     personaNaturalDTO personaNaturalDTO = new personaNaturalDTO();
     ArrayList<personaNaturalDTO> listaPersona = new ArrayList<>();
-    ciudadDAO ciudadDAO = new ciudadDAO();
-    ciudadDTO ciudadDTO = new ciudadDTO();
     ArrayList<ciudadDTO> listaCiudad = new ArrayList<>();
     tipoDocumentoDAO tipoDocDAO = new tipoDocumentoDAO();
     tipoDocumentoDTO tipoDocDTO = new tipoDocumentoDTO();
@@ -62,15 +60,6 @@ public class registro extends HttpServlet {
     ArrayList<respuestaDTO> listaRespuesta = new ArrayList<>();
     datosSesion datSesion = new datosSesion();
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -122,22 +111,14 @@ public class registro extends HttpServlet {
                 new Gson().toJson(listaGenero, response.getWriter());
                 break;
             case "consultaCiudad":
-                listaCiudad = new ArrayList<>();
-                listaCiudad = ciudadDAO.listarCiudad();
-                response.setContentType("application/json");
-                new Gson().toJson(listaCiudad, response.getWriter());
+                
+                generateCiudades(request, response);
+                
                 break;
             case "listarCategorias":
-                Conexion conexion = new Conexion();
-                ArrayList<Categorys> listaCategoria = new ArrayList<>();
-
-                Connection conn = conexion.getConnection();
-                CategorysDAO categoriasDAO = new CategorysDAO(conn);
-                listaCategoria = categoriasDAO.getCategorys();
-                categoriasDAO.CloseAll();
-                response.setContentType("application/json");
-
-                new Gson().toJson(listaCategoria, response.getWriter());
+                
+                generateCategorias(request, response);
+                
                 break;
             case "registrarUsuario":
                 boolean respuesta;
@@ -347,5 +328,31 @@ public class registro extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void generateCiudades(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+         Conexion conexion = new Conexion();
+                ArrayList<ciudadDTO> listaCiudad = new ArrayList<>();
+                Connection conn = conexion.getConnection();
+                ciudadDAO ciDAO = new ciudadDAO(conn);
+                listaCiudad = ciDAO.ListCiudades();
+                ciDAO.CloseAll();
+                response.setContentType("application/json");
+                new Gson().toJson(listaCiudad, response.getWriter());
+        
+    }
+
+    private void generateCategorias(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+                Conexion conexion = new Conexion();
+                ArrayList<Categorys> listaCategoria = new ArrayList<>();
+                Connection conn = conexion.getConnection();
+                CategorysDAO categoriasDAO = new CategorysDAO(conn);
+                listaCategoria = categoriasDAO.getCategorys();
+                categoriasDAO.CloseAll();
+                response.setContentType("application/json");
+                new Gson().toJson(listaCategoria, response.getWriter());
+        
+    }
 
 }

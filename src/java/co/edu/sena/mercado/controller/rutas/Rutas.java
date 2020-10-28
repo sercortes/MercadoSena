@@ -12,8 +12,10 @@ import co.edu.sena.mercado.dao.usuarioDAO;
 import co.edu.sena.mercado.dto.ciudadDTO;
 import co.edu.sena.mercado.dto.generoDTO;
 import co.edu.sena.mercado.dto.tipoDocumentoDTO;
+import co.edu.sena.mercado.util.Conexion;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -28,7 +30,6 @@ import javax.servlet.http.HttpServletResponse;
 public class Rutas extends HttpServlet {
 
     usuarioDAO usuarioDAO = new usuarioDAO();
-    ciudadDAO ciudadDAO = new ciudadDAO();
     ArrayList<ciudadDTO> listaCiudad;
     generoDAO generoDAO = new generoDAO();
     ArrayList<generoDTO> listaGenero;
@@ -70,7 +71,10 @@ public class Rutas extends HttpServlet {
             case "/MercadoSena/usuario":
 
                 listaCiudad = new ArrayList<>();
-                listaCiudad = ciudadDAO.listarCiudad();
+                Conexion conexion = new Conexion();
+                Connection conn = conexion.getConnection();
+                ciudadDAO cDAO = new ciudadDAO(conn);
+                listaCiudad = cDAO.ListCiudades();
 
 //                listaTipoDoc = new ArrayList<>();
 //                listaTipoDoc = tipoDocDAO.listarTipoDoc();

@@ -158,6 +158,41 @@ public class empresaDAO {
 
     }
 
+    public ArrayList<empresaDTO> listarEmpresasFiltro() {
+        con = new Conexion();
+        listaEmpresa = new ArrayList<>();
+        consulta = "SELECT idEmpresa, nombreEmpresa, esEmpresa "
+                + "FROM empresa WHERE esEmpresa = 1 ORDER by rand() LIMIT 5";
+        try {
+            cn = con.getConnection();
+            ps = cn.prepareStatement(consulta);
+
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                empresaDTO = new empresaDTO();
+                empresaDTO.setEsEmpresa(rs.getInt("esEmpresa"));
+                empresaDTO.setNombreEmpresa(rs.getString("nombreEmpresa"));
+                listaEmpresa.add(empresaDTO);
+
+            }
+
+            //cerrarCon(ps, cn, rs);
+            return listaEmpresa;
+
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al buscar empresa " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+            // cerrarCon(ps, cn, rs);
+            return null;
+        } finally {
+            Conexion.close(cn);
+            Conexion.close(ps);
+            Conexion.close(rs);
+        }
+
+    }
+
+    
     public ArrayList<empresaDTO> listarEmpresas() {
         con = new Conexion();
         listaEmpresa = new ArrayList<>();
