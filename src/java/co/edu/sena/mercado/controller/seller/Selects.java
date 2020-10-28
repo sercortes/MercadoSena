@@ -79,12 +79,6 @@ public class Selects extends HttpServlet {
                 getImages(request, response);
 
                 break;
-                
-           case "/MercadoSena/getProductsRandom":
-
-                getProductsRandom(request, response);
-
-                break;
 
             case "/MercadoSena/getImagesByProduct":
 
@@ -205,39 +199,7 @@ public class Selects extends HttpServlet {
         new Gson().toJson(productoImagenesDTO, response.getWriter());
 
     }
-
-
-    private void getProductsRandom(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-        
-        
-        request.setCharacterEncoding("UTF-8");
-
-        Conexion conexion = new Conexion();
-        ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
-
-        String id = "";
-        usuarioDTO user;
-        
-        if (request.getSession().getAttribute("USER") == null) {
-            id = "0"   ;
-        }else{
-            user = (usuarioDTO) request.getSession().getAttribute("USER");
-            id = Integer.toString(user.getEmpresa().getIdEmpresa());
-        }
-        
-        ArrayList<Producto> listaProductos = productoDAO.getProductsRandom(id);
-
-        productoDAO.CloseAll();
-        response.setContentType("application/json");
-        new Gson().toJson(listaProductos, response.getWriter());
-        
-    }
     
-        /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
