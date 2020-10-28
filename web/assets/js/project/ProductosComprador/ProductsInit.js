@@ -19,7 +19,9 @@ $(function () {
             interval: 2100,
         })
 
+        $('#cargas').addClass('is-active'); 
         listarProductoByDateTime()
+        
     }
 
 })
@@ -33,7 +35,9 @@ function listarProductoByDateTime() {
         async: true,
         datatype: 'json'
     }).done(function (data) {
+        
 
+        $('#cargas').removeClass('is-active');
         generatePageQuery(data, 4)
 
     })
@@ -210,7 +214,7 @@ function detailsProduct(producto) {
 function textProduct(item) {
     let str = ''
     let element = document.getElementById('details')
-    str += `  <div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
+    str += `<div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
 <h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
     <hr>
     <a id="meInteresa" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">
@@ -269,12 +273,13 @@ function caruselImagenes(data) {
 
 function queryEmphy() {
     let select = document.getElementById('tabla');
+    let word = document.getElementById('nombreProductoFiltar').value
     let str =
             `<div class="col-lg-3">
                 </div>
     <div class="col-lg-6">
     <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  No hay elementos!<strong></strong>
+  Sin resultados! <strong>${word}</strong>
   <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true">&times;</span>
   </button>

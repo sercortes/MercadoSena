@@ -1,39 +1,36 @@
 <div class="barraBusqueda" id="barraBusqueda" style="display: none;">
-    <p class="text-black" style="color: black; margin-bottom: 0px;padding: 5px;text-align: center;font-size: 16px;font-weight: 500;font-family: unset;">Para una búsqueda más personalizada selecciona un criterio <i id="desplegarMenu" class="fa fa-caret-down colorCursor" ></i></p>
-    <nav class="navbar navbar-expand-sm " style="
-         padding-bottom: 30px;
-         ">
-        <form id="buscadorlike" style="width: 100%">
-            <div class="busquedaAvanzada">
-                <ul class="navbar-nav" style="margin-left: 19.2%">
-                    <li class="nav-item">
 
-                        <div id="ciudadBucar" style="margin: 5px">
+    <div class="row justify-content-center pt-2">
+        <p class="text-black text-center h6" style="color: black;font-size: 1.0rem;">Para una búsqueda más personalizada selecciona un criterio
+            <i id="desplegarMenu" class="fa fa-caret-down colorCursor"></i>
+        </p>
+    </div>
 
-                        </div>
-                    </li>
-                    <li class="nav-item">
-
-
-                        <div id="categoriasBuscar" style="margin: 5px"></div>
-                    </li>
-                    <li class="nav-item">
-                        <div id="vendedores" style="margin: 5px">
-
-                        </div>
-
-                    </li>
-                </ul>
+    <div class="busquedaAvanzada container-fluid">
+        <div class="row">
+            <div class="col-md-4">
+                <div id="ciudadBucar"></div>
             </div>
-            
-            <div class="header_search_form_container" style="width: 80%; margin-left: 10%;">
-                <input type="text" id="nombreProductoFiltar" name="nombreProductoFiltar" class="header_search_input" placeholder="Escribe en el buscador lo que quieres encontrar" style="width: 100%">
-                <a  id="mostrarResultados"> <button id="senddatoslike" type="submit" title="Buscar" class="header_search_button trans_300" value="Buscar"><img src="./assets/images/icons/search.png" alt=""></button></a>
-                
-                <div class="predictivo" ></div>
-                
+            <div class="col-md-4">
+                <div id="categoriasBuscar"></div>
             </div>
-            
-        </form>
-    </nav>
+            <div class="col-md-4">
+                <div id="vendedores"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container pb-3 pt-2">
+        <div class="row justify-content-center pt-2">
+            <div class="col-md-12 col-sm-10 col-lg-8">
+
+                <div class="header_search_form_container">
+                    <input type="text" id="nombreProductoFiltar" name="nombreProductoFiltar" class="header_search_input" placeholder="Escribe en el buscador lo que quieres encontrar">
+                    <a id=""><button id="searching" type="submit" title="Buscar" class="header_search_button trans_300" value="Buscar">
+                            <img src="./assets/images/icons/search.png" alt=""></button></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

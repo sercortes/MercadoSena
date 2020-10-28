@@ -8,8 +8,10 @@
 
   <div class="container">
     <div class="row p-2">
-        <div class="col-lg-12">
+        <div class="col-lg-12 pt-2">
+            <div id="tituloPagina">
             <h3 class="titulos hvr-icon-pop"><i class="fas fa-gifts naranja"></i> Descubrir</h3>
+            </div>
         </div>
     </div>    
 </div>
