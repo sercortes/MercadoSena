@@ -10,22 +10,21 @@ var $pagination = $('#pagination'),
 
 $(function () {
     
-    console.log(window.location.pathname)
-    console.log(window.location)
+    if (window.location.pathname === '/MercadoSena/Searching...') {
 
-    $('#cargas').addClass('is-active');
-    $('.collapse').collapse()
+        $('#cargas').addClass('is-active');
+        $('.collapse').collapse()
 
-    listarProductoByVendedor()
+        $('#caruselDetails').carousel({
+            interval: 2100,
+        })
 
-    $('#caruselDetails').carousel({
-        interval: 2100,
-    })
-
+        listarProductoByDateTime()
+    }
 
 })
 
-function listarProductoByVendedor() {
+function listarProductoByDateTime() {
 
 
     $.ajax({
@@ -35,29 +34,31 @@ function listarProductoByVendedor() {
         datatype: 'json'
     }).done(function (data) {
 
-        generatePageQuery(data)
+        generatePageQuery(data, 4)
 
     })
 
 }
 
-function generatePageQuery(data){
-    
-   $pagination.twbsPagination('destroy');
-    
-    let idcompanyss = document.getElementById('companyss').value
-    
-      $('#cargas').removeClass('is-active');
-        if (data.length == 0) {
-            queryEmphy()
-            return false
-        }
-        data = data.filter(producto => producto.idEmpresaFK != idcompanyss);
+function generatePageQuery(data, pages) {
 
-        records = data
-        totalRecords = data.length
-        totalPages = Math.ceil(totalRecords / recPerPage)
-        apply_pagination()
+    $pagination.twbsPagination('destroy');
+    recPerPage = pages
+
+//    let idcompanyss = document.getElementById('companyss').value
+
+    $('#cargas').removeClass('is-active');
+    if (data.length == 0) {
+        queryEmphy()
+        return false
+    }
+    
+//    data = data.filter(producto => producto.idEmpresaFK != idcompanyss);
+
+    records = data
+    totalRecords = data.length
+    totalPages = Math.ceil(totalRecords / recPerPage)
+    apply_pagination()
 }
 
 function apply_pagination() {
