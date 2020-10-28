@@ -80,9 +80,9 @@ $('#buscadorlike').submit(function (e) {
                 word:nombreProductoFiltar
             },
             success: function (data) {
-
+                
                     setTimeout(function () {
-                          generatePageQuery(data)
+                          generatePageQuery(data, 4)
                     }, 500);
 
                 btn.disabled = false;
