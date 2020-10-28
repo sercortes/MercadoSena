@@ -58,18 +58,19 @@ function vendedores(idDiv, idInput, accion, valor) {
 
 }
 
-$('#buscadorlike').submit(function (e) {
+$(document).on('click', '#searching', function(e){
     
     e.preventDefault();
-    e.stopPropagation();
     var nombreProductoFiltar = $('#nombreProductoFiltar').val();
 
     if (nombreProductoFiltar === '' || nombreProductoFiltar === null) {
         mensajesdeErrors('¡Escribe tu búsqueda en el campo que figura en la parte superior de la pantalla!');
     } else {
 
-        var btn = document.getElementById('senddatoslike');
+        var btn = document.getElementById('searching');
         btn.disabled = true;
+        $('#cargas').addClass('is-active'); 
+        
         $.ajax({
 
             url: "./getProductsByWord",
@@ -81,17 +82,25 @@ $('#buscadorlike').submit(function (e) {
             },
             success: function (data) {
                 
-                    setTimeout(function () {
-                          generatePageQuery(data, 4)
-                    }, 500);
+                        webPageAnimations()
+                        generatePageQuery(data, 4)
 
                 btn.disabled = false;
             }
         });
 
     }
-});
+    
+})
 
+function webPageAnimations(){
+    
+      $('.contenido').hide('slow')
+        document.getElementById('tituloPagina').innerHTML = 
+                ` <h3 class="titulos text-center"><i class="fas fa-search naranja"></i> Busqueda</h3>`
+        $('#cargas').removeClass('is-active');
+    
+}
 
 function mensajesdeErrors(mensaje) {
     Swal.fire({

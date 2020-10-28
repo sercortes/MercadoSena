@@ -354,7 +354,9 @@ public class ProductoDAO {
                     + "FROM producto PR INNER JOIN empresa EM "
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
-                    + "WHERE PR.nombreProducto LIKE ? "+"AND estadoProducto = 1"+" OR PR.marcaProducto LIKE ? "+"AND estadoProducto = 1"+" OR CP.nombreCategoria LIKE ? "+"AND estadoProducto = 1"+" OR PR.descripcionProducto LIKE ?"
+                    + "WHERE PR.nombreProducto LIKE ? AND estadoProducto = 1 OR PR.marcaProducto LIKE ? "
+                    + "AND estadoProducto = 1 OR CP.nombreCategoria LIKE ? AND estadoProducto = 1 "
+                    + "OR PR.descripcionProducto LIKE ? "
                     + "AND estadoProducto = 1 AND EM.idEmpresa <> ? "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);

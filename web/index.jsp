@@ -9,24 +9,14 @@
 
 <%@include file="/views/init/carusel.jspf"%>
 
-
-<div  class="p-2">
-
-    <div class="row pb-3" style="width: 100%" >
-        <div class="col-lg-11 mx-auto">
-            <div style="width: 100%; text-align:center;margin-top: 20px; " id="tituloResultado"><h3 style="color: black;font-size: 25px;">Te pueden Interesar</h3></div>
-            <center>
-                <div class="row pt-4 pb-3" id="tabla" style="border-top: solid 1px rgba(94, 179, 25, 0.7490196078431373);width: 100%;"> 
-
-
-                </div>
-            </center>
+ <div class="container-fluid">
+    <div class="row p-3">
+        <div class="col-lg-12 pt-2">
+            <div id="tituloPagina">
+            <h3 class="titulos text-center"><i class="fas fa-store naranja"></i> Te pueden interesar</h3>
+            </div>
         </div>
-    </div>
-
-    <div class="separator my-3"></div>
-
-
+    </div>    
 </div>
 
 
