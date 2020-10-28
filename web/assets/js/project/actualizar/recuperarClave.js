@@ -40,7 +40,7 @@ $('#recuperarClave').submit(function (e) {
         btn.disabled = true;
         var datos = $('#recuperarClave').serialize();
         $.ajax({
-            url: "recuperarClave",
+            url: "./actualizaUsuEmp?accion=recuperarClave",
             type: 'POST',
             data: datos,
             error: function (jqXHR, textStatus, errorThrown) {
