@@ -9,7 +9,7 @@ var $pagination = $('#pagination'),
         initiateStartPageClick = true
 
 $(function () {
-    
+
     if (window.location.pathname === '/MercadoSena/Searching...') {
 
         $('#cargas').addClass('is-active');
@@ -52,7 +52,7 @@ function generatePageQuery(data, pages) {
         queryEmphy()
         return false
     }
-    
+
 //    data = data.filter(producto => producto.idEmpresaFK != idcompanyss);
 
     records = data
@@ -146,8 +146,9 @@ function generateTableBuscador() {
                 </div>`
 
         str += `<figcaption class="p-3 card-img-bottom">
+        <hr>
               <h2 class="h5 text-left text-muted mb-3 img-fluid">${item.nombreProducto.toString().substr(0, 36)}</h2>
-              <h2 class="h5 font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
+              <h2 class="h5 text-left font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
             </figcaption>
        
       <div class="col-lg-12 mb-4 p-0">
