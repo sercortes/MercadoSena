@@ -68,6 +68,12 @@ public class Search extends HttpServlet {
                 getProductsByCity(request, response);
 
                 break;
+                
+        case "/MercadoSena/getProductsBySeller":
+
+                getProductsBySeller(request, response);
+
+                break;
 
         }
     }
@@ -153,5 +159,22 @@ private void getProductsByWord(HttpServletRequest request, HttpServletResponse r
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void getProductsBySeller(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
+//        String palabra = request.getParameter("word");
+//        String categoria = request.getParameter("categorias");
+//        String ciudad = request.getParameter("ciudades");
+        String vendedores = request.getParameter("vendedores");
+        System.out.println("dksdkjsdkljasdlkasdljkasd");
+        System.out.println(vendedores);
+        ArrayList<Producto> listaProductos = productoDAO.searchByEmpresa(vendedores);
+        productoDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaProductos, response.getWriter());
+    }
     
 }

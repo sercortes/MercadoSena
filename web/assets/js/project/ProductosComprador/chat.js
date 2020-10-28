@@ -1,19 +1,37 @@
 var interacion;
 var idProducto;
 $(document).on('click', '.botonChat', function (e) {
-    
-    
+
     console.log('sergio')
     e.preventDefault()
-    if ($('#nombreUsuarioInicio').val()!=='no'){
+
+    if ($('#nombreUsuarioInicio').val() !== 'no') {
+
         let parent = $(this)[0].parentElement.parentElement;
         idpro = $(parent).attr('idEmpresa');
         idProducto = $(parent).attr('idProducto');
         //getEmpresa(idPro);
         $('#preguntarModal').modal('show');
         interacion = 0;
-    }else{
-             modalPreguntaRegistro();
+
+        let id = document.getElementById('companyss').value
+        if (idpro === id) {
+
+            document.getElementById('buttonChat').innerHTML = ``
+
+        } else {
+            document.getElementById('buttonChat').innerHTML =
+                    `<div class="message_input_wrapper">
+                            <input class="message_input" placeholder="Escribe tu pregunta aqui" id="mensaje" />
+                        </div>
+                        <div id="buttonChat" class="send_message">
+                            <div class="icon"></div>
+                            <div id="" class="text">Enviar</div>
+                        </div>`
+        }
+
+    } else {
+        modalPreguntaRegistro();
     }
 
 })
@@ -54,15 +72,15 @@ function getEmpresa(idpro) {
         return this;
     };
     $(function () {
-       
+
         var getMessageText, message_side, sendMessage;
         message_side = 'right';
         getMessageText = function () {
             var $message_input;
             $message_input = $('.message_input');
             enviarMensaje($message_input.val());
-            
-            
+
+
 
             return $message_input.val();
         };
@@ -101,7 +119,7 @@ function getEmpresa(idpro) {
         function enviarMensaje(mensaje) {
 
 
-            if (mensaje !== null && mensaje !=='') {
+            if (mensaje !== null && mensaje !== '') {
                 $.ajax({
                     url: './registro',
                     data: {
@@ -119,7 +137,7 @@ function getEmpresa(idpro) {
                             interacion = interacion - 1;
                             messageError('Error al enviar el mensaje');
                         }
-                        enviarNot('pregunta',0);
+                        enviarNot('pregunta', 0);
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         interacion = interacion - 1;
@@ -129,9 +147,7 @@ function getEmpresa(idpro) {
                     }})
             }
 
-
         }
-
 
 
 //        return setTimeout(function () {
@@ -153,14 +169,14 @@ function modalPreguntaRegistro() {
 
 function consultaPreguntas(e) {
     e.preventDefault();
-    
+
 }
 
-function limpiarPlantilla(){
- var lista=  $('#listaPreguntas').children();
- if(lista.length===3){
-   $('#listaPreguntas').children().last().remove();
-   $('#listaPreguntas').children().last().remove();
- }
- interacion=0;
+function limpiarPlantilla() {
+    var lista = $('#listaPreguntas').children();
+    if (lista.length === 3) {
+        $('#listaPreguntas').children().last().remove();
+        $('#listaPreguntas').children().last().remove();
+    }
+    interacion = 0;
 }
