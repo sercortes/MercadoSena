@@ -164,7 +164,7 @@ function generateTableBuscador() {
          <div class="text-right">
                             <a href="#" class="delete btn btn-danger"><i class="fas fa-minus-square"></i></a>
                             <a href="#" class="editProduct btn btn-warning"><i class="fas fa-edit"></i></a>
-                            <a href="#" class="watch btn btn-primary"><i class="far fa-images"></i></a>
+                            <a href="#" class="watchMyProducts btn btn-primary"><i class="far fa-images"></i></a>
                         </div>
           </figure>
        
@@ -185,7 +185,7 @@ function getImagen(array) {
     return mensaje;
 }
 
-$(document).on('click', '.watch', function (e) {
+$(document).on('click', '.watchMyProducts', function (e) {
 
     e.preventDefault()
     let parent = $(this)[0].parentElement.parentElement
@@ -200,13 +200,13 @@ $(document).on('click', '.watch', function (e) {
 function detailsProduct(producto) {
 //    $('#modalTittle').text(producto.nombreProducto.toString())
     caruselImagenes(producto.imagen)
-    textProduct(producto)
+    textProductMy(producto)
 }
 
-function textProduct(item) {
+function textProductMy(item) {
     console.log(item)
     let str = ''
-    let element = document.getElementById('details')
+    let element = document.getElementById('detailsMy')
     str += `<h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
               <p class="mb-0 text-small text-muted">Cantidad: ${item.stockProducto}</p>
               <p class="mb-0 text-small text-muted">Valor: $ ${item.valorProducto}</p>
@@ -214,8 +214,7 @@ function textProduct(item) {
               <p class="mb-0 text-small text-muted">Categoría: ${item.categorys.nombreCategoria}</p>
               <p class="mb-0 text-small text-muted">Descripción : ${item.descripcionProducto}</p>`
     if (item.diasEnvios !== undefined) {
-        str += `
-        <hr>
+        str += `<hr>
         <div class="col-lg-12 mb-5 p-0">
        <a data-toggle="collapse" href="#collapseExample${item.idProducto}" role="button" aria-expanded="false" aria-controls="collapseExample1" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
           <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Información Adicional</strong><i class="fa fa-angle-down"></i></p>
@@ -331,7 +330,9 @@ $(document).on('click', '.editProduct', function (e) {
     document.getElementById('priceE').value = producto.valorProducto
     document.getElementById('cantidadE').value = producto.stockProducto
     document.getElementById('descripE').value = producto.descripcionProducto
-    document.getElementById('enviosE').value = producto.diasEnvios
+    if (producto.diasEnvios != null) {
+        document.getElementById('enviosE').value = producto.diasEnvios
+    }
     document.getElementById('medidasE').value = producto.medidaProducto
     document.getElementById('empaqueE').value = producto.empaqueProducto
     document.getElementById('embalajeE').value = producto.embalajeProducto
