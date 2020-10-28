@@ -120,11 +120,12 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Search</servlet-name>
+        <url-pattern>/getProductsRandom</url-pattern>
         <url-pattern>/getProductsByWord</url-pattern>
         <url-pattern>/getProductsByDateTime</url-pattern>
         <url-pattern>/getProductsByCategory</url-pattern>
         <url-pattern>/getProductsByCity</url-pattern>
-        <url-pattern>/getProductsRandom</url-pattern>
+        <url-pattern>/getProductsBySeller</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

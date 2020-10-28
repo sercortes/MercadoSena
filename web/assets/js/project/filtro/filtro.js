@@ -70,12 +70,13 @@ function vendedoresS() {
         error: function (data) {
 
         }, success: function (data, textStatus, jqXHR) {
+            console.log(data)
             let srt = ``
             srt = '<option value="">Vendedores...</option>'
             for (var item of data) {
                 srt += `<option value="${item.idEmpresa}">${item.nombreEmpresa}</option>`
             }
-            document.getElementById('vendedorCriBuscar').innerHTML = srt
+            document.getElementById('idVendedor').innerHTML = srt
         }
     })
 
@@ -87,7 +88,7 @@ $(document).on('click', '#searching', function (e) {
     var nombreProductoFiltar = $('#nombreProductoFiltar').val();
     let ciudades = $('#ciudadCriBusqueda').val()
     let categorias = $('#categoriasCriBuscar').val()
-    let vendedores = $('#vendedorCriBuscar').val()
+    let vendedores = $('#idVendedor').val()
 
     console.log(ciudades)
     console.log(categorias)
@@ -134,6 +135,11 @@ $(document).on('click', '#searching', function (e) {
             && ciudades !== '' && vendedores === ''){
      
         queryCity(data)
+        
+    }else if(nombreProductoFiltar === '' && categorias === '' 
+            && ciudades === '' && vendedores !== ''){
+     
+        queryVendedores(data)
         
     }else if(nombreProductoFiltar !== '' && categorias !== '' 
             && ciudades === '' && vendedores === ''){
@@ -213,6 +219,31 @@ function queryCity(datos){
      $.ajax({
 
             url: "./getProductsByCity",
+            type: 'POST',
+            async: true,
+            datatype: 'json',
+            data: {
+                word:datos.word,
+                categorias:datos.categorias,
+                ciudades:datos.ciudades,
+                vendedores:datos.vendedores
+            },
+            success: function (data) {
+                
+                webPageAnimations()
+                generatePageQuery(data, 4)
+                document.getElementById('searching').disabled = false;
+
+            }
+        });
+    
+}
+
+function queryVendedores(datos){
+    
+     $.ajax({
+
+            url: "./getProductsBySeller",
             type: 'POST',
             async: true,
             datatype: 'json',

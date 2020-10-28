@@ -162,7 +162,7 @@ public class empresaDAO {
         con = new Conexion();
         listaEmpresa = new ArrayList<>();
         consulta = "SELECT idEmpresa, nombreEmpresa, esEmpresa "
-                + "FROM empresa WHERE esEmpresa = 1 ORDER by rand() LIMIT 5";
+                + "FROM empresa WHERE esEmpresa = 1";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
@@ -170,12 +170,11 @@ public class empresaDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 empresaDTO = new empresaDTO();
-                empresaDTO.setEsEmpresa(rs.getInt("esEmpresa"));
+                empresaDTO.setIdEmpresa(rs.getInt("idEmpresa"));
                 empresaDTO.setNombreEmpresa(rs.getString("nombreEmpresa"));
                 listaEmpresa.add(empresaDTO);
 
             }
-
             //cerrarCon(ps, cn, rs);
             return listaEmpresa;
 

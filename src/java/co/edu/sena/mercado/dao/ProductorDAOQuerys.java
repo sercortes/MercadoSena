@@ -253,14 +253,14 @@ public class ProductorDAOQuerys {
 
     }
 
-    public ArrayList<Producto> buscadorLikeEmpresa(String Empresa) {
+    public ArrayList<Producto> searchByEmpresa(String Empresa) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
                     + "FROM producto PR INNER JOIN empresa EM "
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
-                    + "WHERE PR.idEmpresa = ? AND estadoProducto = 1 "
+                    + "WHERE PR.idEmpresaFK = ? AND estadoProducto = 1 "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
             ps.setString(1, Empresa );
