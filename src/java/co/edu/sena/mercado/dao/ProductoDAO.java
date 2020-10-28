@@ -246,8 +246,8 @@ public class ProductoDAO {
             String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
                     + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
-                    + "WHERE PR.estadoProducto = 1 AND PR.stockProducto > 0 AND EM.idEmpresa <> ?"
-                    + "ORDER by rand() LIMIT 8";
+                    + "WHERE PR.estadoProducto = 1 AND PR.stockProducto > 0 AND EM.idEmpresa <> ? "
+                    + "ORDER by rand() LIMIT 12";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();

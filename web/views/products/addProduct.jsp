@@ -6,6 +6,8 @@
 
 <%@include file="/views/template/header.jspf"%>
 
+<%@include file="/views/searching/buscador.jspf"%>
+
 <c:if test="${USER.idRol != 3}">
     <c:redirect url="./home"/>
 </c:if>

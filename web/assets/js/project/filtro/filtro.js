@@ -3,8 +3,10 @@ var nombres = [];
 
 $(document).ready(function () {
 
-    productosRamdom()
-
+    if(window.location.pathname === '/MercadoSena/'){
+        productosRamdom()
+    }
+    
 })
 
 $('#desplegarMenu').click(function () {
