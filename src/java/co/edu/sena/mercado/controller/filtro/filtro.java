@@ -134,33 +134,14 @@ public class filtro extends HttpServlet {
                 new Gson().toJson(listaProductoImagenes, response.getWriter());
                 break;
             case "listarVendedores":
-                empresaDAO empresaDAO = new empresaDAO();
-                ArrayList<empresaDTO> listaEmpresa = new ArrayList<>();
-                listaEmpresa = empresaDAO.listarEmpresas();
-                response.setContentType("application/json");
-                new Gson().toJson(listaEmpresa, response.getWriter());
+                
+                listaVendedores(request, response);
 
                 break;
 
-            case "buscadorlikes":
-
-                productoDTO = new Producto();
-                productoDTO.setNombreProducto(request.getParameter("nombreProductoFiltar"));
-
-                Conexion co = new Conexion();
-                Connection connn = co.getConnection();
-
-//                ArrayList<Producto> prodDAOs = new ProductoDAO(connn).buscadorLike(productoDTO.getNombreProducto());
-                //contuniar mas adelante
-//                if (prodDAOs.size() == 0) {
-//                    System.out.println("no encontro nada");
-//                } else {
-//                    response.getWriter().print(true);
-//                }
-
-                break;
             default:
-                throw new AssertionError("XXXXXXXXXXXXXXXXXXXXXXXXXXXX esa accionno existe");
+                System.out.println("ACCION SERVLET FILTRO NO EXISTE");
+               
         }
 
     }
@@ -174,5 +155,15 @@ public class filtro extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void listaVendedores(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+                empresaDAO empresaDAO = new empresaDAO();
+                ArrayList<empresaDTO> listaEmpresa = new ArrayList<>();
+                listaEmpresa = empresaDAO.listarEmpresasFiltro();
+                response.setContentType("application/json");
+                new Gson().toJson(listaEmpresa, response.getWriter());
+        
+    }
 
 }

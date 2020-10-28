@@ -1,12 +1,9 @@
-
 <%@include file="/views/template/head.jspf"%>
 
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 
 <%@include file="/views/template/header.jspf"%>
-
 <%@include file="/views/searching/buscador.jspf"%>
-
 <%@include file="/views/init/carusel.jspf"%>
 
  <div class="container-fluid">
@@ -21,7 +18,6 @@
 
 
 <%@include file="/views/searching/htmlSearch.jspf"%>
-
 <%@include file="/views/searching/modalVerProducto.jspf"%>
 <%@include file="/views/searching/modalPreguntar.jspf"%>
 
@@ -37,6 +33,5 @@
 
 
 <%@include file="/views/template/footer.jspf"%>
-
 
 <script src="./assets/js/project/filtro/productosInicio.js" type="text/javascript"></script>

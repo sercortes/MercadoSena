@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -19,41 +20,38 @@ import java.util.ArrayList;
  */
 public class ciudadDAO {
 
-    Conexion con = new Conexion();
-    Connection cn;
-    PreparedStatement ps;
-    ResultSet rs;
-    String consulta;
-    ciudadDTO ciudadDTO = new ciudadDTO();
-    ArrayList<ciudadDTO> listaCiudad = new ArrayList<>();
+       private Connection conn = null;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
 
-    public ArrayList<ciudadDTO> listarCiudad() {
-        listaCiudad = new ArrayList<>();
-        con = new Conexion();
-        consulta = "select * from ciudad";
+    public ciudadDAO(Connection conn) {
+        this.conn = conn;
+    }
+    
+     public ArrayList<ciudadDTO> ListCiudades() {
         try {
-            cn = con.getConnection();
-            ps = cn.prepareStatement(consulta);
+            String sql = "SELECT idCiudad, nombreCiudad FROM ciudad";
+            ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
+            List<ciudadDTO> list = new ArrayList<ciudadDTO>();
+            ciudadDTO ciudad;
             while (rs.next()) {
-                ciudadDTO = new ciudadDTO();
-                ciudadDTO.setIdCiudad(rs.getInt("idCiudad"));
-                ciudadDTO.setIdPais(rs.getInt("idPaisFK"));
-                ciudadDTO.setNombreCiudad(rs.getString("nombreCiudad"));
-                listaCiudad.add(ciudadDTO);
-
+                ciudad = new ciudadDTO();
+                ciudad.setIdCiudad(rs.getInt("idCiudad"));
+                ciudad.setNombreCiudad(rs.getString("nombreCiudad"));
+                list.add(ciudad);
             }
-           // System.out.println(".........resultado " + listaCiudad.toString());
-           // System.out.println("......... consulta " + ps.toString());
-            return listaCiudad;
-        } catch (SQLException e) {
-            System.out.println(".........Error al listar cidades " + e);
-            System.out.println("......... consulta" + ps.toString());
+            return (ArrayList<ciudadDTO>) list;
+        } catch (Exception e) {
+            System.out.println(e);
             return null;
-         }finally{
-            Conexion.close(cn);
-            Conexion.close(ps);
-            Conexion.close(rs);
         }
     }
+     
+      public void CloseAll(){
+        Conexion.close(conn);
+        Conexion.close(ps);
+        Conexion.close(rs);
+    } 
+    
 }
