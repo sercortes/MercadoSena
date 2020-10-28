@@ -65,7 +65,7 @@ $('#buscadorlike').submit(function (e) {
     var nombreProductoFiltar = $('#nombreProductoFiltar').val();
 
     if (nombreProductoFiltar === '' || nombreProductoFiltar === null) {
-        mensaje('Por favor complete el campo');
+        mensajesdeErrors('¡Escribe tu búsqueda en el campo que figura en la parte superior de la pantalla!');
     } else {
 
         var btn = document.getElementById('senddatoslike');
@@ -97,7 +97,7 @@ function mensajesdeErrors(mensaje) {
     Swal.fire({
         position: 'center',
         icon: 'error',
-        title: 'Producto fuera de stock',
+        title: 'Busqueda fallida',
         html: '<h4 style="color:#f27474;">' + mensaje + '</h4>',
         showCancelButton: false,
         showConfirmButton: false,
@@ -106,7 +106,7 @@ function mensajesdeErrors(mensaje) {
         allowEnterKey: false,
         padding: '2rem',
         width: '25%',
-        timer: 1200
+        timer: 1700
 
     });
 }

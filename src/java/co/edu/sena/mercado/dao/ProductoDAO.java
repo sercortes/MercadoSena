@@ -197,9 +197,8 @@ public class ProductoDAO {
             return null;
         }
     }
-    
-    //es un comentario gay
 
+    //es un comentario gay
     public ArrayList<Producto> getProductsByDateTimeAsc(String id) {
         try {
             String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
@@ -355,13 +354,17 @@ public class ProductoDAO {
                     + "FROM producto PR INNER JOIN empresa EM "
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
-                    + "WHERE PR.nombreProducto LIKE ? AND estadoProducto = 1 AND EM.idEmpresa <> ? "
+                    + "WHERE PR.nombreProducto LIKE ? "+"AND estadoProducto = 1"+" OR PR.marcaProducto LIKE ? "+"AND estadoProducto = 1"+" OR CP.nombreCategoria LIKE ? "+"AND estadoProducto = 1"+" OR PR.descripcionProducto LIKE ?"
+                    + "AND estadoProducto = 1 AND EM.idEmpresa <> ? "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
-            ps.setString(1, Text + '%');
-            ps.setString(2, id);
+            ps.setString(1, '%' + Text + '%');
+            ps.setString(2, '%' + Text + '%');
+            ps.setString(3, '%' + Text + '%');
+            ps.setString(4, '%' + Text + '%');
+            ps.setString(5, id);
             System.out.println(ps.toString());
-            rs = ps.executeQuery(); 
+            rs = ps.executeQuery();
             Producto producto;
             Categorys categorys;
             while (rs.next()) {
@@ -386,16 +389,16 @@ public class ProductoDAO {
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;
-            
+
         } catch (Exception e) {
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
-             return null;
+            return null;
         }
-            
+
     }
-    
-     public ArrayList<Producto> buscadorLikeCategoria(int Categoria, String id) {
+
+    public ArrayList<Producto> buscadorLikeCategoria(int Categoria, String id) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
@@ -408,7 +411,7 @@ public class ProductoDAO {
             ps.setInt(1, Categoria + '%');
             ps.setString(2, id);
             System.out.println(ps.toString());
-            rs = ps.executeQuery(); 
+            rs = ps.executeQuery();
             Producto producto;
             Categorys categorys;
             while (rs.next()) {
@@ -433,16 +436,16 @@ public class ProductoDAO {
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;
-            
+
         } catch (Exception e) {
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
-             return null;
+            return null;
         }
-            
+
     }
-     
-      public ArrayList<Producto> buscadorLikeCiudad(int Ciudad, String id) {
+
+    public ArrayList<Producto> buscadorLikeCiudad(int Ciudad, String id) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
@@ -455,7 +458,7 @@ public class ProductoDAO {
             ps.setInt(1, Ciudad + '%');
             ps.setString(2, id);
             System.out.println(ps.toString());
-            rs = ps.executeQuery(); 
+            rs = ps.executeQuery();
             Producto producto;
             Categorys categorys;
             while (rs.next()) {
@@ -480,16 +483,16 @@ public class ProductoDAO {
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;
-            
+
         } catch (Exception e) {
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
-             return null;
+            return null;
         }
-            
+
     }
-      
-      public ArrayList<Producto> buscadorLikeEmpresa(int Empresa, String id) {
+
+    public ArrayList<Producto> buscadorLikeEmpresa(int Empresa, String id) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
@@ -502,7 +505,7 @@ public class ProductoDAO {
             ps.setInt(1, Empresa + '%');
             ps.setString(2, id);
             System.out.println(ps.toString());
-            rs = ps.executeQuery(); 
+            rs = ps.executeQuery();
             Producto producto;
             Categorys categorys;
             while (rs.next()) {
@@ -527,16 +530,14 @@ public class ProductoDAO {
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;
-            
+
         } catch (Exception e) {
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
-             return null;
+            return null;
         }
-            
+
     }
     // trabajo hay
-    
-    
-    
+
 }

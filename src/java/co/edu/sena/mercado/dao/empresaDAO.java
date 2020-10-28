@@ -161,7 +161,7 @@ public class empresaDAO {
     public ArrayList<empresaDTO> listarEmpresas() {
         con = new Conexion();
         listaEmpresa = new ArrayList<>();
-        consulta = "SELECT * FROM empresa ";
+        consulta = "SELECT * FROM empresa WHERE esEmpresa = 1 ORDER by rand() LIMIT 5";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
