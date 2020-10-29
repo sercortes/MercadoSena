@@ -763,6 +763,194 @@ public class ProductorDAOQuerys {
         }
 
     }
+         
+         public ArrayList<Producto> getProductsByCategorySeller(Producto pro) {
+        List<Producto> list = new ArrayList<Producto>();
+        try {
+            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
+                    + "FROM producto PR INNER JOIN empresa EM "
+                    + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
+                    + "ON PR.idCategoriaFK=CP.idCategoria "
+                    + "WHERE PR.idCategoriaFK = ? "
+                    + "AND estadoProducto = 1 "
+                    + "AND PR.stockProducto > 0 "
+                    + "AND PR.idEmpresaFK = ? ";
+                    
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, pro.getNombreCategoria());
+            ps.setString(2, pro.getIdEmpresaFK());
+            System.out.println(ps.toString());
+            rs = ps.executeQuery();
+            Producto producto;
+            Categorys categorys;
+            while (rs.next()) {
+                producto = new Producto();
+                producto.setIdProducto(rs.getString("idProducto"));
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                producto.setValorProducto(rs.getDouble("valorProducto"));
+                producto.setStockProducto(rs.getInt("stockProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setDescripcionProducto(rs.getString("descripcionProducto"));
+                producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
+                producto.setMedidaProducto(rs.getString("medidasProducto"));
+                producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
+                producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
+                producto.setVentajaProducto(rs.getString("ventajasProducto"));
+                producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+
+                categorys = new Categorys();
+                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
+                producto.setCategorys(categorys);
+
+                list.add(producto);
+            }
+            return (ArrayList<Producto>) list;
+
+        } catch (Exception e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+            return null;
+        }
+
+    }
+         
+         public ArrayList<Producto> getProductsByNameCategorySeller(Producto pro) {
+        List<Producto> list = new ArrayList<Producto>();
+        try {
+            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
+                    + "FROM producto PR INNER JOIN empresa EM "
+                    + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
+                    + "ON PR.idCategoriaFK=CP.idCategoria "
+                    + "WHERE PR.idCategoriaFK = ? "
+                    + "AND PR.nombreProducto LIKE ? "
+                    + "AND estadoProducto = 1 "
+                    + "AND PR.stockProducto > 0 "
+                    + "AND PR.idEmpresaFK = ? "
+                    
+                    + "OR PR.idCategoriaFK = ? "
+                    + "AND PR.descripcionProducto LIKE ? "
+                    + "AND estadoProducto = 1 "
+                    + "AND PR.stockProducto > 0 "
+                    + "AND PR.idEmpresaFK = ? "
+                    
+                    + "OR PR.idCategoriaFK = ? "
+                    + "AND PR.marcaProducto LIKE ? "
+                    + "AND estadoProducto = 1 "
+                    + "AND PR.stockProducto > 0 "
+                    + "AND PR.idEmpresaFK = ? ";
+                    
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, pro.getNombreCategoria());
+            ps.setString(2, "%"+pro.getNombreProducto()+"%");
+            ps.setString(3, pro.getIdEmpresaFK());
+            
+            ps.setString(4, pro.getNombreCategoria());
+            ps.setString(5, "%"+pro.getNombreProducto()+"%");
+            ps.setString(6, pro.getIdEmpresaFK());
+            
+            ps.setString(7, pro.getNombreCategoria());
+            ps.setString(8, "%"+pro.getNombreProducto()+"%");
+            ps.setString(9, pro.getIdEmpresaFK());
+            
+            System.out.println(ps.toString());
+            rs = ps.executeQuery();
+            Producto producto;
+            Categorys categorys;
+            while (rs.next()) {
+                producto = new Producto();
+                producto.setIdProducto(rs.getString("idProducto"));
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                producto.setValorProducto(rs.getDouble("valorProducto"));
+                producto.setStockProducto(rs.getInt("stockProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setDescripcionProducto(rs.getString("descripcionProducto"));
+                producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
+                producto.setMedidaProducto(rs.getString("medidasProducto"));
+                producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
+                producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
+                producto.setVentajaProducto(rs.getString("ventajasProducto"));
+                producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+
+                categorys = new Categorys();
+                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
+                producto.setCategorys(categorys);
+
+                list.add(producto);
+            }
+            return (ArrayList<Producto>) list;
+
+        } catch (Exception e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+            return null;
+        }
+
+    }
+         
+         public ArrayList<Producto> getProductsByNameSeller(Producto pro) {
+        List<Producto> list = new ArrayList<Producto>();
+        try {
+            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
+                    + "FROM producto PR INNER JOIN empresa EM "
+                    + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
+                    + "ON PR.idCategoriaFK=CP.idCategoria "
+                    + "WHERE PR.nombreProducto LIKE ? "
+                    + "AND estadoProducto = 1 "
+                    + "AND PR.stockProducto > 0 "
+                    + "AND PR.idEmpresaFK = ? "
+                    + "OR PR.descripcionProducto LIKE ? "
+                    + "AND estadoProducto = 1 "
+                    + "AND PR.stockProducto > 0 "
+                    + "AND PR.idEmpresaFK = ? "
+                    + "OR PR.marcaProducto LIKE ? "
+                    + "AND estadoProducto = 1 "
+                    + "AND PR.stockProducto > 0 "
+                    + "AND PR.idEmpresaFK = ? ";
+                    
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, "%"+pro.getNombreProducto()+"%");
+            ps.setString(2, pro.getIdEmpresaFK());
+            
+            ps.setString(3, "%"+pro.getNombreProducto()+"%");
+            ps.setString(4, pro.getIdEmpresaFK());
+            
+            ps.setString(5, "%"+pro.getNombreProducto()+"%");
+            ps.setString(6, pro.getIdEmpresaFK());
+            
+            System.out.println(ps.toString());
+            rs = ps.executeQuery();
+            Producto producto;
+            Categorys categorys;
+            while (rs.next()) {
+                producto = new Producto();
+                producto.setIdProducto(rs.getString("idProducto"));
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                producto.setValorProducto(rs.getDouble("valorProducto"));
+                producto.setStockProducto(rs.getInt("stockProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setDescripcionProducto(rs.getString("descripcionProducto"));
+                producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
+                producto.setMedidaProducto(rs.getString("medidasProducto"));
+                producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
+                producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
+                producto.setVentajaProducto(rs.getString("ventajasProducto"));
+                producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+
+                categorys = new Categorys();
+                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
+                producto.setCategorys(categorys);
+
+                list.add(producto);
+            }
+            return (ArrayList<Producto>) list;
+
+        } catch (Exception e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+            return null;
+        }
+
+    }
        
        public void CloseAll() {
         Conexion.close(conn);
