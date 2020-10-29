@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
     if (window.location.pathname === '/MercadoSena/') {
@@ -185,10 +184,28 @@ $(document).on('click', '#searching', function (e) {
         url = './getProductsByNameCitySeller'
         query(data, url)
     
+    }else if(nombreProductoFiltar === '' && categorias !== ''
+            && ciudades === '' && vendedores !== ''){
+        
+        url = './getProductsByCategorySeller'
+        query(data, url)
+    
+    }else if(nombreProductoFiltar !== '' && categorias !== ''
+            && ciudades === '' && vendedores !== ''){
+        
+        url = './getProductsByNameCategorySeller'
+        query(data, url)
+    
     }else if(nombreProductoFiltar !== '' && categorias !== ''
             && ciudades !== '' && vendedores !== ''){
         
         url = './getProductsByNameCategoryCitySeller'
+        query(data, url)
+    
+    }else if(nombreProductoFiltar !== '' && categorias === ''
+            && ciudades === '' && vendedores !== ''){
+        
+        url = './getProductsByNameSeller'
         query(data, url)
     
     }else{
@@ -235,6 +252,6 @@ function webPageAnimations() {
 }
 
 function regularExpresion(data){
-    let reg = /^[a-zA-Z0-9]*$/
+    let reg = /^[a-zA-Z0-9-̣\s]*$/
     return reg.test(data)
 }
