@@ -35,6 +35,7 @@ public class Search extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
       String direccion = request.getRequestURI();
 
         switch (direccion) {
@@ -154,12 +155,6 @@ private void getProductsByWord(HttpServletRequest request, HttpServletResponse r
         
     }
 
-        
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
     private void getProductsBySeller(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -169,12 +164,15 @@ private void getProductsByWord(HttpServletRequest request, HttpServletResponse r
 //        String categoria = request.getParameter("categorias");
 //        String ciudad = request.getParameter("ciudades");
         String vendedores = request.getParameter("vendedores");
-        System.out.println("dksdkjsdkljasdlkasdljkasd");
-        System.out.println(vendedores);
         ArrayList<Producto> listaProductos = productoDAO.searchByEmpresa(vendedores);
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
     }
+    
+       @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
     
 }
