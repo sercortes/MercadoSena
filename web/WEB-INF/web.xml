@@ -148,6 +148,7 @@
     <servlet-mapping>
         <servlet-name>SearchThree</servlet-name>
         <url-pattern>/getProductsByNameSeller</url-pattern>
+        <url-pattern>/getProductsByCategoryCitySeller</url-pattern>
         <url-pattern>/getProductsByCategorySeller</url-pattern>
         <url-pattern>/getProductsByNameCategorySeller</url-pattern>
         <url-pattern>/getProductsByNameCategoryCitySeller</url-pattern>
