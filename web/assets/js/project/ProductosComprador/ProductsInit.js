@@ -11,15 +11,11 @@ var $pagination = $('#pagination'),
 $(function () {
 
     if (window.location.pathname === '/MercadoSena/Searching...') {
-
-        $('#cargas').addClass('is-active');
         $('.collapse').collapse()
-
         $('#caruselDetails').carousel({
             interval: 2100,
         })
-
-        $('#cargas').addClass('is-active'); 
+        
         listarProductoByDateTime()
         
     }
@@ -34,10 +30,8 @@ function listarProductoByDateTime() {
         url: './getProductsByDateTime',
         async: true,
         datatype: 'json'
-    }).done(function (data) {
-        
+    }).done(function (data) {        
 
-        $('#cargas').removeClass('is-active');
         generatePageQuery(data, 4)
 
     })

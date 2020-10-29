@@ -8,8 +8,6 @@ function productosRamdom(){
         datatype: 'json'
     }).done(function (data) {
 
-          $('#cargas').removeClass('is-active');
-
         if (data.length == 0) {
             queryEmphy()
             return false

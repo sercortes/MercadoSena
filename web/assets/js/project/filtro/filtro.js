@@ -106,6 +106,13 @@ $(document).on('click', '#searching', function (e) {
         return false
         
     }
+    
+    if (!regularExpresion(nombreProductoFiltar)) {
+         messageInfo('Espera, palabra invalida');
+        document.getElementById('nombreProductoFiltar').value = ''
+        document.getElementById('nombreProductoFiltar').focus()
+        return false
+    }
 
      document.getElementById('searching').disabled = true;
      $('#cargas').addClass('is-active');
@@ -117,7 +124,7 @@ $(document).on('click', '#searching', function (e) {
      }
      
      let url = ''
-    
+
     if(nombreProductoFiltar !== '' && categorias === '' 
             && ciudades === '' && vendedores === ''){
         
@@ -144,22 +151,50 @@ $(document).on('click', '#searching', function (e) {
         
     }else if(nombreProductoFiltar !== '' && categorias !== '' 
             && ciudades === '' && vendedores === ''){
-     
-       console.log('X nombre y categoria') 
+        
+       url = './getProductsByNameCategory'
+        query(data, url)
         
     }else if(nombreProductoFiltar !== '' && categorias !== '' 
             && ciudades !== '' && vendedores === ''){
      
-       console.log('X nombre y categoria y ciudad') 
+      url = './getProductsByNameCategoryCity'
+        query(data, url)
         
+    }else if(nombreProductoFiltar === '' && categorias !== ''
+            && ciudades !== '' && vendedores === ''){
+        
+        url = './getProductsByCategoryCity'
+        query(data, url)
+    
+    }else if(nombreProductoFiltar !== '' && categorias === ''
+            && ciudades !== '' && vendedores === ''){
+        
+        url = './getProductsByNameCity'
+        query(data, url)
+    
+    }else if(nombreProductoFiltar === '' && categorias === ''
+            && ciudades !== '' && vendedores !== ''){
+        
+        url = './getProductsByCitySeller'
+        query(data, url)
+    
+    }else if(nombreProductoFiltar !== '' && categorias === ''
+            && ciudades !== '' && vendedores !== ''){
+        
+        url = './getProductsByNameCitySeller'
+        query(data, url)
+    
     }else if(nombreProductoFiltar !== '' && categorias !== ''
             && ciudades !== '' && vendedores !== ''){
         
-        console.log('filtro con todas opciones')
+        url = './getProductsByNameCategoryCitySeller'
+        query(data, url)
     
     }else{
         
         console.log('filtro mix')
+        alert('----_----SERVER')
         
     }
 
@@ -197,4 +232,9 @@ function webPageAnimations() {
             `<h3 class="titulos text-center"><i class="fas fa-search naranja"></i> Busqueda</h3>`
     $('#cargas').removeClass('is-active');
 
+}
+
+function regularExpresion(data){
+    let reg = /^[a-zA-Z0-9]*$/
+    return reg.test(data)
 }
