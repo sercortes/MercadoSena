@@ -55,11 +55,19 @@ public class SearchThree extends HttpServlet {
 
                 break;
             
+            case "/getProductsByCategoryCitySeller":
+
+                getProductsByCategoryCitySeller(request, response);
+
+                break;
+            
             case "/getProductsByNameCategoryCitySeller":
 
                 getProductsByNameCategoryCitySeller(request, response);
 
                 break;
+                
+           
 
         }
 
@@ -149,6 +157,29 @@ public class SearchThree extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void getProductsByCategoryCitySeller(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
+//        String palabra = request.getParameter("word");
+        String categoria = request.getParameter("categorias");
+        String ciudad = request.getParameter("ciudades");
+        String vendedores = request.getParameter("vendedores");
+        Producto producto = new Producto();
+//        producto.setNombreProducto(palabra);
+        producto.setNombreCategoria(categoria);
+        producto.setCiudad(ciudad);
+        producto.setIdEmpresaFK(vendedores);
+        ArrayList<Producto> listaProductos = productoDAO.getProductsByCategoryCitySeller(producto);
+        productoDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaProductos, response.getWriter());
+
+        
+    }
 
     
 }

@@ -196,22 +196,28 @@ $(document).on('click', '#searching', function (e) {
         url = './getProductsByNameCategorySeller'
         query(data, url)
     
-    }else if(nombreProductoFiltar !== '' && categorias !== ''
-            && ciudades !== '' && vendedores !== ''){
-        
-        url = './getProductsByNameCategoryCitySeller'
-        query(data, url)
-    
     }else if(nombreProductoFiltar !== '' && categorias === ''
             && ciudades === '' && vendedores !== ''){
         
         url = './getProductsByNameSeller'
         query(data, url)
     
+    }else if(nombreProductoFiltar !== '' && categorias !== ''
+            && ciudades !== '' && vendedores !== ''){
+        
+        url = './getProductsByNameCategoryCitySeller'
+        query(data, url)
+    
+    }else if(nombreProductoFiltar === '' && categorias !== ''
+            && ciudades !== '' && vendedores !== ''){
+        
+        url = './getProductsByCategoryCitySeller'
+        query(data, url)
+    
     }else{
         
         console.log('filtro mix')
-        alert('----_----SERVER')
+//        alert('----_----SERVER')
         
     }
 
