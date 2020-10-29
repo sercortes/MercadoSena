@@ -8,19 +8,19 @@
 
     <div class="busquedaAvanzada container-fluid pt-2">
         <div class="row">
-            <div class="col-md-4 pb-0">
+            <div class="col-md-4 col-sm-6 pb-1">
               
                 <select id="categoriasCriBuscar" title="Categorías" name="categoriasCriBuscar" class="form-control was-validated">
                 </select>
                 
             </div>
-            <div class="col-md-4 pb-0">
+            <div class="col-md-4 col-sm-6 pb-1">
                 
                 <select title="Ciudades" id="ciudadCriBusqueda" name="ciudadCriBusqueda" class="form-control was-validated">
                 </select>
                 
             </div>
-            <div class="col-md-4 pb-0">
+            <div class="col-md-4 col-sm-6 pb-1">
                 
                 <select id="idVendedor" name="vendedorCriBuscar" class="form-control was-validated" title="Vendedores"></select>
                 

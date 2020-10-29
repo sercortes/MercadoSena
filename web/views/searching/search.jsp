@@ -1,9 +1,9 @@
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="/views/template/head.jspf"%>
-<link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
-<%@include file="/views/template/header.jspf"%>
 
+<link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
+
+<%@include file="/views/template/header.jspf"%>
 <%@include file="/views/searching/buscador.jspf"%>
 
   <div class="container">
@@ -17,7 +17,6 @@
 </div>
  
 <%@include file="/views/searching/htmlSearch.jspf"%>
- 
 <%@include file="/views/searching/modalVerProducto.jspf"%>
 <%@include file="/views/searching/modalPreguntar.jspf"%>
 
@@ -32,5 +31,3 @@
 </c:if>
 
 <%@include file="/views/template/footer.jspf"%>
-
-<script src="./assets/js/project/ProductosComprador/ProductsInit.js" charset="utf-8"></script>

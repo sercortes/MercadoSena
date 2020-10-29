@@ -21,14 +21,12 @@
                     </div>
                     <ul class="messages" id="listaPreguntas"></ul>
 
-
-
                     <div id="buttonChat" class="bottom_wrapper clearfix">
 
                         <div class="message_input_wrapper">
                             <input class="message_input" placeholder="Escribe tu pregunta aqui" id="mensaje" />
                         </div>
-                        <div id="buttonChat" class="send_message">
+                        <div id="send_message" class="send_message">
                             <div class="icon"></div>
                             <div id="" class="text">Enviar</div>
                         </div>

@@ -16,18 +16,13 @@ $(document).on('click', '.botonChat', function (e) {
 
         let id = document.getElementById('companyss').value
         if (idpro === id) {
-
-            document.getElementById('buttonChat').innerHTML = ``
-
+            
+            $('#buttonChat').hide()
+            
         } else {
-            document.getElementById('buttonChat').innerHTML =
-                    `<div class="message_input_wrapper">
-                            <input class="message_input" placeholder="Escribe tu pregunta aqui" id="mensaje" />
-                        </div>
-                        <div id="buttonChat" class="send_message">
-                            <div class="icon"></div>
-                            <div id="" class="text">Enviar</div>
-                        </div>`
+            
+            $('#buttonChat').show()
+            
         }
 
     } else {
@@ -79,9 +74,6 @@ function getEmpresa(idpro) {
             var $message_input;
             $message_input = $('.message_input');
             enviarMensaje($message_input.val());
-
-
-
             return $message_input.val();
         };
         sendMessage = function (text) {
@@ -99,7 +91,7 @@ function getEmpresa(idpro) {
             message.draw();
             return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 300);
         };
-        $('.send_message').click(function (e) {
+        $('#send_message').click(function (e) {
 
             if (interacion < 1) {
                 interacion++;

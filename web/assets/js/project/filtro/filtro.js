@@ -70,7 +70,6 @@ function vendedoresS() {
         error: function (data) {
 
         }, success: function (data, textStatus, jqXHR) {
-            console.log(data)
             let srt = ``
             srt = '<option value="">Vendedores...</option>'
             for (var item of data) {
@@ -89,10 +88,6 @@ $(document).on('click', '#searching', function (e) {
     let ciudades = $('#ciudadCriBusqueda').val()
     let categorias = $('#categoriasCriBuscar').val()
     let vendedores = $('#idVendedor').val()
-
-    console.log(ciudades)
-    console.log(categorias)
-    console.log(vendedores)
 
     if (nombreProductoFiltar === '' && ciudades === '' 
             && categorias === '' && vendedores === '') {
@@ -120,26 +115,32 @@ $(document).on('click', '#searching', function (e) {
          ciudades:ciudades,
          vendedores:vendedores
      }
+     
+     let url = ''
     
     if(nombreProductoFiltar !== '' && categorias === '' 
             && ciudades === '' && vendedores === ''){
-     
-        queryWord(data)
+        
+        url = './getProductsByWord'
+        query(data, url)
         
     }else if(nombreProductoFiltar === '' && categorias !== '' 
             && ciudades === '' && vendedores === ''){
-     
-        queryCategory(data)
+        
+        url = './getProductsByCategory'
+        query(data, url)
         
     }else if(nombreProductoFiltar === '' && categorias === '' 
             && ciudades !== '' && vendedores === ''){
-     
-        queryCity(data)
+        
+        url = './getProductsByCity'
+        query(data, url)
         
     }else if(nombreProductoFiltar === '' && categorias === '' 
             && ciudades === '' && vendedores !== ''){
-     
-        queryVendedores(data)
+        
+        url = './getProductsBySeller'
+        query(data, url)
         
     }else if(nombreProductoFiltar !== '' && categorias !== '' 
             && ciudades === '' && vendedores === ''){
@@ -164,11 +165,11 @@ $(document).on('click', '#searching', function (e) {
 
 })
 
-function queryWord(datos){
+function query(datos, url){
     
         $.ajax({
 
-            url: "./getProductsByWord",
+            url: url,
             type: 'POST',
             async: true,
             datatype: 'json',
@@ -188,82 +189,6 @@ function queryWord(datos){
         });
 
 }
-
-function queryCategory(datos){
-    
-     $.ajax({
-
-            url: "./getProductsByCategory",
-            type: 'POST',
-            async: true,
-            datatype: 'json',
-            data: {
-                word:datos.word,
-                categorias:datos.categorias,
-                ciudades:datos.ciudades,
-                vendedores:datos.vendedores
-            },
-            success: function (data) {
-
-                webPageAnimations()
-                generatePageQuery(data, 4)
-                document.getElementById('searching').disabled = false;
-
-            }
-        });
-    
-}
-
-function queryCity(datos){
-    
-     $.ajax({
-
-            url: "./getProductsByCity",
-            type: 'POST',
-            async: true,
-            datatype: 'json',
-            data: {
-                word:datos.word,
-                categorias:datos.categorias,
-                ciudades:datos.ciudades,
-                vendedores:datos.vendedores
-            },
-            success: function (data) {
-                
-                webPageAnimations()
-                generatePageQuery(data, 4)
-                document.getElementById('searching').disabled = false;
-
-            }
-        });
-    
-}
-
-function queryVendedores(datos){
-    
-     $.ajax({
-
-            url: "./getProductsBySeller",
-            type: 'POST',
-            async: true,
-            datatype: 'json',
-            data: {
-                word:datos.word,
-                categorias:datos.categorias,
-                ciudades:datos.ciudades,
-                vendedores:datos.vendedores
-            },
-            success: function (data) {
-                
-                webPageAnimations()
-                generatePageQuery(data, 4)
-                document.getElementById('searching').disabled = false;
-
-            }
-        });
-    
-}
-
 
 function webPageAnimations() {
 

@@ -296,6 +296,9 @@ function queryEmphy() {
 }
 
 $(document).on('click', '#meInteresa', function (e) {
+    
+    console.log($('#nombreUsuarioInicio').val() !== 'no')
+    
     e.preventDefault();
     if ($('#nombreUsuarioInicio').val() !== 'no') {
 
@@ -330,6 +333,7 @@ $(document).on('click', '#meInteresa', function (e) {
             }
         })
     } else {
+        console.log('registrarse')
         $('#detailsProduct').modal('hide');
         modalPreguntaRegistro();
     }
