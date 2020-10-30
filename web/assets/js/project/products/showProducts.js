@@ -142,7 +142,7 @@ function generateTableBuscador() {
         str += '<td>' + getImagen(item.imagen) + '</td>'
         str += `<figcaption class="p-3 card-img-bottom">
                 
-              <h1 class="h4 font-weight-bold mb-2 font-italic img-fluid">${item.nombreProducto.toString().substr(0, 36)}</h1>
+              <h1 class="h4 font-weight-bold mb-2 font-italic img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h1>
               <hr>
               <h2 class="h5 text-muted img-fluid" style="margin-top: -2%;">$${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
               <p class="mb-0 text-small text-muted">Cantidad: ${item.stockProducto}</p>

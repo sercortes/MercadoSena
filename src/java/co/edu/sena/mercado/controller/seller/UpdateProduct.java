@@ -38,9 +38,9 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class UpdateProduct extends HttpServlet {
 
-    private final String UPLOAD_DIRECTORY = "/home/bienestar/Descargas/glassfish4/glassfish/domains/domain1/docroot/files";
+   private final String UPLOAD_DIRECTORY = "/home/bienestar/Descargas/glassfish4/glassfish/domains/domain1/docroot/files";
    private final String SERVER_UPLOAD = "http://181.48.181.131/files/";
-    private static final long serialVersionUID = 1L;
+   private static final long serialVersionUID = 1L;
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
