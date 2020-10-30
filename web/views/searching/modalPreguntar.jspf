@@ -24,7 +24,7 @@
                     <div id="buttonChat" class="bottom_wrapper clearfix">
 
                         <div class="message_input_wrapper">
-                            <input class="message_input" placeholder="Escribe tu pregunta aqui" id="mensaje" />
+                            <input class="message_input" placeholder="Escribe tu pregunta aquí" id="mensaje" />
                         </div>
                         <div id="send_message" class="send_message">
                             <div class="icon"></div>

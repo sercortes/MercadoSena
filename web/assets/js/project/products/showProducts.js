@@ -57,8 +57,8 @@ function listarProductoByVendedor() {
             arrayFinal.push(itemP)
         }
 
-        if (arrayFinal.length == 0) {
-            queryEmphy()
+        if (arrayFinal.length === 0) {
+            queryEmphyP()
             return false
         }
 
@@ -74,7 +74,7 @@ function listarProductoByVendedor() {
 
 }
 
-function queryEmphy() {
+function queryEmphyP() {
     let select = document.getElementById('tabla');
     let str =
             `<div class="col-lg-3">
@@ -118,7 +118,7 @@ function apply_pagination() {
             displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
             endRec = (displayRecordsIndex) + recPerPage;
             displayRecords = records.slice(displayRecordsIndex, endRec);
-            generateTableBuscador()
+            generateTableBuscadorP()
         }
     });
 }
@@ -129,7 +129,7 @@ function cambiarFecha() {
 }
 
 
-function generateTableBuscador() {
+function generateTableBuscadorP() {
 
     let select = document.getElementById('tabla');
     let str = ``
@@ -137,39 +137,40 @@ function generateTableBuscador() {
 
     for (var item of displayRecords) {
 
-        str += `<div class="col-lg-3">
-          <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}">`
+ str += `<div class="col-lg-3">
+          <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">`
+        str += `<div id="carouselExampleControls${num}" class="carousel slide hijueputa" data-ride="carousel">
+                    <div class="carousel-inner" id="caruselOne${num}">`
         str += '<td>' + getImagen(item.imagen) + '</td>'
         str += `<figcaption class="p-3 card-img-bottom">
-                
-              <h1 class="h4 font-weight-bold mb-2 font-italic img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h1>
-              <hr>
-              <h2 class="h5 text-muted img-fluid" style="margin-top: -2%;">$${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
-              <p class="mb-0 text-small text-muted">Cantidad: ${item.stockProducto}</p>
+        <hr>
+              <h2 class="h5 text-left text-muted mb-3 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
+              <h2 class="h5 text-left font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
             </figcaption>
        
-      <div class="col-lg-12 mb-5 p-0">
-       <a data-toggle="collapse" href="#collapseExample${num}" role="button" aria-expanded="false" aria-controls="collapseExample1" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
+      <div class="col-lg-12 mb-4 p-0">
+       <a data-toggle="collapse" href="#collapseExamples${num}" role="button" aria-expanded="false" aria-controls="" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
           <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Descripción</strong><i class="fa fa-angle-down"></i></p>
         </a>
-        <div id="collapseExample${num}" class="collapse shadow-sm">
+        <div id="collapseExamples${num}" class="collapse shadow-sm">
           <div class="card">
             <div class="card-body">
-              <p class="font-italic mb-0 text-muted">${item.descripcionProducto.toString().substr(0, 50)}</p>
+              <p class="font-italic mb-0 text-muted">${item.descripcionProducto.toString().substr(0, 150)}</p>
             </div>
           </div>
         </div>
-      </div>
-        
-         <div class="text-right">
+      </div>`
+
+        str += `<div class="text-right">
                             <a href="#" class="delete btn btn-danger"><i class="fas fa-minus-square"></i></a>
                             <a href="#" class="editProduct btn btn-warning"><i class="fas fa-edit"></i></a>
                             <a href="#" class="watchMyProducts btn btn-primary"><i class="far fa-images"></i></a>
-                        </div>
-          </figure>
-       
+                        </div>`
+
+        str += `</figure>
         </div>`
         num++
+
     }
 
     select.innerHTML = str;
@@ -263,8 +264,8 @@ $(document).on('click', '.delete', function (e) {
     let idPro = $(parent).attr('idProducto')
 
     Swal.fire({
-        title: '¿ está seguro?',
-        text: "No se pueden revertir los cambios!",
+        title: '¿Está seguro?',
+        text: "¡No se pueden revertir los cambios!",
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',

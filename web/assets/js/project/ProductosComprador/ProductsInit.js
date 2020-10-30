@@ -156,7 +156,7 @@ function generateTableBuscador() {
         <div id="collapseExamples${num}" class="collapse shadow-sm">
           <div class="card">
             <div class="card-body">
-              <p class="font-italic mb-0 text-muted">${item.descripcionProducto.toString().substr(0, 50)}</p>
+              <p class="font-italic mb-0 text-muted">${item.descripcionProducto.toString().substr(0, 150)}</p>
             </div>
           </div>
         </div>
@@ -311,8 +311,8 @@ $(document).on('click', '#meInteresa', function (e) {
         }
 
         Swal.fire({
-            title: 'Pregunta?',
-            text: 'Deseas que el vendedor pueda ver tus datos para contactarte!',
+            title: 'Espera...',
+            text: '¿Deseas que el vendedor pueda ver tus datos para contactarte?',
             icon: 'info',
             showCancelButton: true,
             showCloseButton: true,
@@ -322,6 +322,11 @@ $(document).on('click', '#meInteresa', function (e) {
             if (result.value) {
                 messageOk('enviado')
                 generateTables(datos, 1)
+                datosVendedor(idEmpresa)
+
+            }else if (result.dismiss === Swal.DismissReason.cancel) {
+                messageError('cancelado')
+                generateTables(datos, 0)
                 datosVendedor(idEmpresa)
 
             }
