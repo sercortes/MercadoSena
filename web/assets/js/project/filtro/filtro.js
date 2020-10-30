@@ -3,6 +3,10 @@ $(document).ready(function () {
     if (window.location.pathname === '/MercadoSena/') {
         productosRamdom()
     }
+    
+    if (window.location.pathname === '/MercadoSena/home') {
+        productosRamdom()
+    }
 
 })
 

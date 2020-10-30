@@ -82,6 +82,7 @@ public class Search extends HttpServlet {
      private void getProductsRandom(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
         
         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
         ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
         ArrayList<Producto> listaProductos = productoDAO.getProductsRandom();

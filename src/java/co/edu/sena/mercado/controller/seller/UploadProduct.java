@@ -109,7 +109,9 @@ public class UploadProduct extends HttpServlet {
                     }
 
                 }
-
+                
+                System.out.println(producto.toString());
+                
                 usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
 
                 //Insert Producto

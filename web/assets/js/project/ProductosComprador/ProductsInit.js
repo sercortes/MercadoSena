@@ -145,15 +145,15 @@ function generateTableBuscador() {
 
         str += `<figcaption class="p-3 card-img-bottom">
         <hr>
-              <h2 class="h5 text-left text-muted mb-3 img-fluid">${item.nombreProducto.toString().substr(0, 36)}</h2>
+              <h2 class="h5 text-left text-muted mb-3 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
               <h2 class="h5 text-left font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
             </figcaption>
        
       <div class="col-lg-12 mb-4 p-0">
-       <a data-toggle="collapse" href="#collapseExample${num}" role="button" aria-expanded="false" aria-controls="collapseExample1" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
+       <a data-toggle="collapse" href="#collapseExamples${num}" role="button" aria-expanded="false" aria-controls="" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
           <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Descripción</strong><i class="fa fa-angle-down"></i></p>
         </a>
-        <div id="collapseExample${num}" class="collapse shadow-sm">
+        <div id="collapseExamples${num}" class="collapse shadow-sm">
           <div class="card">
             <div class="card-body">
               <p class="font-italic mb-0 text-muted">${item.descripcionProducto.toString().substr(0, 50)}</p>
@@ -232,7 +232,7 @@ function textProduct(item) {
         str += `
         <hr>
         <div class="col-lg-12 mb-5 p-0">
-       <a data-toggle="collapse" href="#collapseExample${item.idProducto}" role="button" aria-expanded="false" aria-controls="collapseExample1" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
+       <a data-toggle="collapse" href="#collapseExample${item.idProducto}" role="button" aria-expanded="false" aria-controls="" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
           <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Información Adicional</strong><i class="fa fa-angle-down"></i></p>
         </a>
         <div id="collapseExample${item.idProducto}" class="collapse shadow-sm">

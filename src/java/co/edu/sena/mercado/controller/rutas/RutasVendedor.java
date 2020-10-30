@@ -34,7 +34,7 @@ public class RutasVendedor extends HttpServlet {
 
     private final String UPLOAD_DIRECTORY = "/opt/lampp/htdocs/sergio";
     private static final long serialVersionUID = 1L;
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, UnsupportedEncodingException, SQLException {
 

@@ -74,7 +74,7 @@ public class ProductorDAOQuerys {
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
                     + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
                     + "WHERE PR.estadoProducto = 1 AND PR.stockProducto > 0 "
-                    + "ORDER BY PR.agregado ASC LIMIT 100";
+                    + "ORDER BY PR.agregado DESC LIMIT 100";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             List<Producto> list = new ArrayList<Producto>();
