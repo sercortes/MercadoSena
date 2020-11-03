@@ -176,7 +176,7 @@ a {
 
 a:hover {
   color: rgb(252, 115, 30);
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 a:not([href]):not([tabindex]) {
@@ -2328,7 +2328,8 @@ pre code {
 
 .form-control:disabled,
 .form-control[readonly] {
-  background-color: #eaecf4;
+  background-color: #ffffff;
+  color: #333333;
   opacity: 1;
 }
 

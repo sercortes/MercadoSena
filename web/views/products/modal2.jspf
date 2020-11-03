@@ -65,7 +65,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Descripción:</label>
-                                <textarea class="form-control" id="descripE" name="descripE" rows="3" placeholder="Descripción de su producto" minlength="20" maxlength="500" required></textarea>
+                                <textarea class="form-control" id="descripE" name="descripE" rows="6" placeholder="Descripción de su producto" minlength="20" maxlength="800" required></textarea>
                                 <small id="emailHelp" class="form-text text-muted">Si su producto tiene información adicional coloquela en este campo.</small>
 
                                 <div class="invalid-feedback">
@@ -116,7 +116,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="exampleFormControlTextarea1">Ventajas:</label>
-                                            <textarea class="form-control" id="ventajasE" name="ventajasE" rows="3" placeholder="Ventajas de su producto" minlength="20" maxlength="500" required></textarea>
+                                            <textarea class="form-control" id="ventajasE" name="ventajasE" rows="7" placeholder="Ventajas de su producto" minlength="20" maxlength="800" required></textarea>
                                             <small id="emailHelp" class="form-text text-muted">Si su producto tiene información adicional coloquela en este campo.</small>
                                             <div class="invalid-feedback">
                                                 Escriba las ventajas con por lo menos 10 carácteres

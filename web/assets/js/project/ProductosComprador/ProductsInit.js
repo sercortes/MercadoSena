@@ -15,9 +15,9 @@ $(function () {
         $('#caruselDetails').carousel({
             interval: 2100,
         })
-        
+
         listarProductoByDateTime()
-        
+
     }
 
 })
@@ -30,7 +30,7 @@ function listarProductoByDateTime() {
         url: './getProductsByDateTime',
         async: true,
         datatype: 'json'
-    }).done(function (data) {        
+    }).done(function (data) {
 
         generatePageQuery(data, 4)
 
@@ -73,7 +73,7 @@ function apply_pagination() {
     });
 }
 
-function getImages(idpro) {
+function getImages(idpro, nume) {
 
     let str = ''
 
@@ -105,6 +105,17 @@ function getImages(idpro) {
             }
             num++;
         }
+        str += `</div>`
+        if (data.length > 1) {
+            str += `<a class="carousel-control-prev" href="#carouselExampleControls${nume}" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls${nume}" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Siguiente</span>
+                    </a>`
+        }
 
     })
     return str
@@ -128,35 +139,23 @@ function generateTableBuscador() {
 
         str += `<div class="col-lg-3">
           <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">`
-
         str += `<div id="carouselExampleControls${num}" class="carousel slide hijueputa" data-ride="carousel">
                     <div class="carousel-inner" id="caruselOne${num}">`
-        str += getImages(item.idProducto)
-        str += ` </div>
-                    <a class="carousel-control-prev" href="#carouselExampleControls${num}" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Anterior</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleControls${num}" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Siguiente</span>
-                    </a>
-                </div>`
-
-        str += `<figcaption class="p-3 card-img-bottom">
+        str += getImages(item.idProducto, num)
+        str += `</div>
+            <figcaption class="p-3 card-img-bottom">
         <hr>
               <h2 class="h5 text-left text-muted mb-3 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
               <h2 class="h5 text-left font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
             </figcaption>
-       
       <div class="col-lg-12 mb-4 p-0">
        <a data-toggle="collapse" href="#collapseExamples${num}" role="button" aria-expanded="false" aria-controls="" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
           <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Descripción</strong><i class="fa fa-angle-down"></i></p>
         </a>
         <div id="collapseExamples${num}" class="collapse shadow-sm">
           <div class="card">
-            <div class="card-body">
-              <p class="font-italic mb-0 text-muted">${item.descripcionProducto.toString().substr(0, 150)}</p>
+            <div class="card-body" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">
+              <p class="font-italic mb-0 text-muted textoDes">${item.descripcionProducto.toString().substr(0, 150)} <a href="#" class="watch naranja">Ver más <i class="fas fa-angle-double-right fa-lg naranja iconodemas"></i></a></p>
             </div>
           </div>
         </div>
@@ -164,18 +163,18 @@ function generateTableBuscador() {
 
         str += `<div class="text-right">
                             <a href="#" class="botonChat btn btn-primary"><i class="fas fa-comments"></i></a>
-                    <a href="#" class="watch btn btn-primary"><i class="fas fa-images"></i></a>
+                            <a href="#" class="watch btn btn-primary"><i class="fas fa-images"></i></a>
                         </div>`
-
         str += `</figure>
         </div>`
         num++
 
-
-
     }
 
     select.innerHTML = str;
+    setTimeout(() => $('.hijueputa').carousel({
+            interval: 3100,
+        }), 1000)
 }
 
 
@@ -195,18 +194,16 @@ $(document).on('click', '.watch', function (e) {
 
 function detailsProduct(producto) {
 
-
     caruselImagenes(producto.imagenes)
     textProduct(producto)
-
-    setTimeout(() => $('.hijueputa').carousel({
-            interval: 6100,
+    setTimeout(() => $('.slides').carousel({
+            interval: 4100,
         }), 1000)
 
 }
 
 function textProduct(item) {
-    
+
     let id = document.getElementById('companyss').value
     let str = ''
     let element = document.getElementById('details')
@@ -214,20 +211,25 @@ function textProduct(item) {
 <h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
     <hr>`
     if (item.idEmpresaFK === id) {
-        str +=``
-    }else{
-        str +=`<a id="meInteresa" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`
+        str += ``
+    } else {
+        str += `<a id="meInteresa" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`
     }
-    
-    str +=               `<i class="fas fa-gift"></i> Me interesa</a>
+
+    str += `<i class="fas fa-gift"></i> Me interesa</a>
     <select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`
     for (var i = 1; i <= item.stockProducto; i++) {
         str += `<option>${i}</option>`
     }
     str += `</select>
               <p class="font-weight-bold text-muted h5 text-left">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</p>
-              <p class="mb-0 text-small text-muted">Marca: ${item.marcaProducto}</p>
-              <p class="mb-0 text-small text-muted">Descripción : ${item.descripcionProducto}</p>`
+              <h4 class="mb-0 pb-2 text-left">Marca: ${item.marcaProducto}</h4>
+           <div class="card shadow-sm">
+            <div class="card-body">
+              <p class="mb-0 text-small text-muted textoDes">Descripción</p>
+              <p class="mb-0 text-small text-muted textoDes">${item.descripcionProducto}</p>
+            </div>
+          </div>`
     if (item.diasEnvios !== undefined) {
         str += `
         <hr>
@@ -242,7 +244,8 @@ function textProduct(item) {
          <p class="mb-0 text-small text-muted">Medidas : ${item.medidaProducto}</p>
          <p class="mb-0 text-small text-muted">Empaque : ${item.empaqueProducto}</p>
          <p class="mb-0 text-small text-muted">Embalaje : ${item.embalajeProducto}</p>
-         <p class="mb-0 text-small text-muted">Ventajas : ${item.ventajaProducto}</p>
+         <p class="mb-0 text-small text-muted textoDes">Ventajas</p>
+         <p class="mb-0 text-small text-muted textoDes">${item.ventajaProducto}</p>
             </div>
           </div>
         </div>
@@ -270,6 +273,20 @@ function caruselImagenes(data) {
     }
     ele.innerHTML = str
 
+    if (data.length > 1) {
+        document.getElementById('controlescarru').innerHTML =
+                ` <a class="carousel-control-prev" href="#caruselDetails" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="carousel-control-next" href="#caruselDetails" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Siguiente</span>
+                    </a>`
+    } else {
+        document.getElementById('controlescarru').innerHTML = ``
+    }
+
 }
 
 function queryEmphy() {
@@ -290,9 +307,7 @@ function queryEmphy() {
 }
 
 $(document).on('click', '#meInteresa', function (e) {
-    
-    console.log($('#nombreUsuarioInicio').val() !== 'no')
-    
+
     e.preventDefault();
     if ($('#nombreUsuarioInicio').val() !== 'no') {
 
@@ -323,25 +338,22 @@ $(document).on('click', '#meInteresa', function (e) {
                 messageOk('enviado')
                 generateTables(datos, 1)
                 datosVendedor(idEmpresa)
-
-            }else if (result.dismiss === Swal.DismissReason.cancel) {
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
                 messageError('cancelado')
                 generateTables(datos, 0)
                 datosVendedor(idEmpresa)
-
             }
         })
     } else {
-        console.log('registrarse')
         $('#detailsProduct').modal('hide');
         modalPreguntaRegistro();
     }
+
 })
 
 function generateTables(datos, contacto) {
 
     datos.contacto = contacto
-    console.log(datos)
 
     $.ajax({
         type: "POST",
@@ -357,7 +369,6 @@ function generateTables(datos, contacto) {
         datatype: 'json'
     }).done(function (data) {
 
-        console.log('ok')
         enviarNot('pedidos', datos.idEmpresa);
 
     }).fail(function (data) {
