@@ -103,7 +103,7 @@ function getEmpresa(idpro) {
                 return sendMessage(getMessageText());
             }
         });
-        sendMessage('Hola ' + $('#nombreUsuarioInicio').val());
+        sendMessage('¡ Hola ' + $('#nombreUsuarioInicio').val() +' !');
         function generate() {
             sendMessage(getMessageText());
         }

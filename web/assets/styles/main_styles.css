@@ -1,5 +1,25 @@
 @charset "utf-8";
 
+/*p {
+  white-space: pre-wrap;
+}*/
+.textoDes{
+    white-space: pre-wrap;
+}
+/*
+.textareas {
+  outline: none;
+    border: 0 none white;
+    overflow: hidden;
+    outline: none;
+    background-color: #fffff;
+
+}
+.form-controls:disabled, .form-control[readonly] {
+    background-color: #000;
+    opacity: 1;
+}
+*/
     .carousel-inners img {
         width: 50%;
         height: 50%;
@@ -515,7 +535,6 @@ p a
     display: inline;
     position: relative;
     color: inherit;
-    border-bottom: solid 1px #ffa07f;
     -webkit-transition: all 200ms ease;
     -moz-transition: all 200ms ease;
     -ms-transition: all 200ms ease;
@@ -536,8 +555,7 @@ p a:active
 }
 p a:hover
 {
-    color: #FFFFFF;
-    background: #ffa07f;
+    background: #ffa07f6e;
 }
 p a:hover::after
 {
