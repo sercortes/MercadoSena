@@ -143,10 +143,10 @@ function generateTableBuscador() {
                     <div class="carousel-inner" id="caruselOne${num}">`
         str += getImages(item.idProducto, num)
         str += `</div>
-            <figcaption class="p-3 card-img-bottom">
+            <figcaption class="p-2 card-img-bottom">
         <hr>
-              <h2 class="h5 text-left text-muted mb-3 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
-              <h2 class="h5 text-left font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
+              <h2 class="letrasbanner text-left text-muted mb-1 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
+              <h2 class="h5 text-left font-weight-bold mb-2 precios">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
             </figcaption>
       <div class="col-lg-12 mb-4 p-0">
        <a data-toggle="collapse" href="#collapseExamples${num}" role="button" aria-expanded="false" aria-controls="" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
@@ -202,20 +202,41 @@ function detailsProduct(producto) {
 
 }
 
+function checkProduct(id) {
+
+    let estatus = '';
+
+    $.ajax({
+        type: "POST",
+        url: './checkProducts',
+        async: false,
+        data:{
+            idProducto:id
+        },
+        datatype: 'json'
+    }).done(function (data) {
+
+        estatus = data;
+        
+    })
+    
+    return estatus;
+
+}
+
 function textProduct(item) {
 
     let id = document.getElementById('companyss').value
     let str = ''
     let element = document.getElementById('details')
     str += `<div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
-<h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
-    <hr>`
+                <h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
+            <hr>`
     if (item.idEmpresaFK === id) {
         str += ``
     } else {
         str += `<a id="meInteresa" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`
     }
-
     str += `<i class="fas fa-gift"></i> Me interesa</a>
     <select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`
     for (var i = 1; i <= item.stockProducto; i++) {
@@ -311,12 +332,16 @@ $(document).on('click', '#meInteresa', function (e) {
     e.preventDefault();
     if ($('#nombreUsuarioInicio').val() !== 'no') {
 
-
         let parent = $(this)[0].parentElement
         let idEmpresa = $(parent).attr('idEmpresa')
         let idProducto = $(parent).attr('idProducto')
         let precio = $(parent).attr('precioProducto')
         let cantidad = $('#cantidadSelect').val()
+        
+        if (checkProduct(idProducto)) {
+            messageInfo('El producto ya ha sido agregado, revisa los datos del vendedor en la "opción mis pedidos"')
+            return false
+        }
 
         let datos = {
             idEmpresa: idEmpresa,
@@ -396,7 +421,6 @@ function datosVendedor(data) {
 
     })
 
-
     Swal.fire({
         title: '<strong>Datos Vendedor</strong>',
         icon: 'success',
@@ -421,6 +445,7 @@ function datosVendedor(data) {
     left top
     no-repeat`
     })
-
+    
+        $('#detailsProduct').modal('hide')
 
 }
