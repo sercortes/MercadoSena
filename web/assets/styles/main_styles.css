@@ -9,7 +9,22 @@
 .letras{
      font-size: 2.2rem;
 }
-/*
+.letrasbanner{
+      font-size: 1.2rem;
+}
+/*@media screen and (min-width:992px;max-width:1153px) {
+    .precios {display:none}
+}*/
+
+.fit-text{
+    width: 100%;
+    object-fit: cover;
+    height: 50px;
+/*    max-height: 90px;
+    min-height: 40px;*/
+}
+
+/*z
 .textareas {
   outline: none;
     border: 0 none white;
@@ -255,12 +270,6 @@ body{
     width: 100%;
     object-fit: cover;
     height: 250px; /* only if you want fixed height */
-}
-
-.fit-text{
-    width: 100%;
-    object-fit: cover;
-    height: 40px; /* only if you want fixed height */
 }
 
 .fit-imageModal{

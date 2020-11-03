@@ -5,7 +5,9 @@
  */
 package co.edu.sena.mercado.dao;
 
+import co.edu.sena.mercado.dto.Categorys;
 import co.edu.sena.mercado.dto.CompradorDTO;
+import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.dto.VentaDTO;
 import co.edu.sena.mercado.dto.informePedidosDTO;
 import co.edu.sena.mercado.dto.pedidoDTO;
@@ -59,6 +61,31 @@ public class CompradorDAO {
         }
 
     }
+    
+       public boolean checkProducts(String idUser, String idProducto) {
+        try {
+            boolean estado = false;
+            String sql = "SELECT V.idEstadoVentasFK, C.idPersonaFK, PP.idProductoFK FROM ventas V " +
+                    "INNER JOIN comprador C ON V.idCompradorFK=C.idComprador " +
+                    "INNER JOIN productospedidos PP ON V.idVenta = PP.idVentaFK " +
+                    "WHERE idEstadoVentasFK = 1 AND C.idPersonaFK = ? "+
+                    "AND PP.idProductoFK = ? ";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, idUser);
+            ps.setString(2, idProducto);
+            System.out.println(ps.toString());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                estado = true;
+            }
+            return estado;
+        } catch (Exception e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar checkProducts " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+            return false;
+        }
+    }
+    
     //SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFKINNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idEmpresaFK=6
     //SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idPersonaFK=5
 
