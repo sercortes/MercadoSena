@@ -302,7 +302,7 @@ $('#registroUsuario').submit(function (e) {
 //validarclaves
 
 function validarLetras(telefono) {
-    if (/^([a-z A-Z])*$/.test(telefono)) {
+    if (/^([a-z A-Z-ñáéíóú ])*$/.test(telefono)) {
         return true;
     } else {
         return false;

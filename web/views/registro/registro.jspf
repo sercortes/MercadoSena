@@ -14,13 +14,13 @@
                     <input type="hidden" name="tipoDocUsuario" id="tipoDocUsuario" value="1">
                     <input type="hidden" name="generoUsuario" id="generoUsuario" value="3">
                     <label>Nombre:</label><br>
-                    <input type="text" pattern="[a-zA-Z ,.'-]{3,48}" class="form-control was-validated" minlength="1" maxlength="100" placeholder="Primer nombre" id="nombreUsuario" name="nombreUsuario" required>
+                    <input type="text" pattern="[a-zA-Z-ραινσϊ ]{3,48}" class="form-control was-validated" minlength="1" maxlength="100" placeholder="Primer nombre" id="nombreUsuario" name="nombreUsuario" required>
                     <div class="invalid-feedback">
                         Completa este campo correctamente
                     </div>
                     <br> 
                     <label>Apellido:</label><br>
-                    <input type="text" pattern="[a-zA-Z ,.'-]{3,48}" placeholder="Primer apellido" class="form-control was-validated" minlength="1" maxlength="100" id="apellidoUsuario" name="apellidoUsuario" required>
+                    <input type="text" pattern="[a-zA-Z-ραινσϊ ]{3,48}" placeholder="Primer apellido" class="form-control was-validated" minlength="1" maxlength="100" id="apellidoUsuario" name="apellidoUsuario" required>
                     <div class="invalid-feedback">
                         Completa este campo correctamente
                     </div>        
