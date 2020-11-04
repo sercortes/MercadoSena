@@ -28,7 +28,7 @@ public class ImagenesProductosDAO {
         this.conn = conn;
     }
     
-     public boolean insertReturn(ImagenesProducto imagenes) {
+     public boolean insertReturn(ImagenesProducto imagenes) throws Exception{
 
         String sql = "INSERT INTO imagenesproductos (urlProducto, idProductoImageFK) "
                 + "VALUES (?, ?)";
@@ -46,10 +46,10 @@ public class ImagenesProductosDAO {
             return true;
         } catch (MySQLIntegrityConstraintViolationException e) {
             System.out.println(e);
-            return false;
+            throw new Exception();
         } catch (Exception e) {
             System.out.println(e);
-            return false;
+            throw new Exception();
         }
 
     }
@@ -124,7 +124,7 @@ public class ImagenesProductosDAO {
         }
     }
        
-       public boolean deleteByidImagen(String id) {
+       public boolean deleteByidImagen(String id) throws Exception{
         try {
             String sql = "DELETE FROM imagenesproductos WHERE idImagenPro = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
@@ -134,7 +134,7 @@ public class ImagenesProductosDAO {
             return estado;
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
-            return false;
+            throw new Exception();
         }
     }
        
