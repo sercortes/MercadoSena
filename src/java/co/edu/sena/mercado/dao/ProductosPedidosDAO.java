@@ -28,7 +28,7 @@ public class ProductosPedidosDAO {
         this.conn = conn;
     }
 
-    public boolean insertReturn(productoPedidosDTO pedidosDTO) {
+    public boolean insertReturn(productoPedidosDTO pedidosDTO) throws Exception{
 
         String sql = "INSERT INTO productospedidos (idProductoFK, idVentaFK, cantidadProductoVenta) "
                 + "VALUES (?, ?, ?)";
@@ -43,10 +43,10 @@ public class ProductosPedidosDAO {
             return true;
         } catch (MySQLIntegrityConstraintViolationException e) {
             System.out.println(e);
-            return false;
+            throw new Exception();
         } catch (Exception e) {
             System.out.println(e);
-            return false;
+            throw new Exception();
         }
 
     }

@@ -22,10 +22,12 @@
 <%@include file="/views/searching/modalPreguntar.jspf"%>
 
 
-<c:if test="${empty USER.idRol}">
 
     <%@include file="/views/login/login.jspf"%>
     <%@include file="/views/registro/registro.jspf"%>
+    
+<c:if test="${empty USER.idRol}">
+    
     <%@include file="/views/registro/registroEmpresa.jspf"%>
     <%@include file="/views/recuperarClave/recuperarClave.jspf"%>
 

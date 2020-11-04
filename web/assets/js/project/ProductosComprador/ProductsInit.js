@@ -24,7 +24,6 @@ $(function () {
 
 function listarProductoByDateTime() {
 
-
     $.ajax({
         type: "POST",
         url: './getProductsByDateTime',
@@ -43,15 +42,11 @@ function generatePageQuery(data, pages) {
     $pagination.twbsPagination('destroy');
     recPerPage = pages
 
-//    let idcompanyss = document.getElementById('companyss').value
-
     $('#cargas').removeClass('is-active');
     if (data.length === 0) {
         queryEmphy()
         return false
     }
-
-//    data = data.filter(producto => producto.idEmpresaFK != idcompanyss);
 
     records = data
     totalRecords = data.length
@@ -210,16 +205,16 @@ function checkProduct(id) {
         type: "POST",
         url: './checkProducts',
         async: false,
-        data:{
-            idProducto:id
+        data: {
+            idProducto: id
         },
         datatype: 'json'
     }).done(function (data) {
 
         estatus = data;
-        
+
     })
-    
+
     return estatus;
 
 }
@@ -310,34 +305,22 @@ function caruselImagenes(data) {
 
 }
 
-function queryEmphy() {
-    let select = document.getElementById('tabla');
-    let word = document.getElementById('nombreProductoFiltar').value
-    let str =
-            `<div class="col-lg-3">
-                </div>
-    <div class="col-lg-6">
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  Sin resultados! <strong>${word}</strong>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-</div>`
-    select.innerHTML = str;
-}
-
 $(document).on('click', '#meInteresa', function (e) {
 
     e.preventDefault();
-    if ($('#nombreUsuarioInicio').val() !== 'no') {
+
+    if (!checkSession()) {
+        $('#detailsProduct').modal('hide');
+        modalPreguntaRegistro();
+        return false
+    } 
 
         let parent = $(this)[0].parentElement
         let idEmpresa = $(parent).attr('idEmpresa')
         let idProducto = $(parent).attr('idProducto')
         let precio = $(parent).attr('precioProducto')
         let cantidad = $('#cantidadSelect').val()
-        
+
         if (checkProduct(idProducto)) {
             messageInfo('El producto ya ha sido agregado, revisa los datos del vendedor en la "opción mis pedidos"')
             return false
@@ -360,20 +343,12 @@ $(document).on('click', '#meInteresa', function (e) {
             confirmButtonText: 'Si',
         }).then((result) => {
             if (result.value) {
-                messageOk('enviado')
                 generateTables(datos, 1)
-                datosVendedor(idEmpresa)
             } else if (result.dismiss === Swal.DismissReason.cancel) {
-                messageError('cancelado')
                 generateTables(datos, 0)
-                datosVendedor(idEmpresa)
             }
         })
-    } else {
-        $('#detailsProduct').modal('hide');
-        modalPreguntaRegistro();
-    }
-
+        
 })
 
 function generateTables(datos, contacto) {
@@ -394,7 +369,12 @@ function generateTables(datos, contacto) {
         datatype: 'json'
     }).done(function (data) {
 
-        enviarNot('pedidos', datos.idEmpresa);
+        if (data) {
+            enviarNot('pedidos', datos.idEmpresa);
+            datosVendedor(datos.idEmpresa)
+        } else {
+            messageError('Error vuelve a iniciar sesión')
+        }
 
     }).fail(function (data) {
 
@@ -404,8 +384,6 @@ function generateTables(datos, contacto) {
 }
 
 function datosVendedor(data) {
-
-    let datos;
 
     $.ajax({
         type: "POST",
@@ -417,11 +395,15 @@ function datosVendedor(data) {
         datatype: 'json'
     }).done(function (data) {
 
-        datos = data
+        informationCompany(data)
 
     })
 
-    Swal.fire({
+}
+
+function informationCompany(datos){
+    
+       Swal.fire({
         title: '<strong>Datos Vendedor</strong>',
         icon: 'success',
         html:
@@ -446,6 +428,21 @@ function datosVendedor(data) {
     no-repeat`
     })
     
-        $('#detailsProduct').modal('hide')
+}
 
+function queryEmphy() {
+    let select = document.getElementById('tabla');
+    let word = document.getElementById('nombreProductoFiltar').value
+    let str =
+            `<div class="col-lg-3">
+                </div>
+            <div class="col-lg-6">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Sin resultados! <strong>${word}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            </div>`
+    select.innerHTML = str;
 }

@@ -77,3 +77,26 @@ function cerrar(id) {
     $('#bloqueo').hide();
 
 }
+
+function checkSession() {
+
+    let estatus = '';
+
+    $.ajax({
+        type: "POST",
+        url: './checkSession',
+        async: false,
+        datatype: 'json'
+    }).done(function (data) {
+
+        if (data === false) {
+            estatus = false
+        }else{
+            estatus = true
+        }
+
+    })
+    console.log(estatus)
+    return estatus;
+
+}

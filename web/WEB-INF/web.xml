@@ -107,6 +107,7 @@
         <servlet-name>generateSale</servlet-name>
         <url-pattern>/generateSale</url-pattern>
         <url-pattern>/checkProducts</url-pattern>
+        <url-pattern>/checkSession</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>actualizaUsuEmp</servlet-name>
