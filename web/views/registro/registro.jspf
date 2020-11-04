@@ -46,6 +46,7 @@
                     <button class="botonRegistro" id="registrarUsuario">Registrar</button>
                 </form>
             </div>
+            <div id="carga" class="loader loader-bouncing"></div>
         </div>
     </div>
 </div>

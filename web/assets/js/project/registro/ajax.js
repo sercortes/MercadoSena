@@ -261,7 +261,7 @@ $('#registroUsuario').submit(function (e) {
             var datos = $('form#registroUsuario').serialize();
             var btn = document.getElementById('registrarUsuario');
             btn.disabled = true;
-
+            $('#carga').addClass('is-active');
             $.ajax({
                 url: "./registro?accion=registrarUsuario&" + datos,
                 type: 'POST',
