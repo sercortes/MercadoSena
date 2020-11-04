@@ -212,7 +212,8 @@ function textProductMy(item) {
               <p class="mb-0 text-small text-muted">Valor: $ ${item.valorProducto}</p>
               <p class="mb-0 text-small text-muted">Marca: ${item.marcaProducto}</p>
               <p class="mb-0 text-small text-muted">Categoría: ${item.categorys.nombreCategoria}</p>
-              <p class="mb-0 text-small text-muted">Descripción : ${item.descripcionProducto}</p>`
+              <p class="mb-0 text-small text-muted textoDes text-left">Descripción</p>
+              <p class="mb-0 text-small text-muted textoDes text-left">${item.descripcionProducto}</p>`
     if (item.diasEnvios !== undefined) {
         str += `<hr>
         <div class="col-lg-12 mb-5 p-0">
@@ -226,7 +227,8 @@ function textProductMy(item) {
          <p class="mb-0 text-small text-muted">Medidas : ${item.medidaProducto}</p>
          <p class="mb-0 text-small text-muted">Empaque : ${item.empaqueProducto}</p>
          <p class="mb-0 text-small text-muted">Embalaje : ${item.embalajeProducto}</p>
-         <p class="mb-0 text-small text-muted">Ventajas : ${item.ventajaProducto}</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>
             </div>
           </div>
         </div>

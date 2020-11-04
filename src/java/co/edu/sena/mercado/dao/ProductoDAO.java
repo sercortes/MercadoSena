@@ -119,7 +119,7 @@ public class ProductoDAO {
         }
     }
 
-    public boolean updateProduct(Producto producto) {
+    public boolean updateProduct(Producto producto) throws Exception{
         try {
 
             String sql = "UPDATE producto set nombreProducto = ?, valorProducto = ?, "
@@ -147,7 +147,7 @@ public class ProductoDAO {
             return estado;
         } catch (Exception ex) {
             System.out.println("Error edit " + ex.getMessage());
-            return false;
+            throw new Exception();
         }
     }
 
@@ -238,7 +238,7 @@ public class ProductoDAO {
         }
     }
 
-    public boolean disabledProduct(String id) {
+    public boolean disabledProduct(String id) throws Exception{
         try {
 
             String sql = "UPDATE producto set estadoProducto = ? "
@@ -253,7 +253,7 @@ public class ProductoDAO {
             return estado;
         } catch (Exception ex) {
             System.out.println("Error edit " + ex.getMessage());
-            return false;
+            throw new Exception();
         }
     }
     

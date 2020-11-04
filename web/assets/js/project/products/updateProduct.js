@@ -1,6 +1,7 @@
 var imagesG
 var arregloIma
 var arregloRes
+var limpiarImagenes = 0
 
 function getCategorias(value, name) {
 
@@ -146,14 +147,12 @@ document.getElementById('formUpdate').addEventListener('submit', e => {
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: "UpdateProduct?files=" + files,
+        url: "UpdateProduct?files=" + files+"&clean="+limpiarImagenes,
         data: data,
         processData: false,
         contentType: false,
         cache: false,
         success: function (data) {
-
-            console.log(data)
 
             $('#carga').removeClass('is-active')
             if (data) {
@@ -163,6 +162,7 @@ document.getElementById('formUpdate').addEventListener('submit', e => {
                 form.removeClass('was-validated');
                 $pagination.twbsPagination('destroy');
                 listarProductoByVendedor()
+                limpiarImagenes = 0
 
             } else {
 
@@ -196,6 +196,7 @@ function checkIsNewFiles() {
 
 document.getElementById('resets').addEventListener('click', function (e) {
     e.preventDefault()
+    limpiarImagenes = 1
     if ($('.input-images-1 .has-files').remove().length !== 0) {
         generateOtherDiv()
     }

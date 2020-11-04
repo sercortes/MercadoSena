@@ -37,14 +37,14 @@ public class RutasVendedor extends HttpServlet {
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, UnsupportedEncodingException, SQLException {
-
+        
         String direccion = request.getRequestURI();
         RequestDispatcher rd;
-        
+
+        if (request.getSession().getAttribute("USER") != null) {
+
         usuarioDTO usuario = (usuarioDTO) request.getSession().getAttribute("USER");
         System.out.println(usuario.toString());
-        
-        HttpSession session = request.getSession();
         
         switch (direccion) {
             case "/MercadoSena/Products":
@@ -62,6 +62,11 @@ public class RutasVendedor extends HttpServlet {
                 System.out.println("error de la ruta");
                 break;
         }
+        }else{
+            System.out.println("NO valores de sesión RUTAS VENDEDOR");
+            response.sendRedirect(request.getContextPath() + "/home");
+        }
+        
     }
 
     @Override
@@ -113,7 +118,9 @@ public class RutasVendedor extends HttpServlet {
             cone.commit();
             new Gson().toJson(true, response.getWriter());
 
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
+            
+            System.out.println("ROLL BACK DELETE PRODUCT");
             cone.rollback();
             System.out.println(ex);
             new Gson().toJson(true, response.getWriter());

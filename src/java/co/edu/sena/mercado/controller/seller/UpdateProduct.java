@@ -38,55 +38,41 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class UpdateProduct extends HttpServlet {
 
-   private final String UPLOAD_DIRECTORY = "/home/bienestar/Descargas/glassfish4/glassfish/domains/domain1/docroot/files";
-   private final String SERVER_UPLOAD = "http://181.48.181.131/files/";
-   private static final long serialVersionUID = 1L;
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private final String UPLOAD_DIRECTORY = "/home/equipo/servers2/glassfish4/glassfish/domains/domain1/docroot/files/";
+    private final String SERVER_UPLOAD = "http://192.168.0.7:8080/files/";
+    private static final long serialVersionUID = 1L;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("ACCEDER A UPDATE_PRODUCT POR GET");
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, UnsupportedEncodingException {
 
         response.setContentType("application/json");
-        try {
-            new Gson().toJson(updateForm(request, response), response.getWriter());
-        } catch (SQLException ex) {
-            System.out.println("=D");
-            Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
+
+        if (request.getSession().getAttribute("USER") != null) {
+
+            try {
+                
+                new Gson().toJson(updateForm(request, response), response.getWriter());
+                
+            } catch (SQLException ex) {
+                System.out.println("=D"+ex);
+                Logger.getLogger(UpdateProduct.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        } else {
+            
+            System.out.println("NO valores sesión update product");
+            response.sendRedirect(request.getContextPath() + "/home");
+            
         }
-
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
     private boolean updateForm(HttpServletRequest request, HttpServletResponse response) throws SQLException, UnsupportedEncodingException {
 
@@ -147,18 +133,20 @@ public class UpdateProduct extends HttpServlet {
 
                     }
 
-                    if (lista.size() + listaExistentes.size() > 5) {
+                    System.out.println("LImpiar " + request.getParameter("clean"));
+                    boolean estado = request.getParameter("clean").equalsIgnoreCase("1");
+
+                    if (lista.size() + listaExistentes.size() > 5 || estado) {
 
                         File tempFile;
-//
 
                         URL url;
                         for (ImagenesProducto item : listaExistentes) {
-                            
+
                             url = new URL(item.getUrl());
                             String nameFile = FilenameUtils.getName(url.getPath());
                             tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder + File.separator + nameFile);
-                            
+
                             if (tempFile.exists()) {
                                 tempFile.delete();
                             }
@@ -168,26 +156,29 @@ public class UpdateProduct extends HttpServlet {
 
                     }
 
-                     // insert imagenes productos
-                for (ImagenesProducto item : lista) {
-                    imagenesProductosDAO.insertReturn(item);
-                }
-                    
+                    // insert imagenes productos
+                    for (ImagenesProducto item : lista) {
+                        imagenesProductosDAO.insertReturn(item);
+                    }
+
                 }
 
-               
                 cone.commit();
                 codigo = true;
+                System.out.println("ACTUALIZADO UPDATE PROUCTS");
 
             } catch (Exception e) {
 
                 cone.rollback();
                 codigo = false;
                 System.out.println(e);
+                System.out.println("ROLL BACK EDITAR PRODUCTO");
 
             } finally {
+                
                 productoDAO.CloseAll();
                 imagenesProductosDAO.CloseAll();
+                
             }
 
         } else {
@@ -297,4 +288,11 @@ public class UpdateProduct extends HttpServlet {
 
     }
 
+    
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+    
 }
