@@ -42,7 +42,10 @@ public class generateSale extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+                response.setContentType("application/json");
+        
+        if (request.getSession().getAttribute("USER") != null) {
+        
         try {
             String direccion = request.getRequestURI();
 
@@ -59,6 +62,12 @@ public class generateSale extends HttpServlet {
                     checkProducts(request, response);
 
                     break;
+                    
+                case "/MercadoSena/checkSession":
+
+                    checkSession(request, response);
+
+                    break;
 
                 default:
 
@@ -69,6 +78,10 @@ public class generateSale extends HttpServlet {
             System.out.println(ex);
         }
 
+        }else{
+            new Gson().toJson(false, response.getWriter());
+            System.out.println("NO VALORES DE SESIón");
+        }
     }
 
     private void generateSales(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -100,31 +113,35 @@ public class generateSale extends HttpServlet {
 
         response.setContentType("application/json");
 
+        CompradorDAO compradorDAO = null;
+         VentaDAO ventaDAO = null;
+         EmpresaPedidoDAO empresaPedidoDAO = null;
+         ProductosPedidosDAO productosPedidosDAO = null;
+        
         if (conn.getAutoCommit()) {
             conn.setAutoCommit(false);
         }
-
-        CompradorDAO compradorDAO = new CompradorDAO(conn);
+        
+   try {
+       
+        compradorDAO = new CompradorDAO(conn);
+        empresaPedidoDAO = new EmpresaPedidoDAO(conn);
+        productosPedidosDAO = new ProductosPedidosDAO(conn);
+        ventaDAO = new VentaDAO(conn);
+        
         int idCompra = compradorDAO.insertReturn(compradorDTO);
-
         ventaDTO.setIdCompradorFK(Integer.toString(idCompra));
-        VentaDAO ventaDAO = new VentaDAO(conn);
         int idVenta = ventaDAO.insertReturn(ventaDTO);
-
-        EmpresaPedidoDAO empresaPedidoDAO = new EmpresaPedidoDAO(conn);
         empresaPedidoDTO.setIdVentaFK(Integer.toString(idVenta));
         empresaPedidoDAO.insertReturn(empresaPedidoDTO);
-
         pedidosDTO.setIdVentaFK(Integer.toString(idVenta));
-        ProductosPedidosDAO productosPedidosDAO = new ProductosPedidosDAO(conn);
         productosPedidosDAO.insertReturn(pedidosDTO);
-
-        try {
 
             conn.commit();
             new Gson().toJson(true, response.getWriter());
         } catch (Exception ex) {
             conn.rollback();
+            System.out.println("ROLL BACK GENERATE SALE");
             System.out.println(ex);
             new Gson().toJson(false, response.getWriter());
         } finally {
@@ -169,6 +186,21 @@ public class generateSale extends HttpServlet {
         compradorDAO.CloseAll();
         new Gson().toJson(estado, response.getWriter());
 
+    }
+
+    private void checkSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.getConnection();
+        
+        usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
+
+        response.setContentType("application/json");
+        
+        String idPersona = "";
+        
+        idPersona = Integer.toString(usu.getPersona().getIdPer());
+      
+        new Gson().toJson(idPersona, response.getWriter());
     }
 
 }

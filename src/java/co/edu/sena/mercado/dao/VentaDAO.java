@@ -27,7 +27,7 @@ public class VentaDAO {
         this.conn = conn;
     }
 
-    public int insertReturn(VentaDTO ventaDTO) {
+    public int insertReturn(VentaDTO ventaDTO) throws Exception{
 
         int idComprador = 0;
 
@@ -49,10 +49,10 @@ public class VentaDAO {
             return idComprador;
         } catch (MySQLIntegrityConstraintViolationException e) {
             System.out.println(e);
-            return 0;
+            throw new Exception();
         } catch (Exception e) {
             System.out.println(e);
-            return 0;
+            throw new Exception();
         }
 
     }
