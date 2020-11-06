@@ -51,19 +51,28 @@ public class UploadProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("ACCEDER A UPDATE_PRODUCT POR GET");
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, UnsupportedEncodingException {
 
-        response.setContentType("application/json");
-        try {
-            new Gson().toJson(uploadForm(request, response), response.getWriter());
-        } catch (SQLException ex) {
-            System.out.println(":( " + ex);
-            Logger.getLogger(UploadProduct.class.getName()).log(Level.SEVERE, null, ex);
+        if (request.getSession().getAttribute("USER") != null) {
+            
+            response.setContentType("application/json");
+            try {
+                new Gson().toJson(uploadForm(request, response), response.getWriter());
+            } catch (SQLException ex) {
+                System.out.println(":( " + ex);
+                Logger.getLogger(UploadProduct.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            
+            out.print("false");
+            
         }
 
     }
@@ -109,9 +118,9 @@ public class UploadProduct extends HttpServlet {
                     }
 
                 }
-                
+
                 System.out.println(producto.toString());
-                
+
                 usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
 
                 //Insert Producto
