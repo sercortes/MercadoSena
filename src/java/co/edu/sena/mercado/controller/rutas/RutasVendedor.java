@@ -7,6 +7,8 @@ package co.edu.sena.mercado.controller.rutas;
 
 import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
+import co.edu.sena.mercado.dao.ciudadDAO;
+import co.edu.sena.mercado.dto.ciudadDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
@@ -16,6 +18,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -32,14 +35,13 @@ import org.apache.commons.io.FileUtils;
  */
 public class RutasVendedor extends HttpServlet {
 
-    private final String UPLOAD_DIRECTORY = "/opt/lampp/htdocs/sergio";
     private static final long serialVersionUID = 1L;
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, UnsupportedEncodingException, SQLException {
         
         String direccion = request.getRequestURI();
-        RequestDispatcher rd;
+        RequestDispatcher rd = null;
 
         if (request.getSession().getAttribute("USER") != null) {
 
@@ -48,8 +50,8 @@ public class RutasVendedor extends HttpServlet {
         
         switch (direccion) {
             case "/MercadoSena/Products":
-                    rd = request.getRequestDispatcher("/views/products/products.jsp");
-                    rd.forward(request, response);  
+                rd = request.getRequestDispatcher("/views/products/products.jsp");
+                rd.forward(request, response);  
                 break;
             case "/MercadoSena/newProduct":
                 rd = request.getRequestDispatcher("/views/products/addProduct.jsp");
@@ -58,10 +60,28 @@ public class RutasVendedor extends HttpServlet {
             case "/MercadoSena/delProduct":
                 delProduct(request, response);
                 break;
+                
+            case "/MercadoSena/preguntas":
+                rd = request.getRequestDispatcher("/views/preguntas/preguntas.jsp");
+                rd.forward(request, response);
+                break;
+            case "/MercadoSena/usuario":
+                 usuario(request, response, rd); 
+                break;
+            case "/MercadoSena/ventasVendedor":
+                request.getRequestDispatcher("/views/ventas/ventasVendedor.jsp").forward(request, response);
+                break;
+            case "/MercadoSena/misPedidos":
+                request.getRequestDispatcher("/views/ventas/pedidosUsuario.jsp").forward(request, response);
+                break;
+            case "/MercadoSena/realizarInformes":
+                request.getRequestDispatcher("/views/informes/informes.jsp").forward(request, response);
+                break;
             default:
                 System.out.println("error de la ruta");
                 break;
         }
+        
         }else{
             System.out.println("NO valores de sesión RUTAS VENDEDOR");
             response.sendRedirect(request.getContextPath() + "/home");
@@ -69,6 +89,67 @@ public class RutasVendedor extends HttpServlet {
         
     }
 
+    private void delProduct(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException, SQLException {
+
+        request.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        Connection cone = conexion.getConnection();
+    
+            if (cone.getAutoCommit()) {
+                cone.setAutoCommit(false);
+            }
+            
+             ProductoDAO productoDAO = new ProductoDAO(cone);
+        
+        try {
+            
+            productoDAO.disabledProduct(request.getParameter("id"));
+            response.setContentType("application/json");
+            cone.commit();
+            new Gson().toJson(true, response.getWriter());
+
+        } catch (Exception ex) {
+            
+            System.out.println("ROLL BACK DELETE PRODUCT");
+            cone.rollback();
+            System.out.println(ex);
+            new Gson().toJson(false, response.getWriter());
+
+        }finally{
+            productoDAO.CloseAll();
+        }
+
+    }
+
+    private void usuario(HttpServletRequest request, HttpServletResponse response, RequestDispatcher rd) throws ServletException, IOException {
+        
+                ArrayList<ciudadDTO> listaCiudad = new ArrayList<>();
+                Conexion conexion = new Conexion();
+                Connection conn = conexion.getConnection();
+                ciudadDAO cDAO = new ciudadDAO(conn);
+                listaCiudad = cDAO.ListCiudades();
+
+//                listaTipoDoc = new ArrayList<>();
+//                listaTipoDoc = tipoDocDAO.listarTipoDoc();
+//                listaGenero = new ArrayList<>();
+//                listaGenero = generoDAO.listarGenero();
+
+                request.setAttribute("listaCiudad", listaCiudad);
+
+//                request.setAttribute("listaTipoDoc", listaTipoDoc);
+//                request.setAttribute("listaGenero", listaGenero);
+
+                cDAO.CloseAll();
+                rd = request.getRequestDispatcher("/views/actualizar/actualizarDatos.jsp");
+                rd.forward(request, response);
+        
+    }
+
+            @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, UnsupportedEncodingException {
@@ -89,69 +170,5 @@ public class RutasVendedor extends HttpServlet {
         }
     }
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
-    private void delProduct(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException, SQLException {
-
-        request.setCharacterEncoding("UTF-8");
-
-        Conexion conexion = new Conexion();
-        Connection cone = conexion.getConnection();
     
-    // desactivando en autocommit
-            if (cone.getAutoCommit()) {
-                cone.setAutoCommit(false);
-            }
-            
-             ProductoDAO productoDAO = new ProductoDAO(cone);
-        
-        try {
-            
-            
-            productoDAO.disabledProduct(request.getParameter("id"));
-            
-            response.setContentType("application/json");
-
-            cone.commit();
-            new Gson().toJson(true, response.getWriter());
-
-        } catch (Exception ex) {
-            
-            System.out.println("ROLL BACK DELETE PRODUCT");
-            cone.rollback();
-            System.out.println(ex);
-            new Gson().toJson(true, response.getWriter());
-
-        }finally{
-            productoDAO.CloseAll();
-        }
-
-    }
-
-    private void delProductsImages(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        try {
-            
-            String id = request.getParameter("id");
-            File tempFile = new File(UPLOAD_DIRECTORY + File.separator + id + File.separator);
-            
-            if (tempFile.exists()) {
-
-              FileUtils.forceDelete(new File(UPLOAD_DIRECTORY + File.separator + id + File.separator));
-//            FileUtils.cleanDirectory(new File(UPLOAD_DIRECTORY+File.separator+id+File.separator));
-//            FileUtils.deleteDirectory(new File(UPLOAD_DIRECTORY+File.separator+id+File.separator));
-
-            }
-        
-            
-        } catch (IOException ex) {
-            System.out.println(ex);
-            Logger.getLogger(RutasVendedor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-    }
-
 }

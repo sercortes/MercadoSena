@@ -11,8 +11,6 @@
             <div class="modal-body">
                 <form id="registroUsuario" class="needs-validation">
                     <input type="hidden" name="rol" id="rol" value="">
-                    <input type="hidden" name="tipoDocUsuario" id="tipoDocUsuario" value="1">
-                    <input type="hidden" name="generoUsuario" id="generoUsuario" value="3">
                     <label>Nombre:</label><br>
                     <input type="text" pattern="[a-zA-Z-ραινσϊ ]{3,48}" class="form-control was-validated" minlength="1" maxlength="100" placeholder="Primer nombre" id="nombreUsuario" name="nombreUsuario" required>
                     <div class="invalid-feedback">

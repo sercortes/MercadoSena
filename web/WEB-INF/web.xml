@@ -66,17 +66,17 @@
         <url-pattern>/activarCuenta</url-pattern>
         <url-pattern>/logout</url-pattern>
         <url-pattern>/home</url-pattern>
-        <url-pattern>/preguntas</url-pattern>
-        <url-pattern>/usuario</url-pattern>
-        <url-pattern>/ventasVendedor</url-pattern>
-        <url-pattern>/misPedidos</url-pattern>
-        <url-pattern>/realizarInformes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RutasVendedor</servlet-name>
         <url-pattern>/Products</url-pattern>
         <url-pattern>/newProduct</url-pattern>
         <url-pattern>/delProduct</url-pattern>
+        <url-pattern>/preguntas</url-pattern>
+        <url-pattern>/usuario</url-pattern>
+        <url-pattern>/ventasVendedor</url-pattern>
+        <url-pattern>/misPedidos</url-pattern>
+        <url-pattern>/realizarInformes</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadProduct</servlet-name>

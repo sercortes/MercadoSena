@@ -277,11 +277,12 @@ $('#registroUsuario').submit(function (e) {
 
                     $('#carga').removeClass('is-active');
                     modalRegistro();
-                    if (data === 'true') {
-
-                        messageExito('Registro realizado, hemos enviado al correo registrado sus datos de ingreso y el link de activación para su cuenta.');
-                    } else {
-                        messageError('Error al relizar el registro');
+                    if (data === 1) {
+                        messageExito('hemos enviado un correo con sus datos de ingreso y el link de activación para su cuenta.');
+                    } else if( data === 2){
+                        messageInfo('¡El Correo se encuentra registrado!');
+                    }else if(data === 3){
+                        messageError('Error');
                     }
 
                     limpiarFormulario('#registroUsuario');
@@ -528,23 +529,21 @@ function messageExito(mensaje) {
         title: 'Usuario Registrado!',
         icon: 'success',
         html: '<h4 style="color:#3c8c40;">' + mensaje + '</h4>',
-        timer: 3500,
-        timerProgressBar: true,
         showCancelButton: false,
-        showConfirmButton: false,
+        showConfirmButton: true,
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
         padding: '2rem',
         width: '25%',
-        onBeforeOpen: () => {
-            timerInterval = setInterval(() => {
-
-            }, 100)
-        },
-        onClose: () => {
-            clearInterval(timerInterval)
-        }
+//        onBeforeOpen: () => {
+//            timerInterval = setInterval(() => {
+//
+//            }, 100)
+//        },
+//        onClose: () => {
+//            clearInterval(timerInterval)
+//        }
     }).then((result) => {
 
         if (result.dismiss === Swal.DismissReason.timer) {

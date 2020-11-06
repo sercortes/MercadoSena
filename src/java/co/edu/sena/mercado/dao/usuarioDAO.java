@@ -150,16 +150,14 @@ public class usuarioDAO {
    
     public boolean activarUsuario(String correo, String codigo) {
         con = new Conexion();
-     
-        
-        consulta="UPDATE usuario SET estadoUsuario=1 WHERE codActivacion=? and emailusuario=?";
+        consulta="UPDATE usuario SET estadoUsuario=1 WHERE codActivacion=md5(?) and emailusuario=? AND estadoUSUARIO = 0";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
             ps.setString(1, codigo);
             ps.setString(2, correo);
-            ps.executeUpdate();
-            return true;
+            int count = ps.executeUpdate();
+            return  (count > 0);
         } catch (SQLException e) {
             System.out.println("error al activar  usuario " + e);
             System.out.println("consulta " + ps.toString());

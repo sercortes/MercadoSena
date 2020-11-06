@@ -20,24 +20,14 @@ import javax.mail.internet.MimeMessage;
  */
 public class correo {
 
-    public boolean envCorreo(String dest, String clave, String codigo) {
+    public boolean envCorreo(String dest, String clave, String codigo) throws MessagingException{
         try {
 
             Properties props = new Properties();
-
-// Nombre del host de correo, es smtp.gmail.com
             props.setProperty("mail.smtp.host", "smtp.gmail.com");
-
-// TLS si está disponible
             props.setProperty("mail.smtp.starttls.enable", "true");
-
-// Puerto de gmail para envio de correos
             props.setProperty("mail.smtp.port", "587");
-
-// Nombre del usuario
             props.setProperty("mail.smtp.user", "mercadosena2020@gmail.com");
-
-// Si requiere o no usuario y password para conectarse.
             props.setProperty("mail.smtp.auth", "true");
 
             Session session = Session.getDefaultInstance(props);
@@ -45,10 +35,8 @@ public class correo {
 
             MimeMessage message = new MimeMessage(session);
 
-// Quien envia el correo
             message.setFrom(new InternetAddress("mercadosena2020@gmail.com"));
 
-// A quien va dirigido
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(dest));
 
             message.setSubject("Activación cuenta");
@@ -82,7 +70,7 @@ public class correo {
         } catch (MessagingException e) {
 
             System.out.println("xxx____correo No enviado " + e);
-            return false;
+            throw new MessagingException();
         }
 
     }

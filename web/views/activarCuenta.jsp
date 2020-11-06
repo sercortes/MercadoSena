@@ -54,17 +54,17 @@
 
 
             <h1 style="text-align: center">Activación de cuenta</h1>
-            <c:if test="${activa}">
+            <c:if test="${ACTIVA}">
                 <div class="divActivacion" >
                     <p class="textoActivacion">Su cuenta ha sido activada excitosamente, vuelve para iniciar sesión.</p>
                     <i class="fa fa-check-circle" aria-hidden="true" style="font-size: 45px;"></i>
                 </div>
 
             </c:if>
-            <c:if test="${!activa}">
+            <c:if test="${!ACTIVA}">
                 <div class="divActivacion" style="background: rgba(255, 103, 18, 0.76);">
                     <i class="fa fa-exclamation-triangle" style="font-size: 45px;"></i>
-                    <p class="textoActivacion"> Ha ocurrido un error al activar su cuenta, favor verificar los datos proporcinados.</p>
+                    <p class="textoActivacion"> Enlace vencido, favor verificar los datos proporcinados.</p>
                     
                 </div>
             </c:if>
