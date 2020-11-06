@@ -36,7 +36,8 @@ public class generateSale extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("generateSale no soporta GET");
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
     @Override
@@ -189,17 +190,10 @@ public class generateSale extends HttpServlet {
     }
 
     private void checkSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Conexion conexion = new Conexion();
-        Connection conn = conexion.getConnection();
-        
         usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
-
         response.setContentType("application/json");
-        
-        String idPersona = "";
-        
+        String idPersona = ""; 
         idPersona = Integer.toString(usu.getPersona().getIdPer());
-      
         new Gson().toJson(idPersona, response.getWriter());
     }
 

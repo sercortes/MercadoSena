@@ -16,6 +16,7 @@ import co.edu.sena.mercado.util.correo;
 import co.edu.sena.mercado.util.codActivacion;
 import co.edu.sena.mercado.util.datosSesion;
 import com.google.gson.Gson;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -24,6 +25,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -31,8 +35,8 @@ import java.sql.Connection;
  */
 public class registro extends HttpServlet {
 
-    personaNaturalDAO personaNaturalDAO = new personaNaturalDAO();
-    personaNaturalDTO personaNaturalDTO = new personaNaturalDTO();
+//    personaNaturalDAO personaNaturalDAO = new personaNaturalDAO();
+//    personaNaturalDTO personaNaturalDTO = new personaNaturalDTO();
     ArrayList<personaNaturalDTO> listaPersona = new ArrayList<>();
     ArrayList<ciudadDTO> listaCiudad = new ArrayList<>();
     tipoDocumentoDAO tipoDocDAO = new tipoDocumentoDAO();
@@ -45,7 +49,7 @@ public class registro extends HttpServlet {
     rolDTO rolDTO = new rolDTO();
     ArrayList<rolDTO> listaRol = new ArrayList<>();
     usuarioDTO usuarioDTO = new usuarioDTO();
-    usuarioDAO usuarioDAO = new usuarioDAO();
+//    usuarioDAO usuarioDAO = new usuarioDAO();
     ArrayList<usuarioDTO> listaUsuario = new ArrayList<>();
     correo enviar = new correo();
     codActivacion codigo = new codActivacion();
@@ -60,34 +64,13 @@ public class registro extends HttpServlet {
     ArrayList<respuestaDTO> listaRespuesta = new ArrayList<>();
     datosSesion datSesion = new datosSesion();
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        System.out.println("Registro no soporta GET");
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -111,95 +94,19 @@ public class registro extends HttpServlet {
                 new Gson().toJson(listaGenero, response.getWriter());
                 break;
             case "consultaCiudad":
-                
+
                 generateCiudades(request, response);
-                
+
                 break;
             case "listarCategorias":
-                
+
                 generateCategorias(request, response);
-                
+
                 break;
             case "registrarUsuario":
-                boolean respuesta;
-                usuarioDTO = new usuarioDTO();
-                personaNaturalDTO = new personaNaturalDTO();
-                listaRol = rolDAO.listarRol();
-                usuarioDTO.setClaveUsu(request.getParameter("clave1"));
-                usuarioDTO.setCorreoUsu(request.getParameter("correoUsuario"));
-                usuarioDTO.setEstadoUsu("0");
-                String clave = usuarioDTO.getClaveUsu();
-                usuarioDTO.setCodigo(codigo.generarCod());
-                String[] correo = usuarioDTO.getCorreoUsu().split("@");
-                String dominio = correo[1];
-                for (rolDTO rol : listaRol) {
-                    if (dominio.equalsIgnoreCase("misena.edu.co") || dominio.equalsIgnoreCase("sena.edu.co")) {
-                        if (rol.getRol().equalsIgnoreCase("misena")) {
-                            usuarioDTO.setIdRol(rol.getIdRol());
-                        }
-                    } else {
-                        if (rol.getRol().equalsIgnoreCase("comprador")) {
-                            usuarioDTO.setIdRol(rol.getIdRol());
-                        }
-                    }
-                }
 
-                if (usuarioDAO.registroUsuario(usuarioDTO)) {
-                    //datos persona
-                    personaNaturalDTO.setApellidoPer(request.getParameter("apellidoUsuario"));
-                    personaNaturalDTO.setCorreoPer(request.getParameter("correoUsuario"));
-                    personaNaturalDTO.setIdCiudad(Integer.parseInt(request.getParameter("ciudadUsuario")));
-                    personaNaturalDTO.setIdGenero(Integer.parseInt(request.getParameter("generoUsuario")));
-                    personaNaturalDTO.setIdTipoDoc(Integer.parseInt(request.getParameter("tipoDocUsuario")));
-                    personaNaturalDTO.setNumCelularPer(request.getParameter("celularUsuario"));
-                    personaNaturalDTO.setNombrePer(request.getParameter("nombreUsuario"));
-                    personaNaturalDTO.setUrlImg("./assets/images/usuario/imagenDefecto.png");
+                registrarUsuario(request, response);
 
-                    usuarioDTO = usuarioDAO.buscarUsuario(personaNaturalDTO.getCorreoPer(), usuarioDTO.getClaveUsu());
-                    personaNaturalDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-                    respuesta = true;
-                    if (personaNaturalDAO.registrarPersona(personaNaturalDTO)) {
-                        respuesta = true;
-                        if (enviar.envCorreo(usuarioDTO.getCorreoUsu(), clave, usuarioDTO.getCodigo())) {
-                            respuesta = true;
-
-                            if (usuarioDTO.getIdRol() == 3) {
-                                empresaDTO = new empresaDTO();
-    
-                                empresaDTO.setCorreoEmpresa(personaNaturalDTO.getCorreoPer());
-                                empresaDTO.setEsEmpresa(1);
-                                empresaDTO.setIdCiudad(personaNaturalDTO.getIdCiudad());
-                                empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-                                empresaDTO.setNombreEmpresa(personaNaturalDTO.getNombrePer());
-                                empresaDTO.setEsEmpresa(0);
-                                if (empresaDAO.registroEmpresa(empresaDTO, usuarioDTO.getIdUsuario())) {
-                                    respuesta = true;
-
-                                } else {
-                                    respuesta = false;
-
-                                }
-
-                            }
-                        } else {
-                            //borrar usuario
-                            respuesta = false;
-
-                        }
-
-                    } else {
-                        usuarioDAO.eliminarUsuario(personaNaturalDTO.getCorreoPer(), request.getParameter("correoUsuario"));
-                        respuesta = false;
-
-                    }
-                } else {
-                    respuesta = false;
-                    usuarioDTO = new usuarioDTO();
-
-                }
-
-                response.getWriter().print(respuesta);
-                //System.out.println("......."+usuarioDTO.toString());
                 break;
 
             case "registroEmpresa":
@@ -319,40 +226,145 @@ public class registro extends HttpServlet {
 
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    private void generateCiudades(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        Conexion conexion = new Conexion();
+        ArrayList<ciudadDTO> listaCiudad = new ArrayList<>();
+        Connection conn = conexion.getConnection();
+        ciudadDAO ciDAO = new ciudadDAO(conn);
+        listaCiudad = ciDAO.ListCiudades();
+        ciDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaCiudad, response.getWriter());
+
+    }
+
+    private void generateCategorias(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        Conexion conexion = new Conexion();
+        ArrayList<Categorys> listaCategoria = new ArrayList<>();
+        Connection conn = conexion.getConnection();
+        CategorysDAO categoriasDAO = new CategorysDAO(conn);
+        listaCategoria = categoriasDAO.getCategorys();
+        categoriasDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaCategoria, response.getWriter());
+
+    }
+
+    private void registrarUsuario(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        
+        Connection conn = null;
+        UsuarioDAO usuarioDAO = null;
+        PersonaNaturalDAO personaNaturalDAO = null;
+        EmpresaDAO empresaDAO = null;
+        try {
+
+            Conexion conexion = new Conexion();
+            conn = conexion.getConnection();
+            
+            if (conn.getAutoCommit()) {
+                conn.setAutoCommit(false);
+            }
+            usuarioDAO = new UsuarioDAO(conn);
+            personaNaturalDAO = new PersonaNaturalDAO(conn);
+            empresaDAO = new EmpresaDAO(conn);
+
+            usuarioDTO = new usuarioDTO();
+            listaRol = rolDAO.listarRol();
+            usuarioDTO.setClaveUsu(request.getParameter("clave1"));
+            usuarioDTO.setCorreoUsu(request.getParameter("correoUsuario"));
+            usuarioDTO.setEstadoUsu("0");
+            String clave = usuarioDTO.getClaveUsu();
+            usuarioDTO.setCodigo(codigo.generarCod());
+            String[] correo = usuarioDTO.getCorreoUsu().split("@");
+            String dominio = correo[1];
+
+            for (rolDTO rol : listaRol) {
+                if (dominio.equalsIgnoreCase("misena.edu.co") || dominio.equalsIgnoreCase("sena.edu.co")) {
+                    if (rol.getRol().equalsIgnoreCase("misena")) {
+                        usuarioDTO.setIdRol(rol.getIdRol());
+                    }
+                } else {
+                    if (rol.getRol().equalsIgnoreCase("comprador")) {
+                        usuarioDTO.setIdRol(rol.getIdRol());
+                    }
+                }
+            }
+            int idUser = usuarioDAO.registroUsuario(usuarioDTO);
+            System.out.println(idUser+ " USERRERER");
+            usuarioDTO.setIdUsuario(idUser);
+            System.out.println(usuarioDTO.toString());
+            personaNaturalDTO personaNaturalDTO = new personaNaturalDTO();
+            personaNaturalDTO.setApellidoPer(request.getParameter("apellidoUsuario"));
+            personaNaturalDTO.setCorreoPer(request.getParameter("correoUsuario"));
+            personaNaturalDTO.setIdCiudad(Integer.parseInt(request.getParameter("ciudadUsuario")));
+            personaNaturalDTO.setNumCelularPer(request.getParameter("celularUsuario"));
+            personaNaturalDTO.setNombrePer(request.getParameter("nombreUsuario"));
+            personaNaturalDTO.setUrlImg("./assets/images/usuario/imagenDefecto.png");
+            personaNaturalDTO.setIdUsuario(idUser);
+            
+            personaNaturalDAO.registrarPersona(personaNaturalDTO);
+            System.out.println(personaNaturalDTO.toString());
+
+            if (usuarioDTO.getIdRol() == 3) {
+                empresaDTO = new empresaDTO();
+                empresaDTO.setCorreoEmpresa(personaNaturalDTO.getCorreoPer());
+                empresaDTO.setEsEmpresa(1);
+                empresaDTO.setIdCiudad(personaNaturalDTO.getIdCiudad());
+                empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
+                empresaDTO.setNombreEmpresa(personaNaturalDTO.getNombrePer());
+                empresaDTO.setEsEmpresa(0);
+                empresaDAO.registroEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
+                System.out.println(empresaDTO.toString());
+            }
+            
+            enviar.envCorreo(usuarioDTO.getCorreoUsu(), clave, usuarioDTO.getCodigo());
+            
+            conn.commit();
+            new Gson().toJson(1, response.getWriter());
+        } catch (MySQLIntegrityConstraintViolationException ex1) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex3) {
+                System.out.println(ex3);
+            }
+            System.out.println("ROLL BACK CONSTRAINT EXCEPTION");
+            System.out.println(ex1);
+            new Gson().toJson(2, response.getWriter());
+        } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                System.out.println(ex1);
+            }
+            System.out.println("ROLL BACK SQL EXCEPTION REGISTRO");
+            System.out.println(ex);
+            new Gson().toJson(3, response.getWriter());
+        } catch (Exception ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                System.out.println(ex1);
+            }
+            System.out.println("ROLL BACK GENERAL EXCEPTION");
+            System.out.println(ex);
+            new Gson().toJson(3, response.getWriter());
+        } finally {
+            usuarioDAO.CloseAll();
+            personaNaturalDAO.CloseAll();
+            empresaDAO.CloseAll();
+        }
+
+    }
+
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void generateCiudades(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
-         Conexion conexion = new Conexion();
-                ArrayList<ciudadDTO> listaCiudad = new ArrayList<>();
-                Connection conn = conexion.getConnection();
-                ciudadDAO ciDAO = new ciudadDAO(conn);
-                listaCiudad = ciDAO.ListCiudades();
-                ciDAO.CloseAll();
-                response.setContentType("application/json");
-                new Gson().toJson(listaCiudad, response.getWriter());
-        
-    }
-
-    private void generateCategorias(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
-                Conexion conexion = new Conexion();
-                ArrayList<Categorys> listaCategoria = new ArrayList<>();
-                Connection conn = conexion.getConnection();
-                CategorysDAO categoriasDAO = new CategorysDAO(conn);
-                listaCategoria = categoriasDAO.getCategorys();
-                categoriasDAO.CloseAll();
-                response.setContentType("application/json");
-                new Gson().toJson(listaCategoria, response.getWriter());
-        
-    }
 
 }

@@ -38,6 +38,7 @@ public class Rutas extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         String direccion = request.getRequestURI();
         RequestDispatcher rd;
 
@@ -51,56 +52,30 @@ public class Rutas extends HttpServlet {
                 String usuario = request.getParameter("usuario");
                 String codigo = request.getParameter("codigo");
                 activa = usuarioDAO.activarUsuario(usuario, codigo);
-                request.setAttribute("activa", activa);
-                rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
-                rd.forward(request, response);
+                if (activa) {
+                    request.setAttribute("ACTIVA", activa);
+                    rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
+                    rd.forward(request, response);
+                }else{
+                    rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
+                    rd.forward(request, response);
+                }
                 break;
             case "/MercadoSena/logout":
                 request.getSession().removeAttribute("USER");
                 request.getSession().invalidate();
                 response.sendRedirect("/MercadoSena/");
                 break;
-            case "/MercadoSena/preguntas":
-                rd = request.getRequestDispatcher("/views/preguntas/preguntas.jsp");
-                rd.forward(request, response);
-                break;
             case "/MercadoSena/home":
                 rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
                 break;
-            case "/MercadoSena/usuario":
-
-                listaCiudad = new ArrayList<>();
-                Conexion conexion = new Conexion();
-                Connection conn = conexion.getConnection();
-                ciudadDAO cDAO = new ciudadDAO(conn);
-                listaCiudad = cDAO.ListCiudades();
-
-//                listaTipoDoc = new ArrayList<>();
-//                listaTipoDoc = tipoDocDAO.listarTipoDoc();
-//
-//                listaGenero = new ArrayList<>();
-//                listaGenero = generoDAO.listarGenero();
-                request.setAttribute("listaCiudad", listaCiudad);
-//                request.setAttribute("listaTipoDoc", listaTipoDoc);
-//                request.setAttribute("listaGenero", listaGenero);
-
-                rd = request.getRequestDispatcher("/views/actualizar/actualizarDatos.jsp");
-                rd.forward(request, response);
-//
-                break;
-            case "/MercadoSena/ventasVendedor":
-                request.getRequestDispatcher("/views/ventas/ventasVendedor.jsp").forward(request, response);
-                break;
-            case "/MercadoSena/misPedidos":
-                request.getRequestDispatcher("/views/ventas/pedidosUsuario.jsp").forward(request, response);
-                break;
-            case "/MercadoSena/realizarInformes":
-                request.getRequestDispatcher("/views/informes/informes.jsp").forward(request, response);
-                break;
             default:
                 System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error de la ruta");
+                response.sendRedirect(request.getContextPath() + "/home");
+                break;
         }
+        
     }
 
     @Override
@@ -112,7 +87,8 @@ public class Rutas extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        System.out.println("Registro no soporta GET");
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
     @Override
