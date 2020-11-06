@@ -60,11 +60,13 @@ $('#formProduct').submit(function (e) {
         return false
     }
 
-//    $('#carga').addClass('is-active');
-//    $("#send").attr("disabled", true);
+    $('#carga').addClass('is-active');
+    $("#send").attr("disabled", true);
 
     var form = $('#formProduct')[0]
     var data = new FormData(form)
+    
+    
 
     $.ajax({
         type: "POST",
@@ -77,17 +79,15 @@ $('#formProduct').submit(function (e) {
         success: function (data) {
 
             if (data) {
-
                 mensajeExito('Producto agregado con éxito!');
-                setTimeout(function () {
-                    window.location = './Products';
-                }, 1800);
-
+                clean()
             } else {
                 mensajeinfo('Para poder agregar un producto debes actulizar tus datos!');
                 $('#modaldatosfalltantes').modal('show');
             }
-
+            
+               $('#carga').removeClass('is-active');
+               $("#send").attr("disabled", false);
 
         },
         error: function (e) {
@@ -155,13 +155,12 @@ function mensajeExito(mensaje) {
         title: 'Éxito!',
         html: '<h4 style="color:#449d48;">' + mensaje + '</h4>',
         showCancelButton: false,
-        showConfirmButton: false,
+        showConfirmButton: true,
         allowOutsideClick: false,
         allowEscapeKey: false,
         allowEnterKey: false,
         padding: '2rem',
-        width: '25%',
-        timer: 1800
+        width: '25%'
     });
 
 }
