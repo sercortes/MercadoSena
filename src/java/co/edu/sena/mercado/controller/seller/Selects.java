@@ -104,16 +104,12 @@ public class Selects extends HttpServlet {
     private void getCategorys(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
+        response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
         CategorysDAO categorysDAO = new CategorysDAO(conexion.getConnection());
-
         ArrayList<?> lista = categorysDAO.getCategorys();
-
         response.setContentType("application/json");
-
         categorysDAO.CloseAll();
-
         new Gson().toJson(lista, response.getWriter());
 
     }
@@ -121,13 +117,11 @@ public class Selects extends HttpServlet {
     private void getProducts(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
+        response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
         ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
-
         usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
         ArrayList<Producto> listaProductos = productoDAO.getProductsBySeller(Integer.toString(user.getEmpresa().getIdEmpresa()));
-
         response.setContentType("application/json");
         productoDAO.CloseAll();
         new Gson().toJson(listaProductos, response.getWriter());
