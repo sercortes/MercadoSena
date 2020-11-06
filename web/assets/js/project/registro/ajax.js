@@ -282,7 +282,7 @@ $('#registroUsuario').submit(function (e) {
                     } else if( data === 2){
                         messageInfo('¡El Correo se encuentra registrado!');
                     }else if(data === 3){
-                        messageError('Error');
+                        messageError('Error en la conexión, intente más tarde');
                     }
 
                     limpiarFormulario('#registroUsuario');
