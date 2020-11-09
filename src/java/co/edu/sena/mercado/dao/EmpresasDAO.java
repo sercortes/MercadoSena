@@ -17,13 +17,13 @@ import java.sql.SQLException;
  *
  * @author equipo
  */
-public class EmpresaDAO {
+public class EmpresasDAO {
     
     private Connection conn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
     
-    public EmpresaDAO(Connection conn) {
+    public EmpresasDAO(Connection conn) {
         this.conn = conn;
     }
     

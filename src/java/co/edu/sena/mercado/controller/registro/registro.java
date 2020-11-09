@@ -259,9 +259,9 @@ public class registro extends HttpServlet {
         response.setContentType("application/json");
         
         Connection conn = null;
-        UsuarioDAO usuarioDAO = null;
-        PersonaNaturalDAO personaNaturalDAO = null;
-        EmpresaDAO empresaDAO = null;
+        UsuariosDAO usuarioDAO = null;
+        PersonasNaturalDAO personaNaturalDAO = null;
+        EmpresasDAO empresaDAO = null;
         try {
 
             Conexion conexion = new Conexion();
@@ -270,9 +270,9 @@ public class registro extends HttpServlet {
             if (conn.getAutoCommit()) {
                 conn.setAutoCommit(false);
             }
-            usuarioDAO = new UsuarioDAO(conn);
-            personaNaturalDAO = new PersonaNaturalDAO(conn);
-            empresaDAO = new EmpresaDAO(conn);
+            usuarioDAO = new UsuariosDAO(conn);
+            personaNaturalDAO = new PersonasNaturalDAO(conn);
+            empresaDAO = new EmpresasDAO(conn);
 
             usuarioDTO = new usuarioDTO();
             listaRol = rolDAO.listarRol();
