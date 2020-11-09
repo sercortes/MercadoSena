@@ -150,7 +150,7 @@ function generateTableBuscador() {
         <div id="collapseExamples${num}" class="collapse shadow-sm">
           <div class="card">
             <div class="card-body" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">
-              <p class="font-italic mb-0 text-muted textoDes">${item.descripcionProducto.toString().substr(0, 150)} <a href="#" class="watch naranja">Ver más <i class="fas fa-angle-double-right fa-lg naranja iconodemas"></i></a></p>
+              <p class="mb-0 text-muted textoDes">${item.descripcionProducto.toString().substr(0, 150)} <a href="#" class="watch naranja">Ver más <i class="fas fa-angle-double-right fa-lg naranja iconodemas"></i></a></p>
             </div>
           </div>
         </div>
@@ -182,7 +182,6 @@ $(document).on('click', '.watch', function (e) {
     let producto = arregloFinal.find(element => element.idProducto === idPro);
 
     $('#detailsProduct').modal('show')
-
     detailsProduct(producto)
 
 })
@@ -191,31 +190,6 @@ function detailsProduct(producto) {
 
     caruselImagenes(producto.imagenes)
     textProduct(producto)
-    setTimeout(() => $('.slides').carousel({
-            interval: 4100,
-        }), 1000)
-
-}
-
-function checkProduct(id) {
-
-    let estatus = '';
-
-    $.ajax({
-        type: "POST",
-        url: './checkProducts',
-        async: false,
-        data: {
-            idProducto: id
-        },
-        datatype: 'json'
-    }).done(function (data) {
-
-        estatus = data;
-
-    })
-
-    return estatus;
 
 }
 
@@ -299,6 +273,11 @@ function caruselImagenes(data) {
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Siguiente</span>
                     </a>`
+
+        setTimeout(() => $('.slides').carousel({
+                interval: 4100,
+            }), 1000)
+
     } else {
         document.getElementById('controlescarru').innerHTML = ``
     }
@@ -313,43 +292,65 @@ $(document).on('click', '#meInteresa', function (e) {
         $('#detailsProduct').modal('hide');
         modalPreguntaRegistro();
         return false
-    } 
+    }
 
-        let parent = $(this)[0].parentElement
-        let idEmpresa = $(parent).attr('idEmpresa')
-        let idProducto = $(parent).attr('idProducto')
-        let precio = $(parent).attr('precioProducto')
-        let cantidad = $('#cantidadSelect').val()
+    let parent = $(this)[0].parentElement
+    let idEmpresa = $(parent).attr('idEmpresa')
+    let idProducto = $(parent).attr('idProducto')
+    let precio = $(parent).attr('precioProducto')
+    let cantidad = $('#cantidadSelect').val()
 
-        if (checkProduct(idProducto)) {
-            messageInfo('El producto ya ha sido agregado, revisa los datos del vendedor en la "opción mis pedidos"')
-            return false
+    if (checkProduct(idProducto)) {
+        messageInfo('El producto ya ha sido agregado, revisa los datos del vendedor en la "opción mis pedidos"')
+        return false
+    }
+
+    let datos = {
+        idEmpresa: idEmpresa,
+        idProducto: idProducto,
+        Cantidad: cantidad,
+        Precio: precio
+    }
+
+    Swal.fire({
+        title: 'Espera...',
+        text: '¿Deseas que el vendedor pueda ver tus datos para contactarte?',
+        icon: 'info',
+        showCancelButton: true,
+        showCloseButton: true,
+        cancelButtonText: 'No',
+        confirmButtonText: 'Si',
+    }).then((result) => {
+        if (result.value) {
+            generateTables(datos, 1)
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            generateTables(datos, 0)
         }
+    })
 
-        let datos = {
-            idEmpresa: idEmpresa,
-            idProducto: idProducto,
-            Cantidad: cantidad,
-            Precio: precio
-        }
-
-        Swal.fire({
-            title: 'Espera...',
-            text: '¿Deseas que el vendedor pueda ver tus datos para contactarte?',
-            icon: 'info',
-            showCancelButton: true,
-            showCloseButton: true,
-            cancelButtonText: 'No',
-            confirmButtonText: 'Si',
-        }).then((result) => {
-            if (result.value) {
-                generateTables(datos, 1)
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                generateTables(datos, 0)
-            }
-        })
-        
 })
+
+function checkProduct(id) {
+
+    let estatus = '';
+
+    $.ajax({
+        type: "POST",
+        url: './checkProducts',
+        async: false,
+        data: {
+            idProducto: id
+        },
+        datatype: 'json'
+    }).done(function (data) {
+
+        estatus = data;
+
+    })
+
+    return estatus;
+
+}
 
 function generateTables(datos, contacto) {
 
@@ -401,9 +402,9 @@ function datosVendedor(data) {
 
 }
 
-function informationCompany(datos){
-    
-       Swal.fire({
+function informationCompany(datos) {
+
+    Swal.fire({
         title: '<strong>Datos Vendedor</strong>',
         icon: 'success',
         html:
@@ -427,7 +428,7 @@ function informationCompany(datos){
     left top
     no-repeat`
     })
-    
+
 }
 
 function queryEmphy() {

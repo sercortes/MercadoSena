@@ -18,12 +18,12 @@ import java.sql.Statement;
  *
  * @author equipo
  */
-public class UsuarioDAO {
+public class UsuariosDAO {
     private Connection conn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
     
-    public UsuarioDAO(Connection conn) {
+    public UsuariosDAO(Connection conn) {
         this.conn = conn;
     }
 

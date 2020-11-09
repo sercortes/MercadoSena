@@ -20,13 +20,13 @@ import java.util.ArrayList;
  *
  * @author equipo
  */
-public class PersonaNaturalDAO {
+public class PersonasNaturalDAO {
     
    private Connection conn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
     
-    public PersonaNaturalDAO(Connection conn) {
+    public PersonasNaturalDAO(Connection conn) {
         this.conn = conn;
     }
 
