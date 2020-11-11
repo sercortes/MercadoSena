@@ -313,6 +313,7 @@ public class registro extends HttpServlet {
 
             if (usuarioDTO.getIdRol() == 3) {
                 empresaDTO = new empresaDTO();
+               
                 empresaDTO.setCorreoEmpresa(personaNaturalDTO.getCorreoPer());
                 empresaDTO.setEsEmpresa(1);
                 empresaDTO.setIdCiudad(personaNaturalDTO.getIdCiudad());

@@ -33,7 +33,6 @@ public class ProductoDAO {
         this.conn = conn;
     }
 
-
     public int insertReturn(Producto producto) {
         int idActividad = 0;
         String sql = "INSERT INTO producto (nombreProducto, valorProducto, stockProducto, marcaProducto, "
@@ -89,6 +88,25 @@ public class ProductoDAO {
         }
     }
 
+    public int buscaStoctok(Producto productoDTO) {
+        int stock = 0;
+        try {
+            String sqlls = "SELECT stockProducto FROM producto WHERE idProducto = ? LIMIT 1";
+            PreparedStatement ps = conn.prepareStatement(sqlls);
+            ps.setString(1, productoDTO.getIdProducto());
+            rs = ps.executeQuery();
+
+            while (rs.next()) {
+                stock = rs.getInt("stockProducto");
+            }
+
+        } catch (Exception e) {
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar actualizarCantidad PrpductoDAO " + e);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX consulta " + ps.toString());
+        }
+        return stock;
+    }
+
     public boolean actualizarCantidad(Producto productoDTO) {
         try {
 
@@ -119,7 +137,7 @@ public class ProductoDAO {
         }
     }
 
-    public boolean updateProduct(Producto producto) throws Exception{
+    public boolean updateProduct(Producto producto) throws Exception {
         try {
 
             String sql = "UPDATE producto set nombreProducto = ?, valorProducto = ?, "
@@ -196,7 +214,6 @@ public class ProductoDAO {
     }
 
     //es un comentario gay
-
     public Producto buscarProducto(int idProducto) {
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria WHERE PR.idProducto= ?";
@@ -238,7 +255,7 @@ public class ProductoDAO {
         }
     }
 
-    public boolean disabledProduct(String id) throws Exception{
+    public boolean disabledProduct(String id) throws Exception {
         try {
 
             String sql = "UPDATE producto set estadoProducto = ? "
@@ -256,11 +273,11 @@ public class ProductoDAO {
             throw new Exception();
         }
     }
-    
-        public void CloseAll() {
+
+    public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);
         Conexion.close(rs);
     }
-        
+
 }

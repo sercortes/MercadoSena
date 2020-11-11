@@ -147,10 +147,17 @@ public class gestionarPedidos extends HttpServlet {
                     productoDTO = new Producto();
                     productoDTO.setStockProducto(Integer.parseInt(request.getParameter("cantidadVendida")));
                     productoDTO.setIdProducto(request.getParameter("idProducto"));
+                    
+                    //|| productoDAO.buscaStoctok(productoDTO) == (productoDTO.getStockProducto())
+                    
+                    if (productoDAO.buscaStoctok(productoDTO) > 0 ) {
 
-                    if (ventaDAO.actualizarVenta(ventaDTO) && productoDAO.actualizarCantidad(productoDTO)) {
-                        response.getWriter().print("true");
-                    } else {
+                        if (ventaDAO.actualizarVenta(ventaDTO) && productoDAO.actualizarCantidad(productoDTO)) {
+                            response.getWriter().print("true");
+                        } else {
+                            response.getWriter().print("false");
+                        }
+                    }else{
                         response.getWriter().print("false");
                     }
                 } else {
@@ -160,6 +167,7 @@ public class gestionarPedidos extends HttpServlet {
                         response.getWriter().print("false");
                     }
                 }
+
                 productoDAO.CloseAll();
                 ventaDAO.CloseAll();
                 break;

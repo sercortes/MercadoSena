@@ -279,6 +279,7 @@ $('#registroUsuario').submit(function (e) {
                     modalRegistro();
                     if (data === 1) {
                         messageExito('hemos enviado un correo con sus datos de ingreso y el link de activación para su cuenta.');
+                        $('#exampleModa3').modal('hide');
                     } else if( data === 2){
                         messageInfo('¡El Correo se encuentra registrado!');
                     }else if(data === 3){
