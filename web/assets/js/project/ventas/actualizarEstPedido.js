@@ -56,7 +56,7 @@ function actualizarEstadoPed(id) {
                         consultaPedidos(true);
                         consultaNotiPedidos('no');
                     } else if (data === 'false') {
-                        messageError('El pedido no se puede concretar por que no tienes suficiente stock');
+                        messageError('El pedido no se puede concretar, por que no tienes suficiente stock');
                     } else {
                         messageError('Ha ocurrido un error al  actualizar, favor verificar datos.');
                     }

@@ -147,10 +147,8 @@ public class gestionarPedidos extends HttpServlet {
                     productoDTO = new Producto();
                     productoDTO.setStockProducto(Integer.parseInt(request.getParameter("cantidadVendida")));
                     productoDTO.setIdProducto(request.getParameter("idProducto"));
-                    
-                    //|| productoDAO.buscaStoctok(productoDTO) == (productoDTO.getStockProducto())
-                    
-                    if (productoDAO.buscaStoctok(productoDTO) > 0 ) {
+                    int stock = productoDAO.buscaStoctok(productoDTO);
+                    if (productoDTO.getStockProducto() <= stock  ) {
 
                         if (ventaDAO.actualizarVenta(ventaDTO) && productoDAO.actualizarCantidad(productoDTO)) {
                             response.getWriter().print("true");
