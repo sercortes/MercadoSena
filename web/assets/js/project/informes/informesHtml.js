@@ -42,7 +42,7 @@ function genTablaPedi(datos) {
         tabla =
                 '<table class="table table-hover">' +
                 ' <thead>' +
-                ' <tr>' +
+                ' <tr >' +
                 ' <th>Fecha del pedido</th>' +
                 '<th>Producto pedido</th>' +
                 '<th>Cantidad de productos pedidos</th>' +
@@ -72,7 +72,7 @@ function genTablaPedi(datos) {
 
             } else if (filtro === '1') {
                 if (datos[i].idEstado === 2) {
-                    tabla += '<tr>';
+                    tabla += '<tr class="table-success">';
                     tabla +=
                             '<td>' + datos[i].fechaVenta + '</td>' +
                             '<td>' + datos[i].nombreProducto + '</td>' +
@@ -84,7 +84,7 @@ function genTablaPedi(datos) {
                 }
             } else if (filtro === '2') {
                 if (datos[i].idEstado === 3) {
-                    tabla += '<tr>';
+                    tabla += '<tr class="table-danger">';
                     tabla +=
                             '<td>' + datos[i].fechaVenta + '</td>' +
                             '<td>' + datos[i].nombreProducto + '</td>' +

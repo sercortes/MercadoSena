@@ -34,7 +34,7 @@ public class CompradorDAO {
         this.conn = conn;
     }
 
-    public int insertReturn(CompradorDTO compradorDTO) throws Exception{
+    public int insertReturn(CompradorDTO compradorDTO) throws Exception {
 
         int idComprador = 0;
 
@@ -61,15 +61,15 @@ public class CompradorDAO {
         }
 
     }
-    
-       public boolean checkProducts(String idUser, String idProducto) {
+
+    public boolean checkProducts(String idUser, String idProducto) {
         try {
             boolean estado = false;
-            String sql = "SELECT V.idEstadoVentasFK, C.idPersonaFK, PP.idProductoFK FROM ventas V " +
-                    "INNER JOIN comprador C ON V.idCompradorFK=C.idComprador " +
-                    "INNER JOIN productospedidos PP ON V.idVenta = PP.idVentaFK " +
-                    "WHERE idEstadoVentasFK = 1 AND C.idPersonaFK = ? "+
-                    "AND PP.idProductoFK = ? ";
+            String sql = "SELECT V.idEstadoVentasFK, C.idPersonaFK, PP.idProductoFK FROM ventas V "
+                    + "INNER JOIN comprador C ON V.idCompradorFK=C.idComprador "
+                    + "INNER JOIN productospedidos PP ON V.idVenta = PP.idVentaFK "
+                    + "WHERE idEstadoVentasFK = 1 AND C.idPersonaFK = ? "
+                    + "AND PP.idProductoFK = ? ";
             ps = conn.prepareStatement(sql);
             ps.setString(1, idUser);
             ps.setString(2, idProducto);
@@ -85,10 +85,9 @@ public class CompradorDAO {
             return false;
         }
     }
-    
+
     //SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFKINNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idEmpresaFK=6
     //SELECT comp.*,ven.*,estVen.*,prodPed.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK WHERE comp.idPersonaFK=5
-
     public ArrayList<pedidoDTO> consultaPedido(int id, String tipoUsu) {
         //id = comprador o vendedor
         ArrayList<pedidoDTO> listaPedido = new ArrayList<>();
@@ -161,20 +160,61 @@ public class CompradorDAO {
         try {
 
             switch (tipo) {
+                case "0":
+                    consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =?  ORDER BY ven.fechaVenta DESC";
+                    ps = conn.prepareStatement(consulta);
+
+                    break;
+
                 case "1":
-                    consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? ORDER BY ven.fechaVenta DESC";
+                    consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? AND idEstadoVentas = 2  ORDER BY ven.fechaVenta DESC";
                     ps = conn.prepareStatement(consulta);
 
                     break;
                 case "2":
+                    consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? AND idEstadoVentas = 3  ORDER BY ven.fechaVenta DESC";
+                    ps = conn.prepareStatement(consulta);
+
+                    break;
+                case "3":
                     consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? and ven.fechaVenta like ? ORDER BY ven.fechaVenta DESC";
                     ps = conn.prepareStatement(consulta);
                     fechaIni = fechaIni + "%";
                     ps.setString(2, fechaIni);
 
                     break;
-                case "3":
+
+                case "4":
+                    consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? and ven.fechaVenta like ? AND idEstadoVentas = 2 ORDER BY ven.fechaVenta DESC";
+                    ps = conn.prepareStatement(consulta);
+                    fechaIni = fechaIni + "%";
+                    ps.setString(2, fechaIni);
+
+                    break;
+                case "5":
+                    consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? and ven.fechaVenta like ? AND idEstadoVentas = 3 ORDER BY ven.fechaVenta DESC";
+                    ps = conn.prepareStatement(consulta);
+                    fechaIni = fechaIni + "%";
+                    ps.setString(2, fechaIni);
+
+                    break;
+                case "6":
                     consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? and ven.fechaVenta BETWEEN ? and ? ORDER BY ven.fechaVenta DESC";
+                    ps = conn.prepareStatement(consulta);
+                    fechaFin = fechaFin + " 23:59:59";
+                    ps.setString(2, fechaIni);
+                    ps.setString(3, fechaFin);
+                    break;
+                case "7":
+                    consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? and ven.fechaVenta BETWEEN ? and ? AND idEstadoVentas = 2 ORDER BY ven.fechaVenta DESC";
+                    ps = conn.prepareStatement(consulta);
+                    fechaFin = fechaFin + " 23:59:59";
+                    ps.setString(2, fechaIni);
+                    ps.setString(3, fechaFin);
+                    break;
+
+                case "8":
+                    consulta = "SELECT comp.*,ven.*,estVen.*,prodPed.*,pro.* FROM comprador comp INNER JOIN ventas ven ON comp.idComprador=ven.idCompradorFK INNER JOIN estadoventas estVen on ven.idEstadoVentasFK=estVen.idEstadoVentas INNER JOIN productospedidos prodPed on ven.idVenta=prodPed.idVentaFK INNER JOIN producto pro ON prodPed.idProductoFK=pro.idProducto WHERE comp.idEmpresaFK =? and ven.fechaVenta BETWEEN ? and ? AND idEstadoVentas = 3 ORDER BY ven.fechaVenta DESC";
                     ps = conn.prepareStatement(consulta);
                     fechaFin = fechaFin + " 23:59:59";
                     ps.setString(2, fechaIni);
@@ -182,7 +222,6 @@ public class CompradorDAO {
                     break;
             }
 
-           
             ps.setInt(1, idEmpresa);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -195,7 +234,6 @@ public class CompradorDAO {
                 informePedidoDTO.setNombreProducto(rs.getString("nombreProducto"));
                 informePedidoDTO.setValor(rs.getString("valorVenta"));
                 informePedidoDTO.setValorProducto(rs.getString("valorProducto"));
-                
 
                 listaInformePedido.add(informePedidoDTO);
 

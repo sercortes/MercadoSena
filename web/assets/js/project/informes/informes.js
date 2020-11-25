@@ -17,22 +17,54 @@ function generarInforme(event) {
     var tipoInforme = $('#tipoInforme').val();
     var fechaInicial = $('#fechaInicial').val();
     var fechaFinal = $('#fechaFinal').val();
-    if($('#tipoGrafico').val()!=='0'){
+    var filtro1 = $('#filtroPedidos').val();
+    if ($('#tipoGrafico').val() !== '0') {
         $('#paginaGrafico').addClass('page-break');
-    }else{
-         $('#paginaGrafico').removeClass('page-break');
+    } else {
+        $('#paginaGrafico').removeClass('page-break');
+    }
+
+    if (fechaInicial === '') {
+        tipo = 0;
+        textoInfoFech = 'general';
     }
     
-    if (fechaInicial === '') {
+    if(filtro1 === '1'){
         tipo = 1;
         textoInfoFech = 'general';
     }
-    if (fechaInicial !== '' && fechaFinal === '') {
+    
+    if(filtro1 === '2'){
         tipo = 2;
+        textoInfoFech = 'general';
+    }
+    if (fechaInicial !== '' && fechaFinal === '') {
+        tipo = 3;
         textoInfoFech = 'para el día ' + fechaInicial;
     }
+    
+    if (fechaInicial !== '' && fechaFinal === '' && filtro1 === '1') {
+        tipo = 4;
+        textoInfoFech = 'para el día ' + fechaInicial;
+    }
+    
+     if (fechaInicial !== '' && fechaFinal === '' && filtro1 === '2') {
+        tipo = 5;
+        textoInfoFech = 'para el día ' + fechaInicial;
+    }
+    
     if (fechaInicial !== '' && fechaFinal !== '') {
-        tipo = 3;
+        tipo = 6;
+        textoInfoFech = 'entre las fechas ' + fechaInicial + ' y ' + fechaFinal;
+    }
+    
+    if (fechaInicial !== '' && fechaFinal !== '' && filtro1 === '1') {
+        tipo = 7;
+        textoInfoFech = 'entre las fechas ' + fechaInicial + ' y ' + fechaFinal;
+    }
+    
+    if (fechaInicial !== '' && fechaFinal !== '' && filtro1 === '2') {
+        tipo = 8;
         textoInfoFech = 'entre las fechas ' + fechaInicial + ' y ' + fechaFinal;
     }
 
@@ -113,8 +145,6 @@ function validarFechas() {
 
     var fechaFinal = $('#fechaFinal').val();
     var fechaIni = $('#fechaInicial').val();
-    console.log(fechaFinal);
-    console.log(fechaFinal.length);
     if (fechaIni === '' && fechaFinal !== '') {
         $("#generarInfo").prop('disabled', true);
         $('#avisoFechaIni').text('Por favor complete este campo!!');
@@ -145,7 +175,9 @@ var opciones = {
 };
 function parametrosGraficarPro(productos) {
     var tipoGrafico = $('#tipoGrafico').val();
-    var nombres = [], ventas = [], colores = [];
+    var nombres = [], ventas = [], colores = [], color = [];
+    var colore = "#";
+    var simbolos = "0123456789ABCDEF";
     var tipoGrafico = $('#tipoGrafico').val();
     if (tipoGrafico === '0') {
         $('#tituloGrafico').empty();
@@ -154,21 +186,31 @@ function parametrosGraficarPro(productos) {
         $('#tituloGrafico').html('Diagrama:');
 
     }
+    var n = 0;
+
+    while (n < productos.length) {
+        for (var i = 0; i < 6; i++) {
+            colore = colore + simbolos[Math.floor(Math.random() * 16)];
+        }
+        color.push(colore);
+        colore = "#";
+        n++;
+
+    }
 
     for (var i = 0; i < productos.length; i++) {
         nombres.push(productos[i].nombre);
         ventas.push(productos[i].cantidadVendida);
-        colores.push('rgba(252, 115, 30, 0.72)');
-        colores.push('rgba(134, 198, 83, 0.77)');
-        colores.push('rgba(103, 119, 239,0.72)');
-        colores.push('rgba(58, 186, 244, 0.82)');
-        colores.push('rgba(252, 84, 75, 0.61)');
+        colores.push(color[i]);
+
+
     }
+
     if (tipoGrafico === '1') {
-        graficar(nombres, ventas, 'Unidades vendidas', 'horizontalBar', colores, opciones);
+        graficar(nombres, ventas, 'Unidades vendidas', 'horizontalBar', 'rgba(252, 115, 30, 0.72)', opciones);
         $('#graficoCanvas').addClass('grafico');
         $('#graficoCanvas').removeClass('graficoCircular');
-        
+
 
     }
     if (tipoGrafico === '2') {
@@ -219,20 +261,32 @@ function parametrosGraficarPed(pedidos) {
             $('#graficoCanvas').addClass('graficoCircular');
         }
         $('#textoInfo').empty();
-        $('#textoInfo').text('Informe ' + textoInfoFech + ' de todos sus pedidos:');
+        $('#textoInfo').text('Informe' + textoInfoFech + ' de todos sus pedidos:');
 
     } else {
 
-        var nombress = [], ventass = [], coloress = [];
+        var nombress = [], ventass = [], coloress = [], colorr = [];
+        var coloree = "#";
+        var simboloss = "0123456789ABCDEF";
+
+        var n = 0;
+
+        while (n < pedidos.length) {
+            for (var i = 0; i < 6; i++) {
+                coloree = coloree + simboloss[Math.floor(Math.random() * 16)];
+            }
+            colorr.push(coloree);
+            coloree = "#";
+            n++;
+
+        }
+
         for (var i = 0; i < pedidos.length; i++) {
 
             nombress.push(pedidos[i].fechaVenta + ' - ' + pedidos[i].nombreProducto);
             ventass.push(pedidos[i].cantidadProductos);
-            coloress.push('rgba(252, 115, 30, 0.72)');
-            coloress.push('rgba(134, 198, 83, 0.77)');
-            coloress.push('rgba(103, 119, 239,0.72)');
-            coloress.push('rgba(58, 186, 244, 0.82)');
-            coloress.push('rgba(252, 84, 75, 0.61)');
+            coloress.push(colorr[i]);
+
         }
 
         if (tipoGrafico === '1') {

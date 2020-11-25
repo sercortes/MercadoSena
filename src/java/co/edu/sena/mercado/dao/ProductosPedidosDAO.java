@@ -84,19 +84,19 @@ public class ProductosPedidosDAO {
         informeProductosDTO productosPedDTO;
         try {
             switch (tipo) {
-                case "1":
+                case "0":
                     consulta = "SELECT pP.*, count(*) as total,pro.*,SUM(pP.cantidadProductoVenta) as cantidad FROM productospedidos pP INNER JOIN producto pro on pro.idEmpresaFK=? INNER JOIN ventas ven ON ven.idVenta=pP.idVentaFK WHERE pP.idProductoFk=pro.idProducto and ven.idEstadoVentasFK=2 GROUP BY pP.idProductoFK";
                     ps = conn.prepareStatement(consulta);
 
                     break;
-                case "2":
+                case "3":
                     consulta = "SELECT pP.*, count(*) as total,pro.*,SUM(pP.cantidadProductoVenta) as cantidad,ven.* FROM productospedidos pP INNER JOIN producto pro on pro.idEmpresaFK=? INNER JOIN ventas ven ON ven.idVenta=pP.idVentaFK WHERE pP.idProductoFk=pro.idProducto and ven.idEstadoVentasFK=2 and ven.fechaVenta LIKE ? GROUP BY pP.idProductoFK";
                     ps = conn.prepareStatement(consulta);
                     fechaIni=fechaIni+"%";
                     ps.setString(2, fechaIni);
                     
                     break;
-                case "3":
+                case "6":
                     consulta = "SELECT pP.*, count(*) as total,pro.*,SUM(pP.cantidadProductoVenta) as cantidad,ven.* FROM productospedidos pP INNER JOIN producto pro on pro.idEmpresaFK=? INNER JOIN ventas ven ON ven.idVenta=pP.idVentaFK WHERE pP.idProductoFk=pro.idProducto and ven.idEstadoVentasFK=2 and ven.fechaVenta BETWEEN ? and ? GROUP BY pP.idProductoFK";
                     ps = conn.prepareStatement(consulta);
                     fechaFin=fechaFin+" 23:59:59";
