@@ -9,7 +9,7 @@ package co.edu.sena.mercado.dto;
  *
  * @author DELL
  */
-public class empresaDTO {
+public class empresaDTO extends personaNaturalDTO{
     int idEmpresa;
     int esEmpresa;
     String nombreEmpresa;
@@ -17,9 +17,7 @@ public class empresaDTO {
     String telEmpresa;
     String CelEmpresa;
     String correoEmpresa;
-    String nombreCiudad;
-    int idCiudad;
-    int idUsuario;
+
 
     public empresaDTO() {
     }
@@ -36,15 +34,6 @@ public class empresaDTO {
         this.idCiudad = idCiudad;
         this.idUsuario = idUsuario;
     }
-
-    public String getNombreCiudad() {
-        return nombreCiudad;
-    }
-
-    public void setNombreCiudad(String nombreCiudad) {
-        this.nombreCiudad = nombreCiudad;
-    }
-
   
 
     public int getIdEmpresa() {
@@ -103,21 +92,7 @@ public class empresaDTO {
         this.correoEmpresa = correoEmpresa;
     }
 
-    public int getIdCiudad() {
-        return idCiudad;
-    }
 
-    public void setIdCiudad(int idCiudad) {
-        this.idCiudad = idCiudad;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
-    }
 
     @Override
     public String toString() {

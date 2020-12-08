@@ -14,7 +14,7 @@
 
                 <dl>
                     <dt>Nombre</dt>
-                    <dd id="nombreUsu"> hola qtal</dd>
+                    <dd id="nombreUsu">nombre</dd>
                 </dl>
                 <dl>
                     <dt>Número de celular:</dt>

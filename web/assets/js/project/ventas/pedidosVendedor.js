@@ -233,7 +233,11 @@ function llenarModalUsu(datos) {
         $('#dirUsu').text(datos.direccionPer);
     } else if (vista === 'misPedidos') {
         $("#modalUsuarioVendedor").modal("show");
-        $('#nombreUsu').text(datos.nombreEmpresa);
+        if (datos.esEmpresa === 0){
+              $('#nombreUsu').text(datos.nombrePer + ' ' + datos.apellidoPer);
+        }else{
+              $('#nombreUsu').text(datos.nombreEmpresa);
+        }   
         $('#celUsu').text(datos.CelEmpresa);
         $('#telUsu').text(datos.telEmpresa);
         $('#correoUsu').text(datos.correoEmpresa);

@@ -234,7 +234,7 @@ public class empresaDAO {
 
     public empresaDTO buscarEmpresaXProducto(String idProducto) {
         con = new Conexion();
-        consulta = "SELECT emp.*,ciud.nombreCiudad FROM empresa emp INNER JOIN ciudad ciud ON ciud.idCiudad=emp.idCiudadFK WHERE idEmpresa = ?";
+        consulta = "SELECT emp.*,ciud.nombreCiudad,persona.nombrepersona,persona.apellidoPersona FROM empresa emp INNER JOIN ciudad ciud ON ciud.idCiudad=emp.idCiudadFK INNER JOIN personanatural persona ON persona.idUsuarioFK =emp.idUsuarioFK  WHERE idEmpresa = ?";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
@@ -245,6 +245,8 @@ public class empresaDAO {
                 empresaDTO.setIdEmpresa(rs.getInt("idEmpresa"));
                 empresaDTO.setEsEmpresa(rs.getInt("esEmpresa"));
                 empresaDTO.setNombreEmpresa(rs.getString("nombreEmpresa"));
+                empresaDTO.setNombrePer(rs.getString("nombrePersona"));
+                empresaDTO.setApellidoPer(rs.getString("apellidoPersona"));
                 empresaDTO.setDirEmpresa(rs.getString("direccionEmpresa"));
                 empresaDTO.setTelEmpresa(rs.getString("telefonoEmpresa"));
                 empresaDTO.setCelEmpresa(rs.getString("celularEmpresa"));
