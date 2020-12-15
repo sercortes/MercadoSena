@@ -95,6 +95,7 @@ document.getElementById('formOnes').addEventListener('submit', e => {
                     modalPregunta();
                     
                 }
+                
             } else if (!data) {
                 
                 messageInfo('Datos incorrectos');

@@ -65,21 +65,21 @@
                     
                     <c:if test="${USER.idRol != null}">
                         <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./misPedidos">Mis pedidos</a>
+                            <a class="nav-link encabezadoOpciones" href="./misPedidos"><i class="fas fa-phone"></i> Mis Contactos</a>
                         </li>
                     </c:if>
 
                     <c:if test="${USER.idRol == 3}">
                         
                         <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./ventasVendedor">Pedidos</a>
+                            <a class="nav-link encabezadoOpciones" href="./ventasVendedor"><i class="fas fa-bell"></i> Mis Anuncios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./Products">Mis productos</a>
+                            <a class="nav-link encabezadoOpciones" href="./Products"><i class="fas fa-gifts"></i> Mis productos</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./realizarInformes">Informes</a>
+                            <a class="nav-link encabezadoOpciones" href="./realizarInformes"><i class="fas fa-chart-line"></i> Informes</a>
                         </li>
                     </c:if>
 

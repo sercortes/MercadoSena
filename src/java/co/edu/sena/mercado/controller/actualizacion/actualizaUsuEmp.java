@@ -259,18 +259,7 @@ public class actualizaUsuEmp extends HttpServlet {
                 empresaDTO.setDirEmpresa(request.getParameter("direccionUsuario"));
                 empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
                 
-                empresaDTO emDTOs = new empresaDAO().buscarEmpresa(usuarioDTO.getIdUsuario());
-                personaNaturalDTO perDAOs = new personaNaturalDAO().getDataById(Integer.toString(usuarioDTO.getIdUsuario()));
-                personaNaturalDTO perDAo = new personaNaturalDAO().buscarDocumenPerson(personaDTO.getNumeroDocPer(), personaDTO.getNumCelularPer());
-                
-                if (emDTOs.getEsEmpresa() < 1) {
-                    
-                    if (perDAOs.getNumCelularPer() == null || perDAOs.getTelPer() == null || perDAOs.getNumeroDocPer() == null) {
-                        
-                        if (personaDTO.getNumeroDocPer().equals(perDAo.getNumeroDocPer()) && perDAo.getIdUsuario() == emDTOs.getIdUsuario() || perDAo.getNumeroDocPer() == null) {
-                            
-                            if (perDAo.getIdUsuario() == 0 || perDAo.getNumCelularPer().equals(0) || perDAo.getTelPer().equals(0)) {
-                                
+
                                 if (empresaDAO.actualizarDatosFaltantes(empresaDTO, usuarioDTO.getIdUsuario())) {
 
                                     // sesion.removeAttribute("USER");
@@ -283,68 +272,7 @@ public class actualizaUsuEmp extends HttpServlet {
                                     response.getWriter().print(false);
                                 }
                                 
-                            } else if (perDAo.getNumCelularPer().equals("") || perDAo.getTelPer().equals("")) {
-                                if (empresaDAO.actualizarDatosFaltantes(empresaDTO, usuarioDTO.getIdUsuario())) {
 
-                                    // sesion.removeAttribute("USER");
-                                    personaDAO.actualizarDatosFaltantes(personaDTO, usuarioDTO.getIdUsuario());
-                                    response.getWriter().print(true);
-                                    
-                                    usuarioDTO = datSesion.consultarDatos(usuarioDTO);
-                                    sesion.setAttribute("USER", usuarioDTO);
-                                } else {
-                                    response.getWriter().print(false);
-                                }
-                            } else {
-                                response.getWriter().print(false);
-                            }
-                            
-                        } else {
-                            response.getWriter().print(false);
-                        }
-                        
-                    } else if (perDAOs.getNumCelularPer().equals("") || perDAOs.getTelPer().equals("") || perDAOs.getNumeroDocPer().equals("")) {
-                        
-                        if (personaDTO.getNumeroDocPer().equals(perDAo.getNumeroDocPer()) && perDAo.getIdUsuario() == emDTOs.getIdUsuario() || perDAo.getNumeroDocPer().equals("")) {
-                            
-                            if (perDAo.getIdUsuario() == 0 || perDAo.getNumCelularPer().equals(0) || perDAo.getTelPer().equals(0)) {
-                                
-                                if (empresaDAO.actualizarDatosFaltantes(empresaDTO, usuarioDTO.getIdUsuario())) {
-
-                                    // sesion.removeAttribute("USER");
-                                    personaDAO.actualizarDatosFaltantes(personaDTO, usuarioDTO.getIdUsuario());
-                                    response.getWriter().print(true);
-                                    
-                                    usuarioDTO = datSesion.consultarDatos(usuarioDTO);
-                                    sesion.setAttribute("USER", usuarioDTO);
-                                } else {
-                                    response.getWriter().print(false);
-                                }
-                                
-                            } else if (perDAo.getNumCelularPer().equals("") || perDAo.getTelPer().equals("") || perDAo.getNumeroDocPer().equals("")) {
-                                if (empresaDAO.actualizarDatosFaltantes(empresaDTO, usuarioDTO.getIdUsuario())) {
-
-                                    // sesion.removeAttribute("USER");
-                                    personaDAO.actualizarDatosFaltantes(personaDTO, usuarioDTO.getIdUsuario());
-                                    response.getWriter().print(true);
-                                    
-                                    usuarioDTO = datSesion.consultarDatos(usuarioDTO);
-                                    sesion.setAttribute("USER", usuarioDTO);
-                                } else {
-                                    response.getWriter().print(false);
-                                }
-                            } else {
-                                response.getWriter().print(false);
-                            }
-                            
-                        } else {
-                            response.getWriter().print(false);
-                        }
-                    }
-                    
-                } else {
-                    System.out.println("no entro");
-                }
                 break;
             case "recuperarClave":
                 String clave = cod.generarCod();

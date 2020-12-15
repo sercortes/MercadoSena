@@ -220,7 +220,7 @@ function textProduct(item) {
               <p class="mb-0 text-small text-muted textoDes text-left">${item.descripcionProducto}</p>
             </div>
           </div>`
-    if (item.diasEnvios !== undefined) {
+
         str += `
         <hr>
         <div class="col-lg-12 mb-5 p-0">
@@ -241,7 +241,6 @@ function textProduct(item) {
         </div>
       </div>
     </div>`
-    }
     element.innerHTML = str
 }
 
@@ -301,7 +300,7 @@ $(document).on('click', '#meInteresa', function (e) {
     let cantidad = $('#cantidadSelect').val()
 
     if (checkProduct(idProducto)) {
-        messageInfo('El producto ya ha sido agregado, revisa los datos del vendedor en la "opción mis pedidos"')
+        messageInfo('El producto ya ha sido agregado, revisa los datos del emprendedor en la opción "mis contactos"')
         return false
     }
 
@@ -314,7 +313,7 @@ $(document).on('click', '#meInteresa', function (e) {
 
     Swal.fire({
         title: 'Espera...',
-        text: '¿Deseas que el vendedor pueda ver tus datos para contactarte?',
+        text: '¿Deseas que el emprendedor pueda ver tus datos para contactarte?',
         icon: 'info',
         showCancelButton: true,
         showCloseButton: true,
@@ -405,7 +404,7 @@ function datosVendedor(data) {
 function informationCompany(datos) {
 
     Swal.fire({
-        title: '<strong>Datos Vendedor</strong>',
+        title: '<strong>Datos Del Emprendedor</strong>',
         icon: 'success',
         html:
                 'Nombre: ' + datos.nombreEmpresa +

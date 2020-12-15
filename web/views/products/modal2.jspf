@@ -79,7 +79,6 @@
                                 <small id="emailHelp" class="form-text text-muted">Puedes subir máximo 5 elementos. no pueden superar los 8MB</small>
                             </div>
                             <div>
-                                <c:if test="${USER.empresa.esEmpresa == 1}">
                                     <div class="camposAdd">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
@@ -123,7 +122,6 @@
                                             </div>
                                         </div>   
                                     </div>
-                                </c:if>
                                 <button id="send" type="submit" class="btn btn-primary hvr-push float-right"><i class="fas fa-save fa-1x"></i> Guardar</button>
                         </form>
                     </div>

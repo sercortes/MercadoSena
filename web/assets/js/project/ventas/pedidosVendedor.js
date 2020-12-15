@@ -179,7 +179,7 @@ function generarLista(dataR, estado) {
 
         }
     } else {
-        pedidos += '<h3 style="text-align: center;padding: 27px;font-size: 37px;">Sin Pedidos.</h3>';
+        pedidos += '<h3 style="text-align: center;padding: 27px;font-size: 27px;">No hay elementos en esta categoría.</h3>';
     }
     $('#carga').removeClass('is-active');
     $('#pedidos').empty();
