@@ -16,24 +16,24 @@
                                 <div class="row justify-content-between">
                                     <div id="inputs-1" class="col">
                                         <label style="font-size: small;">Documento ID:</label><br>
-                                        <input  type="text" value="${USER.persona.numeroDocPer}" placeholder="Documento" class="form-control was-validated" id="documentoUsuario" pattern="[0-9]{10,10}" name="documentoUsuario" required>
+                                        <input  type="text" value="" placeholder="Documento" class="form-control was-validated" id="documentoUsuario" pattern="[0-9]{10,10}" name="documentoUsuario" required>
                                         <div class="invalid-feedback">
                                             Completa este campo correctamente
                                         </div><br>
                                         <label style="font-size: small;">Celular:</label><br>
-                                        <input  type="text" value="${USER.persona.numCelularPer}" pattern="[0-9]{5,13}" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularUsuario" name="celularUsuario" required>
+                                        <input  type="text" value="" pattern="[0-9]{5,13}" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularUsuario" name="celularUsuario" required>
                                         <div class="invalid-feedback">
                                             Completa este campo correctamente
                                         </div><br>
                                     </div>
                                     <div id="inputs-2" class="col">
                                         <label style="font-size: small;">Teléfono:</label><br>
-                                        <input type="text" value="${USER.persona.telPer}" pattern="[0-9]{5,13}" placeholder="Teléfono" class="form-control was-validated" id="telefonoUsuario"  maxlength="50" name="telefonoUsuario" required>
+                                        <input type="text" value="" pattern="[0-9]{5,13}" placeholder="Teléfono" class="form-control was-validated" id="telefonoUsuario"  maxlength="50" name="telefonoUsuario" required>
                                         <div class="invalid-feedback">
                                             Completa este campo correctamente
                                         </div><br> 
                                         <label style="font-size: small;">Dirección:</label><br>
-                                        <input type="text" value="${USER.persona.direccionPer}" placeholder="Dirección" class="form-control was-validated"  maxlength="100" id="direccionUsuario" name="direccionUsuario" required>
+                                        <input type="text" value="" placeholder="Dirección" class="form-control was-validated"  maxlength="100" id="direccionUsuario" name="direccionUsuario" required>
                                         <div class="invalid-feedback">
                                             Completa este campo correctamente
                                         </div><br> 

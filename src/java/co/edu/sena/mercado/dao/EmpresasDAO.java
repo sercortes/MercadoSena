@@ -28,11 +28,11 @@ public class EmpresasDAO {
     }
     
      public boolean registroEmpresa(empresaDTO empresaDTO, int idUsuario) throws MySQLIntegrityConstraintViolationException, SQLException {
-        String consulta = "INSERT INTO empresa( esEmpresa, direccionEmpresa, telefonoEmpresa, celularEmpresa, correoEmpresa, idCiudadFK, idUsuarioFK) VALUES "
+        String consulta = "INSERT INTO empresa( esCentro, direccionEmpresa, telefonoEmpresa, celularEmpresa, correoEmpresa, idCiudadFK, idUsuarioFK) VALUES "
                 + "(?,?,?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(consulta);
-            ps.setInt(1, empresaDTO.getEsEmpresa());
+            ps.setString(1, "0");
             ps.setString(2, empresaDTO.getDirEmpresa());
             ps.setString(3, empresaDTO.getTelEmpresa());
             ps.setString(4, empresaDTO.getCelEmpresa());

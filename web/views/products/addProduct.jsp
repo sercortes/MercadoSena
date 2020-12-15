@@ -109,7 +109,6 @@
 
                 <div>
 
-                    <c:if test="${USER.empresa.esEmpresa == 1}">
                         <div class="camposAdd">
 
                             <div class="form-row">
@@ -169,7 +168,6 @@
 
 
                         </div>
-                    </c:if>
 
 
                     <div class="form-group pb-2">

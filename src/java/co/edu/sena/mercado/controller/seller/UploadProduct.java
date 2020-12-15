@@ -124,51 +124,60 @@ public class UploadProduct extends HttpServlet {
                 usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
 
                 //Insert Producto
-                personaNaturalDTO perDAO = new personaNaturalDAO().getDataById(Integer.toString(usu.getIdUsuario()));
+//                personaNaturalDTO perDAO = new personaNaturalDAO().getDataById(Integer.toString(usu.getIdUsuario()));
+
                 empresaDTO emDTOs = new empresaDAO().buscarEmpresa(usu.getIdUsuario());
-                if (emDTOs.getEsEmpresa() < 1) {
-
-                    if (perDAO.getNumCelularPer() == null || perDAO.getNumeroDocPer() == null || perDAO.getTelPer() == null) {
-
-                        out.print("false");
-
-                    } else if (perDAO.getNumCelularPer().equals("") || perDAO.getNumeroDocPer().equals("") || perDAO.getTelPer().equals("")) {
-                        out.print("false");
-
-                    } else if (!perDAO.getNumCelularPer().equals("") && !perDAO.getNumeroDocPer().equals("") && !perDAO.getTelPer().equals("")) {
-
-                        producto.setIdEmpresaFK(Integer.toString(usu.getEmpresa().getIdEmpresa()));
-
-                        folder = Integer.toString(productoDAO.insertReturn(producto));
-
-                        File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder);
-
-                        System.out.println("XXXXXXXXXXXXXXXXXXXx");
-                        System.out.println(tempFile.toString());
-
-                        if (!tempFile.exists()) {
-                            tempFile.mkdirs();
-                        }
-
-                        for (FileItem item : multiparts) {
-
-                            if (!item.isFormField()) {
-                                // writen files and get List images
-
-                                lista = getLista(item, folder, (ArrayList<ImagenesProducto>) lista);
-                            }
-
-                        }
-
-                        // insert imagenes productos
-                        for (ImagenesProducto item : lista) {
-                            imagenesProductosDAO.insertReturn(item);
-                        }
-
-                        cone.commit();
-                        codigo = true;
-                    }
-                } else {
+                System.out.println(emDTOs.toString());
+                if (emDTOs.getNombreEmpresa() == null || 
+                        emDTOs.getDirEmpresa() == null ||
+                        emDTOs.getTelEmpresa() == null ||
+                        emDTOs.getCelEmpresa() == null) {
+                      out.print("false");
+                }else{
+//                if (emDTOs.getEsEmpresa() < 1) {
+//
+//                    if (perDAO.getNumCelularPer() == null || perDAO.getNumeroDocPer() == null || perDAO.getTelPer() == null) {
+//
+//                        out.print("false");
+//
+//                    } else if (perDAO.getNumCelularPer().equals("") || perDAO.getNumeroDocPer().equals("") || perDAO.getTelPer().equals("")) {
+//                        out.print("false");
+//
+//                    } else if (!perDAO.getNumCelularPer().equals("") && !perDAO.getNumeroDocPer().equals("") && !perDAO.getTelPer().equals("")) {
+//
+//                        producto.setIdEmpresaFK(Integer.toString(usu.getEmpresa().getIdEmpresa()));
+//
+//                        folder = Integer.toString(productoDAO.insertReturn(producto));
+//
+//                        File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder);
+//
+//                        System.out.println("XXXXXXXXXXXXXXXXXXXx");
+//                        System.out.println(tempFile.toString());
+//
+//                        if (!tempFile.exists()) {
+//                            tempFile.mkdirs();
+//                        }
+//
+//                        for (FileItem item : multiparts) {
+//
+//                            if (!item.isFormField()) {
+//                                // writen files and get List images
+//
+//                                lista = getLista(item, folder, (ArrayList<ImagenesProducto>) lista);
+//                            }
+//
+//                        }
+//
+//                        // insert imagenes productos
+//                        for (ImagenesProducto item : lista) {
+//                            imagenesProductosDAO.insertReturn(item);
+//                        }
+//
+//                        cone.commit();
+//                        codigo = true;
+//                    }
+//                } 
+//                else {
                     producto.setIdEmpresaFK(Integer.toString(usu.getEmpresa().getIdEmpresa()));
 
                     folder = Integer.toString(productoDAO.insertReturn(producto));
