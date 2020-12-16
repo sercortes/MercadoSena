@@ -30,13 +30,13 @@ $('#datosfaltantes').submit(function (e) {
 
     var formulario = $("#datosfaltantes");
     var datosVal = [
-        documentoper = $('#documentoUsuario').val(),
+        documentoper = $('#name').val(),
         celularper = $('#celularUsuario').val(),
         telefonoper = $('#telefonoUsuario').val(),
         direccionper = $('#direccionUsuario').val()
     ];
 
-    var arrayinputs = ["#documentoUsuario", "#celularUsuario", "#telefonoUsuario", '#direccionUsuario'];
+    var arrayinputs = ["#name", "#celularUsuario", "#telefonoUsuario", '#direccionUsuario'];
 
     for (var i = 0; i < arrayinputs.length; i++) {
         $(arrayinputs[i]).removeClass('is-invalid');
@@ -44,22 +44,20 @@ $('#datosfaltantes').submit(function (e) {
     //console.log(datosVal);
 
     if (documentoper === null || documentoper === '') {
-        mensajeError('Por favor ingrese número de documento valido', '#documentoUsuario');
-    } else if (validarNumero(documentoper) === false) {
-        mensajeError('Por favor ingrese solo números', '#documentoUsuario');
+        messageError('Por favor ingrese número de documento valido', '#name');
     } else if (celularper === null || celularper === '') {
-        mensajeError('Por favor ingrese su primer nombre', '#celularUsuario');
+        messageError('Por favor ingrese su primer nombre', '#celularUsuario');
     } else if (validarNumero(celularper) === false) {
-        mensajeError('Por favor ingrese solo números', '#celularUsuario');
+        messageError('Por favor ingrese solo números', '#celularUsuario');
     } else if (telefonoper === null || telefonoper === '') {
-        mensajeError('Por favor ingrese número', '#telefonoUsuario');
+        messageError('Por favor ingrese número', '#telefonoUsuario');
     } else if (validarNumero(telefonoper) === false) {
-        mensajeError('Por favor ingrese solo numeros', '#telefonoper');
+        messageError('Por favor ingrese solo numeros', '#telefonoper');
     } else if (direccionper === null || direccionper === '') {
-        mensajeError('Por favor ingrese la direcion', '#direccionUsuario');
+        messageError('Por favor ingrese la direcion', '#direccionUsuario');
     } else {
 
-        var arrayinputs = ["#documentoUsuario", "#celularUsuario", "#telefonoUsuario", '#direccionUsuario'];
+        var arrayinputs = ["#name", "#celularUsuario", "#telefonoUsuario", '#direccionUsuario'];
 
         for (var i = 0; i < arrayinputs.length; i++) {
             $(arrayinputs[i]).removeClass('is-invalid').addClass('is-valid');
@@ -90,7 +88,7 @@ $('#datosfaltantes').submit(function (e) {
                             $("#modaldatosfalltantes").modal('hide');
                         }, 1800);
                     } else {
-                        mensajesdeErrors('El documento de identidad ya existe', '#documentoUsuario');
+                        messageError('El documento de identidad ya existe', '#documentoUsuario');
                         $('#documentoUsuario').removeClass('was-validated').addClass('form-control is-invalid');
                     }
                     formulario.addClass('was-validated');

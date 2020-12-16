@@ -248,8 +248,7 @@ public class actualizaUsuEmp extends HttpServlet {
                 empresaDTO = new empresaDTO();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
                 
-                personaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-                personaDTO.setNumeroDocPer(request.getParameter("documentoUsuario"));
+                personaDTO.setIdUsuario(usuarioDTO.getIdUsuario());       
                 personaDTO.setNumCelularPer(request.getParameter("celularUsuario"));
                 personaDTO.setTelPer(request.getParameter("telefonoUsuario"));
                 personaDTO.setDireccionPer(request.getParameter("direccionUsuario"));
@@ -257,6 +256,7 @@ public class actualizaUsuEmp extends HttpServlet {
                 empresaDTO.setCelEmpresa(request.getParameter("celularUsuario"));
                 empresaDTO.setTelEmpresa(request.getParameter("telefonoUsuario"));
                 empresaDTO.setDirEmpresa(request.getParameter("direccionUsuario"));
+                empresaDTO.setNombreEmpresa(request.getParameter("name"));
                 empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
                 
 

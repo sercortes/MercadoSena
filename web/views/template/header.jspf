@@ -65,7 +65,7 @@
                     
                     <c:if test="${USER.idRol != null}">
                         <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./misPedidos"><i class="fas fa-phone"></i> Mis Contactos</a>
+                            <a class="nav-link encabezadoOpciones" href="./misPedidos"><i class="fas fa-handshake"></i> Mis Contactos</a>
                         </li>
                     </c:if>
 

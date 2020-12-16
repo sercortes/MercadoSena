@@ -92,14 +92,16 @@ public class empresaDAO {
 
     public boolean actualizarDatosFaltantes(empresaDTO empresaDTO, int idUsuario) {
         con = new Conexion();
-        consulta = "UPDATE empresa SET direccionEmpresa=?,telefonoEmpresa=?,celularEmpresa=? WHERE idUsuarioFK=?";
+        consulta = "UPDATE empresa SET nombreEmpresa = ?, direccionEmpresa=?,telefonoEmpresa=?, "
+                + "celularEmpresa=? WHERE idUsuarioFK=?";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
-            ps.setString(1, empresaDTO.getDirEmpresa());
-            ps.setString(2, empresaDTO.getTelEmpresa());
-            ps.setString(3, empresaDTO.getCelEmpresa());
-            ps.setInt(4, idUsuario);
+            ps.setString(1, empresaDTO.getNombreEmpresa());
+            ps.setString(2, empresaDTO.getDirEmpresa());
+            ps.setString(3, empresaDTO.getTelEmpresa());
+            ps.setString(4, empresaDTO.getCelEmpresa());
+            ps.setInt(5, idUsuario);
             ps.executeUpdate();
             System.out.println("..... actualizacion de empresa realizado consulta " + ps.toString());
             //cerrarCon(ps, cn, rs);
