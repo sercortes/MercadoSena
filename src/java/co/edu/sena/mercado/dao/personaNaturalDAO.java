@@ -91,15 +91,14 @@ public class personaNaturalDAO {
 
     public boolean actualizarDatosFaltantes(personaNaturalDTO persona, int idUsuario) {
         con = new Conexion();
-        consulta = "UPDATE personanatural SET documentoPersona=?,direccionPersona=?,celularPersona=?,telefonoPersona=? WHERE idUsuarioFK=?";
+        consulta = "UPDATE personanatural SET direccionPersona=?,celularPersona=?,telefonoPersona=? WHERE idUsuarioFK=?";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
-            ps.setString(1, persona.getNumeroDocPer());
-            ps.setString(2, persona.getDireccionPer());
-            ps.setString(3, persona.getNumCelularPer());
-            ps.setString(4, persona.getTelPer());
-            ps.setInt(5, idUsuario);
+            ps.setString(1, persona.getDireccionPer());
+            ps.setString(2, persona.getNumCelularPer());
+            ps.setString(3, persona.getTelPer());
+            ps.setInt(4, idUsuario);
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
