@@ -66,6 +66,7 @@
         <url-pattern>/activarCuenta</url-pattern>
         <url-pattern>/logout</url-pattern>
         <url-pattern>/home</url-pattern>
+        <url-pattern>/Terminos</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RutasVendedor</servlet-name>

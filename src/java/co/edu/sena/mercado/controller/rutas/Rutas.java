@@ -47,6 +47,10 @@ public class Rutas extends HttpServlet {
                 rd = request.getRequestDispatcher("/views/searching/search.jsp");
                 rd.forward(request, response);
                 break;
+            case "/MercadoSena/Terminos":
+                 rd = request.getRequestDispatcher("/views/searching/terminos.jsp");
+                rd.forward(request, response);
+                break;
             case "/MercadoSena/activarCuenta":
                 boolean activa;
                 String usuario = request.getParameter("usuario");

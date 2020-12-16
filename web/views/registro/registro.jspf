@@ -40,8 +40,13 @@
                     <label>Confirme su contraseña:</label><br>
                     <input type="password" id="clave2" minlength="10" placeholder="*************" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
                     <br>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Al hacer clic en "Registrarte", aceptas nuestros <a href="./Terminos">Terminos y condiciones</a></label>                    
+                    </div>
+
                     <hr>
-                    <button class="botonRegistro" id="registrarUsuario">Registrar</button>
+                    <button class="botonRegistro" id="registrarUsuario">Registrarte</button>
                 </form>
             </div>
             <div id="carga" class="loader loader-bouncing"></div>
@@ -59,5 +64,3 @@
     <input type="submit" id="botonPreguntaRegistro" value="Continuar" class="botonRegistro" onclick=" modalRegistroSi()" ><br>
     <input type="submit" value="No" class="botonRegistro" onclick="cerrar('#modalPreguntaRegistro')">
 </div>
-
-
