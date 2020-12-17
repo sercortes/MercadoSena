@@ -41,8 +41,8 @@
                     <input type="password" id="clave2" minlength="10" placeholder="*************" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
                     <br>
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                        <label class="form-check-label" for="exampleCheck1">Al hacer clic en "Registrarte", aceptas nuestros <a href="./Terminos">Terminos y condiciones</a></label>                    
+                        <input type="checkbox" class="form-check-input" id="terminosYcondiciones">
+                        <label class="form-check-label" for="exampleCheck1">Al hacer clic en "Registrarte", <a href="./Terminos" target="_blank">aceptas nuestros <i class="fas fa-file-signature"></i> Terminos y condiciones</a></label>                    
                     </div>
 
                     <hr>

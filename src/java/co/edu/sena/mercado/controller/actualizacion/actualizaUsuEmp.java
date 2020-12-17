@@ -5,18 +5,25 @@
  */
 package co.edu.sena.mercado.controller.actualizacion;
 
+import co.edu.sena.mercado.dao.EmpresasDAO;
+import co.edu.sena.mercado.dao.PersonasNaturalDAO;
 import co.edu.sena.mercado.dao.empresaDAO;
 import co.edu.sena.mercado.dao.personaNaturalDAO;
 import co.edu.sena.mercado.dao.usuarioDAO;
 import co.edu.sena.mercado.dto.empresaDTO;
 import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
+import co.edu.sena.mercado.util.Conexion;
 import co.edu.sena.mercado.util.codActivacion;
 import co.edu.sena.mercado.util.correo;
 import co.edu.sena.mercado.util.datosSesion;
+import com.google.gson.Gson;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -34,7 +41,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  * @author DELL
  */
 public class actualizaUsuEmp extends HttpServlet {
-    
+
     usuarioDAO usuarioDAO = new usuarioDAO();
     usuarioDTO usuarioDTO;
     personaNaturalDAO personaDAO = new personaNaturalDAO();
@@ -44,27 +51,21 @@ public class actualizaUsuEmp extends HttpServlet {
     datosSesion datSesion = new datosSesion();
     codActivacion cod = new codActivacion();
     correo correo = new correo();
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        
+
     }
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        System.out.println("login no soporta GET");
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -74,12 +75,12 @@ public class actualizaUsuEmp extends HttpServlet {
         String accion2 = request.getParameter("accion");
         switch (accion2) {
             case "actualizarPersonas":
-                
+
                 personaDTO = new personaNaturalDTO();
                 usuarioDTO = new usuarioDTO();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
                 personaDTO = usuarioDTO.getPersona();
-                
+
                 ArrayList<String> lista1 = new ArrayList<>();
                 try {
                     FileItemFactory file = new DiskFileItemFactory();
@@ -114,7 +115,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     personaDTO.setNumCelularPer(lista1.get(7));
                     personaDTO.setTelPer(lista1.get(8));
                     personaDTO.setDireccionPer(lista1.get(9));
-                    
+
                     empresaDTO.setNombreEmpresa(lista1.get(1));
                     empresaDTO.setIdCiudad(Integer.parseInt(lista1.get(3)));
                     empresaDTO.setCelEmpresa(lista1.get(7));
@@ -123,85 +124,85 @@ public class actualizaUsuEmp extends HttpServlet {
                     personaDAO.buscarCorreo(usuarioDTO.getIdUsuario());
                     empresaDTO.setCorreoEmpresa(personaDTO.getCorreoPer());
                     empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-                    
+
                     empresaDTO empDAO = new empresaDAO().buscarEmpresa(usuarioDTO.getIdUsuario());
                     personaNaturalDTO perDAO = new personaNaturalDAO().buscarDocumenPerson(personaDTO.getNumeroDocPer(), personaDTO.getNumCelularPer());
                     if (personaDTO.getNumeroDocPer().equals(perDAO.getNumeroDocPer()) || personaDTO.getNumCelularPer().equals(perDAO.getNumCelularPer())) {
-                        
+
                         if (perDAO.getNumeroDocPer().equals("") || perDAO.getNumCelularPer().equals("")) {
-                            
+
                             personaDAO.actualizarPersona(personaDTO);
-                            
+
                             if (empDAO.getEsEmpresa() < 1) {
-                                
+
                                 empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
-                                
+
                             }
-                            
+
                             response.getWriter().print(true);
                             sesion.removeAttribute("USER");
                             sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
-                            
+
                         } else if (personaDTO.getIdPer() == perDAO.getIdPer()) {
-                            
+
                             personaDAO.actualizarPersona(personaDTO);
-                            
+
                             if (empDAO.getEsEmpresa() < 1) {
-                                
+
                                 empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
-                                
+
                             }
                             response.getWriter().print(true);
                             sesion.removeAttribute("USER");
                             sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
-                            
+
                         } else {
                             response.getWriter().print(false);
                         }
-                        
+
                     } else {
-                        
+
                         if (personaDAO.actualizarPersona(personaDTO)) {
-                            
+
                             if (empDAO.getEsEmpresa() < 1) {
-                                
+
                                 empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
-                                
+
                             }
-                            
+
                             response.getWriter().print(true);
                             sesion.removeAttribute("USER");
                             sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
-                            
+
                         } else {
                             response.getWriter().print(false);
                         }
                     }
-                    
+
                 } catch (Exception e) {
                     System.out.println(e);
                     response.getWriter().print(false);
                 }
-                
+
                 break;
             case "actualizarUsuarios":
-                
+
                 usuarioDTO = new usuarioDTO();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
                 usuarioDTO.setClaveUsu(request.getParameter("clave1"));
                 if (usuarioDAO.actualizarUsuario(usuarioDTO)) {
-                    
+
                     response.getWriter().print(true);
-                    
+
                 } else {
                     response.getWriter().print(false);
                 }
                 break;
             case "actualizarEmpresa":
-                
+
                 empresaDTO = new empresaDTO();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                
+
                 empresaDTO.setNombreEmpresa(request.getParameter("nombreEmpresa"));
                 empresaDTO.setCelEmpresa(request.getParameter("celularEmpresa"));
                 empresaDTO.setTelEmpresa(request.getParameter("telefonoEmpresa"));
@@ -210,9 +211,9 @@ public class actualizaUsuEmp extends HttpServlet {
                 empresaDTO.setIdCiudad(Integer.parseInt(request.getParameter("idCiudadEmpresa")));
                 empresaDTO.setEsEmpresa(1);
                 empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-                
+
                 empresaDTO emDTO = new empresaDAO().buscarEmpresa(usuarioDTO.getIdUsuario());
-                
+
                 if (emDTO.getIdEmpresa() > 0) {
 
                     //de la sesion
@@ -220,60 +221,35 @@ public class actualizaUsuEmp extends HttpServlet {
 
                         // sesion.removeAttribute("USER");
                         response.getWriter().print(true);
-                        
+
                         usuarioDTO = datSesion.consultarDatos(usuarioDTO);
                         sesion.setAttribute("USER", usuarioDTO);
                     } else {
                         response.getWriter().print(false);
                     }
-                    
+
                 } else {
-                    
+
                     if (empresaDAO.registroEmpresa(empresaDTO, usuarioDTO.getIdUsuario())) {
 
                         // sesion.removeAttribute("USER");
                         response.getWriter().print(true);
-                        
+
                         usuarioDTO = datSesion.consultarDatos(usuarioDTO);
                         sesion.setAttribute("USER", usuarioDTO);
                     } else {
                         response.getWriter().print(false);
                     }
-                    
+
                 }
                 break;
+                
             case "actualizaDatosFaltantes":
-                
-                personaDTO = new personaNaturalDTO();
-                empresaDTO = new empresaDTO();
-                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                
-                personaDTO.setIdUsuario(usuarioDTO.getIdUsuario());       
-                personaDTO.setNumCelularPer(request.getParameter("celularUsuario"));
-                personaDTO.setTelPer(request.getParameter("telefonoUsuario"));
-                personaDTO.setDireccionPer(request.getParameter("direccionUsuario"));
-                
-                empresaDTO.setCelEmpresa(request.getParameter("celularUsuario"));
-                empresaDTO.setTelEmpresa(request.getParameter("telefonoUsuario"));
-                empresaDTO.setDirEmpresa(request.getParameter("direccionUsuario"));
-                empresaDTO.setNombreEmpresa(request.getParameter("name"));
-                empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-                
 
-                                if (empresaDAO.actualizarDatosFaltantes(empresaDTO, usuarioDTO.getIdUsuario())) {
-
-                                    // sesion.removeAttribute("USER");
-                                    personaDAO.actualizarDatosFaltantes(personaDTO, usuarioDTO.getIdUsuario());
-                                    response.getWriter().print(true);
-                                    
-                                    usuarioDTO = datSesion.consultarDatos(usuarioDTO);
-                                    sesion.setAttribute("USER", usuarioDTO);
-                                } else {
-                                    response.getWriter().print(false);
-                                }
-                                
+                actualizarDatosFaltantes(request, response);
 
                 break;
+                
             case "recuperarClave":
                 String clave = cod.generarCod();
                 usuarioDTO = new usuarioDTO();
@@ -295,18 +271,106 @@ public class actualizaUsuEmp extends HttpServlet {
                 } else {
                     response.getWriter().print(false);
                 }
-                
+
                 break;
             default:
                 throw new AssertionError("xxxxxxxxxxxxxxxxxxxxxx esa accion no existe");
         }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    private void actualizarDatosFaltantes(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        HttpSession sesion = (HttpSession) request.getSession();
+        usuarioDTO DTOusuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
+
+        Connection conn = null;
+        EmpresasDAO empresaDAO = null;
+        PersonasNaturalDAO perNaturalDAO = null;
+
+        try {
+
+            Conexion conexion = new Conexion();
+            conn = conexion.getConnection();
+
+            if (conn.getAutoCommit()) {
+                conn.setAutoCommit(false);
+            }
+
+            empresaDAO = new EmpresasDAO(conn);
+            perNaturalDAO = new PersonasNaturalDAO(conn);
+
+            personaNaturalDTO personaDTO = getDatosPersonaNatutalDTO(request);
+            empresaDTO empresaDTO =  getDatosEmpresaDTO(request);
+            empresaDAO.actualizarDatosFaltantes(empresaDTO, DTOusuarioDTO.getIdUsuario());
+            perNaturalDAO.actualizarDatosFaltantes(personaDTO, DTOusuarioDTO.getIdUsuario());
+
+            DTOusuarioDTO = setDatosSession(DTOusuarioDTO, personaDTO, empresaDTO);
+            sesion.setAttribute("USER", DTOusuarioDTO);
+            conn.commit();
+            new Gson().toJson(1, response.getWriter());
+
+        } catch (MySQLIntegrityConstraintViolationException ex1) {
+
+            System.out.println("ROLL BACK CONSTRAINT EXCEPTION");
+            System.out.println(ex1);
+            try {
+                conn.rollback();
+            } catch (SQLException ex3) {
+                System.out.println(ex3);
+            }
+            new Gson().toJson(2, response.getWriter());
+
+        } catch (Exception ex) {
+
+            System.out.println("ROLL BACK GENERAL EXCEPTION");
+            System.out.println(ex);
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                System.out.println(ex1);
+            }
+            new Gson().toJson(3, response.getWriter());
+
+        } finally {
+            empresaDAO.CloseAll();
+            perNaturalDAO.CloseAll();
+        }
+
+    }
+
+    private usuarioDTO setDatosSession(usuarioDTO DTOusuarioDTO, personaNaturalDTO personaDTO, empresaDTO empresaDTO) {
+
+        DTOusuarioDTO.getPersona().setNumCelularPer(personaDTO.getNumCelularPer());
+        DTOusuarioDTO.getPersona().setTelPer(personaDTO.getTelPer());
+        DTOusuarioDTO.getPersona().setDireccionPer(personaDTO.getDireccionPer());
+        DTOusuarioDTO.getEmpresa().setCelEmpresa(empresaDTO.getCelEmpresa());
+        DTOusuarioDTO.getEmpresa().setTelEmpresa(empresaDTO.getTelEmpresa());
+        DTOusuarioDTO.getEmpresa().setDirEmpresa(empresaDTO.getDirEmpresa());
+        DTOusuarioDTO.getEmpresa().setNombreEmpresa(empresaDTO.getNombreEmpresa());
+
+        return DTOusuarioDTO;
+
+    }
+
+    private personaNaturalDTO getDatosPersonaNatutalDTO(HttpServletRequest request) {
+        
+            personaNaturalDTO personaDTO = new personaNaturalDTO();
+            personaDTO.setNumCelularPer(request.getParameter("celularUsuario"));
+            personaDTO.setTelPer(request.getParameter("telefonoUsuario"));
+            personaDTO.setDireccionPer(request.getParameter("direccionUsuario"));
+            return personaDTO;
+    }
+    
+    private empresaDTO getDatosEmpresaDTO(HttpServletRequest request) {
+            
+            empresaDTO empresaDTO = new empresaDTO();
+            empresaDTO.setCelEmpresa(request.getParameter("celularUsuario"));
+            empresaDTO.setTelEmpresa(request.getParameter("telefonoUsuario"));
+            empresaDTO.setDirEmpresa(request.getParameter("direccionUsuario"));
+            empresaDTO.setNombreEmpresa(request.getParameter("name"));
+            return empresaDTO;
+    }
+    
     @Override
     public String getServletInfo() {
         return "Short description";
