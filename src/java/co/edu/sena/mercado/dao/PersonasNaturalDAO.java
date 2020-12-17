@@ -58,6 +58,27 @@ public class PersonasNaturalDAO {
         }
     }
     
+     public boolean actualizarDatosFaltantes(personaNaturalDTO persona, int idUsuario) throws MySQLIntegrityConstraintViolationException, Exception {
+        String consulta = "UPDATE personanatural SET direccionPersona = ?, "
+                + "celularPersona = ?, telefonoPersona = ? WHERE idUsuarioFK = ?";
+        try {
+            ps = conn.prepareStatement(consulta);
+            ps.setString(1, persona.getDireccionPer());
+            ps.setString(2, persona.getNumCelularPer());
+            ps.setString(3, persona.getTelPer());
+            ps.setInt(4, idUsuario);
+            ps.executeUpdate();
+            return true;
+        } catch (MySQLIntegrityConstraintViolationException ex) {
+            System.out.println(ex);
+            throw new MySQLIntegrityConstraintViolationException();     
+        }catch (SQLException e) {
+            System.out.println("........error al relizar el registro pde personaDAO " + e);
+            System.out.println("........ consulta " + ps.toString());
+            throw new Exception();
+        }
+    }
+    
     public void CloseAll(){
           Conexion.close(conn);
           Conexion.close(ps);

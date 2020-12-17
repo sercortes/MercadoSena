@@ -41,7 +41,6 @@ $('#datosfaltantes').submit(function (e) {
     for (var i = 0; i < arrayinputs.length; i++) {
         $(arrayinputs[i]).removeClass('is-invalid');
     }
-    //console.log(datosVal);
 
     if (documentoper === null || documentoper === '') {
         messageError('Por favor ingrese número de documento valido', '#name');
@@ -64,43 +63,58 @@ $('#datosfaltantes').submit(function (e) {
         }
 
         if ($('#datosfaltantes')[0].checkValidity() && valCampos(datosVal)) {
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            var datos = $('#datosfaltantes').serialize();
-            var btn = document.getElementById('senddatosfaltantes');
-            $('#cargando').addClass('is-active');
-            btn.disabled = true;
-            $.ajax({
-                url: "./actualizaUsuEmp?accion=actualizaDatosFaltantes&" + datos,
-                type: 'POST',
-                contentType: false,
-                processData: false, error: function (jqXHR, textStatus, errorThrown) {
-                    $('#cargando').removeClass('is-active');
-                    messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
-                    btn.disabled = false;
-                },
-                success: function (data) {
-                    $('#cargando').removeClass('is-active');
-                    if (data === 'true') {
-                        mensaje('Se actulizaron los datos correctamente!!');
-                        setTimeout(function () {
-                            $("#modaldatosfalltantes").modal('hide');
-                        }, 1800);
-                    } else {
-                        messageError('El documento de identidad ya existe', '#documentoUsuario');
-                        $('#documentoUsuario').removeClass('was-validated').addClass('form-control is-invalid');
-                    }
-                    formulario.addClass('was-validated');
-                    btn.disabled = false;
-                }
-            });
+            enviarDatos()
         } else {
             formulario.addClass('was-validated');
         }
 
     }
 });
+
+function enviarDatos() {
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    var datos = $('#datosfaltantes').serialize();
+    var btn = document.getElementById('senddatosfaltantes');
+    $('#cargando').addClass('is-active');
+    btn.disabled = true;
+    $.ajax({
+        url: "./actualizaUsuEmp?accion=actualizaDatosFaltantes&" + datos,
+        type: 'POST',
+        contentType: false,
+        processData: false,
+        success: function (data) {
+      
+            cleanFormData()
+            
+            if (data == 1) {
+                mensaje('Se actulizaron los datos correctamente!!');
+                setTimeout(function () {
+                    $("#modaldatosfalltantes").modal('hide');
+                }, 1800);
+            } else if (data == 2) {
+                messageError('Nombre/ razón social ya existe', '#name');
+                $('#name').removeClass('was-validated').addClass('form-control is-invalid');
+            } else if (data == 3) {
+                messageError('Error, contacte al administrador', '#name');
+            } else {
+                messageError('default', '#name');
+            }
+
+        }
+    });
+
+}
+
+function cleanFormData() {
+    var btn = document.getElementById('senddatosfaltantes');
+    var formulario = $("#datosfaltantes");
+    $('#cargando').removeClass('is-active');
+    formulario.addClass('was-validated');
+    btn.disabled = false;
+}
 
 function mensaje(mensaje) {
     Swal.fire({

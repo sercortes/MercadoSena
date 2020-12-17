@@ -249,6 +249,11 @@ $('#registroUsuario').submit(function (e) {
     }
 
     if ($('#registroUsuario')[0].checkValidity() && valCampos(datosVal) && validarClave()) {
+        let terminos = $('#terminosYcondiciones').is(":checked");  
+        if (terminos === false) {
+            messageInfo('Por favor, acepte los terminos y condiciones.')
+            return false
+        }
         if (validarLetras(nombreUsuario) === false) {
             mensajeError1('Por favor ingrese solo letras', '#nombreUsuario');
         } else if (validarLetras(apellidoUsuario) === false) {

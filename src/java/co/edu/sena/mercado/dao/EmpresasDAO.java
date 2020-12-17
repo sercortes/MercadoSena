@@ -56,6 +56,29 @@ public class EmpresasDAO {
 
     }
      
+      public boolean actualizarDatosFaltantes(empresaDTO empresaDTO, int idUsuario) throws MySQLIntegrityConstraintViolationException, SQLException {
+        String consulta = "UPDATE empresa SET nombreEmpresa = ?, direccionEmpresa = ?, telefonoEmpresa = ?, "
+                + "celularEmpresa = ? WHERE idUsuarioFK = ?";
+        try {
+            ps = conn.prepareStatement(consulta);
+            ps.setString(1, empresaDTO.getNombreEmpresa());
+            ps.setString(2, empresaDTO.getDirEmpresa());
+            ps.setString(3, empresaDTO.getTelEmpresa());
+            ps.setString(4, empresaDTO.getCelEmpresa());
+            ps.setInt(5, idUsuario);
+            ps.executeUpdate();
+            return true;
+
+        } catch (MySQLIntegrityConstraintViolationException ex) {
+            System.out.println(ex);
+            throw new MySQLIntegrityConstraintViolationException();     
+        }catch (SQLException e) {
+            System.out.println(e);
+            throw new SQLException();
+        } 
+
+    }
+     
          public void CloseAll(){
           Conexion.close(conn);
           Conexion.close(ps);
