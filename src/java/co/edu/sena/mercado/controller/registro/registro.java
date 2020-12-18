@@ -406,7 +406,7 @@ public class registro extends HttpServlet {
         empresaDTO.setNombreEmpresa(request.getParameter("nombreEmpresa"));
         empresaDTO.setCelEmpresa(request.getParameter("celularEmpresa"));
         empresaDTO.setTelEmpresa(request.getParameter("telefonoEmpresa"));
-        empresaDTO.setCorreoEmpresa(request.getParameter("correoEmpresa"));
+//        empresaDTO.setCorreoEmpresa(request.getParameter("correoEmpresa"));
         empresaDTO.setDirEmpresa(request.getParameter("direccionEmpresa"));
         empresaDTO.setIdCiudad(Integer.parseInt(request.getParameter("idCiudadEmpresa")));
         empresaDTO.setEsEmpresa(1);

@@ -82,7 +82,7 @@ public class EmpresasDAO {
        public boolean updateCompanyFirst(empresaDTO empresaDTO, int idUsuario) throws MySQLIntegrityConstraintViolationException, SQLException {
         String consulta = "UPDATE empresa SET nombreEmpresa = ?, direccionEmpresa = ?, "
                 + "telefonoEmpresa = ?, celularEmpresa = ?, "
-                + "correoEmpresa = ?, idCiudadFK = ? "
+                + "idCiudadFK = ? "
                 + "WHERE idUsuarioFK = ?";
         try {
             ps = conn.prepareStatement(consulta);
@@ -90,9 +90,8 @@ public class EmpresasDAO {
             ps.setString(2, empresaDTO.getDirEmpresa());
             ps.setString(3, empresaDTO.getTelEmpresa());
             ps.setString(4, empresaDTO.getCelEmpresa());
-            ps.setString(5, empresaDTO.getCorreoEmpresa());
-            ps.setInt(6, empresaDTO.getIdCiudad());
-            ps.setInt(7, idUsuario);
+            ps.setInt(5, empresaDTO.getIdCiudad());
+            ps.setInt(6, idUsuario);
             ps.executeUpdate();
             return true;
 
