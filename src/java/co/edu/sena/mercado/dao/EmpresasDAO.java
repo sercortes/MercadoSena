@@ -78,6 +78,33 @@ public class EmpresasDAO {
         } 
 
     }
+      
+       public boolean updateCompanyFirst(empresaDTO empresaDTO, int idUsuario) throws MySQLIntegrityConstraintViolationException, SQLException {
+        String consulta = "UPDATE empresa SET nombreEmpresa = ?, direccionEmpresa = ?, "
+                + "telefonoEmpresa = ?, celularEmpresa = ?, "
+                + "correoEmpresa = ?, idCiudadFK = ? "
+                + "WHERE idUsuarioFK = ?";
+        try {
+            ps = conn.prepareStatement(consulta);
+            ps.setString(1, empresaDTO.getNombreEmpresa());
+            ps.setString(2, empresaDTO.getDirEmpresa());
+            ps.setString(3, empresaDTO.getTelEmpresa());
+            ps.setString(4, empresaDTO.getCelEmpresa());
+            ps.setString(5, empresaDTO.getCorreoEmpresa());
+            ps.setInt(6, empresaDTO.getIdCiudad());
+            ps.setInt(7, idUsuario);
+            ps.executeUpdate();
+            return true;
+
+        }  catch (MySQLIntegrityConstraintViolationException ex) {
+            System.out.println(ex);
+            throw new MySQLIntegrityConstraintViolationException();     
+        }catch (SQLException e) {
+            System.out.println(e);
+            throw new SQLException();
+        } 
+
+    }
      
          public void CloseAll(){
           Conexion.close(conn);
