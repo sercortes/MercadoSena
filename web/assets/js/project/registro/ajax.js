@@ -395,15 +395,11 @@ $('#registroEmpresa').submit(function (e) {
         nombreEmpresa = $('#nombreEmpresa').val(),
         celularEmpresa = $('#celularEmpresa').val(),
         telefonoEmpresa = $('#telefonoEmpresa').val(),
-        correoEmpresa = $('#correoEmpresa').val(),
         direccionEmpresa = $('#direccionEmpresa').val(),
         idCiudadEmpresa = $('#idCiudadEmpresa').val()
-
-
     ];
     //console.log(datosVal);
-    var arrayinputs = ["#nombreEmpresa", "#celularEmpresa", "#telefonoEmpresa", "#correoEmpresa", "#direccionEmpresa", "#idCiudadEmpresa"];
-
+    var arrayinputs = ["#nombreEmpresa", "#celularEmpresa", "#telefonoEmpresa", "#direccionEmpresa", "#idCiudadEmpresa"];
     for (var i = 0; i < formulario.datosVal; i++) {
         $(datosVal[i]).removeClass('is-invalid');
     }
@@ -413,11 +409,9 @@ $('#registroEmpresa').submit(function (e) {
             mensajeError1('Por favor ingrese solo números', '#celularEmpresa');
         } else if (validarNumero(telefonoEmpresa) === false) {
             mensajeError1('Por favor ingrese solo números', '#telefonoEmpresa');
-        } else if (validarEmail(correoEmpresa) === false) {
-            mensajeError1('Por favor complete correctamente el campo correo', '#correoEmpresa');
         } else {
 
-            var arrayinputs = ["#nombreEmpresa", "#celularEmpresa", "#telefonoEmpresa", "#correoEmpresa", "#direccionEmpresa", "#idCiudadEmpresa"];
+            var arrayinputs = ["#nombreEmpresa", "#celularEmpresa", "#telefonoEmpresa", "#direccionEmpresa", "#idCiudadEmpresa"];
 
             for (var i = 0; i < arrayinputs.length; i++) {
                 $(arrayinputs[i]).removeClass('is-invalid').addClass('is-valid');
@@ -440,15 +434,16 @@ $('#registroEmpresa').submit(function (e) {
 
                     if (data == 1) {
                         messageExitoEmpresa('Empresa actualizada exitosamente');
+                         cleanFormOne()
                     } else if(data == 2){
-                        messageError('Correo o razón social ya se ecuentra registrada');
+                        messageError('Nombre/razón social ya se ecuentra registrada');
                     }else if(data == 3){
                         messageError('Error');
                     }else{
                         messageError('Default');
                     }
                     
-                    cleanFormOne()
+                   
                 }
             })
         }

@@ -30,12 +30,14 @@
                     <input type="number" placeholder="Telefono de la empresa" pattern="{5,48}" class="form-control was-validated" id="telefonoEmpresa"  maxlength="50" name="telefonoEmpresa" required >
                     <div class="invalid-feedback">
                         Completa este campo correctamente
-                    </div><br> 
+                    </div><br>
+                    <!--
                     <label>Correo:</label><br>
                     <input type="email" placeholder="example@gmail.com"  class="form-control was-validated"  maxlength="100" id="correoEmpresa" name="correoEmpresa" required>
                     <div class="invalid-feedback">
                         Completa este campo correctamente
                     </div><br> 
+                    -->
                     <label>Seleccione su ciudad:</label><br>
                     <div id='ciudadEmpresa'>
 
