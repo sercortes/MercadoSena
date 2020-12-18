@@ -162,8 +162,8 @@ public class empresaDAO {
     public ArrayList<empresaDTO> listarEmpresasFiltro() {
         con = new Conexion();
         listaEmpresa = new ArrayList<>();
-        consulta = "SELECT idEmpresa, nombreEmpresa, esEmpresa "
-                + "FROM empresa WHERE esEmpresa = 1";
+        consulta = "SELECT idEmpresa, nombreEmpresa, esCentro "
+                + "FROM empresa";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);

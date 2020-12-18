@@ -31,12 +31,6 @@ function consultaTipoDoc(valor, div) {
         dataType: 'json',
         contentType: false,
         processData: false,
-        error: function (jqXHR, textStatus, errorThrown) {
-            $('#carga').removeClass('is-active');
-            modalRegistro();
-            // $('#carga').removeClass('is-active');
-            messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
-        },
         success: function (data) {
             $('#carga').removeClass('is-active');
             selects(data, divE, tipDoc, valor);
@@ -54,12 +48,6 @@ function consultagenero(valor) {
         dataType: 'json',
         contentType: false,
         processData: false,
-        error: function (jqXHR, textStatus, errorThrown) {
-            $('#carga').removeClass('is-active');
-            modalRegistro();
-            // $('#carga').removeClass('is-active');
-            messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
-        },
         success: function (data) {
             $('#carga').removeClass('is-active');
             selects(data, '#genero', 'generoUsuario', valor);
@@ -75,14 +63,6 @@ function consultaCiudad(idDiv, idInput, valor) {
         dataType: 'json',
         contentType: false,
         processData: false,
-        error: function (jqXHR, textStatus, errorThrown) {
-            $('#carga').removeClass('is-active');
-            $('#bloqueo').hide();
-            $('#modalRegistro').hide();
-
-            // $('#carga').removeClass('is-active');
-            messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
-        },
         success: function (data) {
 
             $('#carga').removeClass('is-active');
@@ -249,7 +229,7 @@ $('#registroUsuario').submit(function (e) {
     }
 
     if ($('#registroUsuario')[0].checkValidity() && valCampos(datosVal) && validarClave()) {
-        let terminos = $('#terminosYcondiciones').is(":checked");  
+        let terminos = $('#terminosYcondiciones').is(":checked");
         if (terminos === false) {
             messageInfo('Por favor, acepte los terminos y condiciones.')
             return false
@@ -285,9 +265,9 @@ $('#registroUsuario').submit(function (e) {
                     if (data === 1) {
                         messageExito('hemos enviado un correo con sus datos de ingreso y el link de activación para su cuenta.');
                         $('#exampleModa3').modal('hide');
-                    } else if( data === 2){
+                    } else if (data === 2) {
                         messageInfo('¡El Correo se encuentra registrado!');
-                    }else if(data === 3){
+                    } else if (data === 3) {
                         messageError('Error en la conexión, intente más tarde');
                     }
 
@@ -303,10 +283,6 @@ $('#registroUsuario').submit(function (e) {
         formulario.addClass('was-validated');
     }
 })
-
-//    s
-
-//validarclaves
 
 function validarLetras(telefono) {
     if (/^([a-z A-Z-ñáéíóú ])*$/.test(telefono)) {
@@ -459,26 +435,20 @@ $('#registroEmpresa').submit(function (e) {
                 url: "./registro?accion=registroEmpresa&" + datos,
                 type: 'POST',
                 contentType: false,
-                processData: false, error: function (jqXHR, textStatus, errorThrown) {
-                    btn.disabled = false;
-                    $('#carga').removeClass('is-active');
-                    $('#modalRegistroEmpresa').hide();
-                    $('#bloqueo').hide();
-                    messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
-                },
+                processData: false,
                 success: function (data) {
 
-                    $('#carga').removeClass('is-active');
-                    if (data === 'true') {
-//                    cerrar('#modalregistrarEmp');
-                        messageExitoEmpresa('Empresa registrada exitosamente');
-                        //messageOk('Empresa registrada exitosamente');
-                    } else {
-                        messageError('Error al realizar el registro');
+                    if (data == 1) {
+                        messageExitoEmpresa('Empresa actualizada exitosamente');
+                    } else if(data == 2){
+                        messageError('Correo o razón social ya se ecuentra registrada');
+                    }else if(data == 3){
+                        messageError('Error');
+                    }else{
+                        messageError('Default');
                     }
-                    limpiarFormulario('#registroEmpresa');
-                    formulario.addClass('was-validated');
-                    btn.disabled = false;
+                    
+                    cleanFormOne()
                 }
             })
         }
@@ -489,6 +459,14 @@ $('#registroEmpresa').submit(function (e) {
 
 })
 
+function cleanFormOne() {
+    var formulario = $("#registroEmpresa");
+    var btn = document.getElementById('registrarEmpresa');
+    $('#carga').removeClass('is-active');
+    limpiarFormulario('#registroEmpresa');
+    formulario.addClass('was-validated');
+    btn.disabled = false;
+}
 
 function modalPregunta() {
     $('#modalPregunta').toggle();
@@ -496,13 +474,11 @@ function modalPregunta() {
 }
 
 function modalRegistroEmpresa() {
+    
     consultarDatosFormularioEmpresa();
     $('#modalPregunta').remove();
     $('#bloqueo').toggle();
     $('#modalregistrarEmp').modal();
-
-
-
 
 }
 
@@ -541,15 +517,7 @@ function messageExito(mensaje) {
         allowEscapeKey: false,
         allowEnterKey: false,
         padding: '2rem',
-        width: '25%',
-//        onBeforeOpen: () => {
-//            timerInterval = setInterval(() => {
-//
-//            }, 100)
-//        },
-//        onClose: () => {
-//            clearInterval(timerInterval)
-//        }
+        width: '25%'
     }).then((result) => {
 
         if (result.dismiss === Swal.DismissReason.timer) {
