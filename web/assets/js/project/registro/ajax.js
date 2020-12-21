@@ -235,9 +235,9 @@ $('#registroUsuario').submit(function (e) {
             return false
         }
         if (validarLetras(nombreUsuario) === false) {
-            mensajeError1('Por favor ingrese solo letras', '#nombreUsuario');
+            messageInfo('Por favor ingrese solo letras');
         } else if (validarLetras(apellidoUsuario) === false) {
-            mensajeError1('Por favor ingrese solo letras', '#apellidoUsuario');
+            messageInfo('Por favor ingrese solo letras');
         } else {
             $('#carga').addClass('is-active');
             event.preventDefault();
@@ -263,7 +263,7 @@ $('#registroUsuario').submit(function (e) {
                     $('#carga').removeClass('is-active');
                     modalRegistro();
                     if (data === 1) {
-                        messageExito('hemos enviado un correo con sus datos de ingreso y el link de activación para su cuenta.');
+                        messageOk('hemos enviado un correo con sus datos de ingreso y el link de activación para su cuenta.');
                         $('#exampleModa3').modal('hide');
                     } else if (data === 2) {
                         messageInfo('¡El Correo se encuentra registrado!');
@@ -406,9 +406,9 @@ $('#registroEmpresa').submit(function (e) {
 
     if ($('#registroEmpresa')[0].checkValidity() && valCampos(datosVal)) {
         if (validarNumero(celularEmpresa) === false) {
-            mensajeError1('Por favor ingrese solo números', '#celularEmpresa');
+            messageInfo('Por favor ingrese solo números');
         } else if (validarNumero(telefonoEmpresa) === false) {
-            mensajeError1('Por favor ingrese solo números', '#telefonoEmpresa');
+            messageInfo('Por favor ingrese solo números');
         } else {
 
             var arrayinputs = ["#nombreEmpresa", "#celularEmpresa", "#telefonoEmpresa", "#direccionEmpresa", "#idCiudadEmpresa"];
@@ -433,7 +433,7 @@ $('#registroEmpresa').submit(function (e) {
                 success: function (data) {
 
                     if (data == 1) {
-                        messageExitoEmpresa('Empresa actualizada exitosamente');
+                        messageOk('Empresa actualizada exitosamente');
                          cleanFormOne()
                     } else if(data == 2){
                         messageError('Nombre/razón social ya se ecuentra registrada');
@@ -479,78 +479,4 @@ function modalRegistroEmpresa() {
 
 function cerrarmodla() {
     location.reload();
-}
-
-function mensajeError1(mensaje, caja, caja2) {
-    Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Datos invalidos!',
-        html: '<h5 style="color:#f27474;">' + mensaje + '</h5>',
-        showCancelButton: false,
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        padding: '2rem',
-        width: '25%',
-        timer: 2000
-
-    });
-    $(caja).removeClass('form-control is-valid').addClass('form-control is-invalid');
-    $(caja2).removeClass('form-control is-valid').addClass('form-control is-invalid');
-}
-
-function messageExito(mensaje) {
-    Swal.fire({
-        title: 'Usuario Registrado!',
-        icon: 'success',
-        html: '<h4 style="color:#3c8c40;">' + mensaje + '</h4>',
-        showCancelButton: false,
-        showConfirmButton: true,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        padding: '2rem',
-        width: '25%'
-    }).then((result) => {
-
-        if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('I was closed by the timer');
-            window.location = ``;
-        }
-    });
-
-}
-
-function messageExitoEmpresa(mensaje) {
-    Swal.fire({
-        title: 'Empresa Registrado!',
-        icon: 'success',
-        html: '<h4 style="color:#3c8c40;">' + mensaje + '</h4>',
-        timer: 1500,
-        timerProgressBar: true,
-        showCancelButton: false,
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        padding: '2rem',
-        width: '25%',
-        onBeforeOpen: () => {
-            timerInterval = setInterval(() => {
-
-            }, 100)
-        },
-        onClose: () => {
-            clearInterval(timerInterval)
-        }
-    }).then((result) => {
-
-        if (result.dismiss === Swal.DismissReason.timer) {
-            console.log('I was closed by the timer');
-            window.location = ``;
-        }
-    });
-
 }
