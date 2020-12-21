@@ -7,10 +7,10 @@
     white-space: pre-wrap;
 }
 .letras{
-     font-size: 2.2rem;
+    font-size: 2.2rem;
 }
 .letrasbanner{
-      font-size: 1.2rem;
+    font-size: 1.2rem;
 }
 /*@media screen and (min-width:992px;max-width:1153px) {
     .precios {display:none}
@@ -20,8 +20,8 @@
     width: 100%;
     object-fit: cover;
     height: 50px;
-/*    max-height: 90px;
-    min-height: 40px;*/
+    /*    max-height: 90px;
+        min-height: 40px;*/
 }
 
 /*z
@@ -38,10 +38,10 @@
     opacity: 1;
 }
 */
-    .carousel-inners img {
-        width: 50%;
-        height: 50%;
-    }
+.carousel-inners img {
+    width: 50%;
+    height: 50%;
+}
 
 /* Horizontal line */
 .collapsible-link::before {
@@ -141,7 +141,7 @@
     .grafico{
 
         position: relative !important;
-        
+
     }
     .graficoCircular{
 
@@ -4183,12 +4183,66 @@ select:hover
 
 #myCarousel .container {max-width: 1430px;  }
 #myCarousel .carousel-item{height:100%; min-height:430px; }
+#imagencarucel1{
+        max-height: 320px;
+    }
+     #imagencarucel2{
+        max-height: 320px;
+    }
+     #imagencarucel3{
+        max-height: 345px;
+    }
+@media only screen and (min-width: 1366px) and (max-width: 1580px) {
+    #myCarousel .carousel-item {
+        height: 100%;
+        min-height: 320px;
+    }
+    #imagencarucel1{
+        max-height: 210px;
+    }
+     #imagencarucel2{
+        max-height: 230px;
+    }
+     #imagencarucel3{
+        max-height: 230px;
+    }
+}
+@media only screen and (min-width: 1280px) and (max-width: 1366px) {
+    #myCarousel .carousel-item {
+        height: 100%;
+        min-height: 290px;
+    }
+    #imagencarucel1{
+        max-height: 170px;
+    }
+     #imagencarucel2{
+        max-height: 200px;
+    }
+     #imagencarucel3{
+        max-height: 190px;
+    }
+}
+@media only screen and (min-width: 1024px ) and (max-width: 1280px) {
+    #myCarousel .carousel-item {
+        height: 100%;
+        min-height: 230px;
+    }
+    #imagencarucel1{
+         display:none !important;
+    }
+     #imagencarucel2{
+         display:none !important;
+    }
+     #imagencarucel3{
+        display:none !important;
+    }
+}
 
 #myCarousel{position:relative; z-index:1; background:url(../images/banners/banner2.jpg) center center no-repeat; background-size:cover; }
 
 .carousel-control-next, 
 .carousel-control-prev{height:40px; width:40px; padding:12px; top:50%; bottom:auto; transform:translateY(-50%); 
-                      background-color: #f47735; }
+                       background-color: #f47735; }
 
 // #f47735
 // #5454546b
