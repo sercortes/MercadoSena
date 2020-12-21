@@ -80,6 +80,7 @@ function enviarDatos() {
     var btn = document.getElementById('senddatosfaltantes');
     $('#cargando').addClass('is-active');
     btn.disabled = true;
+    
     $.ajax({
         url: "./actualizaUsuEmp?accion=actualizaDatosFaltantes&" + datos,
         type: 'POST',
@@ -90,17 +91,16 @@ function enviarDatos() {
             cleanFormData()
             
             if (data == 1) {
-                mensaje('Se actulizaron los datos correctamente!!');
+                messageOk('¡Se actualizaron los datos correctamente!');
                 setTimeout(function () {
                     $("#modaldatosfalltantes").modal('hide');
-                }, 1800);
+                }, 1500);
             } else if (data == 2) {
-                messageError('Nombre/ razón social ya existe', '#name');
-                $('#name').removeClass('was-validated').addClass('form-control is-invalid');
+                messageError('Nombre o razón social ya existe');
             } else if (data == 3) {
-                messageError('Error, contacte al administrador', '#name');
+                messageError('Error, contacte al administrador');
             } else {
-                messageError('default', '#name');
+                messageError('default');
             }
 
         }
@@ -114,42 +114,4 @@ function cleanFormData() {
     $('#cargando').removeClass('is-active');
     formulario.addClass('was-validated');
     btn.disabled = false;
-}
-
-function mensaje(mensaje) {
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Datos actulizados!',
-        html: '<h4 style="color:#449d48;">' + mensaje + '</h4>',
-        showCancelButton: false,
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        padding: '2rem',
-        width: '25%',
-        timer: 1800
-    });
-
-}
-
-function mensajesdeErrors(mensaje, caja) {
-    Swal.fire({
-        position: 'center',
-        icon: 'error',
-        title: 'Datos invalidos',
-        html: '<h4 style="color:#f27474;">' + mensaje + '</h4>',
-        showCancelButton: false,
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        padding: '2rem',
-        width: '25%',
-        timer: 1200
-
-    });
-    $(caja).removeClass('border-success is-valid').addClass('is-invalid');
-
 }

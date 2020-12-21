@@ -9,10 +9,6 @@ $(function () {
         interval: 3000,
     })
 
-//    if (window.location.pathname !== "/MercadoSena/") {
-//        oculMost()
-//    }
-
 })
 
 function redirect() {
@@ -29,6 +25,7 @@ $(document).on('click', '#logoutFire', function () {
 })
 
 $(document).on('click', '#buttonSearch', function () {
+    
     if (bande === 0) {
         
         $('#barraBusqueda').show('slow')
@@ -52,22 +49,25 @@ function messageOk(message) {
     Swal.fire({
         icon: 'success',
         title: message,
-        showConfirmButton: true
+        showConfirmButton: true,
+        width: '25%'
     })
 }
 
 function messageInfo(message) {
     Swal.fire({
         icon: 'info',
-        html: '<h4 style="color:#595959">' + message + '</h4>',
-        showConfirmButton: true
+        html: '<h4 style="color:#060e06">' + message + '</h4>',
+        showConfirmButton: true,
+        width: '25%'
     })
 }
 function messageError(message) {
     Swal.fire({
         icon: 'error',
         title: message,
-        showConfirmButton: true
+        showConfirmButton: true,
+        width: '25%'
     })
 }
 
@@ -96,7 +96,7 @@ function checkSession() {
         }
 
     })
-    console.log(estatus)
+    
     return estatus;
 
 }

@@ -79,10 +79,10 @@ $('#formProduct').submit(function (e) {
         success: function (data) {
 
             if (data) {
-                mensajeExito('Producto agregado con éxito!');
+                messageOk('Producto agregado con éxito!');
                 clean()
             } else {
-                mensajeinfo('Para poder agregar un producto debes actulizar tus datos!');
+                messageInfo('Para poder agregar un producto debes ¡actualizar tus datos!');
                 $('#modaldatosfalltantes').modal('show');
             }
             
@@ -130,41 +130,6 @@ function getCategorias() {
 
 }
 
-function mensajeinfo(mensaje) {
-    Swal.fire({
-        position: 'center',
-        icon: 'info',
-        title: 'Actuliza tus datos!',
-        html: '<h4 style="color:#060e06;">' + mensaje + '</h4>',
-        showCancelButton: false,
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        padding: '2rem',
-        width: '25%',
-        timer: 1800
-    });
-
-}
-
-function mensajeExito(mensaje) {
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Éxito!',
-        html: '<h4 style="color:#449d48;">' + mensaje + '</h4>',
-        showCancelButton: false,
-        showConfirmButton: true,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        padding: '2rem',
-        width: '25%'
-    });
-
-}
-
 function generateOtherDiv() {
 
     $('.input-images-1 .has-files').remove()
@@ -193,7 +158,6 @@ function checkextension() {
             return false
         }
     }
-
     return true
 }
 
@@ -240,8 +204,6 @@ function checkInputs() {
     let cantidad = document.getElementById('cantidad').value
     let marca = document.getElementById('marca').value
     let category = document.getElementById('category').value
-
-    console.log(name)
 
     if (name == '' || desc == '' || name.length <= 2 ||
             desc.length <= 19 || price == '' || cantidad == '' ||

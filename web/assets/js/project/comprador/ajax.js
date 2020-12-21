@@ -99,16 +99,13 @@ function modalRegistro() {
 function modalRegistroRe() {
 
     $('body').attr('Style', 'overflow: hidden');
-
-
-
     $('#bloqueo').toggle();
     $('#modalRegistro').toggle();
 }
 
 function selects(datos, idDiv, idInput, valor, accion) {
     valor = parseInt(valor);
-    //console.log(idDiv + ' ' + idInput + ' ' + valor + ' ' + accion);
+    
     var select = '<select id="' + idInput + '" name="' + idInput + '" class="form-control was-validated" required>';
     select += '<option value="" selected>Seleccione...</option>';
     if (datos !== null) {
@@ -210,7 +207,6 @@ function selects(datos, idDiv, idInput, valor, accion) {
             }
         }
 
-        //  console.log(select);
         select += '</select>';
         $(idDiv).html(select);
     }
@@ -219,8 +215,7 @@ function selects(datos, idDiv, idInput, valor, accion) {
 
 
 $('#registroUsuario').submit(function (e) {
-
-    // $('#registrarUsuario').click(function(e) {
+    
     e.preventDefault();
     e.stopPropagation();
 
