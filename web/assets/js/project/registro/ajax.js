@@ -3,16 +3,19 @@
 function consultarDatosFormulario(res) {
 
 
-    consultaTipoDoc();
-    consultagenero();
-    consultaCiudad('#ciudad', 'ciudadUsuario');
-    if (res === 'si') {
-        modalRegistroRe();
-    } else {
-        modalRegistro();
-    }
+//    consultaTipoDoc();
+//    consultagenero();
+//    consultaCiudad('#ciudad', 'ciudadUsuario');
+
+//    if (res === 'si') {
+//        modalRegistroRe();
+//    } else {
+    modalRegistro();
+//    }
 
 }
+
+
 
 function consultaTipoDoc(valor, div) {
     var divE = '#tipoDoc';
@@ -77,18 +80,17 @@ function consultaCiudad(idDiv, idInput, valor) {
 function modalRegistro() {
 
     $('body').attr('Style', '');
-
     $('#modalRegistro').show(400);
 
 }
-function modalRegistroRe() {
 
-    $('body').attr('Style', 'overflow: hidden');
-    $('#bloqueo').toggle();
-
-    $('#modalRegistro').show(400);
-
-}
+//function modalRegistroRe() {
+//
+//    $('body').attr('Style', 'overflow: hidden');
+//    $('#bloqueo').toggle();
+//    $('#modalRegistro').show(400);
+//
+//}
 
 function selects(datos, idDiv, idInput, valor, accion) {
     valor = parseInt(valor);
@@ -220,25 +222,25 @@ $('#registroUsuario').submit(function (e) {
         generoUsuario = $('#generoUsuario').val()
 
     ];
-    // console.log(datosVal);
-
-    var arrayinputs = ["#nombreUsuario", "#apellidoUsuario", "#correoUsuario", "#celularUsuario", "#documentoUsuario", "#ciudadUsuario", "#tipoDocUsuario", "generoUsuario"];
 
     for (var i = 0; i < formulario.datosVal; i++) {
         $(datosVal[i]).removeClass('is-invalid');
     }
 
     if ($('#registroUsuario')[0].checkValidity() && valCampos(datosVal) && validarClave()) {
-        let terminos = $('#terminosYcondiciones').is(":checked");
-        if (terminos === false) {
-            messageInfo('Por favor, acepte los terminos y condiciones.')
-            return false
-        }
+
         if (validarLetras(nombreUsuario) === false) {
             messageInfo('Por favor ingrese solo letras');
         } else if (validarLetras(apellidoUsuario) === false) {
             messageInfo('Por favor ingrese solo letras');
         } else {
+
+            let terminos = $('#terminosYcondiciones').is(":checked");
+            if (terminos === false) {
+                messageInfo('Por favor, acepte los terminos y condiciones.')
+                return false
+            }
+
             $('#carga').addClass('is-active');
             event.preventDefault();
             event.stopPropagation();
@@ -276,11 +278,13 @@ $('#registroUsuario').submit(function (e) {
                     btn.disabled = false;
                 }
             })
+
         }
 
     } else {
 
         formulario.addClass('was-validated');
+
     }
 })
 
@@ -434,16 +438,16 @@ $('#registroEmpresa').submit(function (e) {
 
                     if (data == 1) {
                         messageOk('Empresa actualizada exitosamente');
-                         cleanFormOne()
-                    } else if(data == 2){
+                        cleanFormOne()
+                    } else if (data == 2) {
                         messageError('Nombre/razón social ya se ecuentra registrada');
-                    }else if(data == 3){
+                    } else if (data == 3) {
                         messageError('Error');
-                    }else{
+                    } else {
                         messageError('Default');
                     }
-                    
-                   
+
+
                 }
             })
         }
@@ -469,7 +473,7 @@ function modalPregunta() {
 }
 
 function modalRegistroEmpresa() {
-    
+
     consultarDatosFormularioEmpresa();
     $('#modalPregunta').remove();
     $('#bloqueo').toggle();

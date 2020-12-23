@@ -60,6 +60,10 @@
         <servlet-name>SearchThree</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.filtro.SearchThree</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SelectsTwo</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.seller.SelectsTwo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -146,7 +150,6 @@
         <url-pattern>/getProductsByNameCitySeller</url-pattern>
         <url-pattern>/getProductsByCategoryCity</url-pattern>
         <url-pattern>/getProductsByNameCategoryCity</url-pattern>
-
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchThree</servlet-name>
@@ -155,6 +158,10 @@
         <url-pattern>/getProductsByCategorySeller</url-pattern>
         <url-pattern>/getProductsByNameCategorySeller</url-pattern>
         <url-pattern>/getProductsByNameCategoryCitySeller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SelectsTwo</servlet-name>
+        <url-pattern>/getCentros</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

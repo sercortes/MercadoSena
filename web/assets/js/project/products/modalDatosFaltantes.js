@@ -1,3 +1,8 @@
+$(function(){
+    
+    getCentros()
+    
+})
 
 function validarNumero(telefono) {
     if (/^([0-9]{5,13})*$/.test(telefono)) {
@@ -30,7 +35,6 @@ $('#datosfaltantes').submit(function (e) {
 
     var formulario = $("#datosfaltantes");
     var datosVal = [
-        documentoper = $('#name').val(),
         celularper = $('#celularUsuario').val(),
         telefonoper = $('#telefonoUsuario').val(),
         direccionper = $('#direccionUsuario').val()
@@ -42,9 +46,7 @@ $('#datosfaltantes').submit(function (e) {
         $(arrayinputs[i]).removeClass('is-invalid');
     }
 
-    if (documentoper === null || documentoper === '') {
-        messageError('Por favor ingrese número de documento valido', '#name');
-    } else if (celularper === null || celularper === '') {
+    if (celularper === null || celularper === '') {
         messageError('Por favor ingrese su primer nombre', '#celularUsuario');
     } else if (validarNumero(celularper) === false) {
         messageError('Por favor ingrese solo números', '#celularUsuario');
@@ -63,7 +65,23 @@ $('#datosfaltantes').submit(function (e) {
         }
 
         if ($('#datosfaltantes')[0].checkValidity() && valCampos(datosVal)) {
+            
+            let centroDefecto = $('#centroDefecto').val();
+            if (centroDefecto == 1) {
+                let perfil = $("input[type='radio']:checked").val();
+                let centro  = $('#selectCentro').val()
+                if (perfil == '' || perfil == undefined) {
+                    messageInfo('Selecione su perfil, por favor')
+                    return false
+                }
+                if (centro == '' || centro == undefined) {
+                    messageInfo('Selecione su centro, por favor')
+                    return false
+                }
+            }
+            
             enviarDatos()
+            
         } else {
             formulario.addClass('was-validated');
         }
@@ -114,4 +132,26 @@ function cleanFormData() {
     $('#cargando').removeClass('is-active');
     formulario.addClass('was-validated');
     btn.disabled = false;
+}
+
+function getCentros() {
+
+    $.ajax({
+        type: 'POST',
+        async: true,
+        url: './getCentros',
+        success: function (data) {
+
+            let centro = document.getElementById('selectCentro');
+            let str = `<option value="">Seleccionar...</option>`
+
+            for (var item of data) {
+                str += `<option value="${item.idCentro}">${item.nombreCentro}</option>`
+            }
+
+            centro.innerHTML = str;
+        }
+    })
+
+
 }

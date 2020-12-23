@@ -37,8 +37,6 @@
     <script src="./assets/js/project/util/functions.js"></script>
     <script src="./assets/js/project/login/init.js"></script>
 
-    
-  <!--  <script src="./assets/js/project/comprador/ajax.js" charset="utf-8"></script> -->
      
     <c:if test="${not empty USER}">
         

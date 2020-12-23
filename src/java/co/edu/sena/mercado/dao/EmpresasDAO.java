@@ -28,8 +28,8 @@ public class EmpresasDAO {
     }
     
      public boolean registroEmpresa(empresaDTO empresaDTO, int idUsuario) throws MySQLIntegrityConstraintViolationException, SQLException {
-        String consulta = "INSERT INTO empresa( esCentro, direccionEmpresa, telefonoEmpresa, celularEmpresa, correoEmpresa, idCiudadFK, idUsuarioFK) VALUES "
-                + "(?,?,?,?,?,?,?)";
+        String consulta = "INSERT INTO empresa( esCentro, direccionEmpresa, telefonoEmpresa, celularEmpresa, correoEmpresa, idUsuarioFK) VALUES "
+                + "(?,?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(consulta);
             ps.setString(1, "0");
@@ -37,11 +37,9 @@ public class EmpresasDAO {
             ps.setString(3, empresaDTO.getTelEmpresa());
             ps.setString(4, empresaDTO.getCelEmpresa());
             ps.setString(5, empresaDTO.getCorreoEmpresa());
-            ps.setInt(6, empresaDTO.getIdCiudad());
-            ps.setInt(7, empresaDTO.getIdUsuario());
+            ps.setInt(6, empresaDTO.getIdUsuario());
             ps.executeUpdate();
             System.out.println("..... registro de empresa realizado consulta " + ps.toString());
-            //cerrarCon(ps, cn, rs);
             return true;
 
         } catch (MySQLIntegrityConstraintViolationException ex) {
@@ -50,7 +48,6 @@ public class EmpresasDAO {
         }catch (SQLException e) {
             System.out.println("xxxxxxxxxxxxxxxxxxx error al registrar empresa " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
-            // cerrarCon(ps, cn, rs);
             throw new SQLException();
         } 
 
@@ -58,14 +55,16 @@ public class EmpresasDAO {
      
       public boolean actualizarDatosFaltantes(empresaDTO empresaDTO, int idUsuario) throws MySQLIntegrityConstraintViolationException, SQLException {
         String consulta = "UPDATE empresa SET nombreEmpresa = ?, direccionEmpresa = ?, telefonoEmpresa = ?, "
-                + "celularEmpresa = ? WHERE idUsuarioFK = ?";
+                + "celularEmpresa = ?, esCentro = ?, idCentro = ?  WHERE idUsuarioFK = ?";
         try {
             ps = conn.prepareStatement(consulta);
             ps.setString(1, empresaDTO.getNombreEmpresa());
             ps.setString(2, empresaDTO.getDirEmpresa());
             ps.setString(3, empresaDTO.getTelEmpresa());
             ps.setString(4, empresaDTO.getCelEmpresa());
-            ps.setInt(5, idUsuario);
+            ps.setString(5, empresaDTO.getEsCentro());
+            ps.setString(6, empresaDTO.getCentro());
+            ps.setInt(7, idUsuario);
             ps.executeUpdate();
             return true;
 

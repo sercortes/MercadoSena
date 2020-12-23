@@ -32,8 +32,8 @@ public class PersonasNaturalDAO {
 
     public int registrarPersona(personaNaturalDTO persona) throws Exception, MySQLIntegrityConstraintViolationException {
         int idUsuario = 0;
-        String consulta = "INSERT INTO personanatural(nombrePersona, apellidoPersona, correoPersona, urlImgPersona, idUsuarioFK, idCiudadFK) "
-                + "VALUES(?,?,?,?,?,?)";
+        String consulta = "INSERT INTO personanatural(nombrePersona, apellidoPersona, correoPersona, urlImgPersona, idUsuarioFK) "
+                + "VALUES(?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, persona.getNombrePer());
@@ -41,7 +41,6 @@ public class PersonasNaturalDAO {
             ps.setString(3, persona.getCorreoPer());
             ps.setString(4, persona.getUrlImg());
             ps.setInt(5, persona.getIdUsuario());
-            ps.setInt(6, persona.getIdCiudad());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
