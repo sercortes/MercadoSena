@@ -1,17 +1,19 @@
 
 
-function consultarDatosFormulario(res) {
-
-    $('#exampleModal').modal('hide');
-    consultaTipoDoc();
-    consultagenero();
-    consultaCiudad('#ciudad', 'ciudadUsuario');
-    if (res === 'si') {
-        modalRegistroRe();
-    } else {
-        modalRegistro();
-    }
-}
+//function consultarDatosFormulario(res) {
+//
+//    $('#exampleModal').modal('hide');
+//    
+////    consultaTipoDoc();
+////    consultagenero();
+////    consultaCiudad('#ciudad', 'ciudadUsuario');
+//
+//    if (res === 'si') {
+//        modalRegistroRe();
+//    } else {
+//        modalRegistro();
+//    }
+//}
 
 function consultaTipoDoc(valor, div) {
     var divE = '#tipoDoc';
@@ -91,17 +93,17 @@ function consultaCiudad(idDiv, idInput, valor) {
 
 }
 
-function modalRegistro() {
-    $('body').attr('Style', '');
-    $('#bloqueo').toggle();
-    $('#modalRegistro').toggle();
-}
-function modalRegistroRe() {
-
-    $('body').attr('Style', 'overflow: hidden');
-    $('#bloqueo').toggle();
-    $('#modalRegistro').toggle();
-}
+//function modalRegistro() {
+//    $('body').attr('Style', '');
+//    $('#bloqueo').toggle();
+//    $('#modalRegistro').toggle();
+//}
+//function modalRegistroRe() {
+//
+//    $('body').attr('Style', 'overflow: hidden');
+//    $('#bloqueo').toggle();
+//    $('#modalRegistro').toggle();
+//}
 
 function selects(datos, idDiv, idInput, valor, accion) {
     valor = parseInt(valor);

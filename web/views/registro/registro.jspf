@@ -9,9 +9,12 @@
             </div>
             <hr>
             <div class="modal-body">
+                
                 <form id="registroUsuario" class="needs-validation">
+                    
+                 <div id="registrerOne">
                     <input type="hidden" name="rol" id="rol" value="">
-                    <label>Nombre:</label><br>
+                    <label>Nombre:</label>
                     <input type="text" pattern="[a-zA-Z-ñáéíóú ]{3,48}" class="form-control was-validated" minlength="1" maxlength="100" placeholder="Primer nombre" id="nombreUsuario" name="nombreUsuario" required>
                     <div class="invalid-feedback">
                         Completa este campo correctamente
@@ -23,13 +26,6 @@
                         Completa este campo correctamente
                     </div>        
                     <br>
-                    <label>Seleccione su ciudad:</label><br>
-                    <div id='ciudad'>
-                    </div>
-                    <div class="invalid-feedback">
-                        Completa este campo
-                    </div>
-                    <br>
                     <label>Correo:</label><br>
                     <input type="email" placeholder="example@misena.edu.co" class="form-control was-validated" minlength="1" maxlength="100" id="correoUsuario" name="correoUsuario" required >
                     <div class="invalid-feedback">
@@ -40,13 +36,17 @@
                     <label>Confirme su contraseña:</label><br>
                     <input type="password" id="clave2" minlength="10" placeholder="*************" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
                     <br>
+                  </div>
+                        
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="terminosYcondiciones">
                         <label class="form-check-label" for="exampleCheck1">Al hacer clic en "Registrarte", <a href="./Terminos" target="_blank">aceptas nuestros <i class="fas fa-file-signature"></i> Terminos y condiciones</a></label>                    
                     </div>
+                        
+              
 
                     <hr>
-                    <button class="botonRegistro" id="registrarUsuario">Registrarte</button>
+                    <button class="botonRegistro" id="registrarUsuario">Siguiente</button>
                 </form>
             </div>
             <div id="carga" class="loader loader-bouncing"></div>

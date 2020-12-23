@@ -20,9 +20,9 @@ document.getElementById('formProduct').addEventListener('input', e => {
 
 })
 
-$('#formProduct').submit(function (e) {
+$('#send').click(function (e) {
 
-    e.preventDefault()
+    e.preventDefault()    
 
     var form = $("#formProduct")
     if (form[0].checkValidity() === false) {
@@ -77,7 +77,7 @@ $('#formProduct').submit(function (e) {
         contentType: false,
         cache: false,
         success: function (data) {
-
+            
             if (data) {
                 messageOk('Producto agregado con éxito!');
                 clean()

@@ -48,7 +48,7 @@ $(document).on('click', '#buttonSearch', function () {
 function messageOk(message) {
     Swal.fire({
         icon: 'success',
-        title: message,
+        html: '<h4 style="color:#060e06">' + message + '</h4>',
         showConfirmButton: true,
         width: '25%'
     })
@@ -65,7 +65,7 @@ function messageInfo(message) {
 function messageError(message) {
     Swal.fire({
         icon: 'error',
-        title: message,
+        html: '<h4 style="color:#060e06">' + message + '</h4>',
         showConfirmButton: true,
         width: '25%'
     })

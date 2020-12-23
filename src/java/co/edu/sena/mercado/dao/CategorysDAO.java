@@ -6,6 +6,7 @@
 package co.edu.sena.mercado.dao;
 
 import co.edu.sena.mercado.dto.Categorys;
+import co.edu.sena.mercado.dto.Centro;
 import co.edu.sena.mercado.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,6 +43,27 @@ public class CategorysDAO {
                 list.add(categorys);
             }
             return (ArrayList<Categorys>) list;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+       
+        public ArrayList<Centro> getCentros() {
+        try {
+            String sql = "SELECT idCentro, nombreCentro FROM centro WHERE idCentro <> 1";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            List<Centro> list = new ArrayList<Centro>();
+            Centro centro;
+            while (rs.next()) {
+                centro = new Centro();
+                centro.setIdCentro(rs.getString("idCentro"));
+                centro.setNombreCentro(rs.getString("nombreCentro"));
+                
+                list.add(centro);
+            }
+            return (ArrayList<Centro>) list;
         } catch (Exception e) {
             System.out.println(e);
             return null;

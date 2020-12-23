@@ -283,7 +283,7 @@ public class registro extends HttpServlet {
             personaNaturalDTO personaNaturalDTO = new personaNaturalDTO();
             personaNaturalDTO.setApellidoPer(request.getParameter("apellidoUsuario"));
             personaNaturalDTO.setCorreoPer(request.getParameter("correoUsuario"));
-            personaNaturalDTO.setIdCiudad(Integer.parseInt(request.getParameter("ciudadUsuario")));
+//            personaNaturalDTO.setIdCiudad(Integer.parseInt(request.getParameter("ciudadUsuario")));
             personaNaturalDTO.setNumCelularPer(request.getParameter("celularUsuario"));
             personaNaturalDTO.setNombrePer(request.getParameter("nombreUsuario"));
             personaNaturalDTO.setUrlImg("./assets/images/usuario/imagenDefecto.png");
@@ -297,7 +297,7 @@ public class registro extends HttpServlet {
 
                 empresaDTO.setCorreoEmpresa(personaNaturalDTO.getCorreoPer());
                 empresaDTO.setEsEmpresa(1);
-                empresaDTO.setIdCiudad(personaNaturalDTO.getIdCiudad());
+//                empresaDTO.setIdCiudad(personaNaturalDTO.getIdCiudad());
                 empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
                 empresaDTO.setNombreEmpresa(personaNaturalDTO.getNombrePer());
                 empresaDTO.setEsEmpresa(0);

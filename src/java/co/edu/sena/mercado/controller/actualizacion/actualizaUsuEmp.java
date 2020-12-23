@@ -243,13 +243,13 @@ public class actualizaUsuEmp extends HttpServlet {
 
                 }
                 break;
-                
+
             case "actualizaDatosFaltantes":
 
                 actualizarDatosFaltantes(request, response);
 
                 break;
-                
+
             case "recuperarClave":
                 String clave = cod.generarCod();
                 usuarioDTO = new usuarioDTO();
@@ -300,7 +300,9 @@ public class actualizaUsuEmp extends HttpServlet {
             perNaturalDAO = new PersonasNaturalDAO(conn);
 
             personaNaturalDTO personaDTO = getDatosPersonaNatutalDTO(request);
-            empresaDTO empresaDTO =  getDatosEmpresaDTO(request);
+            empresaDTO empresaDTO = getDatosEmpresaDTO(request, DTOusuarioDTO);
+            System.out.println("EMPRESA***************");
+            System.out.println(empresaDTO.toString());
             empresaDAO.actualizarDatosFaltantes(empresaDTO, DTOusuarioDTO.getIdUsuario());
             perNaturalDAO.actualizarDatosFaltantes(personaDTO, DTOusuarioDTO.getIdUsuario());
 
@@ -353,24 +355,33 @@ public class actualizaUsuEmp extends HttpServlet {
     }
 
     private personaNaturalDTO getDatosPersonaNatutalDTO(HttpServletRequest request) {
-        
-            personaNaturalDTO personaDTO = new personaNaturalDTO();
-            personaDTO.setNumCelularPer(request.getParameter("celularUsuario"));
-            personaDTO.setTelPer(request.getParameter("telefonoUsuario"));
-            personaDTO.setDireccionPer(request.getParameter("direccionUsuario"));
-            return personaDTO;
+
+        personaNaturalDTO personaDTO = new personaNaturalDTO();
+        personaDTO.setNumCelularPer(request.getParameter("celularUsuario"));
+        personaDTO.setTelPer(request.getParameter("telefonoUsuario"));
+        personaDTO.setDireccionPer(request.getParameter("direccionUsuario"));
+        return personaDTO;
     }
-    
-    private empresaDTO getDatosEmpresaDTO(HttpServletRequest request) {
-            
-            empresaDTO empresaDTO = new empresaDTO();
-            empresaDTO.setCelEmpresa(request.getParameter("celularUsuario"));
-            empresaDTO.setTelEmpresa(request.getParameter("telefonoUsuario"));
-            empresaDTO.setDirEmpresa(request.getParameter("direccionUsuario"));
-            empresaDTO.setNombreEmpresa(request.getParameter("name"));
-            return empresaDTO;
+
+    private empresaDTO getDatosEmpresaDTO(HttpServletRequest request, usuarioDTO uDTO) {
+
+        empresaDTO empresaDTO = new empresaDTO();
+        empresaDTO.setCelEmpresa(request.getParameter("celularUsuario"));
+        empresaDTO.setTelEmpresa(request.getParameter("telefonoUsuario"));
+        empresaDTO.setDirEmpresa(request.getParameter("direccionUsuario"));
+
+        if (request.getParameter("centro") != null) {
+            empresaDTO.setCentro(request.getParameter("centro"));
+            empresaDTO.setEsCentro(request.getParameter("perfil"));
+        }else{
+            empresaDTO.setCentro(uDTO.getEmpresa().getCentro());
+            empresaDTO.setEsCentro(uDTO.getEmpresa().getEsCentro());
+        }
+
+        empresaDTO.setNombreEmpresa(request.getParameter("name"));
+        return empresaDTO;
     }
-    
+
     @Override
     public String getServletInfo() {
         return "Short description";

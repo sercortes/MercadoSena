@@ -17,7 +17,9 @@ public class empresaDTO extends personaNaturalDTO{
     String telEmpresa;
     String CelEmpresa;
     String correoEmpresa;
-
+    private String esCentro;
+    
+    private String Centro;
 
     public empresaDTO() {
     }
@@ -92,12 +94,27 @@ public class empresaDTO extends personaNaturalDTO{
         this.correoEmpresa = correoEmpresa;
     }
 
+    public String getCentro() {
+        return Centro;
+    }
 
+    public void setCentro(String Centro) {
+        this.Centro = Centro;
+    }
+
+    public String getEsCentro() {
+        return esCentro;
+    }
+
+    public void setEsCentro(String esCentro) {
+        this.esCentro = esCentro;
+    }
 
     @Override
     public String toString() {
-        return "empresaDTO{" + "idEmpresa=" + idEmpresa + ", esEmpresa=" + esEmpresa + ", nombreEmpresa=" + nombreEmpresa + ", DirEmpresa=" + DirEmpresa + ", telEmpresa=" + telEmpresa + ", CelEmpresa=" + CelEmpresa + ", correoEmpresa=" + correoEmpresa + ", idCiudad=" + idCiudad + ", idUsuario=" + idUsuario + '}';
+        return "empresaDTO{" + "idEmpresa=" + idEmpresa + ", esEmpresa=" + esEmpresa + ", nombreEmpresa=" + nombreEmpresa + ", DirEmpresa=" + DirEmpresa + ", telEmpresa=" + telEmpresa + ", CelEmpresa=" + CelEmpresa + ", correoEmpresa=" + correoEmpresa + ", esCentro=" + esCentro + ", Centro=" + Centro + '}';
     }
     
+   
     
 }
