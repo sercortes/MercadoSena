@@ -9,6 +9,7 @@ import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
 import co.edu.sena.mercado.dao.ProductosPedidosDAO;
 import co.edu.sena.mercado.dao.empresaDAO;
+import co.edu.sena.mercado.dto.Centro;
 import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.dto.empresaDTO;
@@ -133,9 +134,9 @@ public class filtro extends HttpServlet {
                 response.setContentType("application/json");
                 new Gson().toJson(listaProductoImagenes, response.getWriter());
                 break;
-            case "listarVendedores":
+            case "listarCentros":
                 
-                listaVendedores(request, response);
+                listaCentros(request, response);
 
                 break;
 
@@ -146,24 +147,19 @@ public class filtro extends HttpServlet {
 
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
-    private void listaVendedores(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void listaCentros(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
                 empresaDAO empresaDAO = new empresaDAO();
-                ArrayList<empresaDTO> listaEmpresa = new ArrayList<>();
-                listaEmpresa = empresaDAO.listarEmpresasFiltro();
+                ArrayList<Centro> listaEmpresa = new ArrayList<>();
+                listaEmpresa = empresaDAO.listarCentros();
                 response.setContentType("application/json");
                 new Gson().toJson(listaEmpresa, response.getWriter());
         
     }
+    
+        @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }

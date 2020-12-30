@@ -169,6 +169,46 @@ public class ProductoDAO {
         }
     }
 
+    public ArrayList<Producto> getProductsByDateTimeAscForCheck() {
+        try {
+            String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
+                    + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
+                    + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
+                    + "WHERE PR.estadoProducto = 1 AND PR.stockProducto > 0 "
+                    + "ORDER BY PR.agregado DESC LIMIT 100";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            List<Producto> list = new ArrayList<Producto>();
+            Producto producto;
+            Categorys categorys;
+            while (rs.next()) {
+                producto = new Producto();
+                producto.setIdProducto(rs.getString("idProducto"));
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                producto.setValorProducto(rs.getDouble("valorProducto"));
+                producto.setStockProducto(rs.getInt("stockProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setDescripcionProducto(rs.getString("descripcionProducto"));
+                producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
+                producto.setMedidaProducto(rs.getString("medidasProducto"));
+                producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
+                producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
+                producto.setVentajaProducto(rs.getString("ventajasProducto"));
+                producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+
+                categorys = new Categorys();
+                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
+                producto.setCategorys(categorys);
+
+                list.add(producto);
+            }
+            return (ArrayList<Producto>) list;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+    
     public ArrayList<Producto> getProductsBySeller(String id) {
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR "
@@ -262,8 +302,28 @@ public class ProductoDAO {
                     + "WHERE idProducto = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, "0");
+            ps.setString(1, "3");
             ps.setString(2, id);
+
+            int rows = ps.executeUpdate();
+            boolean estado = rows > 0;
+            return estado;
+        } catch (Exception ex) {
+            System.out.println("Error edit " + ex.getMessage());
+            throw new Exception();
+        }
+    }
+    
+     public boolean disabledProductWithAdmin(String id, String idEstado, String comentario) throws Exception {
+        try {
+
+            String sql = "UPDATE producto set estadoProducto = ?, nota = ? "
+                    + "WHERE idProducto = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, idEstado);
+            ps.setString(2, comentario);
+            ps.setString(3, id);
 
             int rows = ps.executeUpdate();
             boolean estado = rows > 0;

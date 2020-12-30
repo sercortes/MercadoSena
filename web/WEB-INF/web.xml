@@ -64,6 +64,10 @@
         <servlet-name>SelectsTwo</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.seller.SelectsTwo</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>admin</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.admin.admin</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -162,6 +166,13 @@
     <servlet-mapping>
         <servlet-name>SelectsTwo</servlet-name>
         <url-pattern>/getCentros</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>admin</servlet-name>
+        <url-pattern>/admin</url-pattern>
+        <url-pattern>/getProductsCheck</url-pattern>
+        <url-pattern>/getProductsForCheck</url-pattern>
+        <url-pattern>/updateStatusProduct</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

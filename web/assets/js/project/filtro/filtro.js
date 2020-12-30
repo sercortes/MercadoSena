@@ -61,24 +61,24 @@ function listarCategoriasS() {
     })
 }
 
-function vendedoresS() {
+function centross() {
 
     $.ajax({
         url: "./filtro",
         type: 'POST',
         async: true,
         data: {
-            accion: 'listarVendedores'
+            accion: 'listarCentros'
         }, dataType: 'json',
         error: function (data) {
 
         }, success: function (data, textStatus, jqXHR) {
             let srt = ``
-            srt = '<option value="">Vendedores...</option>'
+            srt = '<option value="">Centros...</option>'
             for (var item of data) {
-                srt += `<option value="${item.idEmpresa}">${item.nombreEmpresa}</option>`
+                srt += `<option value="${item.idCentro}">${item.nombreCentro}</option>`
             }
-            document.getElementById('idVendedor').innerHTML = srt
+            document.getElementById('idCentro').innerHTML = srt
         }
     })
 
