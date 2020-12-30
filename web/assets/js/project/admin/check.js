@@ -50,4 +50,5 @@ function cleanForms() {
     getProductsCheck()
    $('#formularioEva').trigger('reset')
     $('#observacion').val('')
+    $('#modal-top').modal('hide')
 }
