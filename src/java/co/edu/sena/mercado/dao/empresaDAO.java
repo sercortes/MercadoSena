@@ -5,6 +5,7 @@
  */
 package co.edu.sena.mercado.dao;
 
+import co.edu.sena.mercado.dto.Centro;
 import co.edu.sena.mercado.dto.empresaDTO;
 import co.edu.sena.mercado.util.Conexion;
 import java.sql.Connection;
@@ -160,28 +161,28 @@ public class empresaDAO {
 
     }
 
-    public ArrayList<empresaDTO> listarEmpresasFiltro() {
+    public ArrayList<Centro> listarCentros() {
         con = new Conexion();
-        listaEmpresa = new ArrayList<>();
-        consulta = "SELECT idEmpresa, nombreEmpresa, esCentro "
-                + "FROM empresa";
+        ArrayList<Centro> lista = new ArrayList<Centro>();
+        consulta = "SELECT c.idCentro, c.nombreCentro FROM centro c WHERE c.idCentro <> 1";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
 
             rs = ps.executeQuery();
+            Centro centro;
             while (rs.next()) {
-                empresaDTO = new empresaDTO();
-                empresaDTO.setIdEmpresa(rs.getInt("idEmpresa"));
-                empresaDTO.setNombreEmpresa(rs.getString("nombreEmpresa"));
-                listaEmpresa.add(empresaDTO);
+                centro = new Centro();
+                centro.setIdCentro(rs.getString("idCentro"));
+                centro.setNombreCentro(rs.getString("nombreCentro"));
+                lista.add(centro);
 
             }
             //cerrarCon(ps, cn, rs);
-            return listaEmpresa;
+            return lista;
 
         } catch (SQLException e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxx error al buscar empresa " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxx error al buscar centro " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             // cerrarCon(ps, cn, rs);
             return null;

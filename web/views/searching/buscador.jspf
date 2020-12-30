@@ -22,7 +22,7 @@
             </div>
             <div class="col-md-4 col-sm-6 pb-1">
                 
-                <select id="idVendedor" name="vendedorCriBuscar" class="form-control was-validated" title="Vendedores"></select>
+                <select id="idCentro" name="vendedorCriBuscar" class="form-control was-validated" title="Vendedores"></select>
                 
             </div>
         </div>

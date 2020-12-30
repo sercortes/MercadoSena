@@ -34,7 +34,7 @@ $(document).on('click', '#buttonSearch', function () {
         if (firstTiime === 0) {
             consultaCiudadS();
             listarCategoriasS();
-            vendedoresS();
+            centross();
         }
         firstTiime++
 

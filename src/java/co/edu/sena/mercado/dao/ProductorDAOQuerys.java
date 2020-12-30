@@ -33,7 +33,7 @@ public class ProductorDAOQuerys {
             String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
                     + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
-                    + "WHERE PR.estadoProducto = 1 AND PR.stockProducto > 0 "
+                    + "WHERE PR.estadoProducto = 2 AND PR.stockProducto > 0 "
                     + "ORDER by rand() LIMIT 12";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -73,7 +73,7 @@ public class ProductorDAOQuerys {
             String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
                     + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
-                    + "WHERE PR.estadoProducto = 1 AND PR.stockProducto > 0 "
+                    + "WHERE PR.estadoProducto = 2 AND PR.stockProducto > 0 "
                     + "ORDER BY PR.agregado DESC LIMIT 100";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
@@ -116,19 +116,19 @@ public class ProductorDAOQuerys {
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.nombreProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     
                     + "OR PR.marcaProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     
                     + "OR CP.nombreCategoria LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     
                     + "OR PR.descripcionProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + Text + "%");

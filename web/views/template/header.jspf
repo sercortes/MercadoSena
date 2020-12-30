@@ -63,9 +63,15 @@
                         <a class="nav-link encabezadoOpciones" href="#"><i class="fas fa-search fa-lg"></i> Buscar</a>
                     </li>
                     
-                    <c:if test="${USER.idRol != null}">
+                    <c:if test="${USER.idRol != null && USER.idRol != 5}">
                         <li class="nav-item">
                             <a class="nav-link encabezadoOpciones" href="./misPedidos"><i class="fas fa-handshake"></i> Mis Contactos</a>
+                        </li>
+                    </c:if>
+                        
+                    <c:if test="${USER.idRol == 5}">
+                        <li class="nav-item">
+                            <a class="nav-link encabezadoOpciones" href="./getProductsCheck"><i class="fas fa-tasks"></i> Aprobar productos</a>
                         </li>
                     </c:if>
 
