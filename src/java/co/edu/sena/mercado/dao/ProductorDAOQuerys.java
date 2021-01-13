@@ -179,7 +179,7 @@ public class ProductorDAOQuerys {
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.idCategoriaFK = ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
             ps.setString(1, Categoria);
@@ -226,7 +226,7 @@ public class ProductorDAOQuerys {
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE EM.idCiudadFK = ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
             ps.setString(1, Ciudad);
@@ -273,7 +273,7 @@ public class ProductorDAOQuerys {
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.idEmpresaFK = ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
             ps.setString(1, Empresa );
@@ -321,15 +321,15 @@ public class ProductorDAOQuerys {
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.idCategoriaFK = ? "
                     + "AND PR.nombreProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.descripcionProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.marcaProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getNombreCategoria());
@@ -381,11 +381,11 @@ public class ProductorDAOQuerys {
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.idCategoriaFK = ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "OR PR.idCategoriaFK = ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? ";
                     
@@ -438,17 +438,17 @@ public class ProductorDAOQuerys {
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.idCategoriaFK = ? "
                     + "AND PR.nombreProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.descripcionProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.marcaProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? ";
                     
@@ -505,7 +505,7 @@ public class ProductorDAOQuerys {
                     + "FROM producto PR INNER JOIN empresa EM "
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
-                    + "WHERE estadoProducto = 1 "
+                    + "WHERE estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "AND PR.idEmpresaFK = ? ";
@@ -558,19 +558,19 @@ public class ProductorDAOQuerys {
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.nombreProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "AND PR.idEmpresaFK = ? "
                     
                     + "OR PR.descripcionProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "AND PR.idEmpresaFK = ? "
                     
                     + "OR PR.marcaProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "AND PR.idEmpresaFK = ? ";
@@ -633,19 +633,19 @@ public class ProductorDAOQuerys {
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.idCategoriaFK = ? "
                     + "AND PR.nombreProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "AND PR.idEmpresaFK = ? "
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.descripcionProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "AND PR.idEmpresaFK = ? "
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.marcaProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "AND PR.idEmpresaFK = ? ";
@@ -710,17 +710,17 @@ public class ProductorDAOQuerys {
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE EM.idCiudadFK = ? "
                     + "AND PR.nombreProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     
                     + "OR EM.idCiudadFK = ? "
                     + "AND PR.descripcionProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     
                     + "OR EM.idCiudadFK = ? "
                     + "AND PR.marcaProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getCiudad());
@@ -772,7 +772,7 @@ public class ProductorDAOQuerys {
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.idCategoriaFK = ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND PR.idEmpresaFK = ? ";
                     
@@ -823,19 +823,19 @@ public class ProductorDAOQuerys {
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.idCategoriaFK = ? "
                     + "AND PR.nombreProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND PR.idEmpresaFK = ? "
                     
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.descripcionProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND PR.idEmpresaFK = ? "
                     
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.marcaProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND PR.idEmpresaFK = ? ";
                     
@@ -895,15 +895,15 @@ public class ProductorDAOQuerys {
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.nombreProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND PR.idEmpresaFK = ? "
                     + "OR PR.descripcionProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND PR.idEmpresaFK = ? "
                     + "OR PR.marcaProducto LIKE ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND PR.idEmpresaFK = ? ";
                     
@@ -960,7 +960,7 @@ public class ProductorDAOQuerys {
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.idCategoriaFK = ? "
-                    + "AND estadoProducto = 1 "
+                    + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "AND PR.idEmpresaFK = ? ";
