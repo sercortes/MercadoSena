@@ -129,7 +129,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     personaNaturalDTO perDAO = new personaNaturalDAO().buscarDocumenPerson(personaDTO.getNumeroDocPer(), personaDTO.getNumCelularPer());
                     if (personaDTO.getNumeroDocPer().equals(perDAO.getNumeroDocPer()) || personaDTO.getNumCelularPer().equals(perDAO.getNumCelularPer())) {
 
-                        if (perDAO.getNumeroDocPer().equals("") || perDAO.getNumCelularPer().equals("")) {
+                        if (perDAO.getNumeroDocPer().equals("") || perDAO.getNumCelularPer().equals("") || perDAO.getNumeroDocPer() == null) {
 
                             personaDAO.actualizarPersona(personaDTO);
 

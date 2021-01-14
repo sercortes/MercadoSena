@@ -36,7 +36,7 @@
                     <li class="nav-item">
                         <a data-toggle="pill" href="#nav-tab-usuario" class="nav-link rounded-pill" >
                             <i class="fa fa-user-circle" style="color: rgb(252, 115, 30)"></i>
-                            Modificar usuario
+                            Modificar contraseña
                         </a>
                     </li>
                     <li class="nav-item ocultar" >
@@ -156,7 +156,7 @@
                     <!-- usuario -->
                     <div id="nav-tab-usuario" class="tab-pane fade">
                         <form id="actualizarUsuario" class="needs-validation">
-                            <h4 style="color: rgb(252, 115, 30);margin-top: 36px;">Usuario: </h4>
+                            <h4 style="color: rgb(252, 115, 30);margin-top: 36px;">Nueva contraseña: </h4>
                             <!--<label>Correo:</label><br>-->
                             <input disabled type="hidden" value="${USER.correoUsu}" placeholder="Correo" class="form-control was-validated" minlength="1" maxlength="100" id="correoUsuario" name="correoUsuario" required >
                             <div class="invalid-feedback">
