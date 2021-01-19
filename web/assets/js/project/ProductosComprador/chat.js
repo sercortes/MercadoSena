@@ -124,7 +124,7 @@ function getEmpresa(idpro) {
                         console.log(data);
                         console.log(typeof data);
                         if (data === 'true') {
-                            setTimeout(() => sendMessage('Hemos enviado su mensaje al vendedor, quién pronto se pondrá en contacto.'), 1000);
+                            setTimeout(() => sendMessage('Hemos enviado su mensaje al contaco, quién pronto se pondrá en contacto.'), 1000);
                         } else {
                             interacion = interacion - 1;
                             messageError('Error al enviar el mensaje');

@@ -16,18 +16,18 @@
 
                     <input type="hidden" name="rol" id="rol" value="">
                     <label>Nombre:</label><br>
-                    <input type="text" class="form-control was-validated" minlength="1" maxlength="100" placeholder="Nombre de la empresa" id="nombreEmpresa" name="nombreEmpresa" required>
+                    <input type="text" class="form-control was-validated" minlength="1" maxlength="100" placeholder="Nombre del emprendedor" id="nombreEmpresa" name="nombreEmpresa" required>
                     <div class="invalid-feedback">
                         Completa este campo correctamente
                     </div>
                     <br> 
                     <label>Celular:</label><br>
-                    <input type="number" placeholder="Celular de la empresa" pattern="{9,48}" class="form-control was-validated" minlength="8" maxlength="50" id="celularEmpresa" name="celularEmpresa" required>
+                    <input type="number" placeholder="Celular del emprendedor" pattern="{9,48}" class="form-control was-validated" minlength="8" maxlength="50" id="celularEmpresa" name="celularEmpresa" required>
                     <div class="invalid-feedback">
                         Completa este campo correctamente
                     </div><br> 
                     <label>Teléfono:</label><br>
-                    <input type="number" placeholder="Telefono de la empresa" pattern="{5,48}" class="form-control was-validated" id="telefonoEmpresa"  maxlength="50" name="telefonoEmpresa" required >
+                    <input type="number" placeholder="Telefono del emprendedor" pattern="{5,48}" class="form-control was-validated" id="telefonoEmpresa"  maxlength="50" name="telefonoEmpresa" required >
                     <div class="invalid-feedback">
                         Completa este campo correctamente
                     </div><br>
@@ -43,7 +43,7 @@
 
                     </div><br>
                     <label>Dirección:</label><br>
-                    <input type="text" placeholder="Dirección de la empresa" class="form-control was-validated" minlength="1" maxlength="100" id="direccionEmpresa" name="direccionEmpresa" required>
+                    <input type="text" placeholder="Dirección del emprendedor" class="form-control was-validated" minlength="1" maxlength="100" id="direccionEmpresa" name="direccionEmpresa" required>
                     <div class="invalid-feedback">
                         Completa este campo correctamente
 
