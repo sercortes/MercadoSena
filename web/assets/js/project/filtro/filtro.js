@@ -1,11 +1,11 @@
 $(document).ready(function () {
 
     if (window.location.pathname === '/MercadoSena/') {
-        productosRamdom()
+        productosRamdom();
     }
-    
+
     if (window.location.pathname === '/MercadoSena/home') {
-        productosRamdom()
+        productosRamdom();
     }
 
 })
@@ -88,167 +88,167 @@ $(document).on('click', '#searching', function (e) {
 
     e.preventDefault();
     var nombreProductoFiltar = $('#nombreProductoFiltar').val();
-    let ciudades = $('#ciudadCriBusqueda').val()
-    let categorias = $('#categoriasCriBuscar').val()
-    let vendedores = $('#idVendedor').val()
+    let ciudades = $('#ciudadCriBusqueda').val();
+    let categorias = $('#categoriasCriBuscar').val();
+    let vendedores = document.getElementById('idCentro').value;
 
-    if (nombreProductoFiltar === '' && ciudades === '' 
+    if (nombreProductoFiltar === '' && ciudades === ''
             && categorias === '' && vendedores === '') {
-        
+
         messageInfo('Espera, Escribe una palabra clave por favor');
-        document.getElementById('nombreProductoFiltar').focus()
-        return false
-        
+        document.getElementById('nombreProductoFiltar').focus();
+        return false;
+
     }
-    
+
     if (nombreProductoFiltar.length >= 30) {
-        
+
         messageInfo('Espera, palabra muy larga');
-        document.getElementById('nombreProductoFiltar').value = ''
-        document.getElementById('nombreProductoFiltar').focus()
-        return false
-        
+        document.getElementById('nombreProductoFiltar').value = '';
+        document.getElementById('nombreProductoFiltar').focus();
+        return false;
+
     }
-    
+
     if (!regularExpresion(nombreProductoFiltar)) {
-         messageInfo('Espera, palabra invalida');
-        document.getElementById('nombreProductoFiltar').value = ''
-        document.getElementById('nombreProductoFiltar').focus()
-        return false
+        messageInfo('Espera, palabra invalida');
+        document.getElementById('nombreProductoFiltar').value = '';
+        document.getElementById('nombreProductoFiltar').focus();
+        return false;
     }
 
-     document.getElementById('searching').disabled = true;
-     $('#cargas').addClass('is-active');
-     let data = {
-         word:nombreProductoFiltar,
-         categorias:categorias,
-         ciudades:ciudades,
-         vendedores:vendedores
-     }
-     
-     let url = ''
+    document.getElementById('searching').disabled = true;
+    $('#cargas').addClass('is-active');
+    let data = {
+        word: nombreProductoFiltar,
+        categorias: categorias,
+        ciudades: ciudades,
+        vendedores: vendedores
+    };
 
-    if(nombreProductoFiltar !== '' && categorias === '' 
-            && ciudades === '' && vendedores === ''){
-        
-        url = './getProductsByWord'
-        query(data, url)
-        
-    }else if(nombreProductoFiltar === '' && categorias !== '' 
-            && ciudades === '' && vendedores === ''){
-        
-        url = './getProductsByCategory'
-        query(data, url)
-        
-    }else if(nombreProductoFiltar === '' && categorias === '' 
-            && ciudades !== '' && vendedores === ''){
-        
-        url = './getProductsByCity'
-        query(data, url)
-        
-    }else if(nombreProductoFiltar === '' && categorias === '' 
-            && ciudades === '' && vendedores !== ''){
-        
-        url = './getProductsBySeller'
-        query(data, url)
-        
-    }else if(nombreProductoFiltar !== '' && categorias !== '' 
-            && ciudades === '' && vendedores === ''){
-        
-       url = './getProductsByNameCategory'
-        query(data, url)
-        
-    }else if(nombreProductoFiltar !== '' && categorias !== '' 
-            && ciudades !== '' && vendedores === ''){
-     
-      url = './getProductsByNameCategoryCity'
-        query(data, url)
-        
-    }else if(nombreProductoFiltar === '' && categorias !== ''
-            && ciudades !== '' && vendedores === ''){
-        
-        url = './getProductsByCategoryCity'
-        query(data, url)
-    
-    }else if(nombreProductoFiltar !== '' && categorias === ''
-            && ciudades !== '' && vendedores === ''){
-        
-        url = './getProductsByNameCity'
-        query(data, url)
-    
-    }else if(nombreProductoFiltar === '' && categorias === ''
-            && ciudades !== '' && vendedores !== ''){
-        
-        url = './getProductsByCitySeller'
-        query(data, url)
-    
-    }else if(nombreProductoFiltar !== '' && categorias === ''
-            && ciudades !== '' && vendedores !== ''){
-        
-        url = './getProductsByNameCitySeller'
-        query(data, url)
-    
-    }else if(nombreProductoFiltar === '' && categorias !== ''
-            && ciudades === '' && vendedores !== ''){
-        
-        url = './getProductsByCategorySeller'
-        query(data, url)
-    
-    }else if(nombreProductoFiltar !== '' && categorias !== ''
-            && ciudades === '' && vendedores !== ''){
-        
-        url = './getProductsByNameCategorySeller'
-        query(data, url)
-    
-    }else if(nombreProductoFiltar !== '' && categorias === ''
-            && ciudades === '' && vendedores !== ''){
-        
-        url = './getProductsByNameSeller'
-        query(data, url)
-    
-    }else if(nombreProductoFiltar !== '' && categorias !== ''
-            && ciudades !== '' && vendedores !== ''){
-        
-        url = './getProductsByNameCategoryCitySeller'
-        query(data, url)
-    
-    }else if(nombreProductoFiltar === '' && categorias !== ''
-            && ciudades !== '' && vendedores !== ''){
-        
-        url = './getProductsByCategoryCitySeller'
-        query(data, url)
-    
-    }else{
-        
-        console.log('filtro mix')
+    let url = '';
+
+    if (nombreProductoFiltar !== '' && categorias === ''
+            && ciudades === '' && vendedores === '') {
+
+        url = './getProductsByWord';
+        query(data, url);
+
+    } else if (nombreProductoFiltar === '' && categorias !== ''
+            && ciudades === '' && vendedores === '') {
+
+        url = './getProductsByCategory';
+        query(data, url);
+
+    } else if (nombreProductoFiltar === '' && categorias === ''
+            && ciudades !== '' && vendedores === '') {
+
+        url = './getProductsByCity';
+        query(data, url);
+
+    } else if (nombreProductoFiltar === '' && categorias === ''
+            && ciudades === '' && vendedores !== '') {
+
+        url = './getProductsBySeller';
+        query(data, url);
+
+    } else if (nombreProductoFiltar !== '' && categorias !== ''
+            && ciudades === '' && vendedores === '') {
+
+        url = './getProductsByNameCategory';
+        query(data, url);
+
+    } else if (nombreProductoFiltar !== '' && categorias !== ''
+            && ciudades !== '' && vendedores === '') {
+
+        url = './getProductsByNameCategoryCity';
+        query(data, url);
+
+    } else if (nombreProductoFiltar === '' && categorias !== ''
+            && ciudades !== '' && vendedores === '') {
+
+        url = './getProductsByCategoryCity';
+        query(data, url);
+
+    } else if (nombreProductoFiltar !== '' && categorias === ''
+            && ciudades !== '' && vendedores === '') {
+
+        url = './getProductsByNameCity';
+        query(data, url);
+
+    } else if (nombreProductoFiltar === '' && categorias === ''
+            && ciudades !== '' && vendedores !== '') {
+
+        url = './getProductsByCitySeller';
+        query(data, url);
+
+    } else if (nombreProductoFiltar !== '' && categorias === ''
+            && ciudades !== '' && vendedores !== '') {
+
+        url = './getProductsByNameCitySeller';
+        query(data, url);
+
+    } else if (nombreProductoFiltar === '' && categorias !== ''
+            && ciudades === '' && vendedores !== '') {
+
+        url = './getProductsByCategorySeller';
+        query(data, url);
+
+    } else if (nombreProductoFiltar !== '' && categorias !== ''
+            && ciudades === '' && vendedores !== '') {
+
+        url = './getProductsByNameCategorySeller';
+        query(data, url);
+
+    } else if (nombreProductoFiltar !== '' && categorias === ''
+            && ciudades === '' && vendedores !== '') {
+
+        url = './getProductsByNameSeller';
+        query(data, url);
+
+    } else if (nombreProductoFiltar !== '' && categorias !== ''
+            && ciudades !== '' && vendedores !== '') {
+
+        url = './getProductsByNameCategoryCitySeller';
+        query(data, url);
+
+    } else if (nombreProductoFiltar === '' && categorias !== ''
+            && ciudades !== '' && vendedores !== '') {
+
+        url = './getProductsByCategoryCitySeller';
+        query(data, url);
+
+    } else {
+
+        console.log('filtro mix');
 //        alert('----_----SERVER')
-        
+
     }
 
 })
 
-function query(datos, url){
-    
-        $.ajax({
+function query(datos, url) {
 
-            url: url,
-            type: 'POST',
-            async: true,
-            datatype: 'json',
-            data: {
-                word:datos.word,
-                categorias:datos.categorias,
-                ciudades:datos.ciudades,
-                vendedores:datos.vendedores
-            },
-            success: function (data) {
+    $.ajax({
 
-                webPageAnimations()
-                generatePageQuery(data, 4)
-                document.getElementById('searching').disabled = false;
+        url: url,
+        type: 'POST',
+        async: true,
+        datatype: 'json',
+        data: {
+            word: datos.word,
+            categorias: datos.categorias,
+            ciudades: datos.ciudades,
+            vendedores: datos.vendedores
+        },
+        success: function (data) {
 
-            }
-        });
+            webPageAnimations()
+            generatePageQuery(data, 4)
+            document.getElementById('searching').disabled = false;
+
+        }
+    });
 
 }
 
@@ -261,7 +261,7 @@ function webPageAnimations() {
 
 }
 
-function regularExpresion(data){
+function regularExpresion(data) {
     let reg = /^[a-zA-Z0-9-̣\s]*$/
     return reg.test(data)
 }

@@ -26,21 +26,20 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Search extends HttpServlet {
 
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-      String direccion = request.getRequestURI();
+
+        String direccion = request.getRequestURI();
 
         switch (direccion) {
-            
-           case "/MercadoSena/getProductsRandom":
+
+            case "/MercadoSena/getProductsRandom":
 
                 getProductsRandom(request, response);
 
@@ -51,26 +50,26 @@ public class Search extends HttpServlet {
                 getProductsByDateTime(request, response);
 
                 break;
-                
-           case "/MercadoSena/getProductsByWord":
+
+            case "/MercadoSena/getProductsByWord":
 
                 getProductsByWord(request, response);
 
                 break;
-                
-           case "/MercadoSena/getProductsByCategory":
+
+            case "/MercadoSena/getProductsByCategory":
 
                 getProductsByCategory(request, response);
 
                 break;
-                
-          case "/MercadoSena/getProductsByCity":
+
+            case "/MercadoSena/getProductsByCity":
 
                 getProductsByCity(request, response);
 
                 break;
-                
-        case "/MercadoSena/getProductsBySeller":
+
+            case "/MercadoSena/getProductsBySeller":
 
                 getProductsBySeller(request, response);
 
@@ -79,8 +78,8 @@ public class Search extends HttpServlet {
         }
     }
 
-     private void getProductsRandom(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-        
+    private void getProductsRandom(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
@@ -89,10 +88,10 @@ public class Search extends HttpServlet {
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
-        
+
     }
-    
-private void getProductsByDateTime(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+    private void getProductsByDateTime(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -105,7 +104,7 @@ private void getProductsByDateTime(HttpServletRequest request, HttpServletRespon
 
     }
 
-private void getProductsByWord(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void getProductsByWord(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -123,7 +122,7 @@ private void getProductsByWord(HttpServletRequest request, HttpServletResponse r
     }
 
     private void getProductsByCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
@@ -136,11 +135,11 @@ private void getProductsByWord(HttpServletRequest request, HttpServletResponse r
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
-        
+
     }
 
     private void getProductsByCity(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
@@ -153,7 +152,7 @@ private void getProductsByWord(HttpServletRequest request, HttpServletResponse r
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
-        
+
     }
 
     private void getProductsBySeller(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -165,15 +164,15 @@ private void getProductsByWord(HttpServletRequest request, HttpServletResponse r
 //        String categoria = request.getParameter("categorias");
 //        String ciudad = request.getParameter("ciudades");
         String vendedores = request.getParameter("vendedores");
-        ArrayList<Producto> listaProductos = productoDAO.searchByEmpresa(vendedores);
+        ArrayList<Producto> listaProductos = productoDAO.searchByCentro(vendedores);
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
     }
-    
-       @Override
+
+    @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+
 }

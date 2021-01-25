@@ -7,6 +7,7 @@ package co.edu.sena.mercado.controller.filtro;
 
 import co.edu.sena.mercado.dao.ProductorDAOQuerys;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.empresaDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -120,8 +121,6 @@ public class SearchTwo extends HttpServlet {
 
     }
 
-  
-
     private void getProductsByCategoryCity(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         request.setCharacterEncoding("UTF-8");
@@ -196,7 +195,9 @@ public class SearchTwo extends HttpServlet {
         producto.setNombreProducto(palabra);
         producto.setCiudad(ciudad);
         producto.setIdEmpresaFK(vendedores);
-        ArrayList<Producto> listaProductos = productoDAO.getProductsByNameCitySeller(producto);
+        empresaDTO empresa = new empresaDTO();
+        empresa.setCentro(vendedores);
+        ArrayList<Producto> listaProductos = productoDAO.getProductsByNameCitySeller(producto, empresa);
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());

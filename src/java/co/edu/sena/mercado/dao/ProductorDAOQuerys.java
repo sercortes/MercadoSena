@@ -7,6 +7,7 @@ package co.edu.sena.mercado.dao;
 
 import co.edu.sena.mercado.dto.Categorys;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.empresaDTO;
 import co.edu.sena.mercado.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ import java.util.List;
  * @author equipo
  */
 public class ProductorDAOQuerys {
-    
+
     private Connection conn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
@@ -27,7 +28,7 @@ public class ProductorDAOQuerys {
     public ProductorDAOQuerys(Connection conn) {
         this.conn = conn;
     }
-    
+
     public ArrayList<Producto> getProductsRandom() {
         try {
             String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
@@ -67,8 +68,8 @@ public class ProductorDAOQuerys {
             return null;
         }
     }
-    
-     public ArrayList<Producto> getProductsByDateTimeAsc() {
+
+    public ArrayList<Producto> getProductsByDateTimeAsc() {
         try {
             String sql = "SELECT PR.*, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
@@ -107,8 +108,8 @@ public class ProductorDAOQuerys {
             return null;
         }
     }
-     
-      public ArrayList<Producto> buscadorLike(String Text) {
+
+    public ArrayList<Producto> buscadorLike(String Text) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
@@ -118,15 +119,12 @@ public class ProductorDAOQuerys {
                     + "WHERE PR.nombreProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    
                     + "OR PR.marcaProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    
                     + "OR CP.nombreCategoria LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    
                     + "OR PR.descripcionProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0";
@@ -170,7 +168,6 @@ public class ProductorDAOQuerys {
 
     }
 
-      
     public ArrayList<Producto> searchCategory(String Categoria) {
         List<Producto> list = new ArrayList<Producto>();
         try {
@@ -265,18 +262,19 @@ public class ProductorDAOQuerys {
 
     }
 
-    public ArrayList<Producto> searchByEmpresa(String Empresa) {
+    public ArrayList<Producto> searchByCentro(String Centro) {
         List<Producto> list = new ArrayList<Producto>();
         try {
-            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
+            String sql = "SELECT PR.*, EM.idEmpresa,CN.nombreCentro,CP.nombreCategoria "
                     + "FROM producto PR INNER JOIN empresa EM "
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
-                    + "ON PR.idCategoriaFK=CP.idCategoria "
-                    + "WHERE PR.idEmpresaFK = ? "
+                    + "ON PR.idCategoriaFK=CP.idCategoria INNER JOIN centro CN "
+                    + "ON CN.idCentro=EM.idCentro "
+                    + "WHERE CN.idCentro = ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
-            ps.setString(1, Empresa );
+            ps.setString(1, Centro);
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
@@ -311,8 +309,8 @@ public class ProductorDAOQuerys {
         }
 
     }
-    
-      public ArrayList<Producto> getProductsByNameCategory(Producto pro) {
+
+    public ArrayList<Producto> getProductsByNameCategory(Producto pro) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
@@ -333,11 +331,11 @@ public class ProductorDAOQuerys {
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getNombreCategoria());
-            ps.setString(2, "%"+pro.getNombreProducto()+"%");
+            ps.setString(2, "%" + pro.getNombreProducto() + "%");
             ps.setString(3, pro.getNombreCategoria());
-            ps.setString(4, "%"+pro.getNombreProducto()+"%");
+            ps.setString(4, "%" + pro.getNombreProducto() + "%");
             ps.setString(5, pro.getNombreCategoria());
-            ps.setString(6, "%"+pro.getNombreProducto()+"%");
+            ps.setString(6, "%" + pro.getNombreProducto() + "%");
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
@@ -372,8 +370,8 @@ public class ProductorDAOQuerys {
         }
 
     }
-    
-       public ArrayList<Producto> getProductsByCategoryCity(Producto pro) {
+
+    public ArrayList<Producto> getProductsByCategoryCity(Producto pro) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
@@ -388,7 +386,7 @@ public class ProductorDAOQuerys {
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? ";
-                    
+
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getNombreCategoria());
             ps.setString(2, pro.getCiudad());
@@ -428,8 +426,8 @@ public class ProductorDAOQuerys {
         }
 
     }
-      
-       public ArrayList<Producto> getProductsByNameCategoryCity(Producto pro) {
+
+    public ArrayList<Producto> getProductsByNameCategoryCity(Producto pro) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
@@ -451,16 +449,16 @@ public class ProductorDAOQuerys {
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? ";
-                    
+
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getNombreCategoria());
-            ps.setString(2, "%"+pro.getNombreProducto()+"%");
+            ps.setString(2, "%" + pro.getNombreProducto() + "%");
             ps.setString(3, pro.getCiudad());
             ps.setString(4, pro.getNombreCategoria());
-            ps.setString(5, "%"+pro.getNombreProducto()+"%");
+            ps.setString(5, "%" + pro.getNombreProducto() + "%");
             ps.setString(6, pro.getCiudad());
             ps.setString(7, pro.getNombreCategoria());
-            ps.setString(8, "%"+pro.getNombreProducto()+"%");
+            ps.setString(8, "%" + pro.getNombreProducto() + "%");
             ps.setString(9, pro.getCiudad());
             System.out.println(ps.toString());
             rs = ps.executeQuery();
@@ -496,9 +494,8 @@ public class ProductorDAOQuerys {
         }
 
     }
-    
-       
-       public ArrayList<Producto> getProductsByCitySeller(Producto pro) {
+
+    public ArrayList<Producto> getProductsByCitySeller(Producto pro) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
@@ -507,13 +504,13 @@ public class ProductorDAOQuerys {
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    + "AND EM.idCiudadFK = ? "
-                    + "AND PR.idEmpresaFK = ? ";
-                    
+                    + "AND EM.idCiudadFK = ? ";
+//                    + "AND PR.idEmpresaFK = ? ";
+
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getCiudad());
-            ps.setString(2, pro.getIdEmpresaFK());
-            
+//            ps.setString(2, pro.getIdEmpresaFK());
+
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
@@ -548,46 +545,44 @@ public class ProductorDAOQuerys {
         }
 
     }
-    
-    
-          public ArrayList<Producto> getProductsByNameCitySeller(Producto pro) {
+
+    public ArrayList<Producto> getProductsByNameCitySeller(Producto pro, empresaDTO em) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
                     + "FROM producto PR INNER JOIN empresa EM "
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
-                    + "ON PR.idCategoriaFK=CP.idCategoria "
+                    + "ON PR.idCategoriaFK=CP.idCategoria INNER JOIN centro CN  "
+                    + "ON CN.idCentro=EM.idCentro "
                     + "WHERE PR.nombreProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
-                    + "AND PR.idEmpresaFK = ? "
-                    
+                    + "AND CN.idCentro = ? "
                     + "OR PR.descripcionProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
-                    + "AND PR.idEmpresaFK = ? "
-                    
+                    + "AND CN.idCentro = ? "
                     + "OR PR.marcaProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
-                    + "AND PR.idEmpresaFK = ? ";
-                    
+                    + "AND CN.idCentro = ? ";
+
             ps = conn.prepareStatement(sql);
-            ps.setString(1, "%"+pro.getNombreProducto()+"%");
+            ps.setString(1, "%" + pro.getNombreProducto() + "%");
             ps.setString(2, pro.getCiudad());
-            ps.setString(3, pro.getIdEmpresaFK());
-            
-            ps.setString(4, "%"+pro.getNombreProducto()+"%");
+            ps.setString(3, em.getCentro());
+
+            ps.setString(4, "%" + pro.getNombreProducto() + "%");
             ps.setString(5, pro.getCiudad());
-            ps.setString(6, pro.getIdEmpresaFK());
-            
-            ps.setString(7, "%"+pro.getNombreProducto()+"%");
+            ps.setString(6, em.getCentro());
+
+            ps.setString(7, "%" + pro.getNombreProducto() + "%");
             ps.setString(8, pro.getCiudad());
-            ps.setString(9, pro.getIdEmpresaFK());
-            
+            ps.setString(9, em.getCentro());
+
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
@@ -622,50 +617,50 @@ public class ProductorDAOQuerys {
         }
 
     }
-    
-       
-       public ArrayList<Producto> getProductsByNameCategoryCitySeller(Producto pro) {
+
+    public ArrayList<Producto> getProductsByNameCategoryCitySeller(Producto pro, empresaDTO em) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
                     + "FROM producto PR INNER JOIN empresa EM "
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
-                    + "ON PR.idCategoriaFK=CP.idCategoria "
+                    + "ON PR.idCategoriaFK=CP.idCategoria INNER JOIN centro CN "
+                    + "ON CN.idCentro=EM.idCentro "
                     + "WHERE PR.idCategoriaFK = ? "
                     + "AND PR.nombreProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
-                    + "AND PR.idEmpresaFK = ? "
+                    + "AND CN.idCentro = ? "
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.descripcionProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
-                    + "AND PR.idEmpresaFK = ? "
+                    + "AND CN.idCentro = ? "
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.marcaProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
-                    + "AND PR.idEmpresaFK = ? ";
-                    
+                    + "AND CN.idCentro = ? ";
+
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getNombreCategoria());
-            ps.setString(2, "%"+pro.getNombreProducto()+"%");
+            ps.setString(2, "%" + pro.getNombreProducto() + "%");
             ps.setString(3, pro.getCiudad());
-            ps.setString(4, pro.getIdEmpresaFK());
-            
+            ps.setString(4, em.getCentro());
+
             ps.setString(5, pro.getNombreCategoria());
-            ps.setString(6, "%"+pro.getNombreProducto()+"%");
+            ps.setString(6, "%" + pro.getNombreProducto() + "%");
             ps.setString(7, pro.getCiudad());
-            ps.setString(8, pro.getIdEmpresaFK());
-            
+            ps.setString(8, em.getCentro());
+
             ps.setString(9, pro.getNombreCategoria());
-            ps.setString(10, "%"+pro.getNombreProducto()+"%");
+            ps.setString(10, "%" + pro.getNombreProducto() + "%");
             ps.setString(11, pro.getCiudad());
-            ps.setString(12, pro.getIdEmpresaFK());
-            
+            ps.setString(12, em.getCentro());
+
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
@@ -700,8 +695,8 @@ public class ProductorDAOQuerys {
         }
 
     }
-    
-         public ArrayList<Producto> getProductsByNameCity(Producto pro) {
+
+    public ArrayList<Producto> getProductsByNameCity(Producto pro) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
@@ -712,23 +707,21 @@ public class ProductorDAOQuerys {
                     + "AND PR.nombreProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    
                     + "OR EM.idCiudadFK = ? "
                     + "AND PR.descripcionProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    
                     + "OR EM.idCiudadFK = ? "
                     + "AND PR.marcaProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getCiudad());
-            ps.setString(2, "%"+pro.getNombreProducto()+"%");
+            ps.setString(2, "%" + pro.getNombreProducto() + "%");
             ps.setString(3, pro.getCiudad());
-            ps.setString(4, "%"+pro.getNombreProducto()+"%");
+            ps.setString(4, "%" + pro.getNombreProducto() + "%");
             ps.setString(5, pro.getCiudad());
-            ps.setString(6, "%"+pro.getNombreProducto()+"%");
+            ps.setString(6, "%" + pro.getNombreProducto() + "%");
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
@@ -763,8 +756,8 @@ public class ProductorDAOQuerys {
         }
 
     }
-         
-         public ArrayList<Producto> getProductsByCategorySeller(Producto pro) {
+
+    public ArrayList<Producto> getProductsByCategorySeller(Producto pro) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
@@ -773,12 +766,12 @@ public class ProductorDAOQuerys {
                     + "ON PR.idCategoriaFK=CP.idCategoria "
                     + "WHERE PR.idCategoriaFK = ? "
                     + "AND estadoProducto = 2 "
-                    + "AND PR.stockProducto > 0 "
-                    + "AND PR.idEmpresaFK = ? ";
-                    
+                    + "AND PR.stockProducto > 0 ";
+//                    + "AND PR.idEmpresaFK = ? ";
+
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getNombreCategoria());
-            ps.setString(2, pro.getIdEmpresaFK());
+//            ps.setString(2, pro.getIdEmpresaFK());
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
@@ -813,8 +806,8 @@ public class ProductorDAOQuerys {
         }
 
     }
-         
-         public ArrayList<Producto> getProductsByNameCategorySeller(Producto pro) {
+
+    public ArrayList<Producto> getProductsByNameCategorySeller(Producto pro) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
@@ -825,33 +818,33 @@ public class ProductorDAOQuerys {
                     + "AND PR.nombreProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    + "AND PR.idEmpresaFK = ? "
-                    
+                    //                    + "AND PR.idEmpresaFK = ? "
+
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.descripcionProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    + "AND PR.idEmpresaFK = ? "
-                    
+                    //                    + "AND PR.idEmpresaFK = ? "
+
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.marcaProducto LIKE ? "
                     + "AND estadoProducto = 2 "
-                    + "AND PR.stockProducto > 0 "
-                    + "AND PR.idEmpresaFK = ? ";
-                    
+                    + "AND PR.stockProducto > 0 ";
+//                    + "AND PR.idEmpresaFK = ? ";
+
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getNombreCategoria());
-            ps.setString(2, "%"+pro.getNombreProducto()+"%");
-            ps.setString(3, pro.getIdEmpresaFK());
-            
-            ps.setString(4, pro.getNombreCategoria());
-            ps.setString(5, "%"+pro.getNombreProducto()+"%");
-            ps.setString(6, pro.getIdEmpresaFK());
-            
-            ps.setString(7, pro.getNombreCategoria());
-            ps.setString(8, "%"+pro.getNombreProducto()+"%");
-            ps.setString(9, pro.getIdEmpresaFK());
-            
+            ps.setString(2, "%" + pro.getNombreProducto() + "%");
+//            ps.setString(3, pro.getIdEmpresaFK());
+
+            ps.setString(3, pro.getNombreCategoria());
+            ps.setString(4, "%" + pro.getNombreProducto() + "%");
+//            ps.setString(6, pro.getIdEmpresaFK());
+
+            ps.setString(5, pro.getNombreCategoria());
+            ps.setString(6, "%" + pro.getNombreProducto() + "%");
+//            ps.setString(9, pro.getIdEmpresaFK());
+
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
@@ -886,37 +879,38 @@ public class ProductorDAOQuerys {
         }
 
     }
-         
-         public ArrayList<Producto> getProductsByNameSeller(Producto pro) {
+
+    public ArrayList<Producto> getProductsByNameSeller(Producto pro, empresaDTO em) {
         List<Producto> list = new ArrayList<Producto>();
         try {
-            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
+            String sql = "SELECT PR.*, EM.idEmpresa,CN.nombreCentro, CP.nombreCategoria "
                     + "FROM producto PR INNER JOIN empresa EM "
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
-                    + "ON PR.idCategoriaFK=CP.idCategoria "
+                    + "ON PR.idCategoriaFK=CP.idCategoria INNER JOIN centro CN "
+                    + "ON CN.idCentro=EM.idCentro "
                     + "WHERE PR.nombreProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    + "AND PR.idEmpresaFK = ? "
+                    + "AND CN.idCentro = ? "
                     + "OR PR.descripcionProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    + "AND PR.idEmpresaFK = ? "
+                    + "AND CN.idCentro = ? "
                     + "OR PR.marcaProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    + "AND PR.idEmpresaFK = ? ";
-                    
+                    + "AND CN.idCentro = ? ";
+
             ps = conn.prepareStatement(sql);
-            ps.setString(1, "%"+pro.getNombreProducto()+"%");
-            ps.setString(2, pro.getIdEmpresaFK());
-            
-            ps.setString(3, "%"+pro.getNombreProducto()+"%");
-            ps.setString(4, pro.getIdEmpresaFK());
-            
-            ps.setString(5, "%"+pro.getNombreProducto()+"%");
-            ps.setString(6, pro.getIdEmpresaFK());
-            
+            ps.setString(1, "%" + pro.getNombreProducto() + "%");
+            ps.setString(2, em.getCentro());
+
+            ps.setString(3, "%" + pro.getNombreProducto() + "%");
+            ps.setString(4, em.getCentro());
+
+            ps.setString(5, "%" + pro.getNombreProducto() + "%");
+            ps.setString(6, em.getCentro());
+
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
@@ -951,25 +945,25 @@ public class ProductorDAOQuerys {
         }
 
     }
-         
-            public ArrayList<Producto> getProductsByCategoryCitySeller(Producto pro) {
+
+    public ArrayList<Producto> getProductsByCategoryCitySeller(Producto pro, empresaDTO em) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
                     + "FROM producto PR INNER JOIN empresa EM "
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
-                    + "ON PR.idCategoriaFK=CP.idCategoria "
+                    + "ON PR.idCategoriaFK=CP.idCategoria INNER JOIN centro CN  "
+                    + "ON CN.idCentro=EM.idCentro "
                     + "WHERE PR.idCategoriaFK = ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
-                    + "AND PR.idEmpresaFK = ? ";
-                    
+                    + "AND CN.idCentro = ? ";
+
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getNombreCategoria());
             ps.setString(2, pro.getCiudad());
-            ps.setString(3, pro.getIdEmpresaFK());
-            
+            ps.setString(3, em.getCentro());
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
@@ -1004,11 +998,11 @@ public class ProductorDAOQuerys {
         }
 
     }
-       
-       public void CloseAll() {
+
+    public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);
         Conexion.close(rs);
     }
-    
+
 }

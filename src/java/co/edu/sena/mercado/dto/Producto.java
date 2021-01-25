@@ -16,28 +16,28 @@ public class Producto {
     private int stockProducto;
     private String marcaProducto;
     private String descripcionProducto;
-    
+
     private String diasEnvios;
     private String medidaProducto;
     private String empaqueProducto;
     private String embalajeProducto;
     private String ventajaProducto;
-    
+
     private String idEmpresaFK;
     private String idCategoriaFK;
-    
+
     private ImagenesProducto imagenesProducto;
     private Categorys categorys;
     private String nombreCategoria;
     private String nombreEmpresa;
     private int idCiudad;
-    
+
     private String ciudad;
 
     public Producto() {
     }
 
-    public Producto(String nombreProducto, Double valorProducto, int stockProducto, String marcaProducto, String descripcionProducto, String idEmpresaFK, String idCategoriaFK,String nombreEmpresa,int idCiudad) {
+    public Producto(String nombreProducto, Double valorProducto, int stockProducto, String marcaProducto, String descripcionProducto, String idEmpresaFK, String idCategoriaFK, String nombreEmpresa, int idCiudad) {
         this.nombreProducto = nombreProducto;
         this.valorProducto = valorProducto;
         this.stockProducto = stockProducto;
@@ -46,7 +46,7 @@ public class Producto {
         this.idEmpresaFK = idEmpresaFK;
         this.idCategoriaFK = idCategoriaFK;
         this.nombreEmpresa = nombreEmpresa;
-        this.idCiudad=idCiudad;
+        this.idCiudad = idCiudad;
     }
 
     public int getIdCiudad() {
@@ -65,7 +65,6 @@ public class Producto {
         this.nombreEmpresa = nombreEmpresa;
     }
 
-    
     public String getIdProducto() {
         return idProducto;
     }
@@ -113,7 +112,6 @@ public class Producto {
 //    public void setFechaVencimiento(String fechaVencimiento) {
 //        this.fechaVencimiento = Date.valueOf(fechaVencimiento);
 //    }
-
     public String getDescripcionProducto() {
         return descripcionProducto;
     }
@@ -231,6 +229,4 @@ public class Producto {
         return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", valorProducto=" + valorProducto + ", stockProducto=" + stockProducto + ", marcaProducto=" + marcaProducto + ", descripcionProducto=" + descripcionProducto + ", diasEnvios=" + diasEnvios + ", medidaProducto=" + medidaProducto + ", empaqueProducto=" + empaqueProducto + ", embalajeProducto=" + embalajeProducto + ", ventajaProducto=" + ventajaProducto + ", idEmpresaFK=" + idEmpresaFK + ", idCategoriaFK=" + idCategoriaFK + ", imagenesProducto=" + imagenesProducto + ", categorys=" + categorys + ", nombreCategoria=" + nombreCategoria + ", nombreEmpresa=" + nombreEmpresa + ", idCiudad=" + idCiudad + ", ciudad=" + ciudad + '}';
     }
 
-    
-    
 }

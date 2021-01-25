@@ -208,7 +208,7 @@ public class ProductoDAO {
             return null;
         }
     }
-    
+
     public ArrayList<Producto> getProductsBySeller(String id) {
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR "
@@ -253,7 +253,6 @@ public class ProductoDAO {
         }
     }
 
-    //es un comentario gay
     public Producto buscarProducto(int idProducto) {
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria WHERE PR.idProducto= ?";
@@ -313,8 +312,8 @@ public class ProductoDAO {
             throw new Exception();
         }
     }
-    
-     public boolean disabledProductWithAdmin(String id, String idEstado, String comentario) throws Exception {
+
+    public boolean disabledProductWithAdmin(String id, String idEstado, String comentario) throws Exception {
         try {
 
             String sql = "UPDATE producto set estadoProducto = ?, nota = ? "
