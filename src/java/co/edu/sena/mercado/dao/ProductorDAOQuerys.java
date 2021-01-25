@@ -807,43 +807,42 @@ public class ProductorDAOQuerys {
 
     }
 
-    public ArrayList<Producto> getProductsByNameCategorySeller(Producto pro) {
+    public ArrayList<Producto> getProductsByNameCategorySeller(Producto pro, empresaDTO em) {
         List<Producto> list = new ArrayList<Producto>();
         try {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria "
                     + "FROM producto PR INNER JOIN empresa EM "
                     + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
-                    + "ON PR.idCategoriaFK=CP.idCategoria "
+                    + "ON PR.idCategoriaFK=CP.idCategoria INNER JOIN centro CN "
+                    + "ON CN.idCentro=EM.idCentro "
                     + "WHERE PR.idCategoriaFK = ? "
                     + "AND PR.nombreProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    //                    + "AND PR.idEmpresaFK = ? "
-
+                    + "AND CN.idCentro = ? "
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.descripcionProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    //                    + "AND PR.idEmpresaFK = ? "
-
+                    + "AND CN.idCentro = ? "
                     + "OR PR.idCategoriaFK = ? "
                     + "AND PR.marcaProducto LIKE ? "
                     + "AND estadoProducto = 2 "
-                    + "AND PR.stockProducto > 0 ";
-//                    + "AND PR.idEmpresaFK = ? ";
+                    + "AND PR.stockProducto > 0 "
+                    + "AND CN.idCentro = ? ";
 
             ps = conn.prepareStatement(sql);
             ps.setString(1, pro.getNombreCategoria());
             ps.setString(2, "%" + pro.getNombreProducto() + "%");
-//            ps.setString(3, pro.getIdEmpresaFK());
+            ps.setString(3, em.getCentro());
 
-            ps.setString(3, pro.getNombreCategoria());
-            ps.setString(4, "%" + pro.getNombreProducto() + "%");
-//            ps.setString(6, pro.getIdEmpresaFK());
+            ps.setString(4, pro.getNombreCategoria());
+            ps.setString(5, "%" + pro.getNombreProducto() + "%");
+            ps.setString(6, em.getCentro());
 
-            ps.setString(5, pro.getNombreCategoria());
-            ps.setString(6, "%" + pro.getNombreProducto() + "%");
-//            ps.setString(9, pro.getIdEmpresaFK());
+            ps.setString(7, pro.getNombreCategoria());
+            ps.setString(8, "%" + pro.getNombreProducto() + "%");
+            ps.setString(9, em.getCentro());
 
             System.out.println(ps.toString());
             rs = ps.executeQuery();

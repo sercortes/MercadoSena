@@ -104,7 +104,9 @@ public class SearchThree extends HttpServlet {
         producto.setNombreCategoria(categoria);
 //        producto.setCiudad(ciudad);
         producto.setIdEmpresaFK(vendedores);
-        ArrayList<Producto> listaProductos = productoDAO.getProductsByNameCategorySeller(producto);
+        empresaDTO empresa = new empresaDTO();
+        empresa.setCentro(vendedores);
+        ArrayList<Producto> listaProductos = productoDAO.getProductsByNameCategorySeller(producto, empresa);
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
