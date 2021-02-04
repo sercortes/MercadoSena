@@ -68,8 +68,9 @@
                             <a class="nav-link encabezadoOpciones" href="./misPedidos"><i class="fas fa-handshake"></i> Mis Contactos</a>
                         </li>
                     </c:if>
-                        
+                        <input type="hidden" id="fkRol" name="fkRol" value="${USER.idRol}" >
                     <c:if test="${USER.idRol == 5}">
+                        
                         <li class="nav-item">
                             <a class="nav-link encabezadoOpciones" href="./getProductsCheck"><i class="fas fa-tasks"></i> Aprobar productos</a>
                         </li>

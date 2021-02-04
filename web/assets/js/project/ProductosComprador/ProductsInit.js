@@ -195,19 +195,23 @@ function detailsProduct(producto) {
 
 function textProduct(item) {
 
-    let id = document.getElementById('companyss').value
-    let str = ''
+    let id = document.getElementById('companyss').value;
+    let fkRol = document.getElementById('fkRol').value;
+    let num = "5";
+    let str = '';
     let element = document.getElementById('details')
     str += `<div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
                 <h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
             <hr>`
-    if (item.idEmpresaFK === id) {
-        str += ``
-    } else {
-        str += `<a id="meInteresa" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`
+    if (fkRol === num) {
+        str += ``;
+    } else if(item.idEmpresaFK === id){
+        str += ``;
+    }else{
+        str += `<a id="meInteresa" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`;
+        str += `<i class="fas fa-gift"></i> Me interesa</a>`;
     }
-    str += `<i class="fas fa-gift"></i> Me interesa</a>
-    <select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`
+    str += `<select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`;
     for (var i = 1; i <= item.stockProducto; i++) {
         str += `<option>${i}</option>`
     }
