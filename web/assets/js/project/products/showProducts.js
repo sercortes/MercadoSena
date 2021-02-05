@@ -136,13 +136,13 @@ function generateTableBuscadorP() {
     let num = 1
 
     for (var item of displayRecords) {
-        
-  str += `<div class="col-lg-3">
+
+        str += `<div class="col-lg-3">
           <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}">`
         str += '<td>' + getImagen(item.imagen) + '</td>'
         str += `<figcaption class="p-3 card-img-bottom">
                 <hr>
-              <h2 class="h5 text-left text-muted mb-3 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
+              <h2 class="h5 text-left text-muted mb-0 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
               <h2 class="h5 text-left font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
               <p class="mb-0 text-small text-muted">Cantidad: ${item.stockProducto}</p>
             </figcaption>
@@ -207,13 +207,14 @@ function textProductMy(item) {
     console.log(item)
     let str = ''
     let element = document.getElementById('detailsMy')
-    str += `<h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
-              <p class="mb-0 text-small text-muted">Cantidad: ${item.stockProducto}</p>
-              <p class="mb-0 text-small text-muted">Valor: $ ${item.valorProducto}</p>
-              <p class="mb-0 text-small text-muted">Marca: ${item.marcaProducto}</p>
-              <p class="mb-0 text-small text-muted">Categoría: ${item.categorys.nombreCategoria}</p>
+
+    str += `<div class="card-body"><h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
+              <p class="mb-0 text-small text-muted textoDes text-left">Cantidad: ${item.stockProducto}</p>
+              <p class="mb-0 text-small text-muted textoDes text-left">Valor: $ ${item.valorProducto}</p>
+              <p class="mb-0 text-small text-muted textoDes text-left">Marca: ${item.marcaProducto}</p>
+              <p class="mb-0 text-small text-muted textoDes text-left">Categoría: ${item.categorys.nombreCategoria}</p>
               <p class="mb-0 text-small text-muted textoDes text-left">Descripción</p>
-              <p class="mb-0 text-small text-muted textoDes text-left">${item.descripcionProducto}</p>`
+              <p class="mb-0 text-small text-muted textoDes text-left">${item.descripcionProducto}</p></div>`
     if (item.diasEnvios !== undefined) {
         str += `<hr>
         <div class="col-lg-12 mb-5 p-0">
@@ -223,16 +224,20 @@ function textProductMy(item) {
         <div id="collapseExample${item.idProducto}" class="collapse shadow-sm">
           <div class="card">
             <div class="card-body">
-             <p class="mb-0 text-small text-muted">Días de envío: ${item.diasEnvios}</p>
-         <p class="mb-0 text-small text-muted">Medidas : ${item.medidaProducto}</p>
-         <p class="mb-0 text-small text-muted">Empaque : ${item.empaqueProducto}</p>
-         <p class="mb-0 text-small text-muted">Embalaje : ${item.embalajeProducto}</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>
-            </div>
+             <p class="mb-0 text-small text-muted textoDes text-left">Días de envío: ${item.diasEnvios}</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">Medidas : ${item.medidaProducto}</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">Empaque : ${item.empaqueProducto}</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">Embalaje : ${item.embalajeProducto}</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>`;
+        if (item.ventajaProducto === undefined) {
+            str += `<p class="mb-0 text-small text-muted textoDes text-left">Ninguna</p>`;
+        } else {
+            str += `<p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>`;
+        }
+        str += `</div>
           </div>
         </div>
-      </div>`
+      </div>`;
     }
     element.innerHTML = str
 }

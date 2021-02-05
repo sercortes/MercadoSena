@@ -11,7 +11,7 @@ var $pagination = $('#pagination'),
 
 $(function () {
 
-        getProductsCheck()
+    getProductsCheck()
 
 })
 
@@ -193,7 +193,7 @@ function textProduct(item) {
     str += `<div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
                 <h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
             <hr>`
-    
+
     str += `<i class="fas fa-gift"></i> Me interesa</a>
     <select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`
     for (var i = 1; i <= item.stockProducto; i++) {
@@ -209,7 +209,7 @@ function textProduct(item) {
             </div>
           </div>`
 
-        str += `
+    str += `
         <hr>
         <div class="col-lg-12 mb-5 p-0">
        <a data-toggle="collapse" href="#collapseExample${item.idProducto}" role="button" aria-expanded="false" aria-controls="" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
@@ -222,8 +222,14 @@ function textProduct(item) {
          <p class="mb-0 text-small text-muted">Medidas : ${item.medidaProducto}</p>
          <p class="mb-0 text-small text-muted">Empaque : ${item.empaqueProducto}</p>
          <p class="mb-0 text-small text-muted">Embalaje : ${item.embalajeProducto}</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>`
+    if (item.ventajaProducto === undefined) {
+        str += `<p class="mb-0 text-small text-muted textoDes text-left">Ninguna</p>`;
+    } else {
+        str += `<p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>`;
+    }
+    str += `</div>
+
             </div>
           </div>
         </div>

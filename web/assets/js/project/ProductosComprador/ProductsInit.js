@@ -140,7 +140,7 @@ function generateTableBuscador() {
         str += `</div>
             <figcaption class="p-2 card-img-bottom">
         <hr>
-              <h2 class="letrasbanner text-left text-muted mb-1 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
+              <h2 class="letrasbanner text-left text-muted mb-0 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
               <h2 class="h5 text-left font-weight-bold mb-2 precios">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
             </figcaption>
       <div class="col-lg-12 mb-4 p-0">
@@ -238,8 +238,13 @@ function textProduct(item) {
          <p class="mb-0 text-small text-muted">Medidas : ${item.medidaProducto}</p>
          <p class="mb-0 text-small text-muted">Empaque : ${item.empaqueProducto}</p>
          <p class="mb-0 text-small text-muted">Embalaje : ${item.embalajeProducto}</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>`
+    if (item.ventajaProducto === undefined) {
+            str += `<p class="mb-0 text-small text-muted textoDes text-left">Ninguna</p>`;
+        } else {
+            str += `<p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>`;
+        }
+        str += `</div>
             </div>
           </div>
         </div>
