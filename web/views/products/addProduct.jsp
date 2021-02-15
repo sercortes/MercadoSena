@@ -8,7 +8,7 @@
 
 <%@include file="/views/searching/buscador.jspf"%>
 
-<c:if test="${USER.idRol != 3}">
+<c:if test="${USER.idRol != 3 || empty USER.idRol}">
     <c:redirect url="./home"/>
 </c:if>
 
@@ -38,18 +38,17 @@
                             Escriba un nombre de mínimo 4 carácteres
                         </div>
                     </div>
-                    <div class="form-group col-md-4">
-
-
-                        <label for="exampleInputEmail1">Marca:</label>
-                        <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="marca" name="marca" placeholder="Marca de su producto" required>
-
+                   
+                      
+                     <div class="form-group col-md-4">
+                        <label for="validationTooltip03">Marca:</label>
+                        <select id="marcaProductos" name="marca" class="form-control" tabindex="4" required>
+                            <option value="">No</option>
+                        </select>
                         <div class="invalid-feedback">
-                            Escriba una marca de mínimo 2 carácteres
-                        </div>
-
+                            Falta la marca
+                        </div> 
                     </div>
-
 
                 </div>
 

@@ -47,7 +47,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -87,7 +87,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -119,7 +119,7 @@ public class ProductorDAOQuerys {
                     + "WHERE PR.nombreProducto LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
-                    + "OR PR.marcaProducto LIKE ? "
+                    + "OR PR.marcaProductoFK LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "OR CP.nombreCategoria LIKE ? "
@@ -143,7 +143,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -190,7 +190,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -237,7 +237,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -285,7 +285,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -326,7 +326,7 @@ public class ProductorDAOQuerys {
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "OR PR.idCategoriaFK = ? "
-                    + "AND PR.marcaProducto LIKE ? "
+                    + "AND PR.marcaProductoFK LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
@@ -346,7 +346,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -402,7 +402,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -445,7 +445,7 @@ public class ProductorDAOQuerys {
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "OR PR.idCategoriaFK = ? "
-                    + "AND PR.marcaProducto LIKE ? "
+                    + "AND PR.marcaProductoFK LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? ";
@@ -470,7 +470,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -521,7 +521,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -564,7 +564,7 @@ public class ProductorDAOQuerys {
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
                     + "AND CN.idCentro = ? "
-                    + "OR PR.marcaProducto LIKE ? "
+                    + "OR PR.marcaProductoFK LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
@@ -593,7 +593,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -639,7 +639,7 @@ public class ProductorDAOQuerys {
                     + "AND EM.idCiudadFK = ? "
                     + "AND CN.idCentro = ? "
                     + "OR PR.idCategoriaFK = ? "
-                    + "AND PR.marcaProducto LIKE ? "
+                    + "AND PR.marcaProductoFK LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND EM.idCiudadFK = ? "
@@ -671,7 +671,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -712,7 +712,7 @@ public class ProductorDAOQuerys {
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "OR EM.idCiudadFK = ? "
-                    + "AND PR.marcaProducto LIKE ? "
+                    + "AND PR.marcaProductoFK LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0";
             ps = conn.prepareStatement(sql);
@@ -732,7 +732,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -782,7 +782,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -826,7 +826,7 @@ public class ProductorDAOQuerys {
                     + "AND PR.stockProducto > 0 "
                     + "AND CN.idCentro = ? "
                     + "OR PR.idCategoriaFK = ? "
-                    + "AND PR.marcaProducto LIKE ? "
+                    + "AND PR.marcaProductoFK LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND CN.idCentro = ? ";
@@ -854,7 +854,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -895,7 +895,7 @@ public class ProductorDAOQuerys {
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND CN.idCentro = ? "
-                    + "OR PR.marcaProducto LIKE ? "
+                    + "OR PR.marcaProductoFK LIKE ? "
                     + "AND estadoProducto = 2 "
                     + "AND PR.stockProducto > 0 "
                     + "AND CN.idCentro = ? ";
@@ -920,7 +920,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -973,7 +973,7 @@ public class ProductorDAOQuerys {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));

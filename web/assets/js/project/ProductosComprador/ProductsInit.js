@@ -39,10 +39,10 @@ function listarProductoByDateTime() {
 
 function generatePageQuery(data, pages) {
 
+    $('#cargas').removeClass('is-active');
     $pagination.twbsPagination('destroy');
     recPerPage = pages
 
-    $('#cargas').removeClass('is-active');
     if (data.length === 0) {
         queryEmphy()
         return false
@@ -113,7 +113,9 @@ function getImages(idpro, nume) {
         }
 
     })
+
     return str
+
 }
 
 function getImagen(array) {
@@ -197,20 +199,16 @@ function textProduct(item) {
 
     let id = document.getElementById('companyss').value;
     let fkRol = document.getElementById('fkRol').value;
-    let num = "5";
+
     let str = '';
     let element = document.getElementById('details')
     str += `<div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
                 <h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
             <hr>`
-    if (fkRol === num) {
-        str += ``;
-    } else if(item.idEmpresaFK === id){
-        str += ``;
-    }else{
-        str += `<a id="meInteresa" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`;
-        str += `<i class="fas fa-gift"></i> Me interesa</a>`;
-    }
+
+    str += `<a id="addItem" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`;
+    str += `<i class="fas fa-gift"></i> Añadir al carrito</a>`;
+
     str += `<select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`;
     for (var i = 1; i <= item.stockProducto; i++) {
         str += `<option>${i}</option>`
@@ -225,8 +223,8 @@ function textProduct(item) {
             </div>
           </div>`
 
-        str += `
-        <hr>
+    str +=
+            `<hr>
         <div class="col-lg-12 mb-5 p-0">
        <a data-toggle="collapse" href="#collapseExample${item.idProducto}" role="button" aria-expanded="false" aria-controls="" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
           <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Información Adicional</strong><i class="fa fa-angle-down"></i></p>
@@ -238,13 +236,9 @@ function textProduct(item) {
          <p class="mb-0 text-small text-muted">Medidas : ${item.medidaProducto}</p>
          <p class="mb-0 text-small text-muted">Empaque : ${item.empaqueProducto}</p>
          <p class="mb-0 text-small text-muted">Embalaje : ${item.embalajeProducto}</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>`
-    if (item.ventajaProducto === undefined) {
-            str += `<p class="mb-0 text-small text-muted textoDes text-left">Ninguna</p>`;
-        } else {
-            str += `<p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>`;
-        }
-        str += `</div>
+         <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>
+                </div>
             </div>
           </div>
         </div>
@@ -292,49 +286,55 @@ function caruselImagenes(data) {
 
 }
 
-$(document).on('click', '#meInteresa', function (e) {
+$(document).on('click', '#addItem', function (e) {
 
     e.preventDefault();
 
-    if (!checkSession()) {
-        $('#detailsProduct').modal('hide');
-        modalPreguntaRegistro();
-        return false
-    }
+//    if (!checkSession()) {
+//        $('#detailsProduct').modal('hide');
+//        modalPreguntaRegistro();
+//        return false
+//    }
 
     let parent = $(this)[0].parentElement
-    let idEmpresa = $(parent).attr('idEmpresa')
     let idProducto = $(parent).attr('idProducto')
-    let precio = $(parent).attr('precioProducto')
-    let cantidad = $('#cantidadSelect').val()
+    let producto = arregloFinal.find(element => element.idProducto === idProducto);
+    this.disabled = true
+    messageAddCar('Agregado')
+    console.log(producto)
+    console.log('')
+    
+    
+    addCar(producto)
 
-    if (checkProduct(idProducto)) {
-        messageInfo('El producto ya ha sido agregado, revisa los datos del emprendedor en la opción "mis contactos"')
-        return false
-    }
 
-    let datos = {
-        idEmpresa: idEmpresa,
-        idProducto: idProducto,
-        Cantidad: cantidad,
-        Precio: precio
-    }
-
-    Swal.fire({
-        title: 'Espera...',
-        text: '¿Deseas que el emprendedor pueda ver tus datos para contactarte?',
-        icon: 'info',
-        showCancelButton: true,
-        showCloseButton: true,
-        cancelButtonText: 'No',
-        confirmButtonText: 'Si',
-    }).then((result) => {
-        if (result.value) {
-            generateTables(datos, 1)
-        } else if (result.dismiss === Swal.DismissReason.cancel) {
-            generateTables(datos, 0)
-        }
-    })
+//    if (checkProduct(idProducto)) {
+//        messageInfo('El producto ya ha sido agregado, revisa los datos del emprendedor en la opción "mis contactos"')
+//        return false
+//    }
+//
+//    let datos = {
+//        idEmpresa: idEmpresa,
+//        idProducto: idProducto,
+//        Cantidad: cantidad,
+//        Precio: precio
+//    }
+//
+//    Swal.fire({
+//        title: 'Espera...',
+//        text: '¿Deseas que el emprendedor pueda ver tus datos para contactarte?',
+//        icon: 'info',
+//        showCancelButton: true,
+//        showCloseButton: true,
+//        cancelButtonText: 'No',
+//        confirmButtonText: 'Si',
+//    }).then((result) => {
+//        if (result.value) {
+//            generateTables(datos, 1)
+//        } else if (result.dismiss === Swal.DismissReason.cancel) {
+//            generateTables(datos, 0)
+//        }
+//    })
 
 })
 

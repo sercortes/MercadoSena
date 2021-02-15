@@ -22,12 +22,13 @@
         <link rel="stylesheet" type="text/css" href="./assets/styles/bootstrap4/bootstrap.css" async>
 
         <link href="./assets/styles/otrosIconos/flaticon.css" rel="stylesheet" type="text/css"/>
+        
         <link href="./assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" async>
         <link rel="stylesheet" type="text/css" href="./assets/styles/main_styles.css">
-        <link rel="stylesheet" type="text/css" href="./assets/styles/responsive.css">
+        <!--<link rel="stylesheet" type="text/css" href="./assets/styles/responsive.css">-->
         <link rel="stylesheet" type="text/css" href="./assets/styles/hover-min.css" async>
         <link rel="stylesheet" href="assets/styles/loginModal.css" async>
-
+       
     </head>
 
 

@@ -4,9 +4,55 @@ $(document).ready(function () {
         maxSize: 2 * 1024 * 1024,
         maxFiles: 5
     });
+    
     getCategorias()
+    getMarcass()
 
 });
+
+function getMarcass() {
+
+    $.ajax({
+        url: "./filtro",
+        type: 'POST',
+        async: true,
+        data: {
+            accion: 'listarMarcas'
+        }, dataType: 'json',
+        error: function (data) {
+
+        }, success: function (data, textStatus, jqXHR) {
+            let srt = ``
+            srt = '<option value="">Marca...</option>'
+            for (var item of data) {
+                srt += `<option value="${item.idMarca}">${item.nombreMarca}</option>`
+            }
+            document.getElementById('marcaProductos').innerHTML = srt
+        }
+    })
+
+}
+
+function getCategorias() {
+
+    let cat = document.getElementById('category')
+
+    let text = ``
+
+    $.ajax({
+        type: "POST",
+        url: './getCategorys',
+        datatype: 'json'
+    }).done(function (data) {
+
+        for (var item of data) {
+            text += `<option value="${item.idcategoria}">${item.nombreCategoria}</option>`
+        }
+
+        cat.innerHTML += text;
+    })
+
+}
 
 document.getElementById('formProduct').addEventListener('input', e => {
 
@@ -109,27 +155,6 @@ function clean() {
 
 }
 
-function getCategorias() {
-
-    let cat = document.getElementById('category')
-
-    let text = ``
-
-    $.ajax({
-        type: "POST",
-        url: './getCategorys',
-        datatype: 'json'
-    }).done(function (data) {
-
-        for (var item of data) {
-            text += `<option value="${item.idcategoria}">${item.nombreCategoria}</option>`
-        }
-
-        cat.innerHTML += text;
-    })
-
-}
-
 function generateOtherDiv() {
 
     $('.input-images-1 .has-files').remove()
@@ -202,7 +227,7 @@ function checkInputs() {
     let desc = document.getElementById('descrip').value
     let price = document.getElementById('price').value
     let cantidad = document.getElementById('cantidad').value
-    let marca = document.getElementById('marca').value
+    let marca = document.getElementById('marcaProductos').value
     let category = document.getElementById('category').value
 
     if (name == '' || desc == '' || name.length <= 2 ||

@@ -48,8 +48,10 @@
             <!-- Collapsible content -->
             <div class=" navbar-collapse collapse fondoMenu" id="basicExampleNav" >
 
-                <!-- Links -->  
+                <!-- Links -->
                 <ul class="navbar-nav mr-auto" style="color:black ">
+
+                    
                     <li class="nav-item active">                     
                         <a class="nav-link encabezadoOpciones" href="../MercadoSena/"><i class="fas fa-home fa-lg"></i> Inicio
                             <span class="sr-only">(current)</span>
@@ -63,26 +65,21 @@
                         <a class="nav-link encabezadoOpciones" href="#"><i class="fas fa-search fa-lg"></i> Buscar</a>
                     </li>
                     
-                    <c:if test="${USER.idRol != null && USER.idRol != 5}">
+                    
+                    <c:if test="${USER.idRol != null && USER.idRol != 3}">
                         <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./misPedidos"><i class="fas fa-handshake"></i> Mis Contactos</a>
+                            <a class="nav-link encabezadoOpciones" href="./misPedidos"><i class="fas fa-handshake"></i> Mis Compras</a>
                         </li>
                     </c:if>
                         <input type="hidden" id="fkRol" name="fkRol" value="${USER.idRol}" >
-                    <c:if test="${USER.idRol == 5}">
-                        
-                        <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./getProductsCheck"><i class="fas fa-tasks"></i> Aprobar productos</a>
-                        </li>
-                    </c:if>
 
                     <c:if test="${USER.idRol == 3}">
                         
                         <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./ventasVendedor"><i class="fas fa-bell"></i> Mis Anuncios</a>
+                            <a class="nav-link encabezadoOpciones" href="./Products"><i class="fas fa-gifts"></i> Mis Anuncios</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./Products"><i class="fas fa-gifts"></i> Mis productos</a>
+                            <a class="nav-link encabezadoOpciones" href="./ventasVendedor"><i class="fas fa-bell"></i> Mis Ventas</a>
                         </li>
 
                         <li class="nav-item">

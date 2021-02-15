@@ -8,9 +8,10 @@
 
 <%@include file="/views/template/head.jspf"%>
 
-<c:if test="${ empty USER.idRol}">
+<c:if test="${USER.idRol != 3 || empty USER.idRol}">
     <c:redirect url="./home"/>
 </c:if>
+
 <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 
 <%@include file="/views/template/header.jspf"%>
@@ -21,7 +22,7 @@
 <div class="container py-5">
 
     <div class="col-lg-9 mx-auto text-black text-center">
-      <h1 class="display-4">Mis Anuncios</h1>     
+      <h1 class="display-4">Mis ventas</h1>     
     </div>
     
     <div class="p-5 bg-white rounded shadow mb-5">

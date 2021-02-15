@@ -8,10 +8,9 @@
 
 <%@include file="/views/template/head.jspf"%>
 
-<c:if test="${ empty USER.idRol}">
+<c:if test="${USER.idRol != 3 || empty USER.idRol}">
     <c:redirect url="./home"/>
 </c:if>
-
 
 <link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
 <link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
