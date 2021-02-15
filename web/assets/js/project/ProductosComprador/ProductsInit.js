@@ -301,11 +301,8 @@ $(document).on('click', '#addItem', function (e) {
     let producto = arregloFinal.find(element => element.idProducto === idProducto);
     this.disabled = true
     messageAddCar('Agregado')
-    console.log(producto)
-    console.log('')
-    
-    
-    addCar(producto)
+    let cantidad = parseInt($('#cantidadSelect').val())
+    addCar(producto, cantidad)
 
 
 //    if (checkProduct(idProducto)) {

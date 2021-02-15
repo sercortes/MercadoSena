@@ -13,7 +13,9 @@ $(function () {
         var arrayBuy = []
         localStorage.setItem('objects', JSON.stringify(arrayBuy))
     }
-
+    
+    updateIconNumber()
+    
 })
 
 function redirect() {
