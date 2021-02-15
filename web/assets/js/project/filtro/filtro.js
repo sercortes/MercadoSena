@@ -65,9 +65,10 @@ $(document).on('click', '#searching', function (e) {
     e.preventDefault();
     var nombreProductoFiltar = $('#nombreProductoFiltar').val();
     let categorias = $('#categoriasCriBuscar').val();
+    let marca  = $('#marcaProducto').val();
 
     if (nombreProductoFiltar === ''
-            && categorias === '') {
+            && categorias === '' && marca === '') {
 
         messageInfo('Espera, Escribe una palabra clave por favor');
         document.getElementById('nombreProductoFiltar').focus();
@@ -96,28 +97,61 @@ $(document).on('click', '#searching', function (e) {
     
     let data = {
         word: nombreProductoFiltar,
-        categorias: categorias
+        categorias: categorias,
+        marca:marca
     };
 
     let url = '';
 
-    if (nombreProductoFiltar !== '' && categorias === '') {
+    if (nombreProductoFiltar !== '' && categorias === ''
+            && marca === '') {
 
         url = './getProductsByWord';
+        console.log('getProductsByWord')
         query(data, url);
 
-    } else if (nombreProductoFiltar === '' && categorias !== '') {
+    } else if (nombreProductoFiltar === '' && categorias !== ''
+            && marca === '') {
 
         url = './getProductsByCategory';
+        console.log('getProductsByCategory')
         query(data, url);
 
-    } else if (nombreProductoFiltar !== '' && categorias !== '') {
+    } else if (nombreProductoFiltar !== '' && categorias !== ''
+            && marca === '') {
 
         url = './getProductsByNameCategory';
+        console.log('getProductsByNameCategory')
         query(data, url);
 
-    }else {
+    }else if (nombreProductoFiltar === '' && categorias === ''
+            && marca !== ''){
+        
+        url = './getProductsByMarca';
+        console.log('getProductsByMarca')
+        query(data, url);
 
+    }else if (nombreProductoFiltar !== '' && categorias === ''
+            && marca !== ''){
+        
+        url = './getProductsByNameMarca';
+        console.log('getProductsByNameMarca')
+
+    }else if (nombreProductoFiltar === '' && categorias !== ''
+            && marca !== ''){
+        
+        url = './getProductsByCategoryMarca';
+        console.log('getProductsByCategoryMarca')
+
+    }else if (nombreProductoFiltar !== '' && categorias !== ''
+            && marca !== ''){
+        
+        url = './getProductsByNameCategoryMarca';
+        console.log('getProductsByNameCategoryMarca')
+
+    } else {
+        
+        console.log('else')
         url = './getProductsByWord';
         query(data, url);
 

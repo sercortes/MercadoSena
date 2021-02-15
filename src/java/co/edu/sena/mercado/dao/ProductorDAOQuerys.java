@@ -879,6 +879,56 @@ public class ProductorDAOQuerys {
 
     }
 
+     public ArrayList<Producto> getProductsByMarca(String marca) {
+        List<Producto> list = new ArrayList<Producto>();
+        try {
+            String sql = "SELECT PR.*, EM.idEmpresa,CN.nombreCentro, CP.nombreCategoria "
+                    + "FROM producto PR INNER JOIN empresa EM "
+                    + "ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP "
+                    + "ON PR.idCategoriaFK=CP.idCategoria "
+                    + "WHERE PR.marcaProductuctoFK = ? "
+                    + "AND estadoProducto = 2 "
+                    + "AND PR.stockProducto > 0 ";
+
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, marca);
+
+            System.out.println(ps.toString());
+            rs = ps.executeQuery();
+            Producto producto;
+            Categorys categorys;
+            while (rs.next()) {
+                producto = new Producto();
+                producto.setIdProducto(rs.getString("idProducto"));
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                producto.setValorProducto(rs.getDouble("valorProducto"));
+                producto.setStockProducto(rs.getInt("stockProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
+                producto.setDescripcionProducto(rs.getString("descripcionProducto"));
+                producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
+                producto.setMedidaProducto(rs.getString("medidasProducto"));
+                producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
+                producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
+                producto.setVentajaProducto(rs.getString("ventajasProducto"));
+                producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+
+                categorys = new Categorys();
+                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
+                producto.setCategorys(categorys);
+
+                list.add(producto);
+            }
+            return (ArrayList<Producto>) list;
+
+        } catch (Exception e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+            return null;
+        }
+
+    }
+    
+    
     public ArrayList<Producto> getProductsByNameSeller(Producto pro, empresaDTO em) {
         List<Producto> list = new ArrayList<Producto>();
         try {

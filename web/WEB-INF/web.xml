@@ -147,6 +147,7 @@
     <servlet-mapping>
         <servlet-name>SearchTwo</servlet-name>
         <url-pattern>/getProductsByNameCategory</url-pattern>
+        <url-pattern>/getProductsByMarca</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchThree</servlet-name>
