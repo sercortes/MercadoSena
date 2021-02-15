@@ -6,6 +6,7 @@
 package co.edu.sena.mercado.dao;
 
 import co.edu.sena.mercado.dto.Centro;
+import co.edu.sena.mercado.dto.MarcaDTO;
 import co.edu.sena.mercado.dto.empresaDTO;
 import co.edu.sena.mercado.util.Conexion;
 import java.sql.Connection;
@@ -161,21 +162,21 @@ public class empresaDAO {
 
     }
 
-    public ArrayList<Centro> listarCentros() {
+    public ArrayList<MarcaDTO> listarMarcas() {
         con = new Conexion();
-        ArrayList<Centro> lista = new ArrayList<Centro>();
-        consulta = "SELECT c.idCentro, c.nombreCentro FROM centro c WHERE c.idCentro <> 1";
+        ArrayList<MarcaDTO> lista = new ArrayList<MarcaDTO>();
+        consulta = "SELECT m.idMarca, m.nombreMarca FROM marcaProducto m";
         try {
             cn = con.getConnection();
             ps = cn.prepareStatement(consulta);
 
             rs = ps.executeQuery();
-            Centro centro;
+            MarcaDTO marcaDTO;
             while (rs.next()) {
-                centro = new Centro();
-                centro.setIdCentro(rs.getString("idCentro"));
-                centro.setNombreCentro(rs.getString("nombreCentro"));
-                lista.add(centro);
+                marcaDTO = new MarcaDTO();
+                marcaDTO.setIdMarca(rs.getString("idMarca"));
+                marcaDTO.setNombreMarca(rs.getString("nombreMarca"));
+                lista.add(marcaDTO);
 
             }
             //cerrarCon(ps, cn, rs);

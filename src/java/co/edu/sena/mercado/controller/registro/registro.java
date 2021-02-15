@@ -256,26 +256,29 @@ public class registro extends HttpServlet {
             empresaDAO = new EmpresasDAO(conn);
 
             usuarioDTO = new usuarioDTO();
-            listaRol = rolDAO.listarRol();
+//            listaRol = rolDAO.listarRol();
             usuarioDTO.setClaveUsu(request.getParameter("clave1"));
             usuarioDTO.setCorreoUsu(request.getParameter("correoUsuario"));
             usuarioDTO.setEstadoUsu("0");
             String clave = usuarioDTO.getClaveUsu();
             usuarioDTO.setCodigo(codigo.generarCod());
             String[] correo = usuarioDTO.getCorreoUsu().split("@");
-            String dominio = correo[1];
+//            String dominio = correo[1];
 
-            for (rolDTO rol : listaRol) {
-                if (dominio.equalsIgnoreCase("misena.edu.co") || dominio.equalsIgnoreCase("sena.edu.co")) {
-                    if (rol.getRol().equalsIgnoreCase("misena")) {
-                        usuarioDTO.setIdRol(rol.getIdRol());
-                    }
-                } else {
-                    if (rol.getRol().equalsIgnoreCase("comprador")) {
-                        usuarioDTO.setIdRol(rol.getIdRol());
-                    }
-                }
-            }
+//            for (rolDTO rol : listaRol) {
+//                if (dominio.equalsIgnoreCase("misena.edu.co") || dominio.equalsIgnoreCase("sena.edu.co")) {
+//                    if (rol.getRol().equalsIgnoreCase("misena")) {
+//                        usuarioDTO.setIdRol(rol.getIdRol());
+//                    }
+//                } else {
+//                    if (rol.getRol().equalsIgnoreCase("comprador")) {
+//                        usuarioDTO.setIdRol(rol.getIdRol());
+//                    }
+//                }
+//            }
+
+            usuarioDTO.setIdRol(2);
+            
             int idUser = usuarioDAO.registroUsuario(usuarioDTO);
             System.out.println(idUser + " USERRERER");
             usuarioDTO.setIdUsuario(idUser);

@@ -35,11 +35,11 @@ public class ProductoDAO {
 
     public int insertReturn(Producto producto) {
         int idActividad = 0;
-        String sql = "INSERT INTO producto (nombreProducto, valorProducto, stockProducto, marcaProducto, "
+        String sql = "INSERT INTO producto (nombreProducto, valorProducto, stockProducto, marcaProductoFK, "
                 + "descripcionProducto, diasEnvioProducto, medidasProducto, empaqueProducto, "
-                + "embalajeProducto, ventajasProducto, estadoProducto, "
+                + "embalajeProducto, ventajasProducto, "
                 + "idEmpresaFK, idCategoriaFK) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -54,9 +54,8 @@ public class ProductoDAO {
             ps.setString(8, producto.getEmpaqueProducto());
             ps.setString(9, producto.getEmbalajeProducto());
             ps.setString(10, producto.getVentajaProducto());
-            ps.setString(11, "1");
-            ps.setString(12, producto.getIdEmpresaFK());
-            ps.setString(13, producto.getIdCategoriaFK());
+            ps.setString(11, producto.getIdEmpresaFK());
+            ps.setString(12, producto.getIdCategoriaFK());
 
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
@@ -141,7 +140,7 @@ public class ProductoDAO {
         try {
 
             String sql = "UPDATE producto set nombreProducto = ?, valorProducto = ?, "
-                    + "stockProducto = ?, marcaProducto = ?, descripcionProducto = ?, "
+                    + "stockProducto = ?, marcaProductoFK = ?, descripcionProducto = ?, "
                     + "diasEnvioProducto = ?, medidasProducto = ?, empaqueProducto = ?,"
                     + "embalajeProducto = ?, ventajasProducto = ? "
                     + "WHERE idProducto = ?";
@@ -187,7 +186,7 @@ public class ProductoDAO {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
@@ -227,7 +226,7 @@ public class ProductoDAO {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setIdCategoriaFK(rs.getString("idCategoriaFK"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
@@ -267,7 +266,7 @@ public class ProductoDAO {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setIdCategoriaFK(rs.getString("idCategoriaFK"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));

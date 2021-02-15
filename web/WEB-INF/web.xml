@@ -140,28 +140,17 @@
     <servlet-mapping>
         <servlet-name>Search</servlet-name>
         <url-pattern>/getProductsRandom</url-pattern>
-        <url-pattern>/getProductsByWord</url-pattern>
         <url-pattern>/getProductsByDateTime</url-pattern>
+        <url-pattern>/getProductsByWord</url-pattern>
         <url-pattern>/getProductsByCategory</url-pattern>
-        <url-pattern>/getProductsByCity</url-pattern>
-        <url-pattern>/getProductsBySeller</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchTwo</servlet-name>
-        <url-pattern>/getProductsByNameCity</url-pattern>
-        <url-pattern>/getProductsByCitySeller</url-pattern>
         <url-pattern>/getProductsByNameCategory</url-pattern>
-        <url-pattern>/getProductsByNameCitySeller</url-pattern>
-        <url-pattern>/getProductsByCategoryCity</url-pattern>
-        <url-pattern>/getProductsByNameCategoryCity</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchThree</servlet-name>
         <url-pattern>/getProductsByNameSeller</url-pattern>
-        <url-pattern>/getProductsByCategoryCitySeller</url-pattern>
-        <url-pattern>/getProductsByCategorySeller</url-pattern>
-        <url-pattern>/getProductsByNameCategorySeller</url-pattern>
-        <url-pattern>/getProductsByNameCategoryCitySeller</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SelectsTwo</servlet-name>

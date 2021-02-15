@@ -16,30 +16,6 @@ $('#desplegarMenu').click(function () {
 
 })
 
-function consultaCiudadS() {
-    $.ajax({
-        url: "./registro?accion=consultaCiudad",
-        type: 'POST',
-        dataType: 'json',
-        async: true,
-        error: function (e) {
-            $('#bloqueo').hide();
-            $('#modalRegistro').hide();
-            // $('#carga').removeClass('is-active');
-            messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
-        },
-        success: function (data) {
-            let srt = ``
-            srt = '<option value="">Ciudad ...</option>'
-            for (var item of data) {
-                srt += `<option value="${item.idCiudad}">${item.nombreCiudad}</option>`
-            }
-            document.getElementById('ciudadCriBusqueda').innerHTML = srt
-        }
-    })
-
-}
-
 function listarCategoriasS() {
     $.ajax({
         url: "./registro",
@@ -61,24 +37,24 @@ function listarCategoriasS() {
     })
 }
 
-function centross() {
+function getMarcas() {
 
     $.ajax({
         url: "./filtro",
         type: 'POST',
         async: true,
         data: {
-            accion: 'listarCentros'
+            accion: 'listarMarcas'
         }, dataType: 'json',
         error: function (data) {
 
         }, success: function (data, textStatus, jqXHR) {
             let srt = ``
-            srt = '<option value="">Centros...</option>'
+            srt = '<option value="">Marca...</option>'
             for (var item of data) {
-                srt += `<option value="${item.idCentro}">${item.nombreCentro}</option>`
+                srt += `<option value="${item.idMarca}">${item.nombreMarca}</option>`
             }
-            document.getElementById('idCentro').innerHTML = srt
+            document.getElementById('marcaProducto').innerHTML = srt
         }
     })
 
@@ -88,12 +64,10 @@ $(document).on('click', '#searching', function (e) {
 
     e.preventDefault();
     var nombreProductoFiltar = $('#nombreProductoFiltar').val();
-    let ciudades = $('#ciudadCriBusqueda').val();
     let categorias = $('#categoriasCriBuscar').val();
-    let vendedores = document.getElementById('idCentro').value;
 
-    if (nombreProductoFiltar === '' && ciudades === ''
-            && categorias === '' && vendedores === '') {
+    if (nombreProductoFiltar === ''
+            && categorias === '') {
 
         messageInfo('Espera, Escribe una palabra clave por favor');
         document.getElementById('nombreProductoFiltar').focus();
@@ -116,112 +90,36 @@ $(document).on('click', '#searching', function (e) {
         document.getElementById('nombreProductoFiltar').focus();
         return false;
     }
-
+    
     document.getElementById('searching').disabled = true;
     $('#cargas').addClass('is-active');
+    
     let data = {
         word: nombreProductoFiltar,
-        categorias: categorias,
-        ciudades: ciudades,
-        vendedores: vendedores
+        categorias: categorias
     };
 
     let url = '';
 
-    if (nombreProductoFiltar !== '' && categorias === ''
-            && ciudades === '' && vendedores === '') {
+    if (nombreProductoFiltar !== '' && categorias === '') {
 
         url = './getProductsByWord';
         query(data, url);
 
-    } else if (nombreProductoFiltar === '' && categorias !== ''
-            && ciudades === '' && vendedores === '') {
+    } else if (nombreProductoFiltar === '' && categorias !== '') {
 
         url = './getProductsByCategory';
         query(data, url);
 
-    } else if (nombreProductoFiltar === '' && categorias === ''
-            && ciudades !== '' && vendedores === '') {
-
-        url = './getProductsByCity';
-        query(data, url);
-
-    } else if (nombreProductoFiltar === '' && categorias === ''
-            && ciudades === '' && vendedores !== '') {
-
-        url = './getProductsBySeller';
-        query(data, url);
-
-    } else if (nombreProductoFiltar !== '' && categorias !== ''
-            && ciudades === '' && vendedores === '') {
+    } else if (nombreProductoFiltar !== '' && categorias !== '') {
 
         url = './getProductsByNameCategory';
         query(data, url);
 
-    } else if (nombreProductoFiltar !== '' && categorias !== ''
-            && ciudades !== '' && vendedores === '') {
+    }else {
 
-        url = './getProductsByNameCategoryCity';
+        url = './getProductsByWord';
         query(data, url);
-
-    } else if (nombreProductoFiltar === '' && categorias !== ''
-            && ciudades !== '' && vendedores === '') {
-
-        url = './getProductsByCategoryCity';
-        query(data, url);
-
-    } else if (nombreProductoFiltar !== '' && categorias === ''
-            && ciudades !== '' && vendedores === '') {
-
-        url = './getProductsByNameCity';
-        query(data, url);
-
-    } else if (nombreProductoFiltar === '' && categorias === ''
-            && ciudades !== '' && vendedores !== '') {
-
-        url = './getProductsByCitySeller';
-        query(data, url);
-
-    } else if (nombreProductoFiltar !== '' && categorias === ''
-            && ciudades !== '' && vendedores !== '') {
-
-        url = './getProductsByNameCitySeller';
-        query(data, url);
-
-    } else if (nombreProductoFiltar === '' && categorias !== ''
-            && ciudades === '' && vendedores !== '') {
-
-        url = './getProductsByCategorySeller';
-        query(data, url);
-
-    } else if (nombreProductoFiltar !== '' && categorias !== ''
-            && ciudades === '' && vendedores !== '') {
-
-        url = './getProductsByNameCategorySeller';
-        query(data, url);
-
-    } else if (nombreProductoFiltar !== '' && categorias === ''
-            && ciudades === '' && vendedores !== '') {
-
-        url = './getProductsByNameSeller';
-        query(data, url);
-
-    } else if (nombreProductoFiltar !== '' && categorias !== ''
-            && ciudades !== '' && vendedores !== '') {
-
-        url = './getProductsByNameCategoryCitySeller';
-        query(data, url);
-
-    } else if (nombreProductoFiltar === '' && categorias !== ''
-            && ciudades !== '' && vendedores !== '') {
-
-        url = './getProductsByCategoryCitySeller';
-        query(data, url);
-
-    } else {
-
-        console.log('filtro mix');
-//        alert('----_----SERVER')
 
     }
 

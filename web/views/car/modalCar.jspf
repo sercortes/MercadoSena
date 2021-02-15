@@ -1,0 +1,64 @@
+<div id="modalCar" class="modal fade bd-example-modal-lg modal-open" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Productos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pb-0">
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead class="bg-primary">
+                            <tr>
+                                <th scope="col" class="border-0">
+                                    <div class="p-1 px-3 text-uppercase">Producto</div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="py-1 text-uppercase">Cantidad</div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="py-1 text-uppercase">Opciones</div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="py-1 text-uppercase">Precio</div>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody id="card">
+                           
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="row bg-white rounded">
+                    <div class="col-lg-6">
+                    
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="bg-primary px-4 py-3 text-uppercase font-weight-bold">Total </div>
+                        <div class="">
+                            <!--<p class="font-italic mb-4">Shipping and additional costs are calculated based on values you have entered.</p>-->
+                            <ul id="total" class="list-unstyled mb-4">
+                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Subtotal </strong><strong>$39.000.00</strong></li>
+                                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong><strong>$39.000.00</strong></li>
+                                <!--<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>-->
+                                    <!--<h5 class="font-weight-bold float-right">$45.000.00</h5>-->
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Comprar</button>
+            </div>
+        </div>
+    </div>
+</div>

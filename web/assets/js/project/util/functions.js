@@ -9,6 +9,11 @@ $(function () {
         interval: 3000,
     })
 
+    if (localStorage.getItem('objects') === null) {
+        var arrayBuy = []
+        localStorage.setItem('objects', JSON.stringify(arrayBuy))
+    }
+
 })
 
 function redirect() {
@@ -25,16 +30,15 @@ $(document).on('click', '#logoutFire', function () {
 })
 
 $(document).on('click', '#buttonSearch', function () {
-    
+
     if (bande === 0) {
-        
+
         $('#barraBusqueda').show('slow')
-        
+
         bande = 1
         if (firstTiime === 0) {
-            consultaCiudadS();
             listarCategoriasS();
-            centross();
+            getMarcas();
         }
         firstTiime++
 
@@ -71,6 +75,21 @@ function messageError(message) {
     })
 }
 
+function messageAddCar(message) {
+    Swal.fire({
+        position: 'bottom-end',
+        icon: 'success',
+        title: message,
+        showConfirmButton: false,
+        timer: 1500
+    }).then((result) =>{
+        
+        $('#detailsProduct').modal('hide')
+        showCar()
+        
+    })
+}
+
 function cerrar(id) {
 
     $(id).hide(400)
@@ -91,12 +110,12 @@ function checkSession() {
 
         if (data === false) {
             estatus = false
-        }else{
+        } else {
             estatus = true
         }
 
     })
-    
+
     return estatus;
 
 }

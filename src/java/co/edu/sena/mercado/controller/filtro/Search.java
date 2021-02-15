@@ -63,18 +63,6 @@ public class Search extends HttpServlet {
 
                 break;
 
-            case "/MercadoSena/getProductsByCity":
-
-                getProductsByCity(request, response);
-
-                break;
-
-            case "/MercadoSena/getProductsBySeller":
-
-                getProductsBySeller(request, response);
-
-                break;
-
         }
     }
 
@@ -112,8 +100,6 @@ public class Search extends HttpServlet {
         ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
         String palabra = request.getParameter("word");
 //        String categoria = request.getParameter("categorias");
-//        String ciudad = request.getParameter("ciudad");
-//        String vendedores = request.getParameter("vendedores");
 
         ArrayList<Producto> listaProductos = productoDAO.buscadorLike(palabra);
         productoDAO.CloseAll();
@@ -129,45 +115,11 @@ public class Search extends HttpServlet {
         ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
 //        String palabra = request.getParameter("word");
         String categoria = request.getParameter("categorias");
-//        String ciudad = request.getParameter("ciudad");
-//        String vendedores = request.getParameter("vendedores");
         ArrayList<Producto> listaProductos = productoDAO.searchCategory(categoria);
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
 
-    }
-
-    private void getProductsByCity(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        Conexion conexion = new Conexion();
-        ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
-//        String palabra = request.getParameter("word");
-//        String categoria = request.getParameter("categorias");
-        String ciudad = request.getParameter("ciudades");
-//        String vendedores = request.getParameter("vendedores");
-        ArrayList<Producto> listaProductos = productoDAO.searchCity(ciudad);
-        productoDAO.CloseAll();
-        response.setContentType("application/json");
-        new Gson().toJson(listaProductos, response.getWriter());
-
-    }
-
-    private void getProductsBySeller(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        Conexion conexion = new Conexion();
-        ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
-//        String palabra = request.getParameter("word");
-//        String categoria = request.getParameter("categorias");
-//        String ciudad = request.getParameter("ciudades");
-        String vendedores = request.getParameter("vendedores");
-        ArrayList<Producto> listaProductos = productoDAO.searchByCentro(vendedores);
-        productoDAO.CloseAll();
-        response.setContentType("application/json");
-        new Gson().toJson(listaProductos, response.getWriter());
     }
 
     @Override

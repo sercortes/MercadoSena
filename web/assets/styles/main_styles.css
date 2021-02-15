@@ -24,6 +24,9 @@
         min-height: 40px;*/
 }
 
+.modal {
+  overflow-y:auto;
+}
 /*z
 .textareas {
   outline: none;

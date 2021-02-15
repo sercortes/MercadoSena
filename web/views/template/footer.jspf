@@ -1,4 +1,6 @@
 
+<%@include file="/views/car/modalCar.jspf"%>
+
             <c:if test="${not empty USER.idRol}">
                 <div class="chat" >
                     <a href="./preguntas" title="Mensajes"><i class="fas fa-comments"></i><b class="notificaciones"></b></a>
@@ -31,11 +33,12 @@
     <script src="./assets/styles/bootstrap4/bootstrap.min.js"></script>
     <script src="./assets/js/sweet.js"></script>
     
-    <script src="./assets/js/TweenMax.min.js"></script>
-    <script src="./assets/js/custom.js"></script>
+    <!--<script src="./assets/js/TweenMax.min.js"></script>
+   <!-- <script src="./assets/js/custom.js"></script>-->
 
     <script src="./assets/js/project/util/functions.js"></script>
     <script src="./assets/js/project/login/init.js"></script>
+    <script src="./assets/js/project/carrito/car.js"></script>
 
      
     <c:if test="${not empty USER}">

@@ -3,7 +3,7 @@
 
 <%@include file="/views/template/head.jspf"%>
 
-<c:if test="${ empty USER.idRol}">
+<c:if test="${USER.idRol != 3 || empty USER.idRol}">
     <c:redirect url="./home"/>
 </c:if>
 
