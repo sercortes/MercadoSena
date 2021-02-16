@@ -136,18 +136,21 @@ $(document).on('click', '#searching', function (e) {
         
         url = './getProductsByNameMarca';
         console.log('getProductsByNameMarca')
+        query(data, url)
 
     }else if (nombreProductoFiltar === '' && categorias !== ''
             && marca !== ''){
         
         url = './getProductsByCategoryMarca';
         console.log('getProductsByCategoryMarca')
+        query(data, url)
 
     }else if (nombreProductoFiltar !== '' && categorias !== ''
             && marca !== ''){
         
         url = './getProductsByNameCategoryMarca';
-        console.log('getProductsByNameCategoryMarca')
+        console.log('getProductsByNameCategoryMarca');
+        query(data, url);
 
     } else {
         
@@ -170,8 +173,7 @@ function query(datos, url) {
         data: {
             word: datos.word,
             categorias: datos.categorias,
-            ciudades: datos.ciudades,
-            vendedores: datos.vendedores
+            marca: datos.marca
         },
         success: function (data) {
 
