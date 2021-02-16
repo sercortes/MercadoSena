@@ -2,7 +2,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 style="text-align: center;font-size: 26px;margin: 0px 0 -15px;color: orangered;font-weight: 500;">Registro usuario</h3>
+                <h3 style="text-align: center;font-size: 26px;margin: 0px 0 -15px;color: #e44232;font-weight: 500;">Registro usuario</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -46,7 +46,7 @@
               
 
                     <hr>
-                    <button class="botonRegistro" id="registrarUsuario">Siguiente</button>
+                    <button class="btn btn-primary" id="registrarUsuario" style="margin-left: 39%">Siguiente</button>
                 </form>
             </div>
             <div id="carga" class="loader loader-bouncing"></div>

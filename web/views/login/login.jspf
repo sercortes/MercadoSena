@@ -2,10 +2,10 @@
     <div class="modal-dialog modal-login" >
         <div class="modal-content">
             <div class="modal-header">
-                <div class="avatar">
+                <!--<div class="avatar">
                     <img src="./assets/images/icons/screen2.png" alt="Avatar">
-                </div>				
-                <h4 class="modal-title">Ingresar</h4>	
+                </div>-->				
+                <h4 class="modal-title" style="margin: 5px 0 -10px;">Ingresar</h4>	
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
             <div class="modal-body">
