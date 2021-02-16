@@ -22,11 +22,20 @@
                     <input type="hidden" id="companyss" value="0" disabled=""/>
                 </c:if>
                     
-                <div class="row justify-content-center pb-2 pt-2">
-                    <nav aria-label="Page navigation example">
-                        <ul id="pagination" class="pagination"></ul>
-                    </nav>
-                </div>   
+                <c:if test="${empty DIRECION}">   
+                    <div class="row justify-content-center pb-2 pt-2" style="display: none">
+                        <nav aria-label="Page navigation example">
+                            <ul id="pagination" class="pagination"></ul>
+                        </nav>
+                    </div>
+                </c:if>
+                   <c:if test="${not empty DIRECION}">   
+                    <div class="row justify-content-center pb-2 pt-2">
+                        <nav aria-label="Page navigation example">
+                            <ul id="pagination" class="pagination"></ul>
+                        </nav>
+                    </div>
+                </c:if> 
 
             </div>
         </div>

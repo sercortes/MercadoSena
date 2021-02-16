@@ -24,24 +24,24 @@
 
     <div class="row">
         <div class="col-lg-7 mx-auto">
-            <div class="bg-white rounded-lg shadow-sm p-5"  style="border: solid 1px rgb(252, 115, 30);">
+            <div class="bg-white rounded-lg shadow-sm p-5"  style="border: solid 1px rgb(238 82 68);">
                 <!-- Credit card form tabs -->
                 <ul role="tablist" class="nav bg-light nav-pills rounded-pill nav-fill mb-3">
                     <li class="nav-item">
                         <a data-toggle="pill" href="#nav-tab-persona" class="nav-link active rounded-pill" >
-                            <i class="fa fa-user" style="color: rgb(252, 115, 30)" ></i>
+                            <!--<i class="fa fa-user" style="color: rgb(252, 115, 30)" ></i>-->
                             Modificar datos personales
                         </a>
                     </li>
                     <li class="nav-item">
                         <a data-toggle="pill" href="#nav-tab-usuario" class="nav-link rounded-pill" >
-                            <i class="fa fa-user-circle" style="color: rgb(252, 115, 30)"></i>
+                           <!-- <i class="fa fa-user-circle" style="color: rgb(252, 115, 30)"></i>-->
                             Modificar contraseña
                         </a>
                     </li>
                     <li class="nav-item ocultar" >
                         <a data-toggle="pill" href="#nav-tab-empresa" class="nav-link rounded-pill" id="opcionEmpresa" >
-                            <i class="fa fa-building" style="color: rgb(252, 115, 30)" ></i>
+                            <!--<i class="fa fa-building" style="color: rgb(252, 115, 30)" ></i>-->
                             Registrar empresa
                         </a>
                     </li>
@@ -147,7 +147,7 @@
                             </div>
                             <br>
                             <br>
-                            <button class="botonRegistro" id="actualizarPersona">Actualizar</button>
+                            <button class="btn btn-primary" id="actualizarPersona" style="width: 20%; height: 45px;">Actualizar</button>
 
                         </form>
                     </div>
@@ -168,7 +168,7 @@
                             <input placeholder="Mínimo 10 Caráteres" type="password" id="clave2" minlength="10" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
 
                             <br>
-                            <button class="botonRegistro" id="btnActualizarUsuario">Actualizar</button>
+                            <button class="btn btn-primary" id="btnActualizarUsuario" style="width: 20%; height: 45px;">Actualizar</button>
                         </form>
                     </div>
                     <!-- fin -->
@@ -214,7 +214,7 @@
                             </div>
                             <br> 
 
-                            <button class="botonRegistro" id="btnActualizarEmpresa">Registrar</button>
+                            <button class="btn btn-primary" id="btnActualizarEmpresa" style="width: 20%; height: 45px;">Registrar</button>
 
                         </form>
                     </div>
