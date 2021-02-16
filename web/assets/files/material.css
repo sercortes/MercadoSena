@@ -48,7 +48,7 @@ and open the template in the editor.
 #contenido{
   
   clear:both;
-  border:1px solid #fc731e;
+  border:1px solid #ee5244;
   margin-top:2px;
   padding:15px;
   width:100%;
@@ -57,3 +57,4 @@ and open the template in the editor.
   font-size:14px;
   text-align: justify;
 }
+
