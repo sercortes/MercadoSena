@@ -91,7 +91,9 @@ function updateIconNumber(){
     let ex = document.getElementById('buttonCars')
     
     if (arraf.length === 0) {
-        document.getElementById("buttonCars").remove();
+        if (ex !== null) {
+            document.getElementById("buttonCars").remove();
+        }
         return false
     }
     

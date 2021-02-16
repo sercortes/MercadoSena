@@ -122,17 +122,7 @@ public class UploadProduct extends HttpServlet {
                 System.out.println(producto.toString());
 
                 usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
-
-                empresaDTO emDTOs = new empresaDAO().buscarEmpresa(usu.getIdUsuario());
-                
-                System.out.println(emDTOs.toString());
-                if (emDTOs.getNombreEmpresa() == null || 
-                        emDTOs.getDirEmpresa() == null ||
-                        emDTOs.getTelEmpresa() == null ||
-                        emDTOs.getCelEmpresa() == null) {
-                      out.print("false");
-                }else{
-                    
+           
                     producto.setIdEmpresaFK(Integer.toString(usu.getEmpresa().getIdEmpresa()));
 
                     folder = Integer.toString(productoDAO.insertReturn(producto));
@@ -160,7 +150,7 @@ public class UploadProduct extends HttpServlet {
 
                     cone.commit();
                     codigo = true;
-                }
+                
 
             } catch (Exception e) {
 

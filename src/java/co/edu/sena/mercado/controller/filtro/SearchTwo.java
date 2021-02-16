@@ -51,6 +51,25 @@ public class SearchTwo extends HttpServlet {
                 getProductsByMarca(request, response);
 
                 break;
+            
+            case "/getProductsByNameMarca":
+
+                getProductsByNameMarca(request, response);
+
+                break;
+            
+            
+            case "/getProductsByCategoryMarca":
+
+                getProductsByCategoryMarca(request, response);
+
+                break;
+                
+            case "/getProductsByNameCategoryMarca":
+                
+                getProductsByNameCategoryMarca(request, response);
+                
+                break;
 
         }
 
@@ -67,7 +86,6 @@ public class SearchTwo extends HttpServlet {
         Producto producto = new Producto();
         producto.setNombreProducto(palabra);
         producto.setNombreCategoria(categoria);
-        
         ArrayList<Producto> listaProductos = productoDAO.getProductsByNameCategory(producto);
         productoDAO.CloseAll();
         response.setContentType("application/json");
@@ -82,12 +100,6 @@ public class SearchTwo extends HttpServlet {
         Conexion conexion = new Conexion();
         ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
         String marca = request.getParameter("marca");
-//        String categoria = request.getParameter("categorias");
-//        Producto producto = new Producto();
-//        producto.setNombreProducto(palabra);
-//        producto.setNombreCategoria(categoria);
-        
-        
         ArrayList<Producto> listaProductos = productoDAO.getProductsByMarca(marca);
         productoDAO.CloseAll();
         response.setContentType("application/json");
@@ -95,10 +107,60 @@ public class SearchTwo extends HttpServlet {
         
     }
 
-    @Override
+
+    private void getProductsByNameMarca(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
+        String marca = request.getParameter("marca");
+        String word = request.getParameter("word");
+        ArrayList<Producto> listaProductos = productoDAO.getProductsByNameMarca(marca, word);
+        productoDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaProductos, response.getWriter());
+        
+    }
+
+    private void getProductsByCategoryMarca(HttpServletRequest request, HttpServletResponse response) throws IOException {
+       
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
+        String marca = request.getParameter("marca");
+        String cartegory = request.getParameter("categorias");
+        ArrayList<Producto> listaProductos = productoDAO.getProductsByCategoryMarca(marca, cartegory);
+        productoDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaProductos, response.getWriter());
+        
+    }
+
+    private void getProductsByNameCategoryMarca(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
+        String palabra = request.getParameter("word");
+        String categoria = request.getParameter("categorias");
+        String marca = request.getParameter("marca");
+        Producto producto = new Producto();
+        producto.setNombreProducto(palabra);
+        producto.setNombreCategoria(categoria);
+        producto.setMarcaProducto(marca);
+        ArrayList<Producto> listaProductos = productoDAO.getProductsByNameCategoryMarca(producto);
+        productoDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaProductos, response.getWriter());
+        
+    }
+
+        @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
     
-
 }
