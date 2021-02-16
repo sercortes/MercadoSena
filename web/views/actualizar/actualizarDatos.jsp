@@ -55,7 +55,7 @@
                     <div id="nav-tab-persona" class="tab-pane fade show active">
 
                         <form class="needs-validation" enctype="multipart/form-data;charset=UTF-8" id="datosActualizarpresona" >
-                            <h4 style="color: rgb(252, 115, 30);margin-top: 36px;">Datos personales: </h4>
+                            <h4 style="color: rgb(238 82 68);margin-top: 36px;">Datos personales: </h4>
                             <input type="hidden" name="rolUsuario" id="rolUsuario" value="${USER.idRol}">
 
 
@@ -156,7 +156,7 @@
                     <!-- usuario -->
                     <div id="nav-tab-usuario" class="tab-pane fade">
                         <form id="actualizarUsuario" class="needs-validation">
-                            <h4 style="color: rgb(252, 115, 30);margin-top: 36px;">Nueva contraseña: </h4>
+                            <h4 style="color: rgb(238 82 68);margin-top: 36px;">Nueva contraseña: </h4>
                             <!--<label>Correo:</label><br>-->
                             <input disabled type="hidden" value="${USER.correoUsu}" placeholder="Correo" class="form-control was-validated" minlength="1" maxlength="100" id="correoUsuario" name="correoUsuario" required >
                             <div class="invalid-feedback">
@@ -175,7 +175,7 @@
 
                     <!-- empresa -->
                     <div id="nav-tab-empresa" class="tab-pane fade ocultar">
-                        <h4 style="color: rgb(252, 115, 30);margin-top: 36px;">Empresa: </h4>
+                        <h4 style="color: rgb(238 82 68);margin-top: 36px;">Empresa: </h4>
                         <form id="actualizarEmpresa" class="needs-validation" >
                             <input type="hidden" name="esEmpresa" id="esEmpresa" value="${USER.empresa.esEmpresa}">
                             <label>Nombre:</label><br>

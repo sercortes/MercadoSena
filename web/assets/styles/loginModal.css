@@ -64,14 +64,14 @@
     .modal-login .btn {
         color: #fff;
         border-radius: 4px;
-		background: #fc731e;
+		background: #e44232;
 		text-decoration: none;
 		transition: all 0.4s;
         line-height: normal;
         border: none;
     }
 	.modal-login .btn:hover, .modal-login .btn:focus {
-		background: #ff8d48;
+		background: #ee5244;
 		outline: none;
 	}
 	.trigger-btn {
