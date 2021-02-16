@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div style="width: 100%;text-align: center;">
-                    <input id="generarInfo" type="submit" value="Generar" class="btn btn-success" onclick="generarInforme(event)" data-target="#modalInforme" data-toggle="modal">
+                    <input id="generarInfo" type="submit" value="Generar" class="btn btn-primary" onclick="generarInforme(event)" data-target="#modalInforme" data-toggle="modal">
                 </div>
             </form>
 
