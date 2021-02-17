@@ -1,10 +1,9 @@
-var idCompany
 $(function () {
-
+    
     if (sessionStorage.getItem('falls') === null) {
         sessionStorage.setItem('falls', 0)
     }
-
+    
 })
 
 $('#login').click(function () {
@@ -14,7 +13,7 @@ $('#login').click(function () {
 })
 
 document.getElementById('formOnes').addEventListener('input', e => {
-
+    
     e.preventDefault()
     var form = $("#formOnes")
     if (form[0].checkValidity() === false) {
@@ -22,91 +21,82 @@ document.getElementById('formOnes').addEventListener('input', e => {
         event.stopPropagation()
     }
     form.addClass('was-validated');
-
+    
 })
 
 
 
 document.getElementById('formOnes').addEventListener('submit', e => {
-
+    
     e.preventDefault()
-
+    
     var form = $("#formOnes")
     if (form[0].checkValidity() === false) {
         event.preventDefault()
         event.stopPropagation()
     }
     form.addClass('was-validated');
-
+    
     if (!checkInputs()) {
         messageInfo('complete el formulario')
         return false
     }
-
+    
     if (!checkInputsTwo()) {
-        messageInfo('complete el formularios')
+        messageInfo('complete el formulario')
         return false
     }
-
+    
     let ema = document.getElementById('emails').value
     let pas = document.getElementById('passs').value
     let url = window.location.pathname;
-
+    
     url = localStorage.getItem('page')
+    
     let datas = {
         email: ema,
         pass: pas,
         url: url,
     }
     $('#carga').addClass('is-active');
-
+    
     parseInt(sessionStorage.falls++)
     sessionStorage.getItem('falls')
-
-    if (sessionStorage.getItem('falls') <= 9) {
-
-    datas.ok = sessionStorage.getItem('ok')
-    datas.fall = sessionStorage.getItem('fall')
-    datas.check = 1
-
+    
+    if (sessionStorage.getItem('falls') <= 25) {
+        
+        datas.ok = sessionStorage.getItem('ok')
+        datas.fall = sessionStorage.getItem('fall')
+        datas.check = 1
+        
         $.ajax({
             type: "POST",
             url: './login',
             datatype: 'json',
             data: datas
         }).done(function (data) {
-
-
-            if (data.length > 1) {
-
-                if (data[1] === 'true' && data[0] === 'true') {
-                    
-                    sessionStorage.setItem('falls', 0);
-                    window.location.replace(window.location.pathname);
-
-                } 
-                
-            } else if (!data) {
-                
-                messageInfo('Datos incorrectos');
-                
-            }
             
-            clean()
-
-        }).fail(function (data) {
-
-            clean()
-
+            
+            if (data === 11) {
+                
+                sessionStorage.setItem('falls', 0);
+                window.location.replace(window.location.pathname);
+                
+            } else if (data === 10) {
+                
+                messageInfo('no has activado tu cuenta')
+                
+            } else{
+                
+                messageInfo('Datos erroneos')
+                document.getElementById('passs').value = ''
+                
+            } 
+            
         })
-
-    } else {
-        
-        clean()
-        messageInfo('cuenta incorrecta')
-        
-    }
-
+                
+    } 
+    
 })
 
 function clean() {
@@ -119,27 +109,27 @@ function clean() {
 }
 
 function checkInputs() {
-
+    
     let ema = document.getElementById('emails').value
     let pas = document.getElementById('passs').value
-
+    
     if (ema == '' || pas == '' || ema.length <= 2 ||
             pas.length <= 8 || ema == null) {
         return false
     }
-
+    
     return true
 }
 
 function checkInputsTwo() {
-
+    
     let ema = document.getElementById('emails').value
     let pas = document.getElementById('passs').value
-
+    
     if (!ema.replace(/\s/g, '').length || !pas.replace(/\s/g, '').length) {
         return false
     }
-
+    
     return true
     
 }

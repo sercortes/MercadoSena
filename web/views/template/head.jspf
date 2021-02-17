@@ -25,9 +25,13 @@
         
         <link href="./assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" async>
         <link rel="stylesheet" type="text/css" href="./assets/styles/main_styles.css">
-        <!--<link rel="stylesheet" type="text/css" href="./assets/styles/responsive.css">-->
+        
+        <link rel="stylesheet" type="text/css" href="./assets/styles/responsive.css">
+        
         <link rel="stylesheet" type="text/css" href="./assets/styles/hover-min.css" async>
         <link rel="stylesheet" href="assets/styles/loginModal.css" async>
+        
+        <link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
        
     </head>
 
