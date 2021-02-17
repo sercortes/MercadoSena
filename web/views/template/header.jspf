@@ -101,7 +101,6 @@
                                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                                         <a class="dropdown-item" href="./usuario"> Usuario</a>
                                         <a class="dropdown-item" href="./logout">Salir</a>
-
                                     </div>
                                 </li>
                             </ul>

@@ -68,6 +68,10 @@
         <servlet-name>admin</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.admin.admin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Validation</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.validation.Validation</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -166,6 +170,11 @@
         <url-pattern>/getProductsCheck</url-pattern>
         <url-pattern>/getProductsForCheck</url-pattern>
         <url-pattern>/updateStatusProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Validation</servlet-name>
+        <url-pattern>/getIdEmpresa</url-pattern>
+        <url-pattern>/getRol</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -2,153 +2,89 @@ var interacion;
 var idProducto;
 $(document).on('click', '.botonChat', function (e) {
 
-    console.log('sergio')
     e.preventDefault()
 
-    if ($('#nombreUsuarioInicio').val() !== 'no') {
-
-        let parent = $(this)[0].parentElement.parentElement;
-        idpro = $(parent).attr('idEmpresa');
-        idProducto = $(parent).attr('idProducto');
-        //getEmpresa(idPro);
-        $('#preguntarModal').modal('show');
-        interacion = 0;
-
-        let id = document.getElementById('companyss').value
-        if (idpro === id) {
-            
-            $('#buttonChat').hide()
-            
-        } else {
-            
-            $('#buttonChat').show()
-            
-        }
-
-    } else {
-        
+    if (!checkSession()) {
         modalPreguntaRegistro();
-        
+        return false
+    }
+
+    let rol = getRol();
+    $('#preguntarModal').modal('show');
+    interacion = 0;
+    let parent = $(this)[0].parentElement.parentElement;
+    idProducto = $(parent).attr('idProducto');
+
+    if (rol == 3) {
+        $('#buttonChat').hide()
+    } else {
+        $('#buttonChat').show()
     }
 
 })
 
-function getEmpresa(idpro) {
+$(document).on('click', '#send_message', function () {
+
+    let message = document.getElementById('mensaje').value
+    if (message === null || message === '' || message.length <= 3) {
+        messageInfo('Escribe el mensaje')
+        return false
+    }
+    if (message.length <= 4) {
+        messageInfo('Escribe un mensaje válido')
+        return false
+    }
+    if (message.length >= 266) {
+        messageInfo('Escribe un mensaje más corto')
+        return false
+    }
+
+    let st = `<li class="message right appeared">
+                        <div class="avatar"></div>
+                        <div class="text_wrapper">
+                            <div class="text">${message}</div>
+                        </div>
+                    </li>`;
+    
+    $('#listaPreguntas').append(st)
+    enviarMensaje(message)
+
+})
+
+function enviarMensaje(mensaje) {
 
     $.ajax({
-        type: "POST",
-        url: './getInfoCompanyByProduct',
-        async: true,
+        url: './registro',
         data: {
-            idProducto: idpro
+            accion: 'registroPregunta',
+            mensaje: mensaje,
+            idProducto: idProducto
         },
-        datatype: 'json'
-    }).done(function (data) {
-
-        console.log(data);
-
-    })
+        type: 'POST',
+        success: function (data) {
+            if (data === 'true') {
+                setTimeout(() => sendMensajes(), 1000);
+                limpiarPlantilla()
+                document.getElementById('mensaje').value = ""
+            } else {
+                interacion = interacion - 1;
+                messageError('Error al enviar el mensaje');
+            }
+            enviarNot('pregunta', 0);
+        }})
 
 }
 
-(function () {
-    var Message;
-    Message = function (arg) {
-        this.text = arg.text, this.message_side = arg.message_side;
-        this.draw = function (_this) {
-            return function () {
-                var $message;
-                $message = $($('.message_template').clone().html());
-                $message.addClass(_this.message_side).find('.text').html(_this.text);
-                $('.messages').append($message);
-                return setTimeout(function () {
-                    return $message.addClass('appeared');
-                }, 0);
-            };
-        }(this);
-        return this;
-    };
-    $(function () {
-
-        var getMessageText, message_side, sendMessage;
-        message_side = 'right';
-        getMessageText = function () {
-            var $message_input;
-            $message_input = $('.message_input');
-            enviarMensaje($message_input.val());
-            return $message_input.val();
-        };
-        sendMessage = function (text) {
-            var $messages, message;
-            if (text.trim() === '') {
-                return;
-            }
-            $('.message_input').val('');
-            $messages = $('.messages');
-            message_side = message_side === 'left' ? 'right' : 'left';
-            message = new Message({
-                text: text,
-                message_side: message_side
-            });
-            message.draw();
-            return $messages.animate({scrollTop: $messages.prop('scrollHeight')}, 300);
-        };
-        $('#send_message').click(function (e) {
-
-            if (interacion < 1) {
-                interacion++;
-                generate();
-            }
-        });
-        $('.message_input').keyup(function (e) {
-            if (e.which === 13) {
-                return sendMessage(getMessageText());
-            }
-        });
-        sendMessage('¡ Hola ' + $('#nombreUsuarioInicio').val() +' !');
-        function generate() {
-            sendMessage(getMessageText());
-        }
-
-        function enviarMensaje(mensaje) {
-
-
-            if (mensaje !== null && mensaje !== '') {
-                $.ajax({
-                    url: './registro',
-                    data: {
-                        accion: 'registroPregunta',
-                        mensaje: mensaje,
-                        idProducto: idProducto
-                    },
-                    type: 'POST',
-                    success: function (data) {
-                        console.log(data);
-                        console.log(typeof data);
-                        if (data === 'true') {
-                            setTimeout(() => sendMessage('Hemos enviado su mensaje al contaco, quién pronto se pondrá en contacto.'), 1000);
-                        } else {
-                            interacion = interacion - 1;
-                            messageError('Error al enviar el mensaje');
-                        }
-                        enviarNot('pregunta', 0);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        interacion = interacion - 1;
-                        messageInfo('Ha ocurrido un error con el servidor,favor intentar más tarde.');
-
-
-                    }})
-            }
-
-        }
-
-
-//        return setTimeout(function () {
-//            return sendMessage('I\'m fine, thank you!');
-//        }, 2000);
-    });
-}.call(this));
+function sendMensajes(){
+    let app =`<li class="message left appeared">
+                        <div class="avatar"></div>
+                        <div class="text_wrapper">
+                            <div class="text">Hemos enviado su mensaje al contaco, quién pronto se pondrá en contacto.</div>
+                        </div>
+                    </li>`
+   $('#listaPreguntas').append(app)
+    
+}
 
 function modalRegistroSi() {
     modalPreguntaRegistro();
@@ -167,6 +103,7 @@ function consultaPreguntas(e) {
 }
 
 function limpiarPlantilla() {
+//    document.getElementById('mensaje').value = ''
     var lista = $('#listaPreguntas').children();
     if (lista.length === 3) {
         $('#listaPreguntas').children().last().remove();
