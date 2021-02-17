@@ -11,11 +11,15 @@ var $pagination = $('#pagination'),
 $(function () {
 
     if (window.location.pathname === '/MercadoSena/Searching...') {
+        
         $('.collapse').collapse()
         $('#caruselDetails').carousel({
             interval: 2100,
         })
-
+        $('#cargas').addClass('is-active');
+        
+//        setTimeout(function(){listarProductoByDateTime()},3000); 
+        $('#pagee').show()
         listarProductoByDateTime()
 
     }
@@ -30,7 +34,7 @@ function listarProductoByDateTime() {
         async: true,
         datatype: 'json'
     }).done(function (data) {
-
+        
         generatePageQuery(data, 4)
 
     })
@@ -437,6 +441,7 @@ function informationCompany(datos) {
 }
 
 function queryEmphy() {
+    $('#cargas').removeClass('is-active');
     let select = document.getElementById('tabla');
     let word = document.getElementById('nombreProductoFiltar').value
     let str =

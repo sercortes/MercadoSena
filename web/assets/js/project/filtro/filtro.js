@@ -1,10 +1,14 @@
 $(document).ready(function () {
 
     if (window.location.pathname === '/MercadoSena/') {
+        $('#pagee').hide()
+        $('#cargas').addClass('is-active');
         productosRamdom();
     }
 
     if (window.location.pathname === '/MercadoSena/home') {
+        $('#pagee').hide()
+        $('#cargas').addClass('is-active');
         productosRamdom();
     }
 
@@ -15,50 +19,6 @@ $('#desplegarMenu').click(function () {
     $('.busquedaAvanzada').toggle();
 
 })
-
-function listarCategoriasS() {
-    $.ajax({
-        url: "./registro",
-        type: 'POST',
-        dataType: 'json',
-        async: true,
-        data: {
-            accion: 'listarCategorias'
-        }, error: function () {
-
-        }, success: function (data) {
-            let srt = ``
-            srt = '<option value="">Categorías...</option>'
-            for (var item of data) {
-                srt += `<option value="${item.idcategoria}">${item.nombreCategoria}</option>`
-            }
-            document.getElementById('categoriasCriBuscar').innerHTML = srt
-        }
-    })
-}
-
-function getMarcas() {
-
-    $.ajax({
-        url: "./filtro",
-        type: 'POST',
-        async: true,
-        data: {
-            accion: 'listarMarcas'
-        }, dataType: 'json',
-        error: function (data) {
-
-        }, success: function (data, textStatus, jqXHR) {
-            let srt = ``
-            srt = '<option value="">Marca...</option>'
-            for (var item of data) {
-                srt += `<option value="${item.idMarca}">${item.nombreMarca}</option>`
-            }
-            document.getElementById('marcaProducto').innerHTML = srt
-        }
-    })
-
-}
 
 $(document).on('click', '#searching', function (e) {
 
@@ -164,6 +124,8 @@ $(document).on('click', '#searching', function (e) {
 
 function query(datos, url) {
 
+    $('#cargas').addClass('is-active');
+
     $.ajax({
 
         url: url,
@@ -180,6 +142,7 @@ function query(datos, url) {
             webPageAnimations()
             generatePageQuery(data, 4)
             document.getElementById('searching').disabled = false;
+            $('#pagee').show()
 
         }
     });
@@ -198,4 +161,48 @@ function webPageAnimations() {
 function regularExpresion(data) {
     let reg = /^[a-zA-Z0-9-̣\s]*$/
     return reg.test(data)
+}
+
+function listarCategoriasS() {
+    $.ajax({
+        url: "./registro",
+        type: 'POST',
+        dataType: 'json',
+        async: true,
+        data: {
+            accion: 'listarCategorias'
+        }, error: function () {
+
+        }, success: function (data) {
+            let srt = ``
+            srt = '<option value="">Categorías...</option>'
+            for (var item of data) {
+                srt += `<option value="${item.idcategoria}">${item.nombreCategoria}</option>`
+            }
+            document.getElementById('categoriasCriBuscar').innerHTML = srt
+        }
+    })
+}
+
+function getMarcas() {
+
+    $.ajax({
+        url: "./filtro",
+        type: 'POST',
+        async: true,
+        data: {
+            accion: 'listarMarcas'
+        }, dataType: 'json',
+        error: function (data) {
+
+        }, success: function (data, textStatus, jqXHR) {
+            let srt = ``
+            srt = '<option value="">Marca...</option>'
+            for (var item of data) {
+                srt += `<option value="${item.idMarca}">${item.nombreMarca}</option>`
+            }
+            document.getElementById('marcaProducto').innerHTML = srt
+        }
+    })
+
 }

@@ -1,7 +1,5 @@
 <%@include file="/views/template/head.jspf"%>
 
-<link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
-
 <%@include file="/views/template/header.jspf"%>
 <%@include file="/views/searching/buscador.jspf"%>
 <%@include file="/views/init/carusel.jspf"%>

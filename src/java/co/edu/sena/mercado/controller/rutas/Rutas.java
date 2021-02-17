@@ -45,7 +45,6 @@ public class Rutas extends HttpServlet {
         switch (direccion) {
             case "/MercadoSena/Searching...":
                 rd = request.getRequestDispatcher("/views/searching/search.jsp");
-                request.setAttribute("DIRECION", rd);
                 rd.forward(request, response);
                 break;
             case "/MercadoSena/Terminos":

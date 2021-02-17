@@ -26,7 +26,9 @@ $(document).on('click', '.botonChat', function (e) {
         }
 
     } else {
+        
         modalPreguntaRegistro();
+        
     }
 
 })
