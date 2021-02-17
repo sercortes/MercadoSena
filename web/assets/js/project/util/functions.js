@@ -121,3 +121,21 @@ function checkSession() {
     return estatus;
 
 }
+
+function getRol(){
+     
+    let estatus = '';
+
+    $.ajax({
+        type: "POST",
+        url: './getRol',
+        async: false,
+        datatype: 'json'
+    }).done(function (data) {
+
+        estatus = data
+
+    })
+
+    return estatus;
+}

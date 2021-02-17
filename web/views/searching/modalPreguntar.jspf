@@ -19,7 +19,21 @@
                         </div>
                         <div class="title">Pregunta</div>
                     </div>
-                    <ul class="messages" id="listaPreguntas"></ul>
+                    <ul class="messages" id="listaPreguntas">
+                        <li class="message left appeared">
+                        <div class="avatar"></div>
+                        <div class="text_wrapper">
+                            <div class="text">¡ Hola ${USER.persona.nombrePer} !</div>
+                        </div>
+                        </li>
+                        <div id="question">
+                            
+                        </div>
+                        <div id="server">
+                            
+                        </div>
+                    
+                    </ul>
 
                     <div id="buttonChat" class="bottom_wrapper clearfix">
 
