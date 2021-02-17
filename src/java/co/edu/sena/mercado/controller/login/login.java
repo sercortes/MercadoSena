@@ -72,12 +72,6 @@ public class login extends HttpServlet {
                 restpuesta[2] = Integer.toString(emDTO.getIdEmpresa());
                 usuario.setEmpresa(emDTO);
                     
-                if (usuario.getEmpresa().getNombreEmpresa() == null || 
-                        usuario.getEmpresa().getDirEmpresa() == null ||
-                        usuario.getEmpresa().getTelEmpresa() == null ||
-                        usuario.getEmpresa().getCelEmpresa() == null) {
-                    restpuesta[0] = "false";
-                }
 
             }else{
                 

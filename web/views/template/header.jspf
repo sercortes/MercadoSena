@@ -5,24 +5,7 @@
     <div class="super_container">
 
         <div class="header_main">
-            <div class="container-fluid">
-                <div class="row">
-
-
-
-                    <c:if test="${ empty USER.idRol}">
-                        <input type="hidden" value="no" id="nombreUsuarioInicio">
-
-
-                        <div class="cart">
-                            
-                        </div>
-                    </div>
-                </div>
-            </c:if>
-       
-        </div>
-    </div>
+           
 
     <!--Navbar-->
     <header class="header">

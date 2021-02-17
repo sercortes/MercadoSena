@@ -19,14 +19,6 @@
     </footer>
 
 
-    <c:if test="${USER == null}">
-
-        <script>
-            sessionStorage.removeItem('idCompany')
-        </script>
-
-    </c:if>
-
 
     <script src="./assets/js/jquery-3.5.1.min.js"></script>    
     <script src="./assets/styles/bootstrap4/popper.js"></script>

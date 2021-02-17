@@ -18,11 +18,11 @@ $(function () {
     
 })
 
-function redirect() {
-    if (sessionStorage.getItem('idCompany') == null) {
-        window.location.replace('./logout');
-    }
-}
+//function redirect() {
+//    if (sessionStorage.getItem('idCompany') == null) {
+//        window.location.replace('./logout');
+//    }
+//}
 
 $(document).on('click', '#logoutFire', function () {
 

@@ -83,18 +83,8 @@ document.getElementById('formOnes').addEventListener('submit', e => {
                     
                     sessionStorage.setItem('falls', 0);
                     window.location.replace(window.location.pathname);
-                    idCompany = data[2]
-                    sessionStorage.setItem('idCompany', data[2]);
 
-                } else if (data[0] === 'false') {
-                    
-                    $('#exampleModal').toggle();
-                    sessionStorage.setItem('falls', 0)
-                    sessionStorage.setItem('idCompany', data[2]);
-                    idCompany = data[2]
-                    modalPregunta();
-                    
-                }
+                } 
                 
             } else if (!data) {
                 
