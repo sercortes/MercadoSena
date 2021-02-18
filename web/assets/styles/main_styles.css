@@ -94,7 +94,7 @@
 .busquedaAvanzada{
     display: none;
     width: 50%;
-    margin-left: 25%;
+    margin-left: 29%;
 }
 .encabezado{
     border: solid rgb(94, 179, 25) 2px;
@@ -234,7 +234,7 @@ body{
 .file .texto{
     text-align: center;
     line-height: 20px;
-    color: rgb(113, 171, 65);
+    color: rgb(237 146 58);
     font-size: 33px;
     background: white;
     width: 38px;
@@ -262,7 +262,7 @@ body{
     background-position: 50% !important;
     border-radius: 50% !important;
     background-size: 100% auto!important;
-    border: solid 2px rgb(252, 115, 30);
+    border: solid 2px rgb(228 66 50);
 }
 
 .contenedorImagen {
