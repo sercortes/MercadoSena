@@ -28,17 +28,15 @@ public class SearchThree extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("");
+           System.out.println("SearchThree no soporta GET");
+           response.sendRedirect(request.getContextPath() + "/home");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String direccion = request.getServletPath();
-
-        switch (direccion) {
-
-        }
+          System.out.println("SearchThree no soporta GET");
+            response.sendRedirect(request.getContextPath() + "/home");
 
     }
 

@@ -8,7 +8,8 @@
             </c:if>
 
             <c:if test="${ USER.idRol==3}">
-                <div class="chat" id="notPedidos" style="bottom: 109px;text-align: center;" ><a href="./ventasVendedor" title="Pedidos"><i class="fa fa-shopping-bag" ></i><b class="notificacionesPedidos" style="right: -11%;"></b></a></div>   
+                <div class="chat" id="notPedidos" style="bottom: 109px;text-align: center;" >
+                    <a href="./ventasVendedor" title="Pedidos"><i class="fa fa-shopping-bag" ></i><b class="notificacionesPedidos" style="right: -11%;"></b></a></div>   
             </c:if>
 
 
@@ -18,23 +19,13 @@
         </div>
     </footer>
 
-
-    <c:if test="${USER == null}">
-
-        <script>
-            sessionStorage.removeItem('idCompany')
-        </script>
-
-    </c:if>
-
-
     <script src="./assets/js/jquery-3.5.1.min.js"></script>    
     <script src="./assets/styles/bootstrap4/popper.js"></script>
     <script src="./assets/styles/bootstrap4/bootstrap.min.js"></script>
     <script src="./assets/js/sweet.js"></script>
     
     <!--<script src="./assets/js/TweenMax.min.js"></script>
-   <!-- <script src="./assets/js/custom.js"></script>-->
+    <script src="./assets/js/custom.js"></script>-->
 
     <script src="./assets/js/project/util/functions.js"></script>
     <script src="./assets/js/project/login/init.js"></script>

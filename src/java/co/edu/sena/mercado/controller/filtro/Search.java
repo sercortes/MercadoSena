@@ -99,9 +99,7 @@ public class Search extends HttpServlet {
         Conexion conexion = new Conexion();
         ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
         String palabra = request.getParameter("word");
-//        String categoria = request.getParameter("categorias");
-
-        ArrayList<Producto> listaProductos = productoDAO.buscadorLike(palabra);
+        ArrayList<Producto> listaProductos = productoDAO.getProductsByWord(palabra);
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
@@ -113,9 +111,8 @@ public class Search extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
         ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
-//        String palabra = request.getParameter("word");
         String categoria = request.getParameter("categorias");
-        ArrayList<Producto> listaProductos = productoDAO.searchCategory(categoria);
+        ArrayList<Producto> listaProductos = productoDAO.getProductsByCategory(categoria);
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());

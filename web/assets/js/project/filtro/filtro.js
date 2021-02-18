@@ -1,10 +1,14 @@
 $(document).ready(function () {
 
     if (window.location.pathname === '/MercadoSena/') {
+        $('#pagee').hide()
+        $('#cargas').addClass('is-active');
         productosRamdom();
     }
 
     if (window.location.pathname === '/MercadoSena/home') {
+        $('#pagee').hide()
+        $('#cargas').addClass('is-active');
         productosRamdom();
     }
 
@@ -15,6 +19,149 @@ $('#desplegarMenu').click(function () {
     $('.busquedaAvanzada').toggle();
 
 })
+
+$(document).on('click', '#searching', function (e) {
+
+    e.preventDefault();
+    var nombreProductoFiltar = $('#nombreProductoFiltar').val();
+    let categorias = $('#categoriasCriBuscar').val();
+    let marca  = $('#marcaProducto').val();
+
+    if (nombreProductoFiltar === ''
+            && categorias === '' && marca === '') {
+
+        messageInfo('Espera, Escribe una palabra clave por favor');
+        document.getElementById('nombreProductoFiltar').focus();
+        return false;
+
+    }
+
+    if (nombreProductoFiltar.length >= 30) {
+
+        messageInfo('Espera, palabra muy larga');
+        document.getElementById('nombreProductoFiltar').value = '';
+        document.getElementById('nombreProductoFiltar').focus();
+        return false;
+
+    }
+
+    if (!regularExpresion(nombreProductoFiltar)) {
+        messageInfo('Espera, palabra invalida');
+        document.getElementById('nombreProductoFiltar').value = '';
+        document.getElementById('nombreProductoFiltar').focus();
+        return false;
+    }
+    
+    document.getElementById('searching').disabled = true;
+    $('#cargas').addClass('is-active');
+    
+    let data = {
+        word: nombreProductoFiltar,
+        categorias: categorias,
+        marca:marca
+    };
+
+    let url = '';
+
+    if (nombreProductoFiltar !== '' && categorias === ''
+            && marca === '') {
+
+        url = './getProductsByWord';
+        console.log('getProductsByWord')
+        query(data, url);
+
+    } else if (nombreProductoFiltar === '' && categorias !== ''
+            && marca === '') {
+
+        url = './getProductsByCategory';
+        console.log('getProductsByCategory')
+        query(data, url);
+
+    } else if (nombreProductoFiltar !== '' && categorias !== ''
+            && marca === '') {
+
+        url = './getProductsByNameCategory';
+        console.log('getProductsByNameCategory')
+        query(data, url);
+
+    }else if (nombreProductoFiltar === '' && categorias === ''
+            && marca !== ''){
+        
+        url = './getProductsByMarca';
+        console.log('getProductsByMarca')
+        query(data, url);
+
+    }else if (nombreProductoFiltar !== '' && categorias === ''
+            && marca !== ''){
+        
+        url = './getProductsByNameMarca';
+        console.log('getProductsByNameMarca')
+        query(data, url)
+
+    }else if (nombreProductoFiltar === '' && categorias !== ''
+            && marca !== ''){
+        
+        url = './getProductsByCategoryMarca';
+        console.log('getProductsByCategoryMarca')
+        query(data, url)
+
+    }else if (nombreProductoFiltar !== '' && categorias !== ''
+            && marca !== ''){
+        
+        url = './getProductsByNameCategoryMarca';
+        console.log('getProductsByNameCategoryMarca');
+        query(data, url);
+
+    } else {
+        
+        console.log('else')
+        url = './getProductsByWord';
+        query(data, url);
+
+    }
+
+})
+
+function query(datos, url) {
+
+    $('#cargas').addClass('is-active');
+
+    $.ajax({
+
+        url: url,
+        type: 'POST',
+        async: true,
+        datatype: 'json',
+        data: {
+            word: datos.word,
+            categorias: datos.categorias,
+            marca: datos.marca
+        },
+        success: function (data) {
+
+            webPageAnimations()
+            generatePageQuery(data, 4)
+            document.getElementById('searching').disabled = false;
+            $('#pagee').show()
+
+        }
+    });
+
+}
+
+function webPageAnimations() {
+
+    $('.contenido').hide('slow')
+    document.getElementById('tituloPagina').innerHTML =
+            `<h3 class="titulos text-center"><i class="fas fa-search naranja"></i> Busqueda</h3>`
+    $('#cargas').removeClass('is-active');
+
+}
+
+function regularExpresion(data) {
+    let reg = /^[a-zA-Z0-9-̣\s]*$/
+    return reg.test(data)
+}
 
 function listarCategoriasS() {
     $.ajax({
@@ -58,108 +205,4 @@ function getMarcas() {
         }
     })
 
-}
-
-$(document).on('click', '#searching', function (e) {
-
-    e.preventDefault();
-    var nombreProductoFiltar = $('#nombreProductoFiltar').val();
-    let categorias = $('#categoriasCriBuscar').val();
-
-    if (nombreProductoFiltar === ''
-            && categorias === '') {
-
-        messageInfo('Espera, Escribe una palabra clave por favor');
-        document.getElementById('nombreProductoFiltar').focus();
-        return false;
-
-    }
-
-    if (nombreProductoFiltar.length >= 30) {
-
-        messageInfo('Espera, palabra muy larga');
-        document.getElementById('nombreProductoFiltar').value = '';
-        document.getElementById('nombreProductoFiltar').focus();
-        return false;
-
-    }
-
-    if (!regularExpresion(nombreProductoFiltar)) {
-        messageInfo('Espera, palabra invalida');
-        document.getElementById('nombreProductoFiltar').value = '';
-        document.getElementById('nombreProductoFiltar').focus();
-        return false;
-    }
-    
-    document.getElementById('searching').disabled = true;
-    $('#cargas').addClass('is-active');
-    
-    let data = {
-        word: nombreProductoFiltar,
-        categorias: categorias
-    };
-
-    let url = '';
-
-    if (nombreProductoFiltar !== '' && categorias === '') {
-
-        url = './getProductsByWord';
-        query(data, url);
-
-    } else if (nombreProductoFiltar === '' && categorias !== '') {
-
-        url = './getProductsByCategory';
-        query(data, url);
-
-    } else if (nombreProductoFiltar !== '' && categorias !== '') {
-
-        url = './getProductsByNameCategory';
-        query(data, url);
-
-    }else {
-
-        url = './getProductsByWord';
-        query(data, url);
-
-    }
-
-})
-
-function query(datos, url) {
-
-    $.ajax({
-
-        url: url,
-        type: 'POST',
-        async: true,
-        datatype: 'json',
-        data: {
-            word: datos.word,
-            categorias: datos.categorias,
-            ciudades: datos.ciudades,
-            vendedores: datos.vendedores
-        },
-        success: function (data) {
-
-            webPageAnimations()
-            generatePageQuery(data, 4)
-            document.getElementById('searching').disabled = false;
-
-        }
-    });
-
-}
-
-function webPageAnimations() {
-
-    $('.contenido').hide('slow')
-    document.getElementById('tituloPagina').innerHTML =
-            `<h3 class="titulos text-center"><i class="fas fa-search naranja"></i> Busqueda</h3>`
-    $('#cargas').removeClass('is-active');
-
-}
-
-function regularExpresion(data) {
-    let reg = /^[a-zA-Z0-9-̣\s]*$/
-    return reg.test(data)
 }

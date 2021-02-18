@@ -13,14 +13,16 @@ $(function () {
         var arrayBuy = []
         localStorage.setItem('objects', JSON.stringify(arrayBuy))
     }
-
+    
+    updateIconNumber()
+    
 })
 
-function redirect() {
-    if (sessionStorage.getItem('idCompany') == null) {
-        window.location.replace('./logout');
-    }
-}
+//function redirect() {
+//    if (sessionStorage.getItem('idCompany') == null) {
+//        window.location.replace('./logout');
+//    }
+//}
 
 $(document).on('click', '#logoutFire', function () {
 
@@ -118,4 +120,22 @@ function checkSession() {
 
     return estatus;
 
+}
+
+function getRol(){
+     
+    let estatus = '';
+
+    $.ajax({
+        type: "POST",
+        url: './getRol',
+        async: false,
+        datatype: 'json'
+    }).done(function (data) {
+
+        estatus = data
+
+    })
+
+    return estatus;
 }

@@ -1,134 +1,113 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <body style="">
 
-
     <div class="super_container">
 
         <div class="header_main">
-            <div class="container-fluid">
-                <div class="row">
-
-
-
+           
                     <c:if test="${ empty USER.idRol}">
                         <input type="hidden" value="no" id="nombreUsuarioInicio">
-
-
-                        <div class="cart">
-                            
-                        </div>
-                    </div>
-                </div>
-            </c:if>
+                    </c:if>
        
         </div>
     </div>
 
-    <!--Navbar-->
-    <header class="header">
-
-        <nav class="navbar navbar-expand-lg navbar-dark primary-color encabezado" >
-
-            <!-- Navbar brand -->
-
-            <div class="navbar-brand">
-
+            <!--Navbar-->
+            <header class="header">
+            
                 <a href="../MercadoSena/"><img src="./assets/images/icons/LOGO3.png" style="width: 170px; margin-left: 15px;" class="img-fluid" alt="Responsive image"></a>
                
                 
+                <nav class="navbar navbar-expand-lg navbar-dark primary-color encabezado" >
 
-            </div>
+                    <div class="navbar-brand">
+
+                        <a href="../MercadoSena/"><img src="./assets/images/icons/image.png" style="width: 250px;" class="img-fluid" alt="Responsive image"></a>
+
+                    </div>
+
+                    <!-- Collapse button -->
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                            aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation" style="background: rgb(171 34 21);">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <!-- Collapsible content -->
+                    <div class=" navbar-collapse collapse fondoMenu" id="basicExampleNav" >
+
+                        <!-- Links -->
+                        <ul id="navbars" class="navbar-nav mr-auto" style="color:black ">
 
 
+                            <li class="nav-item active">                     
+                                <a class="nav-link encabezadoOpciones" href="../MercadoSena/"><i class="fas fa-home fa-lg"></i> Inicio
+                                    <span class="sr-only">(current)</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link encabezadoOpciones" href="./Searching..."><i class="fas fa-gift fa-lg"></i> Descubrir</a>
+                            </li>
 
-            <!-- Collapse button -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-                    aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation" style="background: rgb(171 34 21);">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                            <li class="nav-item" id="buttonSearch">
+                                <a class="nav-link encabezadoOpciones" href="#"><i class="fas fa-search fa-lg"></i> Buscar</a>
+                            </li>
 
-            <!-- Collapsible content -->
-            <div class=" navbar-collapse collapse fondoMenu" id="basicExampleNav" >
+                            <c:if test="${USER.idRol != null && USER.idRol != 3}">
+                                <li class="nav-item">
+                                    <a class="nav-link encabezadoOpciones" href="./misPedidos"><i class="fas fa-handshake"></i> Mis Compras</a>
+                                </li>
+                            </c:if>
+                            <input type="hidden" id="fkRol" name="fkRol" value="${USER.idRol}" >
 
-                <!-- Links -->
-                <ul class="navbar-nav mr-auto" style="color:black ">
+                            <c:if test="${USER.idRol == 3}">
 
-                    
-                    <li class="nav-item active">                     
-                        <a class="nav-link encabezadoOpciones" href="../MercadoSena/"><i class="fas fa-home fa-lg"></i> Inicio
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link encabezadoOpciones" href="./Searching..."><i class="fas fa-gift fa-lg"></i> Descubrir</a>
-                    </li>
-                    
-                    <li class="nav-item" id="buttonSearch">
-                        <a class="nav-link encabezadoOpciones" href="#"><i class="fas fa-search fa-lg"></i> Buscar</a>
-                    </li>
-                    
-                    
-                    <c:if test="${USER.idRol != null && USER.idRol != 3}">
-                        <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./misPedidos"><i class="fas fa-handshake"></i> Mis Compras</a>
-                        </li>
-                    </c:if>
-                        <input type="hidden" id="fkRol" name="fkRol" value="${USER.idRol}" >
+                                <li class="nav-item">
+                                    <a class="nav-link encabezadoOpciones" href="./Products"><i class="fas fa-gifts"></i> Mis Anuncios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link encabezadoOpciones" href="./ventasVendedor"><i class="fas fa-bell"></i> Mis Ventas</a>
+                                </li>
 
-                    <c:if test="${USER.idRol == 3}">
-                        
-                        <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./Products"><i class="fas fa-gifts"></i> Mis Anuncios</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./ventasVendedor"><i class="fas fa-bell"></i> Mis Ventas</a>
-                        </li>
+                                <li class="nav-item">
+                                    <a class="nav-link encabezadoOpciones" href="./realizarInformes"><i class="fas fa-chart-line"></i> Informes</a>
+                                </li>
+                            </c:if>
 
-                        <li class="nav-item">
-                            <a class="nav-link encabezadoOpciones" href="./realizarInformes"><i class="fas fa-chart-line"></i> Informes</a>
-                        </li>
-                    </c:if>
+                        </ul>
 
-                </ul>
+                        <c:if test="${ empty USER.idRol}">
 
-                <c:if test="${ empty USER.idRol}">
+                            <ul class="navbar-nav mr-auto" >
+                                <li class="nav-item dropdown opcinoes pt-1">
+                                    <a class="nav-link  encabezadoOpciones" onclick="consultarDatosFormulario()" href="#" data-toggle="modal" data-target="#exampleModa3" 
+                                       aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-plus" aria-hidden="true" style="font-size: 20px; margin-right: 2px;"></i>  Registrarse         
+                                    </a>
+                                </li>
 
-                    <ul class="navbar-nav mr-auto" >
-                        <li class="nav-item dropdown opcinoes pt-1">
-                            <a class="nav-link  encabezadoOpciones" onclick="consultarDatosFormulario()" href="#" data-toggle="modal" data-target="#exampleModa3" 
-                               aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-plus" aria-hidden="true" style="font-size: 20px; margin-right: 2px;"></i>  Registrarse         
-                            </a>
-                        </li>
-                        
-                      
-                        <li class="nav-item dropdown opciones2">
-                            <a class="nav-link encabezadoOpciones" onclick="return false" id="login" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                                 aria-haspopup="true" aria-expanded="false"><i class="flaticon-iniciar-sesion" style="margin-right: 2px;"></i> Ingresar        
-                            </a>
-                        </li>
 
-                    </ul>
+                                <li class="nav-item dropdown opciones2">
+                                    <a class="nav-link encabezadoOpciones" onclick="return false" id="login" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false"><i class="flaticon-iniciar-sesion" style="margin-right: 2px;"></i> Ingresar        
+                                    </a>
+                                </li>
 
-                </c:if>
+                            </ul>
 
-                <c:if test="${not empty USER.idRol}">
-                    <input type="hidden" value="${USER.persona.nombrePer}" id="nombreUsuarioInicio" data-rol="${USER.idRol}">
-                    <ul class="navbar-nav mr-auto" >
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle encabezadoOpciones" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" style="font-size: 20px;"></i> ${USER.correoUsu}</a>
-                            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="./usuario"> Usuario</a>
-                                <a class="dropdown-item" href="./logout">Salir</a>
+                        </c:if>
 
-                            </div>
-                        </li>
-                    </ul>
-                </c:if> 
-
-            </div>
-       
-        </nav>
-     
-
-    </header>
+                        <c:if test="${not empty USER.idRol}">
+                            <input type="hidden" value="${USER.persona.nombrePer}" id="nombreUsuarioInicio" data-rol="${USER.idRol}">
+                            <ul class="navbar-nav mr-auto" >
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle encabezadoOpciones" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" style="font-size: 20px;"></i> ${USER.correoUsu}</a>
+                                    <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+                                        <a class="dropdown-item" href="./usuario"> Usuario</a>
+                                        <a class="dropdown-item" href="./logout">Salir</a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </c:if> 
+                    </div>
+                </nav>
+            </header>
