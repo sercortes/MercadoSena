@@ -360,6 +360,7 @@ body{
 }
 .chat a i{
     text-align: center;
+    background-color: #b93b3a;
     font-size: 42px;
     color: rgb(228 66 50);
 

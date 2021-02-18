@@ -3,7 +3,7 @@
 
 <%@include file="/views/template/head.jspf"%>
 
-<c:if test="${USER.idRol != 3 || empty USER.idRol}">
+<c:if test="${USER.idRol != 2 || empty USER.idRol}">
     <c:redirect url="./home"/>
 </c:if>
 
@@ -17,7 +17,7 @@
 
 <div class="container py-5">
     <div class="col-lg-9 mx-auto text-black text-center">
-        <h1 class="display-4">Mis Contactos</h1>     
+        <h1 class="display-4">Mis Compras</h1>     
     </div>
     <div class="p-5 bg-white rounded shadow mb-5">
         

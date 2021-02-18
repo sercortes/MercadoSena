@@ -23,6 +23,10 @@ $(document).on('click', '.botonChat', function (e) {
 
 })
 
+$('#preguntarModal').on('shown.bs.modal', function (e) {
+   document.getElementById('mensaje').focus()
+})
+
 $(document).on('click', '#send_message', function () {
 
     let message = document.getElementById('mensaje').value
@@ -54,7 +58,7 @@ $(document).on('click', '#send_message', function () {
 function enviarMensaje(mensaje) {
 
     $.ajax({
-        url: './registro',
+        url: './registrarPregunta',
         data: {
             accion: 'registroPregunta',
             mensaje: mensaje,
@@ -79,7 +83,7 @@ function sendMensajes(){
     let app =`<li class="message left appeared">
                         <div class="avatar"></div>
                         <div class="text_wrapper">
-                            <div class="text">Hemos enviado su mensaje al contaco, quién pronto se pondrá en contacto.</div>
+                            <div class="text">Hemos enviado su mensaje al vendedor, quién pronto se pondrá en contacto.</div>
                         </div>
                     </li>`
    $('#listaPreguntas').append(app)
