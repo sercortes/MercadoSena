@@ -15,14 +15,14 @@
             <!--Navbar-->
             <header class="header">
             
-                <a href="../MercadoSena/"><img src="./assets/images/icons/LOGO3.png" style="width: 170px; margin-left: 15px;" class="img-fluid" alt="Responsive image"></a>
+                
                
                 
                 <nav class="navbar navbar-expand-lg navbar-dark primary-color encabezado" >
 
                     <div class="navbar-brand">
 
-                        <a href="../MercadoSena/"><img src="./assets/images/icons/image.png" style="width: 250px;" class="img-fluid" alt="Responsive image"></a>
+                     <a href="../MercadoSena/"><img src="./assets/images/icons/LOGO3.png" style="width: 165px; margin-left: 20px;" class="img-fluid" alt="Responsive image"></a>
 
                     </div>
 
