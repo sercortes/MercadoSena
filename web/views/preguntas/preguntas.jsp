@@ -14,7 +14,6 @@
 
 <link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
 <link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 
 <%@include file="/views/template/header.jspf"%>
 
@@ -30,24 +29,24 @@
 
 
                         <div class="row">
-                            <div class="col-md-3" >
-                                <!-- Tabs nav -->
+<!--                            <div class="col-md-3" >
+                                 Tabs nav 
                                 <div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                    <a onclick="consultarPreguntas()" class="nav-link mb-3 p-3 shadow active ocultarRespuesta" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+                                        
+                                        <a onclick="consultarPreguntas()" class="nav-link mb-3 p-3 shadow active ocultarRespuesta" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
                                         <i class="fa fa-user-circle-o mr-2"></i>
                                         <span class="font-weight-bold small text-uppercase" >Preguntas</span></a>
 
                                         <a  onclick="consultarRespuestas()" class="nav-link mb-3 p-3 shadow ocultarRespuesta" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
                                         <i class="fa fa-calendar-minus-o mr-2"></i>
                                         <span class="font-weight-bold small text-uppercase">Respuestas </span><b id="noRespuestas" style="font-size: xx-small;" class="notificaciones2"></b></a>
-                                       
 
                                 </div>
                             </div>
 
 
                             <div class="col-md-9">
-                                <!-- Tabs content -->
+                                 Tabs content 
                                 <div class="tab-content" id="v-pills-tabContent">
                                     <div class="tab-pane fade shadow rounded bg-white show active p-5 ocultarRespuesta" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
                                         <h4 class="font-italic mb-4">Preguntas</h4>
@@ -63,7 +62,14 @@
                                         </di>
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
+
+
+                             
+                            
+
+
+                            
                         </div>
                     </div>
                 </section>

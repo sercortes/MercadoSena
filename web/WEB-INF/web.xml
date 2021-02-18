@@ -72,6 +72,10 @@
         <servlet-name>Validation</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.validation.Validation</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>chat</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.chat.chat</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -175,6 +179,10 @@
         <servlet-name>Validation</servlet-name>
         <url-pattern>/getIdEmpresa</url-pattern>
         <url-pattern>/getRol</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>chat</servlet-name>
+        <url-pattern>/registrarPregunta</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

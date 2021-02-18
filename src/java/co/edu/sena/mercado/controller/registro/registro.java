@@ -114,20 +114,6 @@ public class registro extends HttpServlet {
                 updateDatosCompany(request, response);
 
                 break;
-            case "registroPregunta":
-                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                preguntaDTO = new preguntasDTO();
-                preguntaDTO.setEstadoPregunta(0);
-                preguntaDTO.setIdProducto(Integer.parseInt(request.getParameter("idProducto")));
-                preguntaDTO.setIdUsuarioPregunta(usuarioDTO.getIdUsuario());
-                preguntaDTO.setPregunta(request.getParameter("mensaje"));
-                // System.out.println("......."+preguntaDTO.toString());
-                if (preguntaDAO.resgistroPregunta(preguntaDTO)) {
-                    response.getWriter().print(true);
-                } else {
-                    response.getWriter().print(false);
-                }
-                break;
             case "listarPreguntas":
                 response.setContentType("application/json");
                 listaPregunta = new ArrayList<>();
@@ -276,9 +262,8 @@ public class registro extends HttpServlet {
 //                    }
 //                }
 //            }
-
             usuarioDTO.setIdRol(2);
-            
+
             int idUser = usuarioDAO.registroUsuario(usuarioDTO);
             System.out.println(idUser + " USERRERER");
             usuarioDTO.setIdUsuario(idUser);
@@ -370,7 +355,7 @@ public class registro extends HttpServlet {
 
             empresaDAO.updateCompanyFirst(empresaDTO, usuarioDTO.getIdUsuario());
             conn.commit();
-            
+
             usuarioDTO = getDatosSession(usuarioDTO, empresaDTO);
             sesion.setAttribute("USER", usuarioDTO);
             new Gson().toJson(1, response.getWriter());
@@ -434,5 +419,7 @@ public class registro extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    
 
 }
