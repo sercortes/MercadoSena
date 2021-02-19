@@ -6226,8 +6226,8 @@ a.badge-dark.focus {
 .list-group-item.active {
   z-index: 2;
   color: #fff;
-  background-color: #5eb319;
-  border-color: #5eb319;
+  background-color: #b93b3a;
+  border-color: #b93b3a;
 }
 
 .list-group-horizontal {
@@ -7469,7 +7469,7 @@ a.close.disabled {
 
 .bg-primary {
     color: #FFF;
-  background-color: #5eb319 !important;
+  background-color: #b93b3a !important;
 }
 
 a.bg-primary:hover,
