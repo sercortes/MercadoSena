@@ -5,6 +5,8 @@
  */
 package co.edu.sena.mercado.dto;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author DELL
@@ -19,6 +21,17 @@ public class preguntasDTO {
    String nombreUsuarioPregunta;
    String apellidoUsuarioPregunta;
    String usuarioResponde;
+   
+   private String idUsuario;
+   private String nombreUsuario;
+   private String urlPersona;
+   private String nombreProducto;
+   private Timestamp fechaPublicada;
+   
+   
+   private usuarioDTO uDTO;
+   private personaNaturalDTO perNaturalDTO;
+   private Producto producto;
 
     public preguntasDTO() {
     }
@@ -115,10 +128,73 @@ public class preguntasDTO {
         this.idProducto = idProducto;
     }
 
+    public usuarioDTO getuDTO() {
+        return uDTO;
+    }
+
+    public void setuDTO(usuarioDTO uDTO) {
+        this.uDTO = uDTO;
+    }
+
+    public personaNaturalDTO getPerNaturalDTO() {
+        return perNaturalDTO;
+    }
+
+    public void setPerNaturalDTO(personaNaturalDTO perNaturalDTO) {
+        this.perNaturalDTO = perNaturalDTO;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    public String getUrlPersona() {
+        return urlPersona;
+    }
+
+    public void setUrlPersona(String urlPersona) {
+        this.urlPersona = urlPersona;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
+    }
+
+    public Timestamp getFechaPublicada() {
+        return fechaPublicada;
+    }
+
+    public void setFechaPublicada(Timestamp fechaPublicada) {
+        this.fechaPublicada = fechaPublicada;
+    }
+
     @Override
     public String toString() {
-        return "preguntasDTO{" + "idPregunta=" + idPregunta + ", pregunta=" + pregunta + ", estadoPregunta=" + estadoPregunta + ", idUsuarioPregunta=" + idUsuarioPregunta + ", idProducto=" + idProducto + '}';
+        return "preguntasDTO{" + "idPregunta=" + idPregunta + ", pregunta=" + pregunta + ", estadoPregunta=" + estadoPregunta + ", idUsuarioPregunta=" + idUsuarioPregunta + ", idProducto=" + idProducto + ", respuesta=" + respuesta + ", nombreUsuarioPregunta=" + nombreUsuarioPregunta + ", apellidoUsuarioPregunta=" + apellidoUsuarioPregunta + ", usuarioResponde=" + usuarioResponde + ", idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", urlPersona=" + urlPersona + ", nombreProducto=" + nombreProducto + ", fechaPublicada=" + fechaPublicada + ", uDTO=" + uDTO + ", perNaturalDTO=" + perNaturalDTO + ", producto=" + producto + '}';
     }
-   
-   
+    
 }

@@ -183,6 +183,10 @@
     <servlet-mapping>
         <servlet-name>chat</servlet-name>
         <url-pattern>/registrarPregunta</url-pattern>
+        <url-pattern>/getAllPreguntas</url-pattern>
+        <url-pattern>/getPreguntasIndivi</url-pattern>
+        <url-pattern>/getRespuestasByQuestion</url-pattern>
+        <url-pattern>/getPreguntaByUser</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
