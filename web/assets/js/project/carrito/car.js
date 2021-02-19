@@ -20,7 +20,7 @@ function addCar(item, cantidad) {
         localStorage.setItem('objects', JSON.stringify(arraf));
 
     } else {
-        item.cantidad = 1;
+        item.cantidad = cantidad;
         arraf.push(item);
         localStorage.setItem('objects', JSON.stringify(arraf));
     }
