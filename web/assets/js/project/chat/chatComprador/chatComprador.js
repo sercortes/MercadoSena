@@ -13,7 +13,6 @@ function  getPreguntas() {
         dataType: 'json',
         success: function (data) {
 
-            console.log(data)
             drawChat(data)
 
         }

@@ -39,7 +39,7 @@ import org.apache.commons.io.FilenameUtils;
 public class UpdateProduct extends HttpServlet {
 
     private final String UPLOAD_DIRECTORY = "/home/equipo/servers2/glassfish4/glassfish/domains/domain1/docroot/files/";
-    private final String SERVER_UPLOAD = "http://192.168.0.7:8080/files/";
+    private final String SERVER_UPLOAD = "http://192.168.0.13:8080/files/";
     private static final long serialVersionUID = 1L;
 
     @Override

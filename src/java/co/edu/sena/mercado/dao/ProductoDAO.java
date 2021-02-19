@@ -300,7 +300,7 @@ public class ProductoDAO {
                     + "WHERE idProducto = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
 
-            ps.setString(1, "3");
+            ps.setString(1, "4");
             ps.setString(2, id);
 
             int rows = ps.executeUpdate();

@@ -3,6 +3,35 @@ var arregloIma
 var arregloRes
 var limpiarImagenes = 0
 
+$(function(){
+
+    getMarcass()
+    
+})
+
+function getMarcass() {
+
+    $.ajax({
+        url: "./filtro",
+        type: 'POST',
+        async: true,
+        data: {
+            accion: 'listarMarcas'
+        }, dataType: 'json',
+        error: function (data) {
+
+        }, success: function (data, textStatus, jqXHR) {
+            let srt = ``
+            srt = '<option value="">Marca...</option>'
+            for (var item of data) {
+                srt += `<option value="${item.idMarca}">${item.nombreMarca}</option>`
+            }
+            document.getElementById('marcaE').innerHTML = srt
+        }
+    })
+
+}
+
 function getCategorias(value, name) {
 
     let cat = document.getElementById('categoryE')
@@ -25,6 +54,8 @@ function getCategorias(value, name) {
     })
 
 }
+
+
 
 function cleanInput() {
     generateDivClean()
