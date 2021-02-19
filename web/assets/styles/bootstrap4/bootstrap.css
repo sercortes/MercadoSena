@@ -6186,9 +6186,9 @@ a.badge-dark.focus {
 .list-group-item-action:hover,
 .list-group-item-action:focus {
   z-index: 1;
-  color: #6e707e;
+  color: #ffffff;
   text-decoration: none;
-  background-color: #e3eaef;
+  background-color: #4a5963;
 }
 
 .list-group-item-action:active {
@@ -6226,8 +6226,8 @@ a.badge-dark.focus {
 .list-group-item.active {
   z-index: 2;
   color: #fff;
-  background-color: #6777EF;
-  border-color: #6777EF;
+  background-color: #5eb319;
+  border-color: #5eb319;
 }
 
 .list-group-horizontal {

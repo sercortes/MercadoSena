@@ -1,4 +1,9 @@
-$(document).ready(consultarRolInicio());
+
+
+$(function () {
+    consultarRolInicio()
+})
+
 function consultarRolInicio() {
     not = 0;
     var rol = $('#nombreUsuarioInicio').data('rol');

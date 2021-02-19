@@ -5,6 +5,8 @@
  */
 package co.edu.sena.mercado.dto;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author DELL
@@ -15,6 +17,8 @@ public class respuestaDTO {
    int idEmpresa;
    int idPregunta;
    String pregunta;
+   
+   private Timestamp fecha;
 
     public respuestaDTO() {
     }
@@ -69,11 +73,17 @@ public class respuestaDTO {
         this.idPregunta = idPregunta;
     }
 
+    public Timestamp getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Timestamp fecha) {
+        this.fecha = fecha;
+    }
+
     @Override
     public String toString() {
-        return "respuestaDTO{" + "idRespuesta=" + idRespuesta + ", respuesta=" + respuesta + ", idEmpresa=" + idEmpresa + ", idPregunta=" + idPregunta + '}';
+        return "respuestaDTO{" + "idRespuesta=" + idRespuesta + ", respuesta=" + respuesta + ", idEmpresa=" + idEmpresa + ", idPregunta=" + idPregunta + ", pregunta=" + pregunta + ", fecha=" + fecha + '}';
     }
-   
-   
     
 }
