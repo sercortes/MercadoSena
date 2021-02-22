@@ -213,7 +213,8 @@ public class ProductoDAO {
             String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR "
                     + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
                     + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
-                    + "WHERE PR.estadoProducto = 1 OR 2 AND PR.stockProducto > 0 AND  EM.idEmpresa = ?";
+                    + "WHERE PR.estadoProducto =  2 AND PR.stockProducto > 0 "
+                    + "AND  EM.idEmpresa = ? ORDER BY PR.idProducto DESC";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
