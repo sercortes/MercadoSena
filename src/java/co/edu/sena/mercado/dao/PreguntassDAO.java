@@ -160,6 +160,21 @@ public class PreguntassDAO {
         }
     }
 
+      public boolean marcarVistaPregunta(int idUsuario) {
+
+        String consulta = "UPDATE preguntas SET vista=1 WHERE idUsuarioPreguntaFK=? AND estadoPregunta=1;";
+        try {
+            ps = conn.prepareStatement(consulta);
+            ps.setInt(1, idUsuario);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxx error al actualizar el visto de la pregunta " + e);
+            System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
+            return false;
+        } 
+    }
+      
      
     public void CloseAll() {
         Conexion.close(conn);

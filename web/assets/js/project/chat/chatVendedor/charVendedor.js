@@ -22,8 +22,8 @@ function  getPreguntas() {
 }
 
 function drawChat(data) {
-    
-        if (data.length === 0) {
+
+    if (data.length === 0) {
         let str = `<div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <strong>Ups!</strong> No existen mensajes.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -55,7 +55,7 @@ function drawChat(data) {
 }
 
 $(document).on('click', '.usuarios', function (e) {
-    
+
     e.preventDefault()
     $('.usuarios').removeClass('active')
     $(this).addClass('active')
@@ -64,22 +64,22 @@ $(document).on('click', '.usuarios', function (e) {
     idPr = $(parent).attr('idProducto')
     url = $(parent).attr('urlU')
     questionss()
-    
+
 })
 
-function questionss(){
-    
-         $.ajax({
+function questionss() {
+
+    $.ajax({
         url: './getPreguntasIndivi',
         type: 'POST',
         async: false,
         data: {
-          idUsuario:idUs,
-          idProducto:idPr
+            idUsuario: idUs,
+            idProducto: idPr
         },
         dataType: 'json',
         success: function (data) {
-                
+
             console.log('PPPPP')
             console.log(data)
             console.log('')
@@ -87,16 +87,16 @@ function questionss(){
 
         }
     })
-    
+
 }
 
 
-function generateQuestions(url, data){
-    
+function generateQuestions(url, data) {
+
     let str = ``
     $('#chatPreguntas').html('')
-    
-    for(var item of data){
+
+    for (var item of data) {
         str += `<div class="media w-50 mb-3"><img src="${url}" alt="user" width="50" class="rounded-circle">
                     <div class="media-body ml-3">
                         <div class="bg-light rounded py-2 px-3 mb-2">
@@ -109,40 +109,41 @@ function generateQuestions(url, data){
         str = ``
         answers(item.idPregunta)
         idPregunta = item.idPregunta
-    } 
-    
-    
-    
+    }
+
+    var objDiv = document.getElementById("chatPreguntas");
+    objDiv.scrollTop = objDiv.scrollHeight;
+
 }
 
-function answers(idPregunta){
-        
-        
-      $.ajax({
+function answers(idPregunta) {
+
+
+    $.ajax({
         url: './getRespuestasByQuestion',
         type: 'POST',
         async: false,
         data: {
-          idPregunta:idPregunta
+            idPregunta: idPregunta
         },
         dataType: 'json',
         success: function (data) {
-                
+
             console.log(data)
             drawRespuestas(data)
 
         }
     })
-        
+
 }
 
-function drawRespuestas(data){
-    
+function drawRespuestas(data) {
+
     let str = ``
-    
-    for(var item of data){
-    str += 
-            `<div class="media w-50 ml-auto mb-3">
+
+    for (var item of data) {
+        str +=
+                `<div class="media w-50 ml-auto mb-3">
                 <div class="media-body">
                     <div class="bg-primary rounded py-2 px-3 mb-2">
                         <p class="text-small mb-0 text-white">${item.respuesta}</p>
@@ -151,58 +152,62 @@ function drawRespuestas(data){
                 </div>
             </div>`
     }
-       $('#chatPreguntas').append(str)
-    
+    $('#chatPreguntas').append(str)
+
 }
 
-$(document).on('click', '#button-addon2', function(e){
-    
+$(document).on('click', '#button-addon2', function (e) {
+
     e.preventDefault();
     let res = document.getElementById('respuesta').value
-    
+
     if (res == '' || res == null) {
         messageInfo('Escriba un mensaje')
         return false
     }
-    
+
     if (res.length <= 5) {
         messageInfo('Escriba un mensaje válido')
         return false
     }
-    
+
     if (idPregunta === 0) {
         messageInfo('Seleciona un chat')
         return false
     }
-    
+
     let data = {
-        respuesta:res,
-        idPregunta:idPregunta
+        respuesta: res,
+        idPregunta: idPregunta
     }
-    
-  sendRespuesta(data);
-    
-    
+
+    sendRespuesta(data);
+
+
 })
 
-function sendRespuesta(data){
-    
-      $.ajax({
-        url: './registro?accion=registroRespuesta&respuesta=' + data.respuesta + '&idPregunta=' + data.idPregunta,
-        type: 'POST',
-        dataType: 'json',
-        success: function (data) {
-                
-             if (data) {
-                    messageOk('Mensaje enviado')
-                    questionss()
-                    document.getElementById('respuesta').value = ""
-                    enviarNot('respuesta', 0);
-                } else {
-                    messageError('Error al enviar su respuesta.');
-                }
+function sendRespuesta(data) {
 
-        }
-    })
-    
+            $.ajax({
+                url: './registrarRespuesta',
+                type: 'POST',
+                data: {
+                    respuesta: data.respuesta,
+                    idPregunta: data.idPregunta
+                },
+                dataType: 'json',
+                success: function (data) {
+
+                    if (data) {
+                        messageOk('Mensaje enviado')
+                        questionss()
+                        document.getElementById('respuesta').value = ""
+                        enviarNot('respuesta', 0);
+                    } else {
+                        messageError('Error al enviar su respuesta.');
+                    }
+
+                }
+            })
+
 }

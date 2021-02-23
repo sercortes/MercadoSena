@@ -93,8 +93,8 @@ function generateQuestions(url, data) {
     $('#chatPreguntas').html('')
 
     for (var item of data) {
-        
-         str +=
+
+        str +=
                 `<div class="media w-50 ml-auto mb-3">
                 <div class="media-body">
                     <div class="bg-primary rounded py-2 px-3 mb-2">
@@ -110,7 +110,8 @@ function generateQuestions(url, data) {
         idPregunta = item.idPregunta
     }
 
-
+    var objDiv = document.getElementById("chatPreguntas");
+    objDiv.scrollTop = objDiv.scrollHeight;
 
 }
 
@@ -194,7 +195,7 @@ function enviarPregunta(mensaje) {
                 questionss()
                 document.getElementById('respuesta').value = ""
             } else {
-                 messageError('Error al enviar su respuesta.');
+                messageError('Error al enviar su respuesta.');
             }
             enviarNot('pregunta', 0);
         }})

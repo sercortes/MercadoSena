@@ -6,7 +6,10 @@
 package co.edu.sena.mercado.controller.chat;
 
 import co.edu.sena.mercado.dao.PreguntassDAO;
+import co.edu.sena.mercado.dao.preguntasDAO;
+import co.edu.sena.mercado.dao.respuestaDAO;
 import co.edu.sena.mercado.dto.preguntasDTO;
+import co.edu.sena.mercado.dto.respuestaDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
@@ -45,6 +48,12 @@ public class chat extends HttpServlet {
                 case "/MercadoSena/registrarPregunta":
 
                     registrarPregunta(request, response);
+
+                    break;
+
+                case "/MercadoSena/registrarRespuesta":
+
+                    registrarRespuesta(request, response);
 
                     break;
 
@@ -87,6 +96,8 @@ public class chat extends HttpServlet {
 
     private void registrarPregunta(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
         preguntasDTO preguntaDTOs = new preguntasDTO();
         Conexion conexion = new Conexion();
@@ -133,11 +144,6 @@ public class chat extends HttpServlet {
 
     }
 
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
     private void getRespuestasByQuestion(HttpServletRequest request, HttpServletResponse response) throws IOException {
         request.setCharacterEncoding("UTF-8");
         Conexion conexions = new Conexion();
@@ -150,7 +156,7 @@ public class chat extends HttpServlet {
     }
 
     private void getPreguntaByUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+
         usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
         request.setCharacterEncoding("UTF-8");
         Conexion conexions = new Conexion();
@@ -163,4 +169,34 @@ public class chat extends HttpServlet {
 
     }
 
+    private void registrarRespuesta(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        respuestaDTO respuestaDTO = new respuestaDTO();
+        usuarioDTO usuarioDTO = new usuarioDTO();
+        respuestaDAO respuestaDAO = new respuestaDAO();
+        preguntasDAO preguntaDAO = new preguntasDAO();
+        usuarioDTO = (usuarioDTO) request.getSession().getAttribute("USER");
+        respuestaDTO.setIdEmpresa(usuarioDTO.getEmpresa().getIdEmpresa());
+        respuestaDTO.setIdPregunta(Integer.parseInt(request.getParameter("idPregunta")));
+        respuestaDTO.setRespuesta(request.getParameter("respuesta"));
+
+        if (respuestaDAO.resgistroRespuesta(respuestaDTO)) {
+            if (preguntaDAO.responderPregunta(1, respuestaDTO.getIdPregunta())) {
+                response.getWriter().print(true);
+            } else {
+                response.getWriter().print(false);
+            }
+        } else {
+            response.getWriter().print(false);
+        }
+
+    }
+
+        @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+    
 }
