@@ -26,7 +26,6 @@
     
 <c:if test="${empty USER.idRol}">
     
-    <%@include file="/views/registro/registroEmpresa.jspf"%>
     <%@include file="/views/recuperarClave/recuperarClave.jspf"%>
 
 </c:if>

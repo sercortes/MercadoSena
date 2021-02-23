@@ -188,7 +188,7 @@ document.getElementById('formUpdate').addEventListener('submit', e => {
             $('#carga').removeClass('is-active')
             if (data) {
 
-                mensajeactulizacion('El producto se actulizo de formar correcta');
+                messageOk('El producto se actualizo de forma correcta');
                 var form = $("#formUpdate")
                 form.removeClass('was-validated');
                 $pagination.twbsPagination('destroy');
@@ -309,22 +309,4 @@ function checkInputs() {
     }
 
     return true
-}
-
-function mensajeactulizacion(mensaje) {
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Datos Actulizados',
-        html: '<h4 style="color:#449d48;">' + mensaje + '</h4>',
-        showCancelButton: false,
-        showConfirmButton: false,
-        allowOutsideClick: false,
-        allowEscapeKey: false,
-        allowEnterKey: false,
-        padding: '2rem',
-        width: '25%',
-        timer: 1600
-
-    });
 }

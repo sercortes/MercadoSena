@@ -186,11 +186,9 @@
 </div>
 
 
-<%@include file="/views/products/modalDatosFaltantes.jspf"%>
 <%@include file="/views/template/footer.jspf"%>
 
 <script src="./assets/js/project/comprador/ajax.js" charset="utf-8"></script>
-<script src="./assets/js/project/products/modalDatosFaltantes.js" charset="utf-8"></script>
 <script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
 <script src="./assets/js/project/products/uploadFiles.js" charset="utf-8"></script>
 

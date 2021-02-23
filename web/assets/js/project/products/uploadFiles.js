@@ -128,8 +128,7 @@ $('#send').click(function (e) {
                 messageOk('Producto agregado con éxito!');
                 clean()
             } else {
-                messageInfo('Para poder agregar un producto debes ¡actualizar tus datos!');
-                $('#modaldatosfalltantes').modal('show');
+                messageInfo('Error');
             }
             
                $('#carga').removeClass('is-active');

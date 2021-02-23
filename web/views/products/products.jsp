@@ -9,10 +9,8 @@
 
 <link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
 <link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
 
 <%@include file="/views/template/header.jspf"%>
-
 <%@include file="/views/searching/buscador.jspf"%>
 
 
@@ -21,8 +19,10 @@
     <div class="container">
         <div class="row p-2">
             <div class="col-lg-12 pt-2">
+                <div id="tituloPagina">
                 <h3 class="titulos hvr-icon-pop"><i class="fas fa-gifts naranja"></i> Mis productos </h3>
                 <a type="button" href="./newProduct" class="btn btn-primary float-right hvr-push"><i class="fas fa-plus-square"></i> Nuevo</a>
+                </div>
             </div>
         </div>    
     </div>
@@ -30,9 +30,8 @@
 
 
 <%@include file="/views/searching/htmlSearch.jspf"%>
-
 <%@include file="/views/products/modalVerProducto.jspf"%>
-<%@include file="/views/products/modal2.jspf"%>
+<%@include file="/views/products/modalEdit.jspf"%>
 
 <%@include file="/views/registro/registro.jspf"%>
 <%@include file="/views/login/login.jspf"%>
