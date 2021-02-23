@@ -20,7 +20,9 @@ import javax.mail.internet.MimeMessage;
  */
 public class correo {
 
-    public boolean envCorreo(String dest, String clave, String codigo) throws MessagingException{
+    private String urlActivate = "http://localhost:8080/MercadoSena/activarCuenta";
+
+    public boolean envCorreo(String dest, String clave, String codigo) throws MessagingException {
         try {
 
             Properties props = new Properties();
@@ -41,21 +43,27 @@ public class correo {
 
             message.setSubject("Activación cuenta");
             message.setText(
-                    " <div style='padding: 20px;border: solid 2px green;border-radius: 10px;padding-bottom: 0px;'>"
-                    + "            <h3 style='text-align: center'>Mercado sena</h3>"
+                    "<div style='padding: 20px;border: solid 2px green;border-radius: 10px;padding-bottom: 0px;'>"
+                    + "            <h3 style='text-align: center'>Car way</h3>"
                     + "            <p>De parte de todo el equipo te damos la bienvenida a nuestro sistema, para poder activar tu cuenta por favor sigue los pasos:</p>"
                     + "            <p><b>Usuario:</b>" + dest + "</p>"
                     + "            <p><b>clave:</b>" + clave + "</p>"
-                    + "<a style='color: rgb(0, 128, 0);' href='http://181.48.181.131/MercadoSena/activarCuenta?usuario=" + dest + "&codigo=" + codigo + "'><p>Click aquí para activar tu cuenta</p></a>"
-                    +"            <footer style=' background: rgb(252, 252, 252);height: 39px;padding: 15px;text-align: center;'>"
+                    + "  <form action=\"" + this.urlActivate + "\" method=\"POST\" >"
+                    + "            <input type=\"hidden\" value=\"" + dest + "\" name=\"usuario\">"
+                    + "            <input type=\"hidden\" value=\"" + codigo + "\" name=\"codigo\">"
+                    + "            <button type=\"submit\" class=\"btn btn-1 btn-sep icon-info\" target=\"_blank\"><span class=\"il\">Activar</span> <span class=\"il\">tu cuenta</span></button>"
+                    + "          \n"
+                    + "            <br>\n"
+                    + "            </form>\n"
+                    //                    + "<a style='color: rgb(0, 128, 0);' href='http://181.48.181.131/MercadoSena/activarCuenta?usuario=" + dest + "&codigo=" + codigo + "'><p>Click aquí para activar tu cuenta</p></a>"
+                    + "            <footer style=' background: rgb(252, 252, 252);height: 39px;padding: 15px;text-align: center;'>"
                     + "                <div >"
-                    + "                    <p style='color: rgb(117, 117, 117);'>SENA 2020 - CGMLTI</p>"
+                    + "                    <p style='color: rgb(117, 117, 117);'>Car way 2021</p>"
                     + "                </div>"
                     + "            </footer>"
                     + "        </div>",
                     "ISO-8859-1",
                     "html");
-           
 
             Transport t = session.getTransport("smtp");
 

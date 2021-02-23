@@ -5,18 +5,8 @@
  */
 package co.edu.sena.mercado.controller.rutas;
 
-import co.edu.sena.mercado.dao.ciudadDAO;
-import co.edu.sena.mercado.dao.generoDAO;
-import co.edu.sena.mercado.dao.tipoDocumentoDAO;
 import co.edu.sena.mercado.dao.usuarioDAO;
-import co.edu.sena.mercado.dto.ciudadDTO;
-import co.edu.sena.mercado.dto.generoDTO;
-import co.edu.sena.mercado.dto.tipoDocumentoDTO;
-import co.edu.sena.mercado.util.Conexion;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,16 +19,9 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Rutas extends HttpServlet {
 
-    usuarioDAO usuarioDAO = new usuarioDAO();
-    ArrayList<ciudadDTO> listaCiudad;
-    generoDAO generoDAO = new generoDAO();
-    ArrayList<generoDTO> listaGenero;
-    tipoDocumentoDAO tipoDocDAO = new tipoDocumentoDAO();
-    ArrayList<tipoDocumentoDTO> listaTipoDoc;
-
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         String direccion = request.getRequestURI();
         RequestDispatcher rd;
 
@@ -48,22 +31,8 @@ public class Rutas extends HttpServlet {
                 rd.forward(request, response);
                 break;
             case "/MercadoSena/Terminos":
-                 rd = request.getRequestDispatcher("/views/searching/terminos.jsp");
+                rd = request.getRequestDispatcher("/views/searching/terminos.jsp");
                 rd.forward(request, response);
-                break;
-            case "/MercadoSena/activarCuenta":
-                boolean activa;
-                String usuario = request.getParameter("usuario");
-                String codigo = request.getParameter("codigo");
-                activa = usuarioDAO.activarUsuario(usuario, codigo);
-                if (activa) {
-                    request.setAttribute("ACTIVA", activa);
-                    rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
-                    rd.forward(request, response);
-                }else{
-                    rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
-                    rd.forward(request, response);
-                }
                 break;
             case "/MercadoSena/logout":
                 request.getSession().removeAttribute("USER");
@@ -75,27 +44,50 @@ public class Rutas extends HttpServlet {
                 rd.forward(request, response);
                 break;
             default:
-                System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error de la ruta");
+                System.out.println("error de la ruta RUTAS");
                 response.sendRedirect(request.getContextPath() + "/home");
                 break;
         }
-        
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("Registro no soporta GET");
-        response.sendRedirect(request.getContextPath() + "/home");
+
+        String direccion = request.getRequestURI();
+
+        switch (direccion) {
+            case "/MercadoSena/activarCuenta":
+                activateAccount(request, response);
+                break;
+            default:
+                System.out.println("error de la ruta POST RUTAS");
+                response.sendRedirect(request.getContextPath() + "/home");
+                break;
+        }
+
     }
 
-    @Override
+    private void activateAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+        RequestDispatcher rd;
+        boolean activa;
+        String usuario = request.getParameter("usuario");
+        String codigo = request.getParameter("codigo");
+        usuarioDAO usuarioDAO = new usuarioDAO();
+        activa = usuarioDAO.activarUsuario(usuario, codigo);
+        if (activa) {
+            request.setAttribute("ACTIVA", activa);
+            rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
+            rd.forward(request, response);
+        } else {
+            rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
+            rd.forward(request, response);
+        }
+
+    }
+    
+        @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>

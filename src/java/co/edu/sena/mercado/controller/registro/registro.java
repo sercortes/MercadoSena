@@ -242,26 +242,12 @@ public class registro extends HttpServlet {
             empresaDAO = new EmpresasDAO(conn);
 
             usuarioDTO = new usuarioDTO();
-//            listaRol = rolDAO.listarRol();
             usuarioDTO.setClaveUsu(request.getParameter("clave1"));
             usuarioDTO.setCorreoUsu(request.getParameter("correoUsuario"));
             usuarioDTO.setEstadoUsu("0");
             String clave = usuarioDTO.getClaveUsu();
             usuarioDTO.setCodigo(codigo.generarCod());
-            String[] correo = usuarioDTO.getCorreoUsu().split("@");
-//            String dominio = correo[1];
 
-//            for (rolDTO rol : listaRol) {
-//                if (dominio.equalsIgnoreCase("misena.edu.co") || dominio.equalsIgnoreCase("sena.edu.co")) {
-//                    if (rol.getRol().equalsIgnoreCase("misena")) {
-//                        usuarioDTO.setIdRol(rol.getIdRol());
-//                    }
-//                } else {
-//                    if (rol.getRol().equalsIgnoreCase("comprador")) {
-//                        usuarioDTO.setIdRol(rol.getIdRol());
-//                    }
-//                }
-//            }
             usuarioDTO.setIdRol(2);
 
             int idUser = usuarioDAO.registroUsuario(usuarioDTO);
@@ -279,19 +265,6 @@ public class registro extends HttpServlet {
 
             personaNaturalDAO.registrarPersona(personaNaturalDTO);
             System.out.println(personaNaturalDTO.toString());
-
-            if (usuarioDTO.getIdRol() == 3) {
-                empresaDTO = new empresaDTO();
-
-                empresaDTO.setCorreoEmpresa(personaNaturalDTO.getCorreoPer());
-                empresaDTO.setEsEmpresa(1);
-//                empresaDTO.setIdCiudad(personaNaturalDTO.getIdCiudad());
-                empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-                empresaDTO.setNombreEmpresa(personaNaturalDTO.getNombrePer());
-                empresaDTO.setEsEmpresa(0);
-                empresaDAO.registroEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
-                System.out.println(empresaDTO.toString());
-            }
 
             enviar.envCorreo(usuarioDTO.getCorreoUsu(), clave, usuarioDTO.getCodigo());
 
