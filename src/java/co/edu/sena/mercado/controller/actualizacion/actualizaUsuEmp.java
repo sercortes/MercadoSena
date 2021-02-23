@@ -67,7 +67,7 @@ public class actualizaUsuEmp extends HttpServlet {
     }
 
     @Override
-    
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
@@ -130,8 +130,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     personaNaturalDTO perDAO = new personaNaturalDAO().buscarDocumenPerson(personaDTO.getNumeroDocPer(), personaDTO.getNumCelularPer());
                     if (personaDTO.getNumeroDocPer().equals(perDAO.getNumeroDocPer()) || personaDTO.getNumCelularPer().equals(perDAO.getNumCelularPer())) {
 
-                        if (perDAO.getNumeroDocPer().equals("") || perDAO.getNumCelularPer().equals("") || perDAO.getNumeroDocPer() == null) {
-
+                       
                             personaDAO.actualizarPersona(personaDTO);
 
                             if (empDAO.getEsEmpresa() < 1) {
@@ -143,23 +142,7 @@ public class actualizaUsuEmp extends HttpServlet {
                             response.getWriter().print(true);
                             sesion.removeAttribute("USER");
                             sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
-
-                        } else if (personaDTO.getIdPer() == perDAO.getIdPer()) {
-
-                            personaDAO.actualizarPersona(personaDTO);
-
-                            if (empDAO.getEsEmpresa() < 1) {
-
-                                empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
-
-                            }
-                            response.getWriter().print(true);
-                            sesion.removeAttribute("USER");
-                            sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
-
-                        } else {
-                            response.getWriter().print(false);
-                        }
+                        
 
                     } else {
 
@@ -181,7 +164,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     }
 
                 } catch (Exception e) {
-                    System.out.println(e);
+                    System.out.println("Error" + e);
                     response.getWriter().print(false);
                 }
 
@@ -374,7 +357,7 @@ public class actualizaUsuEmp extends HttpServlet {
         if (request.getParameter("centro") != null) {
             empresaDTO.setCentro(request.getParameter("centro"));
             empresaDTO.setEsCentro(request.getParameter("perfil"));
-        }else{
+        } else {
             empresaDTO.setCentro(uDTO.getEmpresa().getCentro());
             empresaDTO.setEsCentro(uDTO.getEmpresa().getEsCentro());
         }
