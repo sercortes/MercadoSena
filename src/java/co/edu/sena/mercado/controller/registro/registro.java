@@ -127,23 +127,6 @@ public class registro extends HttpServlet {
                     System.out.println("XXXXXXXXXXXXXXXXXXXXxxxx error al listarPreguntas ln 277 registro " + e);
                 }
                 break;
-            case "registroRespuesta":
-                respuestaDTO = new respuestaDTO();
-                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                respuestaDTO.setIdEmpresa(usuarioDTO.getEmpresa().getIdEmpresa());
-                respuestaDTO.setIdPregunta(Integer.parseInt(request.getParameter("idPregunta")));
-                respuestaDTO.setRespuesta(request.getParameter("respuesta"));
-
-                if (respuestaDAO.resgistroRespuesta(respuestaDTO)) {
-                    if (preguntaDAO.responderPregunta(1, respuestaDTO.getIdPregunta())) {
-                        response.getWriter().print(true);
-                    } else {
-                        response.getWriter().print(false);
-                    }
-                } else {
-                    response.getWriter().print(false);
-                }
-                break;
             case "listarPreguntasRespuesta":
                 response.setContentType("application/json");
                 listaPregunta = new ArrayList<>();
@@ -392,7 +375,5 @@ public class registro extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    
 
 }
