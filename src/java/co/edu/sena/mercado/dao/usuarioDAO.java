@@ -162,7 +162,6 @@ public class usuarioDAO {
             System.out.println("error al activar  usuario " + e);
             System.out.println("consulta " + ps.toString());
             return false;
-        
          }finally{
             Conexion.close(cn);
             Conexion.close(ps);
