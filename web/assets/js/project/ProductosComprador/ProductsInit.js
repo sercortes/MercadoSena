@@ -176,6 +176,7 @@ function generateTableBuscador() {
     setTimeout(() => $('.hijueputa').carousel({
             interval: 3100,
         }), 1000)
+    
 }
 
 

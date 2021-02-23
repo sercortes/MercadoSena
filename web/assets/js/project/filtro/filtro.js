@@ -27,6 +27,10 @@ $(document).on('click', '#searching', function (e) {
     let categorias = $('#categoriasCriBuscar').val();
     let marca  = $('#marcaProducto').val();
 
+     if (window.location.pathname === '/MercadoSena/ventasVendedor') {
+        $('#content').hide()
+    }
+    
     if (nombreProductoFiltar === ''
             && categorias === '' && marca === '') {
 

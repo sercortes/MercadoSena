@@ -322,7 +322,7 @@ $(document).on('click', '.editProduct', function (e) {
 
     let parent = $(this)[0].parentElement.parentElement
     let idPro = $(parent).attr('idProducto')
-    $('#modal-top').modal('show')
+    $('#modalEdit').modal('show')
 
     let producto = records.find(element => element.idProducto === idPro)
     console.log(producto)

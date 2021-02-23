@@ -85,6 +85,7 @@ document.getElementById('formOnes').addEventListener('submit', e => {
             } else if (data === 10) {
                 
                 messageInfo('no has activado tu cuenta')
+                document.getElementById('passs').value = ''
                 
             } else{
                 
