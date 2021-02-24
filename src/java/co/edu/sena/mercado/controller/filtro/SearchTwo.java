@@ -24,7 +24,8 @@ public class SearchTwo extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
+        System.out.println("SearchThree no soporta GET");
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
     @Override
@@ -45,30 +46,29 @@ public class SearchTwo extends HttpServlet {
                 getProductsByNameCategory(request, response);
 
                 break;
-                
+
             case "/getProductsByMarca":
 
                 getProductsByMarca(request, response);
 
                 break;
-            
+
             case "/getProductsByNameMarca":
 
                 getProductsByNameMarca(request, response);
 
                 break;
-            
-            
+
             case "/getProductsByCategoryMarca":
 
                 getProductsByCategoryMarca(request, response);
 
                 break;
-                
+
             case "/getProductsByNameCategoryMarca":
-                
+
                 getProductsByNameCategoryMarca(request, response);
-                
+
                 break;
 
         }
@@ -92,9 +92,9 @@ public class SearchTwo extends HttpServlet {
         new Gson().toJson(listaProductos, response.getWriter());
 
     }
-    
+
     private void getProductsByMarca(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
@@ -104,12 +104,11 @@ public class SearchTwo extends HttpServlet {
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
-        
+
     }
 
-
     private void getProductsByNameMarca(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
@@ -120,11 +119,11 @@ public class SearchTwo extends HttpServlet {
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
-        
+
     }
 
     private void getProductsByCategoryMarca(HttpServletRequest request, HttpServletResponse response) throws IOException {
-       
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
@@ -135,11 +134,11 @@ public class SearchTwo extends HttpServlet {
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
-        
+
     }
 
     private void getProductsByNameCategoryMarca(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
@@ -155,12 +154,12 @@ public class SearchTwo extends HttpServlet {
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
-        
+
     }
 
-        @Override
+    @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-    
+
 }

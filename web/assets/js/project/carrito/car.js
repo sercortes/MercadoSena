@@ -2,9 +2,9 @@ function addCar(item, cantidad) {
 
     let arraf = JSON.parse(localStorage.getItem('objects'));
     let exts = arraf.filter(x => x.idProducto === item.idProducto).length > 0
-    
+
     if (exts) {
-        
+
         let producto = arraf.find(element => element.idProducto === item.idProducto);
         arraf = arraf.filter(x => x.idProducto !== item.idProducto)
 
@@ -14,7 +14,7 @@ function addCar(item, cantidad) {
             showCar()
             return false
         }
-        
+
         producto.cantidad = producto.cantidad + cantidad
         arraf.push(producto)
         localStorage.setItem('objects', JSON.stringify(arraf));
@@ -35,9 +35,15 @@ function showCar() {
     for (var item of arraf) {
         str += ` <tr>
                     <th scope="row" class="border-0">
-                            <div class="p-2">
-                                <img src="${item.imagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">
-                                <div class="ml-3 d-inline-block align-middle">
+                            <div class="p-2">`
+
+        if (item.imagenUnitaria !== undefined) {
+            str += `<img src="${item.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">`
+        } else {
+            str += `<img src="${item.imagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`
+        }
+
+        str += `<div class="ml-3 d-inline-block align-middle">
                                     <h5 class="mb-0">
                                         <a href="#" class="text-dark d-inline-block align-middle">${item.nombreProducto}</a></h5>
                                         <span class="text-muted font-weight-normal font-italic d-block">Categoría: ${item.categorys.nombreCategoria}</span>
@@ -59,7 +65,7 @@ function showCar() {
                                     <!--<h5 class="font-weight-bold float-right">$45.000.00</h5>-->
                                 </li>`
     document.getElementById('total').innerHTML = str
-    
+
 }
 
 $(document).on('click', '#delete', function (e) {
@@ -72,43 +78,43 @@ $(document).on('click', '#delete', function (e) {
     showCar()
 });
 
-$(document).on('click', '#buttonCars' ,function(e){
-    
+$(document).on('click', '#buttonCars', function (e) {
+
     showCar()
-    
+
 });
 
-$("#modalCar").on('hidden.bs.modal', function(){
-    
+$("#modalCar").on('hidden.bs.modal', function () {
+
     updateIconNumber()
-    
+
 });
 
-function updateIconNumber(){
-    
+function updateIconNumber() {
+
     let arraf = JSON.parse(localStorage.getItem('objects'));
     let str = ''
     let ex = document.getElementById('buttonCars')
-    
+
     if (arraf.length === 0) {
         if (ex !== null) {
             document.getElementById("buttonCars").remove();
         }
         return false
     }
-    
+
     if (ex !== null) {
-        document.getElementById('number').innerHTML 
+        document.getElementById('number').innerHTML
                 = `<i class="fas fa-cart-arrow-down"></i> ${arraf.length}`
-    }else{
-        
-    str = ` <li class="nav-item" id="buttonCars">
+    } else {
+
+        str = ` <li class="nav-item" id="buttonCars">
                 <a id="number" class="nav-link encabezadoOpciones" href="#">
                         <i class="fas fa-cart-arrow-down"></i> ${arraf.length}</a>
-            </li>`    
+            </li>`
         document.getElementById('navbars').innerHTML += str
-        
-    } 
+
+    }
 }
 
 function money(dolar) {

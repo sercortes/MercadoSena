@@ -6,46 +6,43 @@
     <c:redirect url="./home"/>
 </c:if>
 
-  <div class="container">
+<div class="container">
     <div class="row p-2">
-        
+
         <div class="col-lg-12 pt-2">
             <div id="tituloPagina">
-            <h3 class="titulos hvr-icon-pop"><i class="fas fa-shipping-fast naranja"></i> Reportar venta</h3>
+                <h3 class="titulos hvr-icon-pop"><i class="fas fa-shipping-fast naranja"></i> Realizar Venta</h3>
             </div>
         </div>
-        
-          <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
 
-          <!-- Shopping cart table -->
-          <div class="table-responsive">
-            <table class="table table-striped">
-                <thead class="bg-primary">
-                <tr>
-                  <th scope="col" class="border-0">
-                    <div class="p-2 px-3 text-uppercase">Producto</div>
-                  </th>
-                  <th scope="col" class="border-0">
-                    <div class="py-2 text-uppercase">Precio</div>
-                  </th>
-                  <th scope="col" class="border-0">
-                    <div class="py-2 text-uppercase">Cantidad</div>
-                  </th>
-                  <th scope="col" class="border-0">
-                    <div class="py-2 text-uppercase">Opciones</div>
-                  </th>
-                </tr>
-              </thead>
-              <tbody id="tabla">
-               
-              </tbody>
-            </table>
-          </div>
-          <!-- End -->
-        </div>
-          
+        <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
+
+            <table id="example" class="table table-hover table-striped table-borderless">
+                            
+                <thead class="gris text-center">
+                                <tr class="bg-primary">
+                                    <th class="align-middle" scope="col">Imagen</th>
+                                    <th class="align-middle" scope="col">Nombre</th>
+                                    <th class="align-middle" scope="col">Categoría</th>
+                                    <th class="align-middle" scope="col">Valor producto</th>
+                                    <th class="align-middle" scope="col">Cantidad</th>
+                                    <th class="align-middle" scope="col">Agregar</th>
+                                </tr>
+                            </thead>
+                            <tfoot class="gris text-center">
+                                <tr class="bg-primary">
+                                    <th class="align-middle" scope="col">Imagen</th>
+                                    <th class="align-middle" scope="col">Nombre</th>
+                                    <th class="align-middle" scope="col">Categoría</th>
+                                    <th class="align-middle" scope="col">Valor producto</th>
+                                    <th class="align-middle" scope="col">Cantidad</th>
+                                    <th class="align-middle" scope="col">Agregar</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+            </div>
     </div>
-       <div id="cargas" class="loader loader-bouncing"></div>
+    <div id="cargas" class="loader loader-bouncing"></div>
 </div>
 
 <%@include file="/views/login/login.jspf"%>
