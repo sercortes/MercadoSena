@@ -15,8 +15,11 @@ import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -156,16 +159,33 @@ public class chat extends HttpServlet {
     }
 
     private void getPreguntaByUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
-        request.setCharacterEncoding("UTF-8");
-        Conexion conexions = new Conexion();
-        PreguntassDAO instructoresDAO = new PreguntassDAO(conexions.getConnection());
-        int id = usu.getIdUsuario();
-        ArrayList<?> autores = instructoresDAO.getPreguntaByUser(Integer.toString(id));
-        instructoresDAO.CloseAll();
-        response.setContentType("application/json");
-        new Gson().toJson(autores, response.getWriter());
+        
+        PreguntassDAO preguntasdao = null;
+        Connection cone  = null;
+        try {
+            usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
+            request.setCharacterEncoding("UTF-8");
+            Conexion conexions = new Conexion();
+            cone = conexions.getConnection();
+            if (cone.getAutoCommit()) {
+                cone.setAutoCommit(false);
+            }
+            preguntasdao = new PreguntassDAO(cone);
+            int id = usu.getIdUsuario();
+            ArrayList<preguntasDTO> autores = preguntasdao.getPreguntaByUser(Integer.toString(id));
+//            for(preguntasDTO item: autores){
+//                preguntasdao.marcarVistaPregunta(item.getIdPregunta());
+//            }
+//            cone.commit();
+            response.setContentType("application/json");
+            new Gson().toJson(autores, response.getWriter());
+        } catch (SQLException ex) {
+  
+//                cone.rollback();
+            
+        }finally{
+           preguntasdao.CloseAll();
+        }
 
     }
 

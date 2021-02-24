@@ -76,6 +76,10 @@
         <servlet-name>chat</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.chat.chat</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>queryBasic</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.filtro.queryBasic</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -189,6 +193,10 @@
         <url-pattern>/getPreguntasIndivi</url-pattern>
         <url-pattern>/getRespuestasByQuestion</url-pattern>
         <url-pattern>/getPreguntaByUser</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>queryBasic</servlet-name>
+        <url-pattern>/getProductsByDateTimeBasic</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
