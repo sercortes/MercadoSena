@@ -71,6 +71,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link encabezadoOpciones" href="./realizarInformes"><i class="fas fa-chart-line"></i> Informes</a>
                                 </li>
+                                
+                                 <li class="nav-item">
+                                    <a class="nav-link encabezadoOpciones" href="./ProductosByVendedor"><i class="fas fa-shipping-fast"></i> Venta rápida</a>
+                                </li>
                             </c:if>
 
                         </ul>
