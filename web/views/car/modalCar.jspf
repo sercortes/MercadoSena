@@ -62,8 +62,8 @@
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Comprar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Seguir comprando</button>
+                <button id="btnpagar" type="button" class="btn btn-primary">Ir a pagar</button>
             </div>
         </div>
     </div>

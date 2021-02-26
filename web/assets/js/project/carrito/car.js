@@ -26,6 +26,13 @@ function addCar(item, cantidad) {
     }
 
 }
+
+$("#btnpagar").click(function () {
+
+    valor = document.getElementById('valor').value;
+    location.href = "process_payment?valor=" + valor;
+});
+
 function showCar() {
 
     $('#modalCar').modal('show')
@@ -33,17 +40,21 @@ function showCar() {
     let total = 0
     let str = ''
     for (var item of arraf) {
-        str += ` <tr> <td>`
-
+        str += ` <tr><td>`
         if (item.imagenUnitaria !== undefined) {
             str += `<img src="${item.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">`
-        } else {
+        }else {
             str += `<img src="${item.imagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`
         }
-
-        str += `</td><td>
-                            <h5 class="mb-0"><a href="#" class="text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</a></h5>
-                          </td>
+                  str += `</td><td> 
+                                
+                                <div class="ml-3 d-inline-block align-middle">
+                                    <h5 class="mb-0">
+                                        <a href="#" class="text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</a></h5>
+                                        <span class="text-muted font-weight-normal font-italic d-block">Categoría: ${item.categorys.nombreCategoria}</span>
+                                </div>
+                            </div>
+                        </td>
                         <td class="border-0 align-middle pl-3"><strong>${item.color}</strong></td>
                         <td class="border-0 align-middle pl-5"><strong>${item.cantidad}</strong></td>
                         <td class="border-0 align-middle pl-4" idProducto="${item.idProducto}">
@@ -56,6 +67,7 @@ function showCar() {
 
     str = `<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Subtotal </strong><strong>${money(total)}</strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong><strong>${money(total)}</strong></li>
+    <input type="hidden" id="valor" value="${money(total)}">
                                 <!--<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>-->
                                     <!--<h5 class="font-weight-bold float-right">$45.000.00</h5>-->
                                 </li>`
