@@ -54,6 +54,10 @@ function generatesTable(data) {
                 }
             },
             {
+                "data": "color",
+                "className": "align-middle"
+            },
+            {
                 "mData": "stockProducto",
                 "className": "align-middle selectsss", 
                 "mRender": function (data, type, row) {
@@ -119,7 +123,7 @@ $(document).on('click', '#addItemVendedor', function (e) {
 function generateTable(){
     $('#example tfoot th').each( function () {
         var title = $(this).text();
-        if (title === 'Nombre' || title === 'Categoría') {
+        if (title === 'Nombre' || title === 'Categoría' || title === 'Color') {
             $(this).html( '<input type="text" class="form-control"" placeholder="Buscar X '+title+'" />' );
         }else if (title === 'Valor producto') {
              $(this).html( '<input type="number" class="form-control"" placeholder="Buscar X '+title+'" />' );

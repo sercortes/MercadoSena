@@ -19,12 +19,8 @@ $(document).on('click', '.page-item', function () {
 $(function () {
 
     $('#cargas').addClass('is-active');
-
     listarProductoByVendedor()
-
     $('.collapse').collapse()
-
-    redirect()
 
 })
 
@@ -74,18 +70,16 @@ function listarProductoByVendedor() {
 
 function queryEmphyP() {
     let select = document.getElementById('tabla');
-    let str =
-            `<div class="col-lg-3">
-</div>
-    <div class="col-lg-6">
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-  No hay elementos!<strong> Publique un producto </strong>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-    
-</div>`
+    let str = `<div class="col-lg-3">
+            </div>
+                <div class="col-lg-6">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              No hay elementos!<strong> Publique un producto </strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>   
+          </div>`
     select.innerHTML = str;
 }
 
@@ -226,12 +220,10 @@ function textProductMy(item) {
          <p class="mb-0 text-small text-muted textoDes text-left">Medidas : ${item.medidaProducto}</p>
          <p class="mb-0 text-small text-muted textoDes text-left">Empaque : ${item.empaqueProducto}</p>
          <p class="mb-0 text-small text-muted textoDes text-left">Embalaje : ${item.embalajeProducto}</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">Color : ${item.color}</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">Garantía : ${item.garantia}</p>
          <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>`;
-        if (item.ventajaProducto === undefined) {
-            str += `<p class="mb-0 text-small text-muted textoDes text-left">Ninguna</p>`;
-        } else {
-            str += `<p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>`;
-        }
+        str += `<p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>`;
         str += `</div>
           </div>
         </div>
@@ -335,9 +327,7 @@ $(document).on('click', '.editProduct', function (e) {
     document.getElementById('priceE').value = producto.valorProducto
     document.getElementById('cantidadE').value = producto.stockProducto
     document.getElementById('descripE').value = producto.descripcionProducto
-    if (producto.diasEnvios != null) {
-        document.getElementById('enviosE').value = producto.diasEnvios
-    }
+    document.getElementById('enviosE').value = producto.diasEnvios
     document.getElementById('medidasE').value = producto.medidaProducto
     document.getElementById('empaqueE').value = producto.empaqueProducto
     document.getElementById('embalajeE').value = producto.embalajeProducto

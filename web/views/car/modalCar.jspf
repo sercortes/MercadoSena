@@ -17,6 +17,12 @@
                                     <div class="p-1 px-3 text-uppercase">Producto</div>
                                 </th>
                                 <th scope="col" class="border-0">
+                                    <div class="p-1 px-3 text-uppercase">Nombre</div>
+                                </th>
+                                   <th scope="col" class="border-0">
+                                    <div class="py-1 text-uppercase">Color</div>
+                                </th>
+                                <th scope="col" class="border-0">
                                     <div class="py-1 text-uppercase">Cantidad</div>
                                 </th>
                                 <th scope="col" class="border-0">

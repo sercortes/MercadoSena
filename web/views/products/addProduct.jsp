@@ -1,23 +1,14 @@
-
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@include file="/views/template/head.jspf"%>
-
+<link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
+<link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
 <%@include file="/views/template/header.jspf"%>
-
 <%@include file="/views/searching/buscador.jspf"%>
 
 <c:if test="${USER.idRol != 3 || empty USER.idRol}">
     <c:redirect url="./home"/>
 </c:if>
-
-
-<link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
-
-
 
 <div class="container-fluid" id="">
 
@@ -28,7 +19,6 @@
 
             <form class="needs-validation" action="UploadProduct" method="POST" name="formProduct" id="formProduct" enctype="multipart/form-data" acceptcharset="UTF-8">
 
-
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1">Nombre:</label>
@@ -38,9 +28,8 @@
                             Escriba un nombre de mínimo 4 carácteres
                         </div>
                     </div>
-                   
-                      
-                     <div class="form-group col-md-4">
+
+                    <div class="form-group col-md-4">
                         <label for="validationTooltip03">Marca:</label>
                         <select id="marcaProductos" name="marca" class="form-control" tabindex="4" required>
                             <option value="">No</option>
@@ -51,7 +40,6 @@
                     </div>
 
                 </div>
-
 
                 <div class="form-row">
 
@@ -108,67 +96,81 @@
 
                 <div>
 
-                        <div class="camposAdd">
+                    <div class="form-row">
 
-                            <div class="form-row">
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Días de Envío:</label>
-                                    <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="envios" name="envios" placeholder="Nombre de su producto" required>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Color:</label>
+                            <input type="text" class="form-control was-validated" minlength="2" max="40" id="color" name="color" placeholder="color del producto" required>
 
-                                    <div class="invalid-feedback">
-                                        Escriba los días de envío del producto
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
+                            <div class="invalid-feedback">
+                                Escriba un color
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Garantía:</label>
+                            <input type="text" class="form-control was-validated" minlength="2" max="40" id="garantia" name="garantia" placeholder="Garantía del producto" required>
 
-
-                                    <label for="exampleInputEmail1">Medidas:</label>
-                                    <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="medidas" name="medidas" placeholder="Dimesiones de su producto" required>
-
-                                    <div class="invalid-feedback">
-                                        Escriba las medidas del producto
-                                    </div>
-
-                                </div>
-
+                            <div class="invalid-feedback">
+                                Escriba una garantía:
                             </div>
 
+                        </div>
+                    </div>
 
-                            <div class="form-row">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Días de Envío:</label>
+                            <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="envios" name="envios" placeholder="Nombre de su producto" required>
 
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Empaque:</label>
-                                    <input type="text" class="form-control was-validated" minlength="2" max="40" id="empaque" name="empaque" placeholder="Empaque del producto" required>
-
-                                    <div class="invalid-feedback">
-                                        Escriba un empaque
-                                    </div>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Embalaje:</label>
-                                    <input type="text" class="form-control was-validated" minlength="2" max="40" id="embalaje" name="embalaje" placeholder="Embalaje del producto" required>
-
-                                    <div class="invalid-feedback">
-                                        Escriba un embalaje
-                                    </div>
-
-                                </div>
+                            <div class="invalid-feedback">
+                                Escriba los días de envío del producto
                             </div>
+                        </div>
+                        <div class="form-group col-md-6">
 
-                            <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Ventajas:</label>
-                                <textarea class="form-control" id="ventajas" name="ventajas" rows="3" placeholder="Ventajas de su producto" minlength="20" maxlength="500" required></textarea>
-                                <small id="emailHelp" class="form-text text-muted">Si su producto tiene información adicional coloquela en este campo.</small>
 
-                                <div class="invalid-feedback">
-                                    Escriba las ventajas con por lo menos 10 carácteres
-                                </div>
-                            </div>   
+                            <label for="exampleInputEmail1">Medidas:</label>
+                            <input type="text" class="form-control was-validated" minlength="2" maxlength="150" id="medidas" name="medidas" placeholder="Dimesiones de su producto" required>
 
+                            <div class="invalid-feedback">
+                                Escriba las medidas del producto
+                            </div>
 
                         </div>
 
+                    </div>
 
+
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Ventajas:</label>
+                        <textarea class="form-control" id="ventajas" name="ventajas" rows="3" placeholder="Ventajas de su producto" minlength="20" maxlength="500" required></textarea>
+                        <small id="emailHelp" class="form-text text-muted">Si su producto tiene información adicional coloquela en este campo.</small>
+
+                        <div class="invalid-feedback">
+                            Escriba las ventajas con por lo menos 10 carácteres
+                        </div>
+                    </div>   
+
+                    <div class="form-row">
+
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Empaque:</label>
+                            <input type="text" class="form-control was-validated" minlength="2" max="40" id="empaque" name="empaque" placeholder="Empaque del producto">
+
+                            <div class="invalid-feedback">
+                                Escriba un empaque
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="exampleInputEmail1">Embalaje:</label>
+                            <input type="text" class="form-control was-validated" minlength="2" max="40" id="embalaje" name="embalaje" placeholder="Embalaje del producto">
+
+                            <div class="invalid-feedback">
+                                Escriba un embalaje
+                            </div>
+
+                        </div>
+                    </div>
                     <div class="form-group pb-2">
                         <button id="send" type="submit" class="btn btn-primary hvr-push float-right"><i class="fas fa-save fa-1x"></i> Guardar</button>
                         <a href="./Products" type="" class="btn btn-warning hvr-push float-left"><i class="fas fa-arrow-left"></i> Volver</a>
@@ -177,12 +179,11 @@
 
 
         </div>
-
     </div>
 
     <div id="carga" class="loader loader-bouncing"></div>
 
-</div>
+    </div>
 </div>
 
 
