@@ -25,6 +25,7 @@
                                     <th class="align-middle" scope="col">Nombre</th>
                                     <th class="align-middle" scope="col">Categoría</th>
                                     <th class="align-middle" scope="col">Valor producto</th>
+                                    <th class="align-middle" scope="col">Color</th>
                                     <th class="align-middle" scope="col">Cantidad</th>
                                     <th class="align-middle" scope="col">Agregar</th>
                                 </tr>
@@ -35,6 +36,7 @@
                                     <th class="align-middle" scope="col">Nombre</th>
                                     <th class="align-middle" scope="col">Categoría</th>
                                     <th class="align-middle" scope="col">Valor producto</th>
+                                    <th class="align-middle" scope="col">Color</th>
                                     <th class="align-middle" scope="col">Cantidad</th>
                                     <th class="align-middle" scope="col">Agregar</th>
                                 </tr>
@@ -51,4 +53,4 @@
 <%@include file="/views/template/footer.jspf"%>
 
 <script src="./assets/js/pagination/jquery.dataTables.min.js"></script>
-<script src="./assets/js/project/ventasVendedor/showProducts.js" charset="utf-8"></script>
+<script src="./assets/js/project/realizarVenta/showProducts.js" charset="utf-8"></script>

@@ -90,7 +90,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RutasVendedor</servlet-name>
-        <url-pattern>/ProductosByVendedor</url-pattern>
+        <url-pattern>/realizarVenta</url-pattern>
         <url-pattern>/Products</url-pattern>
         <url-pattern>/newProduct</url-pattern>
         <url-pattern>/delProduct</url-pattern>

@@ -33,9 +33,7 @@ function showCar() {
     let total = 0
     let str = ''
     for (var item of arraf) {
-        str += ` <tr>
-                    <th scope="row" class="border-0">
-                            <div class="p-2">`
+        str += ` <tr> <td>`
 
         if (item.imagenUnitaria !== undefined) {
             str += `<img src="${item.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">`
@@ -43,16 +41,13 @@ function showCar() {
             str += `<img src="${item.imagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`
         }
 
-        str += `<div class="ml-3 d-inline-block align-middle">
-                                    <h5 class="mb-0">
-                                        <a href="#" class="text-dark d-inline-block align-middle">${item.nombreProducto}</a></h5>
-                                        <span class="text-muted font-weight-normal font-italic d-block">Categoría: ${item.categorys.nombreCategoria}</span>
-                                </div>
-                            </div>
-                        </th>
-                        <td class="border-0 align-middle"><strong>${item.cantidad}</strong></td>
+        str += `</td><td>
+                            <h5 class="mb-0"><a href="#" class="text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</a></h5>
+                          </td>
+                        <td class="border-0 align-middle pl-3"><strong>${item.color}</strong></td>
+                        <td class="border-0 align-middle pl-5"><strong>${item.cantidad}</strong></td>
                         <td class="border-0 align-middle pl-4" idProducto="${item.idProducto}">
-                            <a id="delete" href="#" class="text-dark"><i class="fa fa-trash"></i></a></td>
+                            <a id="delete" href="#" class="text-dark pl-3"><i class="fa fa-trash"></i></a></td>
                         <td class="border-0 align-middle"><strong>${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</strong></td>
                     </tr>`
         total += item.cantidad * item.valorProducto

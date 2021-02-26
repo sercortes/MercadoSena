@@ -15,6 +15,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +34,13 @@ public class ProductoDAO {
         this.conn = conn;
     }
 
-    public int insertReturn(Producto producto) {
+    public int insertReturn(Producto producto) throws SQLException, Exception{
         int idActividad = 0;
         String sql = "INSERT INTO producto (nombreProducto, valorProducto, stockProducto, marcaProductoFK, "
                 + "descripcionProducto, diasEnvioProducto, medidasProducto, empaqueProducto, "
                 + "embalajeProducto, ventajasProducto, "
-                + "idEmpresaFK, idCategoriaFK) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "idEmpresaFK, idCategoriaFK, color, garantia) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -56,6 +57,8 @@ public class ProductoDAO {
             ps.setString(10, producto.getVentajaProducto());
             ps.setString(11, producto.getIdEmpresaFK());
             ps.setString(12, producto.getIdCategoriaFK());
+            ps.setString(13, producto.getColor());
+            ps.setString(14, producto.getGarantia());
 
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
@@ -65,10 +68,10 @@ public class ProductoDAO {
             return idActividad;
         } catch (MySQLIntegrityConstraintViolationException e) {
             System.out.println(e);
-            return 0;
+            throw new SQLException();
         } catch (Exception e) {
             System.out.println(e);
-            return 0;
+            throw new Exception();
         }
 
     }
@@ -235,6 +238,8 @@ public class ProductoDAO {
                 producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
+                producto.setColor(rs.getString("color"));
+                producto.setGarantia(rs.getString("garantia"));
 
 //                if (!StringUtils.isNullOrEmpty(rs.getString("fechaVencimiento"))) {
 //                     producto.setFechaVencimiento(rs.getString("fechaVencimiento"));

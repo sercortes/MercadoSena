@@ -112,7 +112,6 @@ $('#send').click(function (e) {
     var form = $('#formProduct')[0]
     var data = new FormData(form)
     
-    
 
     $.ajax({
         type: "POST",
@@ -228,10 +227,17 @@ function checkInputs() {
     let cantidad = document.getElementById('cantidad').value
     let marca = document.getElementById('marcaProductos').value
     let category = document.getElementById('category').value
+    let color = document.getElementById('color').value
+    let garantia = document.getElementById('garantia').value
+    let ventajas = document.getElementById('ventajas').value
+    let envios = document.getElementById('envios').value
+    let medidas = document.getElementById('medidas').value
 
     if (name == '' || desc == '' || name.length <= 2 ||
             desc.length <= 19 || price == '' || cantidad == '' ||
-            marca == '' || category == '') {
+            marca == '' || category == '' || marca == '' || 
+            color == '' || garantia == '' || ventajas == '' ||
+            envios == '' || medidas == '') {
         return false
     }
 

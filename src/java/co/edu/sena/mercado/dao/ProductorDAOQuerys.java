@@ -53,6 +53,8 @@ public class ProductorDAOQuerys {
                 producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
+                producto.setColor(rs.getString("color"));
+                producto.setGarantia(rs.getString("garantia"));
 
                 categorys = new Categorys();
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
@@ -92,6 +94,8 @@ public class ProductorDAOQuerys {
                 producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
+                producto.setColor(rs.getString("color"));
+                producto.setGarantia(rs.getString("garantia"));
 
                 categorys = new Categorys();
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
@@ -148,6 +152,8 @@ public class ProductorDAOQuerys {
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
                 producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+                producto.setColor(rs.getString("color"));
+                producto.setGarantia(rs.getString("garantia"));
 
                 categorys = new Categorys();
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
@@ -195,6 +201,8 @@ public class ProductorDAOQuerys {
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
                 producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+                producto.setColor(rs.getString("color"));
+                producto.setGarantia(rs.getString("garantia"));
 
                 categorys = new Categorys();
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
@@ -256,6 +264,8 @@ public class ProductorDAOQuerys {
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
                 producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+                producto.setColor(rs.getString("color"));
+                producto.setGarantia(rs.getString("garantia"));
 
                 categorys = new Categorys();
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
@@ -303,6 +313,8 @@ public class ProductorDAOQuerys {
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
                 producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+                producto.setColor(rs.getString("color"));
+                producto.setGarantia(rs.getString("garantia"));
 
                 categorys = new Categorys();
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
@@ -352,6 +364,8 @@ public class ProductorDAOQuerys {
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
                 producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+                producto.setColor(rs.getString("color"));
+                producto.setGarantia(rs.getString("garantia"));
 
                 categorys = new Categorys();
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
@@ -401,6 +415,8 @@ public class ProductorDAOQuerys {
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
                 producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+                producto.setColor(rs.getString("color"));
+                producto.setGarantia(rs.getString("garantia"));
 
                 categorys = new Categorys();
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
@@ -471,6 +487,8 @@ public class ProductorDAOQuerys {
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
                 producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
+                producto.setColor(rs.getString("color"));
+                producto.setGarantia(rs.getString("garantia"));
 
                 categorys = new Categorys();
                 categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));

@@ -11,17 +11,14 @@ var $pagination = $('#pagination'),
 $(function () {
 
     if (window.location.pathname === '/MercadoSena/Searching...') {
-        
         $('.collapse').collapse()
         $('#caruselDetails').carousel({
             interval: 2100,
         })
         $('#cargas').addClass('is-active');
-        
 //        setTimeout(function(){listarProductoByDateTime()},3000); 
         $('#pagee').show()
         listarProductoByDateTime()
-
     }
 
 })
@@ -221,6 +218,7 @@ function textProduct(item) {
     str += `</select>
               <p class="font-weight-bold text-muted h5 text-left">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</p>
               <h4 class="mb-0 pb-2 text-left">Marca: ${item.marcaProducto}</h4>
+              <h5 class="font-weight-bold text-muted h6 text-left">Color: ${item.color}</h5>
            <div class="card shadow-sm">
             <div class="card-body">
               <p class="mb-0 text-small text-muted textoDes text-left">Descripción</p>
@@ -241,8 +239,8 @@ function textProduct(item) {
          <p class="mb-0 text-small text-muted">Medidas : ${item.medidaProducto}</p>
          <p class="mb-0 text-small text-muted">Empaque : ${item.empaqueProducto}</p>
          <p class="mb-0 text-small text-muted">Embalaje : ${item.embalajeProducto}</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>
          <p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>
+         <p class="mb-0 text-small text-muted textoDes text-left">Garantía:${item.garantia}</p>
                 </div>
             </div>
           </div>

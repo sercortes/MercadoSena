@@ -12,7 +12,7 @@ function productosRamdom(){
             queryEmphy()
             return false
         }
-        
+            
         generatePageQuery(data, 12)
 
     })

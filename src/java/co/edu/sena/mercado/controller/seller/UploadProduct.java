@@ -60,7 +60,7 @@ public class UploadProduct extends HttpServlet {
             throws ServletException, IOException, UnsupportedEncodingException {
 
         if (request.getSession().getAttribute("USER") != null) {
-            
+
             response.setContentType("application/json");
             try {
                 new Gson().toJson(uploadForm(request, response), response.getWriter());
@@ -70,9 +70,9 @@ public class UploadProduct extends HttpServlet {
             }
 
         } else {
-            
+
             out.print("false");
-            
+
         }
 
     }
@@ -122,35 +122,33 @@ public class UploadProduct extends HttpServlet {
                 System.out.println(producto.toString());
 
                 usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
-           
-                    producto.setIdEmpresaFK(Integer.toString(usu.getEmpresa().getIdEmpresa()));
 
-                    folder = Integer.toString(productoDAO.insertReturn(producto));
+                producto.setIdEmpresaFK(Integer.toString(usu.getEmpresa().getIdEmpresa()));
 
-                    File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder);
+                folder = Integer.toString(productoDAO.insertReturn(producto));
 
-                    if (!tempFile.exists()) {
-                        tempFile.mkdirs();
+                File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder);
+
+                if (!tempFile.exists()) {
+                    tempFile.mkdirs();
+                }
+
+                for (FileItem item : multiparts) {
+
+                    if (!item.isFormField()) {
+                        // writen files and get List images
+                        lista = getLista(item, folder, (ArrayList<ImagenesProducto>) lista);
                     }
 
-                    for (FileItem item : multiparts) {
+                }
 
-                        if (!item.isFormField()) {
-                            // writen files and get List images
+                // insert imagenes productos
+                for (ImagenesProducto item : lista) {
+                    imagenesProductosDAO.insertReturn(item);
+                }
 
-                            lista = getLista(item, folder, (ArrayList<ImagenesProducto>) lista);
-                        }
-
-                    }
-
-                    // insert imagenes productos
-                    for (ImagenesProducto item : lista) {
-                        imagenesProductosDAO.insertReturn(item);
-                    }
-
-                    cone.commit();
-                    codigo = true;
-                
+                cone.commit();
+                codigo = true;
 
             } catch (Exception e) {
 
@@ -159,10 +157,6 @@ public class UploadProduct extends HttpServlet {
                 System.out.println(e);
 
             }
-
-        } else {
-
-            codigo = false;
 
         }
 
@@ -175,7 +169,7 @@ public class UploadProduct extends HttpServlet {
         switch (item.getFieldName()) {
 
             case "name":
-                producto.setNombreProducto(item.getString("UTF-8"));
+                producto.setNombreProducto(item.getString("UTF-8").trim());
                 break;
             case "price":
                 producto.setValorProducto(Double.parseDouble(item.getString("UTF-8")));
@@ -190,46 +184,38 @@ public class UploadProduct extends HttpServlet {
                 producto.setIdCategoriaFK(item.getString("UTF-8"));
                 break;
             case "descrip":
-                producto.setDescripcionProducto(item.getString("UTF-8"));
+                producto.setDescripcionProducto(item.getString("UTF-8").trim());
+                break;
+            case "color":
+                producto.setColor(item.getString("UTF-8").trim());
+                break;
+            case "garantia":
+                producto.setGarantia(item.getString("UTF-8").trim());
                 break;
             case "envios":
-                if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
-                    //  producto.setFechaVencimiento("2020-01-01");
-                } else {
-                    producto.setDiasEnvios(item.getString("UTF-8"));
-                }
+                producto.setDiasEnvios(item.getString("UTF-8").trim());
                 break;
             case "medidas":
-                if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
-                    //  producto.setFechaVencimiento("2020-01-01");
-                } else {
-                    producto.setMedidaProducto(item.getString("UTF-8"));
-                }
+                producto.setMedidaProducto(item.getString("UTF-8").trim());
                 break;
-
             case "empaque":
                 if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
-                    //  producto.setFechaVencimiento("2020-01-01");
+                    producto.setEmpaqueProducto("n/a");
                 } else {
-                    producto.setEmpaqueProducto(item.getString("UTF-8"));
+                    producto.setEmpaqueProducto(item.getString("UTF-8").trim());
                 }
                 break;
 
             case "embalaje":
                 if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
-                    //  producto.setFechaVencimiento("2020-01-01");
+                    producto.setEmbalajeProducto("n/a");
                 } else {
-                    producto.setEmbalajeProducto(item.getString("UTF-8"));
+                    producto.setEmbalajeProducto(item.getString("UTF-8").trim());
                 }
                 break;
             case "ventajas":
-                if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
-                    //  producto.setFechaVencimiento("2020-01-01");
-                } else {
-                    producto.setVentajaProducto(item.getString("UTF-8"));
-                }
+                producto.setVentajaProducto(item.getString("UTF-8").trim());
                 break;
-
         }
 
         return producto;

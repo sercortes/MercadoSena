@@ -49,8 +49,8 @@ public class RutasVendedor extends HttpServlet {
         System.out.println(usuario.toString());
         
         switch (direccion) {
-            case "/MercadoSena/ProductosByVendedor":
-                rd = request.getRequestDispatcher("/views/productosByVendedor/productosVendedor.jsp");
+            case "/MercadoSena/realizarVenta":
+                rd = request.getRequestDispatcher("/views/realizarVenta/productosVendedor.jsp");
                 rd.forward(request, response);  
                 break;
             case "/MercadoSena/Products":
