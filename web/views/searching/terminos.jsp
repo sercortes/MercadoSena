@@ -1,16 +1,7 @@
-<%-- 
-    Document   : terminos
-    Created on : 16/12/2020, 02:21:10 PM
-    Author     : sergi
---%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@include file="/views/template/head.jspf"%>
-
-<link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/css-loader.css" async>
-
 <%@include file="/views/template/header.jspf"%>
 
 <br>
@@ -31,7 +22,7 @@
             <br>
             <small style="font-size: 16px;">
                 Su privacidad es importante para nosotros. 
-                Esta declaración de privacidad explica cuáles son los datos personales que recopila Mercado Sena, 
+                Esta declaración de privacidad explica cuáles son los datos personales que recopila Car way, 
                 cómo los trata y con qué fines lo hace. 
             </small>
             <br>
@@ -41,32 +32,32 @@
                 y su Decreto reglamentario 1377 de 2103, se informa al titular de los datos que por medio de su conducta inequívoca, 
                 está autorizando de manera razonable la autorización para el tratamiento de sus datos públicos y privados 
                 en especial aquellos considerados como datos sensibles tales como mis imágenes, consignados en el presente 
-                formulario que serán incorporados en una base de datos responsabilidad de Mercado Sena., siendo tratados con 
+                formulario que serán incorporados en una base de datos responsabilidad de Car Way. siendo tratados con 
                 la finalidad de: Procesos de utilizar los medios de comunicación aportados para contactarme, requerir información
                 a terceros sobre la veracidad de mi información personal y transferencia a terceros que están asociados a la empresa.
                 De igual modo, declaro que no me encuentro obligado a autorizar el tratamiento de mis datos personales sensibles y que he sido 
                 informado que puedo ejercer los derechos de acceso, corrección, supresión, revocación o reclamo por infracción sobre mis datos,
-                mediante escrito dirigido a Mercado Sena., indicando en el Asunto, el derecho que desea ejercer; o a través del correo ordinario
+                mediante escrito dirigido a Car Way. indicando en el Asunto, el derecho que desea ejercer; o a través del correo ordinario
                 remitido a la dirección mencionada anteriormente. El Titular de datos declara haber leído la cláusula anterior y estar conforme
-                con la misma. Acepto los términos y condiciones de Mercado Sena y sus aliados. 
+                con la misma. Acepto los términos y condiciones de Car Way y sus aliados. 
             </small>
             <br>
             <br>
             <small style="font-size: 15px;">
-                Al hacer uso de la plataforma de Mercado Sena y los servicios que esta ofrece, el usuario acepta expresamente los términos y condiciones de uso, política de privacidad. 
+                Al hacer uso de la plataforma de Car Way y los servicios que esta ofrece, el usuario acepta expresamente los términos y condiciones de uso, política de privacidad. 
             </small>
             <br>
             <br>
             <small style="font-size: 15px;">
                 Teniendo en cuenta los presentes términos y condiciones se entiende por USUARIO a cualquier personal natural que tenga la facultad
-                de ingresar a las plataformas y/o publicaciones de Mercado Sena, como lo son clientes, usuarios o proveedores con el objetivo de hacer
+                de ingresar a las plataformas y/o publicaciones de Car Way, como lo son clientes, usuarios o proveedores con el objetivo de hacer
                 uso del servicio y o consultar la información que se encuentre contenida hay. 
             </small>
             <br>
             <br>
             <small style="font-size: 15px;">
                 Los contenidos, servicios, componentes y menciones de esta plataforma no podrán copiarse, venderse, rentarse, duplicarse, publicarse, 
-                distribuirse por cualquier medio, almacenamiento, retransmisión o transmisión de cualquier otra forma, sin contar con la previa y expresa autorización escrita de Mercado Sena. 
+                distribuirse por cualquier medio, almacenamiento, retransmisión o transmisión de cualquier otra forma, sin contar con la previa y expresa autorización escrita de Car Way. 
             </small>
             <br>
             <br>
@@ -84,17 +75,17 @@
             <br>
             <small style="font-size: 15px;">
                 De conformidad con la ley 1581 de 2012 (Ley de protección de datos personales) por medio de este documento, 
-                autorizo a Mercado sena para la recolección, almacenamiento y tratamiento de mis datos personales en cumplimiento 
+                autorizo a Car Way para la recolección, almacenamiento y tratamiento de mis datos personales en cumplimiento 
                 de la ley y de acuerdo con la siguiente finalidad de uso (I) envío de información sobre las novedades, de manera enunciativa 
                 pero no limitativa, cambios y/o modificaciones en sus productos y/o servicios (II) envío de información promocional, publicitaria,
                 de mercadeo y administrativa de los productos y/o servicios, así como de actividades y eventos. Así mismo manifiesto que toda la información 
-                que le ha suministrado a Mercado Sena, es correcta y refleja la verdad, y que autorizo para que se dé uso comercial legal a mis datos,
+                que le ha suministrado a Car Way, es correcta y refleja la verdad, y que autorizo para que se dé uso comercial legal a mis datos,
                 salvaguardando como propios los datos privados. De conformidad con la ley 1581 de 2012 (Ley de protección de datos personales) por medio de este documento, 
-                autorizo a Mercado sena para la recolección, almacenamiento y tratamiento de mis datos personales en cumplimiento de la ley
+                autorizo a Car Way para la recolección, almacenamiento y tratamiento de mis datos personales en cumplimiento de la ley
                 y de acuerdo con la siguiente finalidad de uso (I) envío de información sobre las novedades, de manera enunciativa pero no limitativa,
                 cambios y/o modificaciones en sus productos y/o servicios (II) envío de información promocional, publicitaria, 
                 de mercadeo y administrativa de los productos y/o servicios, así como de actividades y eventos.
-                Así mismo manifiesto que toda la información que le ha suministrado a Mercado Sena, es correcta y refleja la verdad, 
+                Así mismo manifiesto que toda la información que le ha suministrado a Car Way, es correcta y refleja la verdad, 
                 y que autorizo para que se dé uso comercial legal a mis datos, salvaguardando como propios los datos privados. 
             </small>
             <br>
@@ -106,8 +97,8 @@
             </ol>
             <small style="font-size: 15px;">
                 Al aceptar los presentes términos y condiciones,
-                así como la política de privacidad y tratamiento de datos de Mercado Sena, 
-                El USUARIO autoriza de forma voluntaria, expresa e informada a Mercado Sena la recolección, 
+                así como la política de privacidad y tratamiento de datos de Car Way, 
+                El USUARIO autoriza de forma voluntaria, expresa e informada a Car Way la recolección, 
                 registro, procesamiento, difusión, y comercialización de todos los datos que de manera voluntaria el USUARIO suministro durante el registro. 
             </small>
             <br>
@@ -118,8 +109,8 @@
                 </li>
             </ol>
             <small style="font-size:15px;">
-                Mercado Sena se reserva el derecho de aceptar y excluir usuarios que no hagan buen uso de la plataforma, 
-                con la posibilidad de retirar el USUARIO por el uso o la imposibilidad de uso de dicha herramienta. Mercado Sena no asume ninguna responsabilidad por la utilización, 
+                Car Way se reserva el derecho de aceptar y excluir usuarios que no hagan buen uso de la plataforma, 
+                con la posibilidad de retirar el USUARIO por el uso o la imposibilidad de uso de dicha herramienta. Car Way no asume ninguna responsabilidad por la utilización, 
                 eventuales perdidas, costos, prejuicios o daños que pueda sufrir el USUARIO por el uso o la imposibilidad de uso de la plataforma. 
             </small>
             <br>
@@ -130,12 +121,12 @@
                 </li>
             </ol>
             <small style="font-size:15px;">
-                El USUARIO podrá hacer uso de las herramientas a las que Mercado Sena le ha otorgado el permiso únicamente,
-                por tanto se abstendrá de hacer uso de cualquier medio para violar la seguridad y restricciones impartidas por Mercado Sena,
-                así como cualquier medida tecnológica. Cualquier intención y/ acción evidenciada por Mercado Sena será causal suficiente
+                El USUARIO podrá hacer uso de las herramientas a las que Car Way le ha otorgado el permiso únicamente,
+                por tanto se abstendrá de hacer uso de cualquier medio para violar la seguridad y restricciones impartidas por Car Way,
+                así como cualquier medida tecnológica. Cualquier intención y/ acción evidenciada por Car Way será causal suficiente
                 para que se dé por terminado el contrato y/o licencia de uso e informar a las autoridades correspondientes al caso.
                 El USUARIO tiene prohibida la reproducción, adaptación, distribución, alquiler, venta, otorgamiento de licencia,
-                o ejecución de cualquier otra forma de transferencia de la plataforma iDtalento ni de las demás plataformas y/o sitios de Mercado Sena 
+                o ejecución de cualquier otra forma de transferencia de la plataforma iDtalento ni de las demás plataformas y/o sitios de Car Way 
                 ni cualquiera de sus partes, incluyendo los códigos de programación. El USUARIO no podrá reversar la ingeniería, descompilar, desensamblar, modificar, 
                 crear trabajos derivados, traducir la información o usar la información publicada en la plataforma con fines comerciales o de lucro. 
             </small>
@@ -156,11 +147,11 @@
             <br>    
             <ol start="5">
                 <li style="font-size:15px;">
-                    <strong>Condiciones de uso</strong>  Por hacer uso de Mercado Sena el USUARIO autoriza para:
+                    <strong>Condiciones de uso</strong>  Por hacer uso de Car Way el USUARIO autoriza para:
                 </li>
             </ol>
             <li style="font-size:15px;">
-                Modificar sin previo aviso, en cualquier momento y por cualquier razón los términos y condiciones de Mercado Sena. 
+                Modificar sin previo aviso, en cualquier momento y por cualquier razón los términos y condiciones de Car Way. 
             </li>
             <li style="font-size:15px;">
                 Negar el registro a cualquier persona con cualquier motivo.
@@ -183,6 +174,5 @@
 
 <%@include file="/views/template/footer.jspf"%>
 
-<script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
-<script src="./assets/js/pagination/pager.js" charset="utf-8"></script>
+
 <script src="./assets/js/project/comprador/ajax.js"></script>

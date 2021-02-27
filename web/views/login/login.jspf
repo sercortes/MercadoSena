@@ -37,8 +37,8 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <a style="cursor: pointer" onclick="recuperaClave()">Olvido Contraseña?</a><br>
-                <a style="cursor: pointer" onclick="consultarDatosFormulario()" data-toggle="modal" data-target="#exampleModa3">Regístrate aquí</a>
+                <a style="cursor: pointer" onclick="recuperaClave()">¿Olvidó su contraseña?</a><br>
+                <a style="cursor: pointer" onclick="consultarDatosFormulario()" data-toggle="modal" data-target="#exampleModa3">Crea tu cuenta aquí</a>
             </div>
         </div>
     </div>
