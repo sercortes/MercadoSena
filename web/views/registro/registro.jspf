@@ -2,12 +2,12 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 style="text-align: center;font-size: 26px;margin: 0px 0 -15px;color: #e44232;font-weight: 500;">Registro usuario</h3>
+                <p class="modal-title h4 naranja font-weight-bold" id="exampleModalLabel">Registro <i class="fas fa-file-medical"></i></p>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <hr>
+            <hr class="m-0">
             <div class="modal-body">
                 
                 <form id="registroUsuario" class="needs-validation">
@@ -27,7 +27,7 @@
                     </div>        
                     <br>
                     <label>Correo:</label><br>
-                    <input type="email" placeholder="example@misena.edu.co" class="form-control was-validated" minlength="1" maxlength="100" id="correoUsuario" name="correoUsuario" required >
+                    <input type="email" placeholder="micorreo@gmail.edu.co" class="form-control was-validated" minlength="1" maxlength="100" id="correoUsuario" name="correoUsuario" required >
                     <div class="invalid-feedback">
                         Completa este campo correctamente
                     </div><br>
@@ -40,13 +40,13 @@
                         
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="terminosYcondiciones">
-                        <label class="form-check-label" for="exampleCheck1">Al hacer clic en "Registrarte", <a href="./Terminos" target="_blank">aceptas nuestros <i class="fas fa-file-signature"></i> Terminos y condiciones</a></label>                    
+                        <label class="form-check-label" for="exampleCheck1">Al hacer clic en "Registrarse", <a href="./Terminos" target="_blank">aceptas los <i class="fas fa-file-signature"></i> Terminos y condiciones del sitio.</a></label>                    
                     </div>
                         
               
 
                     <hr>
-                    <button class="btn btn-primary" id="registrarUsuario" style="margin-left: 39%">Siguiente</button>
+                    <button class="btn btn-primary" id="registrarUsuario" style="margin-left: 39%">Registrarse</button>
                 </form>
             </div>
             <div id="carga" class="loader loader-bouncing"></div>

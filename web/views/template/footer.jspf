@@ -13,9 +13,9 @@
 </c:if>
 
 
-<footer class="py-4 flex-shrink-0" style="background-color: #fcfcfc">
+<footer class="py-4 flex-shrink-0 naranja" style="">
     <div class="container text-center">
-        <a href="#" class="text-muted">CAR WAY - 2021</a>
+        <p href="#" class="text-muted">CARWAY - Derechos Reservados</p>
     </div>
 </footer>
 

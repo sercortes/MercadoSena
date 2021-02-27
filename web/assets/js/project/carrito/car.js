@@ -50,7 +50,7 @@ function showCar() {
                                 
                                 <div class="ml-3 d-inline-block align-middle">
                                     <h5 class="mb-0">
-                                        <a href="#" class="text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</a></h5>
+                                        <p class="mb-0 text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</p>
                                         <span class="text-muted font-weight-normal font-italic d-block">Categoría: ${item.categorys.nombreCategoria}</span>
                                 </div>
                             </div>
