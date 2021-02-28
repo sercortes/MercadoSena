@@ -5,6 +5,7 @@
  */
 package co.edu.sena.mercado.dao;
 
+import co.edu.sena.mercado.dto.ProducctoDTO;
 import co.edu.sena.mercado.dto.informeProductosDTO;
 import co.edu.sena.mercado.dto.productoPedidosDTO;
 import co.edu.sena.mercado.util.Conexion;
@@ -50,6 +51,28 @@ public class ProductosPedidosDAO {
         }
 
     }
+    
+     public boolean checkProducts(ProducctoDTO producctoDTO) {
+        try {
+            boolean statusP = false;
+            String sql = "SELECT p.idProducto, p.stockProducto FROM producto p "
+                    + "WHERE p.idProducto = ? AND p.stockProducto >= ? AND p.valorProducto = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, producctoDTO.getIdProducto());
+            ps.setInt(2, producctoDTO.getCantidad());
+            ps.setDouble(3, producctoDTO.getValorUnitario());
+            System.out.println(ps.toString());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                statusP = true;
+            }
+            return statusP;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+    
 //SELECT pP.*, count(*) as total,pro.* FROM productospedidos pP INNER JOIN producto pro on pro.idEmpresaFK=6 GROUP BY pP.idProductoFKSELECT pP.*, count(*) as total,pro.* FROM productospedidos pP INNER JOIN producto pro on pro.idEmpresaFK=6 WHERE pP.idProductoFk=pro.idProducto GROUP BY pP.idProductoFK
 //consulta para los productos mas solicitados que tengan disponibilidad en bodega
 //SELECT pP.*,COUNT(*) as cantidadVentas FROM productospedidos pP INNER JOIN producto pro on pro.idProducto=pP.idProductoFk where pro.stockProducto>0 GROUP BY idProductoFK HAVING COUNT(*)>2

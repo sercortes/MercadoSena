@@ -34,6 +34,27 @@ public class CompradorDAO {
         this.conn = conn;
     }
 
+    
+     public String getIdEmpresa(String idProducto) {
+        try {
+            String id = "";
+            String sql = "SELECT p.idProducto, e.idEmpresa FROM producto p INNER JOIN empresa e ON p.idEmpresaFK=e.idEmpresa "
+                    + "WHERE p.idProducto = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, idProducto);
+            System.out.println(ps.toString());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                id = rs.getString("e.idEmpresa");
+            }
+            return id;
+        } catch (Exception e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar checkProducts " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+            return null;
+        }
+    }
+    
     public int insertReturn(CompradorDTO compradorDTO) throws Exception {
 
         int idComprador = 0;
@@ -50,7 +71,7 @@ public class CompradorDAO {
             if (rs.next()) {
                 idComprador = rs.getInt(1);
             }
-            System.out.println("............................." + ps.toString());
+            System.out.println("............................."+ ps.toString());
             return idComprador;
         } catch (MySQLIntegrityConstraintViolationException e) {
             System.out.println(e);

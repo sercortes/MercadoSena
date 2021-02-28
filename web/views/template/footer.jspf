@@ -1,5 +1,6 @@
 
 <%@include file="/views/car/modalCar.jspf"%>
+<%@include file="/views/car/compra/modalMetodo.jspf"%>
 
 <c:if test="${not empty USER.idRol}">
     <div class="chat" >
@@ -27,6 +28,7 @@
     <script src="./assets/js/project/util/functions.js"></script>
     <script src="./assets/js/project/login/init.js"></script>
     <script src="./assets/js/project/carrito/car.js"></script>
+    <script src="./assets/js/project/carrito/pagar/pagar.js"></script>
 
 <c:if test="${not empty USER}">
     <script src="./assets/js/project/notificaciones/notificaciones.js" type="text/javascript"></script>

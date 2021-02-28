@@ -1,0 +1,40 @@
+<div id="modalMetodoPago" class="modal fade bd-example-modal-lg modal-open" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4 naranja font-weight-bold" id="exampleModalLabel"><i class="fas fa-credit-card"></i> método de pago</h5>
+          
+            </div>
+            <hr class="m-0">
+            <div class="modal-body pb-0">
+
+              <div class="card mb-4 shadow-sm">
+                <div class="card-body p-5">
+                    <!-- Block Social Links-->
+                    <ul class="list-unstyled">
+                    <c:if test="${ USER.idRol==3}">
+                        <li id="efectivo" class="mb-2">
+                            <a href="#" class="social-link social-facebook d-flex align-items-center py-2 rounded-pill shadow-sm"><span class="icon py-1"><i class="far fa-money-bill-alt"></i></span><span class="font-weight-bold">Efectivo</span></a>
+                        </li>
+                        <li id="transferec" class="mb-2">
+                            <a href="#" class="social-link social-twitter d-flex align-items-center py-2 rounded-pill shadow-sm"><span class="icon py-1"><i class="fas fa-university"></i></span><span class="font-weight-bold">Consignación</span></a>
+                        </li>
+                    </c:if>
+                    <c:if test="${ USER.idRol==2}">
+                        <li id="targetaC" class="mb-2">
+                            <a href="#" class="social-link social-medium d-flex align-items-center py-2 rounded-pill shadow-sm"><span class="icon py-1"><i class="far fa-credit-card"></i></span><span class="font-weight-bold">Tarjeta de crédito</span></a>
+                        </li>
+                        <li id="pagoPSE" class="mb-2">
+                            <a href="#" class="social-link social-instagram d-flex align-items-center py-2 rounded-pill shadow-sm"><span class="icon py-1"><i class="fas fa-money-check-alt"></i></span><span class="font-weight-bold">PSE</span></a>
+                        </li>
+                    </c:if>
+                    </ul>
+                </div>
+            </div>  
+
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>

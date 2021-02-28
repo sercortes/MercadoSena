@@ -31,15 +31,15 @@ public class VentaDAO {
 
         int idComprador = 0;
 
-        String sql = "INSERT INTO ventas (valorVenta, contacto, idCompradorFK, idCiudadFK) "
+        String sql = "INSERT INTO ventas (valorVenta, idCompradorFK, idCiudadFK, formaPagoVenta) "
                 + "VALUES (?, ?, ?, ?)";
         try {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setDouble(1, ventaDTO.getValorVenta());
-            ps.setString(2, ventaDTO.getContactoVenta());
-            ps.setString(3, ventaDTO.getIdCompradorFK());
-            ps.setString(4, ventaDTO.getIdCiudadFK());
+            ps.setString(2, ventaDTO.getIdCompradorFK());
+            ps.setString(3, ventaDTO.getIdCiudadFK());
+            ps.setString(4, ventaDTO.getFormaPago());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {

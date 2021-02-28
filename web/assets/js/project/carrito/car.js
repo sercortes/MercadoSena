@@ -27,12 +27,6 @@ function addCar(item, cantidad) {
 
 }
 
-$("#btnpagar").click(function () {
-
-    valor = document.getElementById('valor').value;
-    location.href = "process_payment?valor=" + valor;
-});
-
 function showCar() {
 
     $('#modalCar').modal('show')
@@ -67,7 +61,7 @@ function showCar() {
 
     str = `<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Subtotal </strong><strong>${money(total)}</strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong><strong>${money(total)}</strong></li>
-    <input type="hidden" id="valor" value="${money(total)}">
+                                <input type="hidden" id="valor" value="${money(total)}">
                                 <!--<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>-->
                                     <!--<h5 class="font-weight-bold float-right">$45.000.00</h5>-->
                                 </li>`
