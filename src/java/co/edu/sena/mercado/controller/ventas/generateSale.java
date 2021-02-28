@@ -11,6 +11,7 @@ import co.edu.sena.mercado.dao.ProductosPedidosDAO;
 import co.edu.sena.mercado.dao.VentaDAO;
 import co.edu.sena.mercado.dto.CompradorDTO;
 import co.edu.sena.mercado.dto.EmpresaPedidoDTO;
+import co.edu.sena.mercado.dto.ProducctoDTO;
 import co.edu.sena.mercado.dto.VentaDTO;
 import co.edu.sena.mercado.dto.productoPedidosDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
@@ -43,43 +44,43 @@ public class generateSale extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                response.setContentType("application/json");
-        
+        response.setContentType("application/json");
+
         if (request.getSession().getAttribute("USER") != null) {
-        
-        try {
-            String direccion = request.getRequestURI();
 
-            switch (direccion) {
+            try {
+                String direccion = request.getRequestURI();
 
-                case "/MercadoSena/generateSale":
+                switch (direccion) {
 
-                    generateSales(request, response);
+                    case "/MercadoSena/generateSale":
 
-                    break;
+                        generateSales(request, response);
 
-                case "/MercadoSena/checkProducts":
+                        break;
 
-                    checkProducts(request, response);
+                    case "/MercadoSena/checkProducts":
 
-                    break;
-                    
-                case "/MercadoSena/checkSession":
+                        checkProducts(request, response);
 
-                    checkSession(request, response);
+                        break;
 
-                    break;
+                    case "/MercadoSena/checkSession":
 
-                default:
+                        checkSession(request, response);
 
-                    break;
+                        break;
 
+                    default:
+
+                        break;
+
+                }
+            } catch (Exception ex) {
+                System.out.println(ex);
             }
-        } catch (Exception ex) {
-            System.out.println(ex);
-        }
 
-        }else{
+        } else {
             new Gson().toJson(false, response.getWriter());
             System.out.println("NO VALORES DE SESIón");
         }
@@ -87,64 +88,82 @@ public class generateSale extends HttpServlet {
 
     private void generateSales(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 
-        request.setCharacterEncoding("UTF-8");
-        String cantidad = request.getParameter("cantidad");
-        String contacto = request.getParameter("contacto");
-        String idEmpre = request.getParameter("idEmpresa");
-        String idPro = request.getParameter("idProducto");
-        Double precio = Double.parseDouble(request.getParameter("precioProducto"));
-
         usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
-        CompradorDTO compradorDTO = new CompradorDTO(Integer.toString(usu.getPersona().getIdPer()), idEmpre);
 
-        VentaDTO ventaDTO = new VentaDTO();
-        ventaDTO.setValorVenta(precio * Double.parseDouble(cantidad));
-        ventaDTO.setContactoVenta(contacto);
-        ventaDTO.setIdCiudadFK(Integer.toString(usu.getPersona().getIdCiudad()));
-
-        EmpresaPedidoDTO empresaPedidoDTO = new EmpresaPedidoDTO();
-        empresaPedidoDTO.setIdEmpresaFK(idEmpre);
-
-        productoPedidosDTO pedidosDTO = new productoPedidosDTO();
-        pedidosDTO.setIdProductoFK(idPro);
-        pedidosDTO.setCantidad(Integer.parseInt(cantidad));
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        String[] arreglo = request.getParameterValues("arrayP");
+        String metodo = request.getParameter("metodo");
+        Gson gson = new Gson();
+        String json = "";
+        String idEmpresa = "";
+        for (String item : arreglo) {
+            json += item;
+        }
+        ProducctoDTO[] producctoDTOs = gson.fromJson(json, ProducctoDTO[].class);
+        CompradorDAO compradorDAO = null;
+        VentaDAO ventaDAO = null;
+        EmpresaPedidoDAO empresaPedidoDAO = null;
+        ProductosPedidosDAO productosPedidosDAO = null;
 
         Conexion conexion = new Conexion();
         Connection conn = conexion.getConnection();
 
-        response.setContentType("application/json");
-
-        CompradorDAO compradorDAO = null;
-         VentaDAO ventaDAO = null;
-         EmpresaPedidoDAO empresaPedidoDAO = null;
-         ProductosPedidosDAO productosPedidosDAO = null;
-        
         if (conn.getAutoCommit()) {
             conn.setAutoCommit(false);
         }
-        
-   try {
-       
-        compradorDAO = new CompradorDAO(conn);
-        empresaPedidoDAO = new EmpresaPedidoDAO(conn);
-        productosPedidosDAO = new ProductosPedidosDAO(conn);
-        ventaDAO = new VentaDAO(conn);
-        
-        int idCompra = compradorDAO.insertReturn(compradorDTO);
-        ventaDTO.setIdCompradorFK(Integer.toString(idCompra));
-        int idVenta = ventaDAO.insertReturn(ventaDTO);
-        empresaPedidoDTO.setIdVentaFK(Integer.toString(idVenta));
-        empresaPedidoDAO.insertReturn(empresaPedidoDTO);
-        pedidosDTO.setIdVentaFK(Integer.toString(idVenta));
-        productosPedidosDAO.insertReturn(pedidosDTO);
 
+        try {
+       
+            compradorDAO = new CompradorDAO(conn);
+            empresaPedidoDAO = new EmpresaPedidoDAO(conn);
+            productosPedidosDAO = new ProductosPedidosDAO(conn);
+            ventaDAO = new VentaDAO(conn);
+
+            for (ProducctoDTO item : producctoDTOs) {
+                if (!productosPedidosDAO.checkProducts(item)) {
+                    new Gson().toJson(0, response.getWriter());
+                    throw new Exception();
+                }
+            }
+            System.out.println("ddddd");
+            
+            idEmpresa = compradorDAO.getIdEmpresa(producctoDTOs[0].getIdProducto());
+            CompradorDTO compradorDTO = new CompradorDTO(Integer.toString(usu.getPersona().getIdPer()), idEmpresa);
+            int idCompra = compradorDAO.insertReturn(compradorDTO);
+
+            double total = 0.0;
+            for (ProducctoDTO item : producctoDTOs) {
+                total += item.getValorUnitario() * item.getCantidad();
+            }
+
+            VentaDTO ventaDTO = new VentaDTO();
+            ventaDTO.setIdCompradorFK(Integer.toString(idCompra));
+            ventaDTO.setValorVenta(total);
+            ventaDTO.setFormaPago(metodo);
+            ventaDTO.setIdCiudadFK(Integer.toString(usu.getPersona().getIdCiudad()));
+            int idVenta = ventaDAO.insertReturn(ventaDTO);
+
+            EmpresaPedidoDTO empresaPedidoDTO = new EmpresaPedidoDTO();
+            empresaPedidoDTO.setIdEmpresaFK(idEmpresa);
+            empresaPedidoDTO.setIdVentaFK(Integer.toString(idVenta));
+            empresaPedidoDAO.insertReturn(empresaPedidoDTO);
+
+            for (ProducctoDTO item : producctoDTOs) {
+                productoPedidosDTO pedidosDTO = new productoPedidosDTO();
+                pedidosDTO.setIdVentaFK(Integer.toString(idVenta));
+                pedidosDTO.setCantidad(item.getCantidad());
+                pedidosDTO.setIdProductoFK(item.getIdProducto());
+                productosPedidosDAO.insertReturn(pedidosDTO);
+            }
             conn.commit();
-            new Gson().toJson(true, response.getWriter());
+            new Gson().toJson(total, response.getWriter());
         } catch (Exception ex) {
             conn.rollback();
             System.out.println("ROLL BACK GENERATE SALE");
             System.out.println(ex);
-            new Gson().toJson(false, response.getWriter());
+            new Gson().toJson(0, response.getWriter());
         } finally {
             compradorDAO.CloseAll();
             ventaDAO.CloseAll();
@@ -153,11 +172,6 @@ public class generateSale extends HttpServlet {
         }
 
     }
-
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
     private void checkProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, Exception {
 
@@ -169,20 +183,20 @@ public class generateSale extends HttpServlet {
         if (conn.getAutoCommit()) {
             conn.setAutoCommit(false);
         }
-        
+
         CompradorDAO compradorDAO = new CompradorDAO(conn);
         usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
         String idPersona = "";
-        
+
         if (request.getSession().getAttribute("USER") == null) {
             idPersona = "0";
-        }else{
+        } else {
             idPersona = Integer.toString(usu.getPersona().getIdPer());
         }
-        
+
         String idProducto = request.getParameter("idProducto");
-        
-        System.out.println("REVISAR IDProducto "+idProducto + " IDPERsona "+idPersona);
+
+        System.out.println("REVISAR IDProducto " + idProducto + " IDPERsona " + idPersona);
         boolean estado = compradorDAO.checkProducts(idPersona, idProducto);
         compradorDAO.CloseAll();
         new Gson().toJson(estado, response.getWriter());
@@ -192,9 +206,14 @@ public class generateSale extends HttpServlet {
     private void checkSession(HttpServletRequest request, HttpServletResponse response) throws IOException {
         usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
         response.setContentType("application/json");
-        String idPersona = ""; 
+        String idPersona = "";
         idPersona = Integer.toString(usu.getPersona().getIdPer());
         new Gson().toJson(idPersona, response.getWriter());
     }
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }

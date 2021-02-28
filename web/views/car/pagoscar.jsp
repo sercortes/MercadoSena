@@ -14,13 +14,6 @@
         <link rel="stylesheet" type="text/css"
               href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="./assets/styles/index.css">
-        <script
-        src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
-        <script
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-
-        <script type="text/javascript" src="./assets/js/project/carrito/index.js" defer></script>
     </head>
     <body>
         <main>
@@ -30,46 +23,46 @@
                     <div class="block-heading">
                         <h2>Ir a pagar</h2>
                     </div>
-                    
-                        <div class="row">
+
+                    <div class="row">
 
 
-                            <div class="product">
-                                <div class="info">
-                                    <div class="product-details">
-                                        <div class="row justify-content-md-center">
+                        <div class="product">
+                            <div class="info">
+                                <div class="product-details">
+                                    <div class="row justify-content-md-center">
 
-                                            <div class="col-md-4 product-detail">
-
-
-
-                                                <span id="unit-price" style="display: none">${valor}</span>
+                                        <div class="col-md-4 product-detail">
 
 
-                                            </div>
-                                            <div class="col-md-3 product-detail">
-                                                <input type="hidden" id="quantity" class="form-control">
-                                            </div>
+
+                                            <span id="unit-price" style="display: none">${valor}</span>
+
+
+                                        </div>
+                                        <div class="col-md-3 product-detail">
+                                            <input type="hidden" id="quantity" class="form-control">
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
 
-                            <div class="col-md-12 col-lg-4">
-                                <div class="summary">
-                                    <h3>Carro</h3>
-                                    <div class="summary-item">
-                                        <span class="text">Total</span><span class="price"
-                                                                             id="cart-total"></span>
-                                        <hr>
-                                    </div>
-                                    <button class="btn btn-danger btn-lg btn-block"
-                                            id="checkout-btn">Ir a pagar</button>
+                        <div class="col-md-12 col-lg-4">
+                            <div class="summary">
+                                <h3>Carro</h3>
+                                <div class="summary-item">
+                                    <span class="text">Total</span><span class="price"
+                                                                         id="cart-total"></span>
+                                    <hr>
                                 </div>
+                                <button class="btn btn-danger btn-lg btn-block"
+                                        id="checkout-btn">Ir a pagar</button>
                             </div>
                         </div>
-             
+                    </div>
+
                 </div>
             </section>
             <!-- Payment -->
@@ -189,14 +182,10 @@
                 </div>
             </section>
         </main>
-        <footer>
-            <div class="footer_logo">
-                <a href="../MercadoSena/"><img src="./assets/images/icons/LOGO3.png" style="width: 165px; margin-left: 20px;" class="img-fluid" alt="Responsive image"></a>
-            </div>
-            <div class="footer_text">
-                <p>SENA 2020 - CGMLTI</p>
 
-            </div>
-        </footer>
+        <%@include file="/views/template/footer.jspf"%>
+        <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
+        <script type="text/javascript" src="./assets/js/project/carrito/index.js" defer></script>
+
     </body>
 </html>

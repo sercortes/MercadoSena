@@ -17,7 +17,8 @@ public class VentaDTO {
    private Date fechaVenta;
    private Double valorVenta;
    private String contactoVenta;
-    
+   private String formaPago;
+   
    private String idEstadoVentaFK;
    private String idCompradorFK;
    private String idCiudadFK;
@@ -81,10 +82,17 @@ public class VentaDTO {
         this.contactoVenta = contactoVenta;
     }
 
-    @Override
-    public String toString() {
-        return "VentaDTO{" + "idVenta=" + idVenta + ", fechaVenta=" + fechaVenta + ", valorVenta=" + valorVenta + ", contactoVenta=" + contactoVenta + ", idEstadoVentaFK=" + idEstadoVentaFK + ", idCompradorFK=" + idCompradorFK + ", idCiudadFK=" + idCiudadFK + '}';
+    public String getFormaPago() {
+        return formaPago;
     }
 
+    public void setFormaPago(String formaPago) {
+        this.formaPago = formaPago;
+    }
+
+    @Override
+    public String toString() {
+        return "VentaDTO{" + "idVenta=" + idVenta + ", fechaVenta=" + fechaVenta + ", valorVenta=" + valorVenta + ", contactoVenta=" + contactoVenta + ", formaPago=" + formaPago + ", idEstadoVentaFK=" + idEstadoVentaFK + ", idCompradorFK=" + idCompradorFK + ", idCiudadFK=" + idCiudadFK + '}';
+    }
 
 }

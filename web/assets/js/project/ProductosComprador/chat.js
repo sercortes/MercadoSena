@@ -96,12 +96,14 @@ function modalRegistroSi() {
     $('#exampleModal').modal('show');
 }
 function modalPreguntaRegistro() {
+    $('#modalCar').modal('hide')
     $('#modalPreguntaRegistro').toggle();
     $('#bloqueo').toggle();
 }
 
 
 function consultaPreguntas(e) {
+    
     e.preventDefault();
 
 }
