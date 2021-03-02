@@ -54,8 +54,6 @@ public class personaNaturalDTO {
         this.nombreCiudad = nombreCiudad;
     }
 
- 
-
     public int getIdPer() {
         return idPer;
     }
