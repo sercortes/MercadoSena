@@ -7,6 +7,7 @@ package co.edu.sena.mercado.dao;
 
 import co.edu.sena.mercado.dto.Categorys;
 import co.edu.sena.mercado.dto.CompradorDTO;
+import co.edu.sena.mercado.dto.MetodoPago;
 import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.dto.VentaDTO;
 import co.edu.sena.mercado.dto.informePedidosDTO;
@@ -19,6 +20,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -83,6 +85,29 @@ public class CompradorDAO {
 
     }
 
+    public ArrayList<MetodoPago> getMetodos(){
+    
+         try {
+            String sql = "SELECT idMetodoPago, nombre FROM metodopago LIMIT 10";
+            ps = conn.prepareStatement(sql);
+            rs = ps.executeQuery();
+            List<MetodoPago> list = new ArrayList<MetodoPago>();
+            MetodoPago metodoPago;
+            while (rs.next()) {
+                metodoPago = new MetodoPago();
+                metodoPago.setIdMetodo(rs.getString("idMetodoPago"));
+                metodoPago.setNombre(rs.getString("nombre"));
+                
+                list.add(metodoPago);
+            }
+            return (ArrayList<MetodoPago>) list;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+        
+    }
+    
     public boolean checkProducts(String idUser, String idProducto) {
         try {
             boolean estado = false;

@@ -12,14 +12,6 @@
                 <div class="card-body p-5">
                     <!-- Block Social Links-->
                     <ul class="list-unstyled">
-                    <c:if test="${ USER.idRol==3}">
-                        <li id="efectivo" class="mb-2">
-                            <a href="#" class="social-link social-facebook d-flex align-items-center py-2 rounded-pill shadow-sm"><span class="icon py-1"><i class="far fa-money-bill-alt"></i></span><span class="font-weight-bold">Efectivo</span></a>
-                        </li>
-                        <li id="transferec" class="mb-2">
-                            <a href="#" class="social-link social-twitter d-flex align-items-center py-2 rounded-pill shadow-sm"><span class="icon py-1"><i class="fas fa-university"></i></span><span class="font-weight-bold">Consignación</span></a>
-                        </li>
-                    </c:if>
                     <c:if test="${ USER.idRol==2}">
                         <li id="targetaC" class="mb-2">
                             <a href="#" class="social-link social-medium d-flex align-items-center py-2 rounded-pill shadow-sm"><span class="icon py-1"><i class="far fa-credit-card"></i></span><span class="font-weight-bold">Tarjeta de crédito</span></a>

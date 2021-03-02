@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -30,6 +31,31 @@ public class PersonasNaturalDAO {
         this.conn = conn;
     }
 
+    public personaNaturalDTO getPersona(String idPersona){
+    
+         try {
+            String sql = "SELECT idPersona, documentoPersona, nombrePersona, apellidoPersona, direccionPersona FROM personanatural "
+                    + "WHERE documentoPersona = ? LIMIT 1";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, idPersona);
+            rs = ps.executeQuery();
+            personaNaturalDTO persona;
+            persona = new personaNaturalDTO();
+            while (rs.next()) {
+                persona.setIdUsuario(rs.getInt("idPersona"));
+                persona.setIdPer(rs.getInt("documentoPersona"));
+                persona.setNombrePer(rs.getString("nombrePersona"));
+                persona.setApellidoPer(rs.getString("apellidoPersona"));
+                persona.setDireccionPer(rs.getString("direccionPersona"));
+            }
+            return persona;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+        
+    }
+    
     public int registrarPersona(personaNaturalDTO persona) throws Exception, MySQLIntegrityConstraintViolationException {
         int idUsuario = 0;
         String consulta = "INSERT INTO personanatural(nombrePersona, apellidoPersona, correoPersona, urlImgPersona, idUsuarioFK) "

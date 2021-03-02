@@ -1,18 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.sena.mercado.controller.ventas;
 
 import co.edu.sena.mercado.dao.CompradorDAO;
 import co.edu.sena.mercado.dao.EmpresaPedidoDAO;
+import co.edu.sena.mercado.dao.PersonasNaturalDAO;
 import co.edu.sena.mercado.dao.ProductosPedidosDAO;
 import co.edu.sena.mercado.dao.VentaDAO;
+import co.edu.sena.mercado.dao.personaNaturalDAO;
 import co.edu.sena.mercado.dto.CompradorDTO;
 import co.edu.sena.mercado.dto.EmpresaPedidoDTO;
+import co.edu.sena.mercado.dto.MetodoPago;
 import co.edu.sena.mercado.dto.ProducctoDTO;
 import co.edu.sena.mercado.dto.VentaDTO;
+import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.productoPedidosDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
@@ -21,6 +20,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -59,9 +59,9 @@ public class generateSale extends HttpServlet {
 
                         break;
 
-                    case "/MercadoSena/checkProducts":
+                    case "/MercadoSena/getMetodos":
 
-                        checkProducts(request, response);
+                        getMetodos(request, response);
 
                         break;
 
@@ -70,8 +70,17 @@ public class generateSale extends HttpServlet {
                         checkSession(request, response);
 
                         break;
+                        
+                    case "/MercadoSena/getPersona":
+
+                        getPersona(request, response);
+
+                        break;
 
                     default:
+
+                        System.out.println("generateSale no soporta GET");
+                        response.sendRedirect(request.getContextPath() + "/home");
 
                         break;
 
@@ -115,7 +124,7 @@ public class generateSale extends HttpServlet {
         }
 
         try {
-       
+
             compradorDAO = new CompradorDAO(conn);
             empresaPedidoDAO = new EmpresaPedidoDAO(conn);
             productosPedidosDAO = new ProductosPedidosDAO(conn);
@@ -128,7 +137,7 @@ public class generateSale extends HttpServlet {
                 }
             }
             System.out.println("ddddd");
-            
+
             idEmpresa = compradorDAO.getIdEmpresa(producctoDTOs[0].getIdProducto());
             CompradorDTO compradorDTO = new CompradorDTO(Integer.toString(usu.getPersona().getIdPer()), idEmpresa);
             int idCompra = compradorDAO.insertReturn(compradorDTO);
@@ -173,33 +182,16 @@ public class generateSale extends HttpServlet {
 
     }
 
-    private void checkProducts(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, Exception {
+    private void getMetodos(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException, Exception {
 
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
-        Connection conn = conexion.getConnection();
-
         response.setContentType("application/json");
-
-        if (conn.getAutoCommit()) {
-            conn.setAutoCommit(false);
-        }
-
-        CompradorDAO compradorDAO = new CompradorDAO(conn);
-        usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
-        String idPersona = "";
-
-        if (request.getSession().getAttribute("USER") == null) {
-            idPersona = "0";
-        } else {
-            idPersona = Integer.toString(usu.getPersona().getIdPer());
-        }
-
-        String idProducto = request.getParameter("idProducto");
-
-        System.out.println("REVISAR IDProducto " + idProducto + " IDPERsona " + idPersona);
-        boolean estado = compradorDAO.checkProducts(idPersona, idProducto);
+        CompradorDAO compradorDAO = new CompradorDAO(conexion.getConnection());
+        ArrayList<MetodoPago> lista = compradorDAO.getMetodos();
         compradorDAO.CloseAll();
-        new Gson().toJson(estado, response.getWriter());
+        new Gson().toJson(lista, response.getWriter());
 
     }
 
@@ -211,6 +203,19 @@ public class generateSale extends HttpServlet {
         new Gson().toJson(idPersona, response.getWriter());
     }
 
+   private void getPersona(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        response.setContentType("application/json");
+        PersonasNaturalDAO personaDAO = new PersonasNaturalDAO(conexion.getConnection());
+        personaNaturalDTO perNaturalDTO = personaDAO.getPersona(request.getParameter("idUser"));
+        personaDAO.CloseAll();
+        new Gson().toJson(perNaturalDTO, response.getWriter());
+        
+    }
+    
     @Override
     public String getServletInfo() {
         return "Short description";
