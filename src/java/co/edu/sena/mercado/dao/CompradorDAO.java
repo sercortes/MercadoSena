@@ -68,6 +68,7 @@ public class CompradorDAO {
 
             ps.setString(1, compradorDTO.getIdPersona());
             ps.setString(2, compradorDTO.getIdEmpresa());
+            System.out.println(ps.toString());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
