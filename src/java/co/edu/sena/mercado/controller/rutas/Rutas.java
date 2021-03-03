@@ -37,7 +37,7 @@ public class Rutas extends HttpServlet {
             case "/Store/logout":
                 request.getSession().removeAttribute("USER");
                 request.getSession().invalidate();
-                response.sendRedirect("/MercadoSena/");
+                response.sendRedirect("/Store/");
                 break;
             case "/Store/home":
                 rd = request.getRequestDispatcher("index.jsp");
