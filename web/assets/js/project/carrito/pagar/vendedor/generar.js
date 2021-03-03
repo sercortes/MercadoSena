@@ -165,7 +165,8 @@ function generateFactura(data) {
 
     str += `<div class="d-flex justify-content-center row">
                 <div class="col-md-10">
-                    <div class="receipt bg-white p-3 rounded"><img src="./assets/images/icons/LOGO3.png" width="120">
+                    <div class="receipt bg-white p-3 rounded"><img src="./assets/images/icons/LOGO3.png" width="220">
+                        <i class="fas fa-receipt fa-5x float-right naranja"></i>
                         <h4 class="mt-2 mb-3">Ticket de compra</h4>
                         <h6 class="name">${data.perDTO.nombrePer} ${data.perDTO.apellidoPer},</h6>
                         <span class="fs-12 text-black-50">${data.perDTO.idPer}</span>
