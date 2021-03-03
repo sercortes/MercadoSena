@@ -34,7 +34,7 @@ public class queryBasic extends HttpServlet {
 
         switch (direccion) {
 
-            case "/MercadoSena/getProductsByDateTimeBasic":
+            case "/Store/getProductsByDateTimeBasic":
 
                 getProductsByDateTimeBasic(request, response);
 

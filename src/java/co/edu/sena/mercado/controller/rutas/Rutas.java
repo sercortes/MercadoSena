@@ -26,20 +26,20 @@ public class Rutas extends HttpServlet {
         RequestDispatcher rd;
 
         switch (direccion) {
-            case "/MercadoSena/Searching...":
+            case "/Store/Searching...":
                 rd = request.getRequestDispatcher("/views/searching/search.jsp");
                 rd.forward(request, response);
                 break;
-            case "/MercadoSena/Terminos":
+            case "/Store/Terminos":
                 rd = request.getRequestDispatcher("/views/searching/terminos.jsp");
                 rd.forward(request, response);
                 break;
-            case "/MercadoSena/logout":
+            case "/Store/logout":
                 request.getSession().removeAttribute("USER");
                 request.getSession().invalidate();
-                response.sendRedirect("/MercadoSena/");
+                response.sendRedirect("/Store/");
                 break;
-            case "/MercadoSena/home":
+            case "/Store/home":
                 rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
                 break;
@@ -57,7 +57,7 @@ public class Rutas extends HttpServlet {
         String direccion = request.getRequestURI();
 
         switch (direccion) {
-            case "/MercadoSena/activarCuenta":
+            case "/Store/activarCuenta":
                 activateAccount(request, response);
                 break;
             default:

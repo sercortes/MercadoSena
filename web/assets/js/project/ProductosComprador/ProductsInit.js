@@ -10,7 +10,7 @@ var $pagination = $('#pagination'),
 
 $(function () {
 
-    if (window.location.pathname === '/MercadoSena/Searching...') {
+    if (window.location.pathname === '/Store/Searching...') {
         $('.collapse').collapse()
         $('#caruselDetails').carousel({
             interval: 2100,

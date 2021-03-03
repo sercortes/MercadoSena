@@ -20,7 +20,7 @@ import javax.mail.internet.MimeMessage;
  */
 public class correo {
 
-    private String urlActivate = "http://localhost:8080/MercadoSena/activarCuenta";
+    private String urlActivate = "http://localhost:8080/Store/activarCuenta";
 
     public boolean envCorreo(String dest, String clave, String codigo) throws MessagingException {
         try {

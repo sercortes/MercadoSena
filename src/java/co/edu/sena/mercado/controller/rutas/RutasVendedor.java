@@ -49,36 +49,36 @@ public class RutasVendedor extends HttpServlet {
         System.out.println(usuario.toString());
         
         switch (direccion) {
-            case "/MercadoSena/realizarVenta":
+            case "/Store/realizarVenta":
                 rd = request.getRequestDispatcher("/views/realizarVenta/productosVendedor.jsp");
                 rd.forward(request, response);  
                 break;
-            case "/MercadoSena/Products":
+            case "/Store/Products":
                 rd = request.getRequestDispatcher("/views/products/products.jsp");
                 rd.forward(request, response);  
                 break;
-            case "/MercadoSena/newProduct":
+            case "/Store/newProduct":
                 rd = request.getRequestDispatcher("/views/products/addProduct.jsp");
                 rd.forward(request, response);
                 break;
-            case "/MercadoSena/delProduct":
+            case "/Store/delProduct":
                 delProduct(request, response);
                 break;
                 
-            case "/MercadoSena/preguntas":
+            case "/Store/preguntas":
                 rd = request.getRequestDispatcher("/views/preguntas/preguntas.jsp");
                 rd.forward(request, response);
                 break;
-            case "/MercadoSena/usuario":
+            case "/Store/usuario":
                  usuario(request, response, rd); 
                 break;
-            case "/MercadoSena/ventasVendedor":
+            case "/Store/ventasVendedor":
                 request.getRequestDispatcher("/views/ventas/ventasVendedor.jsp").forward(request, response);
                 break;
-            case "/MercadoSena/misPedidos":
+            case "/Store/misPedidos":
                 request.getRequestDispatcher("/views/ventas/pedidosUsuario.jsp").forward(request, response);
                 break;
-            case "/MercadoSena/realizarInformes":
+            case "/Store/realizarInformes":
                 request.getRequestDispatcher("/views/informes/informes.jsp").forward(request, response);
                 break;
             default:

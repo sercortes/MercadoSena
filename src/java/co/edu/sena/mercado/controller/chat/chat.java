@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package co.edu.sena.mercado.controller.chat;
 
 import co.edu.sena.mercado.dao.PreguntassDAO;
@@ -25,10 +21,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author equipo
- */
 public class chat extends HttpServlet {
 
     @Override
@@ -48,37 +40,37 @@ public class chat extends HttpServlet {
 
             switch (direccion) {
 
-                case "/MercadoSena/registrarPregunta":
+                case "/Store/registrarPregunta":
 
                     registrarPregunta(request, response);
 
                     break;
 
-                case "/MercadoSena/registrarRespuesta":
+                case "/Store/registrarRespuesta":
 
                     registrarRespuesta(request, response);
 
                     break;
 
-                case "/MercadoSena/getPreguntaByUser":
+                case "/Store/getPreguntaByUser":
 
                     getPreguntaByUser(request, response);
 
                     break;
 
-                case "/MercadoSena/getAllPreguntas":
+                case "/Store/getAllPreguntas":
 
                     getAllPreguntas(request, response);
 
                     break;
 
-                case "/MercadoSena/getPreguntasIndivi":
+                case "/Store/getPreguntasIndivi":
 
                     getPreguntasIndivi(request, response);
 
                     break;
 
-                case "/MercadoSena/getRespuestasByQuestion":
+                case "/Store/getRespuestasByQuestion":
 
                     getRespuestasByQuestion(request, response);
 

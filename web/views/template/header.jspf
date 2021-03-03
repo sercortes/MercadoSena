@@ -22,7 +22,7 @@
 
                     <div class="navbar-brand">
 
-                     <a href="../MercadoSena/"><img src="./assets/images/icons/LOGO3.png" style="width: 165px; margin-left: 20px;" class="img-fluid" alt="Responsive image"></a>
+                     <a href="../Store/"><img src="./assets/images/icons/LOGO3.png" style="width: 165px; margin-left: 20px;" class="img-fluid" alt="Responsive image"></a>
 
                     </div>
 
@@ -40,7 +40,7 @@
 
 
                             <li class="nav-item active">                     
-                                <a class="nav-link encabezadoOpciones" href="../MercadoSena/"><i class="fas fa-home fa-lg"></i> Inicio
+                                <a class="nav-link encabezadoOpciones" href="../Store/"><i class="fas fa-home fa-lg"></i> Inicio
                                     <span class="sr-only">(current)</span>
                                 </a>
                             </li>

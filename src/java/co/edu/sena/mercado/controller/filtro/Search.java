@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package co.edu.sena.mercado.controller.filtro;
 
 import co.edu.sena.mercado.dao.ProductoDAO;
@@ -20,10 +16,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author equipo
- */
 public class Search extends HttpServlet {
 
     @Override
@@ -39,25 +31,25 @@ public class Search extends HttpServlet {
 
         switch (direccion) {
 
-            case "/MercadoSena/getProductsRandom":
+            case "/Store/getProductsRandom":
 
                 getProductsRandom(request, response);
 
                 break;
 
-            case "/MercadoSena/getProductsByDateTime":
+            case "/Store/getProductsByDateTime":
 
                 getProductsByDateTime(request, response);
 
                 break;
 
-            case "/MercadoSena/getProductsByWord":
+            case "/Store/getProductsByWord":
 
                 getProductsByWord(request, response);
 
                 break;
 
-            case "/MercadoSena/getProductsByCategory":
+            case "/Store/getProductsByCategory":
 
                 getProductsByCategory(request, response);
 

@@ -17,7 +17,7 @@ function consultarTodo() {
     }
 }
 
-var url = 'ws://' + window.window.location.host + '/MercadoSena/not',
+var url = 'ws://' + window.window.location.host + '/Store/not',
         ws = new WebSocket(url);
 (function (window, document, JSON) {
     'use strict';

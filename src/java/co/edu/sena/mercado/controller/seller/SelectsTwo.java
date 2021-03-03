@@ -39,7 +39,7 @@ public class SelectsTwo extends HttpServlet {
 
         switch (direccion) {
 
-            case "/MercadoSena/getCentros":
+            case "/Store/getCentros":
 
                 getCentros(request, response);
 

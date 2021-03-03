@@ -54,13 +54,13 @@ public class generateSale extends HttpServlet {
 
                 switch (direccion) {
 
-                    case "/MercadoSena/generateSale":
+                    case "/Store/generateSale":
 
                         generateSales(request, response);
 
                         break;
                         
-                    case "/MercadoSena/checkSession":
+                    case "/Store/checkSession":
 
                         checkSession(request, response);
 
