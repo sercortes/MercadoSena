@@ -80,6 +80,10 @@
         <servlet-name>queryBasic</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.filtro.queryBasic</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>generateSaleByVendedor</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.ventas.generateSaleByVendedor</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -128,9 +132,7 @@
     <servlet-mapping>
         <servlet-name>generateSale</servlet-name>
         <url-pattern>/generateSale</url-pattern>
-        <url-pattern>/getMetodos</url-pattern>
         <url-pattern>/checkSession</url-pattern>
-        <url-pattern>/getPersona</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>actualizaUsuEmp</servlet-name>
@@ -198,6 +200,13 @@
     <servlet-mapping>
         <servlet-name>queryBasic</servlet-name>
         <url-pattern>/getProductsByDateTimeBasic</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>generateSaleByVendedor</servlet-name>
+        <url-pattern>/generateSaleByVendedor</url-pattern>
+        <url-pattern>/getMetodos</url-pattern>
+        <url-pattern>/getPersona</url-pattern>
+        <url-pattern>/getTiposDocumento</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

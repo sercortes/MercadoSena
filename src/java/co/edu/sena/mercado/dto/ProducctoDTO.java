@@ -11,6 +11,8 @@ public class ProducctoDTO {
     private int cantidad;
     @SerializedName("valorProducto")
     private Double valorUnitario;
+    
+    private int Stock;
 
     public ProducctoDTO() {
     
@@ -48,9 +50,17 @@ public class ProducctoDTO {
         this.valorUnitario = valorUnitario;
     }
 
+    public int getStock() {
+        return Stock;
+    }
+
+    public void setStock(int Stock) {
+        this.Stock = Stock;
+    }
+
     @Override
     public String toString() {
-        return "ProducctoDTO{" + "idProducto=" + idProducto + ", cantidad=" + cantidad + ", valorUnitario=" + valorUnitario + '}';
+        return "ProducctoDTO{" + "idProducto=" + idProducto + ", cantidad=" + cantidad + ", valorUnitario=" + valorUnitario + ", Stock=" + Stock + '}';
     }
     
 }

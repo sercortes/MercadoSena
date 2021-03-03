@@ -1,0 +1,20 @@
+<div id="modalFactura" class="modal fade bd-example-modal-lg modal-open" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title h4 naranja font-weight-bold" id="exampleModalLabel"><i class="fas fa-credit-card"></i>Factura</h5>
+
+            </div>
+            <hr class="m-0">
+            <div class="modal-body pb-0" id="printable">
+                <div id="salidaFactura" class="container mt-5 mb-5">
+                    
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button id="print" type="button" class="btn btn-primary">Imprimir</button>
+            </div>
+        </div>
+    </div>
+</div>

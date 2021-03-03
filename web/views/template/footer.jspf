@@ -7,6 +7,7 @@
 
 <c:if test="${ USER.idRol==3}">
     <%@include file="/views/car/compraVendedor/modalMetodo.jspf"%>
+    <%@include file="/views/car/compraVendedor/modalFactura.jspf"%>
 </c:if>
 
 <c:if test="${not empty USER.idRol}">
@@ -41,6 +42,7 @@
 </c:if>
 
 <c:if test="${ USER.idRol==3}">
+    <script src="./assets/js/project/carrito/pagar/vendedor/querys.js"></script>
     <script src="./assets/js/project/carrito/pagar/vendedor/generar.js"></script>
 </c:if>
 

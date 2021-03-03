@@ -12,15 +12,15 @@
                     <!-- Rounded tabs -->
                     <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav">
                         <li class="nav-item flex-sm-fill">
-                            <a id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" class="nav-link border-0 text-uppercase font-weight-bold active">Buscar cliente</a>
+                            <a id="buscar-home" data-toggle="tab" href="#buscar" role="tab" aria-controls="home" aria-selected="true" class="nav-link border-0 text-uppercase font-weight-bold active">Buscar cliente</a>
                         </li>
                         <li class="nav-item flex-sm-fill">
-                            <a id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold">Registrar cliente</a>
+                            <a id="registrar-tab" data-toggle="tab" href="#registrer" role="tab" aria-controls="profile" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold">Registrar cliente</a>
                         </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
-                        <div id="home" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
-                            <form class="form-inline">
+                        <div id="buscar" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
+                            <form class="form-inline pb-3">
                                 <div class="form-group mb-2">
                                     <label for="staticEmail2" class="sr-only">Email</label>
                                     <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Buscar por documento">
@@ -33,32 +33,48 @@
                             </form>
                             <div id="">
                                 <table class="table table-striped">
+                                    <thead id="cabecera" class="thead-dark">
+                                        <tr>
+                                            <th scope="col">Documento</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Apellido</th>
+                                            <th scope="col">Opciones</th>
+                                        </tr>
+                                    </thead>
                                     <tbody id="ouputSearch">
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <div id="profile" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade pt-5 pr-5 pl-5 pb-0">
-                            <form>
+                        <div id="registrer" role="tabpanel" aria-labelledby="profile-tab" class="tab-pane fade pt-5 pr-5 pl-5 pb-0">
+                            <form id="formularioNewUser">
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="inputEmail4">Documento</label>
-                                        <input type="number" class="form-control" id="inputEmail4" placeholder="Documento">
+                                        <label for="inputPassword4">Tipo Documento</label>
+                                        <select id="tipoDocumento" title="tipo"  name="tipoDocumento" class="form-control was-validated">
+                                        </select> 
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="inputPassword4">Nombre</label>
-                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Nombre">
+                                        <label for="inputEmail4">Documento</label>
+                                        <input type="number" class="form-control" id="documentoUsu" placeholder="Documento">
                                     </div>
+
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="text">Apellido</label>
-                                        <input type="email" class="form-control" id="inputEmail4" placeholder="Apellido">
+                                        <label for="inputPassword4">Nombre</label>
+                                        <input type="text" class="form-control" id="name" placeholder="Nombre">
                                     </div>
                                     <div class="form-group col-md-6">
+                                        <label for="text">Apellido</label>
+                                        <input type="email" class="form-control" id="surname" placeholder="Apellido">
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-12">
                                         <label for="inputPassword4">Dirección</label>
-                                        <input type="text" class="form-control" id="inputPassword4" placeholder="Dirección">
+                                        <input type="text" class="form-control" id="direccion" placeholder="Dirección">
                                     </div>
                                 </div>
                             </form>
@@ -79,7 +95,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Seguir comprando</button>
-                <button id="btnpagar" type="button" class="btn btn-primary">Registrar</button>
+                <button id="registrarVenta" type="button" class="btn btn-primary">Registrar</button>
             </div>
         </div>
     </div>

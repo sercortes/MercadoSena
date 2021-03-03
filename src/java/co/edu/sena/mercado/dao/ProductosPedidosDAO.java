@@ -6,6 +6,7 @@
 package co.edu.sena.mercado.dao;
 
 import co.edu.sena.mercado.dto.ProducctoDTO;
+import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.dto.informeProductosDTO;
 import co.edu.sena.mercado.dto.productoPedidosDTO;
 import co.edu.sena.mercado.util.Conexion;
@@ -13,6 +14,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -73,6 +75,36 @@ public class ProductosPedidosDAO {
         }
     }
     
+       public boolean actualizarCantidad(ProducctoDTO productoDTO) throws SQLException{
+        try {
+
+            String sql1 = "SELECT stockProducto FROM producto WHERE idProducto = ? LIMIT 1";
+            PreparedStatement ps = conn.prepareStatement(sql1);
+            ps.setString(1, productoDTO.getIdProducto());
+            rs = ps.executeQuery();
+
+            int actual = 0;
+
+            while (rs.next()) {
+                actual = rs.getInt("stockProducto");
+            }
+
+            productoDTO.setStock(actual - productoDTO.getCantidad());
+
+            String sql = "UPDATE producto SET stockProducto = ? WHERE idProducto=?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, productoDTO.getStock());
+            ps.setString(2, productoDTO.getIdProducto());
+            System.out.println("..........................." + ps.toString());
+            ps.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar actualizarCantidad PrpductoDAO " + ex);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX consulta " + ps.toString());
+            return false;
+        }
+    }
+     
 //SELECT pP.*, count(*) as total,pro.* FROM productospedidos pP INNER JOIN producto pro on pro.idEmpresaFK=6 GROUP BY pP.idProductoFKSELECT pP.*, count(*) as total,pro.* FROM productospedidos pP INNER JOIN producto pro on pro.idEmpresaFK=6 WHERE pP.idProductoFk=pro.idProducto GROUP BY pP.idProductoFK
 //consulta para los productos mas solicitados que tengan disponibilidad en bodega
 //SELECT pP.*,COUNT(*) as cantidadVentas FROM productospedidos pP INNER JOIN producto pro on pro.idProducto=pP.idProductoFk where pro.stockProducto>0 GROUP BY idProductoFK HAVING COUNT(*)>2

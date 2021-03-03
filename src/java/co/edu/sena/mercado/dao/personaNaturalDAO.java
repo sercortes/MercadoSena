@@ -116,7 +116,7 @@ public class personaNaturalDAO {
 
         try {
             con = new Conexion();
-            String sql = "SELECT * FROM personanatural WHERE idUsuarioFK = ? LIMIT 1";
+            String sql = "SELECT * FROM personanatural WHERE idUsuarioFK = ? ORDER BY idPersona LIMIT 1";
             PreparedStatement ps = con.getConnection().prepareStatement(sql);
             ps.setString(1, id);
             ResultSet rs = ps.executeQuery();
