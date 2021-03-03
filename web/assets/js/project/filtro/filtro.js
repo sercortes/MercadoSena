@@ -1,12 +1,12 @@
 $(document).ready(function () {
 
-    if (window.location.pathname === '/MercadoSena/') {
+    if (window.location.pathname === '/Store/') {
         $('#pagee').hide()
         $('#cargas').addClass('is-active');
         productosRamdom();
     }
 
-    if (window.location.pathname === '/MercadoSena/home') {
+    if (window.location.pathname === '/Store/home') {
         $('#pagee').hide()
         $('#cargas').addClass('is-active');
         productosRamdom();

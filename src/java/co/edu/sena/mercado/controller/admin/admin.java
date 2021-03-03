@@ -32,7 +32,7 @@ public class admin extends HttpServlet {
 
             switch (direccion) {
 
-                case "/MercadoSena/getProductsCheck":
+                case "/Store/getProductsCheck":
 
                     rd = request.getRequestDispatcher("/views/admin/products.jsp");
                     rd.forward(request, response);

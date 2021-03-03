@@ -36,13 +36,13 @@ public class Validation extends HttpServlet {
 
             switch (direccion) {
 
-                case "/MercadoSena/getIdEmpresa":
+                case "/Store/getIdEmpresa":
 
                     getIdEmpresa(request, response);
 
                     break;
                     
-                case "/MercadoSena/getRol":
+                case "/Store/getRol":
 
                     getRol(request, response);
 

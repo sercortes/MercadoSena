@@ -48,37 +48,37 @@ public class chat extends HttpServlet {
 
             switch (direccion) {
 
-                case "/MercadoSena/registrarPregunta":
+                case "/Store/registrarPregunta":
 
                     registrarPregunta(request, response);
 
                     break;
 
-                case "/MercadoSena/registrarRespuesta":
+                case "/Store/registrarRespuesta":
 
                     registrarRespuesta(request, response);
 
                     break;
 
-                case "/MercadoSena/getPreguntaByUser":
+                case "/Store/getPreguntaByUser":
 
                     getPreguntaByUser(request, response);
 
                     break;
 
-                case "/MercadoSena/getAllPreguntas":
+                case "/Store/getAllPreguntas":
 
                     getAllPreguntas(request, response);
 
                     break;
 
-                case "/MercadoSena/getPreguntasIndivi":
+                case "/Store/getPreguntasIndivi":
 
                     getPreguntasIndivi(request, response);
 
                     break;
 
-                case "/MercadoSena/getRespuestasByQuestion":
+                case "/Store/getRespuestasByQuestion":
 
                     getRespuestasByQuestion(request, response);
 

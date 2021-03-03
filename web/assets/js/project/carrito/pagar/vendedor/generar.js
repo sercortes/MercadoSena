@@ -160,7 +160,7 @@ function generateFactura(data) {
 
     let arraf = JSON.parse(localStorage.getItem('objects'));
     console.log(arraf)
-    
+
     let str = ``
 
     str += `<div class="d-flex justify-content-center row">
@@ -177,29 +177,35 @@ function generateFactura(data) {
                             <div><span class="d-block fs-12">Estado</span><span class="font-weight-bold text-success">Aprobada</span></div>
                         </div>
                         <hr>`
-                        
-                        for(var item of arraf){
-                        str+=`<div class="d-flex justify-content-between align-items-center product-details">
-                            <div class="d-flex flex-row product-name-image"><img class="rounded" src="${item.imagenUnitaria}" width="80">
-                                <div class="d-flex flex-column justify-content-between ml-2">
+
+    for (var item of arraf) {
+        str += `<div class="d-flex justify-content-between align-items-center product-details">`
+
+        if (item.imagenUnitaria !== undefined) {
+            str += `<div class="d-flex flex-row product-name-image"><img class="rounded" src="${item.imagenUnitaria}" width="80">`
+        } else {
+            str += `<div class="d-flex flex-row product-name-image"><img class="rounded" src="${item.imagenes[0].url}" width="80">`
+        }
+
+        str +=`<div class="d-flex flex-column justify-content-between ml-2">
                                     <div><span class="d-block font-weight-bold p-name">${item.nombreProducto}</span><span class="fs-12">${item.categorys.nombreCategoria} marca: ${item.marcaProducto}</span></div>
                                     <span class="fs-12">Cantidad: ${item.cantidad}</span>
                                 </div>
                             </div>
                             <div class="product-price">
-                                <h5>$${item.valorProducto * item.cantidad}</h5>
+                                <h5>$${money(item.valorProducto * item.cantidad)}</h5>
                             </div>
                         </div>`
-                        }
-                        
-                        str +=`<div class="mt-5 amount row">
+    }
+
+    str += `<div class="mt-5 amount row">
                             <div class="d-flex justify-content-center col-md-6"><img src="https://i.imgur.com/AXdWCWr.gif" width="250" height="100"></div>
                             <div class="col-md-6">
                                 <div class="billing">
-                                    <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">$${data.valorVenta}</span></div>
+                                    <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">$${money(data.valorVenta)}</span></div>
                                     <div class="d-flex justify-content-between mt-2"><span class="text-success">Descuento</span><span class="font-weight-bold text-success">$0</span></div>
                                     <hr>
-                                    <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold text-success">$${data.valorVenta}</span></div>
+                                    <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold text-success">$${money(data.valorVenta)}</span></div>
                                 </div>
                             </div>
                         </div><span class="d-block">Fecha</span><span class="font-weight-bold text-success">${new Date().toISOString().slice(0, 10)}</span><span class="d-block mt-3 text-black-50 fs-15">Gracias por confiar en nosotros.</span>
@@ -215,29 +221,3 @@ function generateFactura(data) {
 
 }
 
-$(document).on('click', '#print', function (e){
-    e.preventDefault()
-    
-   printElement(document.getElementById("printable"));
-    
-})
-
-document.getElementById("print").onclick = function () {
-    
-}
-
-function printElement(elem) {
-    var domClone = elem.cloneNode(true);
-    
-    var $printSection = document.getElementById("printSection");
-    
-    if (!$printSection) {
-        var $printSection = document.createElement("div");
-        $printSection.id = "printSection";
-        document.body.appendChild($printSection);
-    }
-    
-    $printSection.innerHTML = "";
-    $printSection.appendChild(domClone);
-    window.print();
-}

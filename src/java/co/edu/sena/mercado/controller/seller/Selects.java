@@ -43,36 +43,36 @@ public class Selects extends HttpServlet {
 
         switch (direccion) {
 
-            case "/MercadoSena/getCategorys":
+            case "/Store/getCategorys":
 
                 getCategorys(request, response);
 
                 break;
 
-            case "/MercadoSena/getProducts":
+            case "/Store/getProducts":
 
                 getProducts(request, response);
 
                 break;
 
-            case "/MercadoSena/getImages":
+            case "/Store/getImages":
 
                 getImages(request, response);
 
                 break;
 
-            case "/MercadoSena/getImagesByProduct":
+            case "/Store/getImagesByProduct":
 
                 getImagesByProduct(request, response);
 
                 break;
 
-            case "/MercadoSena/getInfoCompanyByProduct":
+            case "/Store/getInfoCompanyByProduct":
 
                 getInfoCompanyByProduct(request, response);
 
                 break;
-            case "/MercadoSena/obtenerProducto":
+            case "/Store/obtenerProducto":
 
                 obtenerProducto(request, response);
 

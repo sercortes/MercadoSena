@@ -39,25 +39,25 @@ public class Search extends HttpServlet {
 
         switch (direccion) {
 
-            case "/MercadoSena/getProductsRandom":
+            case "/Store/getProductsRandom":
 
                 getProductsRandom(request, response);
 
                 break;
 
-            case "/MercadoSena/getProductsByDateTime":
+            case "/Store/getProductsByDateTime":
 
                 getProductsByDateTime(request, response);
 
                 break;
 
-            case "/MercadoSena/getProductsByWord":
+            case "/Store/getProductsByWord":
 
                 getProductsByWord(request, response);
 
                 break;
 
-            case "/MercadoSena/getProductsByCategory":
+            case "/Store/getProductsByCategory":
 
                 getProductsByCategory(request, response);
 

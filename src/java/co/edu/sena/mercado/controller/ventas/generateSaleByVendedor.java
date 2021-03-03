@@ -57,25 +57,25 @@ public class generateSaleByVendedor extends HttpServlet {
 
                 switch (direccion) {
 
-                    case "/MercadoSena/generateSaleByVendedor":
+                    case "/Store/generateSaleByVendedor":
 
                         generateSaleByVendedor(request, response);
 
                         break;
 
-                    case "/MercadoSena/getMetodos":
+                    case "/Store/getMetodos":
 
                         getMetodos(request, response);
 
                         break;
 
-                    case "/MercadoSena/getPersona":
+                    case "/Store/getPersona":
 
                         getPersona(request, response);
 
                         break;
 
-                    case "/MercadoSena/getTiposDocumento":
+                    case "/Store/getTiposDocumento":
 
                         getTiposDocumento(request, response);
 
