@@ -30,7 +30,7 @@
 
 </c:if>
 
-
+<%@include file="/views/botonesredes/botonesredes.jsp"%>
 <%@include file="/views/template/footer.jspf"%>
 
 <script src="./assets/js/project/filtro/productosInicio.js" type="text/javascript"></script>

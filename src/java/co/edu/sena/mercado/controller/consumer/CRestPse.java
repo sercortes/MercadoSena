@@ -22,11 +22,12 @@ import org.json.JSONObject;
  * @author sergio vera
  */
 public class CRestPse {
-
-    private static final String TOKEN = "TEST-5137551104556241-022318-63009cafbdcb1e0dade50d297f5768ac-719428996";
+    
+    //llave privada TOKEN  
+    private static final String TOKEN = "APP_USR-2292143755833751-030420-63c731172381bad7f543c7667249ab80-723921446";
     private static final String URL_MERCADOPAGO = "https://api.mercadopago.com/v1/";
-    private static final String URL_WOMPI = "https://sandbox.wompi.co/v1/";
-    private static final String TOKE_WOMPO = "pub_test_IDSDN4xfXPLj9A5R5UiKaaQKqySh0JNY";
+    private static final String URL_WOMPI = "https://production.wompi.co/v1/";
+    private static final String TOKE_WOMPO = "pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL";
 
     public static JSONObject getListabancos(String token, String correo, int valor, String description, int cuotas, String paymentMethodId, String docType, String docNumber) {
         DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -154,7 +155,7 @@ public class CRestPse {
         JSONObject json = null;
         try {
             HttpURLConnection con = null;
-            URL object = new URL("https://sandbox.wompi.co/v1/merchants/pub_test_IDSDN4xfXPLj9A5R5UiKaaQKqySh0JNY");
+            URL object = new URL("https://production.wompi.co/v1/merchants/pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL");
             // Abrir la conexión e indicar que será de tipo GET
             con = (HttpURLConnection) object.openConnection();
             con.setDoOutput(true);
@@ -272,7 +273,7 @@ public class CRestPse {
 
         try {
             HttpURLConnection con = null;
-            URL object = new URL("https://sandbox.wompi.co/v1/transactions/" + idpago);
+            URL object = new URL("https://production.wompi.co/v1/transactions/" + idpago);
             // Abrir la conexión e indicar que será de tipo GET
             con = (HttpURLConnection) object.openConnection();
             con.setDoOutput(true);
