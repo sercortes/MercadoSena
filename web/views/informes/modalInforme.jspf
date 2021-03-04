@@ -5,7 +5,7 @@
                 <div id="informePdf">
                     <div class="modal-header">
                         <div class="mb-4" >
-                            <img class="imagen" src="./assets/images/icons/logo.png" alt="Logo sena"/>
+                            <img class="imagen" src="./assets/images/page/2.png" alt="Logo sena"/>
                         </div>
                         <h4 class="text-center modalTitulo" >Informe de productos</h4>
                         <button id="laX" type="button" class="close" data-dismiss="modal">&times;</button>
