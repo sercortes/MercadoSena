@@ -6,6 +6,9 @@
 package co.edu.sena.mercado.controller.pagos;
 
 import co.edu.sena.mercado.controller.consumer.CRestPse;
+import co.edu.sena.mercado.dao.VentaDAO;
+import co.edu.sena.mercado.dto.VentaDTO;
+import co.edu.sena.mercado.util.Conexion;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
@@ -61,10 +64,10 @@ public class process_payment extends HttpServlet {
                 break;
 
             case "pagarpse":
-                
+
                 String valorpagar = request.getParameter("valorpagar");
                 String valopse = valorpagar.replace(".", "");
-                int valors = Integer.parseInt(valopse+0+0);            
+                int valors = Integer.parseInt(valopse + 0 + 0);
                 String descriptionss = request.getParameter("description");
                 String descriptions = "Producto de CARWAY";
                 String Tipodepersona = request.getParameter("TPersona");
@@ -81,13 +84,17 @@ public class process_payment extends HttpServlet {
                 String referencia = String.valueOf(Math.random() * 15 + 1);
 
                 String PSEbanck = CRestPse.Postpse(tokes, valors, tipodepersona, Tipodedoc, document, code, descriptions, emails, referencia, NombreApellido);
-                if(PSEbanck == null){
+                if (PSEbanck == null) {
                     request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
-                }else{
+                } else {
+                    VentaDAO ventaDAO = new VentaDAO(new Conexion().getConnection());
+                    VentaDTO ventaDTO = new VentaDTO();
+                    ventaDTO.setIdEstadoVentaFK("2");
+                    ventaDTO.setIdVenta(request.getParameter("ventaId"));
+                    ventaDAO.actualizarVenta(ventaDTO);
+                    ventaDAO.CloseAll();
                     response.sendRedirect(PSEbanck);
                 }
-
-               
 
                 break;
 
@@ -132,6 +139,12 @@ public class process_payment extends HttpServlet {
                     String Aprobado = "Aprobado";
                     String status = jsonrta.get("status").toString();
                     if (status.equals("approved")) {
+                        VentaDAO ventaDAO = new VentaDAO(new Conexion().getConnection());
+                        VentaDTO ventaDTO = new VentaDTO();
+                        ventaDTO.setIdEstadoVentaFK("2");
+                        ventaDTO.setIdVenta(request.getParameter("ventaId"));
+                        ventaDAO.actualizarVenta(ventaDTO);
+                        ventaDAO.CloseAll();
                         request.setAttribute("status", Aprobado);
                     }
                     request.setAttribute("status_detail", jsonrta.get("status_detail"));

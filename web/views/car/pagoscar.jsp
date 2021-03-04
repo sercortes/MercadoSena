@@ -19,9 +19,8 @@
         <script
         src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="https://secure.mlstatic.com/sdk/javascript/v1/mercadopago.js"></script>
-
-
         <script type="text/javascript" src="./assets/js/project/carrito/index.js" defer></script>
+        <script src="./assets/js/project/carrito/pagar/usuario/pagar.js"></script>
     </head>
     <body>
         <main>    
@@ -101,6 +100,9 @@
                         <div class="payment-details">
                             <form action="process_payment" method="post" id="paymentForm">
                                 <input name="accionT" value="Tarjetadecredito" type="hidden" />
+                                
+                                <input id="ventaId" name="ventaId" value="0" type="hidden" />
+                                
                                 <h3 class="title">Detalles del comprador</h3>
                                 <div class="row">
                                     <div class="form-group col">
@@ -204,6 +206,9 @@
                         <div class="payment-details">
                             <form action="process_payment" method="post" id="paymentForm">
                                 <input name="accionT" value="pagarpse" type="hidden" />
+                                
+                                <input id="ventaIds" name="ventaId" value="0" type="hidden" />
+                                
                                 <h3 class="title">Detalles del comprador</h3>
                                 <div class="row">
                                     <div class="form-group col">

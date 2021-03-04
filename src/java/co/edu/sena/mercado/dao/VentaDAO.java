@@ -64,6 +64,8 @@ public class VentaDAO {
             ps = conn.prepareStatement(sql);
             ps.setString(1, ventaDTO.getIdEstadoVentaFK());
             ps.setString(2, ventaDTO.getIdVenta());
+            System.out.println("VENTA ACTUALIZADA");
+            System.out.println(ps.toString());
             ps.executeUpdate();
 
             return true;

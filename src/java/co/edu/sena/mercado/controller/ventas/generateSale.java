@@ -155,7 +155,7 @@ public class generateSale extends HttpServlet {
                 productosPedidosDAO.insertReturn(pedidosDTO);
             }
             conn.commit();
-            new Gson().toJson(total, response.getWriter());
+            new Gson().toJson(idVenta, response.getWriter());
         } catch (Exception ex) {
             conn.rollback();
             System.out.println("ROLL BACK GENERATE SALE");
