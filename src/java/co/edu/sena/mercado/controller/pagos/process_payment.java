@@ -73,7 +73,7 @@ public class process_payment extends HttpServlet {
                 String Tipodepersona = request.getParameter("TPersona");
                 String Nombre = request.getParameter("Nombre");
                 String Apellido = request.getParameter("Apellido");
-                String NombreApellido = Nombre + Apellido;
+                String NombreApellido = Nombre +" "+ Apellido;
                 int tipodepersona = Integer.parseInt(Tipodepersona);
                 String Tipodedoc = request.getParameter("docTypes");
                 String document = request.getParameter("docNumbers");
