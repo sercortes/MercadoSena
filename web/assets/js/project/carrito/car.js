@@ -26,11 +26,7 @@ function addCar(item, cantidad) {
     }
 
 }
-$("#btnpagar").click(function () {
 
-    valor = document.getElementById('valor').value;
-    location.href = "process_payment?valor=" + valor;
-});
 
 function showCar() {
 
@@ -39,7 +35,7 @@ function showCar() {
     let total = 0
     let str = ''
     for (var item of arraf) {
-        str += ` <tr><td>`
+        str += `<tr><td>`
         if (item.imagenUnitaria !== undefined) {
             str += `<img src="${item.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">`
         }else {

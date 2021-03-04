@@ -179,28 +179,49 @@ function generateFactura(data) {
                         </div>
                         <hr>`
 
+    str += `<table class="table">
+             <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="border-0">
+                                    <div class="p-1 px-3 text-uppercase">Producto</div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="p-1 px-3 text-uppercase">Nombre</div>
+                                </th>
+                                   <th scope="col" class="border-0">
+                                    <div class="py-1 text-uppercase">Color</div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="py-1 text-uppercase">Cantidad</div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="py-1 text-uppercase">Total</div>
+                                </th>
+                            </tr>
+                        </thead>
+        <tbody id="card">`
     for (var item of arraf) {
-        str += `<div class="d-flex justify-content-between align-items-center product-details">`
-
+        str += `<tr><td>`
         if (item.imagenUnitaria !== undefined) {
-            str += `<div class="d-flex flex-row product-name-image"><img class="rounded" src="${item.imagenUnitaria}" width="80">`
+            str += `<img src="${item.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">`
         } else {
-            str += `<div class="d-flex flex-row product-name-image"><img class="rounded" src="${item.imagenes[0].url}" width="80">`
+            str += `<img src="${item.imagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`
         }
-
-        str +=`<div class="d-flex flex-column justify-content-between ml-2">
-                                    <div><span class="d-block font-weight-bold p-name">${item.nombreProducto}</span><span class="fs-12">${item.categorys.nombreCategoria} marca: ${item.marcaProducto}</span></div>
-                                    <span class="fs-12">Cantidad: ${item.cantidad}</span>
+        str += `</td><td>    
+                                <div class="ml-3 d-inline-block align-middle">
+                                        <p class="mb-0 text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</p>
                                 </div>
-                            </div>
-                            <div class="product-price">
-                                <h5>$${money(item.valorProducto * item.cantidad)}</h5>
-                            </div>
-                        </div>`
+                        </td>
+                        <td class="align-middle pl-5"><strong>${item.color}</strong></td>
+                        <td class="align-middle pl-5"><strong>${item.cantidad}</strong></td>
+                        <td class="align-middle"><strong>${money(item.valorProducto * item.cantidad)}</strong></td>
+                    </tr>`
     }
 
-    str += `<div class="mt-5 amount row">
-                            <div class="d-flex justify-content-center col-md-6"><img src="https://i.imgur.com/AXdWCWr.gif" width="250" height="100"></div>
+    str += `</tbody></table>`
+
+    str += `<div class="mt-3 amount row">
+                            <div class="d-flex justify-content-center col-md-6"></div>
                             <div class="col-md-6">
                                 <div class="billing">
                                     <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">$${money(data.valorVenta)}</span></div>
@@ -209,11 +230,11 @@ function generateFactura(data) {
                                     <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold text-success">$${money(data.valorVenta)}</span></div>
                                 </div>
                             </div>
-                        </div><span class="d-block">Fecha</span><span class="font-weight-bold text-success">${new Date().toISOString().slice(0, 10)}</span><span class="d-block mt-3 text-black-50 fs-15">Gracias por confiar en nosotros.</span>
                         <hr>
+                        </div><span class="d-block"></span><span class="font-weight-bold text-success"></span><span class="d-block mt-3 text-black-50 fs-15">Gracias por confiar en nosotros.</span>
                         <div class="d-flex justify-content-between align-items-center footer">
-                            <div class="thanks"><span class="d-block font-weight-bold">Gracias por su compra</span><span>att. Car Way</span></div>
-                            <div class="d-flex flex-column justify-content-end align-items-end"><span class="d-block font-weight-bold">Necesita ayuda</span><span></span></div>
+                            <div class="thanks"><span class="d-block font-weight-bold">CarWay</span><span></span></div>
+                            <div class="d-flex flex-column justify-content-end align-items-end"><span class="d-block font-weight-bold"></span><span></span></div>
                         </div>
                     </div>
                 </div>

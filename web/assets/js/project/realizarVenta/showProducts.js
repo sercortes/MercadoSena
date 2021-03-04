@@ -31,6 +31,7 @@ function generatesTable(data) {
     
     $('#example').dataTable({
         "order": [],
+        "lengthChange": true,
         "aaData": data,
         "columns": [
             {
@@ -80,11 +81,12 @@ function generatesTable(data) {
             },
         ],
         "language": {
-            "lengthMenu": "Mostrar _MENU_ x página",
+            "lengthMenu": "Mostrar _MENU_ por página",
             "zeroRecords": "No encontrados",
             "info": "página _PAGE_ de _PAGES_",
             "infoEmpty": "No hay elementos",
-            "infoFiltered": "(total _MAX_ )"
+            "infoFiltered": "(total _MAX_ )",
+            "sSearch": "Buscar"
         },
           initComplete: function () {
             this.api().columns().every( function () {
@@ -123,10 +125,14 @@ $(document).on('click', '#addItemVendedor', function (e) {
 function generateTable(){
     $('#example tfoot th').each( function () {
         var title = $(this).text();
-        if (title === 'Nombre' || title === 'Categoría' || title === 'Color') {
-            $(this).html( '<input type="text" class="form-control"" placeholder="Buscar X '+title+'" />' );
+        if (title === 'Categoría') {
+            $(this).html( '<input type="text" class="form-control"" placeholder="Accesorios" />' );
+        }else if(title === 'Nombre'){
+            $(this).html( '<input type="text" class="form-control"" placeholder="LLaveros" />' );
+        }else if(title === 'Color'){
+            $(this).html( '<input type="text" class="form-control"" placeholder="Rojo" />' );
         }else if (title === 'Valor producto') {
-             $(this).html( '<input type="number" class="form-control"" placeholder="Buscar X '+title+'" />' );
+             $(this).html( '<input type="number" class="form-control"" placeholder="10000" />' );
         }
     } );
 }

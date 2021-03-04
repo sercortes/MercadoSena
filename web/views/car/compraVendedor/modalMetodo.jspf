@@ -22,12 +22,11 @@
                         <div id="buscar" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active">
                             <form class="form-inline pb-3">
                                 <div class="form-group mb-2">
-                                    <label for="staticEmail2" class="sr-only">Email</label>
-                                    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Buscar por documento">
+                                    
                                 </div>
                                 <div class="form-group mx-sm-3 mb-2">
                                     <label for="inputPassword2" class="sr-only">Númeto de documento</label>
-                                    <input type="number" id="documentvalue" class="form-control" placeholder="número de documento">
+                                    <input type="number" id="documentvalue" class="form-control" placeholder="Número de documento">
                                 </div>
                                 <button id="searchUser" type="submit" class="btn btn-primary mb-2">Buscar</button>
                             </form>
