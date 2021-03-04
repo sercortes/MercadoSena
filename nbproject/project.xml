@@ -39,19 +39,30 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.json-20200518.jar}</file>
+                    <file>${&lt;&lt;&lt;&lt;&lt;&lt;&lt; Updated upstream}</file>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.commons-codec-20041127.091804.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.httpclient-4.4.1.jar}</file>
+                    <file>${file.reference.commons-logging-1.1.1.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.httpcore-4.4.4.jar}</file>
+                    <file>${file.reference.dx-java-1.8.0.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
-                    <file>${file.reference.commons-logging-1.1.1.jar}</file>
+                    <file>${file.reference.httpclient-4.4.1.jar-1}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.httpcore-4.4.4.jar-1}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${file.reference.json-20200518.jar-1}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>

@@ -26,6 +26,11 @@ function addCar(item, cantidad) {
     }
 
 }
+$("#btnpagar").click(function () {
+
+    valor = document.getElementById('valor').value;
+    location.href = "process_payment?valor=" + valor;
+});
 
 function showCar() {
 

@@ -5,10 +5,13 @@
  */
 //REPLACE WITH YOUR PUBLIC KEY AVAILABLE IN: https://developers.mercadopago.com/panel/credentials
 window.Mercadopago.setPublishableKey("TEST-881037af-528a-4b65-bf31-9f5afd95383e");
-
 window.Mercadopago.getIdentificationTypes();
 
 document.getElementById('cardNumber').addEventListener('change', guessPaymentMethod);
+
+
+
+
 function guessPaymentMethod(event) {
     cleanCardInfo();
 
@@ -22,12 +25,13 @@ function guessPaymentMethod(event) {
 }
 ;
 
+
 function setPaymentMethod(status, response) {
     if (status == 200) {
         let paymentMethod = response[0];
 
         document.getElementById('paymentMethodId').value = paymentMethod.id;
-        document.getElementById('cardNumber').style.backgroundImage = 'url(' + paymentMethod.thumbnail + ')';
+
 
         if (paymentMethod.additional_info_needed.includes("issuer_id")) {
             getIssuers(paymentMethod.id);
@@ -115,6 +119,7 @@ function updateInstallmentsForIssuer(event) {
 
 //Proceed with payment
 doSubmit = false;
+
 document.getElementById('paymentForm').addEventListener('submit', getCardToken);
 function getCardToken(event) {
     event.preventDefault();
@@ -126,6 +131,10 @@ function getCardToken(event) {
     }
 }
 ;
+
+
+
+
 function setCardTokenAndPay(status, response) {
     if (status == 200 || status == 201) {
         let form = document.getElementById('paymentForm');
@@ -157,13 +166,65 @@ function cleanCardInfo() {
 
 //Handle transitions
 document.getElementById('checkout-btn').addEventListener('click', function () {
+
+
+
     $('.shopping-cart').fadeOut(500);
     setTimeout(() => {
         $('.container_payment').show(500).fadeIn();
     }, 500);
 });
+document.getElementById('checkouts-btn').addEventListener('click', function () {
+
+    $.post("process_payment", {accionT: "listadebancos"}, function (rs) {
+        var json = JSON.parse(rs);
+        console.log("JSON PARSE: " + json);
+        if (rs !== 'null') {
+            for (x = 0; x < json.length; x++) {
+                console.log(json[x].financial_institution_code);
+                console.log(json[x].financial_institution_name);
+                document.getElementById("selectdebanco").innerHTML += "<option value='" + json[x].financial_institution_code + "'>'" + json[x].financial_institution_name + "'</option>";
+            }
+
+                
+
+        } else if (rs === 'index') {
+            setTimeout("location.href='index.jsp'", 1000);
+        }
+    });
+
+
+//    $.post("process_payment", {accionT: "pse"}, function (rs) {
+//
+//        if (rs !== 'null') {
+//            var json = JSON.parse(rs);
+//
+//            console.log(json);
+//            for (let item of json) { 
+//                document.getElementById("selectdebancos").innerHTML += "<select><option>"+ item.fraud_javascript_key  + "</option></select>";
+//            }
+//
+//
+//
+//        } else if (rs === 'index') {
+//            setTimeout("location.href='index.jsp'", 1000);
+//        }
+//    });
+
+
+    $('.shopping-cart').fadeOut(500);
+    setTimeout(() => {
+        $('.container_payments').show(500).fadeIn();
+    }, 500);
+});
 document.getElementById('go-back').addEventListener('click', function () {
     $('.container_payment').fadeOut(500);
+    setTimeout(() => {
+        $('.shopping-cart').show(500).fadeIn();
+    }, 500);
+});
+document.getElementById('go-backs').addEventListener('click', function () {
+    $('.container_payments').fadeOut(500);
     setTimeout(() => {
         $('.shopping-cart').show(500).fadeIn();
     }, 500);
@@ -176,6 +237,7 @@ function updatePrice() {
     let amount = parseInt(unitPrice) * parseInt(quantity);
 
     document.getElementById('cart-total').innerHTML = '$ ' + unitPrice;
+    document.getElementById('carts-total').innerHTML = '$ ' + unitPrice;
     document.getElementById('summary-price').innerHTML = '$ ' + unitPrice;
     document.getElementById('summary-quantity').innerHTML = quantity;
     document.getElementById('summary-total').innerHTML = '$ ' + unitPrice;
@@ -189,4 +251,34 @@ updatePrice();
 
 //Retrieve product description
 document.getElementById('description').value = document.getElementById('product-description').innerHTML;
+
+document.getElementById('cardNumber').addEventListener('change', guessPaymentMethod);
+
+
+
+
+
+
+function guessPaymentMethod(event) {
+    let cardnumber = document.getElementById("cardNumber").value;
+    if (cardnumber.length >= 6) {
+        let bin = cardnumber.substring(0, 6);
+        window.Mercadopago.getPaymentMethod({
+            "bin": bin
+        }, setPaymentMethod);
+    }
+}
+;
+
+function setPaymentMethod(status, response) {
+    if (status == 200) {
+        let paymentMethod = response[0];
+        document.getElementById('paymentMethodId').value = paymentMethod.id;
+        document.getElementById('cardNumber').style.backgroundImage = 'url(' + paymentMethod.thumbnail + ')';
+
+        getIssuers(paymentMethod.id);
+    } else {
+        alert(`payment method info error: ${response}`);
+    }
+}
 

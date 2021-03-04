@@ -24,9 +24,50 @@ main {
     padding-bottom: 100px;
 }
 
+#letrap{
+    font-weight: 500;
+    font-size: 0.7rem;
+    line-height: 1.1;
+    color: rgb(163 161 163);
+    margin-top: -20px;
+    text-align: center;
+}
+
+#letrap2{
+    font-weight: 500;
+    font-size: 0.7rem;
+    line-height: 1.1;
+    color: rgb(163 161 163);
+    margin-top: -10px;
+    text-align: center;
+}
+
+#letrap3{
+    font-weight: 500;
+    font-size: 0.7rem;
+    line-height: 1.1;
+    color: rgb(163 161 163);
+    margin-top: -0px;
+    text-align: center;
+}
+
+#imgtarjeta{
+    max-width: 59%;
+    display: block;
+    margin: auto;
+    padding: 9px;
+}
+#imgtarjeta2{
+    max-height: 100%;
+    display: block;
+    margin: auto;
+}
+
 .hidden {
     display: none
 }
+
+
 
 /* Shopping Cart Section - Start */
 .shopping-cart {
@@ -117,8 +158,38 @@ main {
     height: 100%;
     padding: 35px;
     box-shadow: 1px 2px 5px #999;
-    margin-right: -100%;
-    margin-left: 100%;
+    /*    margin-right: -100%;
+        margin-left: 100%;*/
+}
+
+.shopping-cart .summary-a{
+    border-top: 3px solid #2bb54a;
+    background-color: #ffffff;
+    height: 100%;
+    padding: 35px;
+    box-shadow: 1px 2px 5px #999;
+}
+
+.shopping-cart .summary-a .datos-compra{
+    font-size: 1em;
+    float: right;
+}
+
+.shopping-cart .summarys {
+    border-top: 2px solid #e44232;
+    background-color: #ffffff;
+    height: 100%;
+    padding: 35px;
+    box-shadow: 1px 2px 5px #999;
+
+}
+
+.shopping-cart .summrys-h3{
+    text-align: center;
+    font-size: 1.3em;
+    font-weight: 400;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .shopping-cart .summary h3 {
@@ -151,6 +222,29 @@ main {
     border-bottom-color: #e44232;
 }
 
+.shopping-cart .summarys .summarys-item:not(:last-of-type) {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.shopping-cart .summarys .text {
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.shopping-cart .summarys .price {
+    font-size: 1em;
+    float: right;
+}
+
+.shopping-cart .summarys button {
+    margin-top: 20px;
+    background-color: #e44232;
+    border-bottom-color: #e44232;
+}
+
+
 @media (min-width: 768px) {
 
     .shopping-cart .items .product .info .product-details .product-detail {
@@ -176,6 +270,10 @@ main {
 
 /* Card Payment Section - Start */
 .container_payment {
+    display: none;
+}
+
+.container_payments {
     display: none;
 }
 
@@ -323,8 +421,9 @@ footer {
 }
 
 #horizontal_logo {
-    width: 150px;
-    margin: 0;
+    width: 180px;
+    margin-left: 250%;
+    margin-top: -120%;
 }
 
 footer p a {
