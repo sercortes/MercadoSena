@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 //REPLACE WITH YOUR PUBLIC KEY AVAILABLE IN: https://developers.mercadopago.com/panel/credentials
-window.Mercadopago.setPublishableKey("APP_USR-897bc79d-8f14-404c-989a-30347153358b");
+window.Mercadopago.setPublishableKey("TEST-b9f6e049-cde5-4516-8dd8-66a3ca68f776");
 window.Mercadopago.getIdentificationTypes();
 
 document.getElementById('cardNumber').addEventListener('change', guessPaymentMethod);
