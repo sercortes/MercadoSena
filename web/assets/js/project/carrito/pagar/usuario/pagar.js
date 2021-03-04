@@ -1,3 +1,4 @@
+idVenta = 0
 
 function buyProducts(metodo) {
 
@@ -13,19 +14,14 @@ function buyProducts(metodo) {
             messageInfo('Error en los productos')
         },
         success: function (datas) {
-
+            
+            idVenta = datas
             if (datas !== 0) {
-                
+                document.getElementById('ventaId').value = datas
+                document.getElementById('ventaIds').value = datas
                 cleanCar()
-                
-                if (metodo === 1 || metodo === 2) {
-                    vendedor(datas)
-                } else if (metodo === 3) {
-                    redirect(datas)
-                }
-
-            } else {
-                messageInfo('Error')
+            }else{
+                location.href = "/Store";  
             }
 
         }

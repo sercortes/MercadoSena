@@ -683,14 +683,13 @@ body{
 }
 .chat a i{
     text-align: center;
-    background-color: #b93b3a;
     font-size: 42px;
     color: rgb(228 66 50);
 
 }
 .chat a b{
     font-size: 18px;
-    color: white;
+    color: #060606;
     position: absolute;
     bottom: 125%;
     right: 2%;

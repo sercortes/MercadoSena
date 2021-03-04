@@ -10,8 +10,6 @@ window.Mercadopago.getIdentificationTypes();
 document.getElementById('cardNumber').addEventListener('change', guessPaymentMethod);
 
 
-
-
 function guessPaymentMethod(event) {
     cleanCardInfo();
 
@@ -167,7 +165,7 @@ function cleanCardInfo() {
 //Handle transitions
 document.getElementById('checkout-btn').addEventListener('click', function () {
 
-
+    buyProducts(3)
 
     $('.shopping-cart').fadeOut(500);
     setTimeout(() => {
@@ -176,6 +174,8 @@ document.getElementById('checkout-btn').addEventListener('click', function () {
 });
 document.getElementById('checkouts-btn').addEventListener('click', function () {
 
+    buyProducts(4)
+    
     $.post("process_payment", {accionT: "listadebancos"}, function (rs) {
         var json = JSON.parse(rs);
         console.log("JSON PARSE: " + json);

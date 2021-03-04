@@ -41,18 +41,18 @@ function consultaPedidos(hacer) {
     })
 }
 
-$('#pedPendientes-tab').click(function (e) {
-    e.preventDefault();
-    generarLista(todosPedidos, 'En espera');
-})
-$('#pedConcretados-tab').click(function (e) {
-    e.preventDefault();
-    generarLista(todosPedidos, 'Concretada');
-})
-$('#pedNoCon-tab').click(function (e) {
-    e.preventDefault();
-    generarLista(todosPedidos, 'No concretada');
-})
+//$('#pedPendientes-tab').click(function (e) {
+//    e.preventDefault();
+//    generarLista(todosPedidos, 'En espera');
+//})
+//$('#pedConcretados-tab').click(function (e) {
+//    e.preventDefault();
+//    generarLista(todosPedidos, 'Concretada');
+//})
+//$('#pedNoCon-tab').click(function (e) {
+//    e.preventDefault();
+//    generarLista(todosPedidos, 'No concretada');
+//})
 
 function generarLista(dataR, estado) {
     $('#carga').addClass('is-active');
@@ -101,39 +101,37 @@ function generarLista(dataR, estado) {
                     '<dl>',
                     pedidos += '</dl>' +
                     '<dl>';
-            if (vista === 'pedidos') {
-                pedidos += '<dt>Información del cliente:</dt>';
-                if (data[i].ventaDTO.contactoVenta === '1' || data[i].ventaDTO.contactoVenta === 1) {
-
-                    pedidos += '<dd><a href="#" style="border-bottom: solid 1px rgb(252, 115, 30);" class="verUsuario" onclick="datosUsuario(event,' + data[i].compradorDTO.idPersona + ')" >click aquí para ver la información del cliente...</a></dd>';
-                } else {
-                    pedidos += '<br><dd><b><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: rgb(216, 98, 25); font-size: 20px;"></i> El usuario no desea que veas sus datos.</b></dd>';
-                }
-            } else {
-                pedidos += '<dt>Información del vendedor:</dt>' + '<dd><a href="#" style="border-bottom: solid 1px rgb(252, 115, 30);" class="verUsuario" onclick="datosUsuario(event,' + data[i].compradorDTO.idEmpresa + ')" >click aquí para ver la información del vendedor...</a></dd>';
-            }
-            pedidos += '</dl>' +
-                    '<dl>' +
-                    '<dt>Estado del pedido:</dt>';
-
-            if (data[i].estadoVenta === 'En espera' && vista === 'pedidos') {
-
-                pedidos += '<p class="text-muted">Por favor al terminar el proceso con el cliente seleccione un estado</p>' +
-                        '<select id="estadoPedido' + data[i].ventaDTO.idVenta + '" class="form-control" style="width: 50%;display: initial;" onchange="validarBtn(' + data[i].ventaDTO.idVenta + ')">';
-
-                for (var y = 0; y < data[i].listaEstadoPedido.length; y++) {
-                    if (data[i].listaEstadoPedido[y].idEstado === data[i].ventaDTO.idEstadoVentaFK) {
-                        pedidos += '<option value="' + data[i].listaEstadoPedido[y].idEstado + '" selected>' + data[i].listaEstadoPedido[y].nombreEstado + '</option>';
-                    }
-                    pedidos += '<option value="' + data[i].listaEstadoPedido[y].idEstado + '">' + data[i].listaEstadoPedido[y].nombreEstado + '</option>';
-
-                }
-                pedidos += '</select> <input type="submit" class="btn btn-success" value="Actualizar" disabled style="margin: 10px;margin-top: 5px;" onclick="actualizarEstadoPed(' + data[i].ventaDTO.idVenta + ')">';
-
-            } else {
-                pedidos += '<p class="text-muted">' + data[i].estadoVenta + '</p>';
-            }
-
+//            if (vista === 'pedidos') {
+//                pedidos += '<dt>Información del cliente:</dt>';
+//                if (data[i].ventaDTO.contactoVenta === '1' || data[i].ventaDTO.contactoVenta === 1) {
+//                    pedidos += '<dd><a href="#" style="border-bottom: solid 1px rgb(252, 115, 30);" class="verUsuario" onclick="datosUsuario(event,' + data[i].compradorDTO.idPersona + ')" >click aquí para ver la información del cliente...</a></dd>';
+//                } else {
+//                    pedidos += '<br><dd><b><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: rgb(216, 98, 25); font-size: 20px;"></i> El usuario no desea que veas sus datos.</b></dd>';
+//                }
+//            } else {
+//                pedidos += '<dt>Información del vendedor:</dt>' + '<dd><a href="#" style="border-bottom: solid 1px rgb(252, 115, 30);" class="verUsuario" onclick="datosUsuario(event,' + data[i].compradorDTO.idEmpresa + ')" >click aquí para ver la información del vendedor...</a></dd>';
+//            }
+//            pedidos += '</dl>' +
+//                    '<dl>' +
+//                    '<dt>Estado del pedido:</dt>';
+//
+//            if (data[i].estadoVenta === 'En espera' && vista === 'pedidos') {
+//
+//                pedidos += '<p class="text-muted">Por favor al terminar el proceso con el cliente seleccione un estado</p>' +
+//                        '<select id="estadoPedido' + data[i].ventaDTO.idVenta + '" class="form-control" style="width: 50%;display: initial;" onchange="validarBtn(' + data[i].ventaDTO.idVenta + ')">';
+//
+//                for (var y = 0; y < data[i].listaEstadoPedido.length; y++) {
+//                    if (data[i].listaEstadoPedido[y].idEstado === data[i].ventaDTO.idEstadoVentaFK) {
+//                        pedidos += '<option value="' + data[i].listaEstadoPedido[y].idEstado + '" selected>' + data[i].listaEstadoPedido[y].nombreEstado + '</option>';
+//                    }
+//                    pedidos += '<option value="' + data[i].listaEstadoPedido[y].idEstado + '">' + data[i].listaEstadoPedido[y].nombreEstado + '</option>';
+//
+//                }
+//                pedidos += '</select> <input type="submit" class="btn btn-success" value="Actualizar" disabled style="margin: 10px;margin-top: 5px;" onclick="actualizarEstadoPed(' + data[i].ventaDTO.idVenta + ')">';
+//
+//            } else {
+//                pedidos += '<p class="text-muted">' + data[i].estadoVenta + '</p>';
+//            }
 
 
             if (data[i].prodImagen.imagenes.length > 0) {
