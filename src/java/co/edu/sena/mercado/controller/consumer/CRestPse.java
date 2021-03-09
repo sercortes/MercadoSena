@@ -27,7 +27,7 @@ public class CRestPse {
     private static final String TOKEN = "APP_USR-2292143755833751-030420-63c731172381bad7f543c7667249ab80-723921446";
     private static final String URL_MERCADOPAGO = "https://api.mercadopago.com/v1/";
     private static final String URL_WOMPI = "https://production.wompi.co/v1/";
-    private static final String TOKE_WOMPO = "pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL";
+    private static final String TOKE_WOMPO = "prv_prod_to8dJPkmqH3sBHfpi5UseCQasCae6Sel";
 
     public static JSONObject getListabancos(String token, String correo, int valor, String description, int cuotas, String paymentMethodId, String docType, String docNumber) {
         DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -243,6 +243,7 @@ public class CRestPse {
 
             } catch (Exception e) {
                 compra = false;
+                System.err.println("ERROR" + e);
             }
 
             if (compra == true) {
