@@ -22,12 +22,12 @@ import org.json.JSONObject;
  * @author sergio vera
  */
 public class CRestPse {
-    
+
     //llave privada TOKEN  
     private static final String TOKEN = "APP_USR-2292143755833751-030420-63c731172381bad7f543c7667249ab80-723921446";
     private static final String URL_MERCADOPAGO = "https://api.mercadopago.com/v1/";
     private static final String URL_WOMPI = "https://production.wompi.co/v1/";
-    private static final String TOKE_WOMPO = "prv_prod_to8dJPkmqH3sBHfpi5UseCQasCae6Sel";
+    private static final String TOKE_WOMPO = "prv_prod_RrlB2HhnEuFd9y3sgOZbOP4VLzN3t4n2";
 
     public static JSONObject getListabancos(String token, String correo, int valor, String description, int cuotas, String paymentMethodId, String docType, String docNumber) {
         DefaultHttpClient httpClient = new DefaultHttpClient();
@@ -155,7 +155,7 @@ public class CRestPse {
         JSONObject json = null;
         try {
             HttpURLConnection con = null;
-            URL object = new URL("https://production.wompi.co/v1/merchants/pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL");
+            URL object = new URL("https://production.wompi.co/v1/merchants/pub_prod_A3GklEBKfDQmY2TV79o1buP4i2Hkr8FS");
             // Abrir la conexión e indicar que será de tipo GET
             con = (HttpURLConnection) object.openConnection();
             con.setDoOutput(true);
@@ -188,7 +188,7 @@ public class CRestPse {
         int id = 0;
         JSONObject json = null;
         String idpago = null;
-
+        StringBuilder respuesta = new StringBuilder();
         try {
 
             JsonObject value = (JsonObject) Json.createObjectBuilder()
@@ -231,7 +231,7 @@ public class CRestPse {
             }
             // Obtener la respuesta
             try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"))) {
-                StringBuilder respuesta = new StringBuilder();
+
                 String acumuladorRespuesta = null;
                 while ((acumuladorRespuesta = br.readLine()) != null) {
                     respuesta.append(acumuladorRespuesta.trim());
