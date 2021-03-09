@@ -193,7 +193,7 @@ public class generateSaleByVendedor extends HttpServlet {
                 personaNaturalDTO.setDireccionPer(request.getParameter("direccion"));
                 personaNaturalDTO.setIdUsuario(usu.getIdUsuario());
                 idComprador = personasNaturalDAO.registrarPersonaNaturalByVendedor(personaNaturalDTO);
-            }else{
+            } else {
                 idComprador = Integer.parseInt(request.getParameter("idUserCompra"));
                 personaNaturalDTO = personasNaturalDAO.getPersonaByIdPersona(Integer.toString(idComprador));
             }
@@ -211,6 +211,7 @@ public class generateSaleByVendedor extends HttpServlet {
             ventaDTO.setIdCompradorFK(Integer.toString(idCompra));
             ventaDTO.setValorVenta(total);
             ventaDTO.setFormaPago(metodo);
+            ventaDTO.setNombreFormaPago(getNombreFormadePago(metodo));
             ventaDTO.setIdCiudadFK(Integer.toString(usu.getPersona().getIdCiudad()));
             int idVenta = ventaDAO.insertReturn(ventaDTO);
             ventaDTO.setIdVenta(Integer.toString(idVenta));
@@ -241,13 +242,40 @@ public class generateSaleByVendedor extends HttpServlet {
             System.out.println("ROLL BACK GENERATE SALE");
             System.out.println(ex);
             new Gson().toJson(0, response.getWriter());
-        }finally {
+        } finally {
             compradorDAO.CloseAll();
             ventaDAO.CloseAll();
             empresaPedidoDAO.CloseAll();
             productosPedidosDAO.CloseAll();
             personasNaturalDAO.CloseAll();
         }
+
+    }
+
+    public String getNombreFormadePago(String number) {
+
+        int numero = Integer.parseInt(number);
+        String nombre = "";
+
+        switch (numero) {
+            case 1:
+                nombre = "Efectivo";
+                break;
+            case 2:
+                nombre = "Transferencia bancaria";
+                break;
+            case 3:
+                nombre = "Tarjeta de crédito";
+                break;
+            case 4:
+                nombre = "PSE";
+                break;
+            default:
+                nombre = "null";
+                break;
+        }
+        
+        return nombre;
 
     }
 

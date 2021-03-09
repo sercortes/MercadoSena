@@ -21,7 +21,7 @@
                             <input id="direccion" type="text" class="form-control" placeholder="Dirección">
                         </div>
                     </div>
-                     <div class="row">
+                     <div class="row pt-3">
                         <div class="col">
                             <label for="inputEmail4">Celular</label>                      
                             <input id="celular" type="number" class="form-control" placeholder="Número celular">
