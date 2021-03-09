@@ -7,3 +7,34 @@
     margin-left: 46.5%;
     font-size: large;
 }
+#facebook a:hover{
+    color: rgb(30 159 234);
+}
+#instagram a:hover{
+    color: rgb(232 73 154);
+}
+#whatsapp a:hover{
+    color: rgb(65 208 5);
+}
+
+@media only screen and (max-width: 500px){
+    .social{
+        width: 50px;
+        top: 70px;
+        right: 0;
+        -webkit-writing-mode: vertical-lr;
+        position: relative;
+        margin-left: 38.5%;
+        font-size: large;
+    }
+    #facebook a:hover{
+        color: rgb(30 159 234);
+    }
+    #instagram a:hover{
+        color: rgb(232 73 154);
+    }
+    #whatsapp a:hover{
+        color: rgb(65 208 5);
+    }
+
+}
