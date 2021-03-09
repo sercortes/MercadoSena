@@ -22,7 +22,7 @@
 
                     <div class="navbar-brand">
 
-                     <a href="../Store/"><img src="./assets/images/icons/LOGO3.png" style="width: 165px; margin-left: 20px;" class="img-fluid" alt="Responsive image"></a>
+                     <a href="../Store/"><img src="./assets/images/icons/LOGO3.png" id="LogoCarWay" class="img-fluid" alt="Responsive image"></a>
 
                     </div>
 
@@ -104,7 +104,7 @@
                             <ul class="navbar-nav mr-auto" >
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle encabezadoOpciones" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle" style="font-size: 20px;"></i> ${USER.correoUsu}</a>
+                                       aria-haspopup="true" aria-expanded="false">${USER.correoUsu}</a>
                                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                                         <a class="dropdown-item" href="./usuario"> Usuario</a>
                                         <a class="dropdown-item" href="./logout">Salir</a>

@@ -209,7 +209,7 @@ function textProduct(item) {
             <hr>`
 
     str += `<a id="addItem" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`;
-    str += `<i class="fas fa-gift"></i> Añadir al carrito</a>`;
+    str += `<i class="fas fa-shopping-cart"></i> Añadir al carrito</a>`;
 
     str += `<select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`;
     for (var i = 1; i <= item.stockProducto; i++) {

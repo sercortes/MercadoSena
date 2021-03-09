@@ -146,7 +146,7 @@
                             </div>
                             <br>
                             <br>
-                            <button class="btn btn-primary" id="actualizarPersona" style="width: 20%; height: 45px;">Actualizar</button>
+                            <button class="btn btn-primary" id="actualizarPersona" style="height: 45px;">Actualizar</button>
 
                         </form>
                     </div>
@@ -167,7 +167,7 @@
                             <input placeholder="Mínimo 10 Caráteres" type="password" id="clave2" minlength="10" class="form-control was-validated" name="clave2" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar2"></span>
 
                             <br>
-                            <button class="btn btn-primary" id="btnActualizarUsuario" style="width: 20%; height: 45px;">Actualizar</button>
+                            <button class="btn btn-primary" id="btnActualizarUsuario" style="height: 45px;">Actualizar</button>
                         </form>
                     </div>
                     <!-- fin -->
