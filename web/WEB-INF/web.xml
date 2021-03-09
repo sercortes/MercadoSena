@@ -84,6 +84,10 @@
         <servlet-name>generateSaleByVendedor</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.ventas.generateSaleByVendedor</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ValidationCompra</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.validation.ValidationCompra</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -207,6 +211,11 @@
         <url-pattern>/getMetodos</url-pattern>
         <url-pattern>/getPersona</url-pattern>
         <url-pattern>/getTiposDocumento</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ValidationCompra</servlet-name>
+        <url-pattern>/checkUpdateData</url-pattern>
+        <url-pattern>/UpdateDataPerson</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

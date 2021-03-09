@@ -100,7 +100,7 @@
 
                         <div class="form-group col-md-6">
                             <label for="exampleInputEmail1">Color:</label>
-                            <input type="text" class="form-control was-validated" minlength="2" max="40" id="color" name="color" placeholder="color del producto" required>
+                            <input type="text" class="form-control was-validated" minlength="2" max="40" id="color" name="color" placeholder="Color del producto" required>
 
                             <div class="invalid-feedback">
                                 Escriba un color
