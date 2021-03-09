@@ -38,10 +38,10 @@ function showCar() {
         str += `<tr><td>`
         if (item.imagenUnitaria !== undefined) {
             str += `<img src="${item.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">`
-        }else {
+        } else {
             str += `<img src="${item.imagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`
         }
-                  str += `</td><td> 
+        str += `</td><td> 
                                 
                                 <div class="ml-3 d-inline-block align-middle">
                                     <h5 class="mb-0">
@@ -118,6 +118,32 @@ function updateIconNumber() {
 
     }
 }
+
+$("#btnpagar").click(function () {
+
+    if (!checkSession()) {
+        modalPreguntaRegistro();
+        return false
+    }
+
+    let rol = getRol()
+
+    if (rol == 2) {
+
+        if (checkData()) {
+            messageInfo('Necesitamos tu información para completar la compra')
+            $('#modalUpdateData').modal('show')
+            $('#modalCar').modal('hide')
+            return false
+        }
+
+        valor = document.getElementById('valor').value;
+        location.href = "process_payment?valor=" + valor;
+    }
+
+
+
+});
 
 function money(dolar) {
     return dolar.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")

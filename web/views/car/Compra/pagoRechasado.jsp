@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="es"  style=" min-height: 100%;">
     <head>
-        <title>ActivarCuenta</title>
+        <title>Estado</title>
         <meta charset="utf-8">
         <meta name="description" content="shop project">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -34,7 +34,7 @@
                 <center style="padding-top: 35px;">
                     <div class="col-lg-3 col-10 col- pr-0">
                         <div class="logo_container">
-                            <a href="./"><img src="./assets/images/icons/LOGO3.png" class="img-fluid" alt="Responsive image" style="width: 50%;"></a>
+                            <a href="./"><img src="./assets/images/icons/LOGO3.png" class="img-fluid" alt="Responsive image"></a>
                         </div>
                     </div>
                 </center>
@@ -43,30 +43,22 @@
 
 
         <div class="container-fluid" style="">
+            
 
-
-            <c:if test="${ACTIVA}">
-                <div class="divActivacion" >
-                    <p class="textoActivacion">Su cuenta ha sido activada exitosamente, vuelve para iniciar sesión.</p>
-                    <i class="far fa-check-circle" aria-hidden="true" style="font-size: 45px;"></i>
-                </div>
-
-            </c:if>
-            <c:if test="${!ACTIVA}">
                 <div class="divActivacion" style="background: rgba(255, 103, 18, 0.76);">
                     <i class="fa fa-exclamation-triangle" style="font-size: 45px;"></i>
-                    <p class="textoActivacion"> Enlace vencido, favor verificar los datos proporcinados.</p>
+                    <p class="textoActivacion"> Pago rechazado.</p>
 
                 </div>
-            </c:if>
+  
             <center>
-                <a href="./" style="font-size: 20px; color: black; text-align: center"><i class="fa fa-home" style="color: #ff0000; font-size: 20px;"></i> Volver al inicio</a>
+                <a href="./" style="font-size: 20px; color: black; text-align: center"><i class="fa fa-home" style="color: #ff6712; font-size: 30px;"></i> Volver al inicio</a>
             </center>
         </div>
 
         <footer class="" style="">
             <div class="container text-center">
-                <a href="#" class="text-muted">CarWay 2021</a>
+                <a href="#" class="text-muted">Car Way 2021</a>
             </div>
         </footer>
 

@@ -29,24 +29,6 @@ function buyProducts(metodo) {
 
 }
 
-$("#btnpagar").click(function () {
-
-    if (!checkSession()) {
-        modalPreguntaRegistro();
-        return false
-    }
-
-    if (checkData()) {
-        messageInfo('Necesitamos tu información para completar la compra')
-        $('#modalUpdateData').modal('show')
-        $('#modalCar').modal('hide')
-        return false
-    }
-
-    valor = document.getElementById('valor').value;
-    location.href = "process_payment?valor=" + valor;
-
-});
 
 $(document).on('click', '#btnUpdateData', function (e) {
 
@@ -56,14 +38,14 @@ $(document).on('click', '#btnUpdateData', function (e) {
     let direccion = document.getElementById('direccion').value
     let celular = document.getElementById('celular').value
     let telefono = document.getElementById('telefono').value
-
+    
     if (documento === '') {
-        checkInput('documentoUsu', 'Digite su número de documento')
+        checkInput('documento', 'Digite su número de documento')
         return false
     }
 
     if (documento.length > 15 || documento.length <= 5) {
-        checkInput('documentoUsu', 'Digite un número de documento válido')
+        checkInput('documento', 'Digite un número de documento válido')
         return false
     }
 
@@ -98,14 +80,16 @@ $(document).on('click', '#btnUpdateData', function (e) {
         datatype: 'json'
     }).done(function (data) {
         
-        console.log(data)
         $('#cargas').removeClass('is-active');
         $("#btnUpdateData").attr("disabled", false);
 
         if (data) {
             messageInfo('Datos actualizados')
             valor = document.getElementById('valor').value;
-            location.href = "process_payment?valor=" + valor;
+            setTimeout(function()
+            {
+                location.href = "process_payment?valor=" + valor;
+            },1500); 
         } else {
             messageError('Error')
             $('#modalUpdateData').modal('hide')

@@ -74,7 +74,7 @@ function registroPersona() {
             if (datas === 00 || datas === 0) {
                 messageInfo('Error')
             } else if (datas == 01) {
-                input('documentoUsu', 'Número de documento ya utilizado, busque al cliente')
+                input('documentoUsu', 'Número de documento ya existe, busque al cliente')
             } else {
                 cleanModalResgistrarVenta(datas)
             }
@@ -174,7 +174,7 @@ function generateFactura(data) {
                         <hr>
                         <div class="d-flex flex-row justify-content-between align-items-center order-details">
                             <div><span class="d-block fs-12">Fecha</span><span class="font-weight-bold">${new Date().toISOString().slice(0, 10)}</span></div>
-                            <div><span class="d-block fs-12">Método de pago</span><span class="font-weight-bold">Efectivo</span></div>
+                            <div><span class="d-block fs-12">Método de pago</span><span class="font-weight-bold">${data.nombreFormaPago}</span></div>
                             <div><span class="d-block fs-12">Estado</span><span class="font-weight-bold text-success">Aprobada</span></div>
                         </div>
                         <hr>`
