@@ -7,6 +7,8 @@ package co.edu.sena.mercado.util;
 
 import co.edu.sena.mercado.dto.usuarioDTO;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -29,7 +31,7 @@ public class correo {
             props.setProperty("mail.smtp.host", "smtp.gmail.com");
             props.setProperty("mail.smtp.starttls.enable", "true");
             props.setProperty("mail.smtp.port", "587");
-            props.setProperty("mail.smtp.user", "mercadosena2020@gmail.com");
+            props.setProperty("mail.smtp.user", "waycarr0@gmail.com");
             props.setProperty("mail.smtp.auth", "true");
 
             Session session = Session.getDefaultInstance(props);
@@ -37,28 +39,28 @@ public class correo {
 
             MimeMessage message = new MimeMessage(session);
 
-            message.setFrom(new InternetAddress("mercadosena2020@gmail.com"));
+            message.setFrom(new InternetAddress("waycarr0@gmail.com"));
 
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(dest));
 
             message.setSubject("Activación cuenta");
             message.setText(
-                    "<div style='padding: 20px;border: solid 2px green;border-radius: 10px;padding-bottom: 0px;'>"
-                    + "            <h3 style='text-align: center'>Car way</h3>"
+                    "<div style='padding: 20px;border: solid 2px #b93333;border-radius: 10px;padding-bottom: 0px;'>"
+                    + "            <h3 style='text-align: center'>CARWAY</h3>"
                     + "            <p>De parte de todo el equipo de CARWAY te damos la bienvenida a nuestro sistema, ingresa al siguiente botón para activar la cuenta:</p>"
-                    + "            <p><b>Usuario:</b>" + dest + "</p>"
-                    + "            <p><b>clave:</b>" + clave + "</p>"
+                    + "            <p><b>Usuario: </b>" + dest + "</p>"
+                    + "            <p><b>clave: </b>" + clave + "</p>"
                     + "  <form action=\"" + this.urlActivate + "\" method=\"POST\" >"
                     + "            <input type=\"hidden\" value=\"" + dest + "\" name=\"usuario\">"
                     + "            <input type=\"hidden\" value=\"" + codigo + "\" name=\"codigo\">"
-                    + "            <button type=\"submit\" class=\"btn btn-1 btn-sep icon-info\" target=\"_blank\"><span class=\"il\">Activar</span> <span class=\"il\">tu cuenta</span></button>"
+                           + "<br/><button type=\"submit\" target=\"_blank\" class=\"button  arrow\" style='display: inline-block;position: relative;padding: 0.8em 1.4em;background: #b93333;border: none;color: white;'>Activar</span> <span class=\"il\">tu cuenta</span></button><br/>"
                     + "          \n"
                     + "            <br>\n"
                     + "            </form>\n"
                     //                    + "<a style='color: rgb(0, 128, 0);' href='http://181.48.181.131/MercadoSena/activarCuenta?usuario=" + dest + "&codigo=" + codigo + "'><p>Click aquí para activar tu cuenta</p></a>"
                     + "            <footer style=' background: rgb(252, 252, 252);height: 39px;padding: 15px;text-align: center;'>"
                     + "                <div >"
-                    + "                    <p style='color: rgb(117, 117, 117);'>Car way 2021</p>"
+                    + "                    <p style='color: rgb(117, 117, 117);'>CARWAY 2021 - Todo los derechos reservados</p>"
                     + "                </div>"
                     + "            </footer>"
                     + "        </div>",
@@ -83,6 +85,15 @@ public class correo {
 
     }
 
+//    public static void main(String[] args) {
+//        correo co = new correo();
+//        try {
+//            co.envCorreo("sdcortes6@misena.edu.co", "fsffds", "sdkjsd");
+//        } catch (MessagingException ex) {
+//            Logger.getLogger(correo.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+//    
     public boolean correoRec(usuarioDTO usuario) {
         try {
 
