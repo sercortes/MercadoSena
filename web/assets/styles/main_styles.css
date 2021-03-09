@@ -615,6 +615,23 @@ body{
     font-size: 18px;
 
 }
+#LogoCarWay{
+    width: 165px;
+    margin-left: 20px;
+}
+@media only screen and (max-width: 500px){
+    #LogoCarWay{
+        width: 165px;
+        margin-left: -10px;
+    }
+
+    #textopromo{
+        margin-left: -85% !important;
+        width: 200%;
+        margin-top: 60% !important;  
+    }
+}
+
 .textoActivacion{
     color: black;
     text-align: center;
@@ -622,12 +639,12 @@ body{
 }
 .divActivacion{
     margin-top: 40px;
-    background: rgba(98, 208, 8, 0.65);
-    width: 50%;
-    margin-left: 25%;
-    border-radius: 27px;
-    padding: 25px;
-    margin-bottom: 25px;
+    background: #79ef7f;
+    width: 40%;
+    margin-left: 30%;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
     text-align: center;
 }
 .linea{
