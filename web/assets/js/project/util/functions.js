@@ -142,14 +142,21 @@ function getRol() {
 }
 
 
-//$(document).on('click', '.facebook', function () {
-//
-//         window.open("https://www.facebook.com/sena");
-//
-//})
-//
-//$(document).on('click', '.telegram', function () {
-//
-//         window.open("https://www.facebook.com/sara");
-//
-//})
+function checkData() {
+
+    let estatus = '';
+
+    $.ajax({
+        type: "POST",
+        url: './checkUpdateData',
+        async: false,
+        datatype: 'json'
+    }).done(function (data) {
+        
+        estatus = data
+
+    })
+
+    return estatus;
+
+}

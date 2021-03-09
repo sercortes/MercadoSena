@@ -5,6 +5,9 @@
     <%@include file="/views/car/compraVendedor/modalMetodo.jspf"%>
     <%@include file="/views/car/compraVendedor/modalFactura.jspf"%>
 </c:if>
+<c:if test="${ USER.idRol==2}">
+    <%@include file="/views/actualizar/modalActualizarDatos.jspf"%>
+</c:if>
 
 <c:if test="${not empty USER.idRol}">
     <div class="chat" >

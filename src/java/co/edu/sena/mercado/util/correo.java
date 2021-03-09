@@ -45,7 +45,7 @@ public class correo {
             message.setText(
                     "<div style='padding: 20px;border: solid 2px green;border-radius: 10px;padding-bottom: 0px;'>"
                     + "            <h3 style='text-align: center'>Car way</h3>"
-                    + "            <p>De parte de todo el equipo te damos la bienvenida a nuestro sistema, para poder activar tu cuenta por favor sigue los pasos:</p>"
+                    + "            <p>De parte de todo el equipo de CARWAY te damos la bienvenida a nuestro sistema, ingresa al siguiente botón para activar la cuenta:</p>"
                     + "            <p><b>Usuario:</b>" + dest + "</p>"
                     + "            <p><b>clave:</b>" + clave + "</p>"
                     + "  <form action=\"" + this.urlActivate + "\" method=\"POST\" >"
@@ -67,7 +67,7 @@ public class correo {
 
             Transport t = session.getTransport("smtp");
 
-            t.connect("mercadosena2020@gmail.com", "m3rc4d0$3n4");
+            t.connect("waycarr0@gmail.com", "123456789CarWay");
 
             t.sendMessage(message, message.getAllRecipients());
 
