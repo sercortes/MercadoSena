@@ -7,6 +7,7 @@ package co.edu.sena.mercado.controller.seller;
 
 import co.edu.sena.mercado.dao.CategorysDAO;
 import co.edu.sena.mercado.dao.ImagenesProductosDAO;
+import co.edu.sena.mercado.dao.ProductoColorDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
 import co.edu.sena.mercado.dao.empresaDAO;
 import co.edu.sena.mercado.dto.ImagenesProducto;
@@ -55,26 +56,21 @@ public class Selects extends HttpServlet {
 
                 break;
 
-            case "/Store/getImages":
-
-                getImages(request, response);
-
-                break;
-
             case "/Store/getImagesByProduct":
 
                 getImagesByProduct(request, response);
 
                 break;
 
-            case "/Store/getInfoCompanyByProduct":
-
-                getInfoCompanyByProduct(request, response);
-
-                break;
             case "/Store/obtenerProducto":
 
                 obtenerProducto(request, response);
+
+                break;
+            
+            case "/Store/getColors":
+
+                getColors(request, response);
 
                 break;
 
@@ -109,21 +105,21 @@ public class Selects extends HttpServlet {
 
     }
 
-    private void getImages(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-
-        request.setCharacterEncoding("UTF-8");
-
-        Conexion conexion = new Conexion();
-        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
-
-        usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
-        ArrayList<ImagenesProducto> listaImagenes = imagenesProductosDAO.getImagenesByEmpresa(Integer.toString(user.getEmpresa().getIdEmpresa()));
-
-        response.setContentType("application/json");
-        imagenesProductosDAO.CloseAll();
-        new Gson().toJson(listaImagenes, response.getWriter());
-
-    }
+//    private void getImages(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+//
+//        request.setCharacterEncoding("UTF-8");
+//
+//        Conexion conexion = new Conexion();
+//        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
+//
+//        usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
+//        ArrayList<ImagenesProducto> listaImagenes = imagenesProductosDAO.getImagenesByEmpresa(Integer.toString(user.getEmpresa().getIdEmpresa()));
+//
+//        response.setContentType("application/json");
+//        imagenesProductosDAO.CloseAll();
+//        new Gson().toJson(listaImagenes, response.getWriter());
+//
+//    }
 
     private void getImagesByProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -139,15 +135,16 @@ public class Selects extends HttpServlet {
 
     }
 
-    private void getInfoCompanyByProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    private void getColors(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         request.setCharacterEncoding("UTF-8");
-        empresaDAO empresaDao = new empresaDAO();
-        empresaDTO empresaDto
-                = empresaDao.buscarEmpresaXProducto(request.getParameter("idProducto"));
-
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        ProductoColorDAO color = new ProductoColorDAO(conexion.getConnection());
+        ArrayList<?> lista = color.getColors();
         response.setContentType("application/json");
-        new Gson().toJson(empresaDto, response.getWriter());
+        color.CloseAll();
+        new Gson().toJson(lista, response.getWriter());
 
     }
 
@@ -157,21 +154,20 @@ public class Selects extends HttpServlet {
 
         Conexion conexion = new Conexion();
         ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
-        productoImagenesDTO productoImagenesDTO = new productoImagenesDTO();
+//        productoImagenesDTO productoImagenesDTO = new productoImagenesDTO();
         Producto producto = new Producto();
 
         producto = productoDAO.buscarProducto(Integer.parseInt(request.getParameter("idProducto")));
-        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
-        ArrayList<ImagenesProducto> listaImagenes= imagenesProductosDAO.getImagenesByProduc(producto.getIdProducto());
+//        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
+//        ArrayList<ImagenesProducto> listaImagenes= imagenesProductosDAO.getImagenesByProduc(producto.getIdProducto());
         
-        productoImagenesDTO.setProducto(producto);
-        productoImagenesDTO.setImagenes(listaImagenes);
+//        productoImagenesDTO.setProducto(producto);
+//        productoImagenesDTO.setImagenes(listaImagenes);
         
         response.setContentType("application/json");
-        imagenesProductosDAO.CloseAll();
         productoDAO.CloseAll();
         
-        new Gson().toJson(productoImagenesDTO, response.getWriter());
+        new Gson().toJson(producto, response.getWriter());
 
     }
     

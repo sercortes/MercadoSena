@@ -18,19 +18,9 @@ $(function () {
 
 })
 
-
-//function redirect() {
-//    if (sessionStorage.getItem('idCompany') == null) {
-//        window.location.replace('./logout');
-//    }
-//}
-
-$(document).on('click', '#logoutFire', function () {
-
-    sessionStorage.removeItem('idCompany')
-    sessionStorage.removeItem('falls')
-
-})
+function checkInputGlobal(input, mensaje) {
+    $('#' + input).focus().after(`<div class='remove'><font color='red'>${mensaje}</font><div>`);    
+}
 
 $(document).on('click', '#buttonSearch', function () {
 

@@ -41,13 +41,11 @@ function showCar() {
         } else {
             str += `<img src="${item.imagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`
         }
-        str += `</td><td> 
-                                
-                                <div class="ml-3 d-inline-block align-middle">
+        str += `</td>
+                   <td> 
+                        <div class="ml-3 d-inline-block align-middle">
                                     <h5 class="mb-0">
-                                        <p class="mb-0 text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</p>
-                                        <span class="text-muted font-weight-normal font-italic d-block">Categoría: ${item.categorys.nombreCategoria}</span>
-                                </div>
+                                        <p class="mb-0 text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</p>                                </div>
                             </div>
                         </td>
                         <td class="border-0 align-middle pl-3"><strong>${item.color}</strong></td>

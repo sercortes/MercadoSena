@@ -20,7 +20,7 @@
             <form class="needs-validation" action="UploadProduct" method="POST" name="formProduct" id="formProduct" enctype="multipart/form-data" acceptcharset="UTF-8">
 
                 <div class="form-row">
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-10">
                         <label for="exampleInputEmail1">Nombre:</label>
                         <input type="text" class="form-control was-validated" minlength="4" maxlength="150" id="name" name="name" placeholder="Nombre de su producto" required>
 
@@ -29,7 +29,13 @@
                         </div>
                     </div>
 
-                    <div class="form-group col-md-4">
+
+                </div>
+
+                <div class="form-row">
+
+
+                    <div class="form-group col-md-5">
                         <label for="validationTooltip03">Marca:</label>
                         <select id="marcaProductos" name="marca" class="form-control" tabindex="4" required>
                             <option value="">No</option>
@@ -39,11 +45,7 @@
                         </div> 
                     </div>
 
-                </div>
-
-                <div class="form-row">
-
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-5">
                         <label for="validationTooltip03">Categoría:</label>
                         <select name="category" class="form-control" id="category" tabindex="4" required>
                             <option value="">No</option>
@@ -52,7 +54,13 @@
                             Escriba una categoría
                         </div> 
                     </div>
-                    <div class="form-group col-md-4">
+
+                </div>
+
+                <div class="form-row">
+
+
+                    <div class="form-group col-md-5">
                         <label for="exampleInputEmail1">Precio:</label>
                         <input type="number" class="form-control was-validated" minlength="0" max="1500000000000000" id="price" name="price" placeholder="$" oninput="validity.valid||(value='');" required>
 
@@ -60,21 +68,54 @@
                             Escriba precio válido
                         </div>
                     </div>
-                    <div class="form-group col-md-4">
-                        <label for="exampleInputEmail1">Cantidad:</label>
-                        <input type="number" class="form-control was-validated" minlength="0" max="100000000" id="cantidad" name="cantidad" placeholder="Stock" oninput="validity.valid||(value='');" required>
+                    <div class="form-group col-md-5">
+                        <label for="exampleInputEmail1">Garantía:</label>
+                        <input type="text" class="form-control was-validated" minlength="2" max="40" id="garantia" name="garantia" placeholder="Garantía del producto" required>
 
                         <div class="invalid-feedback">
-                            Escriba precio válido
+                            Escriba una garantía:
                         </div>
+
                     </div>
 
                 </div>
 
-                <div class="form-row">
+                
+                  <div class="form-row">
 
+                        <div class="form-group col-md-5">
+                            <label for="exampleInputEmail1">Color:</label>
+                            
+                             <select name="colors" class="form-control" id="color" tabindex="4">
+                            <option value="">No</option>
+                        </select>
+                            
+                            <div class="invalid-feedback">
+                                Seleciona un color
+                            </div>
+                        </div>
 
+                        <div class="form-group col-md-5">
+                            <label for="exampleInputEmail1">Cantidad:</label>
+                            <input type="number" class="form-control" minlength="0" max="100000000" id="cantidad" name="cantidad" placeholder="Stock">
+
+                            <div class="invalid-feedback">
+                                Escriba precio válido
+                            </div>
+                        </div>
+                      
+                      <div class="form-group col-md-2">
+                            <label for="exampleInputEmail1">Opciones:</label>
+                            <button id="addProduct" type="button" class="btn btn-primary hvr-push"><i class="fas fa-plus-square fa-1x"></i> Añadir</button>
+                        </div>
+
+                    </div>
+                
+                <div id="output">
+                     
+                    
                 </div>
+                
 
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Descripción:</label>
@@ -96,26 +137,7 @@
 
                 <div>
 
-                    <div class="form-row">
-
-                        <div class="form-group col-md-6">
-                            <label for="exampleInputEmail1">Color:</label>
-                            <input type="text" class="form-control was-validated" minlength="2" max="40" id="color" name="color" placeholder="Color del producto" required>
-
-                            <div class="invalid-feedback">
-                                Escriba un color
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="exampleInputEmail1">Garantía:</label>
-                            <input type="text" class="form-control was-validated" minlength="2" max="40" id="garantia" name="garantia" placeholder="Garantía del producto" required>
-
-                            <div class="invalid-feedback">
-                                Escriba una garantía:
-                            </div>
-
-                        </div>
-                    </div>
+                  
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -183,7 +205,7 @@
 
     <div id="carga" class="loader loader-bouncing"></div>
 
-    </div>
+</div>
 </div>
 
 
@@ -192,4 +214,5 @@
 <script src="./assets/js/project/comprador/ajax.js" charset="utf-8"></script>
 <script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>
 <script src="./assets/js/project/products/uploadFiles.js" charset="utf-8"></script>
+<script src="./assets/js/project/products/multiProducts.js" charset="utf-8"></script>
 

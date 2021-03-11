@@ -30,36 +30,35 @@ public class ProductorDAOQuerys {
 
     public ArrayList<Producto> getProductsRandom() {
         try {
-            String sql = "SELECT PR.*, CP.nombreCategoria, m.nombreMarca FROM producto PR "
-                    + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
-                    + "INNER JOIN marcaProducto m ON PR.marcaProductoFK = m.idMarca "
-                    + "WHERE PR.estadoProducto = 2 AND PR.stockProducto > 0 "
-                    + "ORDER by rand() LIMIT 12";
+            String sql = 
+               "SELECT count(*) 'cantidadColores', PR.*, PC.stockProducto, C.nombreColor " +
+            "FROM producto PR INNER JOIN ProductoColor PC ON PR.idProducto=PC.productoFK " +
+            "INNER JOIN colorProducto C ON PC.colorFK = C.idColor " +
+            "WHERE PR.estadoProducto =  2  " +
+            "AND PC.stockProducto > 0  " +
+            "GROUP BY PR.idProducto " +
+            "ORDER by rand() LIMIT 12";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             List<Producto> list = new ArrayList<Producto>();
             Producto producto;
-            Categorys categorys;
             while (rs.next()) {
                 producto = new Producto();
                 producto.setIdProducto(rs.getString("idProducto"));
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
-                producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("m.nombreMarca"));
+                producto.setStockProducto(rs.getInt("PC.stockProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
+                producto.setIdCategoriaFK(rs.getString("idCategoriaFK"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
                 producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
-                producto.setColor(rs.getString("color"));
+                producto.setColor(rs.getString("C.nombreColor"));
                 producto.setGarantia(rs.getString("garantia"));
-
-                categorys = new Categorys();
-                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
-                producto.setCategorys(categorys);
-
+                producto.setCantidadColores(rs.getString("cantidadColores"));
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;
@@ -71,11 +70,14 @@ public class ProductorDAOQuerys {
 
     public ArrayList<Producto> getProductsByDateTimeAsc() {
         try {
-            String sql = "SELECT PR.*, CP.nombreCategoria, m.nombreMarca FROM producto PR "
-                    + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
-                    + "INNER JOIN marcaProducto m ON PR.marcaProductoFK = m.idMarca "
-                    + "WHERE PR.estadoProducto = 2 AND PR.stockProducto > 0 "
-                    + "ORDER BY PR.agregado DESC LIMIT 100";
+            String sql = 
+                    "SELECT count(*) 'cantidadColores', PR.*, PC.stockProducto, C.nombreColor " +
+            "FROM producto PR INNER JOIN ProductoColor PC ON PR.idProducto=PC.productoFK " +
+            "INNER JOIN colorProducto C ON PC.colorFK = C.idColor " +
+            "WHERE PR.estadoProducto =  2  " +
+            "AND PC.stockProducto > 0  " +
+            "GROUP BY PR.idProducto " +
+            "ORDER BY PR.agregado DESC LIMIT 100";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             List<Producto> list = new ArrayList<Producto>();
@@ -86,21 +88,18 @@ public class ProductorDAOQuerys {
                 producto.setIdProducto(rs.getString("idProducto"));
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
-                producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("m.nombreMarca"));
+                producto.setStockProducto(rs.getInt("PC.stockProducto"));
+                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
+                producto.setIdCategoriaFK(rs.getString("idCategoriaFK"));
                 producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("medidasProducto"));
                 producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
-                producto.setColor(rs.getString("color"));
+                producto.setColor(rs.getString("C.nombreColor"));
                 producto.setGarantia(rs.getString("garantia"));
-
-                categorys = new Categorys();
-                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
-                producto.setCategorys(categorys);
-
+                producto.setCantidadColores(rs.getString("cantidadColores"));
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;

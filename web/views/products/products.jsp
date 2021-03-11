@@ -33,8 +33,6 @@
 <%@include file="/views/products/modalVerProducto.jspf"%>
 <%@include file="/views/products/modalEdit.jspf"%>
 
-<%@include file="/views/registro/registro.jspf"%>
-<%@include file="/views/login/login.jspf"%>
 <%@include file="/views/template/footer.jspf"%>
 
 <script src="./assets/files/image-uploader.min.js" charset="utf-8"></script>

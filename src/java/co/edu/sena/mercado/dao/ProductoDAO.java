@@ -36,29 +36,28 @@ public class ProductoDAO {
 
     public int insertReturn(Producto producto) throws SQLException, Exception{
         int idActividad = 0;
-        String sql = "INSERT INTO producto (nombreProducto, valorProducto, stockProducto, marcaProductoFK, "
+        String sql = "INSERT INTO producto (nombreProducto, valorProducto, marcaProductoFK, "
                 + "descripcionProducto, diasEnvioProducto, medidasProducto, empaqueProducto, "
                 + "embalajeProducto, ventajasProducto, "
-                + "idEmpresaFK, idCategoriaFK, color, garantia) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "idEmpresaFK, idCategoriaFK, garantia) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             ps.setString(1, producto.getNombreProducto());
             ps.setDouble(2, producto.getValorProducto());
-            ps.setInt(3, producto.getStockProducto());
-            ps.setString(4, producto.getMarcaProducto());
-            ps.setString(5, producto.getDescripcionProducto());
-            ps.setString(6, producto.getDiasEnvios());
-            ps.setString(7, producto.getMedidaProducto());
-            ps.setString(8, producto.getEmpaqueProducto());
-            ps.setString(9, producto.getEmbalajeProducto());
-            ps.setString(10, producto.getVentajaProducto());
-            ps.setString(11, producto.getIdEmpresaFK());
-            ps.setString(12, producto.getIdCategoriaFK());
-            ps.setString(13, producto.getColor());
-            ps.setString(14, producto.getGarantia());
+//            ps.setInt(3, producto.getStockProducto());
+            ps.setString(3, producto.getMarcaProducto());
+            ps.setString(4, producto.getDescripcionProducto());
+            ps.setString(5, producto.getDiasEnvios());
+            ps.setString(6, producto.getMedidaProducto());
+            ps.setString(7, producto.getEmpaqueProducto());
+            ps.setString(8, producto.getEmbalajeProducto());
+            ps.setString(9, producto.getVentajaProducto());
+            ps.setString(10, producto.getIdEmpresaFK());
+            ps.setString(11, producto.getIdCategoriaFK());
+            ps.setString(12, producto.getGarantia());
 
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
@@ -68,9 +67,11 @@ public class ProductoDAO {
             return idActividad;
         } catch (MySQLIntegrityConstraintViolationException e) {
             System.out.println(e);
+            e.printStackTrace();
             throw new SQLException();
         } catch (Exception e) {
             System.out.println(e);
+            e.printStackTrace();
             throw new Exception();
         }
 
@@ -213,23 +214,26 @@ public class ProductoDAO {
 
     public ArrayList<Producto> getProductsBySeller(String id) {
         try {
-            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR "
-                    + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
-                    + "INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria "
-                    + "WHERE PR.estadoProducto =  2 AND PR.stockProducto > 0 "
-                    + "AND  EM.idEmpresa = ? ORDER BY PR.idProducto DESC";
+            String sql = 
+            "SELECT count(*) 'cantidadColores', PR.*, EM.idEmpresa, PC.stockProducto, C.nombreColor " +
+            "FROM producto PR INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa  " +
+            "INNER JOIN ProductoColor PC ON PR.idProducto=PC.productoFK " +
+            "INNER JOIN colorProducto C ON PC.colorFK = C.idColor " +
+            "WHERE PR.estadoProducto =  2  " +
+            "AND PC.stockProducto > 0  " +
+            "AND  EM.idEmpresa = ? GROUP BY PR.idProducto " +
+            "ORDER BY PR.idProducto DESC";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
             List<Producto> list = new ArrayList<Producto>();
             Producto producto;
-            Categorys categorys;
             while (rs.next()) {
                 producto = new Producto();
                 producto.setIdProducto(rs.getString("idProducto"));
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
-                producto.setStockProducto(rs.getInt("stockProducto"));
+                producto.setStockProducto(rs.getInt("PC.stockProducto"));
                 producto.setMarcaProducto(rs.getString("marcaProductoFK"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setIdCategoriaFK(rs.getString("idCategoriaFK"));
@@ -238,22 +242,15 @@ public class ProductoDAO {
                 producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
                 producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("ventajasProducto"));
-                producto.setColor(rs.getString("color"));
+                producto.setColor(rs.getString("C.nombreColor"));
                 producto.setGarantia(rs.getString("garantia"));
-
-//                if (!StringUtils.isNullOrEmpty(rs.getString("fechaVencimiento"))) {
-//                     producto.setFechaVencimiento(rs.getString("fechaVencimiento"));
-//                }
-                categorys = new Categorys();
-                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
-                producto.setCategorys(categorys);
-
+                producto.setCantidadColores(rs.getString("cantidadColores"));
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;
         } catch (Exception e) {
             System.out.println(e);
-            System.out.println("ddd");
+            e.printStackTrace();
             return null;
         }
     }

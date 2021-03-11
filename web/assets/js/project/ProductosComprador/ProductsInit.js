@@ -31,7 +31,7 @@ function listarProductoByDateTime() {
         async: true,
         datatype: 'json'
     }).done(function (data) {
-        
+
         generatePageQuery(data, 4)
 
     })
@@ -173,7 +173,7 @@ function generateTableBuscador() {
     setTimeout(() => $('.hijueputa').carousel({
             interval: 3100,
         }), 1000)
-    
+
 }
 
 
@@ -198,25 +198,28 @@ function detailsProduct(producto) {
 }
 
 function textProduct(item) {
-
-    let id = document.getElementById('companyss').value;
-    let fkRol = document.getElementById('fkRol').value;
+    
+    console.log(item)
+    let colors = getColors(item.idProducto)
+    let page = window.location.pathname;
 
     let str = '';
     let element = document.getElementById('details')
     str += `<div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
                 <h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
             <hr>`
-
-    str += `<a id="addItem" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`;
-    str += `<i class="fas fa-shopping-cart"></i> Añadir al carrito</a>`;
-
-    str += `<select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`;
-    for (var i = 1; i <= item.stockProducto; i++) {
-        str += `<option>${i}</option>`
-    }
-    str += `</select>
-              <p class="font-weight-bold text-muted h5 text-left">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</p>
+    if (page !== '/Store/Products') {
+        
+        str += `<a id="addItem" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`;
+        str += `<i class="fas fa-shopping-cart"></i> Añadir al carrito</a>`;
+        str += `<select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`;
+        for (var i = 1; i <= item.stockProducto; i++) {
+            str += `<option>${i}</option>`
+        }
+        str += `</select>`
+        
+    }    
+    str += `<p class="font-weight-bold text-muted h5 text-left">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</p>
               <h4 class="mb-0 pb-2 text-left">Marca: ${item.marcaProducto}</h4>
               <h5 class="font-weight-bold text-muted h6 text-left">Color: ${item.color}</h5>
            <div class="card shadow-sm">
@@ -225,9 +228,8 @@ function textProduct(item) {
               <p class="mb-0 text-small text-muted textoDes text-left">${item.descripcionProducto}</p>
             </div>
           </div>`
-
-    str +=
-            `<hr>
+    
+    str +=`<hr>
         <div class="col-lg-12 mb-5 p-0">
        <a data-toggle="collapse" href="#collapseExample${item.idProducto}" role="button" aria-expanded="false" aria-controls="" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
           <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Información Adicional</strong><i class="fa fa-angle-down"></i></p>
@@ -257,15 +259,16 @@ function caruselImagenes(data) {
     for (var item of data) {
         if (num === 0) {
             str += `<div class="carousel-item active">
-                            <img class="img-fluid fit-imageModal" src="${item.url}">
+                        <img class="img-fluid fit-imageModal" src="${item.url}">
                         </div>`
         } else {
             str += `<div class="carousel-item">
-                            <img class="img-fluid fit-imageModal" src="${item.url}">
-                        </div>`
+                       <img class="img-fluid fit-imageModal" src="${item.url}">
+                    </div>`
         }
         num++;
     }
+    
     ele.innerHTML = str
 
     if (data.length > 1) {
@@ -319,4 +322,30 @@ function queryEmphy() {
             </div>
             </div>`
     select.innerHTML = str;
+}
+
+function getColors(id) {
+
+    $('#cargas').addClass('is-active');
+    
+    let color = []
+    
+    $.ajax({
+        type: "POST",
+        url: './getColorsByProduct',
+        datatype: 'json',
+        data: {
+            idProducto: id
+        }
+    }).done(function (data) {
+        
+        color = data
+        console.log(data)
+
+        $('#cargas').removeClass('is-active')
+
+    })
+
+    return color
+
 }

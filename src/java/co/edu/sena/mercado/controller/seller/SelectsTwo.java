@@ -6,6 +6,7 @@
 package co.edu.sena.mercado.controller.seller;
 
 import co.edu.sena.mercado.dao.CategorysDAO;
+import co.edu.sena.mercado.dao.ProductoColorDAO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -39,9 +40,9 @@ public class SelectsTwo extends HttpServlet {
 
         switch (direccion) {
 
-            case "/Store/getCentros":
+            case "/Store/getColorsByProduct":
 
-                getCentros(request, response);
+                getColorsByProduct(request, response);
 
                 break;
 
@@ -49,18 +50,16 @@ public class SelectsTwo extends HttpServlet {
         
     }
 
-    
-    private void getCentros(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-
+    private void getColorsByProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
+       
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-        Conexion conexion = new Conexion();
-        CategorysDAO categorysDAO = new CategorysDAO(conexion.getConnection());
-        ArrayList<?> lista = categorysDAO.getCentros();
+        ProductoColorDAO categorysDAO = new ProductoColorDAO(new Conexion().getConnection());
+        ArrayList<?> lista = categorysDAO.getColorsByProduct(request.getParameter("idProducto"));
         response.setContentType("application/json");
         categorysDAO.CloseAll();
         new Gson().toJson(lista, response.getWriter());
-
+        
     }
     
     @Override
