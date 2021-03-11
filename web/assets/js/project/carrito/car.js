@@ -1,13 +1,13 @@
 function addCar(item, cantidad) {
-
+    
     let arraf = JSON.parse(localStorage.getItem('objects'));
-    let exts = arraf.filter(x => x.idProducto === item.idProducto).length > 0
+    let exts = arraf.filter(x => x.idProductoColor === item.idProductoColor).length > 0
 
     if (exts) {
 
-        let producto = arraf.find(element => element.idProducto === item.idProducto);
-        arraf = arraf.filter(x => x.idProducto !== item.idProducto)
-
+        let producto = arraf.find(element => element.idProductoColor === item.idProductoColor);
+        arraf = arraf.filter(x => x.idProductoColor !== producto.idProductoColor)
+        
         if (producto.cantidad + cantidad > item.stockProducto) {
             messageInfo('No hay sufuciente cantidad de producto')
             $('#detailsProduct').modal('hide')
@@ -29,7 +29,7 @@ function addCar(item, cantidad) {
 
 
 function showCar() {
-
+    
     $('#modalCar').modal('show')
     let arraf = JSON.parse(localStorage.getItem('objects'));
     let total = 0
@@ -44,15 +44,15 @@ function showCar() {
         str += `</td>
                    <td> 
                         <div class="ml-3 d-inline-block align-middle">
-                                    <h5 class="mb-0">
-                                        <p class="mb-0 text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</p>                                </div>
+                              <h5 class="mb-0">
+                                <p class="mb-0 text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</p>                                </div>
                             </div>
                         </td>
                         <td class="border-0 align-middle pl-3"><strong>${item.color}</strong></td>
                         <td class="border-0 align-middle pl-5"><strong>${item.cantidad}</strong></td>
-                        <td class="border-0 align-middle pl-4" idProducto="${item.idProducto}">
+                        <td class="border-0 align-middle pl-4" idProducto="${item.idProducto}" idProductoColor="${item.idProductoColor}">
                             <a id="delete" href="#" class="text-dark pl-3"><i class="fa fa-trash"></i></a></td>
-                        <td class="border-0 align-middle"><strong>${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</strong></td>
+                        <td class="border-0 align-middle"><strong>${money(item.valorProducto)}</strong></td>
                     </tr>`
         total += item.cantidad * item.valorProducto
     }
@@ -72,8 +72,10 @@ $(document).on('click', '#delete', function (e) {
     e.preventDefault()
     let parent = $(this)[0].parentElement
     let idProducto = $(parent).attr('idProducto')
+    let idColor = $(parent).attr('idProductoColor')
+    console.log(idColor)
     let arraf = JSON.parse(localStorage.getItem('objects'));
-    arraf = arraf.filter(item => item.idProducto !== idProducto);
+    arraf = arraf.filter(item => item.idProductoColor !== idColor);
     localStorage.setItem('objects', JSON.stringify(arraf));
     showCar()
 });

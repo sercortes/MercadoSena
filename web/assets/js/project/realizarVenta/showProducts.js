@@ -26,7 +26,7 @@ function productosRamdom() {
 }
 
 function generatesTable(data) {
-
+    
     $('#cargas').removeClass('is-active');
     
     $('#example').dataTable({
@@ -42,10 +42,6 @@ function generatesTable(data) {
             },
             {
                 "mData": "nombreProducto",
-            },
-            {
-                "data": "categorys.nombreCategoria",
-                "className": "align-middle buscar"
             },
             {
                 "mData": "valorProducto",
@@ -71,10 +67,10 @@ function generatesTable(data) {
                 }
             },
             {
-                "mData": "idProducto",
+                "mData": "idProductoColor",
                 "className": "align-middle", 
                 "mRender": function (data, type, row) {
-                   return `<div class="align-middle" idProducto="${data}">
+                   return `<div class="align-middle" idProductoColor="${data}">
                     <a id="addItemVendedor" href="#" class="text-dark"><i class="fas fa-plus-square fa-3x naranja"></i></a>
                   </div>`
                 }
@@ -110,9 +106,9 @@ $(document).on('click', '#addItemVendedor', function (e) {
 
     e.preventDefault();
     let parent = $(this)[0].parentElement
-    let idProducto = $(parent).attr('idProducto')
+    let idProducto = $(parent).attr('idProductoColor')
     var parentsOne = $(this)[0].parentElement.parentElement.parentElement
-    let producto = arraytotal.find(element => element.idProducto === idProducto);
+    let producto = arraytotal.find(element => element.idProductoColor === idProducto);
     messageAddCar('Agregado')
     let cantidad = parseInt(parentsOne.querySelector('.selectss').value)
     addCar(producto, cantidad)

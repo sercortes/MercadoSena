@@ -35,7 +35,7 @@
                 <div class="form-row">
 
 
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-3">
                         <label for="validationTooltip03">Marca:</label>
                         <select id="marcaProductos" name="marca" class="form-control" tabindex="4" required>
                             <option value="">No</option>
@@ -45,7 +45,7 @@
                         </div> 
                     </div>
 
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-3">
                         <label for="validationTooltip03">Categoría:</label>
                         <select name="category" class="form-control" id="category" tabindex="4" required>
                             <option value="">No</option>
@@ -53,6 +53,15 @@
                         <div class="invalid-feedback">
                             Escriba una categoría
                         </div> 
+                    </div>
+                    
+                    <div class="form-group col-md-4">
+                        <label for="exampleInputEmail1">Referencia:</label>
+                        <input type="text" class="form-control was-validated" id="referencia" name="referencia" placeholder="CC2020" required>
+
+                        <div class="invalid-feedback">
+                            Escriba una referencia
+                        </div>
                     </div>
 
                 </div>
@@ -62,7 +71,7 @@
 
                     <div class="form-group col-md-5">
                         <label for="exampleInputEmail1">Precio:</label>
-                        <input type="number" class="form-control was-validated" minlength="0" max="1500000000000000" id="price" name="price" placeholder="$" oninput="validity.valid||(value='');" required>
+                        <input type="number" class="form-control was-validated" minlength="0" max="10000000" id="price" name="price" placeholder="$" oninput="validity.valid||(value='');" required>
 
                         <div class="invalid-feedback">
                             Escriba precio válido
@@ -119,8 +128,8 @@
 
                 <div class="form-group">
                     <label for="exampleFormControlTextarea1">Descripción:</label>
-                    <textarea class="form-control" id="descrip" name="descrip" rows="3" placeholder="Descripción de su producto" minlength="20" maxlength="500" required></textarea>
-                    <small id="emailHelp" class="form-text text-muted">Si su producto tiene información adicional coloquela en este campo.</small>
+                    <textarea class="form-control" id="descrip" name="descrip" rows="3" placeholder="Descripción de su producto" minlength="20" maxlength="700" required></textarea>
+                    <small id="emailHelp" class="form-text text-muted">Escriba una breve descripción del producto. máximo un parrafo</small>
 
                     <div class="invalid-feedback">
                         Escriba una descripción de mínimo 20 carácteres
@@ -165,7 +174,7 @@
 
                     <div class="form-group">
                         <label for="exampleFormControlTextarea1">Ventajas:</label>
-                        <textarea class="form-control" id="ventajas" name="ventajas" rows="3" placeholder="Ventajas de su producto" minlength="20" maxlength="500" required></textarea>
+                        <textarea class="form-control" id="ventajas" name="ventajas" rows="3" placeholder="Ventajas de su producto" minlength="20" maxlength="700" required></textarea>
                         <small id="emailHelp" class="form-text text-muted">Si su producto tiene información adicional coloquela en este campo.</small>
 
                         <div class="invalid-feedback">

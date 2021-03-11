@@ -84,7 +84,7 @@ public class ProductoColorDAO {
     
      public ArrayList<ColorDTO> getColorsByProduct(String idProducto) {
         try {
-            String sql = "SELECT idColor, nombreColor, PC.colorFK, PC.productoFK FROM colorProducto C INNER JOIN ProductoColor PC ON C.idColor=PC.colorFK "
+            String sql = "SELECT idColor, nombreColor, PC.colorFK, PC.productoFK, PC.idProductoColor FROM colorProducto C INNER JOIN ProductoColor PC ON C.idColor=PC.colorFK "
                     + "WHERE PC.productoFK = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, idProducto);
@@ -94,7 +94,7 @@ public class ProductoColorDAO {
             ColorDTO colorDTO;
             while (rs.next()) {
                 colorDTO = new ColorDTO();
-                colorDTO.setIdColor(rs.getString("idColor"));
+                colorDTO.setIdColor(rs.getString("idProductoColor"));
                 colorDTO.setNombreColor(rs.getString("nombreColor"));
                 
                 list.add(colorDTO);
@@ -103,6 +103,24 @@ public class ProductoColorDAO {
         } catch (Exception e) {
             System.out.println(e);
             return null;
+        }
+    }
+     
+     public int getStockProduct(String idProducto) {
+        try {
+            int cantidad = 0;
+            String sql = "SELECT stockProducto FROM ProductoColor WHERE idProductoColor = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, idProducto);
+            System.out.println(ps.toString());
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                cantidad = rs.getInt("stockProducto");
+            }
+            return cantidad;
+        } catch (Exception e) {
+            System.out.println(e);
+            return 0;
         }
     }
     

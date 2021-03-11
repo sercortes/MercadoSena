@@ -8,7 +8,7 @@ function productosRamdom(){
         datatype: 'json'
     }).done(function (data) {
 
-        if (data.length == 0) {
+        if (data == undefined) {
             queryEmphy()
             return false
         }

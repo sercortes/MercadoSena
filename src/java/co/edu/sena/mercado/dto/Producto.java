@@ -28,6 +28,7 @@ public class Producto {
 
     private ImagenesProducto imagenesProducto;
     private Categorys categorys;
+    private String referencia;
     private String nombreCategoria;
     private String nombreEmpresa;
     private int idCiudad;
@@ -41,6 +42,8 @@ public class Producto {
     private String cantidadColores;
     
     private String imagenUnitaria;
+    
+    private String idProductoColor;
 
     public Producto() {
     }
@@ -272,9 +275,29 @@ public class Producto {
         this.cantidadColores = cantidadColores;
     }
 
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
+    public String getIdProductoColor() {
+        return idProductoColor;
+    }
+
+    public void setIdProductoColor(String idProductoColor) {
+        this.idProductoColor = idProductoColor;
+    }
+
     @Override
     public String toString() {
-        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", valorProducto=" + valorProducto + ", stockProducto=" + stockProducto + ", marcaProducto=" + marcaProducto + ", descripcionProducto=" + descripcionProducto + ", diasEnvios=" + diasEnvios + ", medidaProducto=" + medidaProducto + ", empaqueProducto=" + empaqueProducto + ", embalajeProducto=" + embalajeProducto + ", ventajaProducto=" + ventajaProducto + ", idEmpresaFK=" + idEmpresaFK + ", idCategoriaFK=" + idCategoriaFK + ", imagenesProducto=" + imagenesProducto + ", categorys=" + categorys + ", nombreCategoria=" + nombreCategoria + ", nombreEmpresa=" + nombreEmpresa + ", idCiudad=" + idCiudad + ", color=" + color + ", garantia=" + garantia + ", ciudad=" + ciudad + ", cantidad=" + cantidad + ", cantidadColores=" + cantidadColores + ", imagenUnitaria=" + imagenUnitaria + '}';
+        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", valorProducto=" + valorProducto + ", stockProducto=" + stockProducto + ", marcaProducto=" + marcaProducto + ", descripcionProducto=" + descripcionProducto + ", diasEnvios=" + diasEnvios + ", medidaProducto=" + medidaProducto + ", empaqueProducto=" + empaqueProducto + ", embalajeProducto=" + embalajeProducto + ", ventajaProducto=" + ventajaProducto + ", idEmpresaFK=" + idEmpresaFK + ", idCategoriaFK=" + idCategoriaFK + ", imagenesProducto=" + imagenesProducto + ", categorys=" + categorys + ", referencia=" + referencia + ", nombreCategoria=" + nombreCategoria + ", nombreEmpresa=" + nombreEmpresa + ", idCiudad=" + idCiudad + ", color=" + color + ", garantia=" + garantia + ", ciudad=" + ciudad + ", cantidad=" + cantidad + ", cantidadColores=" + cantidadColores + ", imagenUnitaria=" + imagenUnitaria + ", idProductoColor=" + idProductoColor + '}';
     }
+
+
+
+
 
 }

@@ -35,7 +35,7 @@ function listarProductoByVendedor() {
 
         $('#cargas').removeClass('is-active');
 
-        if (data.length === 0) {
+        if (data == undefined) {
             queryEmphyP()
             return false
         }
@@ -81,8 +81,7 @@ function generateTableBuscadorP() {
         str += `<figcaption class="p-3 card-img-bottom">
                 <hr>
               <h2 class="h5 text-left text-muted mb-0 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
-              <h2 class="h5 text-left font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
-              <p class="mb-0 text-small text-muted">Cantidad: ${item.stockProducto}</p>
+              <h2 class="h5 text-left font-weight-bold mb-2">$ ${money(item.valorProducto)}</h2>
             </figcaption>
        
       <div class="col-lg-12 mb-5 p-0">

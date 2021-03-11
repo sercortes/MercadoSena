@@ -179,6 +179,7 @@
         <servlet-name>SelectsTwo</servlet-name>
         <url-pattern>/getInformationByProduct</url-pattern>
         <url-pattern>/getColorsByProduct</url-pattern>
+        <url-pattern>/getStockProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>

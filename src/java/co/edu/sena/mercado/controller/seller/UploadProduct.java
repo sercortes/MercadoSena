@@ -193,9 +193,9 @@ public class UploadProduct extends HttpServlet {
             case "price":
                 producto.setValorProducto(Double.parseDouble(item.getString("UTF-8")));
                 break;
-//            case "cantidad":
-//                producto.setStockProducto(Integer.parseInt(item.getString("UTF-8")));
-//                break;
+            case "referencia":
+                  producto.setReferencia(item.getString("UTF-8"));
+                break;
             case "marca":
                 producto.setMarcaProducto(item.getString("UTF-8"));
                 break;

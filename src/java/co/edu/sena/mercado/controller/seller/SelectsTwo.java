@@ -45,6 +45,12 @@ public class SelectsTwo extends HttpServlet {
                 getColorsByProduct(request, response);
 
                 break;
+                
+            case "/Store/getStockProduct":
+
+                getStockProduct(request, response);
+
+                break;
 
         }
         
@@ -66,5 +72,17 @@ public class SelectsTwo extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void getStockProduct(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        ProductoColorDAO categorysDAO = new ProductoColorDAO(new Conexion().getConnection());
+        int cantidad = categorysDAO.getStockProduct(request.getParameter("idProductoColor"));
+        response.setContentType("application/json");
+        categorysDAO.CloseAll();
+        new Gson().toJson(cantidad, response.getWriter());
+        
+    }
 
 }
