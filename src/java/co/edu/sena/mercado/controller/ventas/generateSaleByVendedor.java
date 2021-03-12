@@ -49,9 +49,9 @@ public class generateSaleByVendedor extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
-
+        
         if (request.getSession().getAttribute("USER") != null) {
-
+            
             try {
                 String direccion = request.getRequestURI();
 
@@ -146,6 +146,8 @@ public class generateSaleByVendedor extends HttpServlet {
         response.setContentType("application/json");
         String[] arreglo = request.getParameterValues("arrayP");
         String metodo = request.getParameter("metodoPago");
+        double descuento = Double.parseDouble(request.getParameter("descuento"));
+        
         Gson gson = new Gson();
         String json = "";
         String idEmpresa = "";
@@ -153,6 +155,10 @@ public class generateSaleByVendedor extends HttpServlet {
             json += item;
         }
         ProducctoDTO[] producctoDTOs = gson.fromJson(json, ProducctoDTO[].class);
+        
+        for(ProducctoDTO item :producctoDTOs){
+            System.out.println(item.toString());
+        }
 
         CompradorDAO compradorDAO = null;
         VentaDAO ventaDAO = null;
@@ -211,6 +217,7 @@ public class generateSaleByVendedor extends HttpServlet {
             ventaDTO.setIdCompradorFK(Integer.toString(idCompra));
             ventaDTO.setValorVenta(total);
             ventaDTO.setFormaPago(metodo);
+            ventaDTO.setDescuento(descuento);
             ventaDTO.setNombreFormaPago(getNombreFormadePago(metodo));
             ventaDTO.setIdCiudadFK(Integer.toString(usu.getPersona().getIdCiudad()));
             int idVenta = ventaDAO.insertReturn(ventaDTO);
@@ -234,12 +241,14 @@ public class generateSaleByVendedor extends HttpServlet {
             new Gson().toJson(ventaDTO, response.getWriter());
         } catch (SQLException ex) {
             conn.rollback();
+            ex.printStackTrace();
             System.out.println("ROLL BACK GENERATE SALE");
             System.out.println(ex);
             new Gson().toJson(01, response.getWriter());
         } catch (Exception ex) {
             conn.rollback();
             System.out.println("ROLL BACK GENERATE SALE");
+            ex.printStackTrace();
             System.out.println(ex);
             new Gson().toJson(0, response.getWriter());
         } finally {

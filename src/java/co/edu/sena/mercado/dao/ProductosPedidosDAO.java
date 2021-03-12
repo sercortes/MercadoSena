@@ -57,12 +57,17 @@ public class ProductosPedidosDAO {
      public boolean checkProducts(ProducctoDTO producctoDTO) {
         try {
             boolean statusP = false;
-            String sql = "SELECT p.idProducto, p.stockProducto FROM producto p "
-                    + "WHERE p.idProducto = ? AND p.stockProducto >= ? AND p.valorProducto = ?";
+            String sql = "SELECT P.idProducto, P.valorProducto, PC.stockProducto, PC.idProductoColor "
+                    + "FROM producto P "
+                    + "INNER JOIN ProductoColor PC ON P.idProducto = PC.productoFK "
+                    + "WHERE PC.idProductoColor = ? AND PC.stockProducto >= ? "
+                    + "AND P.valorProductoVendedor = ?";
             ps = conn.prepareStatement(sql);
-            ps.setString(1, producctoDTO.getIdProducto());
+            
+            ps.setString(1, producctoDTO.getIdProductoColor());
             ps.setInt(2, producctoDTO.getCantidad());
             ps.setDouble(3, producctoDTO.getValorUnitario());
+            
             System.out.println(ps.toString());
             rs = ps.executeQuery();
             if (rs.next()) {
@@ -78,9 +83,9 @@ public class ProductosPedidosDAO {
        public boolean actualizarCantidad(ProducctoDTO productoDTO) throws SQLException{
         try {
 
-            String sql1 = "SELECT stockProducto FROM producto WHERE idProducto = ? LIMIT 1";
+            String sql1 = "SELECT stockProducto FROM ProductoColor WHERE idProductoColor = ? LIMIT 1";
             PreparedStatement ps = conn.prepareStatement(sql1);
-            ps.setString(1, productoDTO.getIdProducto());
+            ps.setString(1, productoDTO.getIdProductoColor());
             rs = ps.executeQuery();
 
             int actual = 0;
@@ -91,10 +96,10 @@ public class ProductosPedidosDAO {
 
             productoDTO.setStock(actual - productoDTO.getCantidad());
 
-            String sql = "UPDATE producto SET stockProducto = ? WHERE idProducto=?";
+            String sql = "UPDATE ProductoColor SET stockProducto = ? WHERE idProductoColor=?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, productoDTO.getStock());
-            ps.setString(2, productoDTO.getIdProducto());
+            ps.setString(2, productoDTO.getIdProductoColor());
             System.out.println("..........................." + ps.toString());
             ps.executeUpdate();
             return true;

@@ -37,8 +37,11 @@ function buscarCliente(id) {
 
 function selectPersona() {
 
+    $(".remove").remove();
     let metodoPago = document.getElementById('metodoPago').value
+    let descuento = document.getElementById('descuento').value
     let arraf = JSON.parse(localStorage.getItem('objects'));
+    let total = 0
 
     if (arraf.length <= 0) {
         messageInfo('No hay elementos en el carrito')
@@ -50,11 +53,25 @@ function selectPersona() {
         return false
     }
     if (metodoPago == '') {
-        $(".remove").remove();
         input('metodoPago', 'Seleccione el método de pago')
         return false
     }
-
+    
+    for(var item of arraf){
+        total += item.valorProducto*item.cantidad;
+    }
+    
+    if (descuento >= total) {
+        input('descuento', 'descuento no válido')
+        return false
+    }
+    
+    if (descuento == '') {
+        descuento = 0;
+    }
+    
+    console.log(arraf)
+    
     $('#cargas').addClass('is-active');
     $("#registrarVenta").attr("disabled", true);
 
@@ -65,9 +82,11 @@ function selectPersona() {
         data: {
             crear: 0, arrayP: JSON.stringify(arraf),
             metodoPago: metodoPago,
-            idUserCompra: idUser
+            idUserCompra: idUser,
+            descuento:descuento
         }, error: function (datas) {
             messageInfo('Error en los productos')
+            $('#cargas').removeClass('is-active');
         },
         success: function (datas) {
 
