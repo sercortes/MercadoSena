@@ -14,7 +14,7 @@
 
     <div class="row d-flex justify-content-center pb-3" id="fondo-rojo">
 
-        <div class="col-8 pb-4 pt-2 shadow-sm" style="background-color: white;margin-top: 0.7%;">
+        <div class="col-md-8 col-sm-12 pb-4 pt-2 shadow-sm" style="background-color: white;margin-top: 0.7%;">
             <h3 class="titulos card-title hvr-icon-pop text-center pb-3"><i class="fas fa-gifts naranja"></i> Nuevo Producto</h3>
 
             <form class="needs-validation" action="UploadProduct" method="POST" name="formProduct" id="formProduct" enctype="multipart/form-data" acceptcharset="UTF-8">
@@ -35,7 +35,7 @@
                 <div class="form-row">
 
 
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-5">
                         <label for="validationTooltip03">Marca:</label>
                         <select id="marcaProductos" name="marca" class="form-control" tabindex="4" required>
                             <option value="">No</option>
@@ -45,7 +45,7 @@
                         </div> 
                     </div>
 
-                    <div class="form-group col-md-3">
+                    <div class="form-group col-md-5">
                         <label for="validationTooltip03">Categoría:</label>
                         <select name="category" class="form-control" id="category" tabindex="4" required>
                             <option value="">No</option>
@@ -55,21 +55,12 @@
                         </div> 
                     </div>
                     
-                    <div class="form-group col-md-4">
-                        <label for="exampleInputEmail1">Referencia:</label>
-                        <input type="text" class="form-control was-validated" id="referencia" name="referencia" placeholder="CC2020" required>
-
-                        <div class="invalid-feedback">
-                            Escriba una referencia
-                        </div>
-                    </div>
 
                 </div>
-
+                
                 <div class="form-row">
-
-
-                    <div class="form-group col-md-5">
+                
+                <div class="form-group col-md-5">
                         <label for="exampleInputEmail1">Precio:</label>
                         <input type="number" class="form-control was-validated" minlength="0" max="10000000" id="price" name="price" placeholder="$" oninput="validity.valid||(value='');" required>
 
@@ -77,6 +68,28 @@
                             Escriba precio válido
                         </div>
                     </div>
+                    
+                     <div class="form-group col-md-5">
+                        <label for="exampleInputEmail1">Precio vendedor:</label>
+                        <input type="number" class="form-control was-validated" minlength="0" max="10000000" id="precioVendedor" name="precioVendedor" placeholder="$" oninput="validity.valid||(value='');" required>
+
+                        <div class="invalid-feedback">
+                            Escriba precio válido
+                        </div>
+                    </div>
+
+                </div>
+                <div class="form-row">
+                    
+                    <div class="form-group col-md-5">
+                        <label for="exampleInputEmail1">Referencia:</label>
+                        <input type="text" class="form-control was-validated" id="referencia" max="10000000" name="referencia" placeholder="CC2020" required>
+
+                        <div class="invalid-feedback">
+                            Escriba una referencia
+                        </div>
+                    </div>
+                    
                     <div class="form-group col-md-5">
                         <label for="exampleInputEmail1">Garantía:</label>
                         <input type="text" class="form-control was-validated" minlength="2" max="40" id="garantia" name="garantia" placeholder="Garantía del producto" required>

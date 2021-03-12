@@ -16,7 +16,9 @@ public class Producto {
     private int stockProducto;
     private String marcaProducto;
     private String descripcionProducto;
-
+    
+    private Double precioVendedor;
+    
     private String diasEnvios;
     private String medidaProducto;
     private String empaqueProducto;
@@ -291,13 +293,17 @@ public class Producto {
         this.idProductoColor = idProductoColor;
     }
 
-    @Override
-    public String toString() {
-        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", valorProducto=" + valorProducto + ", stockProducto=" + stockProducto + ", marcaProducto=" + marcaProducto + ", descripcionProducto=" + descripcionProducto + ", diasEnvios=" + diasEnvios + ", medidaProducto=" + medidaProducto + ", empaqueProducto=" + empaqueProducto + ", embalajeProducto=" + embalajeProducto + ", ventajaProducto=" + ventajaProducto + ", idEmpresaFK=" + idEmpresaFK + ", idCategoriaFK=" + idCategoriaFK + ", imagenesProducto=" + imagenesProducto + ", categorys=" + categorys + ", referencia=" + referencia + ", nombreCategoria=" + nombreCategoria + ", nombreEmpresa=" + nombreEmpresa + ", idCiudad=" + idCiudad + ", color=" + color + ", garantia=" + garantia + ", ciudad=" + ciudad + ", cantidad=" + cantidad + ", cantidadColores=" + cantidadColores + ", imagenUnitaria=" + imagenUnitaria + ", idProductoColor=" + idProductoColor + '}';
+    public Double getPrecioVendedor() {
+        return precioVendedor;
     }
 
+    public void setPrecioVendedor(Double precioVendedor) {
+        this.precioVendedor = precioVendedor;
+    }
 
-
-
+    @Override
+    public String toString() {
+        return "Producto{" + "idProducto=" + idProducto + ", nombreProducto=" + nombreProducto + ", valorProducto=" + valorProducto + ", stockProducto=" + stockProducto + ", marcaProducto=" + marcaProducto + ", descripcionProducto=" + descripcionProducto + ", precioVendedor=" + precioVendedor + ", diasEnvios=" + diasEnvios + ", medidaProducto=" + medidaProducto + ", empaqueProducto=" + empaqueProducto + ", embalajeProducto=" + embalajeProducto + ", ventajaProducto=" + ventajaProducto + ", idEmpresaFK=" + idEmpresaFK + ", idCategoriaFK=" + idCategoriaFK + ", imagenesProducto=" + imagenesProducto + ", categorys=" + categorys + ", referencia=" + referencia + ", nombreCategoria=" + nombreCategoria + ", nombreEmpresa=" + nombreEmpresa + ", idCiudad=" + idCiudad + ", color=" + color + ", garantia=" + garantia + ", ciudad=" + ciudad + ", cantidad=" + cantidad + ", cantidadColores=" + cantidadColores + ", imagenUnitaria=" + imagenUnitaria + ", idProductoColor=" + idProductoColor + '}';
+    }
 
 }

@@ -36,29 +36,28 @@ public class ProductoDAO {
 
     public int insertReturn(Producto producto) throws SQLException, Exception{
         int idActividad = 0;
-        String sql = "INSERT INTO producto (referencia, nombreProducto, valorProducto, marcaProductoFK, "
+        String sql = "INSERT INTO producto (valorProductoVendedor, referencia, nombreProducto, valorProducto, marcaProductoFK, "
                 + "descripcionProducto, diasEnvioProducto, medidasProducto, empaqueProducto, "
                 + "embalajeProducto, ventajasProducto, "
                 + "idEmpresaFK, idCategoriaFK, garantia) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
-            ps.setString(1, producto.getReferencia());
-            ps.setString(2, producto.getNombreProducto());
-            ps.setDouble(3, producto.getValorProducto());
-            ps.setString(4, producto.getMarcaProducto());
-            ps.setString(5, producto.getDescripcionProducto());
-            ps.setString(6, producto.getDiasEnvios());
-            ps.setString(7, producto.getMedidaProducto());
-            ps.setString(8, producto.getEmpaqueProducto());
-            ps.setString(9, producto.getEmbalajeProducto());
-            ps.setString(10, producto.getVentajaProducto());
-            ps.setString(11, producto.getIdEmpresaFK());
-            ps.setString(12, producto.getIdCategoriaFK());
-            ps.setString(13, producto.getGarantia());
-
+            ps.setDouble(1, producto.getPrecioVendedor());
+            ps.setString(2, producto.getReferencia());
+            ps.setString(3, producto.getNombreProducto());
+            ps.setDouble(4, producto.getValorProducto());
+            ps.setString(5, producto.getMarcaProducto());
+            ps.setString(6, producto.getDescripcionProducto());
+            ps.setString(7, producto.getDiasEnvios());
+            ps.setString(8, producto.getMedidaProducto());
+            ps.setString(9, producto.getEmpaqueProducto());
+            ps.setString(10, producto.getEmbalajeProducto());
+            ps.setString(11, producto.getVentajaProducto());
+            ps.setString(12, producto.getIdEmpresaFK());
+            ps.setString(13, producto.getIdCategoriaFK());
+            ps.setString(14, producto.getGarantia());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {

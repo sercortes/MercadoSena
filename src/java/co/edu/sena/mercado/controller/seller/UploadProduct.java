@@ -145,7 +145,6 @@ public class UploadProduct extends HttpServlet {
                 for(ProductoColor item : producctoDTOs){
                     item.setIdProductoFK(folder);
                     productoColorDAO.insertReturn(item);
-                    System.out.println(item);
                 }
 
                 if (!tempFile.exists()) {
@@ -205,9 +204,9 @@ public class UploadProduct extends HttpServlet {
             case "descrip":
                 producto.setDescripcionProducto(item.getString("UTF-8").trim());
                 break;
-//            case "color":
-//                producto.setColor(item.getString("UTF-8").trim());
-//                break;
+            case "precioVendedor":
+                producto.setPrecioVendedor(Double.parseDouble(item.getString("UTF-8").trim()));
+                break;
             case "garantia":
                 producto.setGarantia(item.getString("UTF-8").trim());
                 break;
