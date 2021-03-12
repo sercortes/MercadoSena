@@ -2,8 +2,8 @@
 <%@include file="/views/car/modalCar.jspf"%>
 
 <c:if test="${ USER.idRol==3}">
-    <%@include file="/views/car/compraVendedor/modalMetodo.jspf"%>
-    <%@include file="/views/car/compraVendedor/modalFactura.jspf"%>
+    <%@include file="/views/realizarVenta/compraVendedor/modalMetodo.jspf"%>
+    <%@include file="/views/realizarVenta/compraVendedor/modalFactura.jspf"%>
 </c:if>
 <c:if test="${ USER.idRol==2}">
     <%@include file="/views/actualizar/modalActualizarDatos.jspf"%>

@@ -1,11 +1,13 @@
 package co.edu.sena.mercado.controller.seller;
 
 import co.edu.sena.mercado.dao.ImagenesProductosDAO;
+import co.edu.sena.mercado.dao.ProductoColorDAO;
 import co.edu.sena.mercado.dao.personaNaturalDAO;
 import co.edu.sena.mercado.dao.empresaDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
 import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.ProductoColor;
 import co.edu.sena.mercado.dto.empresaDTO;
 import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
@@ -44,8 +46,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
  */
 public class UploadProduct extends HttpServlet {
 
-    private final String UPLOAD_DIRECTORY = "/home/equipo/servers2/glassfish4/glassfish/domains/domain1/docroot/files/";
-    private final String SERVER_UPLOAD = "http://192.168.0.13:8080/files/";
+    private final String UPLOAD_DIRECTORY = "/home/equipo/servers/apache-tomcat-8.0.27/webapps/ROOT/filess/";
+    private final String SERVER_UPLOAD = "http://192.168.0.13:8084/filess/";
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -97,6 +99,7 @@ public class UploadProduct extends HttpServlet {
 
         ProductoDAO productoDAO = new ProductoDAO(cone);
         ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(cone);
+        ProductoColorDAO productoColorDAO = new ProductoColorDAO(cone);
 
         // desactivando en autocommit
         if (cone.getAutoCommit()) {
@@ -129,6 +132,21 @@ public class UploadProduct extends HttpServlet {
 
                 File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder);
 
+                System.out.println("FOLDERR");
+                System.out.println(folder);
+                String[] arreglo = request.getParameterValues("arrayP");
+                String json = "";
+                for (String item : arreglo) {
+                    json += item;
+                }
+                
+                ProductoColor[] producctoDTOs = new Gson().fromJson(json, ProductoColor[].class);
+                
+                for(ProductoColor item : producctoDTOs){
+                    item.setIdProductoFK(folder);
+                    productoColorDAO.insertReturn(item);
+                }
+
                 if (!tempFile.exists()) {
                     tempFile.mkdirs();
                 }
@@ -149,12 +167,12 @@ public class UploadProduct extends HttpServlet {
 
                 cone.commit();
                 codigo = true;
-
             } catch (Exception e) {
 
                 cone.rollback();
                 codigo = false;
                 System.out.println(e);
+                e.printStackTrace();
 
             }
 
@@ -174,8 +192,8 @@ public class UploadProduct extends HttpServlet {
             case "price":
                 producto.setValorProducto(Double.parseDouble(item.getString("UTF-8")));
                 break;
-            case "cantidad":
-                producto.setStockProducto(Integer.parseInt(item.getString("UTF-8")));
+            case "referencia":
+                  producto.setReferencia(item.getString("UTF-8"));
                 break;
             case "marca":
                 producto.setMarcaProducto(item.getString("UTF-8"));
@@ -186,8 +204,8 @@ public class UploadProduct extends HttpServlet {
             case "descrip":
                 producto.setDescripcionProducto(item.getString("UTF-8").trim());
                 break;
-            case "color":
-                producto.setColor(item.getString("UTF-8").trim());
+            case "precioVendedor":
+                producto.setPrecioVendedor(Double.parseDouble(item.getString("UTF-8").trim()));
                 break;
             case "garantia":
                 producto.setGarantia(item.getString("UTF-8").trim());

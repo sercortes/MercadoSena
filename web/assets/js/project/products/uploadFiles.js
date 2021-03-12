@@ -7,6 +7,7 @@ $(document).ready(function () {
     
     getCategorias()
     getMarcass()
+    getColors()
 
 });
 
@@ -47,6 +48,27 @@ function getCategorias() {
 
         for (var item of data) {
             text += `<option value="${item.idcategoria}">${item.nombreCategoria}</option>`
+        }
+
+        cat.innerHTML += text;
+    })
+
+}
+
+function getColors() {
+
+    let cat = document.getElementById('color')
+
+    let text = ``
+
+    $.ajax({
+        type: "POST",
+        url: './getColors',
+        datatype: 'json'
+    }).done(function (data) {
+
+        for (var item of data) {
+            text += `<option value="${item.idColor}">${item.nombreColor}</option>`
         }
 
         cat.innerHTML += text;
@@ -105,6 +127,11 @@ $('#send').click(function (e) {
         messageInfo('complete el formulario')
         return false
     }
+    
+    if(arrayProducts <= 0){
+      messageInfo('Selecione color y cantidad');
+      return false
+    }
 
     $('#carga').addClass('is-active');
     $("#send").attr("disabled", true);
@@ -116,7 +143,7 @@ $('#send').click(function (e) {
     $.ajax({
         type: "POST",
         enctype: 'multipart/form-data',
-        url: "UploadProduct",
+        url: "UploadProduct?arrayP="+JSON.stringify(arrayProducts),
         data: data,
         processData: false,
         contentType: false,
@@ -147,6 +174,9 @@ $('#send').click(function (e) {
 function clean() {
     $('#formProduct').trigger('reset')
     var form = $("#formProduct")
+    document.getElementById('output').innerHTML = ``
+    arrayProducts = []
+    contador = 1;
     form.removeClass('was-validated');
     $('#send').attr('disabled', false)
     generateOtherDiv()
@@ -224,19 +254,17 @@ function checkInputs() {
     let name = document.getElementById('name').value
     let desc = document.getElementById('descrip').value
     let price = document.getElementById('price').value
-    let cantidad = document.getElementById('cantidad').value
     let marca = document.getElementById('marcaProductos').value
     let category = document.getElementById('category').value
-    let color = document.getElementById('color').value
     let garantia = document.getElementById('garantia').value
     let ventajas = document.getElementById('ventajas').value
     let envios = document.getElementById('envios').value
     let medidas = document.getElementById('medidas').value
 
     if (name == '' || desc == '' || name.length <= 2 ||
-            desc.length <= 19 || price == '' || cantidad == '' ||
-            marca == '' || category == '' || marca == '' || 
-            color == '' || garantia == '' || ventajas == '' ||
+            desc.length <= 19 || price == '' ||
+            marca == '' || category == '' || marca == '' ||
+            garantia == '' || ventajas == '' ||
             envios == '' || medidas == '') {
         return false
     }

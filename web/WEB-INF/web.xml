@@ -116,9 +116,8 @@
         <servlet-name>Selects</servlet-name>
         <url-pattern>/getCategorys</url-pattern>
         <url-pattern>/getProducts</url-pattern>
-        <url-pattern>/getImages</url-pattern>
         <url-pattern>/getImagesByProduct</url-pattern>
-        <url-pattern>/getInfoCompanyByProduct</url-pattern>
+        <url-pattern>/getColors</url-pattern>
         <url-pattern>/obtenerProducto</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
@@ -178,7 +177,9 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SelectsTwo</servlet-name>
-        <url-pattern>/getCentros</url-pattern>
+        <url-pattern>/getInformationByProduct</url-pattern>
+        <url-pattern>/getColorsByProduct</url-pattern>
+        <url-pattern>/getStockProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>

@@ -26,7 +26,6 @@ $(function () {
 
 function listarProductoByVendedor() {
 
-
     $.ajax({
         type: "POST",
         url: './getProducts',
@@ -36,68 +35,18 @@ function listarProductoByVendedor() {
 
         $('#cargas').removeClass('is-active');
 
-        let arrayI = getImages()
-
-        let arrayFinal = []
-
-        for (var itemP of data) {
-            itemP.imagen = []
-
-            for (var itemI of arrayI) {
-                if (itemP.idProducto === itemI.idProductoFK) {
-                    itemP.imagen.push(itemI)
-                }
-            }
-            arrayFinal.push(itemP)
-        }
-
-        if (arrayFinal.length === 0) {
+        if (data == undefined) {
             queryEmphyP()
             return false
         }
 
-        records = arrayFinal
-        totalRecords = arrayFinal.length
+        records = data
+        totalRecords = data.length
         totalPages = Math.ceil(totalRecords / recPerPage)
 
         apply_pagination()
 
-
     })
-
-
-}
-
-function queryEmphyP() {
-    let select = document.getElementById('tabla');
-    let str = `<div class="col-lg-3">
-            </div>
-                <div class="col-lg-6">
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-              No hay elementos!<strong> Publique un producto </strong>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>   
-          </div>`
-    select.innerHTML = str;
-}
-
-function getImages() {
-
-    let datas
-    $.ajax({
-        type: "POST",
-        url: './getImages',
-        async: false,
-        datatype: 'json'
-    }).done(function (data) {
-
-        datas = data
-
-    })
-
-    return datas
 
 }
 
@@ -115,12 +64,6 @@ function apply_pagination() {
     });
 }
 
-
-function cambiarFecha() {
-    $pagination.twbsPagination('destroy');
-}
-
-
 function generateTableBuscadorP() {
 
     let select = document.getElementById('tabla');
@@ -131,12 +74,14 @@ function generateTableBuscadorP() {
 
         str += `<div class="col-lg-3">
           <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}">`
-        str += '<td>' + getImagen(item.imagen) + '</td>'
+        str += `<div id="carouselExampleControls${num}" class="carousel slide hijueputa" data-ride="carousel">
+                    <div class="carousel-inner" id="caruselOne${num}">`
+        str += getImages(item.idProducto, num)
+        str += `</div>`
         str += `<figcaption class="p-3 card-img-bottom">
                 <hr>
               <h2 class="h5 text-left text-muted mb-0 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
-              <h2 class="h5 text-left font-weight-bold mb-2">$ ${item.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")}</h2>
-              <p class="mb-0 text-small text-muted">Cantidad: ${item.stockProducto}</p>
+              <h2 class="h5 text-left font-weight-bold mb-2">$ ${money(item.valorProducto)}</h2>
             </figcaption>
        
       <div class="col-lg-12 mb-5 p-0">
@@ -151,7 +96,6 @@ function generateTableBuscadorP() {
           </div>
         </div>
       </div>
-        
          <div class="text-right">
                             <a href="#" class="delete btn btn-danger"><i class="fas fa-minus-square"></i></a>
                             <a href="#" class="editProduct btn btn-warning"><i class="fas fa-edit"></i></a>
@@ -167,89 +111,21 @@ function generateTableBuscadorP() {
     select.innerHTML = str;
 }
 
-
-
-function getImagen(array) {
-    let mensaje = ""
-    if (array.length !== 0) {
-        mensaje += `<img src="${array[0].url}" alt="" class="img-fluid fit-image">`
-    }
-    return mensaje;
-}
-
 $(document).on('click', '.watchMyProducts', function (e) {
 
     e.preventDefault()
     let parent = $(this)[0].parentElement.parentElement
     let idPro = $(parent).attr('idProducto')
     let producto = records.find(element => element.idProducto === idPro)
-    console.log('..............' + records);
-    $('#detailsProduct').modal('show')
+    $('#detailsProductVendedor').modal('show')
     detailsProduct(producto);
 
 })
 
 function detailsProduct(producto) {
 //    $('#modalTittle').text(producto.nombreProducto.toString())
-    caruselImagenes(producto.imagen)
-    textProductMy(producto)
-}
-
-function textProductMy(item) {
-    console.log(item)
-    let str = ''
-    let element = document.getElementById('detailsMy')
-
-    str += `<div class="card-body"><h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
-              <p class="mb-0 text-small text-muted textoDes text-left">Cantidad: ${item.stockProducto}</p>
-              <p class="mb-0 text-small text-muted textoDes text-left">Valor: $ ${item.valorProducto}</p>
-              <p class="mb-0 text-small text-muted textoDes text-left">Marca: ${item.marcaProducto}</p>
-              <p class="mb-0 text-small text-muted textoDes text-left">Categoría: ${item.categorys.nombreCategoria}</p>
-              <p class="mb-0 text-small text-muted textoDes text-left">Descripción</p>
-              <p class="mb-0 text-small text-muted textoDes text-left">${item.descripcionProducto}</p></div>`
-    if (item.diasEnvios !== undefined) {
-        str += `<hr>
-        <div class="col-lg-12 mb-5 p-0">
-       <a data-toggle="collapse" href="#collapseExample${item.idProducto}" role="button" aria-expanded="false" aria-controls="collapseExample1" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
-          <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Información Adicional</strong><i class="fa fa-angle-down"></i></p>
-        </a>
-        <div id="collapseExample${item.idProducto}" class="collapse shadow-sm">
-          <div class="card">
-            <div class="card-body">
-             <p class="mb-0 text-small text-muted textoDes text-left">Días de envío: ${item.diasEnvios}</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">Medidas : ${item.medidaProducto}</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">Empaque : ${item.empaqueProducto}</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">Embalaje : ${item.embalajeProducto}</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">Color : ${item.color}</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">Garantía : ${item.garantia}</p>
-         <p class="mb-0 text-small text-muted textoDes text-left">Ventajas</p>`;
-        str += `<p class="mb-0 text-small text-muted textoDes text-left">${item.ventajaProducto}</p>`;
-        str += `</div>
-          </div>
-        </div>
-      </div>`;
-    }
-    element.innerHTML = str
-}
-
-function caruselImagenes(data) {
-    let str = ''
-    let ele = document.getElementById('carusel')
-    let num = 0;
-    for (var item of data) {
-        if (num === 0) {
-            str += `<div class="carousel-item active">
-                            <img class="d-block w-100" src="${item.url}">
-                        </div>`
-        } else {
-            str += `<div class="carousel-item ssss">
-                            <img class="d-block w-100" src="${item.url}">
-                        </div>`
-        }
-        num++;
-    }
-    ele.innerHTML = str
-
+    caruselImagenes(producto.imagenes)
+    textProduct(producto)
 }
 
 $(document).on('click', '.delete', function (e) {
@@ -280,7 +156,7 @@ $(document).on('click', '.delete', function (e) {
 
 function deleteOk(id) {
 
-    $('#carga').addClass('is-active');
+    $('#cargas').addClass('is-active');
 
     $.ajax({
         type: "POST",
@@ -291,8 +167,6 @@ function deleteOk(id) {
         }
     }).done(function (data) {
 
-        console.log(data)
-
         if (data) {
             messageOk('Eliminado con éxito')
             $pagination.twbsPagination('destroy');
@@ -301,7 +175,7 @@ function deleteOk(id) {
             messageError('=( up ocurrio un error')
         }
 
-        $('#carga').removeClass('is-active')
+        $('#cargas').removeClass('is-active')
 
     })
 
@@ -335,5 +209,19 @@ $(document).on('click', '.editProduct', function (e) {
 
 })
 
+function queryEmphyP() {
+    let select = document.getElementById('tabla');
+    let str = `<div class="col-lg-3">
+            </div>
+                <div class="col-lg-6">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+              No hay elementos!<strong> Publique un producto </strong>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>   
+          </div>`
+    select.innerHTML = str;
+}
 
 

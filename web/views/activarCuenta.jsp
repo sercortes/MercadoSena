@@ -13,13 +13,9 @@
         <meta charset="utf-8">
         <meta name="description" content="shop project">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="./assets/images/icons/icon.png" rel="icon" async>
-
+        <link href="./assets/images/page/icon2.png" rel="icon" async>
         <link rel="stylesheet" type="text/css" href="./assets/styles/bootstrap4/bootstrap.css" async>
-
-
         <link href="./assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css" async>
-
         <link rel="stylesheet" type="text/css" href="./assets/styles/main_styles.css">
         <link rel="stylesheet" type="text/css" href="./assets/styles/responsive.css">
         <link rel="stylesheet" type="text/css" href="./assets/styles/hover-min.css" async>
