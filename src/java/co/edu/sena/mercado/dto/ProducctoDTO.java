@@ -11,6 +11,8 @@ public class ProducctoDTO {
     private int cantidad;
     @SerializedName("valorProducto")
     private Double valorUnitario;
+    @SerializedName("idProductoColor")
+    private String idProductoColor;
     
     private int Stock;
 
@@ -58,9 +60,17 @@ public class ProducctoDTO {
         this.Stock = Stock;
     }
 
+    public String getIdProductoColor() {
+        return idProductoColor;
+    }
+
+    public void setIdProductoColor(String idProductoColor) {
+        this.idProductoColor = idProductoColor;
+    }
+
     @Override
     public String toString() {
-        return "ProducctoDTO{" + "idProducto=" + idProducto + ", cantidad=" + cantidad + ", valorUnitario=" + valorUnitario + ", Stock=" + Stock + '}';
+        return "ProducctoDTO{" + "idProducto=" + idProducto + ", cantidad=" + cantidad + ", valorUnitario=" + valorUnitario + ", idProductoColor=" + idProductoColor + ", Stock=" + Stock + '}';
     }
     
 }

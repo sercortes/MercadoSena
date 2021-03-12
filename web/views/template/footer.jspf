@@ -45,8 +45,8 @@
 </c:if>
 
 <c:if test="${ USER.idRol==3}">
-    <script src="./assets/js/project/carrito/pagar/vendedor/querys.js"></script>
-    <script src="./assets/js/project/carrito/pagar/vendedor/generar.js"></script>
+    <script src="./assets/js/project/realizarVenta/vendedor/querys.js"></script>
+    <script src="./assets/js/project/realizarVenta/vendedor/generar.js"></script>
 </c:if>
 
 <c:if test="${not empty USER}">

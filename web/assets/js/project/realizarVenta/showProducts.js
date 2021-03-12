@@ -137,3 +137,7 @@ function money(dolar) {
     return dolar.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
 }
 
+$("#modalFactura").on("hidden.bs.modal", function () {
+    $('#cargas').addClass('is-active');
+    productosRamdom()
+});

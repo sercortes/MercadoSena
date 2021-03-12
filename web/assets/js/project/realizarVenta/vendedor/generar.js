@@ -225,9 +225,9 @@ function generateFactura(data) {
                             <div class="col-md-6">
                                 <div class="billing">
                                     <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">$${money(data.valorVenta)}</span></div>
-                                    <div class="d-flex justify-content-between mt-2"><span class="text-success">Descuento</span><span class="font-weight-bold text-success">$0</span></div>
+                                    <div class="d-flex justify-content-between mt-2"><span class="text-success">Descuento</span><span class="font-weight-bold text-success">$${money(data.descuento)}</span></div>
                                     <hr>
-                                    <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold text-success">$${money(data.valorVenta)}</span></div>
+                                    <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold text-success">$${money(data.valorVenta - data.descuento)}</span></div>
                                 </div>
                             </div>
                         <hr>

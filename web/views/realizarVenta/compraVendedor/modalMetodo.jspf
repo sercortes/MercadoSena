@@ -89,6 +89,12 @@
                             </select> 
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 ml-auto">
+                            <label for="inputPassword4">Descuento</label>
+                            <input type="number" class="form-control" id="descuento" name="descuento" minlength="0" max="10000000"  placeholder="$" oninput="validity.valid||(value='');" required>
+                        </div>
+                    </div>
                 </div>  
 
             </div>
