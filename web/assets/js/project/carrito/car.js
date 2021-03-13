@@ -39,7 +39,7 @@ function showCar() {
         if (item.imagenUnitaria !== undefined) {
             str += `<img src="${item.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">`
         } else {
-            str += `<img src="${item.imagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`
+            str += `<img src="${item.listaImagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`
         }
         str += `</td>
                    <td> 

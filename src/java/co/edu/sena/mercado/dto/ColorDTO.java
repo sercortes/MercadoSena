@@ -14,6 +14,8 @@ public class ColorDTO {
     private String idColor;
     private String nombreColor;
     private String hexa;
+    
+    private int cantidad;
 
     public ColorDTO() {
     }
@@ -48,9 +50,17 @@ public class ColorDTO {
         this.hexa = hexa;
     }
 
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
     @Override
     public String toString() {
-        return "ColorDTO{" + "idColor=" + idColor + ", nombreColor=" + nombreColor + ", hexa=" + hexa + '}';
+        return "ColorDTO{" + "idColor=" + idColor + ", nombreColor=" + nombreColor + ", hexa=" + hexa + ", cantidad=" + cantidad + '}';
     }
     
 }

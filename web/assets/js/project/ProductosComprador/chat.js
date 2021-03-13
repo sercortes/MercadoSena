@@ -10,16 +10,17 @@ $(document).on('click', '.botonChat', function (e) {
     }
 
     let rol = getRol();
+    if (rol == 3) {
+        messageInfo('Opción no permitida')
+        return false
+    }
     $('#preguntarModal').modal('show');
     interacion = 0;
     let parent = $(this)[0].parentElement.parentElement;
     idProducto = $(parent).attr('idProducto');
 
-    if (rol == 3) {
-        $('#buttonChat').hide()
-    } else {
-        $('#buttonChat').show()
-    }
+    $('#buttonChat').show()
+    
 
 })
 

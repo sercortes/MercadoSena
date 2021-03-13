@@ -76,7 +76,7 @@ function generateTableBuscadorP() {
           <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}">`
         str += `<div id="carouselExampleControls${num}" class="carousel slide hijueputa" data-ride="carousel">
                     <div class="carousel-inner" id="caruselOne${num}">`
-        str += getImages(item.idProducto, num)
+        str += getImages(item.listaImagenes, num)
         str += `</div>`
         str += `<figcaption class="p-3 card-img-bottom">
                 <hr>

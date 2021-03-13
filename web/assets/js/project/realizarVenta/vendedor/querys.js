@@ -99,6 +99,8 @@ function selectPersona() {
             } else if (datas == 01) {
                 input('documentoUsu', 'Número de documento ya utilizado, busque al cliente')
             } else {
+                $('#documentvalue').val('')
+                document.getElementById('ouputSearch').innerHTML = ''
                 cleanModalResgistrarVenta(datas)
             }
 

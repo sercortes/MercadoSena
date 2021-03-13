@@ -56,22 +56,18 @@ function generatesTable(data) {
             },
             {
                 "mData": "stockProducto",
-                "className": "align-middle selectsss", 
-                "mRender": function (data, type, row) {
-                    let str = ``
-                    str += `<select class="form-control float-right selectss" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`;
-                    for (var i = 1; i <= data; i++) {
-                        str += `<option>${i}</option>`
-                    }
-                    return str
-                }
-            },
-            {
-                "mData": "idProductoColor",
                 "className": "align-middle", 
                 "mRender": function (data, type, row) {
-                   return `<div class="align-middle" idProductoColor="${data}">
-                    <a id="addItemVendedor" href="#" class="text-dark"><i class="fas fa-plus-square fa-3x naranja"></i></a>
+                    return `<strong>${data}</strong>`
+                    }
+            },
+            {
+                "mData": "idProductoColor", "mData": "idProducto",
+                "className": "align-middle", 
+                "mRender": function (data, type, row) {
+                   return `<div class="align-middle" idProductoColor="${row.idProductoColor}" idProducto="${row.idProducto}">
+                    <a id="" href="#" class="watchVendedor text-dark"><i class="fas fa-tasks naranja fa-2x"></i></a>
+                    <a id="addItemVendedor" href="#" class="text-dark"><i class="fas fa-plus-square naranja fa-2x"></i></a>
                   </div>`
                 }
             },
@@ -107,15 +103,54 @@ $(document).on('click', '#addItemVendedor', function (e) {
     e.preventDefault();
     let parent = $(this)[0].parentElement
     let idProducto = $(parent).attr('idProductoColor')
-    var parentsOne = $(this)[0].parentElement.parentElement.parentElement
     let producto = arraytotal.find(element => element.idProductoColor === idProducto);
     messageAddCar('Agregado')
-    let cantidad = parseInt(parentsOne.querySelector('.selectss').value)
+//    let cantidad = parseInt(parentsOne.querySelector('.selectss').value)
+    addCar(producto, 1) 
+})
+
+
+$(document).on('click', '.watchVendedor', function (e) {
+
+    e.preventDefault()
+    let parent = $(this)[0].parentElement
+    let idPro = $(parent).attr('idProducto')
+    let producto = arraytotal.find(element => element.idProducto === idPro);
+    $('#detailsProduct').modal('show')
+    producto.imagenes = []
+    let pro = {
+        url:producto.imagenUnitaria
+    }
+    producto.imagenes.push(pro)
+    detailsProductsVendedor(producto)
+
+})
+
+function detailsProductsVendedor(producto) {
+    caruselImagenes(producto.imagenes)
+    textProduct(producto)
+}
+
+$(document).on('click', '.addItemVendedor', function (e) {
+    
+    e.preventDefault();
+    let parent = $(this)[0].parentElement
+    let idProducto = $(parent).attr('idProducto')
+    let producto = arraytotal.find(element => element.idProducto === idProducto);
+    this.disabled = true
+    let cantidad = parseInt($('#cantidadSelect').val())
+    if (isNaN(cantidad)) { 
+        messageInfo('agotado')
+        return false
+    }
+    messageAddCar('Agregado')
+    let colors = $('#colorSelect').val();
+    producto.idProductoColor = colors
+    let textColor = document.getElementById('colorSelect')
+    let nombreColor = textColor.options[textColor.selectedIndex].text
+    producto.color = nombreColor
     addCar(producto, cantidad)
 
-//     console.log(parentsOne.childNodes[4])
-//     console.log(parentsOne.querySelector('.selectss'))
-     
 })
 
 function generateTable(){
@@ -138,6 +173,9 @@ function money(dolar) {
 }
 
 $("#modalFactura").on("hidden.bs.modal", function () {
+    
     $('#cargas').addClass('is-active');
+    $('#example').DataTable().destroy();
     productosRamdom()
+
 });

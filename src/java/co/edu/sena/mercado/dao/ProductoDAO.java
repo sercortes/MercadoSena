@@ -249,36 +249,25 @@ public class ProductoDAO {
 
     public Producto buscarProducto(int idProducto) {
         try {
-            String sql = "SELECT PR.*, EM.idEmpresa, CP.nombreCategoria FROM producto PR INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa INNER JOIN categoriaproducto CP ON PR.idCategoriaFK=CP.idCategoria WHERE PR.idProducto= ?";
+            String sql = "SELECT MP.nombreMarca, P.diasEnvioProducto, P.medidasProducto, P.empaqueProducto, "
+                    + "P.embalajeProducto, P.ventajasProducto, P.garantia, P.referencia "
+                    + "FROM producto P "
+                    + "INNER JOIN marcaProducto MP ON P.marcaProductoFK=MP.idMarca "
+                    + "WHERE P.idProducto = ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, idProducto);
             rs = ps.executeQuery();
             Producto producto = new Producto();
-            Categorys categorys;
             while (rs.next()) {
                 producto = new Producto();
-                producto.setIdProducto(rs.getString("idProducto"));
-                producto.setNombreProducto(rs.getString("nombreProducto"));
-                producto.setValorProducto(rs.getDouble("valorProducto"));
-                producto.setStockProducto(rs.getInt("stockProducto"));
-                producto.setMarcaProducto(rs.getString("marcaProductoFK"));
-                producto.setDescripcionProducto(rs.getString("descripcionProducto"));
-                producto.setIdCategoriaFK(rs.getString("idCategoriaFK"));
-                producto.setDiasEnvios(rs.getString("diasEnvioProducto"));
-                producto.setMedidaProducto(rs.getString("medidasProducto"));
-                producto.setEmpaqueProducto(rs.getString("empaqueProducto"));
-                producto.setEmbalajeProducto(rs.getString("embalajeProducto"));
-                producto.setVentajaProducto(rs.getString("ventajasProducto"));
-                producto.setNombreCategoria(rs.getString("CP.nombreCategoria"));
-                producto.setIdEmpresaFK(rs.getString("idEmpresaFK"));
-
-//                if (!StringUtils.isNullOrEmpty(rs.getString("fechaVencimiento"))) {
-//                     producto.setFechaVencimiento(rs.getString("fechaVencimiento"));
-//                }
-                categorys = new Categorys();
-                categorys.setNombreCategoria(rs.getString("CP.nombreCategoria"));
-                producto.setCategorys(categorys);
-
+                producto.setMarcaProducto(rs.getString("MP.nombreMarca"));
+                producto.setDiasEnvios(rs.getString("P.diasEnvioProducto"));
+                producto.setMedidaProducto(rs.getString("P.medidasProducto"));
+                producto.setEmpaqueProducto(rs.getString("P.empaqueProducto"));
+                producto.setEmbalajeProducto(rs.getString("P.embalajeProducto"));
+                producto.setVentajaProducto(rs.getString("P.ventajasProducto"));
+                producto.setGarantia(rs.getString("P.garantia"));
+                producto.setReferencia(rs.getString("P.referencia"));
             }
             return producto;
         } catch (Exception e) {
