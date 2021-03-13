@@ -2,16 +2,7 @@
 
 function consultarDatosFormulario(res) {
 
-
-//    consultaTipoDoc();
-//    consultagenero();
-//    consultaCiudad('#ciudad', 'ciudadUsuario');
-
-//    if (res === 'si') {
-//        modalRegistroRe();
-//    } else {
     modalRegistro();
-//    }
 
 }
 
@@ -24,9 +15,7 @@ function consultaTipoDoc(valor, div) {
         divE = div;
         tipDoc = 'tipoDocUsuarioRec';
     }
-//    console.log(divE);
-//    console.log(tipDoc);
-//    console.log(div);
+    
     $('#carga').addClass('is-active');
     $.ajax({
         url: "./registro?accion=consultaTipoDoc",
@@ -382,104 +371,6 @@ function limpiarFormulario(formularioRec) {
     }
     // campo1[0].focus();
 }
-//
-//function consultarDatosFormularioEmpresa() {
-//    consultaCiudad('#ciudadEmpresa', 'idCiudadEmpresa');
-//}
-
-
-//$('#registroEmpresa').submit(function (e) {
-//
-//    // $('#registrarUsuario').click(function(e) {
-//    e.preventDefault();
-//    e.stopPropagation();
-//
-//    var formulario = $("#registroEmpresa");
-//    var datosVal = [
-//        nombreEmpresa = $('#nombreEmpresa').val(),
-//        celularEmpresa = $('#celularEmpresa').val(),
-//        telefonoEmpresa = $('#telefonoEmpresa').val(),
-//        direccionEmpresa = $('#direccionEmpresa').val(),
-//        idCiudadEmpresa = $('#idCiudadEmpresa').val()
-//    ];
-//    //console.log(datosVal);
-//    var arrayinputs = ["#nombreEmpresa", "#celularEmpresa", "#telefonoEmpresa", "#direccionEmpresa", "#idCiudadEmpresa"];
-//    for (var i = 0; i < formulario.datosVal; i++) {
-//        $(datosVal[i]).removeClass('is-invalid');
-//    }
-//
-//    if ($('#registroEmpresa')[0].checkValidity() && valCampos(datosVal)) {
-//        if (validarNumero(celularEmpresa) === false) {
-//            messageInfo('Por favor ingrese solo números');
-//        } else if (validarNumero(telefonoEmpresa) === false) {
-//            messageInfo('Por favor ingrese solo números');
-//        } else {
-//
-//            var arrayinputs = ["#nombreEmpresa", "#celularEmpresa", "#telefonoEmpresa", "#direccionEmpresa", "#idCiudadEmpresa"];
-//
-//            for (var i = 0; i < arrayinputs.length; i++) {
-//                $(arrayinputs[i]).removeClass('is-invalid').addClass('is-valid');
-//            }
-//
-//            event.preventDefault();
-//            event.stopPropagation();
-//            event.stopImmediatePropagation();
-//            var datos = $('#registroEmpresa').serialize();
-//            var btn = document.getElementById('registrarEmpresa');
-//            $('#carga').addClass('is-active');
-//            btn.disabled = true;
-//
-//            $.ajax({
-//                url: "./registro?accion=registroEmpresa&" + datos,
-//                type: 'POST',
-//                contentType: false,
-//                processData: false,
-//                success: function (data) {
-//
-//                    if (data == 1) {
-//                        messageOk('Empresa actualizada exitosamente');
-//                        cleanFormOne()
-//                    } else if (data == 2) {
-//                        messageError('Nombre/razón social ya se ecuentra registrada');
-//                    } else if (data == 3) {
-//                        messageError('Error');
-//                    } else {
-//                        messageError('Default');
-//                    }
-//
-//
-//                }
-//            })
-//        }
-//    } else {
-//
-//        formulario.addClass('was-validated');
-//    }
-//
-//})
-
-//function cleanFormOne() {
-//    var formulario = $("#registroEmpresa");
-//    var btn = document.getElementById('registrarEmpresa');
-//    $('#carga').removeClass('is-active');
-//    limpiarFormulario('#registroEmpresa');
-//    formulario.addClass('was-validated');
-//    btn.disabled = false;
-//}
-//
-//function modalPregunta() {
-//    $('#modalPregunta').toggle();
-//    $('#bloqueo').toggle();
-//}
-
-//function modalRegistroEmpresa() {
-//
-//    consultarDatosFormularioEmpresa();
-//    $('#modalPregunta').remove();
-//    $('#bloqueo').toggle();
-//    $('#modalregistrarEmp').modal();
-//
-//}
 
 function cerrarmodla() {
     location.reload();

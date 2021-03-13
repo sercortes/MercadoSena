@@ -30,6 +30,8 @@ $(document).on('click', '#registrarVenta', function (e) {
 function registroPersona() {
 
     let arraf = JSON.parse(localStorage.getItem('objects'));
+    let descuento = document.getElementById('descuento').value
+    let total = 0
 
     if (arraf.length <= 0) {
         messageInfo('No hay elementos en el carrito')
@@ -39,6 +41,19 @@ function registroPersona() {
     if (!checkInputs2()) {
         messageInfo('complete el formulario')
         return false
+    }
+    
+    for(var item of arraf){
+        total += item.valorProducto*item.cantidad;
+    }
+    
+    if (descuento >= total) {
+        input('descuento', 'descuento no válido')
+        return false
+    }
+    
+    if (descuento == '') {
+        descuento = 0;
     }
 
     let tipoD = document.getElementById('tipoDocumento').value
@@ -61,9 +76,11 @@ function registroPersona() {
             nombre: nombre,
             apellido: apellido,
             direccion: direccion,
-            metodoPago: metodoPago
+            metodoPago: metodoPago,
+            descuento:descuento
         }, error: function (datas) {
             messageInfo('Error en los productos')
+            $('#cargas').removeClass('is-active');
         },
         success: function (datas) {
 
@@ -146,12 +163,13 @@ function cleanCar() {
 function cleanModalResgistrarVenta(data) {
 
     messageOk('Venta registrada')
+    $('#descuento').val('')
     generateFactura(data)
     $('#metodoPago').prop('selectedIndex', 0);
     $('#formularioNewUser').trigger("reset");
     $('#modalMetodoPago').modal('hide')
-    cleanCar()
     $('#modalFactura').modal('show')
+    cleanCar()
     updateIconNumber()
 
 }

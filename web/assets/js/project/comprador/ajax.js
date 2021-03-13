@@ -1,20 +1,4 @@
 
-
-//function consultarDatosFormulario(res) {
-//
-//    $('#exampleModal').modal('hide');
-//    
-////    consultaTipoDoc();
-////    consultagenero();
-////    consultaCiudad('#ciudad', 'ciudadUsuario');
-//
-//    if (res === 'si') {
-//        modalRegistroRe();
-//    } else {
-//        modalRegistro();
-//    }
-//}
-
 function consultaTipoDoc(valor, div) {
     var divE = '#tipoDoc';
     var tipDoc = 'tipoDocUsuario';
@@ -92,18 +76,6 @@ function consultaCiudad(idDiv, idInput, valor) {
     })
 
 }
-
-//function modalRegistro() {
-//    $('body').attr('Style', '');
-//    $('#bloqueo').toggle();
-//    $('#modalRegistro').toggle();
-//}
-//function modalRegistroRe() {
-//
-//    $('body').attr('Style', 'overflow: hidden');
-//    $('#bloqueo').toggle();
-//    $('#modalRegistro').toggle();
-//}
 
 function selects(datos, idDiv, idInput, valor, accion) {
     valor = parseInt(valor);
@@ -214,74 +186,7 @@ function selects(datos, idDiv, idInput, valor, accion) {
     }
 }
 
-
-
-$('#registroUsuario').submit(function (e) {
-    
-    e.preventDefault();
-    e.stopPropagation();
-
-    var formulario = $("#registroUsuario");
-    var datosVal = [
-        nombreUsuario = $('#nombreUsuario').val(),
-        apellidoUsuario = $('#apellidoUsuario').val(),
-        correoUsuario = $('#correoUsuario').val(),
-        celularUsuario = $('#celularUsuario').val(),
-        documentoUsuario = $('#documentoUsuario').val(),
-        ciudadUsuario = $('#ciudadUsuario').val(),
-        tipoDocUsuario = $('#tipoDocUsuario').val,
-        generoUsuario = $('#generoUsuario').val()
-
-    ];
-    // console.log(datosVal);
-
-    if ($('#registroUsuario')[0].checkValidity() && valCampos(datosVal) && validarClave()) {
-        $('#carga').addClass('is-active');
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-        var datos = $('form#registroUsuario').serialize();
-        var btn = document.getElementById('registrarUsuario');
-        btn.disabled = true;
-
-        $.ajax({
-            url: "./registro?accion=registrarUsuario&" + datos,
-            type: 'POST',
-            contentType: false,
-            processData: false,
-            error: function (jqXHR, textStatus, errorThrown) {
-                btn.disabled = false;
-                $('#carga').removeClass('is-active');
-                modalRegistro();
-                messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
-            },
-            success: function (data) {
-
-                $('#carga').removeClass('is-active');
-                modalRegistro();
-                if (data === 'true') {
-
-                    messageInfo('Registro realizado, hemos enviado al correo registrado sus datos de ingreso y el link de activación para su cuenta.')
-                } else {
-                    messageError('Error al relizar el registro');
-                }
-
-                limpiarFormulario('#registroUsuario');
-                formulario.addClass('was-validated');
-                btn.disabled = false;
-            }
-        })
-
-    } else {
-
-        formulario.addClass('was-validated');
-    }
-})
-
-//    s
-
 //validarclaves
-
 
 function validarClave() {
     var con1 = $('#clave1').val();
@@ -357,67 +262,6 @@ function limpiarFormulario(formularioRec) {
 function consultarDatosFormularioEmpresa() {
     consultaCiudad('#ciudadEmpresa', 'idCiudadEmpresa');
 }
-
-
-$('#registroEmpresa').submit(function (e) {
-
-    // $('#registrarUsuario').click(function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    var formulario = $("#registroEmpresa");
-    var datosVal = [
-        nombreEmpresa = $('#nombreEmpresa').val(),
-        celularEmpresa = $('#celularEmpresa').val(),
-        telefonoEmpresa = $('#telefonoEmpresa').val(),
-        correoEmpresa = $('#correoEmpresa').val(),
-        direccionEmpresa = $('#direccionEmpresa').val(),
-        idCiudadEmpresa = $('#idCiudadEmpresa').val()
-
-
-    ];
-    //console.log(datosVal);
-
-    if ($('#registroEmpresa')[0].checkValidity() && valCampos(datosVal)) {
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-        var datos = $('#registroEmpresa').serialize();
-        var btn = document.getElementById('registrarEmpresa');
-        $('#carga').addClass('is-active');
-        btn.disabled = true;
-
-        $.ajax({
-            url: "./registro?accion=registroEmpresa&" + datos,
-            type: 'POST',
-            contentType: false,
-            processData: false, error: function (jqXHR, textStatus, errorThrown) {
-                btn.disabled = false;
-                $('#carga').removeClass('is-active');
-                $('#modalRegistroEmpresa').hide();
-                $('#bloqueo').hide();
-                messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.')
-            },
-            success: function (data) {
-
-                $('#carga').removeClass('is-active');
-                if (data === 'true') {
-                    cerrar('#modalRegistroEmpresa');
-                    //messageOk('Empresa registrada exitosamente');
-                } else {
-                    messageError('Error al realizar el registro');
-                }
-                limpiarFormulario('#registroEmpresa');
-                formulario.addClass('was-validated');
-                btn.disabled = false;
-            }
-        })
-
-    } else {
-
-        formulario.addClass('was-validated');
-    }
-})
 
 function modalPregunta() {
     $('#modalPregunta').toggle();

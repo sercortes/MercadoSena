@@ -2,6 +2,8 @@
 <%@include file="/views/template/head.jspf"%>
 <%@include file="/views/template/header.jspf"%>
 
+<%@include file="/views/realizarVenta/modalVerProducto.jspf"%>
+
 <c:if test="${USER.idRol != 3 || empty USER.idRol}">
     <c:redirect url="./home"/>
 </c:if>
@@ -17,7 +19,7 @@
 
         <div class="col-lg-12 p-5 bg-white rounded shadow-sm mb-5">
 
-            <table id="example" class="table table-hover table-striped table-borderless">
+            <table id="example" class="table table-hover table-striped table-borderless table-responsive">
                             
                 <thead class="gris text-center">
                                 <tr class="bg-primary">
@@ -26,7 +28,7 @@
                                     <th class="text-left" scope="col">Valor producto</th>
                                     <th class="text-left" scope="col">Color</th>
                                     <th class="align-middle" scope="col">Cantidad</th>
-                                    <th class="align-middle" scope="col">Agregar</th>
+                                    <th class="align-middle" scope="col">Opciones</th>
                                 </tr>
                             </thead>
                             <tfoot class="gris text-center">
@@ -36,7 +38,7 @@
                                     <th class="align-middle" scope="col">Valor producto</th>
                                     <th class="align-middle" scope="col">Color</th>
                                     <th class="align-middle" scope="col">Cantidad</th>
-                                    <th class="align-middle" scope="col">Agregar</th>
+                                    <th class="align-middle" scope="col">Opciones</th>
                                 </tr>
                             </tfoot>
                         </table>

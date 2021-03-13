@@ -132,27 +132,12 @@ public class RutasVendedor extends HttpServlet {
                 Connection conn = conexion.getConnection();
                 ciudadDAO cDAO = new ciudadDAO(conn);
                 listaCiudad = cDAO.ListCiudades();
-
-//                listaTipoDoc = new ArrayList<>();
-//                listaTipoDoc = tipoDocDAO.listarTipoDoc();
-//                listaGenero = new ArrayList<>();
-//                listaGenero = generoDAO.listarGenero();
-
                 request.setAttribute("listaCiudad", listaCiudad);
-
-//                request.setAttribute("listaTipoDoc", listaTipoDoc);
-//                request.setAttribute("listaGenero", listaGenero);
-
                 cDAO.CloseAll();
                 rd = request.getRequestDispatcher("/views/actualizar/actualizarDatos.jsp");
                 rd.forward(request, response);
         
     }
-
-            @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -174,5 +159,9 @@ public class RutasVendedor extends HttpServlet {
         }
     }
 
+        @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
     
 }

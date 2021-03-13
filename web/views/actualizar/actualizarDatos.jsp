@@ -38,12 +38,6 @@
                             Modificar contraseña
                         </a>
                     </li>
-                    <li class="nav-item ocultar" >
-                        <a data-toggle="pill" href="#nav-tab-empresa" class="nav-link rounded-pill" id="opcionEmpresa" >
-                            <!--<i class="fa fa-building" style="color: rgb(252, 115, 30)" ></i>-->
-                            Registrar empresa
-                        </a>
-                    </li>
                 </ul>
 
 

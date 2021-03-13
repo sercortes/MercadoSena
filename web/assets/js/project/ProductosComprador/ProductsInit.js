@@ -16,7 +16,6 @@ $(function () {
             interval: 2100,
         })
         $('#cargas').addClass('is-active');
-//        setTimeout(function(){listarProductoByDateTime()},3000); 
         $('#pagee').show()
         listarProductoByDateTime()
     }
@@ -82,13 +81,11 @@ function getImages(idpro, nume) {
         },
         datatype: 'json'
     }).done(function (data) {
-
+        
         let producto = records.find(item => item.idProducto === data[0].idProductoFK)
         producto.imagenes = data
         arregloFinal.push(producto)
-
         let num = 0;
-
         for (var item of data) {
             if (num === 0) {
                 str += `<div class="carousel-item active">
@@ -112,7 +109,6 @@ function getImages(idpro, nume) {
                         <span class="sr-only">Siguiente</span>
                     </a>`
         }
-
     })
 
     return str
@@ -121,7 +117,6 @@ function getImages(idpro, nume) {
 
 function generateTableBuscador() {
 
-    let select = document.getElementById('tabla');
     let str = ``
     let num = 1
 
@@ -162,24 +157,12 @@ function generateTableBuscador() {
 
     }
 
-    select.innerHTML = str;
+    document.getElementById('tabla').innerHTML = str;
     setTimeout(() => $('.hijueputa').carousel({
             interval: 3100,
         }), 1000)
 
 }
-
-$(document).on('click', '.addProductOne', function (e) {
-
-    e.preventDefault()
-    let parent = $(this)[0].parentElement
-    let idProducto = $(parent).attr('idProductoColor')
-    let producto = arregloFinal.find(element => element.idProductoColor === idProducto);
-    messageAddCar('Agregado')
-    addCar(producto, 1)
-
-})
-
 
 $(document).on('click', '.watch', function (e) {
 
@@ -193,7 +176,7 @@ $(document).on('click', '.watch', function (e) {
 })
 
 function detailsProduct(producto) {
-
+    
     caruselImagenes(producto.imagenes)
     textProduct(producto)
 
@@ -202,14 +185,13 @@ function detailsProduct(producto) {
 function textProduct(item) {
     
     let colors = getColors(item.idProducto)
-    let page = window.location.pathname;
-
+    let producto = getProductByid(item.idProducto)
+    
     let str = '';
     str += `<div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
                 <h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
             <hr>`
-    
-    if (page !== '/Store/Products') {    
+        
         str += `<a id="addItem" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`;
         str += `<i class="fas fa-shopping-cart"></i> Añadir al carrito</a>`;
         str += `<select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`;
@@ -218,11 +200,13 @@ function textProduct(item) {
         }
         str += `</select>`
         str += `<select class="form-control float-right" id="colorSelect" style="width:auto;height:auto;margin-right: 2%;">`;
+        str += `<option value="${item.idProductoColor}">${item.color}</option>`
         for (var it of colors) {
-            str += `<option value="${it.idColor}">${it.nombreColor}</option>`
+            if (it.idColor !== item.idProductoColor) {
+                str += `<option value="${it.idColor}">${it.nombreColor}</option>` 
+            }
         }
         str += `</select>`
-    }    
     
     str += `<p class="font-weight-bold text-muted h5 text-left">$ ${money(item.valorProducto)}</p>
               <h4 class="mb-0 pb-2 text-left">Marca: ${item.marcaProducto}</h4>
@@ -297,14 +281,23 @@ function caruselImagenes(data) {
 }
 
 $(document).on('click', '#addItem', function (e) {
-
+    
     e.preventDefault();
+    let ass = getRol()
+    if (ass == 3) {
+        messageInfo('No puedes agregar el articulo')
+        return false
+    }
     let parent = $(this)[0].parentElement
     let idProducto = $(parent).attr('idProducto')
     let producto = arregloFinal.find(element => element.idProducto === idProducto);
     this.disabled = true
-    messageAddCar('Agregado')
     let cantidad = parseInt($('#cantidadSelect').val())
+    if (isNaN(cantidad)) { 
+        messageInfo('Agotado')
+        return false
+    }
+    messageAddCar('Agregado')
     let colors = $('#colorSelect').val();
     producto.idProductoColor = colors
     let textColor = document.getElementById('colorSelect')
@@ -314,23 +307,21 @@ $(document).on('click', '#addItem', function (e) {
 
 })
 
-function queryEmphy() {
-    $('#cargas').removeClass('is-active');
-    let select = document.getElementById('tabla');
-    let word = document.getElementById('nombreProductoFiltar').value
-    let str =
-            `<div class="col-lg-3">
-                </div>
-            <div class="col-lg-6">
-            <div class="alert alert-warning alert-dismissible fade show" role="alert">
-            Sin resultados! <strong>${word}</strong>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            </div>`
-    select.innerHTML = str;
-}
+$(document).on('click', '.addProductOne', function (e) {
+
+    e.preventDefault()
+    let ass = getRol()
+    if (ass == 3) {
+        messageInfo('No puedes agregar el producto')
+        return false
+    }
+    let parent = $(this)[0].parentElement
+    let idProducto = $(parent).attr('idProductoColor')
+    let producto = arregloFinal.find(element => element.idProductoColor === idProducto);
+    messageAddCar('Agregado')
+    addCar(producto, 1)
+
+})
 
 function getColors(id) {
 
@@ -374,6 +365,10 @@ function getColors(id) {
         }
     }).done(function (data) {
         
+        if (data == 0) {
+            str += `<option value="No">Agotado</option>`
+        }
+        
          for (var i = 1; i <= data; i++) {
             str += `<option>${i}</option>`
         }
@@ -383,3 +378,29 @@ function getColors(id) {
  document.getElementById('cantidadSelect').innerHTML = str  
     
 });
+
+function getProductByid(id) {
+
+    $('#cargas').addClass('is-active');
+    
+    let pro = ''
+    
+    $.ajax({
+        type: "POST",
+        url: './obtenerProducto',
+        async: false,
+        datatype: 'json',
+        data: {
+            idProducto: id
+        }
+    }).done(function (data) {
+        
+        pro = data
+
+        $('#cargas').removeClass('is-active')
+
+    })
+
+    return pro
+
+}

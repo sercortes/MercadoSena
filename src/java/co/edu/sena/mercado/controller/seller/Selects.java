@@ -156,17 +156,13 @@ public class Selects extends HttpServlet {
         ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
 //        productoImagenesDTO productoImagenesDTO = new productoImagenesDTO();
         Producto producto = new Producto();
-
         producto = productoDAO.buscarProducto(Integer.parseInt(request.getParameter("idProducto")));
 //        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
 //        ArrayList<ImagenesProducto> listaImagenes= imagenesProductosDAO.getImagenesByProduc(producto.getIdProducto());
-        
 //        productoImagenesDTO.setProducto(producto);
 //        productoImagenesDTO.setImagenes(listaImagenes);
-        
         response.setContentType("application/json");
         productoDAO.CloseAll();
-        
         new Gson().toJson(producto, response.getWriter());
 
     }

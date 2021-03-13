@@ -127,9 +127,11 @@ public class PersonasNaturalDAO {
             }
             return idUsuario;
         } catch (MySQLIntegrityConstraintViolationException ex) {
+            ex.printStackTrace();
             System.out.println(ex);
             throw new MySQLIntegrityConstraintViolationException();     
         }catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("........error al relizar el registro pde personaDAO " + e);
             System.out.println("........ consulta " + ps.toString());
             throw new Exception();

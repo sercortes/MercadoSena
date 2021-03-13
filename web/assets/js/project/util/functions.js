@@ -150,3 +150,19 @@ function checkData() {
     return estatus;
 
 }
+
+function queryEmphy() {
+    $('#cargas').removeClass('is-active');
+    let str =
+            `<div class="col-lg-3">
+                </div>
+            <div class="col-lg-6">
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            Sin resultados! <strong>${document.getElementById('nombreProductoFiltar').value}</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+            </div>
+            </div>`
+    document.getElementById('tabla').innerHTML = str;
+}
