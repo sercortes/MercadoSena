@@ -1,5 +1,8 @@
-$(document).ready(function () {
 
+$(document).ready(function () {
+     
+    console.time('loop');
+        
     if (window.location.pathname === '/Store/') {
         $('#pagee').hide()
         $('#cargas').addClass('is-active');
@@ -13,6 +16,21 @@ $(document).ready(function () {
     }
 
 })
+
+function productosRamdom(){
+    
+      $.ajax({
+        type: "POST",
+        url: './getProductsRandom',
+        async: true,
+        datatype: 'json'
+    }).done(function (data) {
+            
+       generatePageQuery(data, 12)
+
+    })
+    
+}
 
 $('#desplegarMenu').click(function () {
 

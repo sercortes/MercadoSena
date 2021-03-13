@@ -57,22 +57,21 @@ public class ImagenesProductosDAO {
        public ArrayList<ImagenesProducto> getImagenesByProduc(String id) {
            List<ImagenesProducto> list = new ArrayList<ImagenesProducto>();
         try {
-            String sql = "SELECT idImagenPro, urlProducto, idProductoImageFK FROM imagenesproductos IP "
-                    + "inner join producto P ON IP.idProductoImageFK = P.idProducto WHERE IP.idProductoImageFK = ?";
+            String sql = "SELECT urlProducto FROM imagenesproductos IP "
+                    + "inner join producto P ON IP.idProductoImageFK = P.idProducto "
+                    + "WHERE IP.idProductoImageFK = ?";
             ps = conn.prepareStatement(sql);
             ps.setString(1, id);
             rs = ps.executeQuery();
             ImagenesProducto imagenesProducto;
             while (rs.next()) {
                 imagenesProducto = new ImagenesProducto();
-                imagenesProducto.setIdImagen(rs.getString("idImagenPro"));
                 imagenesProducto.setUrl(rs.getString("urlProducto"));
-                imagenesProducto.setIdProductoFK(rs.getString("idProductoImageFK"));
-                
                 list.add(imagenesProducto);
             }
             return (ArrayList<ImagenesProducto>) list;
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e);
             return null;
         }

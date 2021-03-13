@@ -253,7 +253,7 @@ public class ProductoDAO {
                     + "P.embalajeProducto, P.ventajasProducto, P.garantia, P.referencia "
                     + "FROM producto P "
                     + "INNER JOIN marcaProducto MP ON P.marcaProductoFK=MP.idMarca "
-                    + "WHERE P.idProducto= ?";
+                    + "WHERE P.idProducto = ?";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, idProducto);
             rs = ps.executeQuery();
@@ -264,6 +264,7 @@ public class ProductoDAO {
                 producto.setDiasEnvios(rs.getString("P.diasEnvioProducto"));
                 producto.setMedidaProducto(rs.getString("P.medidasProducto"));
                 producto.setEmpaqueProducto(rs.getString("P.empaqueProducto"));
+                producto.setEmbalajeProducto(rs.getString("P.embalajeProducto"));
                 producto.setVentajaProducto(rs.getString("P.ventajasProducto"));
                 producto.setGarantia(rs.getString("P.garantia"));
                 producto.setReferencia(rs.getString("P.referencia"));

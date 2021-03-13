@@ -73,7 +73,7 @@ public class ProductorDAOQuerys {
             + "WHERE PR.estadoProducto =  2  "
             + "AND PC.stockProducto > 0  "
             + "GROUP BY PR.idProducto "
-            + "ORDER by rand() LIMIT 12";
+            + "ORDER by PR.idProducto DESC LIMIT 200";
             ps = conn.prepareStatement(sql);
             rs = ps.executeQuery();
             List<Producto> list = new ArrayList<Producto>();

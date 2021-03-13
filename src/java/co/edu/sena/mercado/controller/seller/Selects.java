@@ -10,6 +10,7 @@ import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoColorDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
 import co.edu.sena.mercado.dao.empresaDAO;
+import co.edu.sena.mercado.dto.ColorDTO;
 import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.dto.empresaDTO;
@@ -56,12 +57,6 @@ public class Selects extends HttpServlet {
 
                 break;
 
-            case "/Store/getImagesByProduct":
-
-                getImagesByProduct(request, response);
-
-                break;
-
             case "/Store/obtenerProducto":
 
                 obtenerProducto(request, response);
@@ -96,30 +91,24 @@ public class Selects extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
-        ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
         usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
+        ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
+        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
+        
         ArrayList<Producto> listaProductos = productoDAO.getProductsBySeller(Integer.toString(user.getEmpresa().getIdEmpresa()));
+        
+        listaProductos.forEach((item) -> {
+            ArrayList<ImagenesProducto> listaImagenes
+                    = imagenesProductosDAO.getImagenesByProduc(item.getIdProducto());
+            item.setListaImagenes(listaImagenes);
+        });
+        
         response.setContentType("application/json");
         productoDAO.CloseAll();
+        imagenesProductosDAO.CloseAll();
         new Gson().toJson(listaProductos, response.getWriter());
 
     }
-
-//    private void getImages(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-//
-//        request.setCharacterEncoding("UTF-8");
-//
-//        Conexion conexion = new Conexion();
-//        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
-//
-//        usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
-//        ArrayList<ImagenesProducto> listaImagenes = imagenesProductosDAO.getImagenesByEmpresa(Integer.toString(user.getEmpresa().getIdEmpresa()));
-//
-//        response.setContentType("application/json");
-//        imagenesProductosDAO.CloseAll();
-//        new Gson().toJson(listaImagenes, response.getWriter());
-//
-//    }
 
     private void getImagesByProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -151,16 +140,14 @@ public class Selects extends HttpServlet {
     private void obtenerProducto(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
+        response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
         ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
-//        productoImagenesDTO productoImagenesDTO = new productoImagenesDTO();
+        ProductoColorDAO productoColorDAO = new ProductoColorDAO(new Conexion().getConnection());
         Producto producto = new Producto();
         producto = productoDAO.buscarProducto(Integer.parseInt(request.getParameter("idProducto")));
-//        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
-//        ArrayList<ImagenesProducto> listaImagenes= imagenesProductosDAO.getImagenesByProduc(producto.getIdProducto());
-//        productoImagenesDTO.setProducto(producto);
-//        productoImagenesDTO.setImagenes(listaImagenes);
+        ArrayList<ColorDTO> lista = productoColorDAO.getColorsByProduct(request.getParameter("idProducto"));
+        producto.setListaColores(lista);   
         response.setContentType("application/json");
         productoDAO.CloseAll();
         new Gson().toJson(producto, response.getWriter());

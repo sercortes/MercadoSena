@@ -7,6 +7,7 @@ package co.edu.sena.mercado.controller.seller;
 
 import co.edu.sena.mercado.dao.CategorysDAO;
 import co.edu.sena.mercado.dao.ProductoColorDAO;
+import co.edu.sena.mercado.dto.ColorDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -18,10 +19,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author equipo
- */
 public class SelectsTwo extends HttpServlet {
 
    
@@ -39,50 +36,32 @@ public class SelectsTwo extends HttpServlet {
           String direccion = request.getRequestURI();
 
         switch (direccion) {
-
-            case "/Store/getColorsByProduct":
-
-                getColorsByProduct(request, response);
-
-                break;
                 
-            case "/Store/getStockProduct":
-
-                getStockProduct(request, response);
-
-                break;
+//            case "/Store/getStockProduct":
+//
+//                getStockProduct(request, response);
+//
+//                break;
 
         }
         
     }
 
-    private void getColorsByProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
-       
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        ProductoColorDAO categorysDAO = new ProductoColorDAO(new Conexion().getConnection());
-        ArrayList<?> lista = categorysDAO.getColorsByProduct(request.getParameter("idProducto"));
-        response.setContentType("application/json");
-        categorysDAO.CloseAll();
-        new Gson().toJson(lista, response.getWriter());
+    private void getStockProduct(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+//        request.setCharacterEncoding("UTF-8");
+//        response.setCharacterEncoding("UTF-8");
+//        ProductoColorDAO categorysDAO = new ProductoColorDAO(new Conexion().getConnection());
+//        int cantidad = categorysDAO.getStockProduct(request.getParameter("idProductoColor"));
+//        response.setContentType("application/json");
+//        categorysDAO.CloseAll();
+//        new Gson().toJson(cantidad, response.getWriter());
         
     }
     
-    @Override
+        @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
-    private void getStockProduct(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-        
-        request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        ProductoColorDAO categorysDAO = new ProductoColorDAO(new Conexion().getConnection());
-        int cantidad = categorysDAO.getStockProduct(request.getParameter("idProductoColor"));
-        response.setContentType("application/json");
-        categorysDAO.CloseAll();
-        new Gson().toJson(cantidad, response.getWriter());
-        
-    }
 
 }

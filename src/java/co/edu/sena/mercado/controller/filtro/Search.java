@@ -1,8 +1,10 @@
 
 package co.edu.sena.mercado.controller.filtro;
 
+import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
 import co.edu.sena.mercado.dao.ProductorDAOQuerys;
+import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
@@ -64,8 +66,17 @@ public class Search extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
         ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
+        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
         ArrayList<Producto> listaProductos = productoDAO.getProductsRandom();
+        
+        listaProductos.forEach((item) -> {
+            ArrayList<ImagenesProducto> listaImagenes
+                    = imagenesProductosDAO.getImagenesByProduc(item.getIdProducto());
+            item.setListaImagenes(listaImagenes);
+        });
+        
         productoDAO.CloseAll();
+        imagenesProductosDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
 
@@ -77,7 +88,16 @@ public class Search extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
         ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
+        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
         ArrayList<Producto> listaProductos = productoDAO.getProductsByDateTimeAsc();
+        
+        listaProductos.forEach((item) -> {
+            ArrayList<ImagenesProducto> listaImagenes
+                    = imagenesProductosDAO.getImagenesByProduc(item.getIdProducto());
+            item.setListaImagenes(listaImagenes);
+        });
+        
+        imagenesProductosDAO.CloseAll();
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());

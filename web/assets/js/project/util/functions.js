@@ -151,6 +151,30 @@ function checkData() {
 
 }
 
+function getProductByid(id) {
+
+    $('#cargas').addClass('is-active');
+    let pro = ''
+
+    $.ajax({
+        type: "POST",
+        url: './obtenerProducto',
+        async: false,
+        datatype: 'json',
+        data: {
+            idProducto: id
+        }
+    }).done(function (data) {
+        
+        pro = data
+        $('#cargas').removeClass('is-active')
+
+    })
+
+    return pro
+
+}
+
 function queryEmphy() {
     $('#cargas').removeClass('is-active');
     let str =
