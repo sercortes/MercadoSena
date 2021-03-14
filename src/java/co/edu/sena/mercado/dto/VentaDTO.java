@@ -6,6 +6,8 @@
 package co.edu.sena.mercado.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,7 +16,7 @@ import java.sql.Date;
 public class VentaDTO {
     
    private String idVenta;
-   private Date fechaVenta;
+   private Timestamp fechaVenta;
    private Double valorVenta;
    private String contactoVenta;
    private String formaPago;
@@ -27,6 +29,9 @@ public class VentaDTO {
 
    private personaNaturalDTO perDTO;
    
+   
+  private ArrayList<Producto> listaProductos;
+    
    private double descuento;
    
     public VentaDTO() {
@@ -40,13 +45,7 @@ public class VentaDTO {
         this.idVenta = idVenta;
     }
 
-    public Date getFechaVenta() {
-        return fechaVenta;
-    }
-
-    public void setFechaVenta(Date fechaVenta) {
-        this.fechaVenta = fechaVenta;
-    }
+    
 
     public Double getValorVenta() {
         return valorVenta;
@@ -119,10 +118,28 @@ public class VentaDTO {
     public void setDescuento(double descuento) {
         this.descuento = descuento;
     }
+    
+    public Timestamp getFechaVenta() {
+        return fechaVenta;
+    }
+
+    public void setFechaVenta(Timestamp fechaVenta) {
+        this.fechaVenta = fechaVenta;
+    }
+
+    public ArrayList<Producto> getListaProductos() {
+        return listaProductos;
+    }
+
+    public void setListaProductos(ArrayList<Producto> listaProductos) {
+        this.listaProductos = listaProductos;
+    }
 
     @Override
     public String toString() {
-        return "VentaDTO{" + "idVenta=" + idVenta + ", fechaVenta=" + fechaVenta + ", valorVenta=" + valorVenta + ", contactoVenta=" + contactoVenta + ", formaPago=" + formaPago + ", idEstadoVentaFK=" + idEstadoVentaFK + ", idCompradorFK=" + idCompradorFK + ", idCiudadFK=" + idCiudadFK + ", nombreFormaPago=" + nombreFormaPago + ", perDTO=" + perDTO + ", descuento=" + descuento + '}';
+        return "VentaDTO{" + "idVenta=" + idVenta + ", fechaVenta=" + fechaVenta + ", valorVenta=" + valorVenta + ", contactoVenta=" + contactoVenta + ", formaPago=" + formaPago + ", idEstadoVentaFK=" + idEstadoVentaFK + ", idCompradorFK=" + idCompradorFK + ", idCiudadFK=" + idCiudadFK + ", nombreFormaPago=" + nombreFormaPago + ", perDTO=" + perDTO + ", listaProductos=" + listaProductos + ", descuento=" + descuento + '}';
     }
+
+
     
 }

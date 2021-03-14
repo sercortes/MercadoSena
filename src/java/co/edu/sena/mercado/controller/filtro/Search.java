@@ -23,6 +23,8 @@ public class Search extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        System.out.println("search no soporta GET");
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
     @Override
