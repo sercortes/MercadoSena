@@ -80,6 +80,7 @@ document.getElementById('formOnes').addEventListener('submit', e => {
             if (data === 11) {
                 
                 sessionStorage.setItem('falls', 0);
+                storege()
                 window.location.replace(window.location.pathname);
                 
             } else if (data === 10) {
@@ -99,6 +100,13 @@ document.getElementById('formOnes').addEventListener('submit', e => {
     } 
     
 })
+
+function storege(){
+    if (getRol() == 3) {
+                    var arrayBuy = []
+                    localStorage.setItem('objects', JSON.stringify(arrayBuy))
+                }
+}
 
 function clean() {
     

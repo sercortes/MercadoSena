@@ -62,6 +62,12 @@ public class Selects extends HttpServlet {
                 obtenerProducto(request, response);
 
                 break;
+                
+             case "/Store/getProductoComplete":
+
+                getProductoComplete(request, response);
+
+                break;
             
             case "/Store/getColors":
 
@@ -110,20 +116,6 @@ public class Selects extends HttpServlet {
 
     }
 
-    private void getImagesByProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        request.setCharacterEncoding("UTF-8");
-        Conexion conexion = new Conexion();
-        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
-        ArrayList<ImagenesProducto> listaImagenes
-                = imagenesProductosDAO.getImagenesByProduc(request.getParameter("id"));
-
-        response.setContentType("application/json");
-        imagenesProductosDAO.CloseAll();
-        new Gson().toJson(listaImagenes, response.getWriter());
-
-    }
-
     private void getColors(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         request.setCharacterEncoding("UTF-8");
@@ -153,11 +145,27 @@ public class Selects extends HttpServlet {
         new Gson().toJson(producto, response.getWriter());
 
     }
+
+    private void getProductoComplete(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
+        ProductoColorDAO productoColorDAO = new ProductoColorDAO(new Conexion().getConnection());
+        Producto producto = new Producto();
+        producto = productoDAO.buscarProductoComplete(Integer.parseInt(request.getParameter("idProducto")));
+        ArrayList<ColorDTO> lista = productoColorDAO.getColorsByProduct(request.getParameter("idProducto"));
+        producto.setListaColores(lista);   
+        response.setContentType("application/json");
+        productoDAO.CloseAll();
+        new Gson().toJson(producto, response.getWriter());
+        
+    }
     
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
 
 }

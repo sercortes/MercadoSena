@@ -124,7 +124,7 @@ $(document).on('click', '.watchMyProducts', function (e) {
 
 function detailsProduct(producto) {
 //    $('#modalTittle').text(producto.nombreProducto.toString())
-    caruselImagenes(producto.imagenes)
+    caruselImagenes(producto.listaImagenes)
     textProduct(producto)
 }
 
@@ -191,21 +191,22 @@ $(document).on('click', '.editProduct', function (e) {
     $('#modalEdit').modal('show')
 
     let producto = records.find(element => element.idProducto === idPro)
-    console.log(producto)
-
-    generateImages(producto.imagen)
+    let productoTotal = getProductByidComplete(producto.idProducto)
+    getCategorias(productoTotal.categorys.idcategoria, productoTotal.categorys.nombreCategoria)
+    getMarcassE(productoTotal.idMarca, productoTotal.marcaProducto);
+    generateImages(producto.listaImagenes)
     document.getElementById('idProductoE').value = producto.idProducto
     document.getElementById('nameE').value = producto.nombreProducto
-    document.getElementById('marcaE').value = producto.marcaProducto
-    getCategorias(producto.idCategoriaFK, producto.categorys.nombreCategoria)
     document.getElementById('priceE').value = producto.valorProducto
-    document.getElementById('cantidadE').value = producto.stockProducto
     document.getElementById('descripE').value = producto.descripcionProducto
-    document.getElementById('enviosE').value = producto.diasEnvios
-    document.getElementById('medidasE').value = producto.medidaProducto
-    document.getElementById('empaqueE').value = producto.empaqueProducto
-    document.getElementById('embalajeE').value = producto.embalajeProducto
-    document.getElementById('ventajasE').value = producto.ventajaProducto
+    document.getElementById('precioVendedor').value = productoTotal.precioVendedor
+    document.getElementById('enviosE').value = productoTotal.diasEnvios
+    document.getElementById('medidasE').value = productoTotal.medidaProducto
+    document.getElementById('empaqueE').value = productoTotal.empaqueProducto
+    document.getElementById('embalajeE').value = productoTotal.embalajeProducto
+    document.getElementById('ventajasE').value = productoTotal.ventajaProducto
+    document.getElementById('referencia').value = productoTotal.referencia
+    document.getElementById('garantia').value = productoTotal.garantia
 
 })
 

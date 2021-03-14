@@ -174,8 +174,8 @@ function money(dolar) {
 
 $("#modalFactura").on("hidden.bs.modal", function () {
     
-    $('#cargas').addClass('is-active');
-    $('#example').DataTable().destroy();
-    productosRamdom()
+//    $('#cargas').addClass('is-active');
+//    $('#example').DataTable().destroy();
+//    productosRamdom()
 
 });

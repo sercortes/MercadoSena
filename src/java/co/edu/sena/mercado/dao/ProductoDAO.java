@@ -143,24 +143,28 @@ public class ProductoDAO {
         try {
 
             String sql = "UPDATE producto set nombreProducto = ?, valorProducto = ?, "
-                    + "stockProducto = ?, marcaProductoFK = ?, descripcionProducto = ?, "
+                    + "marcaProductoFK = ?, descripcionProducto = ?, "
                     + "diasEnvioProducto = ?, medidasProducto = ?, empaqueProducto = ?,"
-                    + "embalajeProducto = ?, ventajasProducto = ? "
+                    + "embalajeProducto = ?, ventajasProducto = ?, referencia = ?, "
+                    + "valorProductoVendedor = ?, garantia = ?, idCategoriaFK = ? "
                     + "WHERE idProducto = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
 
             ps.setString(1, producto.getNombreProducto());
             ps.setDouble(2, producto.getValorProducto());
-            ps.setInt(3, producto.getStockProducto());
-            ps.setString(4, producto.getMarcaProducto());
-            ps.setString(5, producto.getDescripcionProducto());
-            ps.setString(6, producto.getDiasEnvios());
-            ps.setString(7, producto.getMedidaProducto());
-            ps.setString(8, producto.getEmpaqueProducto());
-            ps.setString(9, producto.getEmbalajeProducto());
-            ps.setString(10, producto.getVentajaProducto());
-
-            ps.setString(11, producto.getIdProducto());
+            ps.setString(3, producto.getMarcaProducto());
+            ps.setString(4, producto.getDescripcionProducto());
+            ps.setString(5, producto.getDiasEnvios());
+            ps.setString(6, producto.getMedidaProducto());
+            ps.setString(7, producto.getEmpaqueProducto());
+            ps.setString(8, producto.getEmbalajeProducto());
+            ps.setString(9, producto.getVentajaProducto());
+            ps.setString(10, producto.getReferencia());
+            ps.setDouble(11, producto.getPrecioVendedor());
+            ps.setString(12, producto.getGarantia());
+            ps.setString(13, producto.getIdCategoriaFK());
+            
+            ps.setString(14, producto.getIdProducto());
 
             int rows = ps.executeUpdate();
             boolean estado = rows > 0;
@@ -243,6 +247,44 @@ public class ProductoDAO {
         } catch (Exception e) {
             System.out.println(e);
             e.printStackTrace();
+            return null;
+        }
+    }
+    
+     public Producto buscarProductoComplete(int idProducto) {
+        try {
+            String sql = "SELECT MP.nombreMarca, P.diasEnvioProducto, P.medidasProducto, P.empaqueProducto, "
+                    + "P.embalajeProducto, P.ventajasProducto, P.garantia, P.referencia, C.nombreCategoria, "
+                    + "P.idCategoriaFK, P.marcaProductoFK, P.valorProductoVendedor "
+                    + "FROM producto P "
+                    + "INNER JOIN marcaProducto MP ON P.marcaProductoFK=MP.idMarca "
+                    + "INNER JOIN categoriaproducto C ON P.idCategoriaFK=C.idCategoria "
+                    + "WHERE P.idProducto = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idProducto);
+            rs = ps.executeQuery();
+            Producto producto = new Producto();
+            while (rs.next()) {
+                producto = new Producto();
+                producto.setIdMarca(rs.getString("P.marcaProductoFK"));
+                producto.setMarcaProducto(rs.getString("MP.nombreMarca"));
+                producto.setDiasEnvios(rs.getString("P.diasEnvioProducto"));
+                producto.setMedidaProducto(rs.getString("P.medidasProducto"));
+                producto.setEmpaqueProducto(rs.getString("P.empaqueProducto"));
+                producto.setEmbalajeProducto(rs.getString("P.embalajeProducto"));
+                producto.setVentajaProducto(rs.getString("P.ventajasProducto"));
+                producto.setGarantia(rs.getString("P.garantia"));
+                producto.setReferencia(rs.getString("P.referencia"));
+                producto.setPrecioVendedor(rs.getDouble("P.valorProductoVendedor"));
+                Categorys categorys = new Categorys();
+                categorys.setIdcategoria(rs.getString("P.idCategoriaFK"));
+                categorys.setNombreCategoria(rs.getString("nombreCategoria"));
+                producto.setCategorys(categorys);
+            }
+            return producto;
+        } catch (Exception e) {
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la consulta del producto " + e);
+            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             return null;
         }
     }

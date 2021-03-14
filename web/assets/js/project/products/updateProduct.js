@@ -5,11 +5,14 @@ var limpiarImagenes = 0
 
 $(function(){
 
-    getMarcass()
     
+
 })
 
-function getMarcass() {
+function getMarcassE(value, name) {
+        
+     let text = ``
+     text = `<option value="${value}" selected>${name}</option>`
 
     $.ajax({
         url: "./filtro",
@@ -21,22 +24,21 @@ function getMarcass() {
         error: function (data) {
 
         }, success: function (data, textStatus, jqXHR) {
-            let srt = ``
-            srt = '<option value="">Marca...</option>'
             for (var item of data) {
-                srt += `<option value="${item.idMarca}">${item.nombreMarca}</option>`
+                 if (item.idMarca !== value) {
+                 text += `<option value="${item.idMarca}">${item.nombreMarca}</option>`
+                 }
             }
-            document.getElementById('marcaE').innerHTML = srt
+            document.getElementById('marcaE').innerHTML = text
         }
     })
 
 }
 
 function getCategorias(value, name) {
-
-    let cat = document.getElementById('categoryE')
-
-    let text = `<option value="${value}" selected>${name}</option>`
+    
+    let text = ``
+    text = `<option value="${value}" selected>${name}</option>`
 
     $.ajax({
         type: "POST",
@@ -50,12 +52,10 @@ function getCategorias(value, name) {
             }
         }
 
-        cat.innerHTML = text;
+        document.getElementById('categoryE').innerHTML = text;
     })
 
 }
-
-
 
 function cleanInput() {
     generateDivClean()
@@ -102,7 +102,6 @@ function generateImages(data) {
 
 $("#modal-top").on("hide.bs.modal", function () {
     $('.input-images-1').replaceWith(imagesG)
-
     cleans()
 
 });
@@ -295,16 +294,23 @@ function checkOne() {
 
 function checkInputs() {
 
+    let number = document.getElementById('idProductoE').value
     let name = document.getElementById('nameE').value
     let desc = document.getElementById('descripE').value
     let price = document.getElementById('priceE').value
-    let cantidad = document.getElementById('cantidadE').value
     let marca = document.getElementById('marcaE').value
     let category = document.getElementById('categoryE').value
+    let precioV = document.getElementById('precioVendedor').value 
+    let envio = document.getElementById('enviosE').value 
+    let medidas = document.getElementById('medidasE').value  
+    let ventajas = document.getElementById('ventajasE').value 
+    let referencia = document.getElementById('referencia').value 
+    let garantia = document.getElementById('garantia').value 
 
-    if (name == '' || desc == '' || name.length <= 2 ||
-            desc.length <= 19 || price == '' || cantidad == '' ||
-            marca == '' || category == '') {
+    if (number == '' || name == '' || desc == '' || name.length <= 2 ||
+            desc.length <= 19 || price == '' ||
+            marca == '' || category == '' || precioV == '' || envio == '' ||
+            medidas == '' || ventajas == '' || referencia == '' || garantia == '') {
         return false
     }
 

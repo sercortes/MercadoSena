@@ -119,6 +119,7 @@
         <url-pattern>/getImagesByProduct</url-pattern>
         <url-pattern>/getColors</url-pattern>
         <url-pattern>/obtenerProducto</url-pattern>
+        <url-pattern>/getProductoComplete</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateProduct</servlet-name>
