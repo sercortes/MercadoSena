@@ -32,7 +32,6 @@
 <script src="./assets/styles/bootstrap4/popper.js"></script>
 <script src="./assets/styles/bootstrap4/bootstrap.min.js"></script>
 <script src="./assets/js/librarys/sweet.js"></script>
-<script src="https://use.fontawesome.com/502b7294a9.js"></script>
 
 <script src="./assets/js/project/util/functions.js"></script>
 <script src="./assets/js/project/login/init.js"></script>

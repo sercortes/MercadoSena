@@ -157,14 +157,14 @@ $(document).on('click', '.watch', function (e) {
     e.preventDefault()
     let parent = $(this)[0].parentElement.parentElement
     let idPro = $(parent).attr('idProducto')
-    let producto = records.find(element => element.idProducto === idPro);
+    let producto = records.find(element => element.idProducto === idPro);  
     $('#detailsProduct').modal('show')
     detailsProduct(producto)
 
 })
 
 function detailsProduct(producto) {
-
+  
     caruselImagenes(producto.listaImagenes)
     textProduct(producto)
 

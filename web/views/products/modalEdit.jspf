@@ -1,8 +1,6 @@
 
-
-
-<div class="modal fade text-center" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
-    <div class="modal-dialog" role="document" >
+<div class="modal fade bd-example-modal-lg text-center" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document" >
         <div class="modal-content">
 
 
@@ -13,20 +11,24 @@
                 <button class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body pb-o" id="fondo-rojo">
-                <div class="container" id="">
-                    <div class="row  d-flex justify-content-center" >
+                <div class="container-fluid" id="">
+                    <div class="row" >
+                    <div class="col-md-12" >
                         <form class="needs-validation" method="POST" name="formUpdate" id="formUpdate" enctype="multipart/form-data" acceptcharset="UTF-8">
                             <input type="hidden" value="" id="idProductoE" name="idProductoEs"/>
                             <div class="form-row">
-                                <div class="form-group col-md-4">
-                                    <label for="exampleInputEmail1">Nombre:</label>
+                                <div class="form-group col-md-12">
+                                    <label for="exampleInputEmail1" class="float-left">Nombre:</label>
                                     <input type="text" class="form-control was-validated" minlength="4" maxlength="150" id="nameE" name="nameE" placeholder="Nombre de su producto" required>
 
                                     <div class="invalid-feedback">
                                         Escriba un nombre de mínimo 4 carácteres
                                     </div>
                                 </div>
-                                <div class="form-group col-md-4">
+
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
                                     <label for="validationTooltip03">Marca:</label>
                                     <select id="marcaE" name="marcaE" class="form-control" tabindex="4" required>
                                         <option value="">No</option>
@@ -35,9 +37,7 @@
                                         Falta la marca
                                     </div> 
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-6">
                                     <label for="validationTooltip03">Categoría:</label>
                                     <select name="categoryE" id="categoryE" class="form-control"  tabindex="4" required>
                                         <option value="">No</option>
@@ -46,7 +46,9 @@
                                         Escriba una categoría
                                     </div> 
                                 </div>
-                                <div class="form-group col-md-4">
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
                                     <label for="exampleInputEmail1">Precio:</label>
                                     <input type="number" class="form-control was-validated" minlength="0" max="1500000000000000" id="priceE" name="priceE" placeholder="$" oninput="validity.valid||(value='');" required>
 
@@ -54,17 +56,39 @@
                                         Escriba precio válido
                                     </div>
                                 </div>
-                                <div class="form-group col-md-4">
-                                    <label for="exampleInputEmail1">Cantidad:</label>
-                                    <input type="number" class="form-control was-validated" minlength="0" max="100000000" id="cantidadE" name="cantidadE" placeholder="Stock" oninput="validity.valid||(value='');" required>
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Precio vendedor:</label>
+                                    <input type="number" class="form-control was-validated" minlength="0" max="10000000" id="precioVendedor" name="precioVendedor" placeholder="$" oninput="validity.valid||(value='');" required>
 
                                     <div class="invalid-feedback">
                                         Escriba precio válido
                                     </div>
                                 </div>
                             </div>
+
                             <div class="form-row">
+
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Referencia:</label>
+                                    <input type="text" class="form-control was-validated" id="referencia" max="10000000" name="referencia" placeholder="CC2020" required>
+
+                                    <div class="invalid-feedback">
+                                        Escriba una referencia
+                                    </div>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="exampleInputEmail1">Garantía:</label>
+                                    <input type="text" class="form-control was-validated" minlength="2" max="40" id="garantia" name="garantia" placeholder="Garantía del producto" required>
+
+                                    <div class="invalid-feedback">
+                                        Escriba una garantía:
+                                    </div>
+
+                                </div>
+
                             </div>
+
                             <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Descripción:</label>
                                 <textarea class="form-control" id="descripE" name="descripE" rows="6" placeholder="Descripción de su producto" minlength="20" maxlength="800" required></textarea>
@@ -126,6 +150,7 @@
                                 </div>
                                 <button id="send" type="submit" class="btn btn-primary hvr-push float-right"><i class="fas fa-save fa-1x"></i> Guardar</button>
                         </form>
+                    </div>
                     </div>
                     <div id="carga" class="loader loader-bouncing"></div>
                 </div>

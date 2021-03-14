@@ -171,6 +171,9 @@ function cleanModalResgistrarVenta(data) {
     $('#modalFactura').modal('show')
     cleanCar()
     updateIconNumber()
+    $('#cargas').addClass('is-active');
+    $('#example').DataTable().destroy();
+    productosRamdom()
 
 }
 

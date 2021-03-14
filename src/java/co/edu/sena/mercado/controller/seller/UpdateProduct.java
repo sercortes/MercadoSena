@@ -201,6 +201,9 @@ public class UpdateProduct extends HttpServlet {
             case "nameE":
                 producto.setNombreProducto(item.getString("UTF-8"));
                 break;
+            case "referencia":
+                  producto.setReferencia(item.getString("UTF-8"));
+               break;
             case "priceE":
                 producto.setValorProducto(Double.parseDouble(item.getString("UTF-8")));
                 break;
@@ -217,20 +220,17 @@ public class UpdateProduct extends HttpServlet {
                 producto.setDescripcionProducto(item.getString("UTF-8"));
                 break;
             case "enviosE":
-                if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
-                    //  producto.setFechaVencimiento("2020-01-01");
-                } else {
-                    producto.setDiasEnvios(item.getString("UTF-8"));
-                }
+               producto.setDiasEnvios(item.getString("UTF-8").trim());
                 break;
             case "medidasE":
-                if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
-                    //  producto.setFechaVencimiento("2020-01-01");
-                } else {
-                    producto.setMedidaProducto(item.getString("UTF-8"));
-                }
+                 producto.setMedidaProducto(item.getString("UTF-8").trim());
                 break;
-
+            case "precioVendedor":
+                producto.setPrecioVendedor(Double.parseDouble(item.getString("UTF-8").trim()));
+                break;
+            case "garantia":
+                producto.setGarantia(item.getString("UTF-8").trim());
+                break;
             case "empaqueE":
                 if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
                     //  producto.setFechaVencimiento("2020-01-01");
@@ -247,11 +247,7 @@ public class UpdateProduct extends HttpServlet {
                 }
                 break;
             case "ventajasE":
-                if (StringUtils.isEmptyOrWhitespaceOnly(item.getString("UTF-8"))) {
-                    //  producto.setFechaVencimiento("2020-01-01");
-                } else {
-                    producto.setVentajaProducto(item.getString("UTF-8"));
-                }
+               producto.setVentajaProducto(item.getString("UTF-8").trim());
                 break;
 
         }
