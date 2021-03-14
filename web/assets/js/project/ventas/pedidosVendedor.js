@@ -1,246 +1,132 @@
-var todosPedidos, vista;
-$(document).ready(function () {
-    vista = $('#nombreVista').val();
-    consultaPedidos(true);
-    //generarLista(todosPedidos, 'En espera');
+$(function(){
+    
+    getVentas(1)
+    
 })
 
-$('.verUsuario').click(function (e) {
+$(document).on('click', '.section', function (e) {
 
-    e.preventDefault();
+    e.preventDefault()
+    let pedidosPendientes = $('#pedPendientes')[0].ariaSelected
+    let pedConcretados = $('#pedConcretados')[0].ariaSelected
+    
+    if (pedidosPendientes == 'true') {
+        getVentas(1)
+    }else if (pedConcretados == 'true') {
+        getVentas(2)
+    }else {
+        getVentas(3)
+    }
 
 })
 
-function consultaPedidos(hacer) {
-    $('#carga').addClass('is-active');
-    var tipoUsu;
-    if (vista === 'pedidos') {
-        tipoUsu = 'vendedor';
-    } else if (vista === 'misPedidos') {
-        tipoUsu = 'comprador';
-    }
-    $.ajax({
+function getVentas(estado){
+    
+          $.ajax({
         type: "POST",
-        url: './gestionarPedidos',
+        url: './getAllVentas',
+        async: true,
         data: {
-            accion: 'pedidosVendedor',
-            tipoUsu: tipoUsu
+            estado :estado
         },
-        dataType: 'json',
-        error: function (jqXHR, textStatus, errorThrown) {
-            $('#carga').removeClass('is-active');
-            messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
-        }, success: function (data) {
-            $('#carga').removeClass('is-active');
-            console.log(data);
-            todosPedidos = data;
-            if (hacer) {
-                generarLista(todosPedidos, 'En espera');
-            }
-        }
+        datatype: 'json'
+    }).done(function (data) {
+        
+        console.log(data)
+        drawVentas(data)
+
     })
+    
 }
 
-//$('#pedPendientes-tab').click(function (e) {
-//    e.preventDefault();
-//    generarLista(todosPedidos, 'En espera');
-//})
-//$('#pedConcretados-tab').click(function (e) {
-//    e.preventDefault();
-//    generarLista(todosPedidos, 'Concretada');
-//})
-//$('#pedNoCon-tab').click(function (e) {
-//    e.preventDefault();
-//    generarLista(todosPedidos, 'No concretada');
-//})
-
-function generarLista(dataR, estado) {
-    $('#carga').addClass('is-active');
-    var data = [];
-    var pedidos = '';
-    var cst = 0;
-
-    for (var i = 0; i < dataR.length; i++) {
-        if (dataR[i].estadoVenta === estado) {
-            data.push(dataR[i]);
-        }
-    }
-
-    if (data.length > 0 && data !== null) {
-        for (var i = 0; i < data.length; i++) {
-
-            cst = (data[i].prodPedidoDTO.cantidad) * (data[i].prodImagen.producto.valorProducto);
-
-            pedidos += '<div class="card" style="border-bottom: solid 1px rgba(0, 0, 0, 0.4588235294117647);">' +
-                    '<div  class="card-header bg-white shadow-sm border-0">' +
-                    '<h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#' + i + '" aria-expanded="false" aria-controls="1" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">' + data[i].ventaDTO.fechaVenta + '</a></h6>' +
-                    '</div>' +
-                    '<div id="' + i + '"  class="collapse ">' +
-                    '<div class="card-body p-5" style="padding: 1.5rem !important;">' +
-                    '<dt>Producto solicitado:</dt>' +
-                    '<h6>' + data[i].prodImagen.producto.nombreProducto + '</h6>' +
-                    '</dl>' +
-                    '<dl>' +
-                    '<dt>Cantidad solicitada:</dt>' +
-                    '<dd>' + data[i].prodPedidoDTO.cantidad + '</dd>' +
-                    '</dl>' +
-                    '<dl>' +
-                    '<dt>Valor por unidad:</dt>' +
-                    '<dd>$' + data[i].prodImagen.producto.valorProducto.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + '</dd>' +
-                    '</dl>' +
-                    '<dl>' +
-                    '<dt>Valor total:</dt>' +
-                    '<dd>$' + cst.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.") + '</dd>' +
-                    '</dl>' +
-                    '<dl>' +
-                    ' <dt>Descripción del producto:</dt>' +
-                    '<dd>' +
-                    '<p class="text-muted">' + data[i].prodImagen.producto.descripcionProducto + '</p>' +
-                    '</dd>' +
-                    '</dl>' +
-                    '<dl>',
-                    pedidos += '</dl>' +
-                    '<dl>';
-//            if (vista === 'pedidos') {
-//                pedidos += '<dt>Información del cliente:</dt>';
-//                if (data[i].ventaDTO.contactoVenta === '1' || data[i].ventaDTO.contactoVenta === 1) {
-//                    pedidos += '<dd><a href="#" style="border-bottom: solid 1px rgb(252, 115, 30);" class="verUsuario" onclick="datosUsuario(event,' + data[i].compradorDTO.idPersona + ')" >click aquí para ver la información del cliente...</a></dd>';
-//                } else {
-//                    pedidos += '<br><dd><b><i class="fa fa-exclamation-circle" aria-hidden="true" style="color: rgb(216, 98, 25); font-size: 20px;"></i> El usuario no desea que veas sus datos.</b></dd>';
-//                }
-//            } else {
-//                pedidos += '<dt>Información del vendedor:</dt>' + '<dd><a href="#" style="border-bottom: solid 1px rgb(252, 115, 30);" class="verUsuario" onclick="datosUsuario(event,' + data[i].compradorDTO.idEmpresa + ')" >click aquí para ver la información del vendedor...</a></dd>';
-//            }
-//            pedidos += '</dl>' +
-//                    '<dl>' +
-//                    '<dt>Estado del pedido:</dt>';
-//
-//            if (data[i].estadoVenta === 'En espera' && vista === 'pedidos') {
-//
-//                pedidos += '<p class="text-muted">Por favor al terminar el proceso con el cliente seleccione un estado</p>' +
-//                        '<select id="estadoPedido' + data[i].ventaDTO.idVenta + '" class="form-control" style="width: 50%;display: initial;" onchange="validarBtn(' + data[i].ventaDTO.idVenta + ')">';
-//
-//                for (var y = 0; y < data[i].listaEstadoPedido.length; y++) {
-//                    if (data[i].listaEstadoPedido[y].idEstado === data[i].ventaDTO.idEstadoVentaFK) {
-//                        pedidos += '<option value="' + data[i].listaEstadoPedido[y].idEstado + '" selected>' + data[i].listaEstadoPedido[y].nombreEstado + '</option>';
-//                    }
-//                    pedidos += '<option value="' + data[i].listaEstadoPedido[y].idEstado + '">' + data[i].listaEstadoPedido[y].nombreEstado + '</option>';
-//
-//                }
-//                pedidos += '</select> <input type="submit" class="btn btn-success" value="Actualizar" disabled style="margin: 10px;margin-top: 5px;" onclick="actualizarEstadoPed(' + data[i].ventaDTO.idVenta + ')">';
-//
-//            } else {
-//                pedidos += '<p class="text-muted">' + data[i].estadoVenta + '</p>';
-//            }
-
-
-            if (data[i].prodImagen.imagenes.length > 0) {
-
-                pedidos += '<dt>Imágenes:</dt><br>';
-                pedidos += '<div id="myCarousel' + i + '" class="carousel slide" data-ride="carousel">' +
-                        '<ul class="carousel-indicators" style="position: inherit !important;">' +
-                        '<li data-target="#myCarousel' + i + '" data-slide-to="0" class="active"></li>';
-
-                for (var j = 1; j < data[i].prodImagen.imagenes.length; j++) {
-
-                    pedidos += ' <li data-target="#myCarousel' + i + '" data-slide-to="' + j + '"></li>';
-                }
-                pedidos += '<div class="carousel-inners">' +
-                        ' <div class="carousel-item active" style="min-height: 50px;max-height: 500px;background: white;text-align: center;width: 120%;margin-left: -15%;">' +
-                        '<img  src="' + data[i].prodImagen.imagenes[0].url + '" alt="Imagen del producto" >' +
-                        '</div>';
-                for (var j = 1; j < data[i].prodImagen.imagenes.length; j++) {
-                    pedidos += '<div class="carousel-item" style="min-height: 50px; max-height: 500px;background: white;text-align: center;width: 120%;margin-left: -15%;">' +
-                            '<img  src="' + data[i].prodImagen.imagenes[j].url + '" alt="Imagen del producto" >' +
-                            ' </div>';
-                }
-                pedidos += '</ul>'; 
-
-
-                
-                pedidos += '' +
-                        '<a class="carousel-control-prev" href="#myCarousel' + i + '" data-slide="prev">' +
-                        ' <span class="carousel-control-prev-icon"></span>' +
-                        ' </a>' +
-                        '<a class="carousel-control-next" href="#myCarousel' + i + '" data-slide="next">' +
-                        '<span class="carousel-control-next-icon"></span>' +
-                        ' </a>' +
-                        '</div>' +
-                        '</div>';
-
-            }
-
-            pedidos += ' </dl>' +
-                    '</div>' +
-                    ' </div>' +
-                    '</div>';
-
-        }
-    } else {
-        pedidos += '<h3 style="text-align: center;padding: 27px;font-size: 27px;">No hay elementos en esta categoría.</h3>';
-    }
-    $('#carga').removeClass('is-active');
-    $('#pedidos').empty();
-    $('#pedidos').html(pedidos);
-
+function drawVentas(data){
+    
+    let str = ``
+    let number = 0;
+    for(var item of data){
+    str += `<div class="card">
+          <div id="headingTwo" class="card-header bg-white shadow-sm border-0">
+            <h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapseTwo${number}" aria-expanded="false" aria-controls="collapseTwo" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">Venta #${item.idVenta}</a></h6>
+          </div>
+          <div id="collapseTwo${number}" aria-labelledby="headingTwo" data-parent="#accordionExample" class="collapse">
+            <div class="card-body p-5">
+              <div class="d-flex justify-content-center row">
+                <div class="col-md-12">
+                    <div class="receipt bg-white p-3 rounded"><img src="./assets/images/icons/LOGO3.png" width="220">
+                        <i class="fas fa-receipt fa-5x float-right naranja"></i>
+                        <h4 class="mt-2 mb-3">Detalles</h4>
+                        <h6 class="name">${item.perDTO.nombrePer} ${item.perDTO.apellidoPer},</h6>
+                        <span class="fs-12 text-black-50">${item.perDTO.direccionPer}</span>
+                        <hr>
+                        <div class="d-flex flex-row justify-content-between align-items-center order-details">
+                            <div><span class="d-block fs-12">Fecha</span><span class="font-weight-bold">${item.fechaVenta}</span></div>
+                            <div><span class="d-block fs-12">Método de pago</span><span class="font-weight-bold">${item.formaPago}</span></div>
+                            <div><span class="d-block fs-12">Estado</span><span class="font-weight-bold text-success">Aprobada</span></div>
+                        </div>
+                        <hr>
+                <table class="table table-responsive">
+             <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="border-0">
+                                    <div class="p-1 px-3 text-uppercase">Producto</div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="p-1 px-3 text-uppercase">Nombre</div>
+                                </th>
+                                   <th scope="col" class="border-0">
+                                    <div class="py-1 text-uppercase">Color</div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="py-1 text-uppercase">Precio u</div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="py-1 text-uppercase">Cantidad</div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="py-1 text-uppercase">Total</div>
+                                </th>
+                            </tr>
+                        </thead>
+        <tbody id="card">`
+        
+for(var items of item.listaProductos){
+    
+str +=   `<tr><td>
+                <img src="${items.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">
+             </td><td>    
+                    <div class="ml-3 d-inline-block align-middle">
+                            <p class="mb-0 text-dark d-inline-block align-middle text-justify">${items.nombreProducto}</p>
+                    </div>
+                    </td>
+                    <td class="align-middle pl-2"><strong>${items.color}</strong></td>
+                    <td class="align-middle pl-2"><strong>${items.valorProducto}</strong></td>
+                    <td class="align-middle pl-4"><strong>${items.cantidad}</strong></td>
+                    <td class="align-middle"><strong>${money(items.valorProducto * items.cantidad)}</strong></td>
+                </tr>`
+    
 }
-
-
-function datosUsuario(event, idUsuario) {
-    event.preventDefault();
-    var tipoUsu;
-
-    if (vista === 'pedidos') {
-        tipoUsu = 'comprador';
-    } else if (vista === 'misPedidos') {
-        tipoUsu = 'vendedor';
+        
+    str += `</tbody></table>
+                <div class="row">
+                            <div class="d-flex justify-content-center col-md-6"></div>
+                            <div class="col-md-6">
+                                <div class="billing">
+                                    <div class="d-flex justify-content-between"><span>Subtotal</span><span class="font-weight-bold">$${money(item.valorVenta)}</span></div>
+                                    <div class="d-flex justify-content-between mt-2"><span class="text-success">Descuento</span><span class="font-weight-bold text-success">$${money(item.descuento)}</span></div>
+                                    <hr>
+                                    <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold text-success">$${money(item.valorVenta - item.descuento)}</span></div>
+                                </div>
+                            </div>
+                        <hr>
+                        </div><span class="d-block"></span><span class="font-weight-bold text-success"></span>
+                    </div>
+                </div>
+            </div>
+            </div>
+          </div>
+        </div>`
+        number++
     }
-
-    $('#carga').addClass('is-active');
-    $.ajax({
-        url: './gestionarPedidos',
-        type: "POST",
-
-        data: {
-            accion: 'consultaUsu',
-            idUsuario: idUsuario,
-            tipoUsu: tipoUsu
-        },
-        datatype: 'json',
-        error: function (jqXHR, textStatus, errorThrown) {
-            $('#carga').removeClass('is-active');
-            messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
-        }, success: function (data) {
-            console.log(data);
-            $('#carga').removeClass('is-active');
-            llenarModalUsu(data);
-        }
-    })
-
-}
-
-function llenarModalUsu(datos) {
-    if (vista === 'pedidos') {
-        $("#modalUsuario").modal("show");
-        $('#imagenUsuario').html('<img id="fotoPerfil" class="fotoPerfil"  src="' + datos.urlImg + '" width="200px" height="200"/>');
-        $('#nombreUsu').text(datos.nombrePer + ' ' + datos.apellidoPer);
-        $('#celUsu').text(datos.numCelularPer);
-        $('#telUsu').text(datos.telPer);
-        $('#correoUsu').text(datos.correoPer);
-        $('#ciuUsu').text(datos.nombreCiudad);
-        $('#dirUsu').text(datos.direccionPer);
-    } else if (vista === 'misPedidos') {
-        $("#modalUsuarioVendedor").modal("show");
-        if (datos.esEmpresa === 0){
-              $('#nombreUsu').text(datos.nombrePer + ' ' + datos.apellidoPer);
-        }else{
-              $('#nombreUsu').text(datos.nombreEmpresa);
-        }   
-        $('#celUsu').text(datos.CelEmpresa);
-        $('#telUsu').text(datos.telEmpresa);
-        $('#correoUsu').text(datos.correoEmpresa);
-        $('#ciuUsu').text(datos.nombreCiudad);
-        $('#dirUsu').text(datos.DirEmpresa);
-    }
-
+    document.getElementById('pedidos').innerHTML = str
+    
 }

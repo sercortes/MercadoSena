@@ -167,7 +167,7 @@ public class CompradorDAO {
                 compradorDTO.setIdPersona(rs.getString("idPersonaFK"));
 
                 ventaDTO.setContactoVenta(rs.getString("contacto"));
-                ventaDTO.setFechaVenta(rs.getDate("fechaVenta"));
+                ventaDTO.setFechaVenta(rs.getTimestamp("fechaVenta"));
                 ventaDTO.setIdCiudadFK(rs.getString("idCiudadFK"));
                 ventaDTO.setIdCompradorFK(rs.getString("idCompradorFK"));
                 ventaDTO.setIdEstadoVentaFK(rs.getString("idEstadoVentas"));

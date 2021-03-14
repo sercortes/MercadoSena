@@ -190,7 +190,6 @@ function generateFactura(data) {
                         <i class="fas fa-receipt fa-5x float-right naranja"></i>
                         <h4 class="mt-2 mb-3">Ticket de compra</h4>
                         <h6 class="name">${data.perDTO.nombrePer} ${data.perDTO.apellidoPer},</h6>
-                        <span class="fs-12 text-black-50">${data.perDTO.idPer}</span>
                         <span class="fs-12 text-black-50">${data.perDTO.direccionPer}</span>
                         <hr>
                         <div class="d-flex flex-row justify-content-between align-items-center order-details">
@@ -233,7 +232,7 @@ function generateFactura(data) {
                                         <p class="mb-0 text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</p>
                                 </div>
                         </td>
-                        <td class="align-middle pl-5"><strong>${item.color}</strong></td>
+                        <td class="align-middle pl-2"><strong>${item.color}</strong></td>
                         <td class="align-middle pl-5"><strong>${item.cantidad}</strong></td>
                         <td class="align-middle"><strong>${money(item.valorProducto * item.cantidad)}</strong></td>
                     </tr>`

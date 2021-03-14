@@ -232,7 +232,7 @@ public class generateSaleByVendedor extends HttpServlet {
                 productoPedidosDTO pedidosDTO = new productoPedidosDTO();
                 pedidosDTO.setIdVentaFK(Integer.toString(idVenta));
                 pedidosDTO.setCantidad(item.getCantidad());
-                pedidosDTO.setIdProductoFK(item.getIdProducto());
+                pedidosDTO.setIdProductoFK(item.getIdProductoColor());
                 productosPedidosDAO.insertReturn(pedidosDTO);
                 productosPedidosDAO.actualizarCantidad(item);
             }

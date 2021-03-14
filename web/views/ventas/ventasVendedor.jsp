@@ -25,38 +25,33 @@
     </div>
 
     <div id="content" class="p-5 bg-white rounded shadow mb-5">
-        <!-- Rounded tabs 
         <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav">
             <li class="nav-item flex-sm-fill">
-                <a id="pedPendientes-tab" data-toggle="tab" href="#home" role="tab" aria-controls="mostarPedidos" aria-selected="true" class="nav-link border-0 text-uppercase font-weight-bold active">Pendientes</a>
+                <a id="pedPendientes" data-toggle="tab" href="#pedPendientes" role="tab" aria-controls="mostarPedidos" aria-selected="true" class="nav-link border-0 text-uppercase font-weight-bold active section">Pendientes</a>
             </li>
             <li class="nav-item flex-sm-fill">
-                <a id="pedConcretados-tab" data-toggle="tab" href="#" role="tab" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold">Concretados</a>
+                <a id="pedConcretados" data-toggle="tab" href="#pedConcretados" role="tab" aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold section">Concretados</a>
             </li>
             <li class="nav-item flex-sm-fill">
-                <a id="pedNoCon-tab" data-toggle="tab" href="#" role="tab"  aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold" data-original-title="hola">No concretados</a>
+                <a id="pedNoConcretados" data-toggle="tab" href="#pedNoConcretados" role="tab"  aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold section" data-original-title="hola">No concretados</a>
             </li>
-        </ul>-->
-        <div id="myTabContent" class="tab-content">
+        </ul>
+    <div id="myTabContent" class="tab-content">
             <div id="mostarPedidos" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active" style="padding-left: 0rem !important;padding-right: 0rem !important;">
-
                 <div class="row">
                     <div class="col-lg-9 mx-auto">
-                        <!-- Accordion -->
-                        <div id="accordionExample" class="accordion shadow">
+                        <div id="accordionExample" class="accordion shadow-sm">
                             <div id="pedidos">
-                                <!-- Accordion item 1 -->
+                             
+                             
 
                             </div>
                         </div>
-
-
                     </div>
                 </div>
-
             </div>
-
-        </div>
+        </div> 
+         
     </div>
 
 
@@ -69,5 +64,6 @@
 
 <%@include file="/views/ventas/modalVerUsuario.jspf"%>
 <%@include file="/views/template/footer.jspf"%>
+
 <script src="./assets/js/project/ventas/pedidosVendedor.js" type="text/javascript"></script>
 <script src="./assets/js/project/ventas/actualizarEstPedido.js" type="text/javascript"></script>
