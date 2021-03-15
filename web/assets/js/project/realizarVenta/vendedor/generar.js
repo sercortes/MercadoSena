@@ -62,6 +62,8 @@ function registroPersona() {
     let apellido = document.getElementById('surname').value
     let direccion = document.getElementById('direccion').value
     let metodoPago = document.getElementById('metodoPago').value
+    let celular = document.getElementById('celular').value
+    let telefono = document.getElementById('telefono').value
     $("#registrarVenta").attr("disabled", true);
     $('#cargas').addClass('is-active');
 
@@ -77,7 +79,9 @@ function registroPersona() {
             apellido: apellido,
             direccion: direccion,
             metodoPago: metodoPago,
-            descuento:descuento
+            descuento:descuento,
+            celular:celular,
+            telefono:telefono
         }, error: function (datas) {
             messageInfo('Error en los productos')
             $('#cargas').removeClass('is-active');
@@ -112,6 +116,8 @@ function checkInputs2() {
     let apellido = document.getElementById('surname').value
     let direccion = document.getElementById('direccion').value
     let metodoPago = document.getElementById('metodoPago').value
+    let celular = document.getElementById('celular').value
+    let telefono = document.getElementById('telefono').value
 
     if (tipoD == '') {
         input('tipoDocumento', 'selecione un tipo de documento')
@@ -137,8 +143,13 @@ function checkInputs2() {
         input('surname', 'Falta el apellido del cliente')
         return false
     }
-
-    if (direccion == '') {
+    
+     if (celular == '') {
+        input('celular', 'Ingrese el número de celular')
+        return false
+    }
+    
+      if (direccion == '') {
         input('direccion', 'Falta la dirección')
         return false
     }
@@ -146,6 +157,7 @@ function checkInputs2() {
         input('metodoPago', 'Seleccione el método de pago')
         return false
     }
+    
 
     return true
 }
@@ -190,7 +202,9 @@ function generateFactura(data) {
                         <i class="fas fa-receipt fa-5x float-right naranja"></i>
                         <h4 class="mt-2 mb-3">Ticket de compra</h4>
                         <h6 class="name">${data.perDTO.nombrePer} ${data.perDTO.apellidoPer},</h6>
-                        <span class="fs-12 text-black-50">${data.perDTO.direccionPer}</span>
+                        <span class="fs-12 text-black-50"><b>Dirección: </b>${data.perDTO.direccionPer}</span>
+                        <br>
+                        <h7 class="fs-12 text-black-50"><b>Celular: </b>${data.perDTO.numCelularPer}</h7>
                         <hr>
                         <div class="d-flex flex-row justify-content-between align-items-center order-details">
                             <div><span class="d-block fs-12">Fecha</span><span class="font-weight-bold">${new Date().toISOString().slice(0, 10)}</span></div>

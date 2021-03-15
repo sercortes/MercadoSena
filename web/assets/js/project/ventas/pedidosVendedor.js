@@ -49,7 +49,8 @@ $(document).on('click', '.section', function (e) {
 })
 
 function drawVentas(data) {
-
+    
+    console.log(data)
     let str = ``
     let number = 0;
     for (var item of data) {
@@ -65,8 +66,13 @@ function drawVentas(data) {
                         <i class="fas fa-receipt fa-5x float-right naranja"></i>
                         <h4 class="mt-2 mb-3">Detalles</h4>
                         <h6 class="name">${item.perDTO.nombrePer} ${item.perDTO.apellidoPer},</h6>
-                        <span class="fs-12 text-black-50">${item.perDTO.direccionPer}</span>
-                        <hr>
+                        <span class="fs-12 text-black-50"><b>Dirección: </b>${item.perDTO.direccionPer}</span>
+                        <br>
+                        <span class="fs-12 text-black-50"><b>Celular: </b>${item.perDTO.numCelularPer}</span>`
+                        if (item.perDTO.telPer !== '') {
+                            str +=`<br><span class="fs-12 text-black-50"><b>Teléfono: </b>${item.perDTO.telPer}</span>`
+                        }
+                        str +=`<hr>
                         <div class="d-flex flex-row justify-content-between align-items-center order-details">
                             <div><span class="d-block fs-12">Fecha</span><span class="font-weight-bold">${item.fechaVenta}</span></div>
                             <div><span class="d-block fs-12">Método de pago</span><span class="font-weight-bold">${item.formaPago}</span></div>
