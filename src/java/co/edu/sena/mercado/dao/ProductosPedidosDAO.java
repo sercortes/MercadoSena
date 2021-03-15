@@ -54,6 +54,32 @@ public class ProductosPedidosDAO {
 
     }
     
+    public boolean checkProductsCustomer(ProducctoDTO producctoDTO) {
+        try {
+            boolean statusP = false;
+            String sql = "SELECT P.idProducto, P.valorProducto, PC.stockProducto, PC.idProductoColor "
+                    + "FROM producto P "
+                    + "INNER JOIN ProductoColor PC ON P.idProducto = PC.productoFK "
+                    + "WHERE PC.idProductoColor = ? AND PC.stockProducto >= ? "
+                    + "AND P.valorProducto = ?";
+            ps = conn.prepareStatement(sql);
+            
+            ps.setString(1, producctoDTO.getIdProductoColor());
+            ps.setInt(2, producctoDTO.getCantidad());
+            ps.setDouble(3, producctoDTO.getValorUnitario());
+            
+            System.out.println(ps.toString());
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                statusP = true;
+            }
+            return statusP;
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
+        }
+    }
+    
      public boolean checkProducts(ProducctoDTO producctoDTO) {
         try {
             boolean statusP = false;

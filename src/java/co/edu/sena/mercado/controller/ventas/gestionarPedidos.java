@@ -48,9 +48,15 @@ public class gestionarPedidos extends HttpServlet {
 
         switch (direccion) {
 
-            case "/Store/getAllVentas":
+            case "/Store/getAllVentasByVendedor":
 
                 getAllVentas(request, response);
+
+                break;
+                
+            case "/Store/getAllVentasByCus":
+
+                getAllVentasByCustomer(request, response);
 
                 break;
 
@@ -71,7 +77,7 @@ public class gestionarPedidos extends HttpServlet {
         String estado = request.getParameter("estado");
         Conexion conexion = new Conexion();
         VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
-        ArrayList<VentaDTO> listaVentas = ventaDAO.getVentas(estado);
+        ArrayList<VentaDTO> listaVentas = ventaDAO.getVentasByVendedor(estado);
          listaVentas.forEach((item) -> {
             ArrayList<Producto> listaProductos
                     = ventaDAO.getProductosByVenta(item.getIdVenta());
@@ -82,10 +88,29 @@ public class gestionarPedidos extends HttpServlet {
         new Gson().toJson(listaVentas, response.getWriter());
         
     }
-    
-        @Override
+
+    private void getAllVentasByCustomer(HttpServletRequest request, HttpServletResponse response) throws IOException {
+       
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        String estado = request.getParameter("estado");
+        Conexion conexion = new Conexion();
+        VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
+        ArrayList<VentaDTO> listaVentas = ventaDAO.getAllVentasByCustomer(estado);
+         listaVentas.forEach((item) -> {
+            ArrayList<Producto> listaProductos
+                    = ventaDAO.getProductosByCustomer(item.getIdVenta());
+            item.setListaProductos(listaProductos);
+        });
+        ventaDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaVentas, response.getWriter());
+        
+    }
+
+            @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
 }

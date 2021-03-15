@@ -15,12 +15,21 @@
 <%@include file="/views/template/header.jspf"%>
 <%@include file="/views/searching/buscador.jspf"%>
 
-<input type="hidden" value="pedidos" id="nombreVista">
-<div class="container py-5">
+<div class="container py-3">
+
+    <div class="col-lg-2 float-right">
+        <div class="form-group">
+            <label for="exampleFormControlSelect1">Tipo de ventas:</label>
+            <select class="form-control" id="selectTipe">
+                <option value="1">Vendedor</option>
+                <option value="2">Clientes</option>
+            </select>
+        </div>
+    </div>
 
     <div class="col-lg-9 mx-auto text-black text-center">
         <div id="tituloPagina">
-            <h1 class="display-4">Mis ventas</h1>     
+            <h1 class="display-4">Mis ventas</h1>   
         </div>
     </div>
 
@@ -36,22 +45,18 @@
                 <a id="pedNoConcretados" data-toggle="tab" href="#pedNoConcretados" role="tab"  aria-selected="false" class="nav-link border-0 text-uppercase font-weight-bold section" data-original-title="hola">No concretados</a>
             </li>
         </ul>
-    <div id="myTabContent" class="tab-content">
+        <div id="myTabContent" class="tab-content">
             <div id="mostarPedidos" role="tabpanel" aria-labelledby="home-tab" class="tab-pane fade px-4 py-5 show active" style="padding-left: 0rem !important;padding-right: 0rem !important;">
                 <div class="row">
                     <div class="col-lg-9 mx-auto">
                         <div id="accordionExample" class="accordion shadow-sm">
                             <div id="pedidos">
-                             
-                             
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div> 
-         
     </div>
 
 
@@ -62,7 +67,6 @@
 <%@include file="/views/searching/modalVerProducto.jspf"%>
 <%@include file="/views/searching/modalPreguntar.jspf"%>
 
-<%@include file="/views/ventas/modalVerUsuario.jspf"%>
 <%@include file="/views/template/footer.jspf"%>
 
 <script src="./assets/js/project/ventas/pedidosVendedor.js" type="text/javascript"></script>

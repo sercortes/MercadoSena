@@ -72,6 +72,7 @@ public class process_payment extends HttpServlet {
                 break;
 
             case "pagarpse":
+                String id = (String) request.getSession().getAttribute("IDVENTA");
 
                 String valorpagar = sessionvalor.getAttribute("SESSIONVALOR") + "";
                 String valopse = valorpagar.replace(".", "");
@@ -92,22 +93,33 @@ public class process_payment extends HttpServlet {
                 String referencia = String.valueOf(Math.random() * 15 + 1);
 
                 String PSEbanck = CRestPse.Postpse(tokes, valors, tipodepersona, Tipodedoc, document, code, descriptions, emails, referencia, NombreApellido);
+                
+                VentaDAO ventaDAO = new VentaDAO(new Conexion().getConnection());
+                VentaDTO ventaDTO = new VentaDTO();
+                
                 if (PSEbanck == null) {
-                    request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
-                } else {
-                    VentaDAO ventaDAO = new VentaDAO(new Conexion().getConnection());
-                    VentaDTO ventaDTO = new VentaDTO();
-                    ventaDTO.setIdEstadoVentaFK("2");
-                    ventaDTO.setIdVenta(request.getParameter("ventaId"));
+                    
+                    ventaDTO.setIdEstadoVentaFK("3");
+                    ventaDTO.setIdVenta(id);
                     ventaDAO.actualizarVenta(ventaDTO);
                     ventaDAO.CloseAll();
+                    request.getSession().removeAttribute("IDVENTA");
+                    
+                    request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
+                } else {
+                    ventaDTO.setIdEstadoVentaFK("2");
+                    ventaDTO.setIdVenta(id);
+                    ventaDAO.actualizarVenta(ventaDTO);
+                    ventaDAO.CloseAll();
+                    request.getSession().removeAttribute("IDVENTA");
+                    
                     response.sendRedirect(PSEbanck);
                 }
 
                 break;
 
             case "Tarjetadecredito":
-
+                
                 try {
 
                     JSONObject tokenperson = CRestPse.getInformacion();
@@ -151,17 +163,28 @@ public class process_payment extends HttpServlet {
                                 request.setAttribute("full_name", jsonObject.getJSONObject("customer_data").get("full_name"));
                                 String Aprobado = "Aprobado";
                                 String status = jsonObject.get("status").toString();
+                                
+                                 String idV = (String) request.getSession().getAttribute("IDVENTA");   
+                                 VentaDAO ventaDAOs = new VentaDAO(new Conexion().getConnection());
+                                 VentaDTO ventaDTOs = new VentaDTO();
+                                 
                                 if (status.equals("APPROVED")) {
-                                    VentaDAO ventaDAO = new VentaDAO(new Conexion().getConnection());
-                                    VentaDTO ventaDTO = new VentaDTO();
-                                    ventaDTO.setIdEstadoVentaFK("2");
-                                    ventaDTO.setIdVenta(request.getParameter("ventaId"));
-                                    ventaDAO.actualizarVenta(ventaDTO);
-                                    ventaDAO.CloseAll();
+                                    ventaDTOs.setIdEstadoVentaFK("2");
+                                    ventaDTOs.setIdVenta(idV);
+                                    ventaDAOs.actualizarVenta(ventaDTOs);
+                                    ventaDAOs.CloseAll();
+                                    request.getSession().removeAttribute("IDVENTA");
+                                    
                                     request.setAttribute("status", Aprobado);
                                     request.setAttribute("amount_in_cents", valorpagart);
                                     request.getRequestDispatcher("/views/car/estadodepago.jsp").forward(request, response);
                                 } else {
+                                    ventaDTOs.setIdEstadoVentaFK("3");
+                                    ventaDTOs.setIdVenta(idV);
+                                    ventaDAOs.actualizarVenta(ventaDTOs);
+                                    ventaDAOs.CloseAll();
+                                    request.getSession().removeAttribute("IDVENTA");
+                                    
                                     request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
                                 }
 

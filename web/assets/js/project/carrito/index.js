@@ -36,12 +36,14 @@ document.getElementById('flexRadioDefault2').addEventListener('click', function 
 });
 
 function checkSubmit() {
+    buyProducts(3)
     document.getElementById("pagotarjeta").value = "Enviando...";
     document.getElementById("pagotarjeta").disabled = true;
     return true;
 }
 
 function checkSubmit2() {
+    buyProducts(4)
     document.getElementById("pagoPSE").value = "Enviando....";
     document.getElementById("pagoPSE").disabled = true;
     return true;
