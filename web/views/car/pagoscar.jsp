@@ -196,8 +196,7 @@
                 <div class="modal-body">
                     <form action="process_payment" method="post" onsubmit="return checkSubmit2();">
                         <input name="accionT" value="pagarpse" type="hidden" />
-                        <input id="ventaId" name="ventaId" value="0" type="hidden" />
-
+                        <input id="ventaIds" name="ventaIds" value="0" type="hidden" />
                         <div class="row">
                             <div class="form-group col">
                                 <label for="email">Correo electrónico</label> <input id="email" name="email" type="email" class="form-control" required>

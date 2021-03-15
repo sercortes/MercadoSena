@@ -1,50 +1,59 @@
-$(function(){
-    
-    getVentas(1)
-    
+var number = 1;
+
+$(function () {
+
+    getVentasByVendedor(1)
+
 })
 
 $(document).on('click', '.section', function (e) {
 
     e.preventDefault()
-    let pedidosPendientes = $('#pedPendientes')[0].ariaSelected
-    let pedConcretados = $('#pedConcretados')[0].ariaSelected
+    let papa = $(this)[0].id
     
-    if (pedidosPendientes == 'true') {
-        getVentas(1)
-    }else if (pedConcretados == 'true') {
-        getVentas(2)
-    }else {
-        getVentas(3)
+    if (number == 1) {
+        
+        switch (papa) {
+        case 'pedPendientes':
+            getVentasByVendedor(1)
+            break;
+        case 'pedConcretados':
+            getVentasByVendedor(2)
+            break;
+        case 'pedNoConcretados':
+            getVentasByVendedor(3)
+            break;
+        default:
+            break;
     }
+        
+    }else{
+        
+        switch (papa) {
+        case 'pedPendientes':
+            getAllVentasByCustomer(1)
+            break;
+        case 'pedConcretados':
+            getAllVentasByCustomer(2)
+            break;
+        case 'pedNoConcretados':
+            getAllVentasByCustomer(3)
+            break;
+        default:
+            break;
+    }
+        
+    }
+    
 
 })
 
-function getVentas(estado){
-    
-          $.ajax({
-        type: "POST",
-        url: './getAllVentas',
-        async: true,
-        data: {
-            estado :estado
-        },
-        datatype: 'json'
-    }).done(function (data) {
-        
-        console.log(data)
-        drawVentas(data)
+function drawVentas(data) {
 
-    })
-    
-}
-
-function drawVentas(data){
-    
     let str = ``
     let number = 0;
-    for(var item of data){
-    str += `<div class="card">
+    for (var item of data) {
+        str += `<div class="card">
           <div id="headingTwo" class="card-header bg-white shadow-sm border-0">
             <h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapseTwo${number}" aria-expanded="false" aria-controls="collapseTwo" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">Venta #${item.idVenta}</a></h6>
           </div>
@@ -61,7 +70,7 @@ function drawVentas(data){
                         <div class="d-flex flex-row justify-content-between align-items-center order-details">
                             <div><span class="d-block fs-12">Fecha</span><span class="font-weight-bold">${item.fechaVenta}</span></div>
                             <div><span class="d-block fs-12">Método de pago</span><span class="font-weight-bold">${item.formaPago}</span></div>
-                            <div><span class="d-block fs-12">Estado</span><span class="font-weight-bold text-success">Aprobada</span></div>
+                            <div><span class="d-block fs-12">Estado</span><span class="font-weight-bold text-success">${item.idEstadoVentaFK}</span></div>
                         </div>
                         <hr>
                 <table class="table table-responsive">
@@ -88,10 +97,10 @@ function drawVentas(data){
                             </tr>
                         </thead>
         <tbody id="card">`
-        
-for(var items of item.listaProductos){
-    
-str +=   `<tr><td>
+
+        for (var items of item.listaProductos) {
+
+            str += `<tr><td>
                 <img src="${items.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">
              </td><td>    
                     <div class="ml-3 d-inline-block align-middle">
@@ -103,10 +112,10 @@ str +=   `<tr><td>
                     <td class="align-middle pl-4"><strong>${items.cantidad}</strong></td>
                     <td class="align-middle"><strong>${money(items.valorProducto * items.cantidad)}</strong></td>
                 </tr>`
-    
-}
-        
-    str += `</tbody></table>
+
+        }
+
+        str += `</tbody></table>
                 <div class="row">
                             <div class="d-flex justify-content-center col-md-6"></div>
                             <div class="col-md-6">
@@ -128,5 +137,53 @@ str +=   `<tr><td>
         number++
     }
     document.getElementById('pedidos').innerHTML = str
-    
+
+}
+
+$(document).on('change', '#selectTipe', function () {
+
+    let tipo = $(this).val()
+    if (tipo == '2') {
+        number = 2
+    }else{
+        number = 1
+    }
+
+});
+
+
+function getVentasByVendedor(estado) {
+
+    $.ajax({
+        type: "POST",
+        url: './getAllVentasByVendedor',
+        async: true,
+        data: {
+            estado: estado
+        },
+        datatype: 'json'
+    }).done(function (data) {
+
+        drawVentas(data)
+
+    })
+
+}
+
+function getAllVentasByCustomer(estado) {
+
+    $.ajax({
+        type: "POST",
+        url: './getAllVentasByCus',
+        async: true,
+        data: {
+            estado: estado
+        },
+        datatype: 'json'
+    }).done(function (data) {
+        
+        drawVentas(data)
+
+    })
+
 }

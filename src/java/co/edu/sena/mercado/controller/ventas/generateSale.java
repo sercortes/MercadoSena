@@ -100,6 +100,11 @@ public class generateSale extends HttpServlet {
             json += item;
         }
         ProducctoDTO[] producctoDTOs = gson.fromJson(json, ProducctoDTO[].class);
+        
+        for(ProducctoDTO imte: producctoDTOs){
+            System.out.println(imte);
+        }
+        
         CompradorDAO compradorDAO = null;
         VentaDAO ventaDAO = null;
         EmpresaPedidoDAO empresaPedidoDAO = null;
@@ -120,7 +125,7 @@ public class generateSale extends HttpServlet {
             ventaDAO = new VentaDAO(conn);
 
             for (ProducctoDTO item : producctoDTOs) {
-                if (!productosPedidosDAO.checkProducts(item)) {
+                if (!productosPedidosDAO.checkProductsCustomer(item)) {
                     new Gson().toJson(0, response.getWriter());
                     throw new Exception();
                 }
@@ -139,6 +144,8 @@ public class generateSale extends HttpServlet {
             ventaDTO.setIdCompradorFK(Integer.toString(idCompra));
             ventaDTO.setValorVenta(total);
             ventaDTO.setFormaPago(metodo);
+            ventaDTO.setTipoVenta("2");
+            ventaDTO.setIdEstadoVentaFK("1");
             ventaDTO.setIdCiudadFK(Integer.toString(usu.getPersona().getIdCiudad()));
             int idVenta = ventaDAO.insertReturn(ventaDTO);
 
@@ -151,10 +158,11 @@ public class generateSale extends HttpServlet {
                 productoPedidosDTO pedidosDTO = new productoPedidosDTO();
                 pedidosDTO.setIdVentaFK(Integer.toString(idVenta));
                 pedidosDTO.setCantidad(item.getCantidad());
-                pedidosDTO.setIdProductoFK(item.getIdProducto());
+                pedidosDTO.setIdProductoFK(item.getIdProductoColor());
                 productosPedidosDAO.insertReturn(pedidosDTO);
             }
             conn.commit();
+            request.getSession().setAttribute("IDVENTA", Integer.toString(idVenta));
             new Gson().toJson(idVenta, response.getWriter());
         } catch (Exception ex) {
             conn.rollback();

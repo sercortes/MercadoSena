@@ -29,6 +29,7 @@ public class VentaDTO {
 
    private personaNaturalDTO perDTO;
    
+   private String tipoVenta;
    
   private ArrayList<Producto> listaProductos;
     
@@ -135,11 +136,17 @@ public class VentaDTO {
         this.listaProductos = listaProductos;
     }
 
-    @Override
-    public String toString() {
-        return "VentaDTO{" + "idVenta=" + idVenta + ", fechaVenta=" + fechaVenta + ", valorVenta=" + valorVenta + ", contactoVenta=" + contactoVenta + ", formaPago=" + formaPago + ", idEstadoVentaFK=" + idEstadoVentaFK + ", idCompradorFK=" + idCompradorFK + ", idCiudadFK=" + idCiudadFK + ", nombreFormaPago=" + nombreFormaPago + ", perDTO=" + perDTO + ", listaProductos=" + listaProductos + ", descuento=" + descuento + '}';
+    public String getTipoVenta() {
+        return tipoVenta;
     }
 
+    public void setTipoVenta(String tipoVenta) {
+        this.tipoVenta = tipoVenta;
+    }
 
+    @Override
+    public String toString() {
+        return "VentaDTO{" + "idVenta=" + idVenta + ", fechaVenta=" + fechaVenta + ", valorVenta=" + valorVenta + ", contactoVenta=" + contactoVenta + ", formaPago=" + formaPago + ", idEstadoVentaFK=" + idEstadoVentaFK + ", idCompradorFK=" + idCompradorFK + ", idCiudadFK=" + idCiudadFK + ", nombreFormaPago=" + nombreFormaPago + ", perDTO=" + perDTO + ", tipoVenta=" + tipoVenta + ", listaProductos=" + listaProductos + ", descuento=" + descuento + '}';
+    }
     
 }

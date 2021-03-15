@@ -147,7 +147,8 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>gestionarPedidos</servlet-name>
-        <url-pattern>/getAllVentas</url-pattern>
+        <url-pattern>/getAllVentasByVendedor</url-pattern>
+        <url-pattern>/getAllVentasByCus</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>filtro</servlet-name>

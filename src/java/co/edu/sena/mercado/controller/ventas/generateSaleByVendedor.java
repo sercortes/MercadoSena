@@ -218,6 +218,8 @@ public class generateSaleByVendedor extends HttpServlet {
             ventaDTO.setValorVenta(total);
             ventaDTO.setFormaPago(metodo);
             ventaDTO.setDescuento(descuento);
+            ventaDTO.setTipoVenta("1");
+            ventaDTO.setIdEstadoVentaFK("2");
             ventaDTO.setNombreFormaPago(getNombreFormadePago(metodo));
             ventaDTO.setIdCiudadFK(Integer.toString(usu.getPersona().getIdCiudad()));
             int idVenta = ventaDAO.insertReturn(ventaDTO);
