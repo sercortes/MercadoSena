@@ -45,11 +45,12 @@ public class correo {
 
             message.setSubject("Activación cuenta");
             message.setText(
-                    "<div style='padding: 20px;border: solid 2px #b93333;border-radius: 10px;padding-bottom: 0px;'>"
-                    + "            <h3 style='text-align: center'>CARWAY</h3>"
-                    + "            <p>De parte de todo el equipo de CARWAY te damos la bienvenida a nuestro sistema, ingresa al siguiente botón para activar la cuenta:</p>"
+                    "<div style='padding: 25px;border: solid 2px #b93333;border-radius: 10px;padding-bottom: 0px;width: 50%; margin: auto;'>"
+                    + "            <div style='background: #b93333'><img style='width: 30%; margin-left: 34%;margin-top: 1%;' src=\"https://carwaystore.com/Store/assets/images/icons/LOGO3.png\"></div>"
+                    + "            <p>De parte de todo el equipo de CARWAY te damos la bienvenida a nuestro sistema.</p>"
+                    + "            <p>Sólo te queda un paso para completar el proceso de registro.</p>"                
+                    + "            <p>Para terminar,haz clic en el siguiente botón para activar tu cuenta:</p>"
                     + "            <p><b>Usuario: </b>" + dest + "</p>"
-                    + "            <p><b>clave: </b>" + clave + "</p>"
                     + "  <form action=\"" + this.urlActivate + "\" method=\"POST\" >"
                     + "            <input type=\"hidden\" value=\"" + dest + "\" name=\"usuario\">"
                     + "            <input type=\"hidden\" value=\"" + codigo + "\" name=\"codigo\">"

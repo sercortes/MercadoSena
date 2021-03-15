@@ -169,7 +169,6 @@
                         </div>
                         <br>
                         <div class="row" id="TCARD">
-                            <input type="checkbox" class="form-check-input" id="checkPSE">
                             <label class="form-check-label" for="exampleCheck1"><p id="textpag">Al hacer clic en "Comprar", admito que he leído y aceptado los Términos y condiciones</p></label>
                         </div>
                         <br>
@@ -235,7 +234,6 @@
                             </select>
                         </div> 
                         <div class="row" id="TPSE">
-                            <input type="checkbox" class="form-check-input" id="checkPSE">
                             <label class="form-check-label" for="exampleCheck1"><p id="textpagt">Al hacer clic en "Comprar", admito que he leído y aceptado los Términos y condiciones</p></label>
                         </div>
                         <div class="modal-footer">

@@ -56,7 +56,7 @@
                 </div>
             </c:if>
             <center>
-                <a href="./" style="font-size: 20px; color: black; text-align: center"><i class="fa fa-home" style="color: #ff0000; font-size: 20px;"></i> Volver al inicio</a>
+                <a href="./" style="font-size: 20px; color: black; text-align: center"><i class="fa fa-home" style="color: #e04343; font-size: 20px;"></i> Volver al inicio</a>
             </center>
         </div>
 
