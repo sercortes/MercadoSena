@@ -93,7 +93,7 @@ public class VentaDAO {
         try {
           String sql = "SELECT V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
                     "V.idCompradorFK, M.nombre, E.nombreEstado, P.documentoPersona, P.nombrePersona, P.apellidoPersona, " +
-                    "P.correoPersona, P.direccionPersona, P.telefonoPersona FROM ventas V " +
+                    "P.correoPersona, P.direccionPersona, P.telefonoPersona, P.celularPersona FROM ventas V " +
                     "INNER JOIN metodopago M ON V.formaPagoVenta = M.idMetodoPago " +
                     "INNER JOIN estadoventas E ON V.idEstadoVentasFK = E.idEstadoVentas " +
                     "INNER JOIN comprador C ON V.idCompradorFK = C.idComprador " +
@@ -119,6 +119,7 @@ public class VentaDAO {
                 perDTO.setCorreoPer(rs.getString("P.correoPersona"));
                 perDTO.setDireccionPer(rs.getString("P.direccionPersona"));
                 perDTO.setTelPer(rs.getString("P.telefonoPersona"));
+                perDTO.setNumCelularPer(rs.getString("P.celularPersona"));
                 ventaDTO.setPerDTO(perDTO);
                 list.add(ventaDTO);
             }
@@ -135,7 +136,7 @@ public class VentaDAO {
         try {
           String sql = "SELECT V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
                     "V.idCompradorFK, M.nombre, E.nombreEstado, P.documentoPersona, P.nombrePersona, P.apellidoPersona, " +
-                    "P.correoPersona, P.direccionPersona, P.telefonoPersona FROM ventas V " +
+                    "P.correoPersona, P.direccionPersona, P.telefonoPersona, P.celularPersona FROM ventas V " +
                     "INNER JOIN metodopago M ON V.formaPagoVenta = M.idMetodoPago " +
                     "INNER JOIN estadoventas E ON V.idEstadoVentasFK = E.idEstadoVentas " +
                     "INNER JOIN comprador C ON V.idCompradorFK = C.idComprador " +
@@ -161,6 +162,7 @@ public class VentaDAO {
                 perDTO.setCorreoPer(rs.getString("P.correoPersona"));
                 perDTO.setDireccionPer(rs.getString("P.direccionPersona"));
                 perDTO.setTelPer(rs.getString("P.telefonoPersona"));
+                perDTO.setNumCelularPer(rs.getString("P.celularPersona"));
                 ventaDTO.setPerDTO(perDTO);
                 list.add(ventaDTO);
             }

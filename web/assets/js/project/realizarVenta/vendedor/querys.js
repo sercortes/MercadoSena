@@ -24,7 +24,7 @@ function buscarCliente(id) {
 
         }, success: function (data) {
             console.log(data)
-            if (data.idPer === 0) {
+            if (data.numeroDocPer === 0) {
                 noExists(id)
                 return false;
             }
@@ -130,7 +130,7 @@ function exist(data) {
     $('#cabecera').show()
     let str = ``
     str += `<tr class="" idPersona="${data.idUsuario}">
-                    <th scope="row">${data.idPer}</th>
+                    <th scope="row">${data.numeroDocPer}</th>
                     <td>${data.nombrePer}</td>
                     <td>${data.apellidoPer}</td>
                     <td><div class="form-check">

@@ -71,6 +71,18 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="inputPassword4">Celular</label>
+                                        <input type="number" class="form-control" id="celular" placeholder="310 xxx xx xx">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="inputEmail4">Teléfono</label>
+                                        <input type="number" class="form-control" id="telefono" placeholder="256 xx xx">
+                                        <small id="emailHelp" class="form-text text-muted">No obligatorio</small>
+                                    </div>
+
+                                </div>
+                                <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for="inputPassword4">Dirección</label>
                                         <input type="text" class="form-control" id="direccion" placeholder="Dirección">

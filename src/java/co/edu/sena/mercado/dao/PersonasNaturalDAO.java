@@ -58,7 +58,7 @@ public class PersonasNaturalDAO {
     public personaNaturalDTO getPersonaByIdPersona(String idPersona){
     
          try {
-            String sql = "SELECT idPersona, documentoPersona, nombrePersona, apellidoPersona, direccionPersona FROM personanatural "
+            String sql = "SELECT idPersona, documentoPersona, nombrePersona, apellidoPersona, direccionPersona, celularPersona FROM personanatural "
                     + "WHERE idPersona = ? AND idTipoPersonaFK = 1 LIMIT 1";
             ps = conn.prepareStatement(sql);
             ps.setString(1, idPersona);
@@ -68,13 +68,15 @@ public class PersonasNaturalDAO {
             persona = new personaNaturalDTO();
             while (rs.next()) {
                 persona.setIdUsuario(rs.getInt("idPersona"));
-                persona.setIdPer(rs.getInt("documentoPersona"));
+                persona.setNumeroDocPer(rs.getString("documentoPersona"));
                 persona.setNombrePer(rs.getString("nombrePersona"));
                 persona.setApellidoPer(rs.getString("apellidoPersona"));
                 persona.setDireccionPer(rs.getString("direccionPersona"));
+                persona.setNumCelularPer(rs.getString("celularPersona"));
             }
             return persona;
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e);
             return null;
         }
@@ -84,7 +86,7 @@ public class PersonasNaturalDAO {
     public personaNaturalDTO getPersona(String idPersona){
     
          try {
-            String sql = "SELECT idPersona, documentoPersona, nombrePersona, apellidoPersona, direccionPersona FROM personanatural "
+            String sql = "SELECT idPersona, documentoPersona, nombrePersona, apellidoPersona, direccionPersona, celularPersona FROM personanatural "
                     + "WHERE documentoPersona = ? AND idTipoPersonaFK = 1 LIMIT 1";
             ps = conn.prepareStatement(sql);
             ps.setString(1, idPersona);
@@ -94,10 +96,11 @@ public class PersonasNaturalDAO {
             persona = new personaNaturalDTO();
             while (rs.next()) {
                 persona.setIdUsuario(rs.getInt("idPersona"));
-                persona.setIdPer(rs.getInt("documentoPersona"));
+                persona.setNumeroDocPer(rs.getString("documentoPersona"));
                 persona.setNombrePer(rs.getString("nombrePersona"));
                 persona.setApellidoPer(rs.getString("apellidoPersona"));
                 persona.setDireccionPer(rs.getString("direccionPersona"));
+                persona.setNumCelularPer(rs.getString("celularPersona"));
             }
             return persona;
         } catch (Exception e) {
@@ -109,17 +112,19 @@ public class PersonasNaturalDAO {
     
     public int registrarPersonaNaturalByVendedor(personaNaturalDTO persona) throws Exception, MySQLIntegrityConstraintViolationException {
         int idUsuario = 0;
-        String consulta = "INSERT INTO personanatural(idTipoDocFK, documentoPersona, nombrePersona, apellidoPersona, direccionPersona, idTipoPersonaFK, idUsuarioFK) "
-                + "VALUES(?,?,?,?,?,?,?)";
+        String consulta = "INSERT INTO personanatural(celularPersona, telefonoPersona, idTipoDocFK, documentoPersona, nombrePersona, apellidoPersona, direccionPersona, idTipoPersonaFK, idUsuarioFK) "
+                + "VALUES(?,?,?,?,?,?,?,?,?)";
         try {
             ps = conn.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, persona.getIdTipoDoc());
-            ps.setString(2, persona.getNumeroDocPer());
-            ps.setString(3, persona.getNombrePer());
-            ps.setString(4, persona.getApellidoPer());
-            ps.setString(5, persona.getDireccionPer());
-            ps.setString(6, "1");
-            ps.setInt(7, persona.getIdUsuario());
+            ps.setString(1, persona.getNumCelularPer());
+            ps.setString(2, persona.getTelPer());
+            ps.setInt(3, persona.getIdTipoDoc());
+            ps.setString(4, persona.getNumeroDocPer());
+            ps.setString(5, persona.getNombrePer());
+            ps.setString(6, persona.getApellidoPer());
+            ps.setString(7, persona.getDireccionPer());
+            ps.setString(8, "1");
+            ps.setInt(9, persona.getIdUsuario());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {

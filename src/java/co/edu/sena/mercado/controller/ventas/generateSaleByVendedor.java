@@ -48,6 +48,7 @@ public class generateSaleByVendedor extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
         response.setContentType("application/json");
         
         if (request.getSession().getAttribute("USER") != null) {
@@ -197,6 +198,8 @@ public class generateSaleByVendedor extends HttpServlet {
                 personaNaturalDTO.setNombrePer(request.getParameter("nombre"));
                 personaNaturalDTO.setApellidoPer(request.getParameter("apellido"));
                 personaNaturalDTO.setDireccionPer(request.getParameter("direccion"));
+                personaNaturalDTO.setNumCelularPer(request.getParameter("celular"));
+                personaNaturalDTO.setTelPer(request.getParameter("telefono").trim());
                 personaNaturalDTO.setIdUsuario(usu.getIdUsuario());
                 idComprador = personasNaturalDAO.registrarPersonaNaturalByVendedor(personaNaturalDTO);
             } else {
