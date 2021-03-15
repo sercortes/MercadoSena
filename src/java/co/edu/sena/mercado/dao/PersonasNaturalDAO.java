@@ -68,7 +68,7 @@ public class PersonasNaturalDAO {
             persona = new personaNaturalDTO();
             while (rs.next()) {
                 persona.setIdUsuario(rs.getInt("idPersona"));
-                persona.setIdPer(rs.getInt("documentoPersona"));
+                persona.setNumeroDocPer(rs.getString("documentoPersona"));
                 persona.setNombrePer(rs.getString("nombrePersona"));
                 persona.setApellidoPer(rs.getString("apellidoPersona"));
                 persona.setDireccionPer(rs.getString("direccionPersona"));
@@ -76,6 +76,7 @@ public class PersonasNaturalDAO {
             }
             return persona;
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e);
             return null;
         }
@@ -95,7 +96,7 @@ public class PersonasNaturalDAO {
             persona = new personaNaturalDTO();
             while (rs.next()) {
                 persona.setIdUsuario(rs.getInt("idPersona"));
-                persona.setIdPer(rs.getInt("documentoPersona"));
+                persona.setNumeroDocPer(rs.getString("documentoPersona"));
                 persona.setNombrePer(rs.getString("nombrePersona"));
                 persona.setApellidoPer(rs.getString("apellidoPersona"));
                 persona.setDireccionPer(rs.getString("direccionPersona"));

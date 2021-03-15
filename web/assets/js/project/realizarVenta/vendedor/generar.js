@@ -193,6 +193,7 @@ function generateFactura(data) {
 
     let arraf = JSON.parse(localStorage.getItem('objects'));
     console.log(arraf)
+    console.log(data)
 
     let str = ``
 

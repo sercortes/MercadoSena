@@ -65,9 +65,7 @@
 
 <%@include file="/views/searching/htmlSearch.jspf"%>
 <%@include file="/views/searching/modalVerProducto.jspf"%>
-<%@include file="/views/searching/modalPreguntar.jspf"%>
 
 <%@include file="/views/template/footer.jspf"%>
 
 <script src="./assets/js/project/ventas/pedidosVendedor.js" type="text/javascript"></script>
-<script src="./assets/js/project/ventas/actualizarEstPedido.js" type="text/javascript"></script>
