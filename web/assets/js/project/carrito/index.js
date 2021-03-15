@@ -3,282 +3,160 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-//REPLACE WITH YOUR PUBLIC KEY AVAILABLE IN: https://developers.mercadopago.com/panel/credentials
-window.Mercadopago.setPublishableKey("APP_USR-897bc79d-8f14-404c-989a-30347153358b");
-window.Mercadopago.getIdentificationTypes();
-
-document.getElementById('cardNumber').addEventListener('change', guessPaymentMethod);
 
 
-function guessPaymentMethod(event) {
-    cleanCardInfo();
+document.getElementById('flexRadioDefault1').addEventListener('click', function () {
 
-    let cardnumber = document.getElementById("cardNumber").value;
-    if (cardnumber.length >= 6) {
-        let bin = cardnumber.substring(0, 6);
-        window.Mercadopago.getPaymentMethod({
-            "bin": bin
-        }, setPaymentMethod);
-    }
-}
-;
-
-
-function setPaymentMethod(status, response) {
-    if (status == 200) {
-        let paymentMethod = response[0];
-
-        document.getElementById('paymentMethodId').value = paymentMethod.id;
-
-
-        if (paymentMethod.additional_info_needed.includes("issuer_id")) {
-            getIssuers(paymentMethod.id);
-
-        } else {
-            document.getElementById('issuerInput').classList.add("hidden");
-
-            getInstallments(
-                    paymentMethod.id,
-                    document.getElementById('amount').value
-                    );
-        }
-
-    } else {
-        alert(`payment method info error: ${response}`);
-    }
-}
-
-function getIssuers(paymentMethodId) {
-    window.Mercadopago.getIssuers(
-            paymentMethodId,
-            setIssuers
-            );
-}
-
-function setIssuers(status, response) {
-    if (status == 200) {
-        let issuerSelect = document.getElementById('issuer');
-
-        response.forEach(issuer => {
-            let opt = document.createElement('option');
-            opt.text = issuer.name;
-            opt.value = issuer.id;
-            issuerSelect.appendChild(opt);
-        });
-
-        if (issuerSelect.options.length <= 1) {
-            document.getElementById('issuerInput').classList.add("hidden");
-        } else {
-            document.getElementById('issuerInput').classList.remove("hidden");
-        }
-
-        getInstallments(
-                document.getElementById('paymentMethodId').value,
-                document.getElementById('amount').value,
-                issuerSelect.value
-                );
-
-    } else {
-        alert(`issuers method info error: ${response}`);
-    }
-}
-
-function getInstallments(paymentMethodId, amount, issuerId) {
-    window.Mercadopago.getInstallments({
-        "payment_method_id": paymentMethodId,
-        "amount": amount,
-        "issuer_id": issuerId ? parseInt(issuerId) : undefined
-    }, setInstallments);
-}
-
-function setInstallments(status, response) {
-    if (status == 200) {
-        document.getElementById('installments').options.length = 0;
-        response[0].payer_costs.forEach(payerCost => {
-            let opt = document.createElement('option');
-            opt.text = payerCost.recommended_message;
-            opt.value = payerCost.installments;
-            document.getElementById('installments').appendChild(opt);
-        });
-    } else {
-        alert(`installments method info error: ${response}`);
-    }
-}
-
-//Update offered installments when issuer changes
-document.getElementById('issuer').addEventListener('change', updateInstallmentsForIssuer);
-function updateInstallmentsForIssuer(event) {
-    window.Mercadopago.getInstallments({
-        "payment_method_id": document.getElementById('paymentMethodId').value,
-        "amount": document.getElementById('amount').value,
-        "issuer_id": parseInt(document.getElementById('issuer').value)
-    }, setInstallments);
-}
-
-//Proceed with payment
-doSubmit = false;
-
-document.getElementById('paymentForm').addEventListener('submit', getCardToken);
-function getCardToken(event) {
-    event.preventDefault();
-    if (!doSubmit) {
-        let $form = document.getElementById('paymentForm');
-        window.Mercadopago.createToken($form, setCardTokenAndPay);
-
-        return false;
-    }
-}
-;
-
-
-
-
-function setCardTokenAndPay(status, response) {
-    if (status == 200 || status == 201) {
-        let form = document.getElementById('paymentForm');
-        let card = document.createElement('input');
-        card.setAttribute('name', 'token');
-        card.setAttribute('type', 'hidden');
-        card.setAttribute('value', response.id);
-        form.appendChild(card);
-        doSubmit = true;
-        form.submit(); //Submit form data to your backend
-    } else {
-        alert("Verify filled data!\n" + JSON.stringify(response, null, 4));
-    }
-}
-;
-
-/***
- * UX functions 
- */
-
-
-
-function cleanCardInfo() {
-    document.getElementById('cardNumber').style.backgroundImage = '';
-    document.getElementById('issuerInput').classList.add("hidden");
-    document.getElementById('issuer').options.length = 0;
-    document.getElementById('installments').options.length = 0;
-}
-
-//Handle transitions
-document.getElementById('checkout-btn').addEventListener('click', function () {
-
-    buyProducts(3)
-
-    $('.shopping-cart').fadeOut(500);
-    setTimeout(() => {
-        $('.container_payment').show(500).fadeIn();
-    }, 500);
+    $('#ModalTarjeta').modal('show');
+   
 });
-document.getElementById('checkouts-btn').addEventListener('click', function () {
 
-    buyProducts(4)
-    
+window.onload=cosasapagar();
+
+document.getElementById('flexRadioDefault2').addEventListener('click', function () {
+
+    $('#ModalPSE').modal('show');
+
     $.post("process_payment", {accionT: "listadebancos"}, function (rs) {
         var json = JSON.parse(rs);
-        console.log("JSON PARSE: " + json);
+
         if (rs !== 'null') {
             for (x = 0; x < json.length; x++) {
-                console.log(json[x].financial_institution_code);
-                console.log(json[x].financial_institution_name);
+
                 document.getElementById("selectdebanco").innerHTML += "<option value='" + json[x].financial_institution_code + "'>'" + json[x].financial_institution_name + "'</option>";
             }
 
-                
+
 
         } else if (rs === 'index') {
             setTimeout("location.href='index.jsp'", 1000);
         }
     });
 
-
-//    $.post("process_payment", {accionT: "pse"}, function (rs) {
-//
-//        if (rs !== 'null') {
-//            var json = JSON.parse(rs);
-//
-//            console.log(json);
-//            for (let item of json) { 
-//                document.getElementById("selectdebancos").innerHTML += "<select><option>"+ item.fraud_javascript_key  + "</option></select>";
-//            }
-//
-//
-//
-//        } else if (rs === 'index') {
-//            setTimeout("location.href='index.jsp'", 1000);
-//        }
-//    });
-
-
-    $('.shopping-cart').fadeOut(500);
-    setTimeout(() => {
-        $('.container_payments').show(500).fadeIn();
-    }, 500);
-});
-document.getElementById('go-back').addEventListener('click', function () {
-    $('.container_payment').fadeOut(500);
-    setTimeout(() => {
-        $('.shopping-cart').show(500).fadeIn();
-    }, 500);
-});
-document.getElementById('go-backs').addEventListener('click', function () {
-    $('.container_payments').fadeOut(500);
-    setTimeout(() => {
-        $('.shopping-cart').show(500).fadeIn();
-    }, 500);
 });
 
-//Handle price update
-function updatePrice() {
-    let quantity = document.getElementById('quantity').value;
-    let unitPrice = document.getElementById('unit-price').innerHTML;
-    let amount = parseInt(unitPrice) * parseInt(quantity);
-
-    document.getElementById('cart-total').innerHTML = '$ ' + unitPrice;
-    document.getElementById('carts-total').innerHTML = '$ ' + unitPrice;
-    document.getElementById('summary-price').innerHTML = '$ ' + unitPrice;
-    document.getElementById('summary-quantity').innerHTML = quantity;
-    document.getElementById('summary-total').innerHTML = '$ ' + unitPrice;
-    var precio = unitPrice.replace(/[$.]/g, '');
-    document.getElementById('amount').value = precio;
-
+function checkSubmit() {
+    document.getElementById("pagotarjeta").value = "Enviando...";
+    document.getElementById("pagotarjeta").disabled = true;
+    return true;
 }
-;
-document.getElementById('quantity').addEventListener('change', updatePrice);
-updatePrice();
 
-//Retrieve product description
-document.getElementById('description').value = document.getElementById('product-description').innerHTML;
-
-document.getElementById('cardNumber').addEventListener('change', guessPaymentMethod);
-
-
-
-
-
-
-function guessPaymentMethod(event) {
-    let cardnumber = document.getElementById("cardNumber").value;
-    if (cardnumber.length >= 6) {
-        let bin = cardnumber.substring(0, 6);
-        window.Mercadopago.getPaymentMethod({
-            "bin": bin
-        }, setPaymentMethod);
-    }
+function checkSubmit2() {
+    document.getElementById("pagoPSE").value = "Enviando....";
+    document.getElementById("pagoPSE").disabled = true;
+    return true;
 }
-;
 
-function setPaymentMethod(status, response) {
-    if (status == 200) {
-        let paymentMethod = response[0];
-        document.getElementById('paymentMethodId').value = paymentMethod.id;
-        document.getElementById('cardNumber').style.backgroundImage = 'url(' + paymentMethod.thumbnail + ')';
+document.getElementById('pagotarjeta').addEventListener('click', function () {
+    var cardValid = 0;
 
-        getIssuers(paymentMethod.id);
+    //card number validation
+    $('#cardhold').validateCreditCard(function (result) {
+        if (result.valid) {
+            $("#cardhold").removeClass('required');
+            cardValid = 1;
+        } else {
+            $("#cardhold").addClass('required');
+            cardValid = 0;
+        }
+    });
+
+    //card details validation
+    var cardName = $("#name_on_card").val();
+    var expMonth = $("#cardExpirationMonth").val();
+    var expYear = $("#expiry_year").val();
+    var cvv = $("#cvv").val();
+    var regName = /^[a-z ,.'-]+$/i;
+    var regMonth = /^01|02|03|04|05|06|07|08|09|10|11|12$/;
+    var regYear = /^2017|2018|2019|2020|2021|2022|2023|2024|2025|2026|2027|2028|2029|2030|2031$/;
+    var regCVV = /^[0-9]{3,3}$/;
+    if (cardValid == 0) {
+        $("#cardNumber").addClass('required');
+        $("#cardNumber").focus();
+        return false;
+    } else if (!regMonth.test(expMonth)) {
+        $("#cardNumber").removeClass('required');
+        $("#cardExpirationMonth").addClass('required');
+        $("#cardExpirationMonth").focus();
+        return false;
+    } else if (!regYear.test(expYear)) {
+        $("#cardNumber").removeClass('required');
+        $("#cardExpirationMonth").removeClass('required');
+        $("#cardExpirationYear").addClass('required');
+        $("#cardExpirationYear").focus();
+        return false;
+    } else if (!regCVV.test(cvv)) {
+        $("#cardNumber").removeClass('required');
+        $("#cardExpirationMonth").removeClass('required');
+        $("#cardExpirationYear").removeClass('required');
+        $("#CVV").addClass('required');
+        $("#CVV").focus();
+        return false;
+    } else if (!regName.test(cardName)) {
+        $("#cardNumber").removeClass('required');
+        $("#cardExpirationMonth").removeClass('required');
+        $("#cardExpirationYear").removeClass('required');
+        $("#CVV").removeClass('required');
+        $("#cardhold").addClass('required');
+        $("#cardhold").focus();
+        return false;
     } else {
-        alert(`payment method info error: ${response}`);
+        $("#cardNumber").removeClass('required');
+        $("#cardExpirationMonth").removeClass('required');
+        $("#cardExpirationYear").removeClass('required');
+        $("#CVV").removeClass('required');
+        $("#cardhold").removeClass('required');
+        return true;
     }
+
+    $(document).ready(function () {
+
+        //card validation on input fields
+        $('#paymentForm input[type=text]').on('keyup', function () {
+            cardFormValidate;
+        });
+    });
+
+});
+
+
+function cosasapagar() {
+
+    let arraf = JSON.parse(localStorage.getItem('objects'));
+    let total = 0;
+    let str = '';
+    for (var item of arraf) {
+        str += `<tr><td>`;
+        if (item.imagenUnitaria !== undefined) {
+            str += `<img src="${item.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">`
+        } else {
+            str += `<img src="${item.listaImagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`
+        }
+        str += `</td>
+                   <td> 
+                        <div class="ml-3 d-inline-block align-middle">
+                              <h5 class="mb-0">
+                                <p class="mb-0 text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</p>                                </div>
+                            </div>
+                        </td>
+                        <td class="border-0 align-middle pl-3"><strong>${item.color}</strong></td>
+                        <td class="border-0 align-middle pl-5"><strong>${item.cantidad}</strong></td>
+                        <td class="border-0 align-middle"><strong>${money(item.valorProducto)}</strong></td>
+                    </tr>`
+        total += item.cantidad * item.valorProducto;
+    }
+    document.getElementById('cards').innerHTML = str;
+    $.post("process_payment", {accionT: "Guardarprecio", valor: total});
+    
+    str = `<hr style="margin-top: 0rem;margin-bottom: 0rem;">
+                <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong><strong>${money(total)}</strong></li>
+                                
+                                <!--<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>-->
+                                    <!--<h5 class="font-weight-bold float-right">$45.000.00</h5>-->
+                                </li>`;
+
+    document.getElementById('totals').innerHTML = str;
+
 }
+
 
