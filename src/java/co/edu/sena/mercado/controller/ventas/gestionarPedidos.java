@@ -59,6 +59,12 @@ public class gestionarPedidos extends HttpServlet {
                 getAllVentasByCustomer(request, response);
 
                 break;
+                
+            case "/Store/getVentasByComprador":
+
+                getVentasByComprador(request, response);
+
+                break; 
 
             default:
                 
@@ -112,5 +118,26 @@ public class gestionarPedidos extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void getVentasByComprador(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+       usuarioDTO usuario = (usuarioDTO) request.getSession().getAttribute("USER");
+        
+                request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        String estado = request.getParameter("estado");
+        Conexion conexion = new Conexion();
+        VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
+        ArrayList<VentaDTO> listaVentas = ventaDAO.getAllVentasByOnlyCustomer(estado, usuario.getIdUsuario());
+         listaVentas.forEach((item) -> {
+            ArrayList<Producto> listaProductos
+                    = ventaDAO.getProductosByCustomer(item.getIdVenta());
+            item.setListaProductos(listaProductos);
+        });
+        ventaDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaVentas, response.getWriter());
+        
+    }
     
 }

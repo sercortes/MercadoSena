@@ -8,9 +8,11 @@ package co.edu.sena.mercado.dao;
 import co.edu.sena.mercado.dto.Categorys;
 import co.edu.sena.mercado.dto.Centro;
 import co.edu.sena.mercado.util.Conexion;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +49,63 @@ public class CategorysDAO {
             System.out.println(e);
             return null;
         }
+    }
+       
+     public int insertReturnCategoria(String nombreCategoria) throws Exception{
+
+        int idComprador = 0;
+
+        String sql = "INSERT INTO categoriaproducto (nombreCategoria) "
+                + "VALUES (?)";
+        try {
+            ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, nombreCategoria);
+            System.out.println(ps.toString());
+            ps.executeUpdate();
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                idComprador = rs.getInt(1);
+            }
+            System.out.println("............................."+ps.toString());
+            return idComprador;
+        } catch (MySQLIntegrityConstraintViolationException e) {
+            System.out.println(e);
+            e.printStackTrace();
+            throw new Exception();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e);
+            throw new Exception();
+        }
+
+    }
+     
+      public int insertReturnMarca(String nombreMarca) throws Exception{
+
+        int idComprador = 0;
+
+        String sql = "INSERT INTO marcaProducto (nombreMarca) "
+                + "VALUES (?)";
+        try {
+            ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            
+            ps.setString(1, nombreMarca);
+            ps.executeUpdate();
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                idComprador = rs.getInt(1);
+            }
+            System.out.println("............................."+ps.toString());
+            return idComprador;
+        } catch (MySQLIntegrityConstraintViolationException e) {
+            System.out.println(e);
+            throw new Exception();
+        } catch (Exception e) {
+            System.out.println(e);
+            throw new Exception();
+        }
+
     }
        
         public ArrayList<Centro> getCentros() {

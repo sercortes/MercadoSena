@@ -107,6 +107,7 @@
         <url-pattern>/ventasVendedor</url-pattern>
         <url-pattern>/misPedidos</url-pattern>
         <url-pattern>/realizarInformes</url-pattern>
+        <url-pattern>/config</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UploadProduct</servlet-name>
@@ -149,6 +150,7 @@
         <servlet-name>gestionarPedidos</servlet-name>
         <url-pattern>/getAllVentasByVendedor</url-pattern>
         <url-pattern>/getAllVentasByCus</url-pattern>
+        <url-pattern>/getVentasByComprador</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>filtro</servlet-name>
@@ -188,6 +190,8 @@
         <url-pattern>/getProductsCheck</url-pattern>
         <url-pattern>/getProductsForCheck</url-pattern>
         <url-pattern>/updateStatusProduct</url-pattern>
+        <url-pattern>/createCategory</url-pattern>
+        <url-pattern>/createBrand</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Validation</servlet-name>
