@@ -81,6 +81,9 @@ public class RutasVendedor extends HttpServlet {
             case "/Store/realizarInformes":
                 request.getRequestDispatcher("/views/informes/informes.jsp").forward(request, response);
                 break;
+            case "/Store/config":
+                request.getRequestDispatcher("/views/admin/config.jsp").forward(request, response);
+                break;
             default:
                 System.out.println("error de la ruta");
                 break;

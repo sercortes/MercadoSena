@@ -2,21 +2,15 @@
 <body style="">
 
     <div class="super_container">
-
         <div class="header_main">
-           
                     <c:if test="${ empty USER.idRol}">
                         <input type="hidden" value="no" id="nombreUsuarioInicio">
                     </c:if>
-       
         </div>
     </div>
 
             <!--Navbar-->
             <header class="header">
-            
-                
-               
                 
                 <nav class="navbar navbar-expand-lg navbar-dark primary-color encabezado" >
 
@@ -74,6 +68,10 @@
                                 
                                  <li class="nav-item">
                                     <a class="nav-link encabezadoOpciones" href="./realizarVenta"><i class="fas fa-shipping-fast"></i> Realizar Venta</a>
+                                </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link encabezadoOpciones" href="./config"><i class="fas fa-sliders-h"></i> Ajustes</a>
                                 </li>
                             </c:if>
 

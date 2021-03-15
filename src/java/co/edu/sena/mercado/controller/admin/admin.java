@@ -1,5 +1,6 @@
 package co.edu.sena.mercado.controller.admin;
 
+import co.edu.sena.mercado.dao.CategorysDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
 import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.dto.usuarioDTO;
@@ -24,56 +25,30 @@ public class admin extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
-        if (user != null && user.getIdRol() == 5) {
-
-            String direccion = request.getRequestURI();
-            RequestDispatcher rd;
-
-            switch (direccion) {
-
-                case "/Store/getProductsCheck":
-
-                    rd = request.getRequestDispatcher("/views/admin/products.jsp");
-                    rd.forward(request, response);
-
-                    break;
-
-                default:
-
-                    System.out.println("sesión invalida admin");
-                    response.sendRedirect(request.getContextPath() + "/home");
-
-                    break;
-
-            }
-
-        } else {
-            System.out.println("sesión invalida admin");
-            response.sendRedirect(request.getContextPath() + "/home");
-        }
+        System.out.println("sesión invalida admin");
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
-        if (user != null && user.getIdRol() == 5) {
-          
-             String direccion = request.getRequestURI();
+        if (user != null && user.getIdRol() == 3) {
+
+            String direccion = request.getRequestURI();
             RequestDispatcher rd;
 
             switch (direccion) {
 
-                case "/MercadoSena/getProductsForCheck":
+                case "/Store/createCategory":
 
-                    getProducts(request, response);
+                    createCategory(request, response);
 
                     break;
-                    
-               case "/MercadoSena/updateStatusProduct":
 
-                    updateProduct(request, response);
+                case "/Store/createBrand":
+
+                    createBrand(request, response);
 
                     break;
 
@@ -86,73 +61,91 @@ public class admin extends HttpServlet {
 
             }
 
-            
         } else {
             System.out.println("sesión invalida admin");
             response.sendRedirect(request.getContextPath() + "/home");
         }
     }
-    
-    private void getProducts(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+
+    private void createCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         request.setCharacterEncoding("UTF-8");
-        response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
-        ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
-        ArrayList<Producto> listaProductos = productoDAO.getProductsByDateTimeAscForCheck();
-        response.setContentType("application/json");
-        productoDAO.CloseAll();
-        new Gson().toJson(listaProductos, response.getWriter());
+        CategorysDAO categoriaDao = null;
+        Connection cone = null;
 
-    }
+        try {
 
-    private void updateProduct(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
-        String idProducto = request.getParameter("idProducto");
-        String aprobar = request.getParameter("aprobar");
-        String comentario = request.getParameter("comment");
-        boolean estatus = Boolean.parseBoolean(aprobar);
-        String idEstado = "";
-        
-        if (estatus) {
-            idEstado = "2";
-        }else{
-            idEstado = "4";
-        }
-        
-        request.setCharacterEncoding("UTF-8");
-        Conexion conexion = new Conexion();
-        Connection cone = conexion.getConnection();
-        ProductoDAO productoDAO = null;
-      try {
+            cone = conexion.getConnection();
             if (cone.getAutoCommit()) {
                 cone.setAutoCommit(false);
             }
-            productoDAO = new ProductoDAO(cone);
-            productoDAO.disabledProductWithAdmin(idProducto, idEstado, comentario);
+            categoriaDao = new CategorysDAO(cone);
+            categoriaDao.insertReturnCategoria(request.getParameter("nombre"));
             response.setContentType("application/json");
             cone.commit();
             new Gson().toJson(true, response.getWriter());
 
         } catch (Exception ex) {
-            
+
+            ex.printStackTrace();
             try {
+                cone.rollback();
+                ex.printStackTrace();
+                new Gson().toJson(false, response.getWriter());
                 System.out.println("ROLL BACK DELETE PRODUCT");
                 System.out.println(ex);
-                cone.rollback();
-                new Gson().toJson(false, response.getWriter());
             } catch (SQLException ex1) {
-                System.out.println(ex1);
+                ex1.printStackTrace();
+                Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex1);
             }
 
-        }finally{
-            productoDAO.CloseAll();
+        } finally {
+            categoriaDao.CloseAll();
+        }
+
+    }
+
+    private void createBrand(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        CategorysDAO categoriaDao = null;
+        Connection cone = null;
+
+        try {
+
+            cone = conexion.getConnection();
+            if (cone.getAutoCommit()) {
+                cone.setAutoCommit(false);
+            }
+            categoriaDao = new CategorysDAO(cone);
+            categoriaDao.insertReturnMarca(request.getParameter("nombre"));
+            response.setContentType("application/json");
+            cone.commit();
+            new Gson().toJson(true, response.getWriter());
+
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+            try {
+                cone.rollback();
+                ex.printStackTrace();
+                new Gson().toJson(false, response.getWriter());
+                System.out.println("ROLL BACK DELETE PRODUCT");
+                System.out.println(ex);
+            } catch (SQLException ex1) {
+                ex1.printStackTrace();
+                Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+
+        } finally {
+            categoriaDao.CloseAll();
         }
         
-        
     }
-    
-        @Override
+
+    @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
