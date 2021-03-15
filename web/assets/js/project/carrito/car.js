@@ -32,10 +32,10 @@ function showCar() {
     
     $('#modalCar').modal('show')
     let arraf = JSON.parse(localStorage.getItem('objects'));
-    let total = 0
-    let str = ''
+    let total = 0;
+    let str = '';
     for (var item of arraf) {
-        str += `<tr><td>`
+        str += `<tr><td>`;
         if (item.imagenUnitaria !== undefined) {
             str += `<img src="${item.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">`
         } else {
@@ -54,17 +54,18 @@ function showCar() {
                             <a id="delete" href="#" class="text-dark pl-3"><i class="fa fa-trash"></i></a></td>
                         <td class="border-0 align-middle"><strong>${money(item.valorProducto)}</strong></td>
                     </tr>`
-        total += item.cantidad * item.valorProducto
+        total += item.cantidad * item.valorProducto;
     }
-    document.getElementById('card').innerHTML = str
-
+    document.getElementById('card').innerHTML = str;
+    $.post("process_payment", {accionT: "Guardarprecio", valor: total});
     str = `<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Subtotal </strong><strong>${money(total)}</strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong><strong>${money(total)}</strong></li>
-                                <input type="hidden" id="valor" value="${money(total)}">
+                                
                                 <!--<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong>-->
                                     <!--<h5 class="font-weight-bold float-right">$45.000.00</h5>-->
-                                </li>`
-    document.getElementById('total').innerHTML = str
+                                </li>`;
+
+    document.getElementById('total').innerHTML = str;
 
 }
 
@@ -77,6 +78,7 @@ $(document).on('click', '#delete', function (e) {
     let arraf = JSON.parse(localStorage.getItem('objects'));
     arraf = arraf.filter(item => item.idProductoColor !== idColor);
     localStorage.setItem('objects', JSON.stringify(arraf));
+
     showCar()
 });
 
@@ -91,31 +93,37 @@ $("#modalCar").on('hidden.bs.modal', function () {
     updateIconNumber()
 
 });
-
+var loc = document.location.href;
 function updateIconNumber() {
 
-    let arraf = JSON.parse(localStorage.getItem('objects'));
-    let str = ''
-    let ex = document.getElementById('buttonCars')
-
-    if (arraf.length === 0) {
-        if (ex !== null) {
-            document.getElementById("buttonCars").remove();
-        }
-        return false
-    }
-
-    if (ex !== null) {
-        document.getElementById('number').innerHTML
-                = `<i class="fas fa-cart-arrow-down"></i> ${arraf.length}`
+    if (loc === "https://carwaystore.com/Store/process_payment") {
+        str = ``;
     } else {
 
-        str = ` <li class="nav-item" id="buttonCars">
-                <a id="number" class="nav-link encabezadoOpciones" href="#">
-                        <i class="fas fa-cart-arrow-down"></i> ${arraf.length}</a>
-            </li>`
-        document.getElementById('navbars').innerHTML += str
+        let arraf = JSON.parse(localStorage.getItem('objects'));
+        let str = ''
+        let ex = document.getElementById('buttonCars');
 
+        if (arraf.length === 0) {
+            if (ex !== null) {
+                document.getElementById("buttonCars").remove();
+            }
+            return false
+        }
+
+        if (ex !== null) {
+            document.getElementById('number').innerHTML
+                    = `<i class="fas fa-cart-arrow-down"></i> ${arraf.length}`;
+        } else {
+
+            str = ` <li class="nav-item" id="buttonCars">
+                    <a id="number" class="nav-link encabezadoOpciones" href="#">
+                        <i class="fas fa-cart-arrow-down"></i> ${arraf.length}</a>
+            </li>`;
+
+            document.getElementById('navbars').innerHTML += str
+
+        }
     }
 }
 
@@ -134,11 +142,9 @@ $("#btnpagar").click(function () {
             messageInfo('Necesitamos tu información para completar la compra')
             $('#modalUpdateData').modal('show')
             $('#modalCar').modal('hide')
-            return false
+            return false;
         }
 
-        valor = document.getElementById('valor').value;
-        location.href = "process_payment?valor=" + valor;
     }
 
 

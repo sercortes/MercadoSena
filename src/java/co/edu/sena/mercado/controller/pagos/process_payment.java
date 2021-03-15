@@ -11,7 +11,6 @@ import co.edu.sena.mercado.dto.VentaDTO;
 import co.edu.sena.mercado.util.Conexion;
 import java.io.IOException;
 import java.text.DateFormat;
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -21,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 // controllerpagos
@@ -36,7 +36,6 @@ public class process_payment extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute("valor", request.getParameter("valor"));
         request.getRequestDispatcher("/views/car/pagoscar.jsp").forward(request, response);
 
     }
@@ -47,8 +46,17 @@ public class process_payment extends HttpServlet {
 
 //        Object jsonarray = CRestPse.getPSE();
         String accion = request.getParameter("accionT");
+
+        HttpSession sessionvalor = request.getSession();
         HttpSession sessiontoken = request.getSession();
+
         switch (accion) {
+
+            case "Guardarprecio":
+                String valor = request.getParameter("valor");
+
+                sessionvalor.setAttribute("SESSIONVALOR", valor);
+                break;
 
             case "listadebancos":
 
@@ -65,21 +73,21 @@ public class process_payment extends HttpServlet {
 
             case "pagarpse":
 
-                String valorpagar = request.getParameter("valorpagar");
+                String valorpagar = sessionvalor.getAttribute("SESSIONVALOR") + "";
                 String valopse = valorpagar.replace(".", "");
                 int valors = Integer.parseInt(valopse + 0 + 0);
-                String descriptionss = request.getParameter("description");
+//                String descriptionss = request.getParameter("description");
                 String descriptions = "Producto de CARWAY";
                 String Tipodepersona = request.getParameter("TPersona");
                 String Nombre = request.getParameter("Nombre");
                 String Apellido = request.getParameter("Apellido");
-                String NombreApellido = Nombre +" "+ Apellido;
+                String NombreApellido = Nombre + " " + Apellido;
                 int tipodepersona = Integer.parseInt(Tipodepersona);
                 String Tipodedoc = request.getParameter("docTypes");
                 String document = request.getParameter("docNumbers");
                 String code = request.getParameter("selectdebanco");
                 String tokes = sessiontoken.getAttribute("TOKEN").toString();
-                String emails = request.getParameter("emails");
+                String emails = request.getParameter("email");
 
                 String referencia = String.valueOf(Math.random() * 15 + 1);
 
@@ -101,71 +109,79 @@ public class process_payment extends HttpServlet {
             case "Tarjetadecredito":
 
                 try {
+
+                    JSONObject tokenperson = CRestPse.getInformacion();
+
+                    String tokenper = tokenperson.getJSONObject("data").getJSONObject("presigned_acceptance").getString("acceptance_token");
 //
-                    String transactionAmount = request.getParameter("transactionAmount");
-                    int valor = Integer.parseInt(transactionAmount);
-                    String token = request.getParameter("token"); //
-                    String description = request.getParameter("description");
-                    String installments = request.getParameter("installments");
-                    int cuotas = Integer.parseInt(installments);
-                    String paymentMethodId = request.getParameter("paymentMethodId");
-                    String docType = request.getParameter("docType");
-                    String docNumber = request.getParameter("docNumber");
-                    String email = request.getParameter("email");
+                    String cardhold = request.getParameter("cardhold");
+                    String cardExpirationMonth = request.getParameter("cardExpirationMonth");
+                    String cardExpirationYear = request.getParameter("cardExpirationYear");
+                    String cardNumber = request.getParameter("cardNumber");
+                    String CVV = request.getParameter("CVV");
 
-                    JSONObject jsonrta = CRestPse.getListabancos(token, email, valor, description, cuotas, paymentMethodId, docType, docNumber);
+                    String valorpagart = sessionvalor.getAttribute("SESSIONVALOR") + "";
+                    String valort = valorpagart.replace(".", "");
+                    int valorr = Integer.parseInt(valort + 0 + 0);
+                    String email = request.getParameter("emails");
+                    String installments = "1";
+                    String reference = String.valueOf(Math.random() * 15 + 1);
 
-                    // Enviar atributos del estado de la compra
-                    request.setAttribute("id", jsonrta.get("id"));
-                    String imputtex = jsonrta.get("date_approved").toString();
-                    DateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
-                    DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US);
-                    Date date = inputFormat.parse(imputtex);
-                    String outputText = outputFormat.format(date);
-                    request.setAttribute("date_approved", outputText);
-                    String metodopago = jsonrta.get("payment_method_id").toString();
-                    String TarjteaM = "Mastercard";
-                    String TarjetaV = "Visa";
-                    String Otro = "Otro";
-                    if (metodopago.equals("master") || metodopago.equals("visa")) {
-                        if (metodopago.equals("master")) {
-                            request.setAttribute("payment_method_id", TarjteaM);
-                        } else if (metodopago.equals("visa")) {
-                            request.setAttribute("payment_method_id", TarjetaV);
+                    String tokentarjeta = CRestPse.Tokenizartarjeta(cardNumber, CVV, cardExpirationMonth, cardExpirationYear, cardhold);
+
+                    if (tokentarjeta != null) {
+
+                        JSONObject jsontar = CRestPse.Posttajeta(tokenper, tokentarjeta, valorr, email, installments, reference, cardhold);
+                        if (jsontar != null) {
+
+                            try {
+                                JSONArray jsonArray = jsontar.getJSONArray("data");
+                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+
+                                request.setAttribute("id", jsonObject.get("id"));
+                                request.setAttribute("reference", jsonObject.get("reference"));
+                                String imputtex = jsonObject.get("created_at").toString();
+                                DateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US);
+                                Date date = inputFormat.parse(imputtex);
+                                String outputText = outputFormat.format(date);
+                                request.setAttribute("created_at", outputText);
+                                request.setAttribute("brand", jsonObject.getJSONObject("payment_method").getJSONObject("extra").get("brand"));
+                                request.setAttribute("last_four", jsonObject.getJSONObject("payment_method").getJSONObject("extra").get("last_four"));
+                                request.setAttribute("full_name", jsonObject.getJSONObject("customer_data").get("full_name"));
+                                String Aprobado = "Aprobado";
+                                String status = jsonObject.get("status").toString();
+                                if (status.equals("APPROVED")) {
+                                    VentaDAO ventaDAO = new VentaDAO(new Conexion().getConnection());
+                                    VentaDTO ventaDTO = new VentaDTO();
+                                    ventaDTO.setIdEstadoVentaFK("2");
+                                    ventaDTO.setIdVenta(request.getParameter("ventaId"));
+                                    ventaDAO.actualizarVenta(ventaDTO);
+                                    ventaDAO.CloseAll();
+                                    request.setAttribute("status", Aprobado);
+                                    request.setAttribute("amount_in_cents", valorpagart);
+                                    request.getRequestDispatcher("/views/car/estadodepago.jsp").forward(request, response);
+                                } else {
+                                    request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
+                                }
+
+                            } catch (Exception e) {
+                            }
                         } else {
-                            request.setAttribute("payment_method_id", Otro);
+                            request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
                         }
+
+                    } else {
+                        request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
                     }
-                    String Aprobado = "Aprobado";
-                    String status = jsonrta.get("status").toString();
-                    if (status.equals("approved")) {
-                        VentaDAO ventaDAO = new VentaDAO(new Conexion().getConnection());
-                        VentaDTO ventaDTO = new VentaDTO();
-                        ventaDTO.setIdEstadoVentaFK("2");
-                        ventaDTO.setIdVenta(request.getParameter("ventaId"));
-                        ventaDAO.actualizarVenta(ventaDTO);
-                        ventaDAO.CloseAll();
-                        request.setAttribute("status", Aprobado);
-                    }
-                    request.setAttribute("status_detail", jsonrta.get("status_detail"));
-                    request.setAttribute("description", jsonrta.get("description"));
-                    Object totalget = jsonrta.get("transaction_amount");
-                    DecimalFormat formatea = new DecimalFormat("###,###.##");
-                    String totalset = formatea.format(totalget);
-                    request.setAttribute("transaction_amount", totalset);
-                    request.setAttribute("statement_descriptor", jsonrta.get("statement_descriptor"));
-                    request.setAttribute("last_four_digits", jsonrta.getJSONObject("card").getString("last_four_digits"));
-                    request.setAttribute("name", jsonrta.getJSONObject("card").getJSONObject("cardholder").getString("name"));
-                    request.setAttribute("number", jsonrta.getJSONObject("card").getJSONObject("cardholder").getJSONObject("identification").getString("number"));
-                    request.setAttribute("type", jsonrta.getJSONObject("card").getJSONObject("cardholder").getJSONObject("identification").getString("type"));
-//                    request.setAttribute("last_four_digits", jsonrta.getJSONObject("card").getString("last_four_digits"));
-                    request.getRequestDispatcher("/views/car/estadodepago.jsp").forward(request, response);
 
                 } catch (Exception e) {
 
                     System.err.println("Eorr a traer datos" + e);
 
                 }
+
+                sessionvalor.invalidate();
 
                 break;
 

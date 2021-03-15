@@ -23,7 +23,7 @@ public class datosSesion {
         Usuario.setPersona(perDTO);
         empresaDTO emDTO = new empresaDAO().buscarEmpresa(Usuario.getIdUsuario());
         Usuario.setEmpresa(emDTO);
-
+      
         return Usuario;
 
     }

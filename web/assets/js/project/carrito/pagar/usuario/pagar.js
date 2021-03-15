@@ -3,7 +3,6 @@ idVenta = 0
 function buyProducts(metodo) {
 
     let arraf = JSON.parse(localStorage.getItem('objects'));
-
     $.ajax({
         type: 'POST',
         url: './generateSale',
@@ -28,6 +27,28 @@ function buyProducts(metodo) {
     })
 
 }
+
+
+$("#btnpagar").click(function () {
+
+    if (!checkSession()) {
+        modalPreguntaRegistro();
+        return false
+    }
+
+    if (checkData()) {
+        messageInfo('Necesitamos tu información para completar la compra')
+        $('#modalUpdateData').modal('show')
+        $('#modalCar').modal('hide')
+        return false
+    }
+    
+    $.post(location.href = "process_payment");
+
+});
+
+
+
 
 
 $(document).on('click', '#btnUpdateData', function (e) {
@@ -79,7 +100,9 @@ $(document).on('click', '#btnUpdateData', function (e) {
         },
         datatype: 'json'
     }).done(function (data) {
-        
+
+
+        console.log(data)
         $('#cargas').removeClass('is-active');
         $("#btnUpdateData").attr("disabled", false);
 

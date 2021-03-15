@@ -30,5 +30,5 @@
 
 </c:if>
 
-<%@include file="/views/botonesredes/botonesredes.jsp"%>
+
 <%@include file="/views/template/footer.jspf"%>
