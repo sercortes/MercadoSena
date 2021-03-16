@@ -24,6 +24,7 @@ public class ProductoDAOQuerysBa {
     private PreparedStatement ps = null;
     private ResultSet rs = null;
 
+
     public ProductoDAOQuerysBa(Connection conn) {
         this.conn = conn;
     }
@@ -47,7 +48,7 @@ public class ProductoDAOQuerysBa {
             Producto producto;
             while (rs.next()) {
                 producto = new Producto();
-                producto.setImagenUnitaria(rs.getString("imagen"));
+                producto.setImagenUnitaria(Producto.SERVER_UPLOAD+rs.getString("imagen"));
                 producto.setIdProducto(rs.getString("idProducto"));
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProductoVendedor"));

@@ -85,62 +85,63 @@ $(document).on('click', '#searching', function (e) {
 
     let url = '';
 
-    if (nombreProductoFiltar !== '' && categorias === ''
-            && marca === '') {
-
-        url = './getProductsByWord';
-        console.log('getProductsByWord')
-        query(data, url);
-
-    } else if (nombreProductoFiltar === '' && categorias !== ''
-            && marca === '') {
-
-        url = './getProductsByCategory';
-        console.log('getProductsByCategory')
-        query(data, url);
-
-    } else if (nombreProductoFiltar !== '' && categorias !== ''
-            && marca === '') {
-
-        url = './getProductsByNameCategory';
-        console.log('getProductsByNameCategory')
-        query(data, url);
-
-    }else if (nombreProductoFiltar === '' && categorias === ''
-            && marca !== ''){
-        
-        url = './getProductsByMarca';
-        console.log('getProductsByMarca')
-        query(data, url);
-
-    }else if (nombreProductoFiltar !== '' && categorias === ''
-            && marca !== ''){
-        
-        url = './getProductsByNameMarca';
-        console.log('getProductsByNameMarca')
-        query(data, url)
-
-    }else if (nombreProductoFiltar === '' && categorias !== ''
-            && marca !== ''){
-        
-        url = './getProductsByCategoryMarca';
-        console.log('getProductsByCategoryMarca')
-        query(data, url)
-
-    }else if (nombreProductoFiltar !== '' && categorias !== ''
-            && marca !== ''){
-        
-        url = './getProductsByNameCategoryMarca';
-        console.log('getProductsByNameCategoryMarca');
-        query(data, url);
-
-    } else {
-        
-        console.log('else')
-        url = './getProductsByWord';
-        query(data, url);
-
-    }
+    queryEmphyP()
+//    if (nombreProductoFiltar !== '' && categorias === ''
+//            && marca === '') {
+//
+//        url = './getProductsByWord';
+//        console.log('getProductsByWord')
+//        query(data, url);
+//
+//    } else if (nombreProductoFiltar === '' && categorias !== ''
+//            && marca === '') {
+//
+//        url = './getProductsByCategory';
+//        console.log('getProductsByCategory')
+//        query(data, url);
+//
+//    } else if (nombreProductoFiltar !== '' && categorias !== ''
+//            && marca === '') {
+//
+//        url = './getProductsByNameCategory';
+//        console.log('getProductsByNameCategory')
+//        query(data, url);
+//
+//    }else if (nombreProductoFiltar === '' && categorias === ''
+//            && marca !== ''){
+//        
+//        url = './getProductsByMarca';
+//        console.log('getProductsByMarca')
+//        query(data, url);
+//
+//    }else if (nombreProductoFiltar !== '' && categorias === ''
+//            && marca !== ''){
+//        
+//        url = './getProductsByNameMarca';
+//        console.log('getProductsByNameMarca')
+//        query(data, url)
+//
+//    }else if (nombreProductoFiltar === '' && categorias !== ''
+//            && marca !== ''){
+//        
+//        url = './getProductsByCategoryMarca';
+//        console.log('getProductsByCategoryMarca')
+//        query(data, url)
+//
+//    }else if (nombreProductoFiltar !== '' && categorias !== ''
+//            && marca !== ''){
+//        
+//        url = './getProductsByNameCategoryMarca';
+//        console.log('getProductsByNameCategoryMarca');
+//        query(data, url);
+//
+//    } else {
+//        
+//        console.log('else')
+//        url = './getProductsByWord';
+//        query(data, url);
+//
+//    }
 
 })
 

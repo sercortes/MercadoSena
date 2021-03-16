@@ -61,6 +61,6 @@
     <h3>¿Desea ingresar?</h3>
     <p style="color: black">Para poder acceder a todas nuestras opciones es necesario iniciar sesión...</p>
 
-    <input type="submit" id="botonPreguntaRegistro" value="Continuar" class="botonRegistro" onclick=" modalRegistroSi()" ><br>
-    <input type="submit" value="No" class="botonRegistro" onclick="cerrar('#modalPreguntaRegistro')">
+    <input type="submit" id="botonPreguntaRegistro" value="Continuar" class="botonRegistro btn btn-primary" onclick=" modalRegistroSi()" ><br>
+    <input type="submit" value="No" class="botonRegistro btn btn-primary" onclick="cerrar('#modalPreguntaRegistro')">
 </div>
