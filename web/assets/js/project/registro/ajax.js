@@ -68,7 +68,7 @@ function consultaCiudad(idDiv, idInput, valor) {
 
 function modalRegistro() {
 
-    $('body').attr('Style', '');
+//    $('body').attr('Style', '');
     $('#modalRegistro').show(400);
 
 }

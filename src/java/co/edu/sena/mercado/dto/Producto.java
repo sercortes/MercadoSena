@@ -16,18 +16,14 @@ public class Producto {
     private int stockProducto;
     private String marcaProducto;
     private String descripcionProducto;
-    
     private Double precioVendedor;
-    
     private String diasEnvios;
     private String medidaProducto;
     private String empaqueProducto;
     private String embalajeProducto;
     private String ventajaProducto;
-
     private String idEmpresaFK;
     private String idCategoriaFK;
-
     private ImagenesProducto imagenesProducto;
     private Categorys categorys;
     private String referencia;
@@ -36,22 +32,15 @@ public class Producto {
     private int idCiudad;
     private String color;
     private String garantia;
-
     private String ciudad;
-    
     private int cantidad;
-    
     private String cantidadColores;
-    
     private String imagenUnitaria;
-    
     private String idProductoColor;
-    
     private ArrayList<ImagenesProducto> listaImagenes;
-    
     private ArrayList<ColorDTO> listaColores ;
-    
     private String idMarca;
+    public static final String SERVER_UPLOAD = "http://192.168.0.13:8084/filess/";
 
     public Producto() {
     }

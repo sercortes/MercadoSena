@@ -139,7 +139,7 @@ public class empresaDAO {
                 empresaDTO.setTelEmpresa(rs.getString("telefonoEmpresa"));
                 empresaDTO.setCelEmpresa(rs.getString("celularEmpresa"));
                 empresaDTO.setCorreoEmpresa(rs.getString("correoEmpresa"));
-                empresaDTO.setCentro(rs.getString("idCentro"));
+//                empresaDTO.setCentro(rs.getString("idCentro"));
                 empresaDTO.setIdCiudad(rs.getInt("idCiudadFK"));
                 empresaDTO.setIdUsuario(rs.getInt("idUsuarioFK"));
 

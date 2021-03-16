@@ -30,7 +30,7 @@ function listarProductoByDateTime() {
         async: true,
         datatype: 'json'
     }).done(function (data) {
-
+        
         generatePageQuery(data, 4)
 
     })

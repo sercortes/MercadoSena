@@ -1,4 +1,3 @@
-
 package co.edu.sena.mercado.controller.ventas;
 
 import co.edu.sena.mercado.dao.CompradorDAO;
@@ -44,100 +43,99 @@ public class gestionarPedidos extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-       String direccion = request.getRequestURI();
+        String direccion = request.getRequestURI();
 
         switch (direccion) {
 
             case "/Store/getAllVentasByVendedor":
 
-                getAllVentas(request, response);
+                getAllVentasVendedor(request, response);
 
                 break;
-                
+
             case "/Store/getAllVentasByCus":
 
                 getAllVentasByCustomer(request, response);
 
                 break;
-                
+
             case "/Store/getVentasByComprador":
 
                 getVentasByComprador(request, response);
 
-                break; 
+                break;
 
             default:
-                
+
                 System.out.println("query basic no soporta GET");
                 response.sendRedirect(request.getContextPath() + "/home");
 
                 break;
 
-            }
         }
+    }
 
-    private void getAllVentas(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
+    private void getAllVentasVendedor(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String estado = request.getParameter("estado");
         Conexion conexion = new Conexion();
         VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
         ArrayList<VentaDTO> listaVentas = ventaDAO.getVentasByVendedor(estado);
-         listaVentas.forEach((item) -> {
+        listaVentas.forEach((item) -> {
             ArrayList<Producto> listaProductos
-                    = ventaDAO.getProductosByVenta(item.getIdVenta());
+                    = ventaDAO.getProductosByPriceVendedor(item.getIdVenta());
             item.setListaProductos(listaProductos);
         });
         ventaDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaVentas, response.getWriter());
-        
+
     }
 
     private void getAllVentasByCustomer(HttpServletRequest request, HttpServletResponse response) throws IOException {
-       
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String estado = request.getParameter("estado");
         Conexion conexion = new Conexion();
         VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
         ArrayList<VentaDTO> listaVentas = ventaDAO.getAllVentasByCustomer(estado);
-         listaVentas.forEach((item) -> {
+        listaVentas.forEach((item) -> {
             ArrayList<Producto> listaProductos
-                    = ventaDAO.getProductosByCustomer(item.getIdVenta());
+                    = ventaDAO.getProductosByPriceNormal(item.getIdVenta());
             item.setListaProductos(listaProductos);
         });
         ventaDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaVentas, response.getWriter());
-        
+
     }
 
-            @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
     private void getVentasByComprador(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        
-       usuarioDTO usuario = (usuarioDTO) request.getSession().getAttribute("USER");
-        
-                request.setCharacterEncoding("UTF-8");
+
+        usuarioDTO usuario = (usuarioDTO) request.getSession().getAttribute("USER");
+        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         String estado = request.getParameter("estado");
         Conexion conexion = new Conexion();
         VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
         ArrayList<VentaDTO> listaVentas = ventaDAO.getAllVentasByOnlyCustomer(estado, usuario.getIdUsuario());
-         listaVentas.forEach((item) -> {
+        listaVentas.forEach((item) -> {
             ArrayList<Producto> listaProductos
-                    = ventaDAO.getProductosByCustomer(item.getIdVenta());
+                    = ventaDAO.getProductosByPriceNormal(item.getIdVenta());
             item.setListaProductos(listaProductos);
         });
         ventaDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaVentas, response.getWriter());
-        
+
     }
-    
+
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
 }

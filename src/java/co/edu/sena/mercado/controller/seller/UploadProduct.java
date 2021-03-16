@@ -47,7 +47,6 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class UploadProduct extends HttpServlet {
 
     private final String UPLOAD_DIRECTORY = "/home/equipo/servers/apache-tomcat-8.0.27/webapps/ROOT/filess/";
-    private final String SERVER_UPLOAD = "http://192.168.0.13:8084/filess/";
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -130,7 +129,7 @@ public class UploadProduct extends HttpServlet {
 
                 folder = Integer.toString(productoDAO.insertReturn(producto));
 
-                File tempFile = new File(UPLOAD_DIRECTORY + File.separator + folder);
+                File tempFile = new File(File.separator + folder);
 
                 System.out.println("FOLDERR");
                 System.out.println(folder);
@@ -254,7 +253,7 @@ public class UploadProduct extends HttpServlet {
         item.write(tempFile);
 
         imagenesProducto = new ImagenesProducto();
-        imagenesProducto.setUrl(SERVER_UPLOAD + folder + File.separator + tempFile.getName());
+        imagenesProducto.setUrl(folder + File.separator + tempFile.getName());
         imagenesProducto.setIdProductoFK(folder);
         lista.add(imagenesProducto);
 

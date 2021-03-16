@@ -217,7 +217,7 @@ public class VentaDAO {
         }
     }
     
-   public ArrayList<Producto> getProductosByVenta(String idProducto) {
+   public ArrayList<Producto> getProductosByPriceVendedor(String idProducto) {
         try {
             
             String sql = "SELECT P.*, C.nombreColor, PP.cantidadProductoVenta, (SELECT urlProducto FROM imagenesproductos WHERE idProductoImageFK = P.idProducto LIMIT 1) 'imagen' " +
@@ -233,7 +233,7 @@ public class VentaDAO {
             Producto producto;
             while (rs.next()) {
                 producto = new Producto();
-                producto.setImagenUnitaria(rs.getString("imagen"));
+                producto.setImagenUnitaria(Producto.SERVER_UPLOAD+rs.getString("imagen"));
                 producto.setIdProducto(rs.getString("idProducto"));
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProductoVendedor"));
@@ -249,7 +249,7 @@ public class VentaDAO {
     }
     
 
-public ArrayList<Producto> getProductosByCustomer(String idProducto) {
+public ArrayList<Producto> getProductosByPriceNormal(String idProducto) {
         try {
             
             String sql = "SELECT P.*, C.nombreColor, PP.cantidadProductoVenta, (SELECT urlProducto FROM imagenesproductos WHERE idProductoImageFK = P.idProducto LIMIT 1) 'imagen' " +
@@ -265,7 +265,7 @@ public ArrayList<Producto> getProductosByCustomer(String idProducto) {
             Producto producto;
             while (rs.next()) {
                 producto = new Producto();
-                producto.setImagenUnitaria(rs.getString("imagen"));
+                producto.setImagenUnitaria(Producto.SERVER_UPLOAD+rs.getString("imagen"));
                 producto.setIdProducto(rs.getString("idProducto"));
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));

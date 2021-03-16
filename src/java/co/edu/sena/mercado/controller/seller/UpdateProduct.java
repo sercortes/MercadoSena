@@ -38,8 +38,7 @@ import org.apache.commons.io.FilenameUtils;
  */
 public class UpdateProduct extends HttpServlet {
 
-    private final String UPLOAD_DIRECTORY = "/home/equipo/servers2/glassfish4/glassfish/domains/domain1/docroot/files/";
-    private final String SERVER_UPLOAD = "http://192.168.0.13:8080/files/";
+    private final String UPLOAD_DIRECTORY = "/home/equipo/servers/apache-tomcat-8.0.27/webapps/ROOT/filess/";
     private static final long serialVersionUID = 1L;
 
     @Override
@@ -276,7 +275,7 @@ public class UpdateProduct extends HttpServlet {
         item.write(tempFile);
 
         imagenesProducto = new ImagenesProducto();
-        imagenesProducto.setUrl(SERVER_UPLOAD + folder + File.separator + tempFile.getName());
+        imagenesProducto.setUrl(folder + File.separator + tempFile.getName());
         imagenesProducto.setIdProductoFK(folder);
         lista.add(imagenesProducto);
 
