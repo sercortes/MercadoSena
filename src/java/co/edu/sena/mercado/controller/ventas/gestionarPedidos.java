@@ -52,7 +52,7 @@ public class gestionarPedidos extends HttpServlet {
                 getAllVentasVendedor(request, response);
 
                 break;
-
+                
             case "/Store/getAllVentasByCus":
 
                 getAllVentasByCustomer(request, response);
@@ -64,7 +64,7 @@ public class gestionarPedidos extends HttpServlet {
                 getVentasByComprador(request, response);
 
                 break;
-
+                
             default:
 
                 System.out.println("query basic no soporta GET");
@@ -75,6 +75,7 @@ public class gestionarPedidos extends HttpServlet {
         }
     }
 
+    //Tipo de venta 1 vendedor
     private void getAllVentasVendedor(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         request.setCharacterEncoding("UTF-8");
@@ -82,10 +83,10 @@ public class gestionarPedidos extends HttpServlet {
         String estado = request.getParameter("estado");
         Conexion conexion = new Conexion();
         VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
-        ArrayList<VentaDTO> listaVentas = ventaDAO.getVentasByVendedor(estado);
+        ArrayList<VentaDTO> listaVentas = ventaDAO.getVentasByVendedor(estado, "1");
         listaVentas.forEach((item) -> {
             ArrayList<Producto> listaProductos
-                    = ventaDAO.getProductosByPriceVendedor(item.getIdVenta());
+                    = ventaDAO.getProductosByPrice(item.getIdVenta());
             item.setListaProductos(listaProductos);
         });
         ventaDAO.CloseAll();
@@ -94,6 +95,7 @@ public class gestionarPedidos extends HttpServlet {
 
     }
 
+    //Tipo de venta 2 Cliente
     private void getAllVentasByCustomer(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         request.setCharacterEncoding("UTF-8");
@@ -101,10 +103,10 @@ public class gestionarPedidos extends HttpServlet {
         String estado = request.getParameter("estado");
         Conexion conexion = new Conexion();
         VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
-        ArrayList<VentaDTO> listaVentas = ventaDAO.getAllVentasByCustomer(estado);
+        ArrayList<VentaDTO> listaVentas = ventaDAO.getVentasByVendedor(estado, "2");
         listaVentas.forEach((item) -> {
             ArrayList<Producto> listaProductos
-                    = ventaDAO.getProductosByPriceNormal(item.getIdVenta());
+                    = ventaDAO.getProductosByPrice(item.getIdVenta());
             item.setListaProductos(listaProductos);
         });
         ventaDAO.CloseAll();
@@ -113,6 +115,7 @@ public class gestionarPedidos extends HttpServlet {
 
     }
 
+   //Ventas por cliente
     private void getVentasByComprador(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         usuarioDTO usuario = (usuarioDTO) request.getSession().getAttribute("USER");
@@ -124,7 +127,7 @@ public class gestionarPedidos extends HttpServlet {
         ArrayList<VentaDTO> listaVentas = ventaDAO.getAllVentasByOnlyCustomer(estado, usuario.getIdUsuario());
         listaVentas.forEach((item) -> {
             ArrayList<Producto> listaProductos
-                    = ventaDAO.getProductosByPriceNormal(item.getIdVenta());
+                    = ventaDAO.getProductosByPrice(item.getIdVenta());
             item.setListaProductos(listaProductos);
         });
         ventaDAO.CloseAll();

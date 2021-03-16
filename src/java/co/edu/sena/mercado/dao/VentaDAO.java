@@ -88,8 +88,8 @@ public class VentaDAO {
         }
 
     }
-    
-     public ArrayList<VentaDTO> getAllVentasByCustomer(String estado) {
+     
+       public ArrayList<VentaDTO> getVentasByVendedor(String estado, String tipo) {
         try {
           String sql = "SELECT V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
                     "V.idCompradorFK, M.nombre, E.nombreEstado, P.documentoPersona, P.nombrePersona, P.apellidoPersona, " +
@@ -98,9 +98,10 @@ public class VentaDAO {
                     "INNER JOIN estadoventas E ON V.idEstadoVentasFK = E.idEstadoVentas " +
                     "INNER JOIN comprador C ON V.idCompradorFK = C.idComprador " +
                     "INNER JOIN personanatural P ON C.idPersonaFK = P.idPersona " +
-                    "WHERE V.idEstadoVentasFK = ? AND V.tipoVentaFK = 2 ORDER BY V.idVenta DESC";
+                    "WHERE V.idEstadoVentasFK = ? AND V.tipoVentaFK = ? ORDER BY V.idVenta DESC";
             ps = conn.prepareStatement(sql);
             ps.setString(1, estado);
+            ps.setString(2, tipo);
             rs = ps.executeQuery();
             List<VentaDTO> list = new ArrayList<VentaDTO>();
             VentaDTO ventaDTO;
@@ -131,7 +132,7 @@ public class VentaDAO {
         }
     }
     
-    public ArrayList<VentaDTO> getAllVentasByOnlyCustomer(String estado, int idPersona) {
+        public ArrayList<VentaDTO> getAllVentasByOnlyCustomer(String estado, int idPersona) {
         try {
           String sql = "SELECT V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
                     "V.idCompradorFK, M.nombre, E.nombreEstado, P.documentoPersona, P.nombrePersona, P.apellidoPersona, " +
@@ -140,7 +141,7 @@ public class VentaDAO {
                     "INNER JOIN estadoventas E ON V.idEstadoVentasFK = E.idEstadoVentas " +
                     "INNER JOIN comprador C ON V.idCompradorFK = C.idComprador " +
                     "INNER JOIN personanatural P ON C.idPersonaFK = P.idPersona " +
-                    "WHERE V.idEstadoVentasFK = ? AND V.tipoVentaFK = 2 AND P.idUsuarioFK = ? ORDER BY V.idVenta DESC";
+                    "WHERE V.idEstadoVentasFK = ? AND P.idUsuarioFK = ? ORDER BY V.idVenta DESC";
             ps = conn.prepareStatement(sql);
             ps.setString(1, estado);
             ps.setInt(2, idPersona);
@@ -173,54 +174,11 @@ public class VentaDAO {
             return null;
         }
     }
-     
-     
-       public ArrayList<VentaDTO> getVentasByVendedor(String estado) {
-        try {
-          String sql = "SELECT V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
-                    "V.idCompradorFK, M.nombre, E.nombreEstado, P.documentoPersona, P.nombrePersona, P.apellidoPersona, " +
-                    "P.correoPersona, P.direccionPersona, P.telefonoPersona, P.celularPersona FROM ventas V " +
-                    "INNER JOIN metodopago M ON V.formaPagoVenta = M.idMetodoPago " +
-                    "INNER JOIN estadoventas E ON V.idEstadoVentasFK = E.idEstadoVentas " +
-                    "INNER JOIN comprador C ON V.idCompradorFK = C.idComprador " +
-                    "INNER JOIN personanatural P ON C.idPersonaFK = P.idPersona " +
-                    "WHERE V.idEstadoVentasFK = ? AND V.tipoVentaFK = 1 ORDER BY V.idVenta DESC";
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, estado);
-            rs = ps.executeQuery();
-            List<VentaDTO> list = new ArrayList<VentaDTO>();
-            VentaDTO ventaDTO;
-            while (rs.next()) {
-                ventaDTO = new VentaDTO();
-                ventaDTO.setIdVenta(rs.getString("V.idVenta"));
-                ventaDTO.setFechaVenta(rs.getTimestamp("V.fechaVenta"));
-                ventaDTO.setValorVenta(rs.getDouble("V.valorVenta"));
-                ventaDTO.setDescuento(rs.getDouble("V.descuento"));
-                ventaDTO.setFormaPago(rs.getString("M.nombre"));
-                ventaDTO.setIdEstadoVentaFK(rs.getString("E.nombreEstado"));
-                personaNaturalDTO perDTO = new personaNaturalDTO();
-                perDTO.setNumeroDocPer(rs.getString("P.documentoPersona"));
-                perDTO.setNombrePer(rs.getString("P.nombrePersona"));
-                perDTO.setApellidoPer(rs.getString("P.apellidoPersona"));
-                perDTO.setCorreoPer(rs.getString("P.correoPersona"));
-                perDTO.setDireccionPer(rs.getString("P.direccionPersona"));
-                perDTO.setTelPer(rs.getString("P.telefonoPersona"));
-                perDTO.setNumCelularPer(rs.getString("P.celularPersona"));
-                ventaDTO.setPerDTO(perDTO);
-                list.add(ventaDTO);
-            }
-            return (ArrayList<VentaDTO>) list;
-        } catch (Exception e) {
-            System.out.println(e);
-            e.printStackTrace();
-            return null;
-        }
-    }
-    
-   public ArrayList<Producto> getProductosByPriceVendedor(String idProducto) {
+       
+   public ArrayList<Producto> getProductosByPrice(String idProducto) {
         try {
             
-            String sql = "SELECT P.*, C.nombreColor, PP.cantidadProductoVenta, (SELECT urlProducto FROM imagenesproductos WHERE idProductoImageFK = P.idProducto LIMIT 1) 'imagen' " +
+            String sql = "SELECT P.*, C.nombreColor, PP.cantidadProductoVenta, PP.valorProductoVenta, (SELECT urlProducto FROM imagenesproductos WHERE idProductoImageFK = P.idProducto LIMIT 1) 'imagen' " +
                 "FROM productospedidos PP " +
                 "INNER JOIN ProductoColor PC ON PP.idProductoFK=PC.idProductoColor " +
                 "INNER JOIN colorProducto C ON PC.colorFK = C.idColor "+
@@ -236,7 +194,7 @@ public class VentaDAO {
                 producto.setImagenUnitaria(Producto.SERVER_UPLOAD+rs.getString("imagen"));
                 producto.setIdProducto(rs.getString("idProducto"));
                 producto.setNombreProducto(rs.getString("nombreProducto"));
-                producto.setValorProducto(rs.getDouble("valorProductoVendedor"));
+                producto.setValorProducto(rs.getDouble("PP.valorProductoVenta"));
                 producto.setColor(rs.getString("C.nombreColor"));
                 producto.setCantidad(rs.getInt("PP.cantidadProductoVenta"));
                 list.add(producto);
@@ -247,39 +205,6 @@ public class VentaDAO {
             return null;
         }
     }
-    
-
-public ArrayList<Producto> getProductosByPriceNormal(String idProducto) {
-        try {
-            
-            String sql = "SELECT P.*, C.nombreColor, PP.cantidadProductoVenta, (SELECT urlProducto FROM imagenesproductos WHERE idProductoImageFK = P.idProducto LIMIT 1) 'imagen' " +
-                "FROM productospedidos PP " +
-                "INNER JOIN ProductoColor PC ON PP.idProductoFK=PC.idProductoColor " +
-                "INNER JOIN colorProducto C ON PC.colorFK = C.idColor "+
-                "INNER JOIN producto P ON PC.productoFK=P.idProducto WHERE PP.idVentaFK = ?";
-            ps = conn.prepareStatement(sql);
-            ps.setString(1, idProducto);
-            rs = ps.executeQuery();
-            System.out.println(ps.toString());
-            List<Producto> list = new ArrayList<Producto>();
-            Producto producto;
-            while (rs.next()) {
-                producto = new Producto();
-                producto.setImagenUnitaria(Producto.SERVER_UPLOAD+rs.getString("imagen"));
-                producto.setIdProducto(rs.getString("idProducto"));
-                producto.setNombreProducto(rs.getString("nombreProducto"));
-                producto.setValorProducto(rs.getDouble("valorProducto"));
-                producto.setColor(rs.getString("C.nombreColor"));
-                producto.setCantidad(rs.getInt("PP.cantidadProductoVenta"));
-                list.add(producto);
-            }
-            return (ArrayList<Producto>) list;
-        } catch (Exception e) {
-            System.out.println(e);
-            return null;
-        }
-    }
-          
 
     public void CloseAll() {
         Conexion.close(conn);

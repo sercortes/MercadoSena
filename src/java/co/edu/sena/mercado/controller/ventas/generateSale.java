@@ -159,6 +159,7 @@ public class generateSale extends HttpServlet {
                 pedidosDTO.setIdVentaFK(Integer.toString(idVenta));
                 pedidosDTO.setCantidad(item.getCantidad());
                 pedidosDTO.setIdProductoFK(item.getIdProductoColor());
+                pedidosDTO.setValorProductoVenta(item.getValorUnitario());
                 productosPedidosDAO.insertReturn(pedidosDTO);
             }
             conn.commit();

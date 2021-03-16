@@ -15,6 +15,7 @@ public class productoPedidosDTO {
     private String idProductoFK;
     private String idVentaFK;
     private int cantidad;
+    private double valorProductoVenta;
 
     public productoPedidosDTO() {
     }
@@ -51,12 +52,17 @@ public class productoPedidosDTO {
         this.cantidad = cantidad;
     }
 
+    public double getValorProductoVenta() {
+        return valorProductoVenta;
+    }
+
+    public void setValorProductoVenta(double valorProductoVenta) {
+        this.valorProductoVenta = valorProductoVenta;
+    }
+
     @Override
     public String toString() {
-        return "productoPedidosDTO{" + "idProductoPedidos=" + idProductoPedidos + ", idProductoFK=" + idProductoFK + ", idVentaFK=" + idVentaFK + ", cantidad=" + cantidad + '}';
+        return "productoPedidosDTO{" + "idProductoPedidos=" + idProductoPedidos + ", idProductoFK=" + idProductoFK + ", idVentaFK=" + idVentaFK + ", cantidad=" + cantidad + ", valorProductoVenta=" + valorProductoVenta + '}';
     }
-    
-    
-    
     
 }
