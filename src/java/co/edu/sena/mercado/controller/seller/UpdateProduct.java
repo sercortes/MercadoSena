@@ -121,7 +121,7 @@ public class UpdateProduct extends HttpServlet {
 
                 if (hasFiles == 1) {
 
-                    listaExistentes = imagenesProductosDAO.getImagenesByProduc(folder);
+                    listaExistentes = imagenesProductosDAO.getImagenesByProducTotal(folder);
 
                     for (FileItem item : multiparts) {
 
@@ -167,7 +167,8 @@ public class UpdateProduct extends HttpServlet {
                 System.out.println("ACTUALIZADO UPDATE PROUCTS");
 
             } catch (Exception e) {
-
+                
+                e.printStackTrace();
                 cone.rollback();
                 codigo = false;
                 System.out.println(e);

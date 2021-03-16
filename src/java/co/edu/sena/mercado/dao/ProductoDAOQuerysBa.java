@@ -23,7 +23,6 @@ public class ProductoDAOQuerysBa {
     private Connection conn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
-    private final String SERVER_UPLOAD = "http://192.168.0.13:8084/filess/";
 
 
     public ProductoDAOQuerysBa(Connection conn) {
@@ -49,7 +48,7 @@ public class ProductoDAOQuerysBa {
             Producto producto;
             while (rs.next()) {
                 producto = new Producto();
-                producto.setImagenUnitaria(SERVER_UPLOAD+rs.getString("imagen"));
+                producto.setImagenUnitaria(Producto.SERVER_UPLOAD+rs.getString("imagen"));
                 producto.setIdProducto(rs.getString("idProducto"));
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProductoVendedor"));

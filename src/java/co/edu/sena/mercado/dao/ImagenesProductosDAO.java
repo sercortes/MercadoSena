@@ -72,14 +72,36 @@ public class ImagenesProductosDAO {
         }
     }
     
-     
-
+       public ArrayList<ImagenesProducto> getImagenesByProducTotal(String id) {
+           List<ImagenesProducto> list = new ArrayList<ImagenesProducto>();
+        try {
+            String sql = "SELECT IP.* FROM imagenesproductos IP "
+                    + "inner join producto P ON IP.idProductoImageFK = P.idProducto "
+                    + "WHERE IP.idProductoImageFK = ?";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            ImagenesProducto imagenesProducto;
+            while (rs.next()) {
+                imagenesProducto = new ImagenesProducto();
+                imagenesProducto.setUrl(Producto.SERVER_UPLOAD+rs.getString("urlProducto"));
+                imagenesProducto.setIdImagen(rs.getString("idImagenPro"));
+                list.add(imagenesProducto);
+            }
+            return (ArrayList<ImagenesProducto>) list;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e);
+            return null;
+        }
+    }
        
      public boolean deleteByidImagen(String id) throws Exception{
         try {
             String sql = "DELETE FROM imagenesproductos WHERE idImagenPro = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, id);
+            System.out.println(ps.toString());
             int rows = ps.executeUpdate();
             boolean estado = rows > 0;
             return estado;
