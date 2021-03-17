@@ -1,4 +1,4 @@
-var colores = '';
+var colores = ''
 var $pagination = $('#pagination'),
         totalRecords = 0,
         records = [],
@@ -6,21 +6,21 @@ var $pagination = $('#pagination'),
         recPerPage = 4,
         page = 1,
         totalPages = 0,
-        initiateStartPageClick = true;
+        initiateStartPageClick = true
 
 $(function () {
 
     if (window.location.pathname === '/Store/Searching...') {
-        $('.collapse').collapse();
+        $('.collapse').collapse()
         $('#caruselDetails').carousel({
-            interval: 2100
-        });
+            interval: 2100,
+        })
         $('#cargas').addClass('is-active');
-        $('#pagee').show();
-        listarProductoByDateTime();
+        $('#pagee').show()
+        listarProductoByDateTime()
     }
 
-});
+})
 
 function listarProductoByDateTime() {
 
@@ -31,11 +31,9 @@ function listarProductoByDateTime() {
         datatype: 'json'
     }).done(function (data) {
 
-        
-        generatePageQuery(data, 4);
+        generatePageQuery(data, 4)
 
-
-    });
+    })
 
 }
 
@@ -43,17 +41,17 @@ function generatePageQuery(data, pages) {
 
     $('#cargas').removeClass('is-active');
     $pagination.twbsPagination('destroy');
-    recPerPage = pages;
+    recPerPage = pages
 
-    if (data === undefined) {
-        queryEmphy();
-        return false;
+    if (data == undefined) {
+        queryEmphy()
+        return false
     }
 
-    records = data;
-    totalRecords = data.length;
-    totalPages = Math.ceil(totalRecords / recPerPage);
-    apply_pagination();
+    records = data
+    totalRecords = data.length
+    totalPages = Math.ceil(totalRecords / recPerPage)
+    apply_pagination()
 }
 
 function apply_pagination() {
@@ -65,29 +63,29 @@ function apply_pagination() {
             displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
             endRec = (displayRecordsIndex) + recPerPage;
             displayRecords = records.slice(displayRecordsIndex, endRec);
-            generateTableBuscador();
+            generateTableBuscador()
         }
     });
 }
 
 function getImages(data, nume) {
 
-    let str = '';
+    let str = ''
     let num = 0;
 
     for (var item of data) {
         if (num === 0) {
             str += `<div class="carousel-item active">
                             <img class="img-fluid fit-image" src="${item.url}">
-                        </div>`;
+                        </div>`
         } else {
             str += `<div class="carousel-item ssss">
                             <img class="img-fluid fit-image" src="${item.url}">
-                        </div>`;
+                        </div>`
         }
         num++;
     }
-    str += `</div>`;
+    str += `</div>`
     if (data.length > 1) {
         str += `<a class="carousel-control-prev" href="#carouselExampleControls${nume}" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -96,25 +94,25 @@ function getImages(data, nume) {
                     <a class="carousel-control-next" href="#carouselExampleControls${nume}" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Siguiente</span>
-                    </a>`;
+                    </a>`
     }
 
-    return str;
+    return str
 
 }
 
 function generateTableBuscador() {
 
-    let str = ``;
-    let num = 1;
+    let str = ``
+    let num = 1
 
     for (var item of displayRecords) {
 
         str += `<div class="col-lg-3">
-          <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">`;
+          <figure class="rounded p-3 bg-white shadow-sm" idProducto="${item.idProducto}" idEmpresa="${item.idEmpresaFK}">`
         str += `<div id="carouselExampleControls${num}" class="carousel slide hijueputa" data-ride="carousel">
-                    <div class="carousel-inner" id="caruselOne${num}">`;
-        str += getImages(item.listaImagenes, num);
+                    <div class="carousel-inner" id="caruselOne${num}">`
+        str += getImages(item.listaImagenes, num)
         str += `</div>
             <figcaption class="p-2 card-img-bottom">
                 <hr>
@@ -132,23 +130,23 @@ function generateTableBuscador() {
             </div>
           </div>
         </div>
-      </div>`;
+      </div>`
 
         str += `<div class="text-right" idProductoColor="${item.idProductoColor}">
                             <a href="#" class="botonChat btn btn-primary"><i class="fas fa-comments"></i></a>
                             <a href="#" class="watch btn btn-primary"><i class="fas fa-images"></i></a>
                             <a href="#" class="addProductOne btn btn-primary"><i class="fas fa-plus-square"></i></a>
-                        </div>`;
+                        </div>`
         str += `</figure>
-        </div>`;
-        num++;
+        </div>`
+        num++
 
     }
 
     document.getElementById('tabla').innerHTML = str;
     setTimeout(() => $('.hijueputa').carousel({
-            interval: 3100
-        }), 1000);
+            interval: 3100,
+        }), 1000)
 
     console.timeEnd('loop');
 
@@ -156,36 +154,35 @@ function generateTableBuscador() {
 
 $(document).on('click', '.watch', function (e) {
 
-
-    e.preventDefault();
-    let parent = $(this)[0].parentElement.parentElement;
-    let idPro = $(parent).attr('idProducto');
+    e.preventDefault()
+    let parent = $(this)[0].parentElement.parentElement
+    let idPro = $(parent).attr('idProducto')
     let producto = records.find(element => element.idProducto === idPro);
-    $('#detailsProduct').modal('show');
-    detailsProduct(producto);
+    $('#detailsProduct').modal('show')
+    detailsProduct(producto)
 
-});
+})
 
 function detailsProduct(producto) {
 
-    caruselImagenes(producto.listaImagenes);
-    textProduct(producto);
+    caruselImagenes(producto.listaImagenes)
+    textProduct(producto)
 
 }
 
 function textProduct(item) {
 
-    let rol = getRol();
-    let producto = getProductByid(item.idProducto);
-    colores = producto.listaColores;
-    console.log(producto);
+    let rol = getRol()
+    let producto = getProductByid(item.idProducto)
+    colores = producto.listaColores
+    console.log(producto)
 
     let str = '';
     str += `<div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
                 <h2 class="h4 font-weight-bold mb-2 text-center">${item.nombreProducto}</h2>
-            <hr>`;
+            <hr>`
 
-    if (rol === 3) {
+    if (rol == 3) {
         str += `<a id="" type="button" href="#" class="addItemVendedor btn btn-primary btn-xs float-right hvr-push">`;
     } else {
         str += `<a id="addItem" type="button" href="#" class="btn btn-primary btn-xs float-right hvr-push">`;
@@ -194,17 +191,17 @@ function textProduct(item) {
     str += `<i class="fas fa-shopping-cart"></i> Añadir al carrito</a>
             <select class="form-control float-right" id="cantidadSelect" style="width:auto;height:auto;margin-right: 2%;">`;
     for (var i = 1; i <= item.stockProducto; i++) {
-        str += `<option>${i}</option>`;
+        str += `<option>${i}</option>`
     }
     str += `</select>
             <select class="form-control float-right" id="colorSelect" style="width:auto;height:auto;margin-right: 2%;">`;
-    str += `<option value="${item.idProductoColor}">${item.color}</option>`;
+    str += `<option value="${item.idProductoColor}">${item.color}</option>`
     for (var it of producto.listaColores) {
         if (it.idColor !== item.idProductoColor) {
-            str += `<option value="${it.idColor}">${it.nombreColor}</option>`;
+            str += `<option value="${it.idColor}">${it.nombreColor}</option>`
         }
     }
-    str += `</select>`;
+    str += `</select>`
 
     str += `<p class="font-weight-bold text-muted h5 text-left">$ ${money(item.valorProducto)}</p>
               <h4 class="mb-0 pb-2 text-left">Marca: ${producto.marcaProducto}</h4>
@@ -212,15 +209,15 @@ function textProduct(item) {
                 <div class="col-md-6">
                     <h5 class="font-weight-bold text-muted h6 text-left">Referencia: ${producto.referencia}</h5>
                 </div>
-                <div class="col-md-6">`;
+                <div class="col-md-6">`
     if (producto.listaColores.length > 1) {
-        str += `<h5 class="font-weight-bold text-muted h6 text-right">Colores: `;
+        str += `<h5 class="font-weight-bold text-muted h6 text-right">Colores: `
         for (var colo of producto.listaColores) {
-            str += `${colo.nombreColor}, `;
+            str += `${colo.nombreColor}, `
         }
-        str += `</h5>`;
+        str += `</h5>`
     } else {
-        str += `<h5 class="font-weight-bold text-muted h6 text-right">Color: ${item.color}</h5>`;
+        str += `<h5 class="font-weight-bold text-muted h6 text-right">Color: ${item.color}</h5>`
     }
     str += `</div>
             </div>
@@ -229,7 +226,7 @@ function textProduct(item) {
               <p class="mb-0 text-small text-muted textoDes text-left">Descripción</p>
               <p class="mb-0 text-small text-muted textoDes text-left">${item.descripcionProducto}</p>
             </div>
-          </div>`;
+          </div>`
 
     str += `<hr>
         <div class="col-lg-12 mb-5 p-0">
@@ -250,27 +247,27 @@ function textProduct(item) {
           </div>
         </div>
       </div>
-    </div>`;
-    document.getElementById('details').innerHTML = str;
+    </div>`
+    document.getElementById('details').innerHTML = str
 }
 
 function caruselImagenes(data) {
-    let str = '';
+    let str = ''
     let num = 0;
     for (var item of data) {
         if (num === 0) {
             str += `<div class="carousel-item active">
                         <img class="img-fluid fit-imageModal" src="${item.url}">
-                        </div>`;
+                        </div>`
         } else {
             str += `<div class="carousel-item">
                        <img class="img-fluid fit-imageModal" src="${item.url}">
-                    </div>`;
+                    </div>`
         }
         num++;
     }
 
-    document.getElementById('carusel').innerHTML = str;
+    document.getElementById('carusel').innerHTML = str
 
     if (data.length > 1) {
         document.getElementById('controlescarru').innerHTML =
@@ -281,14 +278,14 @@ function caruselImagenes(data) {
                     <a class="carousel-control-next" href="#caruselDetails" role="button" data-slide="next">
                         <span class="carousel-control-next-icon" aria-hidden="true"></span>
                         <span class="sr-only">Siguiente</span>
-                    </a>`;
+                    </a>`
 
         setTimeout(() => $('.slides').carousel({
-                interval: 4100
-            }), 1000);
+                interval: 4100,
+            }), 1000)
 
     } else {
-        document.getElementById('controlescarru').innerHTML = ``;
+        document.getElementById('controlescarru').innerHTML = ``
     }
 
 }
@@ -296,58 +293,57 @@ function caruselImagenes(data) {
 $(document).on('click', '#addItem', function (e) {
 
     e.preventDefault();
-    let ass = getRol();
-    if (ass === 3) {
-        messageInfo('No puedes agregar el articulo');
-        return false;
+    let ass = getRol()
+    if (ass == 3) {
+        messageInfo('No puedes agregar el articulo')
+        return false
     }
-    let parent = $(this)[0].parentElement;
-    let idProducto = $(parent).attr('idProducto');
+    let parent = $(this)[0].parentElement
+    let idProducto = $(parent).attr('idProducto')
     let producto = records.find(element => element.idProducto === idProducto);
-    this.disabled = true;
-    let cantidad = parseInt($('#cantidadSelect').val());
+    this.disabled = true
+    let cantidad = parseInt($('#cantidadSelect').val())
     if (isNaN(cantidad)) {
-        messageInfo('Agotado');
-        return false;
+        messageInfo('Agotado')
+        return false
     }
-    messageAddCar('Agregado');
+    messageAddCar('Agregado')
     let colors = $('#colorSelect').val();
-    producto.idProductoColor = colors;
-    let textColor = document.getElementById('colorSelect');
-    let nombreColor = textColor.options[textColor.selectedIndex].text;
-    producto.color = nombreColor;
-    addCar(producto, cantidad);
+    producto.idProductoColor = colors
+    let textColor = document.getElementById('colorSelect')
+    let nombreColor = textColor.options[textColor.selectedIndex].text
+    producto.color = nombreColor
+    addCar(producto, cantidad)
 
-});
+})
 
 $(document).on('click', '.addProductOne', function (e) {
 
-    e.preventDefault();
-    let ass = getRol();
-    if (ass === 3) {
-        messageInfo('No puedes agregar el producto');
-        return false;
+    e.preventDefault()
+    let ass = getRol()
+    if (ass == 3) {
+        messageInfo('No puedes agregar el producto')
+        return false
     }
-    let parent = $(this)[0].parentElement;
-    let idProducto = $(parent).attr('idProductoColor');
+    let parent = $(this)[0].parentElement
+    let idProducto = $(parent).attr('idProductoColor')
     let producto = records.find(element => element.idProductoColor === idProducto);
-    messageAddCar('Agregado');
-    addCar(producto, 1);
+    messageAddCar('Agregado')
+    addCar(producto, 1)
 
-});
+})
 
 $(document).on('change', '#colorSelect', function () {
- 
-    let idProductoColor = $(this).val();
-    let obj = colores.find(item => item.idColor === idProductoColor);
-    
-    let str = ``;
-  
-        for (var i = 1; i <= obj.cantidad; i++) {
-            str += `<option>${i}</option>`;
-        }
 
-    document.getElementById('cantidadSelect').innerHTML = str;
+    let idProductoColor = $(this).val()
+    let obj = colores.find(item => item.idColor === idProductoColor)
+
+    let str = ``
+
+    for (var i = 1; i <= obj.cantidad; i++) {
+        str += `<option>${i}</option>`
+    }
+
+    document.getElementById('cantidadSelect').innerHTML = str
 
 });
-
