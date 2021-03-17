@@ -114,12 +114,35 @@ $(document).on('click', '#btnUpdateData', function (e) {
         $("#btnUpdateData").attr("disabled", false);
 
         if (data) {
-            messageInfo('Datos actualizados')
-            valor = document.getElementById('valor').value;
-            setTimeout(function()
-            {
-                location.href = "process_payment?valor=" + valor;
-            },1500); 
+            let timerInterval;
+            Swal.fire({
+                postion: 'top',
+                icon: 'success',
+                title: 'Datos actualizados',
+                showConfirmButton: false,
+                html: '',
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    timerInterval = setInterval(() => {
+                        const content = Swal.getContent();
+                        if (content) {
+                            const b = content.querySelector('b');
+                            if (b) {
+                                b.textContent = Swal.getTimerLeft();
+                            }
+                        }
+                    }, 100);
+                },
+                willClose: () => {
+                    clearInterval(timerInterval);
+                }
+            }).then((result) => {
+                /* Read more about handling dismissals below */
+                if (result.dismiss === Swal.DismissReason.timer) {
+                    $('#modalUpdateData').modal('hide');
+                }
+            });
         } else {
             messageError('Error')
             $('#modalUpdateData').modal('hide')
