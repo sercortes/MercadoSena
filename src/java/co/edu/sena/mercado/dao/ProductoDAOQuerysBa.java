@@ -35,7 +35,7 @@ public class ProductoDAOQuerysBa {
             String sql = "SELECT COUNT(*) 'cantidadColores', "
             + "(SELECT urlProducto FROM imagenesproductos WHERE idProductoImageFK = PR.idProducto LIMIT 1) 'imagen', "
             + "PR.idProducto, PR.nombreProducto, PR.valorProductoVendedor, PR.descripcionProducto, "
-            + "C.nombreColor, PC.stockProducto, PC.idProductoColor FROM producto PR "
+            + "C.nombreColor, PC.stockProducto, PC.idProductoColor, PR.referencia FROM producto PR "
             + "INNER JOIN ProductoColor PC ON PR.idProducto=PC.productoFK "
             + "INNER JOIN colorProducto C ON PC.colorFK = C.idColor "
             + "WHERE PR.estadoProducto =  2  "
@@ -57,6 +57,7 @@ public class ProductoDAOQuerysBa {
                 producto.setColor(rs.getString("C.nombreColor"));
                 producto.setCantidadColores(rs.getString("cantidadColores"));
                 producto.setIdProductoColor(rs.getString("PC.idProductoColor"));
+                producto.setReferencia(rs.getString("PR.referencia"));
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;

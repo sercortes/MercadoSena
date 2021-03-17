@@ -40,7 +40,7 @@ public class Producto {
     private ArrayList<ImagenesProducto> listaImagenes;
     private ArrayList<ColorDTO> listaColores ;
     private String idMarca;
-    public static final String SERVER_UPLOAD = "http://192.168.0.13:8084/filess/";
+public static final String SERVER_UPLOAD = "https://carwaystore.com/filess/";
 
     public Producto() {
     }

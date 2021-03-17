@@ -178,7 +178,7 @@ public class VentaDAO {
    public ArrayList<Producto> getProductosByPrice(String idProducto) {
         try {
             
-            String sql = "SELECT P.*, C.nombreColor, PP.cantidadProductoVenta, PP.valorProductoVenta, (SELECT urlProducto FROM imagenesproductos WHERE idProductoImageFK = P.idProducto LIMIT 1) 'imagen' " +
+            String sql = "SELECT P.*, C.nombreColor, PP.cantidadProductoVenta, PP.valorProductoVenta, P.referencia, (SELECT urlProducto FROM imagenesproductos WHERE idProductoImageFK = P.idProducto LIMIT 1) 'imagen' " +
                 "FROM productospedidos PP " +
                 "INNER JOIN ProductoColor PC ON PP.idProductoFK=PC.idProductoColor " +
                 "INNER JOIN colorProducto C ON PC.colorFK = C.idColor "+
@@ -197,6 +197,7 @@ public class VentaDAO {
                 producto.setValorProducto(rs.getDouble("PP.valorProductoVenta"));
                 producto.setColor(rs.getString("C.nombreColor"));
                 producto.setCantidad(rs.getInt("PP.cantidadProductoVenta"));
+                producto.setReferencia(rs.getString("referencia"));
                 list.add(producto);
             }
             return (ArrayList<Producto>) list;

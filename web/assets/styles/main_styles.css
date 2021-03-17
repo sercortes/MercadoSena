@@ -333,7 +333,7 @@ input::placeholder {
     font-size: 2.2rem;
 }
 .letrasbanner{
-    font-size: 1.2rem;
+    font-size: 1.0rem;
 }
 /*@media screen and (min-width:992px;max-width:1153px) {
     .precios {display:none}
@@ -342,7 +342,7 @@ input::placeholder {
 .fit-text{
     width: 100%;
     object-fit: cover;
-    height: 50px;
+    height: 55px;
     /*    max-height: 90px;
         min-height: 40px;*/
 }
