@@ -50,162 +50,198 @@ public class process_payment extends HttpServlet {
         HttpSession sessionvalor = request.getSession();
         HttpSession sessiontoken = request.getSession();
 
-        switch (accion) {
+        if (accion != null) {
 
-            case "Guardarprecio":
-                String valor = request.getParameter("valor");
+            switch (accion) {
 
-                sessionvalor.setAttribute("SESSIONVALOR", valor);
-                break;
+                case "Guardarprecio":
+                    String valor = request.getParameter("valor");
 
-            case "listadebancos":
+                    sessionvalor.setAttribute("SESSIONVALOR", valor);
+                    break;
 
-                JSONObject tokenwoppi = CRestPse.getInformacion();
+                case "listadebancos":
 
-                String tokenapi = tokenwoppi.getJSONObject("data").getJSONObject("presigned_acceptance").getString("acceptance_token");
-                sessiontoken.setAttribute("TOKEN", tokenapi);
+                    JSONObject tokenwoppi = CRestPse.getInformacion();
 
-                JSONObject jsonbancos = CRestPse.listbancosPSE();
+                    String tokenapi = tokenwoppi.getJSONObject("data").getJSONObject("presigned_acceptance").getString("acceptance_token");
+                    sessiontoken.setAttribute("TOKEN", tokenapi);
 
-                response.getWriter().write(jsonbancos.getJSONArray("data").toString());
+                    JSONObject jsonbancos = CRestPse.listbancosPSE();
 
-                break;
+                    response.getWriter().write(jsonbancos.getJSONArray("data").toString());
 
-            case "pagarpse":
-                String id = (String) request.getSession().getAttribute("IDVENTA");
+                    break;
 
-                String valorpagar = sessionvalor.getAttribute("SESSIONVALOR") + "";
-                String valopse = valorpagar.replace(".", "");
-                int valors = Integer.parseInt(valopse + 0 + 0);
+                case "pagarpse":
+                    String id = (String) request.getSession().getAttribute("IDVENTA");
+
+                    String valorpagar = sessionvalor.getAttribute("SESSIONVALOR") + "";
+                    String valopse = valorpagar.replace(".", "");
+                    int valors = Integer.parseInt(valopse + 0 + 0);
 //                String descriptionss = request.getParameter("description");
-                String descriptions = "Producto de CARWAY";
-                String Tipodepersona = request.getParameter("TPersona");
-                String Nombre = request.getParameter("Nombre");
-                String Apellido = request.getParameter("Apellido");
-                String NombreApellido = Nombre + " " + Apellido;
-                int tipodepersona = Integer.parseInt(Tipodepersona);
-                String Tipodedoc = request.getParameter("docTypes");
-                String document = request.getParameter("docNumbers");
-                String code = request.getParameter("selectdebanco");
-                String tokes = sessiontoken.getAttribute("TOKEN").toString();
-                String emails = request.getParameter("email");
+                    String descriptions = "Producto de CARWAY";
+                    String Tipodepersona = request.getParameter("TPersona");
+                    String Nombre = request.getParameter("Nombre");
+                    String Apellido = request.getParameter("Apellido");
+                    String NombreApellido = Nombre + " " + Apellido;
+                    int tipodepersona = Integer.parseInt(Tipodepersona);
+                    String Tipodedoc = request.getParameter("docTypes");
+                    String document = request.getParameter("docNumbers");
+                    String code = request.getParameter("selectdebanco");
+                    String tokes = sessiontoken.getAttribute("TOKEN").toString();
+                    String emails = request.getParameter("email");
 
-                String referencia = String.valueOf(Math.random() * 15 + 1);
+                    String referencia = String.valueOf(Math.random() * 15 + 1);
 
-                String PSEbanck = CRestPse.Postpse(tokes, valors, tipodepersona, Tipodedoc, document, code, descriptions, emails, referencia, NombreApellido);
+                    String PSEbanck = CRestPse.Postpse(tokes, valors, tipodepersona, Tipodedoc, document, code, descriptions, emails, referencia, NombreApellido);
 
-                VentaDAO ventaDAO = new VentaDAO(new Conexion().getConnection());
-                VentaDTO ventaDTO = new VentaDTO();
+                    VentaDAO ventaDAO = new VentaDAO(new Conexion().getConnection());
+                    VentaDTO ventaDTO = new VentaDTO();
 
-                if (PSEbanck == null) {
+                    if (PSEbanck == null) {
 
-                    ventaDTO.setIdEstadoVentaFK("3");
-                    ventaDTO.setIdVenta(id);
-                    ventaDAO.actualizarVenta(ventaDTO);
-                    ventaDAO.CloseAll();
-                    request.getSession().removeAttribute("IDVENTA");
+                        ventaDTO.setIdEstadoVentaFK("3");
+                        ventaDTO.setIdVenta(id);
+                        ventaDAO.actualizarVenta(ventaDTO);
+                        ventaDAO.CloseAll();
+                        request.getSession().removeAttribute("IDVENTA");
 
-                    request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
-                } else {
-                    ventaDTO.setIdEstadoVentaFK("2");
-                    ventaDTO.setIdVenta(id);
-                    ventaDAO.actualizarVenta(ventaDTO);
-                    ventaDAO.CloseAll();
-                    request.getSession().removeAttribute("IDVENTA");
+                        request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
+                    } else {
+                        ventaDTO.setIdEstadoVentaFK("2");
+                        ventaDTO.setIdVenta(id);
+                        ventaDAO.actualizarVenta(ventaDTO);
+                        ventaDAO.CloseAll();
+                        request.getSession().removeAttribute("IDVENTA");
 
-                    response.sendRedirect(PSEbanck);
-                }
+                        response.sendRedirect(PSEbanck);
+                    }
 
-                break;
+                    break;
 
-            case "Tarjetadecredito":
+                case "Tarjetadecredito":
 
-                try {
+                    try {
 
-                    JSONObject tokenperson = CRestPse.getInformacion();
+                        JSONObject tokenperson = CRestPse.getInformacion();
 
-                    String tokenper = tokenperson.getJSONObject("data").getJSONObject("presigned_acceptance").getString("acceptance_token");
+                        String tokenper = tokenperson.getJSONObject("data").getJSONObject("presigned_acceptance").getString("acceptance_token");
 //
-                    String cardhold = request.getParameter("cardhold");
-                    String cardExpirationMonth = request.getParameter("cardExpirationMonth");
-                    String cardExpirationYear = request.getParameter("cardExpirationYear");
-                    String cardNumber = request.getParameter("cardNumber");
-                    String CVV = request.getParameter("CVV");
+                        String cardhold = request.getParameter("cardhold");
+                        String cardExpirationMonth = request.getParameter("cardExpirationMonth");
+                        String cardExpirationYear = request.getParameter("cardExpirationYear");
+                        String cardNumber = request.getParameter("cardNumber");
+                        String CVV = request.getParameter("CVV");
 
-                    String valorpagart = sessionvalor.getAttribute("SESSIONVALOR") + "";
-                    String valort = valorpagart.replace(".", "");
-                    int valorr = Integer.parseInt(valort + 0 + 0);
-                    String email = request.getParameter("emails");
-                    String installments = "1";
-                    String reference = String.valueOf(Math.random() * 15 + 1);
+                        String valorpagart = sessionvalor.getAttribute("SESSIONVALOR") + "";
+                        String valort = valorpagart.replace(".", "");
+                        int valorr = Integer.parseInt(valort + 0 + 0);
+                        String email = request.getParameter("emails");
+                        String installments = "1";
+                        String reference = String.valueOf(Math.random() * 15 + 1);
 
-                    String tokentarjeta = CRestPse.Tokenizartarjeta(cardNumber, CVV, cardExpirationMonth, cardExpirationYear, cardhold);
+                        String tokentarjeta = CRestPse.Tokenizartarjeta(cardNumber, CVV, cardExpirationMonth, cardExpirationYear, cardhold);
 
-                    if (tokentarjeta != null) {
+                        if (tokentarjeta != null) {
 
-                        JSONObject jsontar = CRestPse.Posttajeta(tokenper, tokentarjeta, valorr, email, installments, reference, cardhold);
-                        if (jsontar != null) {
+                            JSONObject jsontar = CRestPse.Posttajeta(tokenper, tokentarjeta, valorr, email, installments, reference, cardhold);
+                            if (jsontar != null) {
 
-                            try {
-                                JSONArray jsonArray = jsontar.getJSONArray("data");
-                                JSONObject jsonObject = jsonArray.getJSONObject(0);
+                                try {
+                                    JSONArray jsonArray = jsontar.getJSONArray("data");
+                                    JSONObject jsonObject = jsonArray.getJSONObject(0);
 
-                                request.setAttribute("id", jsonObject.get("id"));
-                                request.setAttribute("reference", jsonObject.get("reference"));
-                                String imputtex = jsonObject.get("created_at").toString();
-                                DateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
-                                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US);
-                                Date date = inputFormat.parse(imputtex);
-                                String outputText = outputFormat.format(date);
-                                request.setAttribute("created_at", outputText);
-                                request.setAttribute("brand", jsonObject.getJSONObject("payment_method").getJSONObject("extra").get("brand"));
-                                request.setAttribute("last_four", jsonObject.getJSONObject("payment_method").getJSONObject("extra").get("last_four"));
-                                request.setAttribute("full_name", jsonObject.getJSONObject("customer_data").get("full_name"));
-                                String Aprobado = "Aprobado";
-                                String status = jsonObject.get("status").toString();
+                                    request.setAttribute("id", jsonObject.get("id"));
+                                    request.setAttribute("reference", jsonObject.get("reference"));
 
-                                String idV = (String) request.getSession().getAttribute("IDVENTA");
-                                VentaDAO ventaDAOs = new VentaDAO(new Conexion().getConnection());
-                                VentaDTO ventaDTOs = new VentaDTO();
+                                    String imputtex = jsonObject.get("created_at").toString();
+                                    DateFormat outputFormat = new SimpleDateFormat("dd/MM/yyyy");
+                                    DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", Locale.US);
+                                    Date date = inputFormat.parse(imputtex);
+                                    String outputText = outputFormat.format(date);
+                                    request.setAttribute("created_at", outputText);
+                                    request.setAttribute("brand", jsonObject.getJSONObject("payment_method").getJSONObject("extra").get("brand"));
+                                    request.setAttribute("last_four", jsonObject.getJSONObject("payment_method").getJSONObject("extra").get("last_four"));
+                                    request.setAttribute("full_name", jsonObject.getJSONObject("customer_data").get("full_name"));
+                                    String idV = (String) request.getSession().getAttribute("IDVENTA");
+                                    VentaDAO ventaDAOs = new VentaDAO(new Conexion().getConnection());
+                                    VentaDTO ventaDTOs = new VentaDTO();
+                                    String Aprobado = "Aprobado";
+                                    String status = jsonObject.get("status").toString();
 
-                                if (status.equals("APPROVED")) {
-                                    ventaDTOs.setIdEstadoVentaFK("2");
-                                    ventaDTOs.setIdVenta(idV);
-                                    ventaDAOs.actualizarVenta(ventaDTOs);
-                                    ventaDAOs.CloseAll();
-                                    request.getSession().removeAttribute("IDVENTA");
-                                    request.setAttribute("status", Aprobado);
-                                    request.setAttribute("amount_in_cents", valorpagart);
-                                    request.getRequestDispatcher("/views/car/estadodepago.jsp").forward(request, response);
-                                } else {
-                                    ventaDTOs.setIdEstadoVentaFK("3");
-                                    ventaDTOs.setIdVenta(idV);
-                                    ventaDAOs.actualizarVenta(ventaDTOs);
-                                    ventaDAOs.CloseAll();
-                                    request.getSession().removeAttribute("IDVENTA");
+                                    if (status.equals("PENDING")) {
 
-                                    request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
+                                        while (status.equalsIgnoreCase("PENDING")) {
+                                            JSONObject jsonconsulta = CRestPse.consultarPagoTarjeta(reference);
+                                            JSONArray jsonarray = jsonconsulta.getJSONArray("data");
+                                            JSONObject jsonobjects = jsonarray.getJSONObject(0);
+                                            status = jsonobjects.get("status").toString();
+
+//                                            if (status.equals("APPROVED")) {
+//                                                break;
+//                                            }
+                                        }
+                                        if (status.equals("APPROVED")) {
+                                            ventaDTOs.setIdEstadoVentaFK("2");
+                                            ventaDTOs.setIdVenta(idV);
+                                            ventaDAOs.actualizarVenta(ventaDTOs);
+                                            ventaDAOs.CloseAll();
+                                            request.getSession().removeAttribute("IDVENTA");
+                                            request.setAttribute("status", Aprobado);
+                                            request.setAttribute("amount_in_cents", valorpagart);
+                                            request.getRequestDispatcher("/views/car/estadodepago.jsp").forward(request, response);
+                                        } else {
+                                            ventaDTOs.setIdEstadoVentaFK("3");
+                                            ventaDTOs.setIdVenta(idV);
+                                            ventaDAOs.actualizarVenta(ventaDTOs);
+                                            ventaDAOs.CloseAll();
+                                            request.getSession().removeAttribute("IDVENTA");
+
+                                            request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
+                                        }
+
+                                    } else if (status.equals("APPROVED")) {
+                                        ventaDTOs.setIdEstadoVentaFK("2");
+                                        ventaDTOs.setIdVenta(idV);
+                                        ventaDAOs.actualizarVenta(ventaDTOs);
+                                        ventaDAOs.CloseAll();
+                                        request.getSession().removeAttribute("IDVENTA");
+                                        request.setAttribute("status", Aprobado);
+                                        request.setAttribute("amount_in_cents", valorpagart);
+                                        request.getRequestDispatcher("/views/car/estadodepago.jsp").forward(request, response);
+                                    } else {
+                                        ventaDTOs.setIdEstadoVentaFK("3");
+                                        ventaDTOs.setIdVenta(idV);
+                                        ventaDAOs.actualizarVenta(ventaDTOs);
+                                        ventaDAOs.CloseAll();
+                                        request.getSession().removeAttribute("IDVENTA");
+
+                                        request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
+                                    }
+
+                                } catch (Exception e) {
+                                    System.err.println("Error" + e);
                                 }
-
-                            } catch (Exception e) {
+                            } else {
+                                request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
                             }
+
                         } else {
                             request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
                         }
 
-                    } else {
-                        request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
+                    } catch (Exception e) {
+
+                        System.err.println("Eorr a traer datos" + e);
+
                     }
 
-                } catch (Exception e) {
+                    sessionvalor.invalidate();
 
-                    System.err.println("Eorr a traer datos" + e);
+                    break;
 
-                }
-
-                sessionvalor.invalidate();
-
-                break;
+            }
 
         }
 
