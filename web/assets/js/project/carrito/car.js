@@ -1,22 +1,22 @@
 function addCar(item, cantidad) {
-    
+
     let arraf = JSON.parse(localStorage.getItem('objects'));
-    let exts = arraf.filter(x => x.idProductoColor === item.idProductoColor).length > 0
+    let exts = arraf.filter(x => x.idProductoColor === item.idProductoColor).length > 0;
 
     if (exts) {
 
         let producto = arraf.find(element => element.idProductoColor === item.idProductoColor);
-        arraf = arraf.filter(x => x.idProductoColor !== producto.idProductoColor)
-        
+        arraf = arraf.filter(x => x.idProductoColor !== producto.idProductoColor);
+
         if (producto.cantidad + cantidad > item.stockProducto) {
-            messageInfo('No hay sufuciente cantidad de producto')
-            $('#detailsProduct').modal('hide')
-            showCar()
-            return false
+            messageInfo('No hay sufuciente cantidad de producto');
+            $('#detailsProduct').modal('hide');
+            showCar();
+            return false;
         }
 
-        producto.cantidad = producto.cantidad + cantidad
-        arraf.push(producto)
+        producto.cantidad = producto.cantidad + cantidad;
+        arraf.push(producto);
         localStorage.setItem('objects', JSON.stringify(arraf));
 
     } else {
@@ -27,19 +27,21 @@ function addCar(item, cantidad) {
 
 }
 
+let total = 0;
 
 function showCar() {
-    
-    $('#modalCar').modal('show')
+
+    $('#modalCar').modal('show');
     let arraf = JSON.parse(localStorage.getItem('objects'));
-    let total = 0;
+
     let str = '';
+    let contador = 0;
     for (var item of arraf) {
         str += `<tr><td>`;
         if (item.imagenUnitaria !== undefined) {
-            str += `<img src="${item.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">`
+            str += `<img src="${item.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">`;
         } else {
-            str += `<img src="${item.listaImagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`
+            str += `<img src="${item.listaImagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`;
         }
         str += `</td>
                    <td> 
@@ -53,11 +55,15 @@ function showCar() {
                         <td class="border-0 align-middle pl-4" idProducto="${item.idProducto}" idProductoColor="${item.idProductoColor}">
                             <a id="delete" href="#" class="text-dark pl-3"><i class="fa fa-trash"></i></a></td>
                         <td class="border-0 align-middle"><strong>${money(item.valorProducto)}</strong></td>
-                    </tr>`
-        total += item.cantidad * item.valorProducto;
+                    </tr>`;
+
+        if (contador === 0) {
+            total += item.cantidad * item.valorProducto;
+        }
+        console.log("totales" + total);
+        contador++;
     }
     document.getElementById('card').innerHTML = str;
-    $.post("process_payment", {accionT: "Guardarprecio", valor: total});
     str = `<li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Subtotal </strong><strong>${money(total)}</strong></li>
                                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong><strong>${money(total)}</strong></li>
                                 
@@ -67,30 +73,45 @@ function showCar() {
 
     document.getElementById('total').innerHTML = str;
 
+
 }
 
+
+
+function comprobarCArrito() {
+    // modalCar
+    $("#modalCar").modal('show');
+}
+
+document.getElementById('btnpagar').addEventListener('click', function () {
+    console.log("total en btn pagar: " + total);
+    $.post(location.href = "process_payment", {accionT: "Guardarprecio", valor: total});
+});
+
+
+
 $(document).on('click', '#delete', function (e) {
-    e.preventDefault()
-    let parent = $(this)[0].parentElement
-    let idProducto = $(parent).attr('idProducto')
-    let idColor = $(parent).attr('idProductoColor')
-    console.log(idColor)
+    e.preventDefault();
+    let parent = $(this)[0].parentElement;
+    let idProducto = $(parent).attr('idProducto');
+    let idColor = $(parent).attr('idProductoColor');
+    console.log(idColor);
     let arraf = JSON.parse(localStorage.getItem('objects'));
     arraf = arraf.filter(item => item.idProductoColor !== idColor);
     localStorage.setItem('objects', JSON.stringify(arraf));
 
-    showCar()
+    showCar();
 });
 
-$(document).on('click', '#buttonCars', function (e) {
-
-    showCar()
-
-});
+//$(document).on('click', '#buttonCars', function (e) {
+//
+//    showCar();
+//
+//});
 
 $("#modalCar").on('hidden.bs.modal', function () {
 
-    updateIconNumber()
+    updateIconNumber();
 
 });
 var loc = document.location.href;
@@ -101,14 +122,14 @@ function updateIconNumber() {
     } else {
 
         let arraf = JSON.parse(localStorage.getItem('objects'));
-        let str = ''
+        let str = '';
         let ex = document.getElementById('buttonCars');
 
         if (arraf.length === 0) {
             if (ex !== null) {
                 document.getElementById("buttonCars").remove();
             }
-            return false
+            return false;
         }
 
         if (ex !== null) {
@@ -116,12 +137,12 @@ function updateIconNumber() {
                     = `<i class="fas fa-cart-arrow-down"></i> ${arraf.length}`;
         } else {
 
-            str = ` <li class="nav-item" id="buttonCars">
+            str = ` <li class="nav-item" id="buttonCars" onclick='comprobarCArrito()'>
                     <a id="number" class="nav-link encabezadoOpciones" href="#">
                         <i class="fas fa-cart-arrow-down"></i> ${arraf.length}</a>
             </li>`;
 
-            document.getElementById('navbars').innerHTML += str
+            document.getElementById('navbars').innerHTML += str;
 
         }
     }
@@ -131,26 +152,24 @@ $("#btnpagar").click(function () {
 
     if (!checkSession()) {
         modalPreguntaRegistro();
-        return false
+        return false;
     }
 
-    let rol = getRol()
+    let rol = getRol();
 
-    if (rol == 2) {
+    if (rol === 2) {
 
         if (checkData()) {
-            messageInfo('Necesitamos tu información para completar la compra')
-            $('#modalUpdateData').modal('show')
-            $('#modalCar').modal('hide')
+            messageInfo('Necesitamos tu información para completar la compra');
+            $('#modalUpdateData').modal('show');
+            $('#modalCar').modal('hide');
             return false;
         }
 
     }
 
-
-
 });
 
 function money(dolar) {
-    return dolar.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.")
+    return dolar.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
 }
