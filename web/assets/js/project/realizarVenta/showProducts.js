@@ -44,6 +44,10 @@ function generatesTable(data) {
                 "mData": "nombreProducto",
             },
             {
+                "className": "align-middle text-center", 
+                "mData": "referencia",
+            },
+            {
                 "mData": "valorProducto",
                 "className": "align-middle", 
                 "mRender": function (data, type, row) {
@@ -164,6 +168,8 @@ function generateTable(){
             $(this).html( '<input type="text" class="form-control"" placeholder="Rojo" />' );
         }else if (title === 'Valor producto') {
              $(this).html( '<input type="number" class="form-control"" placeholder="10000" />' );
+        }else if (title === 'Referencia') {
+             $(this).html( '<input type="text" class="form-control"" placeholder="cc1" />' );
         }
     } );
 }

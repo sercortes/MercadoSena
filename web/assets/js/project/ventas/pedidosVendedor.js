@@ -79,11 +79,14 @@ function drawVentas(data) {
                             <div><span class="d-block fs-12">Estado</span><span class="font-weight-bold text-success">${item.idEstadoVentaFK}</span></div>
                         </div>
                         <hr>
-                <table class="table table-responsive">
+                <table class="table table-responsive table-striped">
              <thead class="thead-light">
                             <tr>
                                 <th scope="col" class="border-0">
                                     <div class="p-1 px-3 text-uppercase">Producto</div>
+                                </th>
+                                <th scope="col" class="border-0">
+                                    <div class="p-1 px-3 text-uppercase text-left">Ref</div>
                                 </th>
                                 <th scope="col" class="border-0">
                                     <div class="p-1 px-3 text-uppercase">Nombre</div>
@@ -108,14 +111,16 @@ function drawVentas(data) {
 
             str += `<tr><td>
                 <img src="${items.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">
-             </td><td>    
-                    <div class="ml-3 d-inline-block align-middle">
+             </td>
+                <td class="align-middle">${items.referencia}</td>
+                    <td>    
+                    <div class="d-inline-block align-middle">
                             <p class="mb-0 text-dark d-inline-block align-middle text-justify">${items.nombreProducto}</p>
                     </div>
                     </td>
-                    <td class="align-middle pl-2"><strong>${items.color}</strong></td>
-                    <td class="align-middle pl-2"><strong>${items.valorProducto}</strong></td>
-                    <td class="align-middle pl-4"><strong>${items.cantidad}</strong></td>
+                    <td class="align-middle"><strong>${items.color}</strong></td>
+                    <td class="align-middle"><strong>${items.valorProducto}</strong></td>
+                    <td class="align-middle"><strong>${items.cantidad}</strong></td>
                     <td class="align-middle"><strong>${money(items.valorProducto * items.cantidad)}</strong></td>
                 </tr>`
 

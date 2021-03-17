@@ -30,7 +30,7 @@ function listarProductoByDateTime() {
         async: true,
         datatype: 'json'
     }).done(function (data) {
-        
+
         generatePageQuery(data, 4)
 
     })
@@ -115,11 +115,11 @@ function generateTableBuscador() {
         str += getImages(item.listaImagenes, num)
         str += `</div>
             <figcaption class="p-2 card-img-bottom">
-        <hr>
-              <h2 class="letrasbanner text-left text-muted mb-0 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
+                <hr>
+              <h2 class="letrasbanner text-left text-muted mb-0 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 50)}</h2>
               <h2 class="h5 text-left font-weight-bold mb-2 precios">$ ${money(item.valorProducto)}</h2>
             </figcaption>
-      <div class="col-lg-12 mb-4 p-0">
+      <div class="col-lg-12 mb-3 p-0">
        <a data-toggle="collapse" href="#collapseExamples${num}" role="button" aria-expanded="false" aria-controls="" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
           <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Descripción</strong><i class="fa fa-angle-down"></i></p>
         </a>
@@ -157,14 +157,14 @@ $(document).on('click', '.watch', function (e) {
     e.preventDefault()
     let parent = $(this)[0].parentElement.parentElement
     let idPro = $(parent).attr('idProducto')
-    let producto = records.find(element => element.idProducto === idPro);  
+    let producto = records.find(element => element.idProducto === idPro);
     $('#detailsProduct').modal('show')
     detailsProduct(producto)
 
 })
 
 function detailsProduct(producto) {
-  
+
     caruselImagenes(producto.listaImagenes)
     textProduct(producto)
 
@@ -175,6 +175,7 @@ function textProduct(item) {
     let rol = getRol()
     let producto = getProductByid(item.idProducto)
     colores = producto.listaColores
+    console.log(producto)
 
     let str = '';
     str += `<div id="detail" class="text-justify pt-2" precioProducto="${item.valorProducto}" idEmpresa="${item.idEmpresaFK}" idProducto="${item.idProducto}">
@@ -205,12 +206,20 @@ function textProduct(item) {
     str += `<p class="font-weight-bold text-muted h5 text-left">$ ${money(item.valorProducto)}</p>
               <h4 class="mb-0 pb-2 text-left">Marca: ${producto.marcaProducto}</h4>
              <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-6">
                     <h5 class="font-weight-bold text-muted h6 text-left">Referencia: ${producto.referencia}</h5>
                 </div>
-                <div class="col-md-3">
-                    <h5 class="font-weight-bold text-muted h6 text-right">Color: ${item.color}</h5>
-               </div>
+                <div class="col-md-6">`
+    if (producto.listaColores.length > 1) {
+        str += `<h5 class="font-weight-bold text-muted h6 text-right">Colores: `
+        for (var colo of producto.listaColores) {
+            str += `${colo.nombreColor}, `
+        }
+        str += `</h5>`
+    } else {
+        str += `<h5 class="font-weight-bold text-muted h6 text-right">Color: ${item.color}</h5>`
+    }
+    str += `</div>
             </div>
            <div class="card shadow-sm">
             <div class="card-body">
@@ -325,15 +334,15 @@ $(document).on('click', '.addProductOne', function (e) {
 })
 
 $(document).on('change', '#colorSelect', function () {
-    
+
     let idProductoColor = $(this).val()
     let obj = colores.find(item => item.idColor === idProductoColor)
-    
+
     let str = ``
-  
-        for (var i = 1; i <= obj.cantidad; i++) {
-            str += `<option>${i}</option>`
-        }
+
+    for (var i = 1; i <= obj.cantidad; i++) {
+        str += `<option>${i}</option>`
+    }
 
     document.getElementById('cantidadSelect').innerHTML = str
 

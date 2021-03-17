@@ -33,14 +33,15 @@ public class ProductosPedidosDAO {
 
     public boolean insertReturn(productoPedidosDTO pedidosDTO) throws Exception{
 
-        String sql = "INSERT INTO productospedidos (idProductoFK, idVentaFK, cantidadProductoVenta) "
-                + "VALUES (?, ?, ?)";
+        String sql = "INSERT INTO productospedidos (valorProductoVenta, idProductoFK, idVentaFK, cantidadProductoVenta) "
+                + "VALUES (?, ?, ?, ?)";
 
         try {
             ps = conn.prepareStatement(sql);
-            ps.setString(1, pedidosDTO.getIdProductoFK());
-            ps.setString(2, pedidosDTO.getIdVentaFK());
-            ps.setInt(3, pedidosDTO.getCantidad());
+            ps.setDouble(1, pedidosDTO.getValorProductoVenta());
+            ps.setString(2, pedidosDTO.getIdProductoFK());
+            ps.setString(3, pedidosDTO.getIdVentaFK());
+            ps.setInt(4, pedidosDTO.getCantidad());
             ps.executeUpdate();
             System.out.println("............................." + ps.toString());
             return true;

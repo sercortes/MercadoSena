@@ -64,6 +64,9 @@ function drawVentas(data) {
                                     <div class="p-1 px-3 text-uppercase">Producto</div>
                                 </th>
                                 <th scope="col" class="border-0">
+                                    <div class="p-1 px-3 text-uppercase">Ref</div>
+                                </th>
+                                <th scope="col" class="border-0">
                                     <div class="p-1 px-3 text-uppercase">Nombre</div>
                                 </th>
                                    <th scope="col" class="border-0">
@@ -86,7 +89,9 @@ function drawVentas(data) {
 
             str += `<tr><td>
                 <img src="${items.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">
-             </td><td>    
+             </td>
+                <td class="align-middle">${items.referencia}</td>
+                    <td>    
                     <div class="ml-3 d-inline-block align-middle">
                             <p class="mb-0 text-dark d-inline-block align-middle text-justify">${items.nombreProducto}</p>
                     </div>

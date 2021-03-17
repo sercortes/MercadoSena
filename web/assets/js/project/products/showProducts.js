@@ -77,14 +77,14 @@ function generateTableBuscadorP() {
         str += `<div id="carouselExampleControls${num}" class="carousel slide hijueputa" data-ride="carousel">
                     <div class="carousel-inner" id="caruselOne${num}">`
         str += getImages(item.listaImagenes, num)
-        str += `</div>`
-        str += `<figcaption class="p-3 card-img-bottom">
+        str += `</div>
+                <figcaption class="p-2 card-img-bottom">
                 <hr>
-              <h2 class="h5 text-left text-muted mb-0 img-fluid fit-text">${item.nombreProducto.toString().substr(0, 36)}</h2>
-              <h2 class="h5 text-left font-weight-bold mb-2">$ ${money(item.valorProducto)}</h2>
+              <h2 class="letrasbanner text-left text-muted mb-0 img-fluid fit-text text-justify">${item.nombreProducto.toString().substr(0, 44)}</h2>
+              <h2 class="h5 text-left font-weight-bold mb-2 precios">$ ${money(item.valorProducto)}</h2>
             </figcaption>
        
-      <div class="col-lg-12 mb-5 p-0">
+      <div class="col-lg-12 mb-3 p-0">
        <a data-toggle="collapse" href="#collapseExamples${num}" role="button" aria-expanded="false" aria-controls="collapseExample1" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
           <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Descripción</strong><i class="fa fa-angle-down"></i></p>
         </a>

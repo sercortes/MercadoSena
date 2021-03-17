@@ -25,6 +25,7 @@
                                 <tr class="bg-primary">
                                     <th class="align-middle" scope="col">Imagen</th>
                                     <th class="align-middle" scope="col">Nombre</th>
+                                    <th class="align-middle" scope="col">Referencia</th>
                                     <th class="text-left" scope="col">Valor producto</th>
                                     <th class="text-left" scope="col">Color</th>
                                     <th class="align-middle" scope="col">Cantidad</th>
@@ -35,6 +36,7 @@
                                 <tr class="bg-primary">
                                     <th class="align-middle" scope="col">Imagen</th>
                                     <th class="align-middle" scope="col">Nombre</th>
+                                    <th class="align-middle" scope="col">Referencia</th>
                                     <th class="align-middle" scope="col">Valor producto</th>
                                     <th class="align-middle" scope="col">Color</th>
                                     <th class="align-middle" scope="col">Cantidad</th>
