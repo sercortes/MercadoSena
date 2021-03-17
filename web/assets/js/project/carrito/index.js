@@ -36,7 +36,19 @@ document.getElementById('flexRadioDefault2').addEventListener('click', function 
 });
 
 function checkSubmit() {
-    buyProducts(3)
+    
+    if (getRol() != 2) {
+        messageInfo('Rol no válido')
+        return false;
+    }
+    
+     $('#cargas').addClass('is-active');
+    
+    if (buyProducts(3)) {
+        messageInfo('Error en la verificación de los productos')
+        return false
+    }
+    
     document.getElementById("pagotarjeta").value = "Enviando...";
     document.getElementById("pagotarjeta").disabled = true;
     return true;
