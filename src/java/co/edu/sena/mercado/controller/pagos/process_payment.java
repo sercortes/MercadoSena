@@ -237,7 +237,7 @@ public class process_payment extends HttpServlet {
 
                     }
 
-                    sessionvalor.invalidate();
+                    sessionvalor.removeAttribute("valor");
 
                     break;
 

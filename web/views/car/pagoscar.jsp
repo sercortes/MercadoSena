@@ -126,7 +126,7 @@
 
                         <div class="row">
                             <div class="form-group col">
-                                <label for="email">Correo electrónico</label> <input id="emails" name="emails" type="email" class="form-control" required>
+                                <label for="email">Correo electrónico</label> <input id="emails" name="emails" maxlength="50"  type="email" class="form-control" required>
                             </div>
                         </div>
                         <p class="card-text" id="textpag">Datos de la tarjeta de credito</p>
@@ -134,7 +134,7 @@
                             <div class="row">
                                 <div class="form-group col-8">
                                     <label>Nombre del titular de la tarjeta</label>
-                                    <input class="form-control" type="text" id="cardhold" name="cardhold" required>
+                                    <input class="form-control" type="text" id="cardhold" maxlength="25" name="cardhold" required>
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label for="">Fecha de caducidad</label>
@@ -156,11 +156,11 @@
                             <div class="row">
                                 <div class="form-group col-8">
                                     <label>Número de tarjeta</label>
-                                    <input class="form-control" type="number" id="cardNumber" name="cardNumber" required>
+                                    <input class="form-control" type="number" id="cardNumber"  name="cardNumber" required>
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>CVV</label>
-                                    <input class="form-control" type="number" id="CVV" name="CVV" required>
+                                    <input class="form-control" type="number" id="CVV"  name="CVV" required>
                                 </div>  
                             </div>
                         </div>
