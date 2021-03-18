@@ -105,9 +105,9 @@ public class generateSale extends HttpServlet {
             System.out.println(imte);
         }
         
-        CompradorDAO compradorDAO = null;
+//        CompradorDAO compradorDAO = null;
         VentaDAO ventaDAO = null;
-        EmpresaPedidoDAO empresaPedidoDAO = null;
+//        EmpresaPedidoDAO empresaPedidoDAO = null;
         ProductosPedidosDAO productosPedidosDAO = null;
 
         Conexion conexion = new Conexion();
@@ -119,8 +119,8 @@ public class generateSale extends HttpServlet {
 
         try {
 
-            compradorDAO = new CompradorDAO(conn);
-            empresaPedidoDAO = new EmpresaPedidoDAO(conn);
+//            compradorDAO = new CompradorDAO(conn);
+//            empresaPedidoDAO = new EmpresaPedidoDAO(conn);
             productosPedidosDAO = new ProductosPedidosDAO(conn);
             ventaDAO = new VentaDAO(conn);
 
@@ -131,9 +131,9 @@ public class generateSale extends HttpServlet {
                 }
             }
 
-            idEmpresa = compradorDAO.getIdEmpresa(producctoDTOs[0].getIdProducto());
-            CompradorDTO compradorDTO = new CompradorDTO(Integer.toString(usu.getPersona().getIdPer()), idEmpresa);
-            int idCompra = compradorDAO.insertReturn(compradorDTO);
+//            idEmpresa = compradorDAO.getIdEmpresa(producctoDTOs[0].getIdProducto());
+//            CompradorDTO compradorDTO = new CompradorDTO(Integer.toString(usu.getPersona().getIdPer()), idEmpresa);
+//            int idCompra = compradorDAO.insertReturn(compradorDTO);
 
             double total = 0.0;
             for (ProducctoDTO item : producctoDTOs) {
@@ -141,7 +141,7 @@ public class generateSale extends HttpServlet {
             }
 
             VentaDTO ventaDTO = new VentaDTO();
-            ventaDTO.setIdCompradorFK(Integer.toString(idCompra));
+            ventaDTO.setIdCompradorFK(Integer.toString(usu.getPersona().getIdPer()));
             ventaDTO.setValorVenta(total);
             ventaDTO.setFormaPago(metodo);
             ventaDTO.setTipoVenta("2");
@@ -149,10 +149,10 @@ public class generateSale extends HttpServlet {
             ventaDTO.setIdCiudadFK(Integer.toString(usu.getPersona().getIdCiudad()));
             int idVenta = ventaDAO.insertReturn(ventaDTO);
 
-            EmpresaPedidoDTO empresaPedidoDTO = new EmpresaPedidoDTO();
-            empresaPedidoDTO.setIdEmpresaFK(idEmpresa);
-            empresaPedidoDTO.setIdVentaFK(Integer.toString(idVenta));
-            empresaPedidoDAO.insertReturn(empresaPedidoDTO);
+//            EmpresaPedidoDTO empresaPedidoDTO = new EmpresaPedidoDTO();
+//            empresaPedidoDTO.setIdEmpresaFK(idEmpresa);
+//            empresaPedidoDTO.setIdVentaFK(Integer.toString(idVenta));
+//            empresaPedidoDAO.insertReturn(empresaPedidoDTO);
 
             for (ProducctoDTO item : producctoDTOs) {
                 productoPedidosDTO pedidosDTO = new productoPedidosDTO();
@@ -171,9 +171,9 @@ public class generateSale extends HttpServlet {
             System.out.println(ex);
             new Gson().toJson(0, response.getWriter());
         } finally {
-            compradorDAO.CloseAll();
+//            compradorDAO.CloseAll();
             ventaDAO.CloseAll();
-            empresaPedidoDAO.CloseAll();
+//            empresaPedidoDAO.CloseAll();
             productosPedidosDAO.CloseAll();
         }
 

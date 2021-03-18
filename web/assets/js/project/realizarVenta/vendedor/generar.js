@@ -214,11 +214,14 @@ function generateFactura(data) {
                         </div>
                         <hr>`
 
-    str += `<table class="table">
+    str += `<table class="table table-responsive table-striped">
              <thead class="thead-light">
                             <tr>
                                 <th scope="col" class="border-0">
                                     <div class="p-1 px-3 text-uppercase">Producto</div>
+                                </th>
+                                 <th scope="col" class="border-0">
+                                    <div class="p-1 px-3 text-uppercase">Ref.</div>
                                 </th>
                                 <th scope="col" class="border-0">
                                     <div class="p-1 px-3 text-uppercase">Nombre</div>
@@ -242,14 +245,16 @@ function generateFactura(data) {
         } else {
             str += `<img src="${item.imagenes[0].url}" alt="" width="70" class="img-fluid rounded shadow-sm">`
         }
-        str += `</td><td>    
-                                <div class="ml-3 d-inline-block align-middle">
-                                        <p class="mb-0 text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</p>
-                                </div>
+        str += `</td>
+                        <td class="align-middle text-center"><strong>${item.referencia}</strong></td>
+                        <td>    
+                            <div class="ml-3 d-inline-block align-middle">
+                                    <p class="mb-0 text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</p>
+                            </div>
                         </td>
-                        <td class="align-middle pl-2"><strong>${item.color}</strong></td>
-                        <td class="align-middle pl-5"><strong>${item.cantidad}</strong></td>
-                        <td class="align-middle"><strong>${money(item.valorProducto * item.cantidad)}</strong></td>
+                        <td class="align-middle text-center"><strong>${item.color}</strong></td>
+                        <td class="align-middle text-center"><strong>${item.cantidad}</strong></td>
+                        <td class="align-middle text-center"><strong>${money(item.valorProducto * item.cantidad)}</strong></td>
                     </tr>`
     }
 

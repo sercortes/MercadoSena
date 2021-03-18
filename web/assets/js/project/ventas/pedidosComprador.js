@@ -28,6 +28,11 @@ $(document).on('click', '.section', function (e) {
 
 function drawVentas(data) {
     
+    if (data.length <= 0) {
+        queryNull()
+        return false;
+    }
+    
     console.log(data)
     let str = ``
     let number = 0;
@@ -73,7 +78,7 @@ function drawVentas(data) {
                                     <div class="py-1 text-uppercase">Color</div>
                                 </th>
                                 <th scope="col" class="border-0">
-                                    <div class="py-1 text-uppercase">Precio u</div>
+                                    <div class="py-1 text-uppercase">Pre. u</div>
                                 </th>
                                 <th scope="col" class="border-0">
                                     <div class="py-1 text-uppercase">Cantidad</div>
@@ -90,15 +95,15 @@ function drawVentas(data) {
             str += `<tr><td>
                 <img src="${items.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">
              </td>
-                <td class="align-middle">${items.referencia}</td>
+                <td class="align-middle text-center">${items.referencia}</td>
                     <td>    
                     <div class="ml-3 d-inline-block align-middle">
                             <p class="mb-0 text-dark d-inline-block align-middle text-justify">${items.nombreProducto}</p>
                     </div>
                     </td>
-                    <td class="align-middle pl-2"><strong>${items.color}</strong></td>
-                    <td class="align-middle pl-2"><strong>${items.valorProducto}</strong></td>
-                    <td class="align-middle pl-4"><strong>${items.cantidad}</strong></td>
+                    <td class="align-middle text-center"><strong>${items.color}</strong></td>
+                    <td class="align-middle text-center"><strong>${items.valorProducto}</strong></td>
+                    <td class="align-middle text-center"><strong>${items.cantidad}</strong></td>
                     <td class="align-middle"><strong>${money(items.valorProducto * items.cantidad)}</strong></td>
                 </tr>`
 
@@ -146,4 +151,14 @@ function getVentasByComprador(estado) {
 
     })
 
+}
+
+function queryNull(){
+    document.getElementById('pedidos').innerHTML =
+        `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>No hay elementos en esa categoría!</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>`
 }

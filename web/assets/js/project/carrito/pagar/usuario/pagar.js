@@ -87,11 +87,6 @@ $(document).on('click', '#btnUpdateData', function (e) {
         return false
     }
 
-    if (telefono === '') {
-        checkInput('telefono', 'Digite su número de teléfono')
-        return false
-    }
-
     $("#btnUpdateData").attr("disabled", true);
     $('#cargas').addClass('is-active');
 

@@ -47,6 +47,7 @@ public class VentaDAO {
             ps.setString(5, ventaDTO.getIdCiudadFK());
             ps.setString(6, ventaDTO.getFormaPago());
             ps.setString(7, ventaDTO.getIdEstadoVentaFK());
+            System.out.println(ps.toString());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -96,8 +97,7 @@ public class VentaDAO {
                     "P.correoPersona, P.direccionPersona, P.telefonoPersona, P.celularPersona FROM ventas V " +
                     "INNER JOIN metodopago M ON V.formaPagoVenta = M.idMetodoPago " +
                     "INNER JOIN estadoventas E ON V.idEstadoVentasFK = E.idEstadoVentas " +
-                    "INNER JOIN comprador C ON V.idCompradorFK = C.idComprador " +
-                    "INNER JOIN personanatural P ON C.idPersonaFK = P.idPersona " +
+                    "INNER JOIN personanatural P ON V.idCompradorFK = P.idPersona "+
                     "WHERE V.idEstadoVentasFK = ? AND V.tipoVentaFK = ? ORDER BY V.idVenta DESC";
             ps = conn.prepareStatement(sql);
             ps.setString(1, estado);
@@ -139,12 +139,12 @@ public class VentaDAO {
                     "P.correoPersona, P.direccionPersona, P.telefonoPersona, P.celularPersona FROM ventas V " +
                     "INNER JOIN metodopago M ON V.formaPagoVenta = M.idMetodoPago " +
                     "INNER JOIN estadoventas E ON V.idEstadoVentasFK = E.idEstadoVentas " +
-                    "INNER JOIN comprador C ON V.idCompradorFK = C.idComprador " +
-                    "INNER JOIN personanatural P ON C.idPersonaFK = P.idPersona " +
+                    "INNER JOIN personanatural P ON V.idCompradorFK = P.idPersona "+
                     "WHERE V.idEstadoVentasFK = ? AND P.idUsuarioFK = ? ORDER BY V.idVenta DESC";
             ps = conn.prepareStatement(sql);
             ps.setString(1, estado);
             ps.setInt(2, idPersona);
+            System.out.println(ps.toString());
             rs = ps.executeQuery();
             List<VentaDTO> list = new ArrayList<VentaDTO>();
             VentaDTO ventaDTO;
