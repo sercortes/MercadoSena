@@ -24,7 +24,7 @@ function buscarCliente(id) {
 
         }, success: function (data) {
             console.log(data)
-            if (data.numeroDocPer === 0) {
+            if (data == null) {
                 noExists(id)
                 return false;
             }
