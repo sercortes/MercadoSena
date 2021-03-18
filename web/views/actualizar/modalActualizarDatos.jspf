@@ -29,6 +29,7 @@
                           <div class="col">
                             <label for="inputEmail4">Teléfono</label>                      
                             <input id="telefono" type="number" class="form-control" placeholder="Teléfono">
+                            <small id="emailHelp" class="form-text text-muted">No obligatorio</small>
                         </div>
                     </div>
                 </form>

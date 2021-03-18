@@ -1,4 +1,5 @@
 var number = 1;
+var papa = 0
 
 $(function () {
 
@@ -6,51 +7,63 @@ $(function () {
 
 })
 
+function menu() {
+
+    if (number == 1) {
+
+        switch (papa) {
+            case 'pedPendientes':
+                getVentasByVendedor(1)
+                break;
+            case 'pedConcretados':
+                getVentasByVendedor(2)
+                break;
+            case 'pedNoConcretados':
+                getVentasByVendedor(3)
+                break;
+            default:
+                break;
+        }
+
+    } else {
+
+        switch (papa) {
+            case 'pedPendientes':
+                getAllVentasByCustomer(1)
+                break;
+            case 'pedConcretados':
+                getAllVentasByCustomer(2)
+                break;
+            case 'pedNoConcretados':
+                getAllVentasByCustomer(3)
+                break;
+            default:
+                break;
+        }
+
+    }
+
+}
+
 $(document).on('click', '.section', function (e) {
 
     e.preventDefault()
-    let papa = $(this)[0].id
-    
-    if (number == 1) {
-        
-        switch (papa) {
-        case 'pedPendientes':
-            getVentasByVendedor(1)
-            break;
-        case 'pedConcretados':
-            getVentasByVendedor(2)
-            break;
-        case 'pedNoConcretados':
-            getVentasByVendedor(3)
-            break;
-        default:
-            break;
-    }
-        
-    }else{
-        
-        switch (papa) {
-        case 'pedPendientes':
-            getAllVentasByCustomer(1)
-            break;
-        case 'pedConcretados':
-            getAllVentasByCustomer(2)
-            break;
-        case 'pedNoConcretados':
-            getAllVentasByCustomer(3)
-            break;
-        default:
-            break;
-    }
-        
-    }
-    
+    papa = $(this)[0].id
+
+    menu()
+
 
 })
 
 function drawVentas(data) {
-    
+
     console.log(data)
+
+    if (data.length <= 0) {
+        queryNull()
+        return false;
+    }
+
     let str = ``
     let number = 0;
     for (var item of data) {
@@ -69,10 +82,10 @@ function drawVentas(data) {
                         <span class="fs-12 text-black-50"><b>Dirección: </b>${item.perDTO.direccionPer}</span>
                         <br>
                         <span class="fs-12 text-black-50"><b>Celular: </b>${item.perDTO.numCelularPer}</span>`
-                        if (item.perDTO.telPer !== '') {
-                            str +=`<br><span class="fs-12 text-black-50"><b>Teléfono: </b>${item.perDTO.telPer}</span>`
-                        }
-                        str +=`<hr>
+        if (item.perDTO.telPer !== '') {
+            str += `<br><span class="fs-12 text-black-50"><b>Teléfono: </b>${item.perDTO.telPer}</span>`
+        }
+        str += `<hr>
                         <div class="d-flex flex-row justify-content-between align-items-center order-details">
                             <div><span class="d-block fs-12">Fecha</span><span class="font-weight-bold">${item.fechaVenta}</span></div>
                             <div><span class="d-block fs-12">Método de pago</span><span class="font-weight-bold">${item.formaPago}</span></div>
@@ -95,7 +108,7 @@ function drawVentas(data) {
                                     <div class="py-1 text-uppercase">Color</div>
                                 </th>
                                 <th scope="col" class="border-0">
-                                    <div class="py-1 text-uppercase">Precio u</div>
+                                    <div class="py-1 text-uppercase">Pre. u</div>
                                 </th>
                                 <th scope="col" class="border-0">
                                     <div class="py-1 text-uppercase">Cantidad</div>
@@ -112,15 +125,15 @@ function drawVentas(data) {
             str += `<tr><td>
                 <img src="${items.imagenUnitaria}" alt="" width="70" class="img-fluid rounded shadow-sm">
              </td>
-                <td class="align-middle">${items.referencia}</td>
+                <td class="align-middle text-center">${items.referencia}</td>
                     <td>    
                     <div class="d-inline-block align-middle">
                             <p class="mb-0 text-dark d-inline-block align-middle text-justify">${items.nombreProducto}</p>
                     </div>
                     </td>
                     <td class="align-middle"><strong>${items.color}</strong></td>
-                    <td class="align-middle"><strong>${items.valorProducto}</strong></td>
-                    <td class="align-middle"><strong>${items.cantidad}</strong></td>
+                    <td class="align-middle text-center"><strong>${items.valorProducto}</strong></td>
+                    <td class="align-middle text-center"><strong>${items.cantidad}</strong></td>
                     <td class="align-middle"><strong>${money(items.valorProducto * items.cantidad)}</strong></td>
                 </tr>`
 
@@ -156,13 +169,13 @@ $(document).on('change', '#selectTipe', function () {
     let tipo = $(this).val()
     if (tipo == '2') {
         number = 2
-    }else{
+    } else {
         number = 1
     }
 
+    menu()
+
 });
-
-
 function getVentasByVendedor(estado) {
 
     $.ajax({
@@ -192,9 +205,19 @@ function getAllVentasByCustomer(estado) {
         },
         datatype: 'json'
     }).done(function (data) {
-        
+
         drawVentas(data)
 
     })
 
+}
+
+function queryNull(){
+    document.getElementById('pedidos').innerHTML =
+        `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>No hay elementos en esa categoría!</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>`
 }

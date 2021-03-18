@@ -178,7 +178,11 @@ public class PersonasNaturalDAO {
             ps.setString(1, persona.getNumeroDocPer());
             ps.setString(2, persona.getDireccionPer());
             ps.setString(3, persona.getNumCelularPer());
-            ps.setString(4, persona.getTelPer());
+            if (persona.getTelPer().equals("")) {
+                ps.setNull(4, 4);
+            }else{
+                ps.setString(4, persona.getTelPer());
+            }
             ps.setInt(5, idUsuario);
             ps.executeUpdate();
             return true;

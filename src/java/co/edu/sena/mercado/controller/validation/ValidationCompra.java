@@ -28,8 +28,8 @@ public class ValidationCompra extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        new Gson().toJson(false, response.getWriter());
-        System.out.println("NO SOPORTA GET");
+        System.out.println("vali No soporta GET");
+        response.sendRedirect(request.getContextPath() + "/home");
     }
 
     @Override
