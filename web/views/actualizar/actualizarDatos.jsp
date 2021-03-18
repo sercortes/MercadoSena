@@ -155,6 +155,8 @@
                             <div class="invalid-feedback">
                                 Completa este campo correctamente
                             </div><br>
+                            <label>Escribe tu contraseña actual:</label><br>
+                            <input placeholder="*********************" type="password" id="clave0" minlength="10" class="form-control was-validated" name="clave0" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar1"></span><br>
                             <label>Escriba su nueva contraseña:</label><br>
                             <input placeholder="Mínimo 10 Caráteres" type="password" id="clave1" minlength="10" class="form-control was-validated" name="clave1" required onkeyup="validarClave()"><span class="valid invalido" id="spValidar1"></span><br>
                             <label>Confirme su contraseña:</label><br>

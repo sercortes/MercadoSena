@@ -1,4 +1,3 @@
-
 package co.edu.sena.mercado.controller.actualizacion;
 
 import co.edu.sena.mercado.dao.EmpresasDAO;
@@ -122,19 +121,17 @@ public class actualizaUsuEmp extends HttpServlet {
                     personaNaturalDTO perDAO = new personaNaturalDAO().buscarDocumenPerson(personaDTO.getNumeroDocPer(), personaDTO.getNumCelularPer());
                     if (personaDTO.getNumeroDocPer().equals(perDAO.getNumeroDocPer()) || personaDTO.getNumCelularPer().equals(perDAO.getNumCelularPer())) {
 
-                       
-                            personaDAO.actualizarPersona(personaDTO);
+                        personaDAO.actualizarPersona(personaDTO);
 
-                            if (empDAO.getEsEmpresa() < 1) {
+                        if (empDAO.getEsEmpresa() < 1) {
 
-                                empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
+                            empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
 
-                            }
+                        }
 
-                            response.getWriter().print(true);
-                            sesion.removeAttribute("USER");
-                            sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
-                        
+                        response.getWriter().print(true);
+                        sesion.removeAttribute("USER");
+                        sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
 
                     } else {
 
@@ -165,14 +162,21 @@ public class actualizaUsuEmp extends HttpServlet {
 
                 usuarioDTO = new usuarioDTO();
                 usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                usuarioDTO.setClaveUsu(request.getParameter("clave1"));
-                if (usuarioDAO.actualizarUsuario(usuarioDTO)) {
+                usuarioDTO.setClaveUsu(request.getParameter("clave0"));
+                usuarioDTO ecuentrapass = new usuarioDAO().Enecuentracontraseña(usuarioDTO);
+                if (ecuentrapass.getIdUsuario() != 0) {
+                    usuarioDTO.setClaveUsu(request.getParameter("clave1"));
+                    if (usuarioDAO.actualizarUsuario(usuarioDTO)) {
 
-                    response.getWriter().print(true);
+                        response.getWriter().print(true);
 
+                    } else {
+
+                    }
                 } else {
                     response.getWriter().print(false);
                 }
+
                 break;
             case "actualizarEmpresa":
 
