@@ -67,10 +67,16 @@ function checkSubmit() {
         messageInfo('Rol no válido')
         return false;
     }
+    
+    if(!validateCreditCardNumber(document.getElementById('cardNumber').value)){
+        messageInfo('Número de Tarjeta no válida')
+        return false
+    } 
 
     $('#cargas').addClass('is-active');
 
     if (buyProducts(3)) {
+        $('#cargas').removeClass('is-active');
         messageInfo('Error en la verificación de los productos')
         return false
     }
@@ -86,6 +92,30 @@ function checkSubmit2() {
     return true;
 }
 
+
+function validateCreditCardNumber(cardNumber) {
+	cardNumber = cardNumber.split(' ').join("");
+	if (parseInt(cardNumber) <= 0 || (!/\d{15,16}(~\W[a-zA-Z])*$/.test(cardNumber)) || cardNumber.length > 16) {
+		return false;
+	}
+	var carray = new Array();
+	for (var i = 0; i < cardNumber.length; i++) {
+		carray[carray.length] = cardNumber.charCodeAt(i) - 48;
+	}
+	carray.reverse();
+	var sum = 0;
+	for (var i = 0; i < carray.length; i++) {
+		var tmp = carray[i];
+		if ((i % 2) != 0) {
+			tmp *= 2;
+			if (tmp > 9) {
+				tmp -= 9;
+			}
+		}
+		sum += tmp;
+	}
+	return ((sum % 10) == 0);
+}
 
 document.getElementById('pagotarjeta').addEventListener('click', function () {
     var cardValid = 0;

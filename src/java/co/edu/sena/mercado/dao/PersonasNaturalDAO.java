@@ -92,9 +92,9 @@ public class PersonasNaturalDAO {
             ps.setString(1, idPersona);
              System.out.println(ps.toString());
             rs = ps.executeQuery();
-            personaNaturalDTO persona;
-            persona = new personaNaturalDTO();
+            personaNaturalDTO persona = null;
             while (rs.next()) {
+                persona = new personaNaturalDTO();
                 persona.setIdUsuario(rs.getInt("idPersona"));
                 persona.setNumeroDocPer(rs.getString("documentoPersona"));
                 persona.setNombrePer(rs.getString("nombrePersona"));
