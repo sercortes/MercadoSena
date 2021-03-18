@@ -8,10 +8,9 @@
 document.getElementById('flexRadioDefault1').addEventListener('click', function () {
 
     $('#ModalTarjeta').modal('show');
-   
 });
 
-window.onload=cosasapagar();
+window.onload = cosasapagar();
 
 document.getElementById('flexRadioDefault2').addEventListener('click', function () {
 
@@ -35,20 +34,46 @@ document.getElementById('flexRadioDefault2').addEventListener('click', function 
 
 });
 
+
+var input = document.getElementById('cardNumber');
+input.addEventListener('input', function () {
+    if (this.value.length > 16)
+        this.value = this.value.slice(0, 16);
+});
+
+var input = document.getElementById('CVV');
+input.addEventListener('input', function () {
+    if (this.value.length > 4)
+        this.value = this.value.slice(0, 4);
+});
+
+
+var input = document.getElementById('cardExpirationMonth');
+input.addEventListener('input', function () {
+    if (this.value.length > 2)
+        this.value = this.value.slice(0, 2);
+});
+
+var input = document.getElementById('cardExpirationYear');
+input.addEventListener('input', function () {
+    if (this.value.length > 2)
+        this.value = this.value.slice(0, 2);
+});
+
+
 function checkSubmit() {
-    
+
     if (getRol() != 2) {
         messageInfo('Rol no válido')
         return false;
     }
-    
-     $('#cargas').addClass('is-active');
-    
+
+    $('#cargas').addClass('is-active');
+
     if (buyProducts(3)) {
         messageInfo('Error en la verificación de los productos')
         return false
     }
-    
     document.getElementById("pagotarjeta").value = "Enviando...";
     document.getElementById("pagotarjeta").disabled = true;
     return true;
@@ -61,19 +86,9 @@ function checkSubmit2() {
     return true;
 }
 
+
 document.getElementById('pagotarjeta').addEventListener('click', function () {
     var cardValid = 0;
-
-    //card number validation
-    $('#cardhold').validateCreditCard(function (result) {
-        if (result.valid) {
-            $("#cardhold").removeClass('required');
-            cardValid = 1;
-        } else {
-            $("#cardhold").addClass('required');
-            cardValid = 0;
-        }
-    });
 
     //card details validation
     var cardName = $("#name_on_card").val();
@@ -126,7 +141,7 @@ document.getElementById('pagotarjeta').addEventListener('click', function () {
     $(document).ready(function () {
 
         //card validation on input fields
-        $('#paymentForm input[type=text]').on('keyup', function () {
+        $('#formpagosT input[type=text]').on('keyup', function () {
             cardFormValidate;
         });
     });
@@ -161,7 +176,7 @@ function cosasapagar() {
     }
     document.getElementById('cards').innerHTML = str;
     $.post("process_payment", {accionT: "Guardarprecio", valor: total});
-    
+
     str = `<hr style="margin-top: 0rem;margin-bottom: 0rem;">
                 <li class="d-flex justify-content-between py-3 border-bottom"><strong class="text-muted">Total</strong><strong>${money(total)}</strong></li>
                                 
