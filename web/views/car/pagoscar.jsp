@@ -6,6 +6,10 @@
     <c:redirect url="./home"/>
 </c:if>
 
+<c:if test="${BLOQUEO == 1}">
+    <c:redirect url="./home"/>
+</c:if>
+
 <%@include file="/views/template/header.jspf"%>
 <%@include file="/views/searching/htmlSearch.jspf"%>
 

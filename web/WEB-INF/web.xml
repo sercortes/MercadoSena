@@ -181,8 +181,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SelectsTwo</servlet-name>
-        <url-pattern>/getInformationByProduct</url-pattern>
-        <url-pattern>/getStockProduct</url-pattern>
+        <url-pattern>/updateStockColors</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>
@@ -222,6 +221,7 @@
         <servlet-name>ValidationCompra</servlet-name>
         <url-pattern>/checkUpdateData</url-pattern>
         <url-pattern>/UpdateDataPerson</url-pattern>
+        <url-pattern>/getComprasIncomplete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

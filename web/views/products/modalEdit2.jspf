@@ -1,0 +1,27 @@
+
+
+<div class="modal fade text-center" id="modalEdit2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            
+                <button type="button" class="close float-right" data-dismiss="modal" aria-label="Close">
+                    <span class="float-right pr-2" aria-hidden="true">&times;</span>
+                </button>
+           
+            <div class="modal-body pt-0">
+                
+                <div id="salida">
+                    
+                </div>
+                <div id="colores">
+                    
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button id="saveColors" type="button" class="btn btn-primary">Actualizar</button>
+            </div>
+        </div>
+    </div>
+</div>

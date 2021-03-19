@@ -43,6 +43,11 @@ $("#btnpagar").click(function () {
         return false
     }
 
+    if(checkBloqueo()>=3){
+        messageInfo('Acceso restringido, tienes compras sin completar')
+        return false
+    }
+
     if (checkData()) {
         messageInfo('Necesitamos tu información para completar la compra')
         $('#modalUpdateData').modal('show')

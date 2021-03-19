@@ -98,6 +98,7 @@ function generateTableBuscadorP() {
       </div>
          <div class="text-right">
                             <a href="#" class="delete btn btn-danger"><i class="fas fa-minus-square"></i></a>
+                            <a href="#" class="editQuantity btn btn-secondary"><i class="fas fa-list-ol"></i></a>
                             <a href="#" class="editProduct btn btn-warning"><i class="fas fa-edit"></i></a>
                             <a href="#" class="watchMyProducts btn btn-primary"><i class="far fa-images"></i></a>
                         </div>
