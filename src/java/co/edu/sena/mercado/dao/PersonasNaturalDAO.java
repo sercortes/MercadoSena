@@ -195,6 +195,28 @@ public class PersonasNaturalDAO {
             throw new Exception();
         }
     }
+     
+      public int getComprasIncomplete(String idUsuario) throws Exception, MySQLIntegrityConstraintViolationException  {
+             int cantidad = 0;
+          String consulta = "SELECT count(*) 'Compras' FROM ventas V " +
+                    "WHERE V.idEstadoVentasFK = 3 AND V.idCompradorFK = ? " +
+                    "AND V.fechaVenta >= curdate() AND V.fechaVenta < curdate() + interval 1 day " +
+                    "group by V.idCompradorFK";
+        try {
+            ps = conn.prepareStatement(consulta);
+            ps.setString(1, idUsuario);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                cantidad = rs.getInt(1);
+            }
+            return cantidad;
+        } catch (SQLException e) {
+            System.out.println("error getPreguntas " + e);
+            System.out.println("consulta " + ps.toString());
+            throw new SQLException();
+        }
+    }
+     
     
     public void CloseAll(){
           Conexion.close(conn);

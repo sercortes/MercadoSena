@@ -56,6 +56,12 @@ public class ValidationCompra extends HttpServlet {
 
                         break;
 
+                    case "/Store/getComprasIncomplete":
+
+                        getComprasIncomplete(request, response);
+
+                        break;
+
                     default:
 
                         System.out.println("generateSale no soporta GET");
@@ -111,17 +117,53 @@ public class ValidationCompra extends HttpServlet {
         System.out.println("ACTUALIZAR");
         perDTO.toString();
         PersonasNaturalDAO personasNaturalDAO = null;
-        
-        try { 
-          personasNaturalDAO = new PersonasNaturalDAO(new Conexion().getConnection());
-          personasNaturalDAO.actualizarDatosFaltantes(perDTO, usu.getIdUsuario());
-          new Gson().toJson(true, response.getWriter());
-          usu.setPersona(perDTO);
-          request.getSession().setAttribute("USER", usu);
+
+        try {
+            personasNaturalDAO = new PersonasNaturalDAO(new Conexion().getConnection());
+            personasNaturalDAO.actualizarDatosFaltantes(perDTO, usu.getIdUsuario());
+            new Gson().toJson(true, response.getWriter());
+            usu.setPersona(perDTO);
+            request.getSession().setAttribute("USER", usu);
         } catch (Exception ex) {
             new Gson().toJson(false, response.getWriter());
             System.out.println(ex);
-        }finally{
+        } finally {
+            personasNaturalDAO.CloseAll();
+        }
+
+    }
+
+    private void getComprasIncomplete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
+        PersonasNaturalDAO personasNaturalDAO = null;
+        int numero = 0;
+
+        try {
+
+            if (request.getSession().getAttribute("BLOQUEO") != null) {
+                new Gson().toJson(3, response.getWriter());
+                throw new Exception();
+            }
+
+            System.out.println("PETICIONES");
+
+            personasNaturalDAO = new PersonasNaturalDAO(new Conexion().getConnection());
+            numero = personasNaturalDAO.getComprasIncomplete(Integer.toString(usu.getPersona().getIdPer()));
+            if (numero >= 3) {
+                request.getSession().setAttribute("BLOQUEO", 1);
+            } else {
+                request.getSession().removeAttribute("BLOQUEO");
+            }
+            new Gson().toJson(numero, response.getWriter());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            new Gson().toJson(0, response.getWriter());
+            System.out.println(ex);
+        } finally {
             personasNaturalDAO.CloseAll();
         }
 

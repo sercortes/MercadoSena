@@ -13,6 +13,7 @@ import com.google.gson.annotations.SerializedName;
  */
 public class ProductoColor {
     
+    @SerializedName("idColor")
     private String idProductoColor;
     @SerializedName("color")
     private String idColorFK;

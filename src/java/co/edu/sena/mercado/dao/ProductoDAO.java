@@ -218,7 +218,7 @@ public class ProductoDAO {
     public ArrayList<Producto> getProductsBySeller(String id) {
         try {
           String sql = "SELECT COUNT(*) 'cantidadColores', PR.idProducto, PR.nombreProducto, PR.valorProducto, PR.descripcionProducto, "
-                    + "C.nombreColor, PC.stockProducto, PC.idProductoColor FROM producto PR "
+                    + "C.nombreColor, PC.stockProducto, PC.idProductoColor,  PR.referencia FROM producto PR "
                     + "INNER JOIN ProductoColor PC ON PR.idProducto=PC.productoFK "
                     + "INNER JOIN colorProducto C ON PC.colorFK = C.idColor "
                     + "INNER JOIN empresa EM ON PR.idEmpresaFK=EM.idEmpresa "
@@ -237,6 +237,7 @@ public class ProductoDAO {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("valorProducto"));
                 producto.setStockProducto(rs.getInt("PC.stockProducto"));
+                producto.setReferencia(rs.getString("PR.referencia"));
                 producto.setDescripcionProducto(rs.getString("descripcionProducto"));
                 producto.setColor(rs.getString("C.nombreColor"));
                 producto.setCantidadColores(rs.getString("cantidadColores"));

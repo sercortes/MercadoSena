@@ -3,12 +3,6 @@ var arregloIma
 var arregloRes
 var limpiarImagenes = 0
 
-$(function(){
-
-    
-
-})
-
 function getMarcassE(value, name) {
         
      let text = ``

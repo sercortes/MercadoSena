@@ -199,6 +199,25 @@ function getProductByidComplete(id) {
 
 }
 
+function checkBloqueo() {
+
+    let estatus = '';
+
+    $.ajax({
+        type: "POST",
+        url: './getComprasIncomplete',
+        async: false,
+        datatype: 'json'
+    }).done(function (data) {
+        
+        estatus = data
+
+    })
+
+    return estatus;
+
+}
+
 function queryEmphy() {
     $('#cargas').removeClass('is-active');
     let str =

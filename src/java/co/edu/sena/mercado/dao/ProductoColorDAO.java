@@ -124,6 +124,25 @@ public class ProductoColorDAO {
         }
     }
     
+     
+       public boolean updateColorsStock(ProductoColor productoColor) throws Exception {
+        try {
+
+            String sql = "UPDATE ProductoColor set stockProducto = ? "
+                    + "WHERE idProductoColor = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setInt(1, productoColor.getCantidad());
+            ps.setString(2, productoColor.getIdProductoColor());
+
+            int rows = ps.executeUpdate();
+            boolean estado = rows > 0;
+            return estado;
+        } catch (Exception ex) {
+            System.out.println("Error edit " + ex.getMessage());
+            throw new Exception();
+        }
+    }
          
       public void CloseAll(){
         Conexion.close(conn);
