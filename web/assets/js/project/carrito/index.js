@@ -35,6 +35,49 @@ document.getElementById('flexRadioDefault2').addEventListener('click', function 
 });
 
 
+function validarFechaMenorActual(date) {
+    var objFecha = new Date(date);
+    var mes = objFecha.getMonth();
+    mes + 1;
+    if (mes >= 0) {
+        return true;
+    } else {
+        return false;
+
+    }
+
+}
+
+function validarañomenor(date) {
+
+    var año = (new Date().getFullYear().toString().substr(-2));
+    
+    if (date >= año) {
+        return true;
+    } else {
+        return false;
+
+    }
+}
+
+
+function validarLetras(variable) {
+    if (/^([a-z A-Z])*$/.test(variable)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function validarNumero(variable) {
+    if (/^([0-9])*$/.test(variable)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 var input = document.getElementById('cardNumber');
 input.addEventListener('input', function () {
     if (this.value.length > 16)
@@ -64,14 +107,56 @@ input.addEventListener('input', function () {
 function checkSubmit() {
 
     if (getRol() != 2) {
-        messageInfo('Rol no válido')
+        messageInfo('Rol no válido');
         return false;
     }
-    
-    if(!validateCreditCardNumber(document.getElementById('cardNumber').value)){
-        messageInfo('Número de Tarjeta no válida')
-        return false
-    } 
+    cardNumber = document.getElementById('cardNumber').value;
+    cardhold = document.getElementById('cardhold').value;
+    CVV = document.getElementById('CVV').value;
+    cardExpirationMonth = document.getElementById('cardExpirationMonth').value;
+    cardExpirationYear = document.getElementById('cardExpirationYear').value;
+
+    if (!validateCreditCardNumber(document.getElementById('cardNumber').value)) {
+        messageInfo('Número de Tarjeta no válida');
+        return false;
+    } else if (cardNumber === null || cardNumber === '') {
+        messageInfo('Por favor complete el campo n&uacute;mero de tarjeta');
+        return false;
+    } else if (validarNumero(cardNumber) === false) {
+        messageInfo('Por favor ingrese solo n&uacute;meros en el campo n&uacute;mero de tarjeta');
+        return false;
+    } else if (cardhold === null || cardhold === '') {
+        messageInfo('Por favor comple el campo, Nombre del titular de la tarjeta');
+        return false;
+    } else if (validarLetras(cardhold) === false) {
+        messageInfo('Por favor ingrese solo letras en el campo Nombre del titular de la tarjeta');
+        return false;
+    } else if (CVV === null || CVV === '') {
+        messageInfo('Por favor complete el campo CVV');
+        return false;
+    } else if (validarNumero(CVV) === false) {
+        messageInfo('Por favor ingrese solo n&uacute;meros en el campo CVV');
+        return false;
+    } else if (cardExpirationMonth === null || cardExpirationMonth === '') {
+        messageInfo('Por favor complete el campo mes');
+        return false;
+    } else if (validarFechaMenorActual(cardExpirationMonth) === false) {
+        messageInfo('Por favor ingrese una fecha validad en el campo mes');
+        return false;
+    } else if (validarNumero(cardExpirationMonth) === false) {
+        messageInfo('Por favor ingrese solo n&uacute;meros en el campo mes');
+        return false;
+    } else if (cardExpirationYear === null || cardExpirationYear === '') {
+        messageInfo('Por favor complete el campo mes');
+        return false;
+    } else if (validarNumero(cardExpirationYear) === false) {
+        messageInfo('Por favor ingrese solo n&uacute;meros en el campo año');
+        return false;
+    } else if (validarañomenor(cardExpirationYear) === false) {
+        messageInfo('Por favor ingrese una fecha validad en el campo año');
+        return false;
+    }
+
 
     $('#cargas').addClass('is-active');
 
@@ -94,28 +179,29 @@ function checkSubmit2() {
 
 
 function validateCreditCardNumber(cardNumber) {
-	cardNumber = cardNumber.split(' ').join("");
-	if (parseInt(cardNumber) <= 0 || (!/\d{15,16}(~\W[a-zA-Z])*$/.test(cardNumber)) || cardNumber.length > 16) {
-		return false;
-	}
-	var carray = new Array();
-	for (var i = 0; i < cardNumber.length; i++) {
-		carray[carray.length] = cardNumber.charCodeAt(i) - 48;
-	}
-	carray.reverse();
-	var sum = 0;
-	for (var i = 0; i < carray.length; i++) {
-		var tmp = carray[i];
-		if ((i % 2) != 0) {
-			tmp *= 2;
-			if (tmp > 9) {
-				tmp -= 9;
-			}
-		}
-		sum += tmp;
-	}
-	return ((sum % 10) == 0);
+    cardNumber = cardNumber.split(' ').join("");
+    if (parseInt(cardNumber) <= 0 || (!/\d{15,16}(~\W[a-zA-Z])*$/.test(cardNumber)) || cardNumber.length > 16) {
+        return false;
+    }
+    var carray = new Array();
+    for (var i = 0; i < cardNumber.length; i++) {
+        carray[carray.length] = cardNumber.charCodeAt(i) - 48;
+    }
+    carray.reverse();
+    var sum = 0;
+    for (var i = 0; i < carray.length; i++) {
+        var tmp = carray[i];
+        if ((i % 2) != 0) {
+            tmp *= 2;
+            if (tmp > 9) {
+                tmp -= 9;
+            }
+        }
+        sum += tmp;
+    }
+    return ((sum % 10) == 0);
 }
+
 
 document.getElementById('pagotarjeta').addEventListener('click', function () {
     var cardValid = 0;

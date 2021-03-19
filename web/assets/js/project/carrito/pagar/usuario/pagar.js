@@ -4,7 +4,7 @@ function buyProducts(metodo) {
 
     let arraf = JSON.parse(localStorage.getItem('objects'));
     let datas = '';
-    
+
     $.ajax({
         type: 'POST',
         url: './generateSale',
@@ -16,10 +16,10 @@ function buyProducts(metodo) {
             messageInfo('Error en los productos')
         },
         success: function (datas) {
-            
+
             console.log(datas)
             console.log(datas !== 0)
-            
+
             if (datas !== 0) {
                 cleanCar()
                 datas = false
@@ -30,7 +30,7 @@ function buyProducts(metodo) {
 
         }
     })
-    
+
     return datas;
 
 }
@@ -40,23 +40,23 @@ $("#btnpagar").click(function () {
 
     if (!checkSession()) {
         modalPreguntaRegistro();
-        return false
+        return false;
     }
 
-    if(checkBloqueo()>=3){
-        messageInfo('Acceso restringido, tienes compras sin completar')
-        return false
+    if (checkBloqueo() >= 3) {
+        messageInfo('Acceso restringido, tienes compras sin completar');
+        return false;
     }
 
     if (checkData()) {
-        messageInfo('Necesitamos tu información para completar la compra')
-        $('#modalUpdateData').modal('show')
-        $('#modalCar').modal('hide')
-        return false
+        messageInfo('Necesitamos tu información para completar la compra');
+        $('#modalUpdateData').modal('show');
+        $('#modalCar').modal('hide');
+        return false;
     }
+         
+        $.post(location.href = "process_payment");
     
-    $.post(location.href = "process_payment");
-
 });
 
 
@@ -71,7 +71,7 @@ $(document).on('click', '#btnUpdateData', function (e) {
     let direccion = document.getElementById('direccion').value
     let celular = document.getElementById('celular').value
     let telefono = document.getElementById('telefono').value
-    
+
     if (documento === '') {
         checkInput('documento', 'Digite su número de documento')
         return false
@@ -153,7 +153,7 @@ $(document).on('click', '#btnUpdateData', function (e) {
 })
 
 function checkInput(input, mensaje) {
-    $('#' + input).focus().after(`<div class='remove'><font color='red'>${mensaje}</font><div>`);    
+    $('#' + input).focus().after(`<div class='remove'><font color='red'>${mensaje}</font><div>`);
 }
 
 function cleanCar() {
