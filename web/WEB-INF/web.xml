@@ -196,6 +196,7 @@
         <servlet-name>Validation</servlet-name>
         <url-pattern>/getIdEmpresa</url-pattern>
         <url-pattern>/getRol</url-pattern>
+        <url-pattern>/checkProducts</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>chat</servlet-name>

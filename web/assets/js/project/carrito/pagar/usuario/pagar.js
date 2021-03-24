@@ -12,23 +12,17 @@ function buyProducts(metodo) {
         async: false,
         data: {
             metodo: metodo, arrayP: JSON.stringify(arraf)
-        }, error: function (datas) {
-            messageInfo('Error en los productos')
-        },
-        success: function (datas) {
-
-            console.log(datas)
-            console.log(datas !== 0)
-
-            if (datas !== 0) {
+        }
+    }).done(function (data) {
+        
+        if (data !== 0 || data !== 00) {
                 cleanCar()
                 datas = false
             } else {
-                datas = true
                 cleanCar()
+                datas = true
             }
 
-        }
     })
 
     return datas;
@@ -55,7 +49,7 @@ $("#btnpagar").click(function () {
         return false;
     }
          
-        $.post(location.href = "process_payment");
+     $.post(location.href = "process_payment");
     
 });
 

@@ -95,19 +95,12 @@ public class generateSale extends HttpServlet {
         String metodo = request.getParameter("metodo");
         Gson gson = new Gson();
         String json = "";
-        String idEmpresa = "";
         for (String item : arreglo) {
             json += item;
         }
         ProducctoDTO[] producctoDTOs = gson.fromJson(json, ProducctoDTO[].class);
         
-        for(ProducctoDTO imte: producctoDTOs){
-            System.out.println(imte);
-        }
-        
-//        CompradorDAO compradorDAO = null;
         VentaDAO ventaDAO = null;
-//        EmpresaPedidoDAO empresaPedidoDAO = null;
         ProductosPedidosDAO productosPedidosDAO = null;
 
         Conexion conexion = new Conexion();
@@ -119,23 +112,28 @@ public class generateSale extends HttpServlet {
 
         try {
 
-//            compradorDAO = new CompradorDAO(conn);
-//            empresaPedidoDAO = new EmpresaPedidoDAO(conn);
             productosPedidosDAO = new ProductosPedidosDAO(conn);
             ventaDAO = new VentaDAO(conn);
-
+            boolean estatus = true;
+            
             for (ProducctoDTO item : producctoDTOs) {
                 if (!productosPedidosDAO.checkProductsCustomer(item)) {
+                    estatus = false;
+                    System.out.println("VENTA ERRADA generate sale");
                     new Gson().toJson(0, response.getWriter());
-                    throw new Exception();
                 }
             }
-
-//            idEmpresa = compradorDAO.getIdEmpresa(producctoDTOs[0].getIdProducto());
-//            CompradorDTO compradorDTO = new CompradorDTO(Integer.toString(usu.getPersona().getIdPer()), idEmpresa);
-//            int idCompra = compradorDAO.insertReturn(compradorDTO);
-
+//            
+            if (producctoDTOs.length <= 0) {
+                System.out.println("Error tañaño arreglo generate sale");
+                estatus = false;
+                new Gson().toJson(0, response.getWriter());
+            }
+            
+            if (estatus) {
+                
             double total = 0.0;
+            
             for (ProducctoDTO item : producctoDTOs) {
                 total += item.getValorUnitario() * item.getCantidad();
             }
@@ -148,12 +146,6 @@ public class generateSale extends HttpServlet {
             ventaDTO.setIdEstadoVentaFK("1");
             ventaDTO.setIdCiudadFK(Integer.toString(usu.getPersona().getIdCiudad()));
             int idVenta = ventaDAO.insertReturn(ventaDTO);
-
-//            EmpresaPedidoDTO empresaPedidoDTO = new EmpresaPedidoDTO();
-//            empresaPedidoDTO.setIdEmpresaFK(idEmpresa);
-//            empresaPedidoDTO.setIdVentaFK(Integer.toString(idVenta));
-//            empresaPedidoDAO.insertReturn(empresaPedidoDTO);
-
             for (ProducctoDTO item : producctoDTOs) {
                 productoPedidosDTO pedidosDTO = new productoPedidosDTO();
                 pedidosDTO.setIdVentaFK(Integer.toString(idVenta));
@@ -164,16 +156,15 @@ public class generateSale extends HttpServlet {
             }
             conn.commit();
             request.getSession().setAttribute("IDVENTA", Integer.toString(idVenta));
-            new Gson().toJson(idVenta, response.getWriter());
+            new Gson().toJson(idVenta, response.getWriter());    
+            }
+            
         } catch (Exception ex) {
             conn.rollback();
-            System.out.println("ROLL BACK GENERATE SALE");
-            System.out.println(ex);
+            ex.printStackTrace();
             new Gson().toJson(0, response.getWriter());
         } finally {
-//            compradorDAO.CloseAll();
             ventaDAO.CloseAll();
-//            empresaPedidoDAO.CloseAll();
             productosPedidosDAO.CloseAll();
         }
 

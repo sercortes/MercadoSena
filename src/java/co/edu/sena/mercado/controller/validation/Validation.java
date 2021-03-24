@@ -1,29 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.sena.mercado.controller.validation;
 
+import co.edu.sena.mercado.dao.ProductosPedidosDAO;
+import co.edu.sena.mercado.dto.ProducctoDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
+import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author equipo
- */
 public class Validation extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("generateSale no soporta GET");
+        System.out.println("validation no soporta GET");
         response.sendRedirect(request.getContextPath() + "/home");
     }
 
@@ -32,25 +31,38 @@ public class Validation extends HttpServlet {
             throws ServletException, IOException {
         if (request.getSession().getAttribute("USER") != null) {
 
-            String direccion = request.getRequestURI();
-
-            switch (direccion) {
-
-                case "/Store/getIdEmpresa":
-
-                    getIdEmpresa(request, response);
-
-                    break;
+            try {
+                String direccion = request.getRequestURI();
+                
+                switch (direccion) {
                     
-                case "/Store/getRol":
-
-                    getRol(request, response);
-
-                    break;
-
-                default:
-                    
-                    break;
+                    case "/Store/getIdEmpresa":
+                        
+                        getIdEmpresa(request, response);
+                        
+                        break;
+                        
+                    case "/Store/getRol":
+                        
+                        getRol(request, response);
+                        
+                        break;
+                        
+                        
+                    case "/Store/checkProducts":
+                        
+                        checkProducts(request, response);
+                        
+                        break;
+                        
+                    default:
+                        
+                        response.sendRedirect(request.getContextPath() + "/home");
+                        
+                        break;
+                }
+            }  catch (SQLException ex) {
+                ex.printStackTrace();
             }
 
         } else {
@@ -74,7 +86,54 @@ public class Validation extends HttpServlet {
         new Gson().toJson(idPersona, response.getWriter());
     }
 
-    @Override
+    private void checkProducts(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, SQLException, IOException {
+       
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        String[] arreglo = request.getParameterValues("arrayP");
+        Gson gson = new Gson();
+        String json = "";
+        for (String item : arreglo) {
+            json += item;
+        }
+        ProducctoDTO[] producctoDTOs = gson.fromJson(json, ProducctoDTO[].class);
+        ProductosPedidosDAO productosPedidosDAO = null;
+        Conexion conexion = new Conexion();
+        Connection conn = conexion.getConnection();
+        
+        try {
+            productosPedidosDAO = new ProductosPedidosDAO(conn);
+            boolean estatus = true;
+            
+            for (ProducctoDTO item : producctoDTOs) {
+                if (!productosPedidosDAO.checkProductsCustomer(item)) {
+                    estatus = false;
+                    System.out.println("ERROR verificación venta");
+                    new Gson().toJson(0, response.getWriter());
+                }
+            }
+            
+            if (producctoDTOs.length <= 0) {
+                System.out.println("ARREGLO VACIO VENTA");
+                estatus = false;
+            }
+            
+            if (estatus) {
+                new Gson().toJson(true, response.getWriter());    
+            }
+            
+        } catch (Exception ex) {
+            conn.rollback();
+            ex.printStackTrace();
+            new Gson().toJson(0, response.getWriter());
+        } finally {
+            productosPedidosDAO.CloseAll();
+        }
+        
+    }
+    
+        @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
