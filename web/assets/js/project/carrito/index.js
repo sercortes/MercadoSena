@@ -51,7 +51,7 @@ function validarFechaMenorActual(date) {
 function validarañomenor(date) {
 
     var año = (new Date().getFullYear().toString().substr(-2));
-    
+
     if (date >= año) {
         return true;
     } else {
@@ -106,10 +106,6 @@ input.addEventListener('input', function () {
 
 function checkSubmit() {
 
-    if (getRol() != 2) {
-        messageInfo('Rol no válido');
-        return false;
-    }
     cardNumber = document.getElementById('cardNumber').value;
     cardhold = document.getElementById('cardhold').value;
     CVV = document.getElementById('CVV').value;
@@ -157,14 +153,25 @@ function checkSubmit() {
         return false;
     }
 
+    if (getRol() != 2) {
+        messageInfo('Rol no válido');
+        return false;
+    }
 
     $('#cargas').addClass('is-active');
 
-    if (buyProducts(3)) {
+    if (checkProducts()) {
         $('#cargas').removeClass('is-active');
-        messageInfo('Error en la verificación de los productos')
+        mensajeRedirectHome('¡Error en la verificación de los productos!')
         return false
     }
+    
+     if (buyProducts(3)) {
+        $('#cargas').removeClass('is-active');
+        mensajeRedirectHome('¡Error en los productos!')
+        return false
+    }
+    
     document.getElementById("pagotarjeta").value = "Enviando...";
     document.getElementById("pagotarjeta").disabled = true;
     return true;
@@ -176,7 +183,6 @@ function checkSubmit2() {
     document.getElementById("pagoPSE").disabled = true;
     return true;
 }
-
 
 function validateCreditCardNumber(cardNumber) {
     cardNumber = cardNumber.split(' ').join("");

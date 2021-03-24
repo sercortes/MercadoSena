@@ -55,7 +55,7 @@ public class ProductosPedidosDAO {
 
     }
     
-    public boolean checkProductsCustomer(ProducctoDTO producctoDTO) {
+    public boolean checkProductsCustomer(ProducctoDTO producctoDTO) throws Exception{
         try {
             boolean statusP = false;
             String sql = "SELECT P.idProducto, P.valorProducto, PC.stockProducto, PC.idProductoColor "
@@ -76,6 +76,7 @@ public class ProductosPedidosDAO {
             }
             return statusP;
         } catch (Exception e) {
+            e.printStackTrace();
             System.out.println(e);
             return false;
         }

@@ -233,3 +233,47 @@ function queryEmphy() {
             </div>`
     document.getElementById('tabla').innerHTML = str;
 }
+
+function checkProducts() {
+
+    let arraf = JSON.parse(localStorage.getItem('objects'));
+    let datas = '';
+
+    $.ajax({
+        type: 'POST',
+        url: './checkProducts',
+        datatype: 'json',
+        async: false,
+        data: {
+            arrayP: JSON.stringify(arraf)
+        }
+    }).done(function (data) {
+        
+        if (data !== 0 || data !== 00) {
+                datas = false
+            } else {
+                cleanCar()
+                datas = true
+            }
+
+    })
+
+    return datas;
+
+}
+
+function mensajeRedirectHome(mensaje) {
+
+    Swal.fire({
+        title: 'Error',
+        text: mensaje,
+        icon: 'info',
+        showCancelButton: false,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ok'
+    }).then((result) => {
+        window.location.replace("../Store/");
+    })
+
+}
