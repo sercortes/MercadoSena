@@ -60,6 +60,14 @@ function validarañomenor(date) {
     }
 }
 
+function validarEmail(correo) {
+    if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/.test(correo)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 function validarLetras(variable) {
     if (/^([a-z A-Z])*$/.test(variable)) {
@@ -77,6 +85,17 @@ function validarNumero(variable) {
     }
 }
 
+var input = document.getElementById('emails');
+input.addEventListener('input', function () {
+    if (this.value.length > 50)
+        this.value = this.value.slice(0, 50);
+});
+
+var input = document.getElementById('cardhold');
+input.addEventListener('input', function () {
+    if (this.value.length > 25)
+        this.value = this.value.slice(0, 25);
+});
 
 var input = document.getElementById('cardNumber');
 input.addEventListener('input', function () {
@@ -106,6 +125,7 @@ input.addEventListener('input', function () {
 
 function checkSubmit() {
 
+    emails = document.getElementById('emails').value;
     cardNumber = document.getElementById('cardNumber').value;
     cardhold = document.getElementById('cardhold').value;
     CVV = document.getElementById('CVV').value;
@@ -121,8 +141,14 @@ function checkSubmit() {
     } else if (validarNumero(cardNumber) === false) {
         messageInfo('Por favor ingrese solo n&uacute;meros en el campo n&uacute;mero de tarjeta');
         return false;
+    } else if (emails === null || emails === '') {
+        messageInfo('Por favor complete el campo correo electrónico');
+        return false;
+    } else if (validarEmail(emails) === false) {
+        messageInfo('Por favor ingrese un correo electrónico valido');
+        return false;
     } else if (cardhold === null || cardhold === '') {
-        messageInfo('Por favor comple el campo, Nombre del titular de la tarjeta');
+        messageInfo('Por favor comple el campo, nombre del titular de la tarjeta');
         return false;
     } else if (validarLetras(cardhold) === false) {
         messageInfo('Por favor ingrese solo letras en el campo Nombre del titular de la tarjeta');
@@ -143,7 +169,7 @@ function checkSubmit() {
         messageInfo('Por favor ingrese solo n&uacute;meros en el campo mes');
         return false;
     } else if (cardExpirationYear === null || cardExpirationYear === '') {
-        messageInfo('Por favor complete el campo mes');
+        messageInfo('Por favor complete el campo año');
         return false;
     } else if (validarNumero(cardExpirationYear) === false) {
         messageInfo('Por favor ingrese solo n&uacute;meros en el campo año');
@@ -165,20 +191,93 @@ function checkSubmit() {
         mensajeRedirectHome('¡Error en la verificación de los productos!')
         return false
     }
-    
-     if (buyProducts(3)) {
+
+    if (buyProducts(3)) {
         $('#cargas').removeClass('is-active');
         mensajeRedirectHome('¡Error en los productos!')
         return false
     }
-    
+
     document.getElementById("pagotarjeta").value = "Enviando...";
     document.getElementById("pagotarjeta").disabled = true;
     return true;
 }
 
+
+var input = document.getElementById('email');
+input.addEventListener('input', function () {
+    if (this.value.length > 50)
+        this.value = this.value.slice(0, 50);
+});
+
+
+var input = document.getElementById('Nombre');
+input.addEventListener('input', function () {
+    if (this.value.length > 15)
+        this.value = this.value.slice(0, 15);
+});
+
+
+var input = document.getElementById('Apellido');
+input.addEventListener('input', function () {
+    if (this.value.length > 15)
+        this.value = this.value.slice(0, 15);
+});
+
+
+var input = document.getElementById('docNumbers');
+input.addEventListener('input', function () {
+    if (this.value.length > 12)
+        this.value = this.value.slice(0, 12);
+});
+
 function checkSubmit2() {
-    buyProducts(4)
+    
+    email = document.getElementById('email').value;
+    Nombre = document.getElementById('Nombre').value;
+    Apellido = document.getElementById('Apellido').value;
+    docTypes = document.getElementById('docTypes').value;
+    docNumbers = document.getElementById('docNumbers').value;
+    selectdebanco = document.getElementById('selectdebanco').value;
+    TPersona = document.getElementById('TPersona').value;
+
+    if (email === null || email === '') {
+        messageInfo('Por favor complete el campo correo electrónico');
+        return false;
+    } else if (validarEmail(email) === false) {
+        messageInfo('Por favor ingrese un correo electrónico valido');
+        return false;
+    } else if (Nombre === null || Nombre === '') {
+        messageInfo('Por favor complete el campo nombre');
+        return false;
+    } else if (validarLetras(Nombre) === false) {
+        messageInfo('Por favor ingrese un nombre valido');
+        return false;
+    } else if (Apellido === null || Apellido === '') {
+        messageInfo('Por favor complete el campo apellido');
+        return false;
+    } else if (validarLetras(Apellido) === false) {
+        messageInfo('Por favor ingre un apellido valido');
+        return false;
+    } else if (docTypes === null || docTypes === '') {
+        messageInfo('Por favor seleccione su tipo de documento');
+        return false;
+    }else if (docNumbers === null || docNumbers === '') {
+        messageInfo('Por favor complete el campo n&uacute;mero de documento');
+        return false;
+    } else if (validarNumero(docNumbers) === false) {
+        messageInfo('Por favor ingrese un n&uacute;mero de documento valido');
+        return false;
+    } else if (selectdebanco === null || selectdebanco === '') {
+        messageInfo('Por favor selecione un banco');
+        return false;
+    } else if (TPersona === null || TPersona === '') {
+        messageInfo('Por favor seleccione un tipo de persona');
+        return false;
+    }
+
+
+    buyProducts(4);
     document.getElementById("pagoPSE").value = "Enviando....";
     document.getElementById("pagoPSE").disabled = true;
     return true;
@@ -287,7 +386,7 @@ function cosasapagar() {
                    <td> 
                         <div class="ml-3 d-inline-block align-middle">
                               <h5 class="mb-0">
-                                <p class="mb-0 text-dark d-inline-block align-middle text-justify">${item.nombreProducto}</p>                                </div>
+                                <p class="mb-0 text-dark d-inline-block align-middle">${item.nombreProducto}</p>                                </div>
                             </div>
                         </td>
                         <td class="border-0 align-middle pl-3"><strong>${item.color}</strong></td>
