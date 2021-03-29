@@ -11,20 +11,20 @@ var $pagination = $('#pagination'),
 
 
 $(document).on('click', '.page-item', function () {
-    let currentPage = $pagination.twbsPagination('getCurrentPage');
-    console.log(currentPage)
-    localStorage.setItem('page', currentPage);
+//    let currentPage = $pagination.twbsPagination('getCurrentPage');
+//    console.log(currentPage)
+//    localStorage.setItem('page', currentPage);
 })
 
 $(function () {
 
     $('#cargas').addClass('is-active');
-    listarProductoByVendedor()
+    listarProductoByVendedor(1)
     $('.collapse').collapse()
 
 })
 
-function listarProductoByVendedor() {
+function listarProductoByVendedor(pagina) {
 
     $.ajax({
         type: "POST",
@@ -35,26 +35,27 @@ function listarProductoByVendedor() {
 
         $('#cargas').removeClass('is-active');
 
-        if (data == undefined) {
+        if (data <=0 )  {
             queryEmphyP()
             return false
         }
-
+        
         records = data
         totalRecords = data.length
         totalPages = Math.ceil(totalRecords / recPerPage)
 
-        apply_pagination()
+        apply_pagination(pagina)
 
     })
 
 }
 
-function apply_pagination() {
+function apply_pagination(pagina) {
 
     $pagination.twbsPagination({
         totalPages: totalPages,
         visiblePages: 4,
+        startPage:pagina,
         onPageClick: function (event, page) {
             displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
             endRec = (displayRecordsIndex) + recPerPage;
@@ -135,6 +136,10 @@ $(document).on('click', '.delete', function (e) {
 
     let parent = $(this)[0].parentElement.parentElement
     let idPro = $(parent).attr('idProducto')
+    let page = $pagination.twbsPagination('getCurrentPage')
+    if(displayRecords.length === 1){
+        page--    
+    }
 
     Swal.fire({
         title: '¿Está seguro?',
@@ -147,7 +152,7 @@ $(document).on('click', '.delete', function (e) {
     }).then((result) => {
 
         if (result.value) {
-            deleteOk(idPro)
+            deleteOk(idPro, page)
         }
 
     })
@@ -155,7 +160,7 @@ $(document).on('click', '.delete', function (e) {
 })
 
 
-function deleteOk(id) {
+function deleteOk(id, page) {
 
     $('#cargas').addClass('is-active');
 
@@ -171,15 +176,14 @@ function deleteOk(id) {
         if (data) {
             messageOk('Eliminado con éxito')
             $pagination.twbsPagination('destroy');
-            listarProductoByVendedor()
+            listarProductoByVendedor(page)
         } else {
-            messageError('=( up ocurrio un error')
+            messageError('error')
         }
 
         $('#cargas').removeClass('is-active')
 
     })
-
 
 }
 
