@@ -90,7 +90,7 @@ document.getElementById('formOnes').addEventListener('submit', e => {
                 
             } else{
                 
-                messageInfo('Datos erroneos')
+                messageInfo('Datos Incorrectos')
                 document.getElementById('passs').value = ''
                 
             } 
@@ -103,9 +103,9 @@ document.getElementById('formOnes').addEventListener('submit', e => {
 
 function storege(){
     if (getRol() == 3) {
-                    var arrayBuy = []
-                    localStorage.setItem('objects', JSON.stringify(arrayBuy))
-                }
+        var arrayBuy = []
+        localStorage.setItem('objects', JSON.stringify(arrayBuy))
+    }
 }
 
 function clean() {

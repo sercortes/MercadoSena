@@ -1,41 +1,53 @@
 
 $(document).ready(function () {
-     
-    console.time('loop');
-        
-    if (window.location.pathname === '/Store/') {
-        $('#pagee').hide()
-        $('#cargas').addClass('is-active');
-        productosRamdom();
-    }
 
-    if (window.location.pathname === '/Store/home') {
+    
+    if (window.location.pathname === '/Store/' || window.location.pathname === '/Store/home') {
+        console.time('loop');
         $('#pagee').hide()
         $('#cargas').addClass('is-active');
         productosRamdom();
+        banner()
     }
 
 })
 
-function productosRamdom(){
-    
-      $.ajax({
+function productosRamdom() {
+
+    $.ajax({
         type: "POST",
         url: './getProductsRandom',
         async: true,
         datatype: 'json'
     }).done(function (data) {
-            
-       generatePageQuery(data, 12)
+
+        generatePageQuery(data, 12)
 
     })
-    
+
+}
+
+function banner() {
+
+    $.ajax({
+        type: "POST",
+        url: './banner',
+        async: true,
+        datatype: 'json'
+    }).done(function (data) {
+
+        let id = document.getElementsByClassName('letras')
+         for (var i = 0; i < data.length; i++) {
+             id[i].innerText = data[i].frase
+        }
+
+    })
+
 }
 
 $('#desplegarMenu').click(function () {
 
     $('.busquedaAvanzada').toggle();
-
 })
 
 $(document).on('click', '#searching', function (e) {
@@ -43,12 +55,12 @@ $(document).on('click', '#searching', function (e) {
     e.preventDefault();
     var nombreProductoFiltar = $('#nombreProductoFiltar').val();
     let categorias = $('#categoriasCriBuscar').val();
-    let marca  = $('#marcaProducto').val();
+    let marca = $('#marcaProducto').val();
 
-     if (window.location.pathname === '/MercadoSena/ventasVendedor') {
+    if (window.location.pathname === '/MercadoSena/ventasVendedor') {
         $('#content').hide()
     }
-    
+
     if (nombreProductoFiltar === ''
             && categorias === '' && marca === '') {
 
@@ -73,81 +85,81 @@ $(document).on('click', '#searching', function (e) {
         document.getElementById('nombreProductoFiltar').focus();
         return false;
     }
-    
+
     document.getElementById('searching').disabled = true;
     $('#cargas').addClass('is-active');
-    
+
     let data = {
         word: nombreProductoFiltar,
         categorias: categorias,
-        marca:marca
+        marca: marca
     };
 
     let url = '';
+    
+    if (nombreProductoFiltar !== '' && categorias === ''
+            && marca === '') {
 
-    queryEmphyP()
-//    if (nombreProductoFiltar !== '' && categorias === ''
-//            && marca === '') {
-//
-//        url = './getProductsByWord';
-//        console.log('getProductsByWord')
-//        query(data, url);
-//
-//    } else if (nombreProductoFiltar === '' && categorias !== ''
-//            && marca === '') {
-//
-//        url = './getProductsByCategory';
-//        console.log('getProductsByCategory')
-//        query(data, url);
-//
-//    } else if (nombreProductoFiltar !== '' && categorias !== ''
-//            && marca === '') {
-//
-//        url = './getProductsByNameCategory';
-//        console.log('getProductsByNameCategory')
-//        query(data, url);
-//
-//    }else if (nombreProductoFiltar === '' && categorias === ''
-//            && marca !== ''){
-//        
-//        url = './getProductsByMarca';
-//        console.log('getProductsByMarca')
-//        query(data, url);
-//
-//    }else if (nombreProductoFiltar !== '' && categorias === ''
-//            && marca !== ''){
-//        
-//        url = './getProductsByNameMarca';
-//        console.log('getProductsByNameMarca')
-//        query(data, url)
-//
-//    }else if (nombreProductoFiltar === '' && categorias !== ''
-//            && marca !== ''){
-//        
-//        url = './getProductsByCategoryMarca';
-//        console.log('getProductsByCategoryMarca')
-//        query(data, url)
-//
-//    }else if (nombreProductoFiltar !== '' && categorias !== ''
-//            && marca !== ''){
-//        
-//        url = './getProductsByNameCategoryMarca';
-//        console.log('getProductsByNameCategoryMarca');
-//        query(data, url);
-//
-//    } else {
-//        
-//        console.log('else')
-//        url = './getProductsByWord';
-//        query(data, url);
-//
-//    }
+        url = './getProductsByWord';
+        console.log('getProductsByWord')
+        query(data, url);
+            
+    } else if (nombreProductoFiltar === '' && categorias !== ''
+            && marca === '') {
+
+        url = './getProductsByCategory';
+        console.log('getProductsByCategory')
+        query(data, url);
+
+    }else if (nombreProductoFiltar !== '' && categorias !== ''
+            && marca === '') {
+
+        url = './getProductsByNameCategory';
+        console.log('getProductsByNameCategory')
+        query(data, url);
+
+    }else if (nombreProductoFiltar === '' && categorias === ''
+            && marca !== ''){
+        
+        url = './getProductsByMarca';
+        console.log('getProductsByMarca')
+        query(data, url);
+
+    }else if (nombreProductoFiltar !== '' && categorias === ''
+            && marca !== ''){
+        
+        url = './getProductsByNameMarca';
+        console.log('getProductsByNameMarca')
+        query(data, url)
+
+    }else if (nombreProductoFiltar === '' && categorias !== ''
+            && marca !== ''){
+        
+        url = './getProductsByCategoryMarca';
+        console.log('getProductsByCategoryMarca')
+        query(data, url)
+
+    }else if (nombreProductoFiltar !== '' && categorias !== ''
+            && marca !== ''){
+        
+        url = './getProductsByNameCategoryMarca';
+        console.log('getProductsByNameCategoryMarca');
+        query(data, url);
+
+    } else {
+        
+        console.log('else')
+        url = './getProductsByWord';
+        query(data, url);
+
+    }
 
 })
 
 function query(datos, url) {
 
     $('#cargas').addClass('is-active');
+    console.time('loop');
 
     $.ajax({
 
@@ -161,7 +173,7 @@ function query(datos, url) {
             marca: datos.marca
         },
         success: function (data) {
-
+            
             webPageAnimations()
             generatePageQuery(data, 4)
             document.getElementById('searching').disabled = false;

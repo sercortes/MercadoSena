@@ -36,6 +36,17 @@
             <button id="addMarca" type="submit" class="btn btn-primary mb-2 float-right"><i class="fas fa-plus-circle"></i> Agregar</button>
 
         </div>
+        
+        <div class="col-md-6">
+            <h4 class="text-left">Texto Banner</h4>
+            
+            <div id="banners">
+                
+            </div>
+            
+            <button id="editBanner" type="submit" class="btn btn-primary mb-2 float-right"><i class="fas fa-plus-circle"></i> Cambiar</button>
+
+        </div>
 
     </div>
 

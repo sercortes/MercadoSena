@@ -38,16 +38,16 @@ function listarProductoByDateTime() {
 }
 
 function generatePageQuery(data, pages) {
-
+    
     $('#cargas').removeClass('is-active');
     $pagination.twbsPagination('destroy');
-    recPerPage = pages
 
-    if (data == undefined) {
+    if (data.length <= 0) {
         queryEmphy()
         return false
     }
-
+    
+    recPerPage = pages
     records = data
     totalRecords = data.length
     totalPages = Math.ceil(totalRecords / recPerPage)

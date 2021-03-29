@@ -43,29 +43,29 @@ $(document).on('click', '#buttonSearch', function () {
 })
 
 function messageOk(message) {
+
     Swal.fire({
         icon: 'success',
-        html: '<h4 style="color:#060e06">' + message + '</h4>',
-        showConfirmButton: true,
-        width: '25%'
+        title: 'Ok',
+        text: message
     })
 }
 
 function messageInfo(message) {
     Swal.fire({
         icon: 'info',
-        html: '<h4 style="color:#060e06">' + message + '</h4>',
-        showConfirmButton: true,
-        width: '25%'
+        title: 'Espera',
+        text: message
     })
+
 }
 function messageError(message) {
     Swal.fire({
         icon: 'error',
-        html: '<h4 style="color:#060e06">' + message + '</h4>',
-        showConfirmButton: true,
-        width: '25%'
+        title: 'Error',
+        text: message
     })
+
 }
 
 function messageAddCar(message) {
@@ -142,7 +142,7 @@ function checkData() {
         async: false,
         datatype: 'json'
     }).done(function (data) {
-        
+
         estatus = data
 
     })
@@ -165,7 +165,7 @@ function getProductByid(id) {
             idProducto: id
         }
     }).done(function (data) {
-        
+
         pro = data
         $('#cargas').removeClass('is-active')
 
@@ -189,7 +189,7 @@ function getProductByidComplete(id) {
             idProducto: id
         }
     }).done(function (data) {
-        
+
         pro = data
         $('#cargas').removeClass('is-active')
 
@@ -209,7 +209,7 @@ function checkBloqueo() {
         async: false,
         datatype: 'json'
     }).done(function (data) {
-        
+
         estatus = data
 
     })
@@ -248,13 +248,13 @@ function checkProducts() {
             arrayP: JSON.stringify(arraf)
         }
     }).done(function (data) {
-        
+
         if (data !== 0 || data !== 00) {
-                datas = false
-            } else {
-                cleanCar()
-                datas = true
-            }
+            datas = false
+        } else {
+            cleanCar()
+            datas = true
+        }
 
     })
 

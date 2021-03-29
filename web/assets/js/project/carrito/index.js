@@ -188,7 +188,7 @@ function checkSubmit() {
 
     if (checkProducts()) {
         $('#cargas').removeClass('is-active');
-        mensajeRedirectHome('¡Error en la verificación de los productos!')
+        mensajeRedirectHome('¡Error en los productos!')
         return false
     }
 
@@ -276,8 +276,26 @@ function checkSubmit2() {
         return false;
     }
 
+    
+    if (getRol() != 2) {
+        messageInfo('Rol no válido');
+        return false;
+    }
 
-    buyProducts(4);
+    $('#cargas').addClass('is-active');
+
+    if (checkProducts()) {
+        $('#cargas').removeClass('is-active');
+        mensajeRedirectHome('¡Error en los productos!')
+        return false
+    }
+
+    if (buyProducts(4)) {
+        $('#cargas').removeClass('is-active');
+        mensajeRedirectHome('¡Error en los productos!')
+        return false
+    }
+    
     document.getElementById("pagoPSE").value = "Enviando....";
     document.getElementById("pagoPSE").disabled = true;
     return true;
