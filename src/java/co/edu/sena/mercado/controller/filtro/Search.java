@@ -107,26 +107,46 @@ public class Search extends HttpServlet {
     }
 
     private void getProductsByWord(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+        
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+         String palabra = request.getParameter("word");
         Conexion conexion = new Conexion();
         ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
-        String palabra = request.getParameter("word");
+        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
         ArrayList<Producto> listaProductos = productoDAO.getProductsByWord(palabra);
+        
+        listaProductos.forEach((item) -> {
+            ArrayList<ImagenesProducto> listaImagenes
+                    = imagenesProductosDAO.getImagenesByProduc(item.getIdProducto());
+            item.setListaImagenes(listaImagenes);
+        });
+        
+        imagenesProductosDAO.CloseAll();
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
+        
     }
 
     private void getProductsByCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-        request.setCharacterEncoding("UTF-8");
+      
+        String categoria = request.getParameter("categorias");
+         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
         ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());
-        String categoria = request.getParameter("categorias");
+        ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
         ArrayList<Producto> listaProductos = productoDAO.getProductsByCategory(categoria);
+        
+        listaProductos.forEach((item) -> {
+            ArrayList<ImagenesProducto> listaImagenes
+                    = imagenesProductosDAO.getImagenesByProduc(item.getIdProducto());
+            item.setListaImagenes(listaImagenes);
+        });
+        
+        imagenesProductosDAO.CloseAll();
         productoDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaProductos, response.getWriter());
