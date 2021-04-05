@@ -112,7 +112,7 @@ public class process_payment extends HttpServlet {
                         ventaDAO.actualizarVenta(ventaDTO);
                         ventaDAO.CloseAll();
                         request.getSession().removeAttribute("IDVENTA");
-
+                        System.out.println("URL: " + PSEbanck);
                         request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
                     } else {
                         ventaDTO.setIdEstadoVentaFK("2");

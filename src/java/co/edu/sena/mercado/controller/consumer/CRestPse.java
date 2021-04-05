@@ -13,6 +13,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import javax.json.Json;
 import javax.json.JsonObject;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
@@ -25,11 +26,10 @@ public class CRestPse {
     private static final String URL_WOMPI = "https://production.wompi.co/v1/";
     private static final String PRV_WOMPI = "prv_prod_to8dJPkmqH3sBHfpi5UseCQasCae6Sel";
     private static final String PUB_WOMPI = "pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL";
-    
+
 //    private static final String URL_WOMPI = "https://sandbox.wompi.co/v1/";
 //    private static final String PRV_WOMPI = "prv_test_JnLqheUtGvTYbZfd1OQPr3FsfQy7t12Y";
 //    private static final String PUB_WOMPI = "pub_test_Qfh69dnQv5nufuKaaUlqoqIGgsn37aof";
-
     //Tarjeta de credito
     public static String Tokenizartarjeta(String number, String cvc, String month, String year, String cardholder) {
         JSONObject json = new JSONObject();
@@ -77,7 +77,7 @@ public class CRestPse {
 
     public static JSONObject Posttajeta(String tokenpersona, String tokentarjeta, int valor, String email, String installments, String referencia, String cardholder) throws MalformedURLException {
         // DefaultHttpClient httpClient = new DefaultHttpClient();
-        
+
         JSONObject jsons = null;
         String refpago = null;
         StringBuilder respuesta = new StringBuilder();
@@ -119,7 +119,7 @@ public class CRestPse {
                 os.write(input, 0, input.length);
             }
             // Obtener la respuesta
-            
+
             try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"))) {
 
                 String acumuladorRespuesta = null;
@@ -135,7 +135,6 @@ public class CRestPse {
 
                 System.err.println("ERROR" + e);
             }
-            
 
             if (compra == true) {
                 if (jsons.has("message") == false) {
@@ -249,7 +248,7 @@ public class CRestPse {
 
                 json = new JSONObject(respuesta.toString());
 
-                idpago = json.getJSONObject("data").getString("id");
+                idpago = json.getJSONObject("data").getString("reference");
 
             } catch (Exception e) {
                 compra = false;
@@ -281,7 +280,7 @@ public class CRestPse {
         JSONObject json = null;
 
         String ULRredirec = null;
-        String complement = "transactions/";
+        String complement = "transactions?reference=";
         try {
             HttpURLConnection con = null;
             URL object = new URL(URL_WOMPI + complement + idpago);
@@ -290,6 +289,7 @@ public class CRestPse {
             con.setDoOutput(true);
             con.setDoInput(true);
             con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", "Bearer " + PRV_WOMPI);
             boolean encontrado = false;
 
             while (encontrado == false) {
@@ -308,15 +308,24 @@ public class CRestPse {
 
             json = new JSONObject(respuesta.toString());
 
-            ULRredirec = json.getJSONObject("data").getJSONObject("payment_method").getJSONObject("extra").getString("async_payment_url");
+            try {
+                JSONArray jsonArray = json.getJSONArray("data");
+                JSONObject jsonObject = jsonArray.getJSONObject(0);
 
-        } catch (Exception e) {
+                ULRredirec = jsonObject.getJSONObject("payment_method").getJSONObject("extra").getString("async_payment_url");
 
+            } catch (Exception ee) {
+                
+                System.out.println("Error URL Redirec" + ee);
+            }
+
+        } catch (Exception e) {          
+             System.out.println("Error URL Redirec" + e);
         }
         return ULRredirec;
     }
-    
-     public static JSONObject consultarPagoTarjeta(String refpago) throws MalformedURLException {
+
+    public static JSONObject consultarPagoTarjeta(String refpago) throws MalformedURLException {
         StringBuilder respuesta = new StringBuilder();
         JSONObject json = null;
 
@@ -349,7 +358,6 @@ public class CRestPse {
 
             json = new JSONObject(respuesta.toString());
 
-            
         } catch (Exception e) {
 
         }
@@ -420,7 +428,7 @@ public class CRestPse {
         }
         return con;
     }
-    
+
     public static HttpURLConnection POSTTokinizacionT(String complement, String method) {
         HttpURLConnection con = null;
         try {
