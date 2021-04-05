@@ -5,6 +5,7 @@
  */
 package co.edu.sena.mercado.dao;
 
+import co.edu.sena.mercado.dto.ProducctoDTO;
 import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.dto.VentaDTO;
 import co.edu.sena.mercado.dto.personaNaturalDTO;
@@ -13,6 +14,7 @@ import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationExceptio
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -178,7 +180,7 @@ public class VentaDAO {
    public ArrayList<Producto> getProductosByPrice(String idProducto) {
         try {
             
-            String sql = "SELECT P.*, C.nombreColor, PP.cantidadProductoVenta, PP.valorProductoVenta, P.referencia, (SELECT urlProducto FROM imagenesproductos WHERE idProductoImageFK = P.idProducto LIMIT 1) 'imagen' " +
+            String sql = "SELECT P.*, C.nombreColor, PC.idProductoColor, PP.cantidadProductoVenta, PP.valorProductoVenta, P.referencia, (SELECT urlProducto FROM imagenesproductos WHERE idProductoImageFK = P.idProducto LIMIT 1) 'imagen' " +
                 "FROM productospedidos PP " +
                 "INNER JOIN ProductoColor PC ON PP.idProductoFK=PC.idProductoColor " +
                 "INNER JOIN colorProducto C ON PC.colorFK = C.idColor "+
@@ -196,6 +198,7 @@ public class VentaDAO {
                 producto.setNombreProducto(rs.getString("nombreProducto"));
                 producto.setValorProducto(rs.getDouble("PP.valorProductoVenta"));
                 producto.setColor(rs.getString("C.nombreColor"));
+                producto.setIdProductoColor(rs.getString("PC.idProductoColor"));
                 producto.setCantidad(rs.getInt("PP.cantidadProductoVenta"));
                 producto.setReferencia(rs.getString("referencia"));
                 list.add(producto);
@@ -203,7 +206,42 @@ public class VentaDAO {
             return (ArrayList<Producto>) list;
         } catch (Exception e) {
             System.out.println(e);
+            e.printStackTrace();
             return null;
+        }
+    }
+   
+    public boolean actualizarCantidad(Producto productoDTO) throws SQLException{
+        try {
+
+            String sql1 = "SELECT stockProducto FROM ProductoColor WHERE idProductoColor = ? LIMIT 1";
+            PreparedStatement ps = conn.prepareStatement(sql1);
+            ps.setString(1, productoDTO.getIdProductoColor());
+            rs = ps.executeQuery();
+
+            int actual = 0;
+
+            while (rs.next()) {
+                actual = rs.getInt("stockProducto");
+            }
+            System.out.println("ACTUAL");
+            System.out.println(actual);
+            System.out.println("STOCK");
+            System.out.println(productoDTO.getCantidad());
+
+            productoDTO.setStockProducto(actual - productoDTO.getCantidad());
+
+            String sql = "UPDATE ProductoColor SET stockProducto = ? WHERE idProductoColor=?";
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, productoDTO.getStockProducto());
+            ps.setString(2, productoDTO.getIdProductoColor());
+            System.out.println("..........................." + ps.toString());
+            ps.executeUpdate();
+            return true;
+        } catch (Exception ex) {
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar actualizarCantidad PrpductoDAO " + ex);
+            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX consulta " + ps.toString());
+            return false;
         }
     }
 

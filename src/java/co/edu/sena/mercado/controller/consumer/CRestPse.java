@@ -25,6 +25,10 @@ public class CRestPse {
     private static final String URL_WOMPI = "https://production.wompi.co/v1/";
     private static final String PRV_WOMPI = "prv_prod_to8dJPkmqH3sBHfpi5UseCQasCae6Sel";
     private static final String PUB_WOMPI = "pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL";
+    
+//    private static final String URL_WOMPI = "https://sandbox.wompi.co/v1/";
+//    private static final String PRV_WOMPI = "prv_test_JnLqheUtGvTYbZfd1OQPr3FsfQy7t12Y";
+//    private static final String PUB_WOMPI = "pub_test_Qfh69dnQv5nufuKaaUlqoqIGgsn37aof";
 
     //Tarjeta de credito
     public static String Tokenizartarjeta(String number, String cvc, String month, String year, String cardholder) {
@@ -161,6 +165,7 @@ public class CRestPse {
         try {
             HttpURLConnection con = null;
             URL object = new URL("https://production.wompi.co/v1/merchants/pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL");
+//               URL object = new URL("https://sandbox.wompi.co/v1/merchants/pub_test_Qfh69dnQv5nufuKaaUlqoqIGgsn37aof");
             // Abrir la conexión e indicar que será de tipo GET
             con = (HttpURLConnection) object.openConnection();
             con.setDoOutput(true);
