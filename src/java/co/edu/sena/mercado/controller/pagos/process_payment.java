@@ -102,10 +102,39 @@ public class process_payment extends HttpServlet {
 
                     String PSEbanck = CRestPse.Postpse(tokes, valors, tipodepersona, Tipodedoc, document, code, descriptions, emails, referencia, NombreApellido);
 
+                    JSONObject consultarpagopse = CRestPse.consultarPago(PSEbanck);
+                    String ULRredirec = null;
+                    if (consultarpagopse != null) {
+                        JSONArray jsonArrays = consultarpagopse.getJSONArray("data");
+                        JSONObject jsonObjects = jsonArrays.getJSONObject(0);
+                        String status = jsonObjects.get("status").toString();
+                        if (status.equalsIgnoreCase("PENDING")) {
+                            JSONObject jsonobjects = new JSONObject();
+                            do {
+                                JSONObject jsonconsulta = CRestPse.consultarPago(PSEbanck);
+                                JSONArray jsonarray = jsonconsulta.getJSONArray("data");
+                                jsonobjects = jsonarray.getJSONObject(0);
+                                System.out.println("JSON " + jsonobjects);
+
+                                try {
+                                    if (jsonobjects.getJSONObject("payment_method").getJSONObject("extra") != null) {
+                                        ULRredirec = jsonobjects.getJSONObject("payment_method").getJSONObject("extra").getString("async_payment_url");
+                                        System.out.println("Ya encontro el extra");
+                                        break;
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("No se encontro el object extra: " + e);
+                                }
+                                System.out.println("sigue en el ciclo");
+                            } while (jsonobjects.getJSONObject("payment_method").isNull("extra"));
+
+                        }
+                    }
+
                     VentaDAO ventaDAO = new VentaDAO(new Conexion().getConnection());
                     VentaDTO ventaDTO = new VentaDTO();
 
-                    if (PSEbanck == null) {
+                    if (ULRredirec == null) {
 
                         ventaDTO.setIdEstadoVentaFK("3");
                         ventaDTO.setIdVenta(id);
@@ -118,7 +147,7 @@ public class process_payment extends HttpServlet {
                         ventaDTO.setIdEstadoVentaFK("2");
                         ventaDTO.setIdVenta(id);
                         ventaDAO.actualizarVenta(ventaDTO);
-                        
+
                         List<Producto> list = new ArrayList<Producto>();
                         list = ventaDAO.getProductosByPrice(id);
                         for (Producto item : list) {
@@ -133,7 +162,7 @@ public class process_payment extends HttpServlet {
                         ventaDAO.CloseAll();
                         request.getSession().removeAttribute("IDVENTA");
 
-                        response.sendRedirect(PSEbanck);
+                        response.sendRedirect(ULRredirec);
                     }
 
                     break;
@@ -196,35 +225,34 @@ public class process_payment extends HttpServlet {
 //                                            JSONObject jsonobjects = jsonarray.getJSONObject(0);
 //                                            status = jsonobjects.get("status").toString();
 //                                        }
-
 //                                            if (status.equals("APPROVED")) {
 //                                                break;
 //                                            }
-                                            if (status.equals("APPROVED")) {
-                                                ventaDTOs.setIdEstadoVentaFK("2");
-                                                ventaDTOs.setIdVenta(idV);
-                                                ventaDAOs.actualizarVenta(ventaDTOs);
+                                        if (status.equals("APPROVED")) {
+                                            ventaDTOs.setIdEstadoVentaFK("2");
+                                            ventaDTOs.setIdVenta(idV);
+                                            ventaDAOs.actualizarVenta(ventaDTOs);
 
-                                                List<Producto> list = new ArrayList<Producto>();
-                                                list = ventaDAOs.getProductosByPrice(idV);
-                                                for (Producto item : list) {
-                                                    System.out.println(item.toString());
-                                                    ventaDAOs.actualizarCantidad(item);
-                                                }
-
-                                                ventaDAOs.CloseAll();
-                                                request.getSession().removeAttribute("IDVENTA");
-                                                request.setAttribute("status", Aprobado);
-                                                request.setAttribute("amount_in_cents", valorpagart);
-                                                request.getRequestDispatcher("/views/car/estadodepago.jsp").forward(request, response);
-                                            } else {
-                                                ventaDTOs.setIdEstadoVentaFK("3");
-                                                ventaDTOs.setIdVenta(idV);
-                                                ventaDAOs.actualizarVenta(ventaDTOs);
-                                                ventaDAOs.CloseAll();
-                                                request.getSession().removeAttribute("IDVENTA");
-                                                request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
+                                            List<Producto> list = new ArrayList<Producto>();
+                                            list = ventaDAOs.getProductosByPrice(idV);
+                                            for (Producto item : list) {
+                                                System.out.println(item.toString());
+                                                ventaDAOs.actualizarCantidad(item);
                                             }
+
+                                            ventaDAOs.CloseAll();
+                                            request.getSession().removeAttribute("IDVENTA");
+                                            request.setAttribute("status", Aprobado);
+                                            request.setAttribute("amount_in_cents", valorpagart);
+                                            request.getRequestDispatcher("/views/car/estadodepago.jsp").forward(request, response);
+                                        } else {
+                                            ventaDTOs.setIdEstadoVentaFK("3");
+                                            ventaDTOs.setIdVenta(idV);
+                                            ventaDAOs.actualizarVenta(ventaDTOs);
+                                            ventaDAOs.CloseAll();
+                                            request.getSession().removeAttribute("IDVENTA");
+                                            request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
+                                        }
 
                                     } else if (status.equals("APPROVED")) {
                                         ventaDTOs.setIdEstadoVentaFK("2");

@@ -272,10 +272,10 @@ public class CRestPse {
             System.err.println("ERROR" + e);
         }
 
-        return consultarPago(idpago);
+        return idpago;
     }
 
-    public static String consultarPago(String idpago) throws MalformedURLException {
+    public static JSONObject consultarPago(String idpago) throws MalformedURLException {
         StringBuilder respuesta = new StringBuilder();
         JSONObject json = null;
 
@@ -308,21 +308,21 @@ public class CRestPse {
 
             json = new JSONObject(respuesta.toString());
 
-            try {
-                JSONArray jsonArray = json.getJSONArray("data");
-                JSONObject jsonObject = jsonArray.getJSONObject(0);
-
-                ULRredirec = jsonObject.getJSONObject("payment_method").getJSONObject("extra").getString("async_payment_url");
-
-            } catch (Exception ee) {
-                
-                System.out.println("Error URL Redirec" + ee);
-            }
+//            try {
+//                JSONArray jsonArray = json.getJSONArray("data");
+//                JSONObject jsonObject = jsonArray.getJSONObject(0);
+//
+//                ULRredirec = jsonObject.getJSONObject("payment_method").getJSONObject("extra").getString("async_payment_url");
+//
+//            } catch (Exception ee) {
+//                
+//                System.out.println("Error URL Redirec" + ee);
+//            }
 
         } catch (Exception e) {          
              System.out.println("Error URL Redirec" + e);
         }
-        return ULRredirec;
+        return json;
     }
 
     public static JSONObject consultarPagoTarjeta(String refpago) throws MalformedURLException {
