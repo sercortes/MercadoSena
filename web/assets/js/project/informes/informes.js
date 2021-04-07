@@ -2,309 +2,131 @@ $(function () {
 
     $('.datepicker').datepicker({
         clearBtn: true,
-        format: "yyyy-mm-dd"
+        format: 'yyyy/mm/dd',
     });
-    $('#reservationDate').on('change', function () {
-        var pickedDate = $('input').val();
-        $('#pickedDate').html(pickedDate);
-    });
+
+    $('#fechaFinal').datepicker({
+        format: 'yyyy/mm/dd',
+    }).datepicker("setDate", 'now');
+
 });
-var textoInfoFech;
-function generarInforme(event) {
-    event.preventDefault();
-    $('#laX').show();
-    var tipo;
-    var tipoInforme = $('#tipoInforme').val();
-    var fechaInicial = $('#fechaInicial').val();
-    var fechaFinal = $('#fechaFinal').val();
-    var filtro1 = $('#filtroPedidos').val();
-    if ($('#tipoGrafico').val() !== '0') {
-        $('#paginaGrafico').addClass('page-break');
-    } else {
-        $('#paginaGrafico').removeClass('page-break');
+
+$(document).on('click', '#generarInfo', function (e) {
+
+    e.preventDefault()
+    let fechaI = document.getElementById('fechaInicial').value
+    let fechaFinal = document.getElementById('fechaFinal').value
+    let tipo = document.getElementById('tipoInforme').value
+
+    if (fechaI == '') {
+        messageInfo('Selecione una Fecha Inicial')
+        return false
     }
 
-    if (fechaInicial === '') {
-        tipo = 0;
-        textoInfoFech = 'general';
-    }
-    
-    if(filtro1 === '1'){
-        tipo = 1;
-        textoInfoFech = 'general';
-    }
-    
-    if(filtro1 === '2'){
-        tipo = 2;
-        textoInfoFech = 'general';
-    }
-    if (fechaInicial !== '' && fechaFinal === '') {
-        tipo = 3;
-        textoInfoFech = 'para el día ' + fechaInicial;
-    }
-    
-    if (fechaInicial !== '' && fechaFinal === '' && filtro1 === '1') {
-        tipo = 4;
-        textoInfoFech = 'para el día ' + fechaInicial;
-    }
-    
-     if (fechaInicial !== '' && fechaFinal === '' && filtro1 === '2') {
-        tipo = 5;
-        textoInfoFech = 'para el día ' + fechaInicial;
-    }
-    
-    if (fechaInicial !== '' && fechaFinal !== '') {
-        tipo = 6;
-        textoInfoFech = 'entre las fechas ' + fechaInicial + ' y ' + fechaFinal;
-    }
-    
-    if (fechaInicial !== '' && fechaFinal !== '' && filtro1 === '1') {
-        tipo = 7;
-        textoInfoFech = 'entre las fechas ' + fechaInicial + ' y ' + fechaFinal;
-    }
-    
-    if (fechaInicial !== '' && fechaFinal !== '' && filtro1 === '2') {
-        tipo = 8;
-        textoInfoFech = 'entre las fechas ' + fechaInicial + ' y ' + fechaFinal;
+    if (fechaI > fechaFinal) {
+        messageInfo('Selecione fecha válidas')
+        return false
     }
 
-    switch (tipoInforme) {
-        case '1':
-            consultaProductos(tipo, fechaInicial, fechaFinal);
-            break;
-        case '2':
-            consultaPedidos(tipo, fechaInicial, fechaFinal);
-            break;
-        default:
+    let a = new Date(fechaI)
+    let b = new Date(fechaFinal)
 
-            break;
+    let days = dateDiffInDays(a, b)
+
+    let data = {
+        fechaI: fechaI,
+        fechaFinal: fechaFinal,
+        tipo: tipo
     }
 
+    if (tipo == '1' || tipo == '2') {
 
-}
+        if (days > 31) {
+            
+            query(data, 'graphicMonth')
 
-function consultaProductos(tipo, fechaInicial, fechaFinal) {
-    $('#cargas').addClass('is-active');
-    $.ajax({
-        url: "./informes",
-        data: {
-            accion: 'consultaProductosVendedor',
-            fechaInicial: fechaInicial,
-            fechaFinal: fechaFinal,
-            tipoConsulta: tipo
-        },
-        type: 'POST',
-        dataType: 'json',
-        error: function (jqXHR, textStatus, errorThrown) {
-            $('#cargas').removeClass('is-active');
-            messageInfo('Ha ocurrido un error en el servidor, favor intentar más tarde.');
-        }, success: function (data, textStatus, jqXHR) {
-            $('#cargas').removeClass('is-active');
-            if (data !== null && data !== '') {
-                console.log(data);
-                genTablaPro(data);
-                parametrosGraficarPro(data)
-                $('#fechaInicial').val('');
-                $('#fechaFinal').val('');
-                $('#textoInfo').empty();
-                $('#textoInfo').text('Informe ' + textoInfoFech + ' de todos sus productos:');
-            }
+
+        } else {
+            
+            query(data, 'graphicDays')
+
         }
-    })
-}
+        
+    }else{
+        
+        if (days > 31) {
+            
+            query(data, 'graphicTotalMoth')
 
-function consultaPedidos(tipo, fechaInicial, fechaFinal) {
-    $('#cargas').addClass('is-active');
+        } else {
+            
+            query(data, 'graphicTotalDays')
+
+        }
+        
+    }
+
+
+})
+
+function query(data, url) {
+
     $.ajax({
         type: "POST",
-        url: './informes',
-        dataType: 'json',
+        url: './' + url,
         data: {
-            accion: 'consultaPedidosVendedor',
-            fechaInicial: fechaInicial,
-            fechaFinal: fechaFinal,
-            tipoConsulta: tipo
-        }, error: function (jqXHR, textStatus, errorThrown) {
-            $('#cargas').removeClass('is-active');
-            messageInfo('Ha ocurrido un error en el servidor, favor intentar más tarde.');
-        }, success: function (data, textStatus, jqXHR) {
-            $('#cargas').removeClass('is-active');
-            if (data !== null && data !== '') {
-                console.log(data);
-                genTablaPedi(data);
-                parametrosGraficarPed(data);
-                $('#fechaInicial').val('');
-                $('#fechaFinal').val('');
-            }
+            fechaI: data.fechaI,
+            fechaFinal: data.fechaFinal,
+            tipo: data.tipo
+        },
+        async: true,
+        datatype: 'json'
+    }).done(function (data) {
+
+        if (data.length <= 0) {
+            messageInfo('consulta sin resultados')
+        } else {
+            graficar(data)
         }
+
     })
 
 }
 
-function validarFechas() {
+function graficar(data) {
 
-    var fechaFinal = $('#fechaFinal').val();
-    var fechaIni = $('#fechaInicial').val();
-    if (fechaIni === '' && fechaFinal !== '') {
-        $("#generarInfo").prop('disabled', true);
-        $('#avisoFechaIni').text('Por favor complete este campo!!');
-    } else {
-        $("#generarInfo").prop('disabled', false);
-        $('#avisoFechaIni').text('');
-    }
-}
-function mostrarFiltroPed() {
+    var labels = data.map(function (e) {
+        return e.label;
+    });
+    var data = data.map(function (e) {
+        return e.value;
+    });
 
-    var tipoInforme = $('#tipoInforme').val();
-    if (tipoInforme === '2') {
-        $('#divFitroPedido').show();
-    } else {
-        $('#divFitroPedido').hide()
-    }
-}
-var opciones = {
-
-    scales: {
-        xAxes: [{gridLines: {display: false},
-                ticks: {
-                    beginAtZero: true
-                }
-            }]
-    }
-
-};
-function parametrosGraficarPro(productos) {
-    var tipoGrafico = $('#tipoGrafico').val();
-    var nombres = [], ventas = [], colores = [], color = [];
-    var colore = "#";
-    var simbolos = "0123456789ABCDEF";
-    var tipoGrafico = $('#tipoGrafico').val();
-    if (tipoGrafico === '0') {
-        $('#tituloGrafico').empty();
-        $('#graficoCanvas').empty();
-    } else {
-        $('#tituloGrafico').html('Diagrama:');
-
-    }
-    var n = 0;
-
-    while (n < productos.length) {
-        for (var i = 0; i < 6; i++) {
-            colore = colore + simbolos[Math.floor(Math.random() * 16)];
+    $('#graficoCanvas').html('<canvas id="grafico" width="400px" style="min-height:300px;max-height: 2000px" ></canvas>');
+    let canvas = document.getElementById('grafico').getContext('2d');
+    var chart = new Chart(canvas, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                    label: '# Ventas',
+                    data: data,
+                    backgroundColor: 'rgba(0, 119, 204, 0.3)'
+                }]
         }
-        color.push(colore);
-        colore = "#";
-        n++;
+    });
 
-    }
-
-    for (var i = 0; i < productos.length; i++) {
-        nombres.push(productos[i].nombre);
-        ventas.push(productos[i].cantidadVendida);
-        colores.push(color[i]);
-
-
-    }
-
-    if (tipoGrafico === '1') {
-        graficar(nombres, ventas, 'Unidades vendidas', 'horizontalBar', 'rgba(252, 115, 30, 0.72)', opciones);
-        $('#graficoCanvas').addClass('grafico');
-        $('#graficoCanvas').removeClass('graficoCircular');
-
-
-    }
-    if (tipoGrafico === '2') {
-        graficar(nombres, ventas, 'Unidades vendidas', 'doughnut', colores);
-        $('#graficoCanvas').addClass('grafico');
-        $('#graficoCanvas').addClass('graficoCircular');
-    }
+    $('#modalInforme').modal('show')
 
 }
-function parametrosGraficarPed(pedidos) {
-    var filtro = $('#filtroPedidos').val();
-    var tipoGrafico = $('#tipoGrafico').val();
-    if (tipoGrafico === '0') {
-        $('#tituloGrafico').empty();
-        $('#graficoCanvas').empty();
-    } else {
-        $('#tituloGrafico').html('Diagrama:');
 
-    }
-    if (filtro === '0') {
-        var con = 0;
-        var nombres = ['Concretados', 'No concretados', 'En espera'], ventas = [0, 0, 0], colores = ['rgb(139, 230, 131)', 'rgba(243, 33, 14, 0.5)', 'rgb(193, 201, 228)'];
-        for (var i = 0; i < pedidos.length; i++) {
-            if (pedidos[i].idEstado === 2) {
-                con = ventas[0];
-                con = con + 1;
+const _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
-                ventas[0] = con;
-            }
-            if (pedidos[i].idEstado === 3) {
-                ventas[1] = ventas[1] + 1;
-            }
-            if (pedidos[i].idEstado === 1) {
-                ventas[2] = ventas[2] + 1;
-            }
+// a and b are javascript Date objects
+function dateDiffInDays(a, b) {
+    // Discard the time and time-zone information.
+    const utc1 = Date.UTC(a.getFullYear(), a.getMonth(), a.getDate());
+    const utc2 = Date.UTC(b.getFullYear(), b.getMonth(), b.getDate());
 
-        }
-        if (tipoGrafico === '1') {
-
-            graficar(nombres, ventas, 'Pedidos', 'horizontalBar', colores, opciones);
-            $('#graficoCanvas').addClass('grafico');
-            $('#graficoCanvas').removeClass('graficoCircular');
-        }
-        if (tipoGrafico === '2') {
-
-            graficar(nombres, ventas, 'Pedidos', 'doughnut', colores);
-            $('#graficoCanvas').addClass('grafico');
-            $('#graficoCanvas').addClass('graficoCircular');
-        }
-        $('#textoInfo').empty();
-        $('#textoInfo').text('Informe' + textoInfoFech + ' de todos sus pedidos:');
-
-    } else {
-
-        var nombress = [], ventass = [], coloress = [], colorr = [];
-        var coloree = "#";
-        var simboloss = "0123456789ABCDEF";
-
-        var n = 0;
-
-        while (n < pedidos.length) {
-            for (var i = 0; i < 6; i++) {
-                coloree = coloree + simboloss[Math.floor(Math.random() * 16)];
-            }
-            colorr.push(coloree);
-            coloree = "#";
-            n++;
-
-        }
-
-        for (var i = 0; i < pedidos.length; i++) {
-
-            nombress.push(pedidos[i].fechaVenta + ' - ' + pedidos[i].nombreProducto);
-            ventass.push(pedidos[i].cantidadProductos);
-            coloress.push(colorr[i]);
-
-        }
-
-        if (tipoGrafico === '1') {
-
-            graficar(nombress, ventass, 'Unidades pedidas', 'horizontalBar', coloress, opciones);
-            $('#graficoCanvas').addClass('grafico');
-            $('#graficoCanvas').removeClass('graficoCircular');
-        }
-        if (tipoGrafico === '2') {
-            graficar(nombress, ventass, 'Unidades pedidas', 'doughnut', coloress);
-            $('#graficoCanvas').addClass('grafico');
-            $('#graficoCanvas').addClass('graficoCircular');
-        }
-
-
-
-    }
-
-
-
+    return Math.floor((utc2 - utc1) / _MS_PER_DAY);
 }

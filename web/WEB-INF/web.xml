@@ -162,7 +162,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>informes</servlet-name>
-        <url-pattern>/informes</url-pattern>
+        <url-pattern>/graphicDays</url-pattern>
+        <url-pattern>/graphicMonth</url-pattern>
+        <url-pattern>/graphicTotalDays</url-pattern>
+        <url-pattern>/graphicTotalMoth</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Search</servlet-name>
