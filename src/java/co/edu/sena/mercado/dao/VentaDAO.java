@@ -345,7 +345,7 @@ public class VentaDAO {
             
             String sql = "SELECT V.referencia, V.idVenta " +
                 "FROM ventas V  WHERE V.idEstadoVentasFK = 1 AND "
-              + "V.idCompradorFK = ?";
+              + "V.idCompradorFK = ? AND V.referencia != 'NULL'";
             ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             rs = ps.executeQuery();

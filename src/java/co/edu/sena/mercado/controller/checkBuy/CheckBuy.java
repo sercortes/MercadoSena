@@ -76,8 +76,8 @@ public class CheckBuy extends HttpServlet {
         for(VentaDTO item: lista){
             
             System.out.println("");
+            System.out.println(item.toString());
             user = CRestPse.consultarPagoDos(item.getReferencia());
-            System.out.println(user.toString());
             
             // other status PENDING
              if (user.getStatusCard().equalsIgnoreCase("APPROVED")) {
@@ -103,6 +103,7 @@ public class CheckBuy extends HttpServlet {
                 item.setIdEstadoVentaFK("5");
                 ventaDAO.actualizarVenta(item);
             }
+             
         }
         
         response.setContentType("application/json");
