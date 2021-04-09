@@ -34,53 +34,39 @@
     <div class="row">
         <div class="col-md-10 mx-auto">
 
-            <form>
                 <h3>Completa los datos correspondientes para el tipo de informe que desea:</h3>
-                <div >
-                    <label>Tipo de informe que desea:</label>
-                    <select id="tipoInforme" class="form-control " onchange="mostrarFiltroPed()">
-                        <option value="1">Informe de productos</option>
-                        <option value="2">Informe de pedidos</option>
-                    </select> 
-                </div>
-                <div id="divFitroPedido" class="mb-3 col-6" style="display: none;">
-                    <label>Fiiltrar pedidos:</label>
-                    <select id="filtroPedidos" class="form-control " >
-                        <option value="0">Todos</option>
-                        <option value="1">Concretados</option>
-                        <option value="2">No concretados</option>
-                    </select> 
-                </div>
                 <div class="mb-3">
-                    <label>Tipo de diagrama si desea:</label>
-                    <select id="tipoGrafico" class="form-control ">
-                        <option value="0">Ninguno</option>
-                        <option value="1">Diagrama de barras</option>
-                        <option value="2">Diagrama Circular</option>
+                    <label>Tipo de informe que desea:</label>
+                    <select id="tipoInforme" class="form-control">
+                        <option value="1">Ventas Vendedor</option>
+                        <option value="2">Ventas Cliente</option>
+                        <option value="3">Total</option>
                     </select> 
                 </div>
-
-                <div class="form-group mb-3">
+                
+                <div class="row">
+                <div class="form-group mb-3 col-md-6">
                     <label>Fecha inicial o día para el que desea el informe:</label>
                     <div class="datepicker date input-group p-0 shadow-sm">
 
-                        <input type="text" placeholder="Fecha" class="form-control py-4 px-4" id="fechaInicial" onchange="validarFechas()" onkeyup="validarFechas()" onclick="validarFechas()">
+                        <input type="text" placeholder="Fecha" class="form-control py-4 px-4" id="fechaInicial" onchange="" onkeyup="return false" onclick="">
                         <div class="input-group-append colorCursor"><span class="input-group-text px-4"><i class="fa fa-calendar colorCursor"></i></span></div>
                     </div>
                     <span class="invalido" id="avisoFechaIni"></span>
                 </div>
-                <div class="form-group mb-3 ">
+                <div class="form-group mb-3 col-md-6">
                     <label>Fecha final (complete sólo si desea un rango):</label>
                     <div class="datepicker date input-group p-0 shadow-sm">
 
-                        <input type="text" placeholder="fecha final" class="form-control py-4 px-4" id="fechaFinal" onchange="validarFechas()" onkeyup="validarFechas()">
+                        <input type="text" placeholder="fecha final" class="form-control py-4 px-4" id="fechaFinal" onchange="" onkeyup="return false">
                         <div class="input-group-append colorCursor"><span class="input-group-text px-4"><i class="fa fa-calendar colorCursor"></i></span></div>
                     </div>
                 </div>
-                <div style="width: 100%;text-align: center;">
-                    <input id="generarInfo" type="submit" value="Generar" class="btn btn-primary" onclick="generarInforme(event)" data-target="#modalInforme" data-toggle="modal">
                 </div>
-            </form>
+                
+                <div style="width: 100%;text-align: center;">
+                    <input id="generarInfo" type="submit" value="Generar" class="btn btn-primary">
+                </div>
 
 
 

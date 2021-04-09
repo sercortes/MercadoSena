@@ -34,6 +34,7 @@ public class VentaDTO {
   private ArrayList<Producto> listaProductos;
     
    private double descuento;
+   private String referencia;
    
     public VentaDTO() {
     }
@@ -144,9 +145,17 @@ public class VentaDTO {
         this.tipoVenta = tipoVenta;
     }
 
+    public String getReferencia() {
+        return referencia;
+    }
+
+    public void setReferencia(String referencia) {
+        this.referencia = referencia;
+    }
+
     @Override
     public String toString() {
-        return "VentaDTO{" + "idVenta=" + idVenta + ", fechaVenta=" + fechaVenta + ", valorVenta=" + valorVenta + ", contactoVenta=" + contactoVenta + ", formaPago=" + formaPago + ", idEstadoVentaFK=" + idEstadoVentaFK + ", idCompradorFK=" + idCompradorFK + ", idCiudadFK=" + idCiudadFK + ", nombreFormaPago=" + nombreFormaPago + ", perDTO=" + perDTO + ", tipoVenta=" + tipoVenta + ", listaProductos=" + listaProductos + ", descuento=" + descuento + '}';
+        return "VentaDTO{" + "idVenta=" + idVenta + ", fechaVenta=" + fechaVenta + ", valorVenta=" + valorVenta + ", contactoVenta=" + contactoVenta + ", formaPago=" + formaPago + ", idEstadoVentaFK=" + idEstadoVentaFK + ", idCompradorFK=" + idCompradorFK + ", idCiudadFK=" + idCiudadFK + ", nombreFormaPago=" + nombreFormaPago + ", perDTO=" + perDTO + ", tipoVenta=" + tipoVenta + ", listaProductos=" + listaProductos + ", descuento=" + descuento + ", referencia=" + referencia + '}';
     }
     
 }

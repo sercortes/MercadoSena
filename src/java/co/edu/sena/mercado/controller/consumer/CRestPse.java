@@ -5,6 +5,8 @@
  */
 package co.edu.sena.mercado.controller.consumer;
 
+import co.edu.sena.mercado.dto.pagoJSON;
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -23,13 +25,13 @@ import org.json.JSONObject;
 public class CRestPse {
 
     //llave privada TOKEN  
-    private static final String URL_WOMPI = "https://production.wompi.co/v1/";
-    private static final String PRV_WOMPI = "prv_prod_to8dJPkmqH3sBHfpi5UseCQasCae6Sel";
-    private static final String PUB_WOMPI = "pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL";
+//    private static final String URL_WOMPI = "https://production.wompi.co/v1/";
+//    private static final String PRV_WOMPI = "prv_prod_to8dJPkmqH3sBHfpi5UseCQasCae6Sel";
+//    private static final String PUB_WOMPI = "pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL";
 
-//    private static final String URL_WOMPI = "https://sandbox.wompi.co/v1/";
-//    private static final String PRV_WOMPI = "prv_test_JnLqheUtGvTYbZfd1OQPr3FsfQy7t12Y";
-//    private static final String PUB_WOMPI = "pub_test_Qfh69dnQv5nufuKaaUlqoqIGgsn37aof";
+    private static final String URL_WOMPI = "https://sandbox.wompi.co/v1/";
+    private static final String PRV_WOMPI = "prv_test_JnLqheUtGvTYbZfd1OQPr3FsfQy7t12Y";
+    private static final String PUB_WOMPI = "pub_test_Qfh69dnQv5nufuKaaUlqoqIGgsn37aof";
     //Tarjeta de credito
     public static String Tokenizartarjeta(String number, String cvc, String month, String year, String cardholder) {
         JSONObject json = new JSONObject();
@@ -163,8 +165,8 @@ public class CRestPse {
         JSONObject json = null;
         try {
             HttpURLConnection con = null;
-            URL object = new URL("https://production.wompi.co/v1/merchants/pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL");
-//               URL object = new URL("https://sandbox.wompi.co/v1/merchants/pub_test_Qfh69dnQv5nufuKaaUlqoqIGgsn37aof");
+//            URL object = new URL("https://production.wompi.co/v1/merchants/pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL");
+               URL object = new URL("https://sandbox.wompi.co/v1/merchants/pub_test_Qfh69dnQv5nufuKaaUlqoqIGgsn37aof");
             // Abrir la conexión e indicar que será de tipo GET
             con = (HttpURLConnection) object.openConnection();
             con.setDoOutput(true);
@@ -275,6 +277,62 @@ public class CRestPse {
         return idpago;
     }
 
+     public static pagoJSON consultarPagoDos(String idpago) throws MalformedURLException {
+        StringBuilder respuesta = new StringBuilder();
+        JSONObject json = null;
+         pagoJSON user = null;
+
+        String ULRredirec = null;
+        String complement = "transactions?reference=";
+        try {
+            HttpURLConnection con = null;
+            URL object = new URL(URL_WOMPI + complement + idpago);
+            // Abrir la conexión e indicar que será de tipo GET
+            con = (HttpURLConnection) object.openConnection();
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", "Bearer " + PRV_WOMPI);
+            boolean encontrado = false;
+
+            while (encontrado == false) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+
+                    String acumuladorRespuesta = null;
+                    while ((acumuladorRespuesta = br.readLine()) != null) {
+                        respuesta.append(acumuladorRespuesta.trim());
+                        if (respuesta != null) {
+                            encontrado = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            json = new JSONObject(respuesta.toString());
+            
+            String data = json.get("data").toString().replace("[", "").replace("]", "");
+            Gson gson = new Gson(); 
+            user = gson.fromJson(data, pagoJSON.class);
+
+//            try {
+//                JSONArray jsonArray = json.getJSONArray("data");
+//                JSONObject jsonObject = jsonArray.getJSONObject(0);
+//
+//                ULRredirec = jsonObject.getJSONObject("payment_method").getJSONObject("extra").getString("async_payment_url");
+//
+//            } catch (Exception ee) {
+//                
+//                System.out.println("Error URL Redirec" + ee);
+//            }
+
+        } catch (Exception e) {          
+             System.out.println("Error URL Redirec" + e);
+        }
+        return user;
+    }
+
+    
     public static JSONObject consultarPago(String idpago) throws MalformedURLException {
         StringBuilder respuesta = new StringBuilder();
         JSONObject json = null;

@@ -3,6 +3,17 @@ var papa = 0
 
 $(function () {
 
+    $.ajax({
+        type: "POST",
+        url: './CheckBuysAdmin',
+        async: false,
+        datatype: 'json'
+    }).done(function (data) {
+
+        console.log(data)
+
+    })
+
     getVentasByVendedor(1)
 
 })
@@ -19,7 +30,7 @@ function menu() {
                 getVentasByVendedor(2)
                 break;
             case 'pedNoConcretados':
-                getVentasByVendedor(3)
+                getAllVentasByCustomerFailed()
                 break;
             default:
                 break;
@@ -35,7 +46,7 @@ function menu() {
                 getAllVentasByCustomer(2)
                 break;
             case 'pedNoConcretados':
-                getAllVentasByCustomer(3)
+                getAllVentasByCustomerFailedTwo()
                 break;
             default:
                 break;
@@ -211,6 +222,37 @@ function getAllVentasByCustomer(estado) {
     })
 
 }
+
+function getAllVentasByCustomerFailed() {
+
+    $.ajax({
+        type: "POST",
+        url: './getAllVentasByCus',
+        async: true,
+        datatype: 'json'
+    }).done(function (data) {
+
+        drawVentas(data)
+
+    })
+
+}
+
+function getAllVentasByCustomerFailedTwo() {
+
+    $.ajax({
+        type: "POST",
+        url: './getAllVentasByCusFailed',
+        async: true,
+        datatype: 'json'
+    }).done(function (data) {
+
+        drawVentas(data)
+
+    })
+
+}
+
 
 function queryNull(){
     document.getElementById('pedidos').innerHTML =
