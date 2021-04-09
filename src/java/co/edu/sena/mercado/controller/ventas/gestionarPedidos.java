@@ -17,6 +17,7 @@ import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -53,9 +54,21 @@ public class gestionarPedidos extends HttpServlet {
 
                 break;
                 
+            case "/Store/getAllVentasByVendedorFailed":
+
+                getAllVentasByVendedorFailed(request, response);
+
+                break;
+                
             case "/Store/getAllVentasByCus":
 
                 getAllVentasByCustomer(request, response);
+
+                break;
+                
+            case "/Store/getAllVentasByCusFailed":
+
+                getAllVentasByCusFailed(request, response);
 
                 break;
 
@@ -64,6 +77,12 @@ public class gestionarPedidos extends HttpServlet {
                 getVentasByComprador(request, response);
 
                 break;
+                
+            case "/Store/getVentasByCompradorFailed":
+
+                getVentasByCompradorFailed(request, response);
+
+            break;
                 
             default:
 
@@ -135,10 +154,64 @@ public class gestionarPedidos extends HttpServlet {
         new Gson().toJson(listaVentas, response.getWriter());
 
     }
+    // ventas por cliente falladas
+    private void getVentasByCompradorFailed(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        usuarioDTO usuario = (usuarioDTO) request.getSession().getAttribute("USER");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        String estado = request.getParameter("estado");
+        Conexion conexion = new Conexion();
+        VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
+        ArrayList<VentaDTO> listaVentas = ventaDAO.getAllVentasByOnlyCustomerFailed(usuario.getIdUsuario());
+        listaVentas.forEach((item) -> {
+            ArrayList<Producto> listaProductos
+                    = ventaDAO.getProductosByPrice(item.getIdVenta());
+            item.setListaProductos(listaProductos);
+        });
+        ventaDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaVentas, response.getWriter());
+
+    }
 
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void getAllVentasByVendedorFailed(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
+        ArrayList<VentaDTO> listaVentas = ventaDAO.getVentasByVendedorFailed("1");
+        listaVentas.forEach((item) -> {
+            ArrayList<Producto> listaProductos
+                    = ventaDAO.getProductosByPrice(item.getIdVenta());
+            item.setListaProductos(listaProductos);
+        });
+        ventaDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaVentas, response.getWriter());
+        
+    }
+
+    private void getAllVentasByCusFailed(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
+        ArrayList<VentaDTO> listaVentas = ventaDAO.getVentasByVendedorFailed("2");
+        listaVentas.forEach((item) -> {
+            ArrayList<Producto> listaProductos
+                    = ventaDAO.getProductosByPrice(item.getIdVenta());
+            item.setListaProductos(listaProductos);
+        });
+        ventaDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(listaVentas, response.getWriter());
+    }
 
 }

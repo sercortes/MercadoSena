@@ -1,6 +1,18 @@
 
 $(function () {
 
+    $.ajax({
+        type: "POST",
+        url: './CheckBuys',
+        async: false,
+        datatype: 'json'
+    }).done(function (data) {
+
+        console.log(data)
+
+    })
+
+
     getVentasByComprador(1)
 
 })
@@ -18,7 +30,7 @@ $(document).on('click', '.section', function (e) {
             getVentasByComprador(2)
             break;
         case 'pedNoConcretados':
-            getVentasByComprador(3)
+            getVentasByCompradorFailed()
             break;
         default:
             break;
@@ -152,6 +164,22 @@ function getVentasByComprador(estado) {
     })
 
 }
+
+function getVentasByCompradorFailed() {
+
+    $.ajax({
+        type: "POST",
+        url: './getVentasByCompradorFailed',
+        async: true,
+        datatype: 'json'
+    }).done(function (data) {
+
+        drawVentas(data)
+
+    })
+
+}
+
 
 function queryNull(){
     document.getElementById('pedidos').innerHTML =

@@ -92,6 +92,10 @@
         <servlet-name>banner</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.filtro.banner</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CheckBuy</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.checkBuy.CheckBuy</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -155,6 +159,9 @@
         <url-pattern>/getAllVentasByVendedor</url-pattern>
         <url-pattern>/getAllVentasByCus</url-pattern>
         <url-pattern>/getVentasByComprador</url-pattern>
+        <url-pattern>/getVentasByCompradorFailed</url-pattern>
+        <url-pattern>/getAllVentasByVendedorFailed</url-pattern>
+        <url-pattern>/getAllVentasByCusFailed</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>filtro</servlet-name>
@@ -235,6 +242,11 @@
         <servlet-name>banner</servlet-name>
         <url-pattern>/banner</url-pattern>
         <url-pattern>/editBanner</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckBuy</servlet-name>
+        <url-pattern>/CheckBuys</url-pattern>
+        <url-pattern>/CheckBuysAdmin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
