@@ -215,7 +215,7 @@ public class CRestPse {
                             .add("financial_institution_code", code)
                             .add("payment_description", descriptions)
                     )
-                    .add("redirect_url", "https://carwaystore.com/Store/")
+                    .add("redirect_url", "https://carwaystore.com/Store/misPedidos")
                     .add("reference", referencia)
                     .add("customer_data", Json.createObjectBuilder()
                             .add("full_name", NombreApellido)

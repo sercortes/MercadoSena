@@ -245,7 +245,21 @@
             </div>
         </div>
     </div>
-                
+
 
 </div>
 <%@include file="/views/template/footer.jspf"%>
+<script>
+
+    if (localStorage.getItem('objects') === null) {
+        window.location.replace('./');
+    }
+    
+    let arraf = JSON.parse(localStorage.getItem('objects'));
+
+    if (arraf.length <= 0) {
+        window.location.replace('./');
+    }
+
+
+</script>

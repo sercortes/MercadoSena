@@ -153,7 +153,7 @@ public class ValidationCompra extends HttpServlet {
 
             personasNaturalDAO = new PersonasNaturalDAO(new Conexion().getConnection());
             numero = personasNaturalDAO.getComprasIncomplete(Integer.toString(usu.getPersona().getIdPer()));
-            if (numero >= 3) {
+            if (numero >= 4) {
                 request.getSession().setAttribute("BLOQUEO", 1);
             } else {
                 request.getSession().removeAttribute("BLOQUEO");
