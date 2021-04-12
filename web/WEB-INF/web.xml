@@ -96,6 +96,10 @@
         <servlet-name>CheckBuy</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.checkBuy.CheckBuy</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>every</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.checkBuy.every</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -247,6 +251,10 @@
         <servlet-name>CheckBuy</servlet-name>
         <url-pattern>/CheckBuys</url-pattern>
         <url-pattern>/CheckBuysAdmin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>every</servlet-name>
+        <url-pattern>/every</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
