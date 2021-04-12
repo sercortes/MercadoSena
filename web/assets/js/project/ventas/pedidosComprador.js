@@ -1,18 +1,15 @@
 
 $(function () {
-
-    $.ajax({
+    
+     $.ajax({
         type: "POST",
         url: './CheckBuys',
         async: false,
         datatype: 'json'
     }).done(function (data) {
 
-        console.log(data)
-
     })
-
-
+    
     getVentasByComprador(1)
 
 })

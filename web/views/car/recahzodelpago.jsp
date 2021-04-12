@@ -13,12 +13,7 @@
     <c:redirect url="./home"/>
 </c:if>
 
-
-<link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
-
 <%@include file="/views/template/header.jspf"%>
-
 
 <div class="block-heading" id="titlepagoa">
     <svg style="color: #e44b32;" xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="currentColor" class="bi bi-exclamation-triangle" viewBox="0 0 16 16">
@@ -27,3 +22,5 @@
     <h2>Pago rechazado!</h2></svg>
 </div>
 <%@include file="/views/template/footer.jspf"%>
+
+<script src="./assets/js/project/carrito/estadoPago.js" type="text/javascript"></script>
