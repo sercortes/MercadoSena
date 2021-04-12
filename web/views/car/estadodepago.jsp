@@ -13,10 +13,6 @@
     <c:redirect url="./home"/>
 </c:if>
 
-
-<link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
-
 <%@include file="/views/template/header.jspf"%>
             <!-- Shopping Cart -->
             <section class="shopping-cart">          
@@ -68,4 +64,6 @@
                 </div>
             </section>
         </main>
-       <%@include file="/views/template/footer.jspf"%>                                                                        
+<%@include file="/views/template/footer.jspf"%>                                                                        
+
+<script src="./assets/js/project/carrito/estadoPago.js" type="text/javascript"></script>

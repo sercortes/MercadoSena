@@ -37,7 +37,7 @@ $("#btnpagar").click(function () {
         return false;
     }
 
-    if (checkBloqueo() >= 3) {
+    if (checkBloqueo() >= 4) {
         messageInfo('Acceso restringido, tienes compras sin completar');
         return false;
     }

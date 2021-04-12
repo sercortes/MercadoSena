@@ -277,3 +277,16 @@ function mensajeRedirectHome(mensaje) {
     })
 
 }
+
+function checkByuss2(){
+    
+        $.ajax({
+        type: "POST",
+        url: './CheckBuys',
+        async: true,
+        datatype: 'json'
+    }).done(function (data) {
+
+    })
+    
+}
