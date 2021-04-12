@@ -199,7 +199,7 @@ public class PersonasNaturalDAO {
       public int getComprasIncomplete(String idUsuario) throws Exception, MySQLIntegrityConstraintViolationException  {
              int cantidad = 0;
           String consulta = "SELECT count(*) 'Compras' FROM ventas V " +
-                    "WHERE V.idEstadoVentasFK = 3 AND V.idCompradorFK = ? " +
+                    "WHERE V.idEstadoVentasFK IN(3,4,5) AND V.idCompradorFK = ? " +
                     "AND V.fechaVenta >= curdate() AND V.fechaVenta < curdate() + interval 1 day " +
                     "group by V.idCompradorFK";
         try {

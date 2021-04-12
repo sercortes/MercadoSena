@@ -259,7 +259,7 @@ public class process_payment extends HttpServlet {
         ventaDAO.CloseAll();
         request.getSession().removeAttribute("IDVENTA");
 
-        if (ULRredirec == null || status ) {
+        if (ULRredirec == null || !status ) {
 
             System.out.println("URL: " + PSEbanck);
             request.getRequestDispatcher("/views/car/recahzodelpago.jsp").forward(request, response);
