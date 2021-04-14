@@ -36,15 +36,12 @@ $(document).on('click', '.section', function (e) {
 })
 
 function drawVentas(data) {
-    
-    console.log(data)
-    
+     
     if (data.length <= 0) {
         queryNull()
         return false;
     }
     
-    console.log(data)
     let str = ``
     let number = 0;
     for (var item of data) {
@@ -134,7 +131,6 @@ function drawVentas(data) {
                         </div><span class="d-block"></span><span class="font-weight-bold text-success"></span>
                     </div>
                     <hr>
-                    <a href="./wompy?idscc=${item.referencia}" class="btn btn-primary" target="_blank"><i class="fas fa-money-check-alt blanco"></i> wompi</a>
                 </div>
             </div>
             </div>
