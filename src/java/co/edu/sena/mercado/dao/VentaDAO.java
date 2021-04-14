@@ -117,7 +117,7 @@ public class VentaDAO {
      
        public ArrayList<VentaDTO> getVentasByVendedor(String estado, String tipo) {
         try {
-          String sql = "SELECT V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
+          String sql = "SELECT V.referencia, V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
                     "V.idCompradorFK, M.nombre, E.nombreEstado, P.documentoPersona, P.nombrePersona, P.apellidoPersona, " +
                     "P.correoPersona, P.direccionPersona, P.telefonoPersona, P.celularPersona FROM ventas V " +
                     "INNER JOIN metodopago M ON V.formaPagoVenta = M.idMetodoPago " +
@@ -137,6 +137,7 @@ public class VentaDAO {
                 ventaDTO.setValorVenta(rs.getDouble("V.valorVenta"));
                 ventaDTO.setDescuento(rs.getDouble("V.descuento"));
                 ventaDTO.setFormaPago(rs.getString("M.nombre"));
+                ventaDTO.setReferencia(rs.getString("V.referencia"));
                 ventaDTO.setIdEstadoVentaFK(rs.getString("E.nombreEstado"));
                 personaNaturalDTO perDTO = new personaNaturalDTO();
                 perDTO.setNumeroDocPer(rs.getString("P.documentoPersona"));
@@ -159,7 +160,7 @@ public class VentaDAO {
        
          public ArrayList<VentaDTO> getVentasByVendedorFailed(String tipo) {
         try {
-          String sql = "SELECT V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
+          String sql = "SELECT V.referencia, V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
                     "V.idCompradorFK, M.nombre, E.nombreEstado, P.documentoPersona, P.nombrePersona, P.apellidoPersona, " +
                     "P.correoPersona, P.direccionPersona, P.telefonoPersona, P.celularPersona FROM ventas V " +
                     "INNER JOIN metodopago M ON V.formaPagoVenta = M.idMetodoPago " +
@@ -177,6 +178,7 @@ public class VentaDAO {
                 ventaDTO.setFechaVenta(rs.getTimestamp("V.fechaVenta"));
                 ventaDTO.setValorVenta(rs.getDouble("V.valorVenta"));
                 ventaDTO.setDescuento(rs.getDouble("V.descuento"));
+                ventaDTO.setReferencia(rs.getString("V.referencia"));
                 ventaDTO.setFormaPago(rs.getString("M.nombre"));
                 ventaDTO.setIdEstadoVentaFK(rs.getString("E.nombreEstado"));
                 personaNaturalDTO perDTO = new personaNaturalDTO();
@@ -200,7 +202,7 @@ public class VentaDAO {
     
        public ArrayList<VentaDTO> getAllVentasByOnlyCustomerFailed(int idPersona) {
         try {
-          String sql = "SELECT V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
+          String sql = "SELECT V.referencia, V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
                     "V.idCompradorFK, M.nombre, E.nombreEstado, P.documentoPersona, P.nombrePersona, P.apellidoPersona, " +
                     "P.correoPersona, P.direccionPersona, P.telefonoPersona, P.celularPersona FROM ventas V " +
                     "INNER JOIN metodopago M ON V.formaPagoVenta = M.idMetodoPago " +
@@ -219,6 +221,7 @@ public class VentaDAO {
                 ventaDTO.setValorVenta(rs.getDouble("V.valorVenta"));
                 ventaDTO.setDescuento(rs.getDouble("V.descuento"));
                 ventaDTO.setFormaPago(rs.getString("M.nombre"));
+                ventaDTO.setReferencia(rs.getString("V.referencia"));
                 ventaDTO.setIdEstadoVentaFK(rs.getString("E.nombreEstado"));
                 personaNaturalDTO perDTO = new personaNaturalDTO();
                 perDTO.setNumeroDocPer(rs.getString("P.documentoPersona"));
@@ -243,7 +246,7 @@ public class VentaDAO {
        
         public ArrayList<VentaDTO> getAllVentasByOnlyCustomer(String estado, int idPersona) {
         try {
-          String sql = "SELECT V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
+          String sql = "SELECT V.referencia, V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, " +
                     "V.idCompradorFK, M.nombre, E.nombreEstado, P.documentoPersona, P.nombrePersona, P.apellidoPersona, " +
                     "P.correoPersona, P.direccionPersona, P.telefonoPersona, P.celularPersona FROM ventas V " +
                     "INNER JOIN metodopago M ON V.formaPagoVenta = M.idMetodoPago " +
@@ -263,6 +266,7 @@ public class VentaDAO {
                 ventaDTO.setValorVenta(rs.getDouble("V.valorVenta"));
                 ventaDTO.setDescuento(rs.getDouble("V.descuento"));
                 ventaDTO.setFormaPago(rs.getString("M.nombre"));
+                ventaDTO.setReferencia(rs.getString("V.referencia"));
                 ventaDTO.setIdEstadoVentaFK(rs.getString("E.nombreEstado"));
                 personaNaturalDTO perDTO = new personaNaturalDTO();
                 perDTO.setNumeroDocPer(rs.getString("P.documentoPersona"));

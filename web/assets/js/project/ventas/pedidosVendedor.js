@@ -161,9 +161,13 @@ function drawVentas(data) {
                                     <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold text-success">$${money(item.valorVenta - item.descuento)}</span></div>
                                 </div>
                             </div>
-                        <hr>
-                        </div><span class="d-block"></span><span class="font-weight-bold text-success"></span>
-                    </div>
+                        </div><span class="d-block"></span><span class="font-weight-bold text-success"></span>`
+        if (item.referencia != null) {
+            str += `<hr>
+                         <a href="./wompy?idscc=${item.referencia}" class="btn btn-primary" target="_blank"><i class="fas fa-money-check-alt blanco"></i> wompi</a>`
+        }
+
+        str += `</div>
                 </div>
             </div>
             </div>
@@ -254,9 +258,9 @@ function getAllVentasByCustomerFailedTwo() {
 }
 
 
-function queryNull(){
+function queryNull() {
     document.getElementById('pedidos').innerHTML =
-        `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            `<div class="alert alert-warning alert-dismissible fade show" role="alert">
             <strong>No hay elementos en esa categoría!</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
               <span aria-hidden="true">&times;</span>
