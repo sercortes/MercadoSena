@@ -28,10 +28,10 @@ public class CRestPse {
 //    private static final String URL_WOMPI = "https://production.wompi.co/v1/";
 //    private static final String PRV_WOMPI = "prv_prod_to8dJPkmqH3sBHfpi5UseCQasCae6Sel";
 //    private static final String PUB_WOMPI = "pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL";
-
     private static final String URL_WOMPI = "https://sandbox.wompi.co/v1/";
     private static final String PRV_WOMPI = "prv_test_JnLqheUtGvTYbZfd1OQPr3FsfQy7t12Y";
     private static final String PUB_WOMPI = "pub_test_Qfh69dnQv5nufuKaaUlqoqIGgsn37aof";
+
     //Tarjeta de credito
     public static String Tokenizartarjeta(String number, String cvc, String month, String year, String cardholder) {
         JSONObject json = new JSONObject();
@@ -166,7 +166,7 @@ public class CRestPse {
         try {
             HttpURLConnection con = null;
 //            URL object = new URL("https://production.wompi.co/v1/merchants/pub_prod_aXKqdG8ag1FfXpu2Gy4IjIbCytnYzeKL");
-               URL object = new URL("https://sandbox.wompi.co/v1/merchants/pub_test_Qfh69dnQv5nufuKaaUlqoqIGgsn37aof");
+            URL object = new URL("https://sandbox.wompi.co/v1/merchants/pub_test_Qfh69dnQv5nufuKaaUlqoqIGgsn37aof");
             // Abrir la conexión e indicar que será de tipo GET
             con = (HttpURLConnection) object.openConnection();
             con.setDoOutput(true);
@@ -277,10 +277,10 @@ public class CRestPse {
         return idpago;
     }
 
-     public static pagoJSON consultarPagoDos(String idpago) throws MalformedURLException {
+    public static pagoJSON consultarPagoDos(String idpago) throws MalformedURLException {
         StringBuilder respuesta = new StringBuilder();
         JSONObject json = null;
-         pagoJSON user = null;
+        pagoJSON user = null;
 
         String ULRredirec = null;
         String complement = "transactions?reference=";
@@ -310,9 +310,9 @@ public class CRestPse {
             }
 
             json = new JSONObject(respuesta.toString());
-            
+
             String data = json.get("data").toString().replace("[", "").replace("]", "");
-            Gson gson = new Gson(); 
+            Gson gson = new Gson();
             user = gson.fromJson(data, pagoJSON.class);
 
 //            try {
@@ -325,14 +325,56 @@ public class CRestPse {
 //                
 //                System.out.println("Error URL Redirec" + ee);
 //            }
-
-        } catch (Exception e) {          
-             System.out.println("Error URL Redirec" + e);
+        } catch (Exception e) {
+            System.out.println("Error URL Redirec" + e);
         }
         return user;
     }
 
-    
+    public static String getReferencia(String idpago) throws MalformedURLException {
+        StringBuilder respuesta = new StringBuilder();
+        JSONObject json = null;
+        pagoJSON user = null;
+        String data = "";
+
+        String ULRredirec = null;
+        String complement = "transactions?reference=";
+        try {
+            HttpURLConnection con = null;
+            URL object = new URL(URL_WOMPI + complement + idpago);
+            // Abrir la conexión e indicar que será de tipo GET
+            con = (HttpURLConnection) object.openConnection();
+            con.setDoOutput(true);
+            con.setDoInput(true);
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", "Bearer " + PRV_WOMPI);
+            boolean encontrado = false;
+
+            while (encontrado == false) {
+                try (BufferedReader br = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"))) {
+
+                    String acumuladorRespuesta = null;
+                    while ((acumuladorRespuesta = br.readLine()) != null) {
+                        respuesta.append(acumuladorRespuesta.trim());
+                        if (respuesta != null) {
+                            encontrado = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            json = new JSONObject(respuesta.toString());
+            JSONArray jsonArray = json.getJSONArray("data");
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
+            data = jsonObject.get("id").toString();
+
+        } catch (Exception e) {
+            System.out.println("Error URL Redirec" + e);
+        }
+        return data;
+    }
+
     public static JSONObject consultarPago(String idpago) throws MalformedURLException {
         StringBuilder respuesta = new StringBuilder();
         JSONObject json = null;
@@ -376,9 +418,8 @@ public class CRestPse {
 //                
 //                System.out.println("Error URL Redirec" + ee);
 //            }
-
-        } catch (Exception e) {          
-             System.out.println("Error URL Redirec" + e);
+        } catch (Exception e) {
+            System.out.println("Error URL Redirec" + e);
         }
         return json;
     }

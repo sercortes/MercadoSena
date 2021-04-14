@@ -100,6 +100,10 @@
         <servlet-name>every</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.checkBuy.every</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>wompy</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.checkBuy.wompy</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -255,6 +259,10 @@
     <servlet-mapping>
         <servlet-name>every</servlet-name>
         <url-pattern>/every</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>wompy</servlet-name>
+        <url-pattern>/wompy</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

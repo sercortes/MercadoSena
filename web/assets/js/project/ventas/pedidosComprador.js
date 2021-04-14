@@ -37,6 +37,8 @@ $(document).on('click', '.section', function (e) {
 
 function drawVentas(data) {
     
+    console.log(data)
+    
     if (data.length <= 0) {
         queryNull()
         return false;
@@ -129,9 +131,10 @@ function drawVentas(data) {
                                     <div class="d-flex justify-content-between mt-1"><span class="font-weight-bold">Total</span><span class="font-weight-bold text-success">$${money(item.valorVenta - item.descuento)}</span></div>
                                 </div>
                             </div>
-                        <hr>
                         </div><span class="d-block"></span><span class="font-weight-bold text-success"></span>
                     </div>
+                    <hr>
+                    <a href="./wompy?idscc=${item.referencia}" class="btn btn-primary" target="_blank"><i class="fas fa-money-check-alt blanco"></i> wompi</a>
                 </div>
             </div>
             </div>
