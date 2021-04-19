@@ -38,15 +38,19 @@ function listarProductoByDateTime() {
 }
 
 function generatePageQuery(data, pages) {
-    
+
     $('#cargas').removeClass('is-active');
     $pagination.twbsPagination('destroy');
+
+    if (window.location.pathname === '/Store/misPedidos') {
+        $('#content').hide()
+    }
 
     if (data.length <= 0) {
         queryEmphy()
         return false
     }
-    
+
     recPerPage = pages
     records = data
     totalRecords = data.length

@@ -204,6 +204,7 @@
     <servlet-mapping>
         <servlet-name>SelectsTwo</servlet-name>
         <url-pattern>/updateStockColors</url-pattern>
+        <url-pattern>/newColor</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>

@@ -225,7 +225,7 @@
                             </div>
                         </div>
                         <div class="divselect">
-                            <label for="docType">¿Cual es tu banco?</label>
+                            <label for="docType">¿Cuál es tu banco?</label>
                             <select id="selectdebanco" name="selectdebanco" class="form-control"></select>
                             <br>
                             <label for="docType">Tipo de persona</label>

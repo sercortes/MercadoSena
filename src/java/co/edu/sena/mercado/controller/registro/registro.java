@@ -103,6 +103,7 @@ public class registro extends HttpServlet {
                 generateCategorias(request, response);
 
                 break;
+                
             case "registrarUsuario":
 
                 registrarUsuario(request, response);

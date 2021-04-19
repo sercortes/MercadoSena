@@ -23,11 +23,12 @@ public class wompy extends HttpServlet {
             String refe = request.getParameter("idscc");
             String refes = "";
             refes = CRestPse.getReferencia(refe);
-            response.sendRedirect("https://transaction-redirect.wompi.co/check?id=" + refes);
+//            response.sendRedirect("https://transaction-redirect.wompi.co/check?id=" + refes);
+            response.sendRedirect("https://transaction-redirect.wompi.co/check?env=test&id=" + refes);
         }else{
             
-             System.out.println("wompy");
-        response.sendRedirect(request.getContextPath() + "/home");
+            System.out.println("wompy");
+            response.sendRedirect(request.getContextPath() + "/home");
             
         }
 
