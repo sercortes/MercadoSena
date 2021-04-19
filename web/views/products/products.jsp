@@ -33,6 +33,7 @@
 <%@include file="/views/products/modalVerProducto.jspf"%>
 <%@include file="/views/products/modalEdit.jspf"%>
 <%@include file="/views/products/modalEdit2.jspf"%>
+<%@include file="/views/products/modalEdit3.jspf"%>
 
 <%@include file="/views/template/footer.jspf"%>
 
@@ -40,6 +41,7 @@
 <script src="./assets/js/project/products/showProducts.js" charset="utf-8"></script>
 <script src="./assets/js/project/products/updateProduct.js" charset="utf-8"></script>
 <script src="./assets/js/project/products/colorsStock.js" charset="utf-8"></script>
+<script src="./assets/js/project/products/newColor.js" charset="utf-8"></script>
 
 <!-- quitar-->
 <script src="./assets/js/project/comprador/ajax.js"></script>

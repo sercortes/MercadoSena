@@ -1,12 +1,9 @@
 
-
-function consultarDatosFormulario(res) {
-
-    modalRegistro();
-
-}
-
-
+//function consultarDatosFormulario(res) {
+//
+//    modalRegistro();
+//
+//}
 
 function consultaTipoDoc(valor, div) {
     var divE = '#tipoDoc';
@@ -219,14 +216,14 @@ $('#registroUsuario').submit(function (e) {
     if ($('#registroUsuario')[0].checkValidity() && valCampos(datosVal) && validarClave()) {
 
         if (validarLetras(nombreUsuario) === false) {
-            messageInfo('Por favor ingrese solo letras');
+            messageInfo('Por favor ingrese solo letras, sin tíldes ni caracteres especiales');
         } else if (validarLetras(apellidoUsuario) === false) {
             messageInfo('Por favor ingrese solo letras');
         } else {
 
             let terminos = $('#terminosYcondiciones').is(":checked");
             if (terminos === false) {
-                messageInfo('Por favor, acepte los terminos y condiciones.')
+                messageInfo('Por favor, acepte los terminos y condiciones, sin tíldes ni caracteres especiales')
                 return false
             }
 

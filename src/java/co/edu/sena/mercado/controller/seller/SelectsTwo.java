@@ -38,6 +38,12 @@ public class SelectsTwo extends HttpServlet {
                 updateStockColors(request, response);
 
                 break;
+                
+            case "/Store/newColor":
+
+                newColor(request, response);
+
+                break;
 
         }
 
@@ -75,5 +81,34 @@ public class SelectsTwo extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void newColor(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        
+        String idPr = request.getParameter("idPro");
+        String idColor = request.getParameter("idColor");
+        String cantidad = request.getParameter("cantidad");
+        
+        ProductoColorDAO productoColorDAO = null;
+        try {
+            productoColorDAO = new ProductoColorDAO(new Conexion().getConnection());
+            ProductoColor productocolor = new ProductoColor();
+            productocolor.setIdProductoFK(idPr);
+            productocolor.setIdColorFK(idColor);
+            productocolor.setCantidad(Integer.parseInt(cantidad));
+            productoColorDAO.insertReturn(productocolor);
+            new Gson().toJson(1, response.getWriter());
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            new Gson().toJson(0, response.getWriter());
+            System.out.println(ex);
+        } finally {
+            productoColorDAO.CloseAll();
+        }
+        
+    }
 
 }

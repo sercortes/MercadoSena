@@ -1,9 +1,11 @@
 var colores = []
+var idPr = 0;
 $(document).on('click', '.editQuantity', function (e) {
 
     e.preventDefault()
     let parent = $(this)[0].parentElement.parentElement
     let idPro = $(parent).attr('idProducto')
+    idPr = idPro
     let producto = records.find(element => element.idProducto === idPro)
     console.log(producto)
     $('#modalEdit2').modal('show')
@@ -15,7 +17,13 @@ $(document).on('click', '.editQuantity', function (e) {
                 <p class="mb-0">Referencia:${producto.referencia}</p>
               </div>`
 
-    let productoCom = getProductByid(producto.idProducto)
+    listElements(producto.idProducto)
+
+})
+
+function listElements(idPro){
+    
+    let productoCom = getProductByid(idPro)
     colores = productoCom.listaColores
     console.log(productoCom)
     let str = ''
@@ -36,8 +44,8 @@ $(document).on('click', '.editQuantity', function (e) {
                     </div><hr>`;
     }
     document.getElementById('colores').innerHTML = str;
-
-})
+    
+}
 
 $(document).on('click', '.add', function (e) {
 
@@ -62,7 +70,7 @@ $(document).on('click', '.del', function (e) {
     let parent = $(this)[0].parentElement.parentElement.parentElement
     let input = parent.querySelector('.cantidad')
     let valor = parseInt(input.value)
-    if (valor <= 0) {
+    if (valor <= -1) {
         return false
     }
     valor--
@@ -84,7 +92,7 @@ $(document).on('change', '.cantidad', function (e) {
         input.value = 1
         return false
     }
-    if (valor <= 0) {
+    if (valor <= -1) {
         input.value = 1
         return false
     }
