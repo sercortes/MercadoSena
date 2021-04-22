@@ -1,22 +1,19 @@
+<script src="https://www.google.com/recaptcha/api.js"></script>
 <div id="modalRecuperarClave" class="modalRegistro" style="overflow-y: hidden;height: auto;" >
     <i onclick="modalRecuperar()">X</i>
     <h3>Recuperar contraseña</h3>
     <form id="recuperarClave" class="needs-validation" >
         <p style="color: black">Para poder recuperar su contraseña es necesario que complete los siguientes campos:</p>
-        <label>Seleccione tipo de documento:</label><br>
-        <div id="tipoDocActu">
-        </div>
-        <div class="invalid-feedback">
-            Completa este campo
-        </div>
         <br>
-        <label>Documento:</label><br>
-        <input  type="number" placeholder="Número de documento" class="form-control was-validated" minlength="5" maxlength="100" id="numeroDocAct" name="numeroDocAct" required>
-        <div class="invalid-feedback">
-            Completa este campo correctamente
-        </div>
-        <br> 
-
+        <label>Correo:</label><br>
+        <input  type="email" placeholder="email@carway.co" class="form-control" minlength="5" maxlength="100" id="correoE" name="correoE">
+        
+        <br>
+         <div class="g-recaptcha"
+			data-sitekey="6LcCvNMZAAAAABDL_85oti_-zBCfnp1hcfRVlpmW"></div>
+          <p id="mensajes"></p>
+        <hr>
+        
         <button class="botonRegistro" id="btnRecuperarClave">Recuperar</button>
 
     </form>
