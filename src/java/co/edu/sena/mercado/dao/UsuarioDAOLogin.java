@@ -70,6 +70,70 @@ public class UsuarioDAOLogin {
 
     }
 
+    public boolean updateHashPassword(String clave, String correo) throws Exception {
+        try {
+
+            String sql = "UPDATE usuario set codActivacion = md5(?) "
+                    + "WHERE emailusuario = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+
+            ps.setString(1, clave);
+            ps.setString(2, correo);
+            
+            int rows = ps.executeUpdate();
+            boolean estado = rows > 0;
+            return estado;
+        } catch (Exception ex) {
+            System.out.println("Error edit " + ex.getMessage());
+            throw new Exception();
+        }
+    }
+    
+    public usuarioDTO getHash(String correo, String hash) {
+
+        try {
+
+            String sql = "SELECT idUsuario, codActivacion FROM usuario WHERE emailUsuario = ? AND codActivacion = md5(?) LIMIT 1";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, correo);
+            ps.setString(2, hash);
+            ResultSet rs = ps.executeQuery();
+            usuarioDTO usua = new usuarioDTO();
+            while (rs.next()) {
+
+                usua.setIdUsuario(rs.getInt("idUsuario"));
+                usua.setCodigo(rs.getString("codActivacion"));
+
+            }
+            return usua;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+
+    }
+    
+     public boolean resetPass(String correo, String pass) {
+        try {
+
+            String sql = "UPDATE usuario set passwordUsuario = md5(?), codActivacion = '', fechaPassword = NOW() "
+                    + "WHERE emailusuario = ?";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            ps.setString(1, pass);
+            ps.setString(2, correo);
+
+            System.out.println(ps.toString());
+
+            int rows = ps.executeUpdate();
+            boolean estado = rows > 0;
+            return estado;
+        } catch (Exception ex) {
+            System.out.println("Error edit " + ex.getMessage());
+            return false;
+        }
+    }
+    
     public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);

@@ -108,6 +108,7 @@
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
         <url-pattern>/activarCuenta</url-pattern>
+        <url-pattern>/reset</url-pattern>
         <url-pattern>/logout</url-pattern>
         <url-pattern>/home</url-pattern>
         <url-pattern>/Terminos</url-pattern>

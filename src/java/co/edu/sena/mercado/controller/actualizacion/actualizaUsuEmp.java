@@ -2,6 +2,7 @@ package co.edu.sena.mercado.controller.actualizacion;
 
 import co.edu.sena.mercado.dao.EmpresasDAO;
 import co.edu.sena.mercado.dao.PersonasNaturalDAO;
+import co.edu.sena.mercado.dao.UsuarioDAOLogin;
 import co.edu.sena.mercado.dao.empresaDAO;
 import co.edu.sena.mercado.dao.personaNaturalDAO;
 import co.edu.sena.mercado.dao.usuarioDAO;
@@ -21,6 +22,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +33,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.lang3.RandomStringUtils;
 
 public class actualizaUsuEmp extends HttpServlet {
 
@@ -231,27 +235,91 @@ public class actualizaUsuEmp extends HttpServlet {
                 break;
 
             case "recuperarClave":
-                String clave = cod.generarCod();
-                usuarioDTO = new usuarioDTO();
-                String documento = request.getParameter("numeroDocAct");
-                String tipoDoc = request.getParameter("tipoDocUsuarioRec");
-                usuarioDTO = personaDAO.buscarRecu(documento, tipoDoc);
-                if (usuarioDTO != null) {
-                    usuarioDTO.setClaveUsu(clave);
-                    System.out.println("..................usuario " + usuarioDTO);
-                    if (usuarioDAO.actualizarUsuario(usuarioDTO)) {
-                        if (correo.correoRec(usuarioDTO)) {
-                            response.getWriter().print(true);
-                        } else {
-                            response.getWriter().print(false);
-                        }
-                    } else {
-                        response.getWriter().print(false);
+
+                System.out.println("REQUEST recover PASS");
+                request.setCharacterEncoding("UTF-8");
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("application/json");
+                String gRecaptchaResponse = request.getParameter("rec");
+                String correo = request.getParameter("email");
+                Catcha catcha = new Catcha();
+                boolean verify = catcha.verify(gRecaptchaResponse);
+                UsuarioDAOLogin usuarioDAOLogin = null;
+                Connection conn = null;
+                String pass = "";
+
+                try {
+
+                    if (!verify) {
+                        new Gson().toJson(0, response.getWriter());
+                        throw new Exception();
                     }
-                } else {
-                    response.getWriter().print(false);
+
+                    Conexion conexion = new Conexion();
+                    conn = conexion.getConnection();
+
+                    if (conn.getAutoCommit()) {
+                        conn.setAutoCommit(false);
+                    }
+
+                    usuarioDAOLogin = new UsuarioDAOLogin(conn);
+
+                    if (!usuarioDAOLogin.isUser(correo)) {
+                        new Gson().toJson(1, response.getWriter());
+                        throw new Exception();
+                    }
+                    pass = generatePassword();
+                    usuarioDAOLogin.updateHashPassword(pass, correo);
+                    correo co = new correo();
+                    co.recuperarCorreo(correo, pass);
+                    conn.commit();
+                    new Gson().toJson(3, response.getWriter());
+                } catch (SQLException ex) {
+
+                    try {
+                        conn.rollback();
+                    } catch (SQLException ex1) {
+                        ex1.printStackTrace();
+                    }
+                    new Gson().toJson(2, response.getWriter());
+                    ex.printStackTrace();
+
+                } catch (Exception ex) {
+                    
+                     try {
+                        conn.rollback();
+                    } catch (SQLException ex1) {
+                        ex1.printStackTrace();
+                    }
+                    
+                    ex.printStackTrace();
+
+                } finally {
+
+                    usuarioDAOLogin.CloseAll();
+
                 }
 
+//                String clave = cod.generarCod();
+//                usuarioDTO = new usuarioDTO();
+//                String documento = request.getParameter("numeroDocAct");
+//                String tipoDoc = request.getParameter("tipoDocUsuarioRec");
+//                usuarioDTO = personaDAO.buscarRecu(documento, tipoDoc);
+//                if (usuarioDTO != null) {
+//                    usuarioDTO.setClaveUsu(clave);
+//                    System.out.println("..................usuario " + usuarioDTO);
+//                    if (usuarioDAO.actualizarUsuario(usuarioDTO)) {
+//                        if (correo.correoRec(usuarioDTO)) {
+//                            response.getWriter().print(true);
+//                        } else {
+//                            response.getWriter().print(false);
+//                        }
+//                    } else {
+//                        response.getWriter().print(false);
+//                    }
+//                } else {
+//                    response.getWriter().print(false);
+//                }
                 break;
             default:
                 throw new AssertionError("xxxxxxxxxxxxxxxxxxxxxx esa accion no existe");
@@ -366,5 +434,9 @@ public class actualizaUsuEmp extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    public String generatePassword() {
+        return RandomStringUtils.random(10, 0, 20, true, true, "qw32rfHIJk9iQ8Ud7h0X".toCharArray());
+    }
 
 }
