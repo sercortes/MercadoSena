@@ -227,12 +227,10 @@ function textProduct(item) {
             </div>
            <div class="card shadow-sm">
             <div class="card-body">
-              <p class="mb-0 text-small text-muted textoDes text-left">Descripción</p>
-              <p class="mb-0 text-small text-muted textoDes text-left">${item.descripcionProducto}</p>
+              <p class="mb-0 text-small text-muted textoDes text-left"><b>Descripción : </b>${item.descripcionProducto}</p>
             </div>
-          </div>`
-
-    str += `<hr>
+          </div>
+            <hr>
         <div class="col-lg-12 mb-5 p-0">
        <a data-toggle="collapse" href="#collapseExample${item.idProducto}" role="button" aria-expanded="false" aria-controls="" class="btn btn-primary btn-block py-2 shadow-sm with-chevron">
           <p class="d-flex align-items-center justify-content-between mb-0 px-3 py-2"><strong class="text-uppercase">Información Adicional</strong><i class="fa fa-angle-down"></i></p>

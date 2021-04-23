@@ -116,7 +116,7 @@ public class UsuarioDAOLogin {
      public boolean resetPass(String correo, String pass) {
         try {
 
-            String sql = "UPDATE usuario set passwordUsuario = md5(?), codActivacion = '', fechaPassword = NOW() "
+            String sql = "UPDATE usuario set passwordUsuario = md5(?), codActivacion = '', fechaPassword = NOW(), estadoUsuario = 1 "
                     + "WHERE emailusuario = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
             
