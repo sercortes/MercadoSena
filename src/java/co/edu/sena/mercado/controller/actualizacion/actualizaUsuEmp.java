@@ -272,10 +272,11 @@ public class actualizaUsuEmp extends HttpServlet {
                     usuarioDAOLogin.updateHashPassword(pass, correo);
                     correo co = new correo();
                     co.recuperarCorreo(correo, pass);
+                    System.out.println("SEND---------------");
                     conn.commit();
                     new Gson().toJson(3, response.getWriter());
                 } catch (SQLException ex) {
-
+                    System.out.println("SQL ROLL BACK");
                     try {
                         conn.rollback();
                     } catch (SQLException ex1) {
@@ -285,7 +286,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     ex.printStackTrace();
 
                 } catch (Exception ex) {
-                    
+                    System.out.println("ROLL BACK");
                      try {
                         conn.rollback();
                     } catch (SQLException ex1) {
@@ -299,27 +300,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     usuarioDAOLogin.CloseAll();
 
                 }
-
-//                String clave = cod.generarCod();
-//                usuarioDTO = new usuarioDTO();
-//                String documento = request.getParameter("numeroDocAct");
-//                String tipoDoc = request.getParameter("tipoDocUsuarioRec");
-//                usuarioDTO = personaDAO.buscarRecu(documento, tipoDoc);
-//                if (usuarioDTO != null) {
-//                    usuarioDTO.setClaveUsu(clave);
-//                    System.out.println("..................usuario " + usuarioDTO);
-//                    if (usuarioDAO.actualizarUsuario(usuarioDTO)) {
-//                        if (correo.correoRec(usuarioDTO)) {
-//                            response.getWriter().print(true);
-//                        } else {
-//                            response.getWriter().print(false);
-//                        }
-//                    } else {
-//                        response.getWriter().print(false);
-//                    }
-//                } else {
-//                    response.getWriter().print(false);
-//                }
+                
                 break;
             default:
                 throw new AssertionError("xxxxxxxxxxxxxxxxxxxxxx esa accion no existe");

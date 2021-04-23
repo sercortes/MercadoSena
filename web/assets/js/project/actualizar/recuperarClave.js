@@ -32,8 +32,8 @@ $(document).on('click', '#btnRecuperarClave', function (e) {
         return false
     }
 
-     $('#cargas').addClass('is-active');
-     $('#btnRecuperarClave').attr('disabled', true);
+    $('#cargas').addClass('is-active');
+    $('#btnRecuperarClave').attr('disabled', true);
 
     $.ajax({
         url: "./actualizaUsuEmp?accion=recuperarClave",
@@ -44,11 +44,11 @@ $(document).on('click', '#btnRecuperarClave', function (e) {
         }
     }).done(function (data) {
 
-            modalRecuperar()
-            $('#cargas').removeClass('is-active');
-            $('#btnRecuperarClave').attr('disabled', false);
-            grecaptcha.reset()
-            
+        modalRecuperar()
+        $('#cargas').removeClass('is-active');
+        $('#btnRecuperarClave').attr('disabled', false);
+        grecaptcha.reset()
+
         switch (data) {
             case 0:
                 messageInfo('Error catcha')
@@ -68,6 +68,14 @@ $(document).on('click', '#btnRecuperarClave', function (e) {
                 break;
         }
 
+    }).fail(function (data) {
+        
+        modalRecuperar()
+        $('#cargas').removeClass('is-active');
+        $('#btnRecuperarClave').attr('disabled', false);
+        grecaptcha.reset()
+        messageInfo('Errorr')
+        
     })
 
 
