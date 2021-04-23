@@ -109,7 +109,7 @@ public class correo {
 
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(dest));
 
-            message.setSubject("Activación cuenta");
+            message.setSubject("¿Olvido contraseña?");
             message.setText(
                     "<div style='padding: 25px;border: solid 2px #b93333;border-radius: 10px;padding-bottom: 0px;width: 50%; margin: auto;'>"
                     + "            <div style='background: #b93333'><img style='width: 30%; margin-left: 34%;margin-top: 1%;' src=\"https://carwaystore.com/Store/assets/images/icons/LOGO3.png\"></div>"
