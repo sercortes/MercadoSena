@@ -32,6 +32,8 @@ public class preguntasDTO {
    private usuarioDTO uDTO;
    private personaNaturalDTO perNaturalDTO;
    private Producto producto;
+   
+   private String vista;
 
     public preguntasDTO() {
     }
@@ -192,9 +194,19 @@ public class preguntasDTO {
         this.fechaPublicada = fechaPublicada;
     }
 
+    public String getVista() {
+        return vista;
+    }
+
+    public void setVista(String vista) {
+        this.vista = vista;
+    }
+
     @Override
     public String toString() {
-        return "preguntasDTO{" + "idPregunta=" + idPregunta + ", pregunta=" + pregunta + ", estadoPregunta=" + estadoPregunta + ", idUsuarioPregunta=" + idUsuarioPregunta + ", idProducto=" + idProducto + ", respuesta=" + respuesta + ", nombreUsuarioPregunta=" + nombreUsuarioPregunta + ", apellidoUsuarioPregunta=" + apellidoUsuarioPregunta + ", usuarioResponde=" + usuarioResponde + ", idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", urlPersona=" + urlPersona + ", nombreProducto=" + nombreProducto + ", fechaPublicada=" + fechaPublicada + ", uDTO=" + uDTO + ", perNaturalDTO=" + perNaturalDTO + ", producto=" + producto + '}';
+        return "preguntasDTO{" + "idPregunta=" + idPregunta + ", pregunta=" + pregunta + ", estadoPregunta=" + estadoPregunta + ", idUsuarioPregunta=" + idUsuarioPregunta + ", idProducto=" + idProducto + ", respuesta=" + respuesta + ", nombreUsuarioPregunta=" + nombreUsuarioPregunta + ", apellidoUsuarioPregunta=" + apellidoUsuarioPregunta + ", usuarioResponde=" + usuarioResponde + ", idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", urlPersona=" + urlPersona + ", nombreProducto=" + nombreProducto + ", fechaPublicada=" + fechaPublicada + ", uDTO=" + uDTO + ", perNaturalDTO=" + perNaturalDTO + ", producto=" + producto + ", vista=" + vista + '}';
     }
+
+
     
 }
