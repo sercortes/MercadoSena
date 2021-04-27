@@ -215,6 +215,7 @@
         <url-pattern>/updateStatusProduct</url-pattern>
         <url-pattern>/createCategory</url-pattern>
         <url-pattern>/createBrand</url-pattern>
+        <url-pattern>/createSeller</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Validation</servlet-name>

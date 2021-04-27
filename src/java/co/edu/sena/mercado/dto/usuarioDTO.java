@@ -142,13 +142,10 @@ public class usuarioDTO {
     public void setNumIngreso(int numIngreso) {
         this.numIngreso = numIngreso;
     }
-    
 
     @Override
     public String toString() {
-        return "usuarioDTO{" + "idUsuario=" + idUsuario + ", correoUsu=" + correoUsu + ", claveUsu=" + claveUsu + ", fechaClave=" + fechaClave + ", estadoUsu=" + estadoUsu + ", codigo=" + codigo + ", idRol=" + idRol + ", persona=" + persona + ", empresa=" + empresa + ", actualizoEmpresa=" + actualizoEmpresa + '}';
+        return "usuarioDTO{" + "idUsuario=" + idUsuario + ", correoUsu=" + correoUsu + ", claveUsu=" + claveUsu + ", fechaClave=" + fechaClave + ", estadoUsu=" + estadoUsu + ", codigo=" + codigo + ", idRol=" + idRol + ", numIngreso=" + numIngreso + ", persona=" + persona + ", empresa=" + empresa + ", actualizoEmpresa=" + actualizoEmpresa + '}';
     }
-
-  
     
 }

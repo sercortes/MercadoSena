@@ -26,6 +26,65 @@ public class correo {
     private String recover = "http://localhost:8084/Store/reset";
     private String main = "http://localhost:8084/Store/";
 
+     public boolean envCorreoVendedor(String dest, String clave) throws MessagingException {
+        try {
+
+            Properties props = new Properties();
+            props.setProperty("mail.smtp.host", "smtp.gmail.com");
+            props.setProperty("mail.smtp.starttls.enable", "true");
+            props.setProperty("mail.smtp.port", "587");
+            props.setProperty("mail.smtp.user", "waycarr0@gmail.com");
+            props.setProperty("mail.smtp.auth", "true");
+
+            Session session = Session.getDefaultInstance(props);
+            session.setDebug(true);
+
+            MimeMessage message = new MimeMessage(session);
+
+            message.setFrom(new InternetAddress("waycarr0@gmail.com"));
+
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(dest));
+
+            message.setSubject("Ingreso al sistema");
+            message.setText(
+                    "<div style='padding: 25px;border: solid 2px #b93333;border-radius: 10px;padding-bottom: 0px;width: 50%; margin: auto;'>"
+                    + "            <div style='background: #b93333'><img style='width: 30%; margin-left: 34%;margin-top: 1%;' src=\"https://carwaystore.com/Store/assets/images/icons/LOGO3.png\"></div>"
+                    + "            <p>De parte de todo el equipo de CARWAY te damos la bienvenida a nuestro sistema.</p>"
+                    + "            <p>Estas son las credenciales de acceso al sistema, muchas gracias:</p>"
+                    + "            <p><b>Usuario: </b>" + dest + "</p>"
+                    + "            <p><b>Clave: </b>" + clave + "</p>"
+                    + "  <form action=\"Activate\" method=\"POST\" >"
+                            + "<br/><a href=\""+this.main+"\" type=\"submit\" target=\"_blank\" class=\"button  arrow\" style='display: inline-block;position: relative;padding: 0.8em 1.4em;background: #b93333;border: none;color: white;'>Ingresar a CAR WAY</span> <span class=\"il\"></span></a><br/>"
+                    + "            </form>\n"
+                    //                    + "<a style='color: rgb(0, 128, 0);' href='http://181.48.181.131/MercadoSena/activarCuenta?usuario=" + dest + "&codigo=" + codigo + "'><p>Click aquí para activar tu cuenta</p></a>"
+                    + "            <footer style=' background: rgb(252, 252, 252);height: 39px;padding: 15px;text-align: center;'>"
+                    + "                <div >"
+                    + "                    <p style='color: rgb(117, 117, 117);'>CARWAY 2021 - Todo los derechos reservados</p>"
+                    + "                </div>"
+                    + "            </footer>"
+                    + "        </div>",
+                    "ISO-8859-1",
+                    "html");
+
+            Transport t = session.getTransport("smtp");
+
+            t.connect("waycarr0@gmail.com", "123456789CarWay");
+
+            t.sendMessage(message, message.getAllRecipients());
+
+            t.close();
+            //System.out.println("xxx____correo enviado");
+            return true;
+
+        } catch (MessagingException e) {
+
+            System.out.println("xxx____correo No enviado " + e);
+            throw new MessagingException();
+        }
+
+    }
+
+    
     public boolean envCorreo(String dest, String clave, String codigo) throws MessagingException {
         try {
 

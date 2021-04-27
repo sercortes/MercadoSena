@@ -215,7 +215,7 @@ public class chat extends HttpServlet {
         respuestaDAO respuestaDAO = new respuestaDAO();
         preguntasDAO preguntaDAO = new preguntasDAO();
         usuarioDTO = (usuarioDTO) request.getSession().getAttribute("USER");
-        respuestaDTO.setIdEmpresa(usuarioDTO.getEmpresa().getIdEmpresa());
+        respuestaDTO.setIdEmpresa(1);
         respuestaDTO.setIdPregunta(Integer.parseInt(request.getParameter("idPregunta")));
         respuestaDTO.setRespuesta(request.getParameter("respuesta"));
 

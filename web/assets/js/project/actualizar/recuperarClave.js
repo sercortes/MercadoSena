@@ -81,10 +81,10 @@ $(document).on('click', '#btnRecuperarClave', function (e) {
 
 })
 function ValidateEmails(mail)
-{
-    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(mail))
-    {
-        return (true)
-    }
-    return (false)
+{    
+    if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/.test(mail)) {
+        return true;
+    } else {
+        return false;
+    } 
 }
