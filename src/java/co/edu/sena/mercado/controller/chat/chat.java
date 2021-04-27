@@ -11,6 +11,7 @@ import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -73,6 +74,30 @@ public class chat extends HttpServlet {
                 case "/Store/getRespuestasByQuestion":
 
                     getRespuestasByQuestion(request, response);
+
+                    break;
+                    
+                case "/Store/notifyChatAdmin":
+
+                    notifyChatAdmin(request, response);
+
+                    break;
+                    
+                case "/Store/updateQuestion":
+
+                    updateQuestion(request, response);
+
+                    break;
+                    
+                case "/Store/notifyNormal":
+
+                    notifyNormal(request, response);
+
+                    break;
+                    
+                 case "/Store/updateAnswer":
+
+                    updateAnswer(request, response);
 
                     break;
 
@@ -210,5 +235,74 @@ public class chat extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void notifyChatAdmin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        Conexion conexions = new Conexion();
+        PreguntassDAO instructoresDAO = new PreguntassDAO(conexions.getConnection());
+        int numero = 0;
+        try {
+            numero = instructoresDAO.countPreguntas();
+        } catch (SQLException ex) {
+            Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        instructoresDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(numero, response.getWriter());
+        
+    }
+
+    private void updateQuestion(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        Conexion conexions = new Conexion();
+        PreguntassDAO instructoresDAO = new PreguntassDAO(conexions.getConnection());
+        boolean status = false;
+        try {
+            status = instructoresDAO.preguntaVista(request.getParameter("idP"));
+        } catch (SQLException ex) {
+            Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        instructoresDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(status, response.getWriter());
+        
+    }
+
+    private void notifyNormal(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        Conexion conexions = new Conexion();
+        PreguntassDAO instructoresDAO = new PreguntassDAO(conexions.getConnection());
+        usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
+        int numero = 0;
+        try {
+            numero = instructoresDAO.countPreguntasComprador(usu.getIdUsuario());
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        instructoresDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(numero, response.getWriter());
+        
+    }
+
+    private void updateAnswer(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        Conexion conexions = new Conexion();
+        PreguntassDAO instructoresDAO = new PreguntassDAO(conexions.getConnection());
+        boolean status = false;
+        try {
+            status = instructoresDAO.respuestaVista(request.getParameter("idP"));
+        } catch (SQLException ex) {
+            Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        instructoresDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(status, response.getWriter());
+        
+    }
     
 }

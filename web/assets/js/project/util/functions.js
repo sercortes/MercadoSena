@@ -13,6 +13,14 @@ $(function () {
         var arrayBuy = []
         localStorage.setItem('objects', JSON.stringify(arrayBuy))
     }
+    
+    if (getRol() == 3) {
+          getNotify()
+    }
+    
+        if (getRol() == 2) {
+          getNotifys()
+    }
 
     updateIconNumber()
 
@@ -287,6 +295,53 @@ function checkByuss2(){
         datatype: 'json'
     }).done(function (data) {
 
+    })
+    
+}
+
+function getNotifys(){
+    
+    $.ajax({
+        url: './notifyNormal',
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+           
+            if (data <= 0) {
+                return false
+            }
+           
+            if (data>=10) {
+                $('#numberchat').text('+10')
+            }else{
+                $('#numberchat').text(data)
+            }
+
+        }
+    })
+    
+}
+
+
+function getNotify(){
+    
+    $.ajax({
+        url: './notifyChatAdmin',
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+           
+            if (data <= 0) {
+                return false
+            }
+           
+            if (data>=10) {
+                $('#numberchat').text('+10')
+            }else{
+                $('#numberchat').text(data)
+            }
+
+        }
     })
     
 }

@@ -19,6 +19,7 @@ public class respuestaDTO {
    String pregunta;
    
    private Timestamp fecha;
+   private String visto;
 
     public respuestaDTO() {
     }
@@ -81,9 +82,19 @@ public class respuestaDTO {
         this.fecha = fecha;
     }
 
+    public String getVisto() {
+        return visto;
+    }
+
+    public void setVisto(String visto) {
+        this.visto = visto;
+    }
+
     @Override
     public String toString() {
-        return "respuestaDTO{" + "idRespuesta=" + idRespuesta + ", respuesta=" + respuesta + ", idEmpresa=" + idEmpresa + ", idPregunta=" + idPregunta + ", pregunta=" + pregunta + ", fecha=" + fecha + '}';
+        return "respuestaDTO{" + "idRespuesta=" + idRespuesta + ", respuesta=" + respuesta + ", idEmpresa=" + idEmpresa + ", idPregunta=" + idPregunta + ", pregunta=" + pregunta + ", fecha=" + fecha + ", visto=" + visto + '}';
     }
+
+    
     
 }

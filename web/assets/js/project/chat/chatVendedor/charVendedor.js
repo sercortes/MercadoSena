@@ -6,7 +6,10 @@ var url = 0
 var array = []
 
 $(function () {
+    
     getPreguntas()
+    getNotify()
+    
 })
 function  getPreguntas() {
     $.ajax({
@@ -14,12 +17,13 @@ function  getPreguntas() {
         type: 'POST',
         dataType: 'json',
         success: function (data) {
-
+            
             drawChat(data)
 
         }
     })
 }
+
 
 function drawChat(data) {
 
@@ -79,12 +83,31 @@ function questionss() {
         },
         dataType: 'json',
         success: function (data) {
-
-            console.log('PPPPP')
-            console.log(data)
-            console.log('')
+         
+            for(let item of data){
+                if (item.vista == '0') {
+                   updateViewQuestion(item.idPregunta)
+                }
+            }
             generateQuestions(url, data)
 
+        }
+    })
+
+}
+
+function updateViewQuestion(idP){
+    
+    $.ajax({
+        url: './updateQuestion',
+        type: 'POST',
+        async: true,
+        data: {
+            idP:idP
+        },
+        dataType: 'json',
+        success: function (data) {
+            
         }
     })
 
@@ -129,7 +152,6 @@ function answers(idPregunta) {
         dataType: 'json',
         success: function (data) {
 
-            console.log(data)
             drawRespuestas(data)
 
         }
@@ -202,7 +224,7 @@ function sendRespuesta(data) {
                         messageOk('Mensaje enviado')
                         questionss()
                         document.getElementById('respuesta').value = ""
-                        enviarNot('respuesta', 0);
+//                        enviarNot('respuesta', 0);
                     } else {
                         messageError('Error al enviar su respuesta.');
                     }

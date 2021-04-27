@@ -230,6 +230,10 @@
         <url-pattern>/getPreguntasIndivi</url-pattern>
         <url-pattern>/getRespuestasByQuestion</url-pattern>
         <url-pattern>/getPreguntaByUser</url-pattern>
+        <url-pattern>/notifyChatAdmin</url-pattern>
+        <url-pattern>/updateQuestion</url-pattern>
+        <url-pattern>/notifyNormal</url-pattern>
+        <url-pattern>/updateAnswer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>queryBasic</servlet-name>

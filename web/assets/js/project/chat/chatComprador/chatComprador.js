@@ -5,6 +5,7 @@ var url = 0
 
 $(function () {
     getPreguntas()
+    getNotifys()
 })
 function  getPreguntas() {
     $.ajax({
@@ -129,8 +130,30 @@ function answers(idPregunta) {
         success: function (data) {
 
             console.log(data)
+            for(let item of data){
+                if (item.visto == '0') {
+                   updateViewQuestion(item.idRespuesta)
+                }
+            }
             drawRespuestas(data)
 
+        }
+    })
+
+}
+
+function updateViewQuestion(idP){
+    
+    $.ajax({
+        url: './updateAnswer',
+        type: 'POST',
+        async: true,
+        data: {
+            idP:idP
+        },
+        dataType: 'json',
+        success: function (data) {
+            
         }
     })
 
@@ -197,7 +220,7 @@ function enviarPregunta(mensaje) {
             } else {
                 messageError('Error al enviar su respuesta.');
             }
-            enviarNot('pregunta', 0);
+//            enviarNot('pregunta', 0);
         }})
 
 }
