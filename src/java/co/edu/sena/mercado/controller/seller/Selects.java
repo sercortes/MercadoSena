@@ -97,11 +97,11 @@ public class Selects extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
-        usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
+//        usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
         ProductoDAO productoDAO = new ProductoDAO(conexion.getConnection());
         ImagenesProductosDAO imagenesProductosDAO = new ImagenesProductosDAO(conexion.getConnection());
         
-        ArrayList<Producto> listaProductos = productoDAO.getProductsBySeller(Integer.toString(user.getEmpresa().getIdEmpresa()));
+        ArrayList<Producto> listaProductos = productoDAO.getProductsBySeller("1");
         
         listaProductos.forEach((item) -> {
             ArrayList<ImagenesProducto> listaImagenes

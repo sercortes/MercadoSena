@@ -1,11 +1,18 @@
 package co.edu.sena.mercado.controller.admin;
 
 import co.edu.sena.mercado.dao.CategorysDAO;
+import co.edu.sena.mercado.dao.EmpresasDAO;
+import co.edu.sena.mercado.dao.PersonasNaturalDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
+import co.edu.sena.mercado.dao.UsuariosDAO;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
+import co.edu.sena.mercado.util.codActivacion;
+import co.edu.sena.mercado.util.correo;
 import com.google.gson.Gson;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
@@ -49,6 +56,12 @@ public class admin extends HttpServlet {
                 case "/Store/createBrand":
 
                     createBrand(request, response);
+
+                    break;
+                    
+                case "/Store/createSeller":
+
+                    createSeller(request, response);
 
                     break;
 
@@ -145,9 +158,95 @@ public class admin extends HttpServlet {
         
     }
 
-    @Override
+    private void createSeller(HttpServletRequest request, HttpServletResponse response) throws IOException {
+       
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+
+        codActivacion codigo = new codActivacion();
+         correo enviar = new correo();
+        Connection conn = null;
+        UsuariosDAO usuarioDAO = null;
+        PersonasNaturalDAO personaNaturalDAO = null;
+        EmpresasDAO empresaDAO = null;
+        try {
+
+            Conexion conexion = new Conexion();
+            conn = conexion.getConnection();
+
+            if (conn.getAutoCommit()) {
+                conn.setAutoCommit(false);
+            }
+            usuarioDAO = new UsuariosDAO(conn);
+            personaNaturalDAO = new PersonasNaturalDAO(conn);
+            empresaDAO = new EmpresasDAO(conn);
+
+            usuarioDTO usuarioDTO = new usuarioDTO();
+            usuarioDTO.setCorreoUsu(request.getParameter("correoUsuario"));
+            usuarioDTO.setEstadoUsu("1");
+            String clave = codigo.generarCod();
+            usuarioDTO.setClaveUsu(clave);
+
+            usuarioDTO.setIdRol(3);
+
+            int idUser = usuarioDAO.registroVendedor(usuarioDTO);
+            usuarioDTO.setIdUsuario(idUser);
+            System.out.println(usuarioDTO.toString());
+            personaNaturalDTO personaNaturalDTO = new personaNaturalDTO();
+            personaNaturalDTO.setApellidoPer(request.getParameter("apellidoUsuario"));
+            personaNaturalDTO.setCorreoPer(request.getParameter("correoUsuario"));
+//            personaNaturalDTO.setIdCiudad(Integer.parseInt(request.getParameter("ciudadUsuario")));
+//            personaNaturalDTO.setNumCelularPer(request.getParameter("celularUsuario"));
+            personaNaturalDTO.setNombrePer(request.getParameter("nombreUsuario"));
+            personaNaturalDTO.setUrlImg("./assets/images/usuario/imagenDefecto.png");
+            personaNaturalDTO.setIdUsuario(idUser);
+
+            personaNaturalDAO.registrarPersona(personaNaturalDTO);
+            System.out.println(personaNaturalDTO.toString());
+
+            enviar.envCorreoVendedor(usuarioDTO.getCorreoUsu(), clave);
+
+            conn.commit();
+            new Gson().toJson(1, response.getWriter());
+        } catch (MySQLIntegrityConstraintViolationException ex1) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex3) {
+                System.out.println(ex3);
+            }
+            System.out.println("ROLL BACK CONSTRAINT EXCEPTION");
+            System.out.println(ex1);
+            new Gson().toJson(2, response.getWriter());
+        } catch (SQLException ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                System.out.println(ex1);
+            }
+            System.out.println("ROLL BACK SQL EXCEPTION REGISTRO");
+            System.out.println(ex);
+            new Gson().toJson(3, response.getWriter());
+        } catch (Exception ex) {
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                System.out.println(ex1);
+            }
+            System.out.println("ROLL BACK GENERAL EXCEPTION");
+            System.out.println(ex);
+            new Gson().toJson(3, response.getWriter());
+        } finally {
+            usuarioDAO.CloseAll();
+            personaNaturalDAO.CloseAll();
+            empresaDAO.CloseAll();
+        }
+        
+    }
+
+        @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
 }

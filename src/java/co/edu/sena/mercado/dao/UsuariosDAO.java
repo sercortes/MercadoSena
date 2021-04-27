@@ -54,6 +54,32 @@ public class UsuariosDAO {
         }
     }
     
+    public int registroVendedor(usuarioDTO datosUsu) throws Exception, MySQLIntegrityConstraintViolationException {
+        int idUsuario = 0;
+        String consulta = "INSERT INTO usuario(emailusuario, passwordUsuario, fechaPassword, estadoUsuario, fkRol,codActivacion) VALUES (?,md5(?), now(),?,?,'')";
+        try {
+            ps = conn.prepareStatement(consulta, Statement.RETURN_GENERATED_KEYS);
+            ps.setString(1, datosUsu.getCorreoUsu());
+            ps.setString(2, datosUsu.getClaveUsu());
+            ps.setString(3, datosUsu.getEstadoUsu());
+            ps.setInt(4, datosUsu.getIdRol());
+            System.out.println(ps.toString());
+            ps.executeUpdate();
+            rs = ps.getGeneratedKeys();
+            if (rs.next()) {
+                idUsuario = rs.getInt(1);
+            }
+            return idUsuario;
+        }catch (MySQLIntegrityConstraintViolationException ex) {
+            System.out.println(ex);
+            throw new MySQLIntegrityConstraintViolationException();     
+        }catch (SQLException e) {
+            System.out.println("........error al relizar el registro registroUsuario " + e);
+            System.out.println("........ consulta " + ps.toString());
+            throw new Exception();
+        }
+    }
+    
          public void CloseAll(){
           Conexion.close(conn);
           Conexion.close(ps);

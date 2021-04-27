@@ -70,9 +70,11 @@
                                     <a class="nav-link encabezadoOpciones" href="./realizarVenta"><i class="fas fa-shipping-fast"></i> Realizar Venta</a>
                                 </li>
                                 
+                                <c:if test="${USER.correoUsu == 'vendedor@carway.co'}">
                                 <li class="nav-item">
                                     <a class="nav-link encabezadoOpciones" href="./config"><i class="fas fa-sliders-h"></i> Ajustes</a>
                                 </li>
+                                </c:if>
                             </c:if>
 
                         </ul>

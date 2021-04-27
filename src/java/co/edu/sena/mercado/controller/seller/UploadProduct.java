@@ -123,9 +123,9 @@ public class UploadProduct extends HttpServlet {
 
                 System.out.println(producto.toString());
 
-                usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
+//                usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
 
-                producto.setIdEmpresaFK(Integer.toString(usu.getEmpresa().getIdEmpresa()));
+                producto.setIdEmpresaFK("1");
 
                 folder = Integer.toString(productoDAO.insertReturn(producto));
 

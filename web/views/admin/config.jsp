@@ -6,6 +6,9 @@
 <c:if test="${USER.idRol != 3 || empty USER.idRol}">
     <c:redirect url="./home"/>
 </c:if>
+<c:if test="${USER.correoUsu != 'vendedor@carway.co'}">
+    <c:redirect url="./home"/>             
+</c:if>
 
 <%@include file="/views/template/header.jspf"%>
 <%@include file="/views/searching/buscador.jspf"%>
@@ -36,8 +39,8 @@
             <button id="addMarca" type="submit" class="btn btn-primary mb-2 float-right"><i class="fas fa-plus-circle"></i> Agregar</button>
 
         </div>
-        
         <div class="col-md-6">
+        <hr>
             <h4 class="text-left">Texto Banner</h4>
             
             <div id="banners">
@@ -47,6 +50,14 @@
             <button id="editBanner" type="submit" class="btn btn-primary mb-2 float-right"><i class="fas fa-plus-circle"></i> Cambiar</button>
 
         </div>
+        
+         <div class="col-md-6">
+             <hr>
+            <h4 class="text-left">Vendedor</h4>
+            <h5 class="text-black">Crea un nuevo vendedor para administrar el sistema</h5>
+            <button id="modalAdd" class="btn btn-primary mb-2 float-right"><i class="fas fa-plus-circle"></i> Nuevo</button>
+
+        </div>
 
     </div>
 
@@ -54,7 +65,8 @@
 
 <%@include file="/views/searching/htmlSearch.jspf"%>
 <%@include file="/views/searching/modalVerProducto.jspf"%>
-
+<%@include file="/views/admin/modalAdd.jspf"%>
 <%@include file="/views/template/footer.jspf"%>
 
 <script src="./assets/js/project/config/config.js" type="text/javascript"></script>
+<script src="./assets/js/project/config/add.js" type="text/javascript"></script>

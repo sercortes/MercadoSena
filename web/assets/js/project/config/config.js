@@ -134,5 +134,3 @@ function sendBanner(data){
     })
     
 }
-
-
