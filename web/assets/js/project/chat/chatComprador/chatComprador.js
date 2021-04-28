@@ -216,6 +216,7 @@ function enviarPregunta(mensaje) {
             if (data === 'true') {
                 messageOk('Mensaje enviado')
                 questionss()
+                enviar()
                 document.getElementById('respuesta').value = ""
             } else {
                 messageError('Error al enviar su respuesta.');

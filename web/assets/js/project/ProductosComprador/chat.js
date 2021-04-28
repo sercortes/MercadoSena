@@ -68,6 +68,7 @@ function enviarMensaje(mensaje) {
         type: 'POST',
         success: function (data) {
             if (data === 'true') {
+                enviar()
                 setTimeout(() => sendMensajes(), 1000);
                 limpiarPlantilla()
                 document.getElementById('mensaje').value = ""
@@ -75,7 +76,7 @@ function enviarMensaje(mensaje) {
                 interacion = interacion - 1;
                 messageError('Error al enviar el mensaje');
             }
-            enviarNot('pregunta', 0);
+//            enviarNot('pregunta', 0);
         }})
 
 }
