@@ -53,19 +53,19 @@ public class gestionarPedidos extends HttpServlet {
                 getAllVentasVendedor(request, response);
 
                 break;
-                
+
             case "/Store/getAllVentasByVendedorFailed":
 
                 getAllVentasByVendedorFailed(request, response);
 
                 break;
-                
+
             case "/Store/getAllVentasByCus":
 
                 getAllVentasByCustomer(request, response);
 
                 break;
-                
+
             case "/Store/getAllVentasByCusFailed":
 
                 getAllVentasByCusFailed(request, response);
@@ -77,13 +77,25 @@ public class gestionarPedidos extends HttpServlet {
                 getVentasByComprador(request, response);
 
                 break;
-                
+
             case "/Store/getVentasByCompradorFailed":
 
                 getVentasByCompradorFailed(request, response);
 
-            break;
+                break;
+
+            case "/Store/notifySales":
+
+                notifySales(request, response);
+
+                break;
                 
+            case "/Store/updateSale":
+
+                updateSale(request, response);
+
+                break;
+
             default:
 
                 System.out.println("query basic no soporta GET");
@@ -134,7 +146,7 @@ public class gestionarPedidos extends HttpServlet {
 
     }
 
-   //Ventas por cliente
+    //Ventas por cliente
     private void getVentasByComprador(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         usuarioDTO usuario = (usuarioDTO) request.getSession().getAttribute("USER");
@@ -154,6 +166,7 @@ public class gestionarPedidos extends HttpServlet {
         new Gson().toJson(listaVentas, response.getWriter());
 
     }
+
     // ventas por cliente falladas
     private void getVentasByCompradorFailed(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
@@ -181,7 +194,7 @@ public class gestionarPedidos extends HttpServlet {
     }// </editor-fold>
 
     private void getAllVentasByVendedorFailed(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-        
+
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
@@ -195,7 +208,7 @@ public class gestionarPedidos extends HttpServlet {
         ventaDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaVentas, response.getWriter());
-        
+
     }
 
     private void getAllVentasByCusFailed(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
@@ -212,6 +225,40 @@ public class gestionarPedidos extends HttpServlet {
         ventaDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(listaVentas, response.getWriter());
+    }
+
+    private void notifySales(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        request.setCharacterEncoding("UTF-8");
+        Conexion conexions = new Conexion();
+        VentaDAO ventaDAO = new VentaDAO(conexions.getConnection());
+        int numero = 0;
+        try {
+            numero = ventaDAO.countSales();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        ventaDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(numero, response.getWriter());
+
+    }
+
+    private void updateSale(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        Conexion conexions = new Conexion();
+        VentaDAO ventaDAO = new VentaDAO(conexions.getConnection());
+        boolean status = false;
+        try {
+            status = ventaDAO.compraVista(request.getParameter("idP"));
+        } catch (SQLException ex) {
+           ex.printStackTrace();
+        }
+        ventaDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(status, response.getWriter());
+        
     }
 
 }

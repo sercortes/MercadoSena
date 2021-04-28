@@ -191,7 +191,9 @@ function checkSubmit() {
         mensajeRedirectHome('¡Error en los productos!')
         return false
     }
-
+    
+    enviar()
+    
     document.getElementById("pagotarjeta").value = "Enviando...";
     document.getElementById("pagotarjeta").disabled = true;
     return true;
@@ -289,6 +291,8 @@ function checkSubmit2() {
         mensajeRedirectHome('¡Error en los productos!')
         return false
     }
+    
+    enviar()
     
     document.getElementById("pagoPSE").value = "Enviando....";
     document.getElementById("pagoPSE").disabled = true;

@@ -77,21 +77,15 @@ public class chat extends HttpServlet {
 
                     break;
                     
-//                case "/Store/notifyChatAdmin":
-//
-//                    notifyChatAdmin(request, response);
-//
-//                    break;
+                case "/Store/notifyNormal":
+
+                    notifyNormal(request, response);
+
+                    break;
                     
                 case "/Store/updateQuestion":
 
                     updateQuestion(request, response);
-
-                    break;
-                    
-                case "/Store/notifyNormal":
-
-                    notifyNormal(request, response);
 
                     break;
                     

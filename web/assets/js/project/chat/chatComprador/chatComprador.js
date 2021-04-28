@@ -135,6 +135,7 @@ function answers(idPregunta) {
                    updateViewQuestion(item.idRespuesta)
                 }
             }
+             getNotifys()
             drawRespuestas(data)
 
         }

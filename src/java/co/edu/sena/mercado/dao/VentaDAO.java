@@ -37,8 +37,8 @@ public class VentaDAO {
 
         int idComprador = 0;
 
-        String sql = "INSERT INTO ventas (tipoVentaFK, descuento, valorVenta, idCompradorFK, idCiudadFK, formaPagoVenta, idEstadoVentasFK) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO ventas (tipoVentaFK, descuento, valorVenta, idCompradorFK, idCiudadFK, formaPagoVenta, idEstadoVentasFK, visto) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
@@ -49,6 +49,7 @@ public class VentaDAO {
             ps.setString(5, ventaDTO.getIdCiudadFK());
             ps.setString(6, ventaDTO.getFormaPago());
             ps.setString(7, ventaDTO.getIdEstadoVentaFK());
+            ps.setString(8, ventaDTO.getVisto());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -404,6 +405,39 @@ public class VentaDAO {
         }
     }
 
+     public int countSales() throws SQLException  {
+        int numero = 0;
+        String consulta = "SELECT count(*) 'cantidad' FROM ventas v WHERE v.visto = 0 AND v.tipoVentaFK = 2";
+        try {
+            ps = conn.prepareStatement(consulta);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                numero = rs.getInt("cantidad");
+            }
+            return numero;
+        } catch (SQLException e) {
+            System.out.println("error count sales " + e);
+            System.out.println("consulta " + ps.toString());
+            throw new SQLException();
+        }
+    }
+    
+     
+      public boolean compraVista(String idVenta) throws SQLException {
+
+        String consulta = "UPDATE ventas SET visto=1 WHERE idVenta = ? AND visto = 0";
+        try {
+            ps = conn.prepareStatement(consulta);
+            ps.setString(1, idVenta);
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("xxxxxxxxxxxxxx error al actualizar el visto de la pregunta " + e);
+            System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
+            throw new SQLException();
+        } 
+    }
+      
     public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);

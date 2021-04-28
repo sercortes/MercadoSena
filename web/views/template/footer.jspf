@@ -18,7 +18,7 @@
 <c:if test="${ USER.idRol==3}">
     <div class="chat" id="notPedidos" style="bottom: 109px;text-align: center;" >
         <a href="./ventasVendedor" title="Pedidos"><i class="fa fa-shopping-bag" ></i>
-            <b class="notificacionesPedidos" style="right: -11%;"></b></a>
+            <b id="numbersales" class="notificacionesPedidos" style="right: -11%;"></b></a>
     </div>   
 </c:if>
 
