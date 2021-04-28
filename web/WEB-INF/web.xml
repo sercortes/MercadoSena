@@ -171,6 +171,8 @@
         <url-pattern>/getVentasByCompradorFailed</url-pattern>
         <url-pattern>/getAllVentasByVendedorFailed</url-pattern>
         <url-pattern>/getAllVentasByCusFailed</url-pattern>
+        <url-pattern>/notifySales</url-pattern>
+        <url-pattern>/updateSale</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>filtro</servlet-name>

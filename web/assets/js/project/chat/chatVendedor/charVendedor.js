@@ -89,6 +89,7 @@ function questionss() {
                    updateViewQuestion(item.idPregunta)
                 }
             }
+             getNotifys()
             generateQuestions(url, data)
 
         }

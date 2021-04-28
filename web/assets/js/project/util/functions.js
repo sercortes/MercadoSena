@@ -17,10 +17,19 @@ $(function () {
     if (checkSession()) {
         getNotifys()
     }
-
+    
+    checkSaless()
     updateIconNumber()
 
 })
+
+function checkSaless(){
+    
+    if (getRol() == 3) {
+        getNotifySales()
+    }
+    
+}
 
 function checkInputGlobal(input, mensaje) {
     $('#' + input).focus().after(`<div class='remove'><font color='red'>${mensaje}</font><div>`);    
@@ -304,6 +313,7 @@ function getNotifys() {
         success: function (data) {
 
             if (data <= 0) {
+                $('#numberchat').text('')
                 return false
             }
 
@@ -318,3 +328,34 @@ function getNotifys() {
 
 }
 
+function getNotifySales() {
+
+    $.ajax({
+        url: './notifySales',
+        type: 'POST',
+        dataType: 'json',
+        success: function (data) {
+
+            if (data <= 0) {
+                $('#numbersales').text('')
+                return false
+            }
+
+            if (data >= 10) {
+                $('#numbersales').text('+10')
+            } else {
+                $('#numbersales').text(data)
+            }
+
+        }
+    })
+
+}
+
+$(document).on('click', '#salirr', function(e){
+    
+    e.preventDefault()
+    onClose()
+    window.location.replace('./logout');
+    
+})

@@ -79,7 +79,7 @@ function drawVentas(data) {
     let number = 0;
     for (var item of data) {
         str += `<div class="card">
-          <div id="headingTwo" class="card-header bg-white shadow-sm border-0">
+          <div id="headingTwo" class="card-header bg-white shadow-sm border-0" idVenta="${item.idVenta}">
             <h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapseTwo${number}" aria-expanded="false" aria-controls="collapseTwo" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">Venta #${item.idVenta}</a></h6>
           </div>
           <div id="collapseTwo${number}" aria-labelledby="headingTwo" data-parent="#accordionExample" class="collapse">
@@ -267,3 +267,31 @@ function queryNull() {
             </button>
         </div>`
 }
+
+$(document).on('click', '.collapsed', function (e) {
+
+    let parent = $(this)[0].parentElement.parentElement
+    let idVenta = $(parent).attr('idVenta')
+
+    let cliente = $('#selectTipe').val()
+
+    if (cliente == '2') {
+
+        $.ajax({
+            url: './updateSale',
+            type: 'POST',
+            async: true,
+            data: {
+                idP: idVenta
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data) {
+                    checkSaless()
+                }
+            }
+        })
+
+    }
+
+})

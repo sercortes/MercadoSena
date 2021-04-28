@@ -145,6 +145,7 @@ public class generateSale extends HttpServlet {
             ventaDTO.setTipoVenta("2");
             ventaDTO.setIdEstadoVentaFK("1");
             ventaDTO.setIdCiudadFK(Integer.toString(usu.getPersona().getIdCiudad()));
+            ventaDTO.setVisto("0");
             int idVenta = ventaDAO.insertReturn(ventaDTO);
             for (ProducctoDTO item : producctoDTOs) {
                 productoPedidosDTO pedidosDTO = new productoPedidosDTO();

@@ -106,37 +106,21 @@ $(document).on('click', '#btnUpdateData', function (e) {
         console.log(data)
         $('#cargas').removeClass('is-active');
         $("#btnUpdateData").attr("disabled", false);
-
+        
         if (data) {
-            let timerInterval;
+            
             Swal.fire({
-                postion: 'top',
-                icon: 'success',
-                title: 'Datos actualizados',
-                showConfirmButton: false,
-                html: '',
-                timer: 2000,
-                timerProgressBar: true,
-                didOpen: () => {
-                    timerInterval = setInterval(() => {
-                        const content = Swal.getContent();
-                        if (content) {
-                            const b = content.querySelector('b');
-                            if (b) {
-                                b.textContent = Swal.getTimerLeft();
-                            }
-                        }
-                    }, 100);
-                },
-                willClose: () => {
-                    clearInterval(timerInterval);
-                }
+                title: 'OK',
+                text: 'Actualizado',
+                icon: 'info',
+                showCancelButton: false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ok'
             }).then((result) => {
-                /* Read more about handling dismissals below */
-                if (result.dismiss === Swal.DismissReason.timer) {
-                    $('#modalUpdateData').modal('hide');
-                }
-            });
+                $.post(location.href = "process_payment");
+            })
+            
         } else {
             messageError('Error')
             $('#modalUpdateData').modal('hide')

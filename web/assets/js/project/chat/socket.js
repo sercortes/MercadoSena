@@ -23,6 +23,7 @@ var numero = 1
         
         function onMessage(e){
             getNotifys()
+            checkSaless()
         }
     
 

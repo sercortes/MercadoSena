@@ -107,7 +107,7 @@
                                        aria-haspopup="true" aria-expanded="false">${USER.correoUsu}</a>
                                     <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
                                         <a class="dropdown-item" href="./usuario"> Usuario</a>
-                                        <a class="dropdown-item" href="./logout">Salir</a>
+                                        <a id="salirr" class="dropdown-item" href="./logout">Salir</a>
                                     </div>
                                 </li>
                             </ul>

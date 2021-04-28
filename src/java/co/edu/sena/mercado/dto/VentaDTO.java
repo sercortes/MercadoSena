@@ -35,6 +35,7 @@ public class VentaDTO {
     
    private double descuento;
    private String referencia;
+   private String visto;
    
     public VentaDTO() {
     }
@@ -153,9 +154,19 @@ public class VentaDTO {
         this.referencia = referencia;
     }
 
+    public String getVisto() {
+        return visto;
+    }
+
+    public void setVisto(String visto) {
+        this.visto = visto;
+    }
+
     @Override
     public String toString() {
-        return "VentaDTO{" + "idVenta=" + idVenta + ", fechaVenta=" + fechaVenta + ", valorVenta=" + valorVenta + ", contactoVenta=" + contactoVenta + ", formaPago=" + formaPago + ", idEstadoVentaFK=" + idEstadoVentaFK + ", idCompradorFK=" + idCompradorFK + ", idCiudadFK=" + idCiudadFK + ", nombreFormaPago=" + nombreFormaPago + ", perDTO=" + perDTO + ", tipoVenta=" + tipoVenta + ", listaProductos=" + listaProductos + ", descuento=" + descuento + ", referencia=" + referencia + '}';
+        return "VentaDTO{" + "idVenta=" + idVenta + ", fechaVenta=" + fechaVenta + ", valorVenta=" + valorVenta + ", contactoVenta=" + contactoVenta + ", formaPago=" + formaPago + ", idEstadoVentaFK=" + idEstadoVentaFK + ", idCompradorFK=" + idCompradorFK + ", idCiudadFK=" + idCiudadFK + ", nombreFormaPago=" + nombreFormaPago + ", perDTO=" + perDTO + ", tipoVenta=" + tipoVenta + ", listaProductos=" + listaProductos + ", descuento=" + descuento + ", referencia=" + referencia + ", visto=" + visto + '}';
     }
+
+    
     
 }
