@@ -77,11 +77,11 @@ public class chat extends HttpServlet {
 
                     break;
                     
-                case "/Store/notifyChatAdmin":
-
-                    notifyChatAdmin(request, response);
-
-                    break;
+//                case "/Store/notifyChatAdmin":
+//
+//                    notifyChatAdmin(request, response);
+//
+//                    break;
                     
                 case "/Store/updateQuestion":
 
@@ -236,23 +236,6 @@ public class chat extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private void notifyChatAdmin(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
-        
-        request.setCharacterEncoding("UTF-8");
-        Conexion conexions = new Conexion();
-        PreguntassDAO instructoresDAO = new PreguntassDAO(conexions.getConnection());
-        int numero = 0;
-        try {
-            numero = instructoresDAO.countPreguntas();
-        } catch (SQLException ex) {
-            Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        instructoresDAO.CloseAll();
-        response.setContentType("application/json");
-        new Gson().toJson(numero, response.getWriter());
-        
-    }
-
     private void updateQuestion(HttpServletRequest request, HttpServletResponse response) throws IOException {
         
         request.setCharacterEncoding("UTF-8");
@@ -277,8 +260,13 @@ public class chat extends HttpServlet {
         PreguntassDAO instructoresDAO = new PreguntassDAO(conexions.getConnection());
         usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
         int numero = 0;
+        int rol = usu.getIdRol();
         try {
-            numero = instructoresDAO.countPreguntasComprador(usu.getIdUsuario());
+            if (rol == 3) {
+                 numero = instructoresDAO.countPreguntas();
+            }else{
+                numero = instructoresDAO.countPreguntasComprador(usu.getIdUsuario());                
+            }
         } catch (SQLException ex) {
             ex.printStackTrace();
         }

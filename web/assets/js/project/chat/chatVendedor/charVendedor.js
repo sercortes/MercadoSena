@@ -8,7 +8,7 @@ var array = []
 $(function () {
     
     getPreguntas()
-    getNotify()
+    getNotifys()
     
 })
 function  getPreguntas() {
@@ -221,6 +221,7 @@ function sendRespuesta(data) {
                 success: function (data) {
 
                     if (data) {
+                        enviar()
                         messageOk('Mensaje enviado')
                         questionss()
                         document.getElementById('respuesta').value = ""

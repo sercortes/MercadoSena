@@ -13,13 +13,9 @@ $(function () {
         var arrayBuy = []
         localStorage.setItem('objects', JSON.stringify(arrayBuy))
     }
-    
-    if (getRol() == 3) {
-          getNotify()
-    }
-    
-        if (getRol() == 2) {
-          getNotifys()
+
+    if (checkSession()) {
+        getNotifys()
     }
 
     updateIconNumber()
@@ -286,9 +282,9 @@ function mensajeRedirectHome(mensaje) {
 
 }
 
-function checkByuss2(){
-    
-        $.ajax({
+function checkByuss2() {
+
+    $.ajax({
         type: "POST",
         url: './CheckBuys',
         async: true,
@@ -296,52 +292,29 @@ function checkByuss2(){
     }).done(function (data) {
 
     })
-    
+
 }
 
-function getNotifys(){
-    
+function getNotifys() {
+
     $.ajax({
         url: './notifyNormal',
         type: 'POST',
         dataType: 'json',
         success: function (data) {
-           
+
             if (data <= 0) {
                 return false
             }
-           
-            if (data>=10) {
+
+            if (data >= 10) {
                 $('#numberchat').text('+10')
-            }else{
+            } else {
                 $('#numberchat').text(data)
             }
 
         }
     })
-    
+
 }
 
-
-function getNotify(){
-    
-    $.ajax({
-        url: './notifyChatAdmin',
-        type: 'POST',
-        dataType: 'json',
-        success: function (data) {
-           
-            if (data <= 0) {
-                return false
-            }
-           
-            if (data>=10) {
-                $('#numberchat').text('+10')
-            }else{
-                $('#numberchat').text(data)
-            }
-
-        }
-    })
-    
-}

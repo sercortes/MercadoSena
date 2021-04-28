@@ -1,8 +1,4 @@
-<%-- 
-    Document   : newjsp
-    Created on : 5/06/2020, 08:32:50 PM
-    Author     : DELL
---%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@include file="/views/template/head.jspf"%>
@@ -10,10 +6,6 @@
 <c:if test="${ empty USER.idRol}">
     <c:redirect url="./home"/>
 </c:if>
-
-
-<link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
 
 <%@include file="/views/template/header.jspf"%>
 
@@ -48,9 +40,6 @@
                                 <div class="px-4 py-5 chat-box bg-white" id="chatPreguntas">
 
 
-
-
-
                                 </div>
 
                                 <!-- Typing area -->
@@ -83,12 +72,8 @@
 </div>
 </div>
 
-
-
-
 <%@include file="/views/preguntas/modalVerProductoPregunta.jspf"%>
 <%@include file="/views/template/footer.jspf"%>
-
 
 <script src="./assets/js/pagination/pager.js" charset="utf-8"></script>
 
@@ -100,8 +85,6 @@
     <script src="./assets/js/project/chat/chatComprador/chatComprador.js" charset="utf-8"></script>
 </c:if>
 
-<script src="./assets/js/project/preguntas/preguntas.js" charset="utf-8"></script>
-<script src="./assets/js/project/compra/realizarPedido.js" type="text/javascript"></script>
 
 
 
