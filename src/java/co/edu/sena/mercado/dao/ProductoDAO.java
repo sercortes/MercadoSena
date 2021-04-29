@@ -170,7 +170,8 @@ public class ProductoDAO {
             boolean estado = rows > 0;
             return estado;
         } catch (Exception ex) {
-            System.out.println("Error edit " + ex.getMessage());
+            ex.printStackTrace();
+            System.out.println(ps.toString());
             throw new Exception();
         }
     }
@@ -246,7 +247,7 @@ public class ProductoDAO {
             }
             return (ArrayList<Producto>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(ps.toString());
             e.printStackTrace();
             return null;
         }
@@ -284,7 +285,7 @@ public class ProductoDAO {
             }
             return producto;
         } catch (Exception e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la consulta del producto " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             return null;
         }
@@ -314,7 +315,7 @@ public class ProductoDAO {
             }
             return producto;
         } catch (Exception e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la consulta del producto " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             return null;
         }
@@ -332,8 +333,8 @@ public class ProductoDAO {
             boolean estado = rows > 0;
             return estado;
         } catch (Exception ex) {
+            ex.printStackTrace();
             System.out.println(ps.toString());
-            System.out.println("Error edit " + ex.getMessage());
             throw new Exception();
         }
     }

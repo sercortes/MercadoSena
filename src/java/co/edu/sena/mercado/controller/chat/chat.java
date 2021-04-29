@@ -166,6 +166,7 @@ public class chat extends HttpServlet {
     }
 
     private void getRespuestasByQuestion(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
         request.setCharacterEncoding("UTF-8");
         Conexion conexions = new Conexion();
         PreguntassDAO instructoresDAO = new PreguntassDAO(conexions.getConnection());
@@ -174,6 +175,7 @@ public class chat extends HttpServlet {
         instructoresDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(autores, response.getWriter());
+        
     }
 
     private void getPreguntaByUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -198,8 +200,7 @@ public class chat extends HttpServlet {
             response.setContentType("application/json");
             new Gson().toJson(autores, response.getWriter());
         } catch (SQLException ex) {
-  
-//                cone.rollback();
+            ex.printStackTrace();
             
         }finally{
            preguntasdao.CloseAll();
@@ -252,7 +253,7 @@ public class chat extends HttpServlet {
         try {
             status = instructoresDAO.preguntaVista(request.getParameter("idP"));
         } catch (SQLException ex) {
-            Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
         instructoresDAO.CloseAll();
         response.setContentType("application/json");
@@ -276,8 +277,9 @@ public class chat extends HttpServlet {
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
+        } finally{
+            instructoresDAO.CloseAll();
         }
-        instructoresDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(numero, response.getWriter());
         
@@ -292,9 +294,10 @@ public class chat extends HttpServlet {
         try {
             status = instructoresDAO.respuestaVista(request.getParameter("idP"));
         } catch (SQLException ex) {
-            Logger.getLogger(chat.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
+        }finally{
+            instructoresDAO.CloseAll();
         }
-        instructoresDAO.CloseAll();
         response.setContentType("application/json");
         new Gson().toJson(status, response.getWriter());
         

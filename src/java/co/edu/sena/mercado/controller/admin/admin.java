@@ -88,7 +88,10 @@ public class admin extends HttpServlet {
         Connection cone = null;
 
         try {
-
+            
+            System.out.println("-------");
+            System.out.println("CATEGORYY");
+            System.out.println(request.getParameter("nombre"));
             cone = conexion.getConnection();
             if (cone.getAutoCommit()) {
                 cone.setAutoCommit(false);
@@ -107,10 +110,8 @@ public class admin extends HttpServlet {
                 ex.printStackTrace();
                 new Gson().toJson(false, response.getWriter());
                 System.out.println("ROLL BACK DELETE PRODUCT");
-                System.out.println(ex);
             } catch (SQLException ex1) {
                 ex1.printStackTrace();
-                Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex1);
             }
 
         } finally {
@@ -127,6 +128,10 @@ public class admin extends HttpServlet {
         Connection cone = null;
 
         try {
+            
+            System.out.println("----");
+            System.out.println("NUEVA MARCA");
+            System.out.println(request.getParameter("nombre"));
 
             cone = conexion.getConnection();
             if (cone.getAutoCommit()) {
@@ -149,7 +154,6 @@ public class admin extends HttpServlet {
                 System.out.println(ex);
             } catch (SQLException ex1) {
                 ex1.printStackTrace();
-                Logger.getLogger(admin.class.getName()).log(Level.SEVERE, null, ex1);
             }
 
         } finally {
@@ -171,7 +175,9 @@ public class admin extends HttpServlet {
         PersonasNaturalDAO personaNaturalDAO = null;
         EmpresasDAO empresaDAO = null;
         try {
-
+            
+            System.out.println("-------");
+            System.out.println("CREAR VENDEDOR");
             Conexion conexion = new Conexion();
             conn = conexion.getConnection();
 
@@ -187,36 +193,30 @@ public class admin extends HttpServlet {
             usuarioDTO.setEstadoUsu("1");
             String clave = codigo.generarCod();
             usuarioDTO.setClaveUsu(clave);
-
             usuarioDTO.setIdRol(3);
-
             int idUser = usuarioDAO.registroVendedor(usuarioDTO);
             usuarioDTO.setIdUsuario(idUser);
-            System.out.println(usuarioDTO.toString());
             personaNaturalDTO personaNaturalDTO = new personaNaturalDTO();
             personaNaturalDTO.setApellidoPer(request.getParameter("apellidoUsuario"));
             personaNaturalDTO.setCorreoPer(request.getParameter("correoUsuario"));
-//            personaNaturalDTO.setIdCiudad(Integer.parseInt(request.getParameter("ciudadUsuario")));
-//            personaNaturalDTO.setNumCelularPer(request.getParameter("celularUsuario"));
             personaNaturalDTO.setNombrePer(request.getParameter("nombreUsuario"));
             personaNaturalDTO.setUrlImg("./assets/images/usuario/imagenDefecto.png");
             personaNaturalDTO.setIdUsuario(idUser);
 
             personaNaturalDAO.registrarPersona(personaNaturalDTO);
-            System.out.println(personaNaturalDTO.toString());
-
             enviar.envCorreoVendedor(usuarioDTO.getCorreoUsu(), clave);
-
+            System.out.println(personaNaturalDTO.toString());
+            System.out.println("CREADA");
             conn.commit();
             new Gson().toJson(1, response.getWriter());
         } catch (MySQLIntegrityConstraintViolationException ex1) {
             try {
                 conn.rollback();
             } catch (SQLException ex3) {
-                System.out.println(ex3);
+                ex3.printStackTrace();
             }
             System.out.println("ROLL BACK CONSTRAINT EXCEPTION");
-            System.out.println(ex1);
+            ex1.printStackTrace();
             new Gson().toJson(2, response.getWriter());
         } catch (SQLException ex) {
             try {
@@ -225,7 +225,7 @@ public class admin extends HttpServlet {
                 System.out.println(ex1);
             }
             System.out.println("ROLL BACK SQL EXCEPTION REGISTRO");
-            System.out.println(ex);
+            ex.printStackTrace();
             new Gson().toJson(3, response.getWriter());
         } catch (Exception ex) {
             try {
@@ -234,7 +234,7 @@ public class admin extends HttpServlet {
                 System.out.println(ex1);
             }
             System.out.println("ROLL BACK GENERAL EXCEPTION");
-            System.out.println(ex);
+            ex.printStackTrace();
             new Gson().toJson(3, response.getWriter());
         } finally {
             usuarioDAO.CloseAll();

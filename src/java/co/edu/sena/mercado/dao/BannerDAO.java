@@ -38,7 +38,8 @@ public class BannerDAO {
             }
             return (ArrayList<Banner>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }
@@ -58,7 +59,7 @@ public class BannerDAO {
             return estado;
         } catch (Exception ex) {
             ex.printStackTrace();
-            System.out.println("Error edit " + ex.getMessage());
+            System.out.println(ps.toString());
             throw new Exception();
         }
     }

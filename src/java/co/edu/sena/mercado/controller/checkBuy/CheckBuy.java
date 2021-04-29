@@ -75,7 +75,7 @@ public class CheckBuy extends HttpServlet {
         
         for(VentaDTO item: lista){
             
-            System.out.println("");
+            System.out.println("CHECK BUY");
             System.out.println(item.toString());
             user = CRestPse.consultarPagoDos(item.getReferencia());
             
@@ -128,7 +128,7 @@ public class CheckBuy extends HttpServlet {
         
         for(VentaDTO item: lista){
             
-            System.out.println("");
+            System.out.println("CHECK BUY ADMIN");
             user = CRestPse.consultarPagoDos(item.getReferencia());
             System.out.println(user.toString());
             

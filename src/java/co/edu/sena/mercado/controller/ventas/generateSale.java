@@ -87,7 +87,9 @@ public class generateSale extends HttpServlet {
     private void generateSales(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 
         usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
-
+        System.out.println("GENERATE SALE");
+        System.out.println(usu.toString());
+        
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
@@ -119,7 +121,8 @@ public class generateSale extends HttpServlet {
             for (ProducctoDTO item : producctoDTOs) {
                 if (!productosPedidosDAO.checkProductsCustomer(item)) {
                     estatus = false;
-                    System.out.println("VENTA ERRADA generate sale");
+                    System.out.println("Error stock/precio productos");
+                    System.out.println(item.toString());
                     new Gson().toJson(0, response.getWriter());
                 }
             }
@@ -158,8 +161,8 @@ public class generateSale extends HttpServlet {
             conn.commit();
             request.getSession().setAttribute("IDVENTA", Integer.toString(idVenta));
             new Gson().toJson(idVenta, response.getWriter());    
+            System.out.println("");
             }
-            
         } catch (Exception ex) {
             conn.rollback();
             ex.printStackTrace();

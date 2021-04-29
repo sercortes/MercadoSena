@@ -231,27 +231,25 @@ public class registro extends HttpServlet {
             usuarioDTO.setEstadoUsu("0");
             String clave = usuarioDTO.getClaveUsu();
             usuarioDTO.setCodigo(codigo.generarCod());
-
             usuarioDTO.setIdRol(2);
 
             int idUser = usuarioDAO.registroUsuario(usuarioDTO);
-            System.out.println(idUser + " USERRERER");
             usuarioDTO.setIdUsuario(idUser);
-            System.out.println(usuarioDTO.toString());
             personaNaturalDTO personaNaturalDTO = new personaNaturalDTO();
             personaNaturalDTO.setApellidoPer(request.getParameter("apellidoUsuario"));
             personaNaturalDTO.setCorreoPer(request.getParameter("correoUsuario"));
-//            personaNaturalDTO.setIdCiudad(Integer.parseInt(request.getParameter("ciudadUsuario")));
             personaNaturalDTO.setNumCelularPer(request.getParameter("celularUsuario"));
             personaNaturalDTO.setNombrePer(request.getParameter("nombreUsuario"));
             personaNaturalDTO.setUrlImg("./assets/images/usuario/imagenDefecto.png");
             personaNaturalDTO.setIdUsuario(idUser);
 
             personaNaturalDAO.registrarPersona(personaNaturalDTO);
-            System.out.println(personaNaturalDTO.toString());
 
             enviar.envCorreo(usuarioDTO.getCorreoUsu(), clave, usuarioDTO.getCodigo());
-
+            System.out.println("REGISTRADO");
+            System.out.println(personaNaturalDTO.toString());
+            System.out.println(usuarioDTO.toString());
+            System.out.println("");
             conn.commit();
             new Gson().toJson(1, response.getWriter());
         } catch (MySQLIntegrityConstraintViolationException ex1) {
@@ -261,16 +259,16 @@ public class registro extends HttpServlet {
                 System.out.println(ex3);
             }
             System.out.println("ROLL BACK CONSTRAINT EXCEPTION");
-            System.out.println(ex1);
+            ex1.printStackTrace();
             new Gson().toJson(2, response.getWriter());
         } catch (SQLException ex) {
             try {
                 conn.rollback();
             } catch (SQLException ex1) {
-                System.out.println(ex1);
+                ex1.printStackTrace();
             }
             System.out.println("ROLL BACK SQL EXCEPTION REGISTRO");
-            System.out.println(ex);
+            ex.printStackTrace();
             new Gson().toJson(3, response.getWriter());
         } catch (Exception ex) {
             try {
@@ -279,7 +277,7 @@ public class registro extends HttpServlet {
                 System.out.println(ex1);
             }
             System.out.println("ROLL BACK GENERAL EXCEPTION");
-            System.out.println(ex);
+            ex.printStackTrace();
             new Gson().toJson(3, response.getWriter());
         } finally {
             usuarioDAO.CloseAll();
@@ -355,7 +353,6 @@ public class registro extends HttpServlet {
         empresaDTO.setDirEmpresa(request.getParameter("direccionEmpresa"));
         empresaDTO.setIdCiudad(Integer.parseInt(request.getParameter("idCiudadEmpresa")));
         empresaDTO.setEsEmpresa(1);
-
         return empresaDTO;
 
     }

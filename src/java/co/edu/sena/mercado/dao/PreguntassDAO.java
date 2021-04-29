@@ -57,7 +57,7 @@ public class PreguntassDAO {
             }
             return numero;
         } catch (SQLException e) {
-            System.out.println("error getPreguntas " + e);
+            e.printStackTrace();
             System.out.println("consulta " + ps.toString());
             throw new SQLException();
         }
@@ -76,7 +76,7 @@ public class PreguntassDAO {
             }
             return numero;
         } catch (SQLException e) {
-            System.out.println("error getPreguntas " + e);
+            e.printStackTrace();
             System.out.println("consulta " + ps.toString());
             throw new SQLException();
         }
@@ -107,7 +107,7 @@ public class PreguntassDAO {
             }
             return listaPregunta;
         } catch (SQLException e) {
-            System.out.println("error getPreguntas " + e);
+            e.printStackTrace();
             System.out.println("consulta " + ps.toString());
             return null;
         }
@@ -140,7 +140,7 @@ public class PreguntassDAO {
             }
             return listaPregunta;
         } catch (SQLException e) {
-            System.out.println("error getPreguntas " + e);
+            e.printStackTrace();
             System.out.println("consulta " + ps.toString());
             return null;
         }
@@ -155,7 +155,6 @@ public class PreguntassDAO {
             ps = conn.prepareStatement(consulta);
             ps.setString(1, idUsu);
             ps.setString(2, idPro);
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             while (rs.next()) {
                 preguntasDTO preDTO = new preguntasDTO();
@@ -167,7 +166,7 @@ public class PreguntassDAO {
             }
             return listaPregunta;
         } catch (SQLException e) {
-            System.out.println("error getPreguntas " + e);
+            e.printStackTrace();
             System.out.println("consulta " + ps.toString());
             return null;
         }
@@ -180,7 +179,6 @@ public class PreguntassDAO {
         try {
             ps = conn.prepareStatement(consulta);
             ps.setString(1, idPregunta);
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             while (rs.next()) {
                 respuestaDTO resDTO = new respuestaDTO();
@@ -192,7 +190,7 @@ public class PreguntassDAO {
             }
             return listaPregunta;
         } catch (SQLException e) {
-            System.out.println("error getPreguntas " + e);
+            e.printStackTrace();
             System.out.println("consulta " + ps.toString());
             return null;
         }
@@ -208,7 +206,7 @@ public class PreguntassDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("xxxxxxxxxxxxxx error al actualizar el visto de la pregunta " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             throw new SQLException();
         } 
@@ -223,7 +221,7 @@ public class PreguntassDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("xxxxxxxxxxxxxx error al actualizar el visto de la pregunta " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             throw new SQLException();
         } 

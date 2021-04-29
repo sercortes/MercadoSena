@@ -88,6 +88,9 @@ public class Validation extends HttpServlet {
 
     private void checkProducts(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, SQLException, IOException {
        
+        usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
+        System.out.println("CHECK PRODUCTO");
+        System.out.println(user.toString());
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
@@ -118,7 +121,7 @@ public class Validation extends HttpServlet {
                 System.out.println("ARREGLO VACIO VENTA");
                 estatus = false;
             }
-            
+            System.out.println("");
             if (estatus) {
                 new Gson().toJson(true, response.getWriter());    
             }

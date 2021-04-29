@@ -47,15 +47,14 @@ public class ProductoColorDAO {
             if (rs.next()) {
                 idComprador = rs.getInt(1);
             }
-            System.out.println("............................."+ps.toString());
             return idComprador;
         } catch (MySQLIntegrityConstraintViolationException e) {
-            System.out.println(e);
             e.printStackTrace();
+            System.out.println(ps.toString());
             throw new Exception();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(e);
+            System.out.println(ps.toString());
             throw new Exception();
         }
 
@@ -77,7 +76,8 @@ public class ProductoColorDAO {
             }
             return (ArrayList<ColorDTO>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }
@@ -88,7 +88,6 @@ public class ProductoColorDAO {
                     + "WHERE PC.productoFK = ? ORDER BY PC.idProductoColor ASC";
             ps = conn.prepareStatement(sql);
             ps.setString(1, idProducto);
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             List<ColorDTO> list = new ArrayList<ColorDTO>();
             ColorDTO colorDTO;
@@ -101,7 +100,8 @@ public class ProductoColorDAO {
             }
             return (ArrayList<ColorDTO>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }
@@ -139,7 +139,8 @@ public class ProductoColorDAO {
             boolean estado = rows > 0;
             return estado;
         } catch (Exception ex) {
-            System.out.println("Error edit " + ex.getMessage());
+            ex.printStackTrace();
+            System.out.println(ps.toString());
             throw new Exception();
         }
     }

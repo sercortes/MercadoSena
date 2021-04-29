@@ -86,6 +86,8 @@ public class ValidationCompra extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
+        System.out.println("CHECK UPDATE DATA USU");
+        System.out.println(usu.toString());
         personaNaturalDTO perDTO = usu.getPersona();
 
         if (StringUtils.isEmptyOrWhitespaceOnly(perDTO.getNombrePer())
@@ -115,6 +117,7 @@ public class ValidationCompra extends HttpServlet {
         perDTO.setNumCelularPer(request.getParameter("celular"));
         perDTO.setTelPer(request.getParameter("telefono"));
         System.out.println("ACTUALIZAR");
+        System.out.println(usu.toString());
         perDTO.toString();
         PersonasNaturalDAO personasNaturalDAO = null;
 
@@ -126,7 +129,7 @@ public class ValidationCompra extends HttpServlet {
             request.getSession().setAttribute("USER", usu);
         } catch (Exception ex) {
             new Gson().toJson(false, response.getWriter());
-            System.out.println(ex);
+            ex.printStackTrace();
         } finally {
             personasNaturalDAO.CloseAll();
         }
@@ -139,6 +142,8 @@ public class ValidationCompra extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
         usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
+        System.out.println("CHECK COMPRAS IMCOMPLETE");
+        System.out.println(usu.toString());
         PersonasNaturalDAO personasNaturalDAO = null;
         int numero = 0;
 
@@ -149,12 +154,10 @@ public class ValidationCompra extends HttpServlet {
                 throw new Exception();
             }
 
-            System.out.println("PETICIONES");
-
             personasNaturalDAO = new PersonasNaturalDAO(new Conexion().getConnection());
             numero = personasNaturalDAO.getComprasIncomplete(Integer.toString(usu.getPersona().getIdPer()));
-            System.out.println("NUMERO: "+numero);
-            System.out.println(numero >= 4);
+            System.out.println("Compras incomplete "+numero);
+            System.out.println("");
             if (numero >= 4) {
                 request.getSession().setAttribute("BLOQUEO", 1);
             } else {
@@ -164,7 +167,6 @@ public class ValidationCompra extends HttpServlet {
         } catch (Exception ex) {
             ex.printStackTrace();
             new Gson().toJson(0, response.getWriter());
-            System.out.println(ex);
         } finally {
             personasNaturalDAO.CloseAll();
         }

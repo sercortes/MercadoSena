@@ -58,7 +58,8 @@ public class ProductorDAOQuerys {
             }
             return (ArrayList<Producto>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(ps.toString());
+            e.printStackTrace();
             return null;
         }
     }
@@ -92,7 +93,8 @@ public class ProductorDAOQuerys {
             }
             return (ArrayList<Producto>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }
@@ -142,7 +144,7 @@ public class ProductorDAOQuerys {
             return (ArrayList<Producto>) list;
 
         } catch (Exception e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             return null;
         }
@@ -165,7 +167,6 @@ public class ProductorDAOQuerys {
     
             ps = conn.prepareStatement(sql);
             ps.setString(1, Categoria);
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
             while (rs.next()) {
@@ -184,7 +185,6 @@ public class ProductorDAOQuerys {
 
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             return null;
         }
@@ -222,7 +222,6 @@ public class ProductorDAOQuerys {
             ps.setString(4, "%" + pro.getNombreProducto() + "%");
             ps.setString(5, pro.getNombreCategoria());
             ps.setString(6, "%" + pro.getNombreProducto() + "%");
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
             while (rs.next()) {
@@ -240,7 +239,7 @@ public class ProductorDAOQuerys {
             return (ArrayList<Producto>) list;
 
         } catch (Exception e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             return null;
         }
@@ -262,7 +261,6 @@ public class ProductorDAOQuerys {
               
             ps = conn.prepareStatement(sql);
             ps.setString(1, marca);
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
             while (rs.next()) {
@@ -280,7 +278,7 @@ public class ProductorDAOQuerys {
             return (ArrayList<Producto>) list;
 
         } catch (Exception e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             return null;
         }
@@ -317,7 +315,6 @@ public class ProductorDAOQuerys {
             ps.setString(4, "%" + name + "%");
             ps.setString(5, marca);
             ps.setString(6, "%" + name + "%");
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
             while (rs.next()) {
@@ -335,7 +332,7 @@ public class ProductorDAOQuerys {
             return (ArrayList<Producto>) list;
 
         } catch (Exception e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             return null;
         }
@@ -358,7 +355,6 @@ public class ProductorDAOQuerys {
             ps = conn.prepareStatement(sql);
             ps.setString(1, marca);
             ps.setString(2, categoria);
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
             while (rs.next()) {
@@ -376,7 +372,7 @@ public class ProductorDAOQuerys {
             return (ArrayList<Producto>) list;
 
         } catch (Exception e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             return null;
         }
@@ -419,7 +415,6 @@ public class ProductorDAOQuerys {
             ps.setString(8, "%" + pro.getNombreProducto() + "%");
             ps.setString(9, pro.getMarcaProducto());
 
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             Producto producto;
             while (rs.next()) {
@@ -437,7 +432,7 @@ public class ProductorDAOQuerys {
             return (ArrayList<Producto>) list;
 
         } catch (Exception e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx error al realizar la busqueda del producto " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             return null;
         }

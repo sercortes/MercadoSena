@@ -86,7 +86,7 @@ public class preguntasDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("xxxxxxxxxxxxxx error al cambiar estado de la pregunta " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             return false;
         } finally {

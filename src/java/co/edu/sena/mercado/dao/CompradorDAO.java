@@ -103,7 +103,8 @@ public class CompradorDAO {
             }
             return (ArrayList<MetodoPago>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
         

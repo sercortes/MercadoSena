@@ -112,7 +112,7 @@ public class Rutas extends HttpServlet {
         response.setContentType("application/json");
         String usuario = request.getParameter("usuario");
         String hash = request.getParameter("codigo");
-        System.out.println("XXXXXXXXXXXx");
+        System.out.println("RESET ACCOUNT");
         System.out.println(usuario);
         System.out.println(hash);
         RequestDispatcher rd;

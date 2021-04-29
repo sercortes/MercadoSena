@@ -9,6 +9,7 @@ import co.edu.sena.mercado.dao.ImagenesProductosDAO;
 import co.edu.sena.mercado.dao.ProductoDAO;
 import co.edu.sena.mercado.dto.ImagenesProducto;
 import co.edu.sena.mercado.dto.Producto;
+import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import com.mysql.jdbc.StringUtils;
@@ -77,6 +78,10 @@ public class UpdateProduct extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        
+        usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
+        System.out.println("UPDATE PRODUCT");
+        System.out.println(user.toString());
 
         int hasFiles = Integer.parseInt(request.getParameter("files"));
 
@@ -116,6 +121,7 @@ public class UpdateProduct extends HttpServlet {
                 }
 
                 System.out.println(producto.toString());
+                System.out.println("");
                 folder = producto.getIdProducto();
                 productoDAO.updateProduct(producto);
 
@@ -171,7 +177,6 @@ public class UpdateProduct extends HttpServlet {
                 e.printStackTrace();
                 cone.rollback();
                 codigo = false;
-                System.out.println(e);
                 System.out.println("ROLL BACK EDITAR PRODUCTO");
 
             } finally {
@@ -267,7 +272,6 @@ public class UpdateProduct extends HttpServlet {
         if (StringUtils.isNullOrEmpty(name)) {
             throw new Exception();
         }
-        System.out.println("DDDDDDD");
 
         if (tempFile.exists()) {
             tempFile.delete();

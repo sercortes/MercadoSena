@@ -46,7 +46,8 @@ public class CategorysDAO {
             }
             return (ArrayList<Categorys>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }
@@ -61,21 +62,19 @@ public class CategorysDAO {
             ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
             ps.setString(1, nombreCategoria);
-            System.out.println(ps.toString());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
                 idComprador = rs.getInt(1);
             }
-            System.out.println("............................."+ps.toString());
             return idComprador;
         } catch (MySQLIntegrityConstraintViolationException e) {
-            System.out.println(e);
+            System.out.println(ps.toString());
             e.printStackTrace();
             throw new Exception();
         } catch (Exception e) {
+            System.out.println(ps.toString());
             e.printStackTrace();
-            System.out.println(e);
             throw new Exception();
         }
 
@@ -96,13 +95,14 @@ public class CategorysDAO {
             if (rs.next()) {
                 idComprador = rs.getInt(1);
             }
-            System.out.println("............................."+ps.toString());
             return idComprador;
         } catch (MySQLIntegrityConstraintViolationException e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             throw new Exception();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             throw new Exception();
         }
 

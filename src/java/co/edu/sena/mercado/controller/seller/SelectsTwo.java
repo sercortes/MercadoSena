@@ -8,6 +8,7 @@ import co.edu.sena.mercado.dto.ColorDTO;
 import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.dto.ProductoColor;
 import co.edu.sena.mercado.dto.VentaDTO;
+import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -59,7 +60,11 @@ public class SelectsTwo extends HttpServlet {
     }
 
     private void updateStockColors(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
+        
+        usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
+        System.out.println("UPDATE STOCK COLOR");
+        System.out.println(user.toString());
+        
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
@@ -73,13 +78,13 @@ public class SelectsTwo extends HttpServlet {
         try {
             productoColorDAO = new ProductoColorDAO(new Conexion().getConnection());
             for (ProductoColor item : producctoDTOs) {
+                System.out.println(item.toString());
                 productoColorDAO.updateColorsStock(item);
             }
             new Gson().toJson(1, response.getWriter());
         } catch (Exception ex) {
             ex.printStackTrace();
             new Gson().toJson(0, response.getWriter());
-            System.out.println(ex);
         } finally {
             productoColorDAO.CloseAll();
         }

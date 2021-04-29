@@ -139,7 +139,8 @@ public class personaNaturalDAO {
             }
             return persona;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         } finally {
             Conexion.close(cn);

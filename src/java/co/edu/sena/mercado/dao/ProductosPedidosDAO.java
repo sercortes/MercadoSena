@@ -43,13 +43,14 @@ public class ProductosPedidosDAO {
             ps.setString(3, pedidosDTO.getIdVentaFK());
             ps.setInt(4, pedidosDTO.getCantidad());
             ps.executeUpdate();
-            System.out.println("............................." + ps.toString());
             return true;
         } catch (MySQLIntegrityConstraintViolationException e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             throw new Exception();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             throw new Exception();
         }
 
@@ -69,7 +70,6 @@ public class ProductosPedidosDAO {
             ps.setInt(2, producctoDTO.getCantidad());
             ps.setDouble(3, producctoDTO.getValorUnitario());
             
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             if (rs.next()) {
                 statusP = true;
@@ -77,7 +77,7 @@ public class ProductosPedidosDAO {
             return statusP;
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(e);
+            System.out.println(ps.toString());
             return false;
         }
     }
@@ -128,11 +128,10 @@ public class ProductosPedidosDAO {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, productoDTO.getStock());
             ps.setString(2, productoDTO.getIdProductoColor());
-            System.out.println("..........................." + ps.toString());
             ps.executeUpdate();
             return true;
         } catch (Exception ex) {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar actualizarCantidad PrpductoDAO " + ex);
+            ex.printStackTrace();
             System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX consulta " + ps.toString());
             return false;
         }
