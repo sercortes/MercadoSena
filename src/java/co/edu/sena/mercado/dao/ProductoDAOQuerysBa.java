@@ -67,6 +67,41 @@ public class ProductoDAOQuerysBa {
         }
     }
 
+      public Producto getInfoOneProduct(String id) {
+        try {
+            
+            String sql = "SELECT COUNT(*) 'cantidadColores', "
+            + "(SELECT urlProducto FROM imagenesproductos WHERE idProductoImageFK = PR.idProducto LIMIT 1) 'imagen', "
+            + "PR.idProducto, PR.nombreProducto, PR.valorProductoVendedor, PR.descripcionProducto, "
+            + "C.nombreColor, PC.stockProducto, PC.idProductoColor, PR.referencia FROM producto PR "
+            + "INNER JOIN ProductoColor PC ON PR.idProducto=PC.productoFK "
+            + "INNER JOIN colorProducto C ON PC.colorFK = C.idColor "
+            + "WHERE PR.idProducto = ? "
+            + "GROUP BY PR.idProducto "
+            + "LIMIT 1";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            Producto producto = new Producto();
+            while (rs.next()) {
+                producto.setImagenUnitaria(Producto.SERVER_UPLOAD+rs.getString("imagen"));
+                producto.setIdProducto(rs.getString("idProducto"));
+                producto.setNombreProducto(rs.getString("nombreProducto"));
+                producto.setValorProducto(rs.getDouble("valorProductoVendedor"));
+                producto.setStockProducto(rs.getInt("PC.stockProducto"));
+                producto.setDescripcionProducto(rs.getString("descripcionProducto"));
+                producto.setColor(rs.getString("C.nombreColor"));
+                producto.setCantidadColores(rs.getString("cantidadColores"));
+                producto.setIdProductoColor(rs.getString("PC.idProductoColor"));
+                producto.setReferencia(rs.getString("PR.referencia"));
+            }
+            return producto;
+        } catch (Exception e) {
+            System.out.println(e);
+            return null;
+        }
+    }
+    
     public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);

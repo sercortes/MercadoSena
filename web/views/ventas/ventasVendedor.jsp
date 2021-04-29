@@ -17,7 +17,9 @@
 
 <div class="container py-3">
 
-    <div class="col-lg-2 float-right">
+ 
+
+    <div class="col-lg-2 col-sm-12 col-xs-12 float-right">
         <div class="form-group">
             <label for="exampleFormControlSelect1">Tipo de ventas:</label>
             <select class="form-control" id="selectTipe">
@@ -27,12 +29,14 @@
         </div>
     </div>
 
-    <div class="col-lg-9 mx-auto text-black text-center">
+    
+    <div class="text-black text-center">
         <div id="tituloPagina">
-            <h1 class="display-4">Mis ventas</h1>   
+            <h1 class="">Mis ventas</h1>   
         </div>
     </div>
-
+    
+       
     <div id="content" class="p-5 bg-white rounded shadow mb-5">
         <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav">
             <li class="nav-item flex-sm-fill">

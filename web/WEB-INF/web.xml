@@ -104,6 +104,10 @@
         <servlet-name>wompy</servlet-name>
         <servlet-class>co.edu.sena.mercado.controller.checkBuy.wompy</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Logs</servlet-name>
+        <servlet-class>co.edu.sena.mercado.controller.log.Logs</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Rutas</servlet-name>
         <url-pattern>/Searching...</url-pattern>
@@ -208,6 +212,7 @@
         <servlet-name>SelectsTwo</servlet-name>
         <url-pattern>/updateStockColors</url-pattern>
         <url-pattern>/newColor</url-pattern>
+        <url-pattern>/getInfoVenta</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>admin</servlet-name>
@@ -240,6 +245,7 @@
     <servlet-mapping>
         <servlet-name>queryBasic</servlet-name>
         <url-pattern>/getProductsByDateTimeBasic</url-pattern>
+        <url-pattern>/getInfoOneProduct</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>generateSaleByVendedor</servlet-name>
@@ -271,6 +277,10 @@
     <servlet-mapping>
         <servlet-name>wompy</servlet-name>
         <url-pattern>/wompy</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Logs</servlet-name>
+        <url-pattern>/getLogs</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

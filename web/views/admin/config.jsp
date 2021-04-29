@@ -40,23 +40,57 @@
 
         </div>
         <div class="col-md-6">
-        <hr>
+            <hr>
             <h4 class="text-left">Texto Banner</h4>
-            
+
             <div id="banners">
-                
+
             </div>
-            
+
             <button id="editBanner" type="submit" class="btn btn-primary mb-2 float-right"><i class="fas fa-plus-circle"></i> Cambiar</button>
 
         </div>
-        
-         <div class="col-md-6">
-             <hr>
+
+        <div class="col-md-6">
+            <hr>
             <h4 class="text-left">Vendedor</h4>
             <h5 class="text-black">Crea un nuevo vendedor para administrar el sistema</h5>
             <button id="modalAdd" class="btn btn-primary mb-2 float-right"><i class="fas fa-plus-circle"></i> Nuevo</button>
 
+        </div>
+        <div class="container">
+        <hr>
+            <h3>Eventos sistema</h3>
+            <div class="row">
+
+
+
+                    <div class="col-lg-12 col-sm-12 col-xs-12 p-5 bg-white rounded shadow-sm mb-5 w-100">
+
+                        <table id="example" class="table table-hover table-striped table-borderless table-responsive">
+
+                            <thead class="gris text-center">
+                                <tr class="bg-primary">
+                                    <th class="align-middle" scope="col">Id</th>
+                                    <th class="align-middle" scope="col">Nombre</th>
+                                    <th class="align-middle" scope="col">Fecha</th>
+                                    <th class="align-middle" scope="col">Usuario</th>
+                                    <th class="text-left" scope="col">Detalles</th>
+                                </tr>
+                            </thead>
+                            <tfoot class="gris text-center">
+                                <tr class="bg-primary">
+                                    <th class="align-middle" scope="col">Imagen</th>
+                                    <th class="align-middle" scope="col">Nombre</th>
+                                    <th class="align-middle" scope="col">Fecha</th>
+                                    <th class="align-middle" scope="col">Usuario</th>
+                                    <th class="align-middle" scope="col">Detalles</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+
+            </div>
         </div>
 
     </div>
@@ -66,7 +100,12 @@
 <%@include file="/views/searching/htmlSearch.jspf"%>
 <%@include file="/views/searching/modalVerProducto.jspf"%>
 <%@include file="/views/admin/modalAdd.jspf"%>
+<%@include file="/views/admin/modalDeta.jspf"%>
+<%@include file="/views/admin/modalVerProducto.jspf"%>
 <%@include file="/views/template/footer.jspf"%>
 
+<script src="./assets/js/pagination/jquery.dataTables.min.js"></script>
 <script src="./assets/js/project/config/config.js" type="text/javascript"></script>
 <script src="./assets/js/project/config/add.js" type="text/javascript"></script>
+<script src="./assets/js/project/config/logs.js" type="text/javascript"></script>
+<script src="./assets/js/project/config/logs2.js" type="text/javascript"></script>

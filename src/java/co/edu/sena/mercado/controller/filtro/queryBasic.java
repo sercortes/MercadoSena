@@ -12,6 +12,7 @@ import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -37,6 +38,13 @@ public class queryBasic extends HttpServlet {
             case "/Store/getProductsByDateTimeBasic":
 
                 getProductsByDateTimeBasic(request, response);
+
+                break;
+                
+                
+            case "/Store/getInfoOneProduct":
+
+                getInfoOneProduct(request, response);
 
                 break;
 
@@ -67,5 +75,18 @@ public class queryBasic extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void getInfoOneProduct(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, IOException {
+        
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        ProductoDAOQuerysBa productoDAO = new ProductoDAOQuerysBa(conexion.getConnection());
+        Producto producto = productoDAO.getInfoOneProduct(request.getParameter("idPro"));
+        productoDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(producto, response.getWriter());
+        
+    }
     
 }

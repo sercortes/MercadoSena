@@ -7,11 +7,13 @@ package co.edu.sena.mercado.controller.ventas;
 
 import co.edu.sena.mercado.dao.CompradorDAO;
 import co.edu.sena.mercado.dao.EmpresaPedidoDAO;
+import co.edu.sena.mercado.dao.LogsDAO;
 import co.edu.sena.mercado.dao.PersonasNaturalDAO;
 import co.edu.sena.mercado.dao.ProductosPedidosDAO;
 import co.edu.sena.mercado.dao.VentaDAO;
 import co.edu.sena.mercado.dto.CompradorDTO;
 import co.edu.sena.mercado.dto.EmpresaPedidoDTO;
+import co.edu.sena.mercado.dto.LogDTO;
 import co.edu.sena.mercado.dto.MetodoPago;
 import co.edu.sena.mercado.dto.ProducctoDTO;
 import co.edu.sena.mercado.dto.VentaDTO;
@@ -163,6 +165,7 @@ public class generateSaleByVendedor extends HttpServlet {
         VentaDAO ventaDAO = null;
         ProductosPedidosDAO productosPedidosDAO = null;
         PersonasNaturalDAO personasNaturalDAO = null;
+        LogsDAO logsDAO = null;
 
         Conexion conexion = new Conexion();
         Connection conn = conexion.getConnection();
@@ -176,6 +179,7 @@ public class generateSaleByVendedor extends HttpServlet {
             productosPedidosDAO = new ProductosPedidosDAO(conn);
             ventaDAO = new VentaDAO(conn);
             personasNaturalDAO = new PersonasNaturalDAO(conn);
+            logsDAO = new LogsDAO(conn);
 
             for (ProducctoDTO item : producctoDTOs) {
                 if (!productosPedidosDAO.checkProducts(item)) {
@@ -230,6 +234,13 @@ public class generateSaleByVendedor extends HttpServlet {
                 productosPedidosDAO.actualizarCantidad(item);
             }
             ventaDTO.setPerDTO(personaNaturalDTO);
+            
+            LogDTO logDTO = new LogDTO();
+            logDTO.setUsuario(usu.getCorreoUsu());
+            logDTO.setIdEvento(Integer.toString(idVenta));
+            logDTO.setTipoFK("2");
+            logsDAO.insertReturn(logDTO);
+            
             conn.commit();
             new Gson().toJson(ventaDTO, response.getWriter());
         } catch (SQLException ex) {
@@ -245,6 +256,7 @@ public class generateSaleByVendedor extends HttpServlet {
             System.out.println(ex);
             new Gson().toJson(0, response.getWriter());
         } finally {
+            logsDAO.CloseAll();
             ventaDAO.CloseAll();
             productosPedidosDAO.CloseAll();
             personasNaturalDAO.CloseAll();

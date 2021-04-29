@@ -326,14 +326,13 @@ public class ProductoDAO {
             String sql = "UPDATE producto set estadoProducto = ? "
                     + "WHERE idProducto = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
-
             ps.setString(1, "4");
             ps.setString(2, id);
-
             int rows = ps.executeUpdate();
             boolean estado = rows > 0;
             return estado;
         } catch (Exception ex) {
+            System.out.println(ps.toString());
             System.out.println("Error edit " + ex.getMessage());
             throw new Exception();
         }
