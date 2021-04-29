@@ -3,8 +3,11 @@ package co.edu.sena.mercado.controller.seller;
 
 import co.edu.sena.mercado.dao.CategorysDAO;
 import co.edu.sena.mercado.dao.ProductoColorDAO;
+import co.edu.sena.mercado.dao.VentaDAO;
 import co.edu.sena.mercado.dto.ColorDTO;
+import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.dto.ProductoColor;
+import co.edu.sena.mercado.dto.VentaDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
@@ -42,6 +45,12 @@ public class SelectsTwo extends HttpServlet {
             case "/Store/newColor":
 
                 newColor(request, response);
+
+                break;
+                
+            case "/Store/getInfoVenta":
+
+                getInfoVenta(request, response);
 
                 break;
 
@@ -108,6 +117,20 @@ public class SelectsTwo extends HttpServlet {
         } finally {
             productoColorDAO.CloseAll();
         }
+        
+    }
+
+    private void getInfoVenta(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        
+         request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        Conexion conexion = new Conexion();
+        VentaDAO ventaDAO = new VentaDAO(conexion.getConnection());
+        VentaDTO ventaDTO = ventaDAO.getInfoVenta(request.getParameter("idVenta"));
+        ventaDTO.setListaProductos(ventaDAO.getProductosByPrice(ventaDTO.getIdVenta()));
+        ventaDAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(ventaDTO, response.getWriter());
         
     }
 

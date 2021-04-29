@@ -438,6 +438,45 @@ public class VentaDAO {
         } 
     }
       
+         public VentaDTO getInfoVenta(String id) {
+        try {
+            String sql = "SELECT V.referencia, V.idVenta, V.fechaVenta, V.valorVenta, V.descuento, V.formaPagoVenta, V.idEstadoVentasFK, "
+                    + "V.idCompradorFK, M.nombre, E.nombreEstado, P.documentoPersona, P.nombrePersona, P.apellidoPersona, "
+                    + "P.correoPersona, P.direccionPersona, P.telefonoPersona, P.celularPersona FROM ventas V "
+                    + "INNER JOIN metodopago M ON V.formaPagoVenta = M.idMetodoPago "
+                    + "INNER JOIN estadoventas E ON V.idEstadoVentasFK = E.idEstadoVentas "
+                    + "INNER JOIN personanatural P ON V.idCompradorFK = P.idPersona "
+                    + "WHERE V.idVenta = ? ORDER BY V.idVenta DESC";
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            VentaDTO ventaDTO = new VentaDTO();
+            while (rs.next()) {
+                ventaDTO.setIdVenta(rs.getString("V.idVenta"));
+                ventaDTO.setFechaVenta(rs.getTimestamp("V.fechaVenta"));
+                ventaDTO.setValorVenta(rs.getDouble("V.valorVenta"));
+                ventaDTO.setDescuento(rs.getDouble("V.descuento"));
+                ventaDTO.setFormaPago(rs.getString("M.nombre"));
+                ventaDTO.setReferencia(rs.getString("V.referencia"));
+                ventaDTO.setIdEstadoVentaFK(rs.getString("E.nombreEstado"));
+                personaNaturalDTO perDTO = new personaNaturalDTO();
+                perDTO.setNumeroDocPer(rs.getString("P.documentoPersona"));
+                perDTO.setNombrePer(rs.getString("P.nombrePersona"));
+                perDTO.setApellidoPer(rs.getString("P.apellidoPersona"));
+                perDTO.setCorreoPer(rs.getString("P.correoPersona"));
+                perDTO.setDireccionPer(rs.getString("P.direccionPersona"));
+                perDTO.setTelPer(rs.getString("P.telefonoPersona"));
+                perDTO.setNumCelularPer(rs.getString("P.celularPersona"));
+                ventaDTO.setPerDTO(perDTO);
+            }
+            return ventaDTO;
+        } catch (Exception e) {
+            System.out.println(e);
+            e.printStackTrace();
+            return null;
+        }
+    }
+      
     public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);

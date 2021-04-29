@@ -120,6 +120,13 @@ public class chat extends HttpServlet {
         preguntaDTOs.setIdProducto(Integer.parseInt(request.getParameter("idProducto")));
         preguntaDTOs.setIdUsuarioPregunta(usu.getIdUsuario());
         preguntaDTOs.setPregunta(request.getParameter("mensaje"));
+        
+        System.out.println("----------");
+        System.out.println("PREGUNTA");
+        System.out.println(request.getParameter("mensaje"));
+        System.out.println(usu.toString());
+        System.out.println("-----------");
+        
         try {
             preguntassDAO.resgistroPregunta(preguntaDTOs);
             response.getWriter().print(true);
@@ -212,6 +219,12 @@ public class chat extends HttpServlet {
         respuestaDTO.setIdEmpresa(1);
         respuestaDTO.setIdPregunta(Integer.parseInt(request.getParameter("idPregunta")));
         respuestaDTO.setRespuesta(request.getParameter("respuesta"));
+        
+        System.out.println("----------");
+        System.out.println("RESPUESTA");
+        System.out.println(request.getParameter("respuesta"));
+        System.out.println(usuarioDTO.toString());
+        System.out.println("-----------");
 
         if (respuestaDAO.resgistroRespuesta(respuestaDTO)) {
             if (preguntaDAO.responderPregunta(1, respuestaDTO.getIdPregunta())) {

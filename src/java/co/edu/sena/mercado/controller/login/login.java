@@ -91,7 +91,12 @@ public class login extends HttpServlet {
             new Gson().toJson(10, response.getWriter());
             throw new Exception();
         }
-
+        System.out.println("");
+        System.out.println("INGRESO");
+        System.out.println(request.getParameter("email"));
+        System.out.println(request.getParameter("pass"));
+        System.out.println("");
+        
         HttpSession session = request.getSession();
         //asignando persona
         personaNaturalDTO perDTO = new personaNaturalDAO().getDataById(Integer.toString(usuario.getIdUsuario()));
