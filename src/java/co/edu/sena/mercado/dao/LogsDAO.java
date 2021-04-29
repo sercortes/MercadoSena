@@ -37,10 +37,12 @@ public class LogsDAO {
             ps.executeUpdate();
             return true;
         } catch (MySQLIntegrityConstraintViolationException e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             throw new Exception();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             throw new Exception();
         }
 
@@ -67,7 +69,8 @@ public class LogsDAO {
             }
             return (ArrayList<LogDTO>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }

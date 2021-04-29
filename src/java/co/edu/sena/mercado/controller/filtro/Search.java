@@ -131,9 +131,8 @@ public class Search extends HttpServlet {
 
     private void getProductsByCategory(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
-      
         String categoria = request.getParameter("categorias");
-         request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         Conexion conexion = new Conexion();
         ProductorDAOQuerys productoDAO = new ProductorDAOQuerys(conexion.getConnection());

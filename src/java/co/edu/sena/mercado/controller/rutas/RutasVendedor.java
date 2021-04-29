@@ -48,7 +48,6 @@ public class RutasVendedor extends HttpServlet {
         if (request.getSession().getAttribute("USER") != null) {
 
             usuarioDTO usuario = (usuarioDTO) request.getSession().getAttribute("USER");
-            System.out.println(usuario.toString());
 
             switch (direccion) {
                 case "/Store/realizarVenta":
@@ -129,7 +128,7 @@ public class RutasVendedor extends HttpServlet {
 
             System.out.println("ROLL BACK DELETE PRODUCT");
             cone.rollback();
-            System.out.println(ex);
+            ex.printStackTrace();
             new Gson().toJson(false, response.getWriter());
 
         } finally {

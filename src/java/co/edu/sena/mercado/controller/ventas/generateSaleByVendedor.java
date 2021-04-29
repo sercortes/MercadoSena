@@ -93,7 +93,7 @@ public class generateSaleByVendedor extends HttpServlet {
 
                 }
             } catch (Exception ex) {
-                System.out.println(ex);
+                ex.printStackTrace();
             }
 
         } else {
@@ -143,7 +143,9 @@ public class generateSaleByVendedor extends HttpServlet {
     private void generateSaleByVendedor(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 
         usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
-
+        System.out.println("VENTA VENDEDOR");
+        System.out.println(usu.toString());
+        
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json");
@@ -240,14 +242,13 @@ public class generateSaleByVendedor extends HttpServlet {
             logDTO.setIdEvento(Integer.toString(idVenta));
             logDTO.setTipoFK("2");
             logsDAO.insertReturn(logDTO);
-            
+            System.out.println("");
             conn.commit();
             new Gson().toJson(ventaDTO, response.getWriter());
         } catch (SQLException ex) {
             conn.rollback();
             ex.printStackTrace();
             System.out.println("ROLL BACK GENERATE SALE");
-            System.out.println(ex);
             new Gson().toJson(01, response.getWriter());
         } catch (Exception ex) {
             conn.rollback();

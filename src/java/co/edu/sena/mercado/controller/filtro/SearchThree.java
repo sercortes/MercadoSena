@@ -19,10 +19,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author equipo
- */
 public class SearchThree extends HttpServlet {
 
     @Override

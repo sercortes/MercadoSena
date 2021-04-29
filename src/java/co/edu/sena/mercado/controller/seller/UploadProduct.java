@@ -83,6 +83,10 @@ public class UploadProduct extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
+        
+        usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
+        System.out.println("CREATE PRODUCT");
+        System.out.println(user.toString());
 
         boolean codigo = false;
         String folder = "";
@@ -122,6 +126,7 @@ public class UploadProduct extends HttpServlet {
                 }
 
                 System.out.println(producto.toString());
+                System.out.println("");
 
 //                usuarioDTO usu = (usuarioDTO) request.getSession().getAttribute("USER");
 
@@ -131,8 +136,6 @@ public class UploadProduct extends HttpServlet {
 
                 File tempFile = new File(File.separator + folder);
 
-                System.out.println("FOLDERR");
-                System.out.println(folder);
                 String[] arreglo = request.getParameterValues("arrayP");
                 String json = "";
                 for (String item : arreglo) {
@@ -170,7 +173,6 @@ public class UploadProduct extends HttpServlet {
 
                 cone.rollback();
                 codigo = false;
-                System.out.println(e);
                 e.printStackTrace();
 
             }

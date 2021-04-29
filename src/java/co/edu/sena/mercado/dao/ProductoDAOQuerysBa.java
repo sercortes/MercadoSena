@@ -62,7 +62,8 @@ public class ProductoDAOQuerysBa {
             }
             return (ArrayList<Producto>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }
@@ -97,7 +98,8 @@ public class ProductoDAOQuerysBa {
             }
             return producto;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }

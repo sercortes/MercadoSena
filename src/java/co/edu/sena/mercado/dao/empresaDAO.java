@@ -144,13 +144,11 @@ public class empresaDAO {
                 empresaDTO.setIdUsuario(rs.getInt("idUsuarioFK"));
 
             }
-            System.out.println(".....  empresa encontrada consulta " + ps.toString());
-            System.out.println(".....  empresa encontrada  " + empresaDTO.toString());
             //cerrarCon(ps, cn, rs);
             return empresaDTO;
 
         } catch (SQLException e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxx error al buscar empresa " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             // cerrarCon(ps, cn, rs);
             return null;
@@ -183,7 +181,7 @@ public class empresaDAO {
             return lista;
 
         } catch (SQLException e) {
-            System.out.println("xxxxxxxxxxxxxxxxxxx error al buscar centro " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
             // cerrarCon(ps, cn, rs);
             return null;

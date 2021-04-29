@@ -37,7 +37,6 @@ public class UsuariosDAO {
             ps.setString(3, datosUsu.getEstadoUsu());
             ps.setInt(4, datosUsu.getIdRol());
             ps.setString(5,datosUsu.getCodigo());
-            System.out.println(ps.toString());
             ps.executeUpdate();
             rs = ps.getGeneratedKeys();
             if (rs.next()) {
@@ -45,7 +44,8 @@ public class UsuariosDAO {
             }
             return idUsuario;
         }catch (MySQLIntegrityConstraintViolationException ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
+            System.out.println(ps.toString());
             throw new MySQLIntegrityConstraintViolationException();     
         }catch (SQLException e) {
             System.out.println("........error al relizar el registro registroUsuario " + e);

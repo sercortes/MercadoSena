@@ -40,7 +40,7 @@ public class respuestaDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("xxxxxxxxxxxxxx error al registrar la respuesta " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             return false;
         }finally{

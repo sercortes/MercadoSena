@@ -93,7 +93,7 @@ public class every implements ServletContextListener {
                         ventaDAO.actualizarVenta(item);
                     }
                 } catch (MalformedURLException ex) {
-                    Logger.getLogger(every.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.printStackTrace();
                 } finally {
                     ventaDAO.CloseAll();
                 }

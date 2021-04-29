@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package co.edu.sena.mercado.controller.actualizacion;
 
 import java.io.BufferedReader;
@@ -16,10 +12,6 @@ import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.net.ssl.HttpsURLConnection;
 
-/**
- *
- * @author equipo
- */
 public class Catcha {
     
         public static final String url = "https://www.google.com/recaptcha/api/siteverify";

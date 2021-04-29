@@ -79,6 +79,7 @@ public class correo {
         } catch (MessagingException e) {
 
             System.out.println("xxx____correo No enviado " + e);
+            e.printStackTrace();
             throw new MessagingException();
         }
 

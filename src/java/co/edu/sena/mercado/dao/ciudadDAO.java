@@ -43,7 +43,8 @@ public class ciudadDAO {
             }
             return (ArrayList<ciudadDTO>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }

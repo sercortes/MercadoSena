@@ -86,14 +86,11 @@ public class informes extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
         InformeDTO informeDTO = new InformeDTO();
-        System.out.println(request.getParameter("fechaI"));
         informeDTO.setFechaI(request.getParameter("fechaI"));
         informeDTO.setFechaF(request.getParameter("fechaFinal"));
         informeDTO.setTipoV(request.getParameter("tipo"));
         System.out.println(informeDTO.toString());
-
         Conexion conexion = new Conexion();
         InformesDAO informesDAO = new InformesDAO(conexion.getConnection());
         ArrayList<?> lista = informesDAO.getQueryByDays(informeDTO);
@@ -112,14 +109,11 @@ public class informes extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
         InformeDTO informeDTO = new InformeDTO();
-        System.out.println(request.getParameter("fechaI"));
         informeDTO.setFechaI(request.getParameter("fechaI"));
         informeDTO.setFechaF(request.getParameter("fechaFinal"));
         informeDTO.setTipoV(request.getParameter("tipo"));
         System.out.println(informeDTO.toString());
-
         Conexion conexion = new Conexion();
         InformesDAO informesDAO = new InformesDAO(conexion.getConnection());
         ArrayList<?> lista = informesDAO.getQueryByMoth(informeDTO);
@@ -133,13 +127,10 @@ public class informes extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
         InformeDTO informeDTO = new InformeDTO();
-        System.out.println(request.getParameter("fechaI"));
         informeDTO.setFechaI(request.getParameter("fechaI"));
         informeDTO.setFechaF(request.getParameter("fechaFinal"));
         System.out.println(informeDTO.toString());
-
         Conexion conexion = new Conexion();
         InformesDAO informesDAO = new InformesDAO(conexion.getConnection());
         ArrayList<?> lista = informesDAO.getQueryByTotalMoth(informeDTO);
@@ -153,13 +144,10 @@ public class informes extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
-
         InformeDTO informeDTO = new InformeDTO();
-        System.out.println(request.getParameter("fechaI"));
         informeDTO.setFechaI(request.getParameter("fechaI"));
         informeDTO.setFechaF(request.getParameter("fechaFinal"));
         System.out.println(informeDTO.toString());
-
         Conexion conexion = new Conexion();
         InformesDAO informesDAO = new InformesDAO(conexion.getConnection());
         ArrayList<?> lista = informesDAO.getQueryByTotalDays(informeDTO);

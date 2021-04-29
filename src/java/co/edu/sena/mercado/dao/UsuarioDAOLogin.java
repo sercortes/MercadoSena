@@ -37,7 +37,8 @@ public class UsuarioDAOLogin {
             }
             return estado;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return false;
         }
     }
@@ -64,7 +65,8 @@ public class UsuarioDAOLogin {
             }
             return usua;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
 
@@ -107,7 +109,8 @@ public class UsuarioDAOLogin {
             }
             return usua;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
 
@@ -122,14 +125,12 @@ public class UsuarioDAOLogin {
             
             ps.setString(1, pass);
             ps.setString(2, correo);
-
-            System.out.println(ps.toString());
-
             int rows = ps.executeUpdate();
             boolean estado = rows > 0;
             return estado;
         } catch (Exception ex) {
-            System.out.println("Error edit " + ex.getMessage());
+            ex.printStackTrace();
+            System.out.println(ps.toString());
             return false;
         }
     }

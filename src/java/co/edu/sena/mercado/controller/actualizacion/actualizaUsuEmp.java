@@ -235,13 +235,15 @@ public class actualizaUsuEmp extends HttpServlet {
                 break;
 
             case "recuperarClave":
-
+                
+                System.out.println("--------");
                 System.out.println("REQUEST recover PASS");
                 request.setCharacterEncoding("UTF-8");
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("application/json");
                 String gRecaptchaResponse = request.getParameter("rec");
                 String correo = request.getParameter("email");
+                System.out.println(correo);
                 Catcha catcha = new Catcha();
                 boolean verify = catcha.verify(gRecaptchaResponse);
                 UsuarioDAOLogin usuarioDAOLogin = null;
@@ -251,6 +253,7 @@ public class actualizaUsuEmp extends HttpServlet {
                 try {
 
                     if (!verify) {
+                        System.out.println("MAL CATCHA");
                         new Gson().toJson(0, response.getWriter());
                         throw new Exception();
                     }
@@ -273,6 +276,7 @@ public class actualizaUsuEmp extends HttpServlet {
                     correo co = new correo();
                     co.recuperarCorreo(correo, pass);
                     System.out.println("SEND---------------");
+                    System.out.println("-----");
                     conn.commit();
                     new Gson().toJson(3, response.getWriter());
                 } catch (SQLException ex) {

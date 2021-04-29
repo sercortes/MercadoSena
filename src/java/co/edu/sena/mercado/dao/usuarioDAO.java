@@ -194,7 +194,7 @@ public class usuarioDAO {
             int count = ps.executeUpdate();
             return  (count > 0);
         } catch (SQLException e) {
-            System.out.println("error al activar  usuario " + e);
+            e.printStackTrace();
             System.out.println("consulta " + ps.toString());
             return false;
          }finally{

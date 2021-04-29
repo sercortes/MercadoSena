@@ -28,7 +28,6 @@ public class InformesDAO {
             ps.setString(1, inf.getTipoV());
             ps.setString(2, inf.getFechaI());
             ps.setString(3, inf.getFechaF());
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             List<InformeDTO> list = new ArrayList<InformeDTO>();
             InformeDTO informeDTO;
@@ -40,7 +39,8 @@ public class InformesDAO {
             }
             return (ArrayList<InformeDTO>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }
@@ -57,7 +57,6 @@ public class InformesDAO {
             ps.setString(1, inf.getTipoV());
             ps.setString(2, inf.getFechaI());
             ps.setString(3, inf.getFechaF());
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             List<InformeDTO> list = new ArrayList<InformeDTO>();
             InformeDTO informeDTO;
@@ -69,7 +68,8 @@ public class InformesDAO {
             }
             return (ArrayList<InformeDTO>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }
@@ -86,7 +86,6 @@ public class InformesDAO {
             ps = conn.prepareStatement(sql);
             ps.setString(1, inf.getFechaI());
             ps.setString(2, inf.getFechaF());
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             List<InformeDTO> list = new ArrayList<InformeDTO>();
             InformeDTO informeDTO;
@@ -98,7 +97,8 @@ public class InformesDAO {
             }
             return (ArrayList<InformeDTO>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }
@@ -110,7 +110,6 @@ public class InformesDAO {
             ps = conn.prepareStatement(sql);
             ps.setString(1, inf.getFechaI());
             ps.setString(2, inf.getFechaF());
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             List<InformeDTO> list = new ArrayList<InformeDTO>();
             InformeDTO informeDTO;
@@ -122,7 +121,8 @@ public class InformesDAO {
             }
             return (ArrayList<InformeDTO>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
     }

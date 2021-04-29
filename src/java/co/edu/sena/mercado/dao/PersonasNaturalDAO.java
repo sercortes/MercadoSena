@@ -49,7 +49,8 @@ public class PersonasNaturalDAO {
             }
             return (ArrayList<tipoDocumentoDTO>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
         
@@ -90,7 +91,6 @@ public class PersonasNaturalDAO {
                     + "WHERE documentoPersona = ? AND idTipoPersonaFK = 1 LIMIT 1";
             ps = conn.prepareStatement(sql);
             ps.setString(1, idPersona);
-             System.out.println(ps.toString());
             rs = ps.executeQuery();
             personaNaturalDTO persona = null;
             while (rs.next()) {
@@ -104,7 +104,8 @@ public class PersonasNaturalDAO {
             }
             return persona;
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             return null;
         }
         
@@ -161,10 +162,11 @@ public class PersonasNaturalDAO {
             }
             return idUsuario;
         } catch (MySQLIntegrityConstraintViolationException ex) {
-            System.out.println(ex);
+            ex.printStackTrace();
+            System.out.println("........ consulta " + ps.toString());
             throw new MySQLIntegrityConstraintViolationException();     
         }catch (SQLException e) {
-            System.out.println("........error al relizar el registro pde personaDAO " + e);
+            e.printStackTrace();
             System.out.println("........ consulta " + ps.toString());
             throw new Exception();
         }

@@ -57,10 +57,12 @@ public class VentaDAO {
             }
             return idComprador;
         } catch (MySQLIntegrityConstraintViolationException e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             throw new Exception();
         } catch (Exception e) {
-            System.out.println(e);
+            e.printStackTrace();
+            System.out.println(ps.toString());
             throw new Exception();
         }
 
@@ -153,7 +155,7 @@ public class VentaDAO {
             }
             return (ArrayList<VentaDTO>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(ps.toString());
             e.printStackTrace();
             return null;
         }
@@ -315,7 +317,7 @@ public class VentaDAO {
             }
             return (ArrayList<Producto>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(ps.toString());
             e.printStackTrace();
             return null;
         }
@@ -364,7 +366,7 @@ public class VentaDAO {
             }
             return (ArrayList<VentaDTO>) list;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(ps.toString());
             e.printStackTrace();
             return null;
         }
@@ -384,10 +386,9 @@ public class VentaDAO {
             while (rs.next()) {
                 actual = rs.getInt("stockProducto");
             }
-            System.out.println("ACTUAL");
-            System.out.println(actual);
-            System.out.println("STOCK");
-            System.out.println(productoDTO.getCantidad());
+            System.out.println("CANTIDAD");
+            System.out.println("ACTUAL "+actual);
+            System.out.println("STOCK "+productoDTO.getCantidad());
 
             productoDTO.setStockProducto(actual - productoDTO.getCantidad());
 
@@ -395,11 +396,10 @@ public class VentaDAO {
             ps = conn.prepareStatement(sql);
             ps.setInt(1, productoDTO.getStockProducto());
             ps.setString(2, productoDTO.getIdProductoColor());
-            System.out.println("..........................." + ps.toString());
             ps.executeUpdate();
             return true;
         } catch (Exception ex) {
-            System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX error al realizar actualizarCantidad PrpductoDAO " + ex);
+            ex.printStackTrace();
             System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXX consulta " + ps.toString());
             return false;
         }
@@ -416,7 +416,7 @@ public class VentaDAO {
             }
             return numero;
         } catch (SQLException e) {
-            System.out.println("error count sales " + e);
+            e.printStackTrace();
             System.out.println("consulta " + ps.toString());
             throw new SQLException();
         }
@@ -432,7 +432,7 @@ public class VentaDAO {
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
-            System.out.println("xxxxxxxxxxxxxx error al actualizar el visto de la pregunta " + e);
+            e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             throw new SQLException();
         } 
@@ -471,7 +471,7 @@ public class VentaDAO {
             }
             return ventaDTO;
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(ps.toString());
             e.printStackTrace();
             return null;
         }

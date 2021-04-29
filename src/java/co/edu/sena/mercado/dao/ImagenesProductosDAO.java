@@ -67,7 +67,7 @@ public class ImagenesProductosDAO {
             return (ArrayList<ImagenesProducto>) list;
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println(e);
+            System.out.println(ps.toString());
             return null;
         }
     }
