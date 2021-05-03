@@ -20,12 +20,12 @@ $(document).on('click', '.botonChat', function (e) {
     idProducto = $(parent).attr('idProducto');
 
     $('#buttonChat').show()
-    
+
 
 })
 
 $('#preguntarModal').on('shown.bs.modal', function (e) {
-   document.getElementById('mensaje').focus()
+    document.getElementById('mensaje').focus()
 })
 
 $(document).on('click', '#send_message', function () {
@@ -50,7 +50,7 @@ $(document).on('click', '#send_message', function () {
                             <div class="text">${message}</div>
                         </div>
                     </li>`;
-    
+
     $('#listaPreguntas').append(st)
     enviarMensaje(message)
 
@@ -65,31 +65,34 @@ function enviarMensaje(mensaje) {
             mensaje: mensaje,
             idProducto: idProducto
         },
-        type: 'POST',
-        success: function (data) {
-            if (data === 'true') {
-                enviar()
-                setTimeout(() => sendMensajes(), 1000);
-                limpiarPlantilla()
-                document.getElementById('mensaje').value = ""
-            } else {
-                interacion = interacion - 1;
-                messageError('Error al enviar el mensaje');
-            }
-//            enviarNot('pregunta', 0);
-        }})
+        type: 'POST'
+    }).done(function (data) {
+        if (data == 1) {
+            enviar()
+            setTimeout(() => sendMensajes(), 1000);
+            limpiarPlantilla()
+            document.getElementById('mensaje').value = ""
+        } else if (data == 11) {
+            interacion = interacion - 1;
+            messageError('Error, enviaste muchos mensaje');
+        } else {
+            interacion = interacion - 1;
+            messageError('Error');
+        }
+
+    })
 
 }
 
-function sendMensajes(){
-    let app =`<li class="message left appeared">
+function sendMensajes() {
+    let app = `<li class="message left appeared">
                         <div class="avatar"></div>
                         <div class="text_wrapper">
                             <div class="text">Hemos enviado su mensaje al vendedor, quién pronto se pondrá en contacto.</div>
                         </div>
                     </li>`
-   $('#listaPreguntas').append(app)
-    
+    $('#listaPreguntas').append(app)
+
 }
 
 function modalRegistroSi() {
@@ -105,7 +108,7 @@ function modalPreguntaRegistro() {
 
 
 function consultaPreguntas(e) {
-    
+
     e.preventDefault();
 
 }

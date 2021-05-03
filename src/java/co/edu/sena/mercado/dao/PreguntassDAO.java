@@ -28,7 +28,25 @@ public class PreguntassDAO {
         this.conn = conn;
     }
 
-    public boolean resgistroPregunta(preguntasDTO preguntasDTO) throws SQLException {
+    public boolean resgistroPregunta(preguntasDTO preguntasDTO) throws SQLException, Exception {
+
+        String sql1 = "SELECT count(*) 'cantidad' FROM preguntas WHERE idUsuarioPreguntaFK = ? AND idPRoductoFK = ? AND vista=0 LIMIT 1";
+        PreparedStatement ps = conn.prepareStatement(sql1);
+        ps.setInt(1, preguntasDTO.getIdUsuarioPregunta());
+        ps.setInt(2, preguntasDTO.getIdProducto());
+        rs = ps.executeQuery();
+
+        int actual = 0;
+
+        while (rs.next()) {
+            actual = rs.getInt("cantidad");
+        }
+
+      
+        if (actual >= 9) {
+            System.out.println("MUCHAS PREGUNTAS");
+            throw new Exception();
+        }
 
         String consulta = "INSERT INTO preguntas( pregunta,estadoPregunta, idUsuarioPreguntaFK, idProductoFK) VALUES (?,?,?,?)";
         try {
@@ -45,8 +63,8 @@ public class PreguntassDAO {
             throw new SQLException();
         }
     }
-   
-     public int countPreguntas() throws SQLException  {
+
+    public int countPreguntas() throws SQLException {
         int numero = 0;
         String consulta = "SELECT count(*) 'cantidad' FROM preguntas p WHERE p.vista = 0";
         try {
@@ -62,14 +80,13 @@ public class PreguntassDAO {
             throw new SQLException();
         }
     }
-     
-      public int countPreguntasComprador(int id) throws SQLException  {
+
+    public int countPreguntasComprador(int id) throws SQLException {
         int numero = 0;
         String consulta = "SELECT COUNT(pregunta) 'cantidad' FROM preguntas pre INNER JOIN respuesta res on pre.idPregunta=res.idPreguntaFK WHERE pre.idUsuarioPreguntaFK=? and res.visto=0";
         try {
             ps = conn.prepareStatement(consulta);
             ps.setInt(1, id);
-            System.out.println(ps.toString());
             rs = ps.executeQuery();
             while (rs.next()) {
                 numero = rs.getInt("cantidad");
@@ -81,8 +98,8 @@ public class PreguntassDAO {
             throw new SQLException();
         }
     }
-    
-    public ArrayList<preguntasDTO> getAllPreguntas()  {
+
+    public ArrayList<preguntasDTO> getAllPreguntas() {
         ArrayList<preguntasDTO> listaPregunta = new ArrayList<>();
         String consulta = "SELECT count(*), pn.nombrePersona, pn.apellidoPersona, p.idProductoFK, p.idUsuarioPreguntaFK, pr.nombreProducto, "
                 + "pn.urlImgPersona, p.fecha, max(p.fecha)"
@@ -100,7 +117,7 @@ public class PreguntassDAO {
                 preDTO.setFechaPublicada(rs.getTimestamp("max(p.fecha)"));
                 preDTO.setUrlPersona(rs.getString("pn.urlImgPersona"));
                 preDTO.setNombreProducto(rs.getString("pr.nombreProducto"));
-                preDTO.setNombreUsuario(rs.getString("pn.nombrePersona")+" "+rs.getString("pn.apellidoPersona"));
+                preDTO.setNombreUsuario(rs.getString("pn.nombrePersona") + " " + rs.getString("pn.apellidoPersona"));
                 preDTO.setIdProducto(rs.getInt("p.idProductoFK"));
                 preDTO.setIdUsuarioPregunta(rs.getInt("p.idUsuarioPreguntaFK"));
                 listaPregunta.add(preDTO);
@@ -113,7 +130,7 @@ public class PreguntassDAO {
         }
     }
 
-    public ArrayList<preguntasDTO> getPreguntaByUser(String id)  {
+    public ArrayList<preguntasDTO> getPreguntaByUser(String id) {
         ArrayList<preguntasDTO> listaPregunta = new ArrayList<>();
         String consulta = "SELECT count(*), pn.nombrePersona, pn.apellidoPersona, p.idProductoFK, p.idUsuarioPreguntaFK, pr.nombreProducto, "
                 + "pn.urlImgPersona, p.fecha, max(p.fecha)"
@@ -133,7 +150,7 @@ public class PreguntassDAO {
                 preDTO.setFechaPublicada(rs.getTimestamp("max(p.fecha)"));
                 preDTO.setUrlPersona(rs.getString("pn.urlImgPersona"));
                 preDTO.setNombreProducto(rs.getString("pr.nombreProducto"));
-                preDTO.setNombreUsuario(rs.getString("pn.nombrePersona")+" "+rs.getString("pn.apellidoPersona"));
+                preDTO.setNombreUsuario(rs.getString("pn.nombrePersona") + " " + rs.getString("pn.apellidoPersona"));
                 preDTO.setIdProducto(rs.getInt("p.idProductoFK"));
                 preDTO.setIdUsuarioPregunta(rs.getInt("p.idUsuarioPreguntaFK"));
                 listaPregunta.add(preDTO);
@@ -145,12 +162,12 @@ public class PreguntassDAO {
             return null;
         }
     }
-    
-     public ArrayList<preguntasDTO> getPreguntasIndivi(String idUsu, String idPro)  {
+
+    public ArrayList<preguntasDTO> getPreguntasIndivi(String idUsu, String idPro) {
         ArrayList<preguntasDTO> listaPregunta = new ArrayList<>();
-        String consulta = "SELECT p.idPregunta, p.fecha, p.pregunta, p.vista FROM preguntas p " 
-              + "WHERE idUsuarioPreguntaFK = ? AND idProductoFK = ? "
-              + "ORDER BY p.idPregunta ASC LIMIT 10";
+        String consulta = "SELECT p.idPregunta, p.fecha, p.pregunta, p.vista FROM preguntas p "
+                + "WHERE idUsuarioPreguntaFK = ? AND idProductoFK = ? "
+                + "ORDER BY p.idPregunta DESC limit 10";
         try {
             ps = conn.prepareStatement(consulta);
             ps.setString(1, idUsu);
@@ -161,7 +178,7 @@ public class PreguntassDAO {
                 preDTO.setIdPregunta(rs.getInt("p.idPregunta"));
                 preDTO.setFechaPublicada(rs.getTimestamp("p.fecha"));
                 preDTO.setPregunta(rs.getString("p.pregunta"));
-                preDTO.setVista(rs.getString("p.vista")); 
+                preDTO.setVista(rs.getString("p.vista"));
                 listaPregunta.add(preDTO);
             }
             return listaPregunta;
@@ -172,10 +189,10 @@ public class PreguntassDAO {
         }
     }
 
-      public ArrayList<respuestaDTO> getRespuestasByQuestion(String idPregunta)  {
+    public ArrayList<respuestaDTO> getRespuestasByQuestion(String idPregunta) {
         ArrayList<respuestaDTO> listaPregunta = new ArrayList<>();
-        String consulta = "SELECT r.idRespuesta, r.respuesta, r.fecha, r.idPreguntaFK, r.visto FROM respuesta r " 
-              + "WHERE r.idPreguntaFK = ? ORDER BY r.idRespuesta ASC";
+        String consulta = "SELECT r.idRespuesta, r.respuesta, r.fecha, r.idPreguntaFK, r.visto FROM respuesta r "
+                + "WHERE r.idPreguntaFK = ? ORDER BY r.idRespuesta ASC";
         try {
             ps = conn.prepareStatement(consulta);
             ps.setString(1, idPregunta);
@@ -196,8 +213,7 @@ public class PreguntassDAO {
         }
     }
 
-      
-      public boolean preguntaVista(String idPregunta) throws SQLException {
+    public boolean preguntaVista(String idPregunta) throws SQLException {
 
         String consulta = "UPDATE preguntas SET vista=1 WHERE idPregunta = ? AND vista = 0";
         try {
@@ -209,10 +225,10 @@ public class PreguntassDAO {
             e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             throw new SQLException();
-        } 
+        }
     }
-      
-         public boolean respuestaVista(String idRespuesta) throws SQLException {
+
+    public boolean respuestaVista(String idRespuesta) throws SQLException {
 
         String consulta = "UPDATE respuesta SET visto=1 WHERE idRespuesta = ? AND visto = 0";
         try {
@@ -224,9 +240,9 @@ public class PreguntassDAO {
             e.printStackTrace();
             System.out.println("xxxxxxxxxxxxxx consulta " + ps.toString());
             throw new SQLException();
-        } 
+        }
     }
-      
+
 //      public boolean marcarVistaPregunta(int idUsuario) {
 //
 //        String consulta = "UPDATE preguntas SET vista=1 WHERE idUsuarioPreguntaFK=? AND estadoPregunta=1;";
@@ -241,8 +257,6 @@ public class PreguntassDAO {
 //            return false;
 //        } 
 //    }
-      
-     
     public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);

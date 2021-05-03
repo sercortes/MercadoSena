@@ -79,7 +79,6 @@ function questionss() {
         dataType: 'json',
         success: function (data) {
 
-            console.log(data)
             generateQuestions(url, data)
 
         }
@@ -92,8 +91,10 @@ function generateQuestions(url, data) {
 
     let str = ``
     $('#chatPreguntas').html('')
+    
+    let datas = data.sort(dynamicSort("idPregunta"));
 
-    for (var item of data) {
+    for (var item of datas) {
 
         str +=
                 `<div class="media w-50 ml-auto mb-3">
@@ -130,12 +131,12 @@ function answers(idPregunta) {
         success: function (data) {
 
             console.log(data)
-            for(let item of data){
+            for (let item of data) {
                 if (item.visto == '0') {
-                   updateViewQuestion(item.idRespuesta)
+                    updateViewQuestion(item.idRespuesta)
                 }
             }
-             getNotifys()
+            getNotifys()
             drawRespuestas(data)
 
         }
@@ -143,18 +144,18 @@ function answers(idPregunta) {
 
 }
 
-function updateViewQuestion(idP){
-    
+function updateViewQuestion(idP) {
+
     $.ajax({
         url: './updateAnswer',
         type: 'POST',
         async: true,
         data: {
-            idP:idP
+            idP: idP
         },
         dataType: 'json',
         success: function (data) {
-            
+
         }
     })
 
@@ -214,15 +215,20 @@ function enviarPregunta(mensaje) {
         },
         type: 'POST',
         success: function (data) {
-            if (data === 'true') {
+
+
+            if (data == 1) {
                 messageOk('Mensaje enviado')
                 questionss()
                 enviar()
                 document.getElementById('respuesta').value = ""
+            } else if (data == 11) {
+                messageError('Error, enviaste muchos mensaje');
             } else {
-                messageError('Error al enviar su respuesta.');
+                messageError('Error');
             }
-//            enviarNot('pregunta', 0);
+
+
         }})
 
 }
