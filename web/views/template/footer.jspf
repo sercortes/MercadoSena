@@ -50,9 +50,8 @@
     <script src="./assets/js/project/realizarVenta/vendedor/generar.js"></script>
 </c:if>
 
-<c:if test="${not empty USER}">
+
     <script src="./assets/js/project/chat/socket.js" type="text/javascript"></script>
-</c:if>
 
 <c:if test="${empty USER}">
     <script src="./assets/js/project/registro/ajax.js" charset="utf-8"></script>

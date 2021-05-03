@@ -75,9 +75,11 @@ function enviarMensaje(mensaje) {
         } else if (data == 11) {
             interacion = interacion - 1;
             messageError('Error, enviaste muchos mensaje');
+            document.getElementById('mensaje').value = ""
         } else {
             interacion = interacion - 1;
             messageError('Error');
+            document.getElementById('mensaje').value = ""
         }
 
     })

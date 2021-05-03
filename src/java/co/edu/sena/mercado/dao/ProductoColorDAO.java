@@ -84,8 +84,9 @@ public class ProductoColorDAO {
     
      public ArrayList<ColorDTO> getColorsByProduct(String idProducto) {
         try {
-            String sql = "SELECT nombreColor, PC.idProductoColor, PC.stockProducto FROM colorProducto C INNER JOIN ProductoColor PC ON C.idColor=PC.colorFK "
-                    + "WHERE PC.productoFK = ? ORDER BY PC.idProductoColor ASC";
+            String sql = "SELECT nombreColor, PC.idProductoColor, PC.stockProducto FROM colorProducto C "
+                    + "INNER JOIN ProductoColor PC ON C.idColor=PC.colorFK "
+                    + "WHERE PC.productoFK = ? AND PC.stockProducto > 0 ORDER BY PC.idProductoColor ASC";
             ps = conn.prepareStatement(sql);
             ps.setString(1, idProducto);
             rs = ps.executeQuery();
