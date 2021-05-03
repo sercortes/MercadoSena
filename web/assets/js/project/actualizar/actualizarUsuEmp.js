@@ -1,28 +1,12 @@
 $(document).ready(validarEmpresa());
 function validarEmpresa() {
-    //consultaCiudad('#ciudad', 'ciudadUsuarioActualizar', $('#ciudadUsusario').val());
+    
     consultaTipoDoc($('#tipoDocUsusario').val());
     consultagenero($('#generoUsusario').val());
-
-    var rol = $('#rolUsuario').val();
-    if (rol === '3' || rol === 3) {
-        consultaCiudad('#ciudadEmpresa', 'idCiudadEmpresa', $('#ciudEmpresaActualizar').val());
-        var esEmpresa = $('#esEmpresa').val();
-        if (esEmpresa === 0 || esEmpresa === '0') {
-            limpiarFormulario('#actualizarEmpresa');
-
-        } else {
-
-            $('#opcionEmpresa').empty();
-            $('#btnActualizarEmpresa').empty();
-            $('#opcionEmpresa').html('<i class="fa fa-building" style="color: rgb(252, 115, 30)" ></i> Modificar datos de empresa');
-            $('#btnActualizarEmpresa').html('Actualizar');
-        }
-    } else {
-        $('.ocultar').hide();
-    }
+    $('.ocultar').hide();
+    
 }
-;
+
 
 function validarEmail(correo) {
     if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/.test(correo)) {
@@ -48,14 +32,14 @@ function validarLetras(leetras) {
 
 //actualizar persona
 
-function muestra_oculta(id){
-if (document.getElementById){ //se obtiene el id
-var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
-el.style.display = (el.style.display == 'none') ? 'block' : 'none'; //damos un atributo display:none que oculta el div
+function muestra_oculta(id) {
+    if (document.getElementById) { //se obtiene el id
+        var el = document.getElementById(id); //se define la variable "el" igual a nuestro div
+        el.style.display = (el.style.display == 'none') ? 'block' : 'none'; //damos un atributo display:none que oculta el div
+    }
 }
-}
-window.onload = function(){/*hace que se cargue la función lo que predetermina que div estará oculto hasta llamar a la función nuevamente*/
-muestra_oculta('contenido');/* "contenido_a_mostrar" es el nombre que le dimos al DIV */
+window.onload = function () {/*hace que se cargue la función lo que predetermina que div estará oculto hasta llamar a la función nuevamente*/
+    muestra_oculta('contenido');/* "contenido_a_mostrar" es el nombre que le dimos al DIV */
 }
 
 document.getElementById('datosActualizarpresona').addEventListener('input', e => {
@@ -84,7 +68,7 @@ $('#datosActualizarpresona').submit(function (e) {
         event.stopPropagation();
         event.stopImmediatePropagation();
         var btn = document.getElementById('actualizarPersona');
-        $('#cargando').addClass('is-active');
+        $('#cargas').addClass('is-active');
         btn.disabled = true;
         $.ajax({
             url: "./actualizaUsuEmp?accion=actualizarPersonas",
@@ -93,15 +77,14 @@ $('#datosActualizarpresona').submit(function (e) {
             contentType: false,
             processData: false,
             error: function (jqXHR, textStatus, errorThrown) {
-                $('#cargando').removeClass('is-active');
+                $('#cargas').removeClass('is-active');
                 btn.disabled = false;
                 messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
             }, success: function (data, textStatus, jqXHR) {
                 btn.disabled = false;
-                $('#cargando').removeClass('is-active');
+                $('#cargas').removeClass('is-active');
                 if (data === true || data === 'true') {
                     messageOk('Se ha actualizado correctamente!!');
-
                 } else {
                     messageError('Ha ocurrido un errror, favor verificar datos');
                 }
@@ -110,6 +93,7 @@ $('#datosActualizarpresona').submit(function (e) {
     } else {
 
         $('#datosActualizarpresona').addClass('was-validated');
+        
     }
 })
 
@@ -143,12 +127,12 @@ $('#actualizarUsuario').submit(function (e) {
         event.stopImmediatePropagation();
 
         var btn = document.getElementById('btnActualizarUsuario');
-        $('#cargando').addClass('is-active');
+        $('#cargas').addClass('is-active');
         btn.disabled = true;
 
         var datos = $('#actualizarUsuario').serialize();
         $.ajax({
-            url: "./actualizaUsuEmp?accion=actualizarUsuarios",
+            url: "./actualizaUsuEmp?accion=actualizarUsuariosCla",
             type: 'POST',
             data: datos,
             error: function (jqXHR, textStatus, errorThrown) {
@@ -157,11 +141,13 @@ $('#actualizarUsuario').submit(function (e) {
                 messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
             }, success: function (data, textStatus, jqXHR) {
                 btn.disabled = false;
-                $('#cargando').removeClass('is-active');
-                if (data === true || data === 'true') {
+                $('#cargas').removeClass('is-active');
+                if (data == 1) {
                     messageOk('Su usuario ha sido actualizado!!');
-                } else {
+                } else if (data == 2) {
                     messageError('Ha ocurrido un error, favor verificar datos.');
+                } else {
+                    messageError('Clave anterior incorrecta');
                 }
             }
         })
@@ -170,80 +156,3 @@ $('#actualizarUsuario').submit(function (e) {
         $('#actualizarUsuario').addClass('was-validated');
     }
 })
-
-//actualizar empresa
-document.getElementById('actualizarEmpresa').addEventListener('input', e => {
-
-    e.preventDefault();
-    var form = $("#actualizarEmpresa");
-    if (form[0].checkValidity() === false) {
-        event.preventDefault();
-        event.stopPropagation();
-    } else {
-        event.preventDefault();
-        event.stopPropagation();
-    }
-    form.addClass('was-validated');
-
-})
-
-$('#actualizarEmpresa').submit(function (e) {
-
-    e.preventDefault();
-    e.stopPropagation();
-
-    var formulario = $("#actualizarEmpresa");
-    var datosVal = [
-        nombreEmpresa = $('#nombreEmpresa').val(),
-        celularEmpresa = $('#celularEmpresa').val(),
-        telefonoEmpresa = $('#telefonoEmpresa').val(),
-        correoEmpresa = $('#correoEmpresa').val(),
-        direccionEmpresa = $('#direccionEmpresa').val(),
-        idCiudadEmpresa = $('#idCiudadEmpresa').val()
-
-
-    ];
-    //console.log(datosVal);
-
-    if ($('#actualizarEmpresa')[0].checkValidity() && valCampos(datosVal)) {
-        event.preventDefault();
-        event.stopPropagation();
-        event.stopImmediatePropagation();
-        var datos = $('#actualizarEmpresa').serialize();
-        var btn = document.getElementById('btnActualizarEmpresa');
-        $('#cargando').addClass('is-active');
-        btn.disabled = true;
-        $.ajax({
-            url: "./actualizaUsuEmp?accion=actualizarEmpresa&" + datos,
-            type: 'POST',
-            contentType: false,
-            processData: false, error: function (jqXHR, textStatus, errorThrown) {
-                $('#cargando').removeClass('is-active');
-                messageInfo('Ha ocurrido un error con el servidor, favor intentar más tarde.');
-                btn.disabled = false;
-            },
-            success: function (data) {
-                $('#cargando').removeClass('is-active');
-                if (data === 'true') {
-                    messageOk('Operación realizada!!');
-                } else {
-                    messageError('Ha ocurrido un error, favor verificar datos.');
-                }
-                formulario.addClass('was-validated');
-                btn.disabled = false;
-            }
-        })
-    } else {
-        formulario.addClass('was-validated');
-    }
-})
-
-
-
-
-
-
-
-
-
-

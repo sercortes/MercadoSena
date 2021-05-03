@@ -102,8 +102,6 @@ $(document).on('click', '#btnUpdateData', function (e) {
         datatype: 'json'
     }).done(function (data) {
 
-
-        console.log(data)
         $('#cargas').removeClass('is-active');
         $("#btnUpdateData").attr("disabled", false);
         
