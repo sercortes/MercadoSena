@@ -37,22 +37,14 @@ import org.apache.commons.lang3.RandomStringUtils;
 
 public class actualizaUsuEmp extends HttpServlet {
 
-    usuarioDAO usuarioDAO = new usuarioDAO();
-    usuarioDTO usuarioDTO;
-    personaNaturalDAO personaDAO = new personaNaturalDAO();
-    personaNaturalDTO personaDTO;
-    empresaDAO empresaDAO = new empresaDAO();
-    empresaDTO empresaDTO = new empresaDTO();
-    datosSesion datSesion = new datosSesion();
-    codActivacion cod = new codActivacion();
-    correo correo = new correo();
-    
     private final String url_serve = "/home/equipo/servers/apache-tomcat-8.0.27/webapps/ROOT/usuarios/";
     private final String servidor = "http://192.168.20.48:8084/usuarios/";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
+        System.out.println("actalizaemp no soporta GET");
+        response.sendRedirect(request.getContextPath() + "/home");
 
     }
 
@@ -69,247 +61,37 @@ public class actualizaUsuEmp extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String accion = request.getRequestURI();
-        HttpSession sesion = (HttpSession) request.getSession();
         String accion2 = request.getParameter("accion");
         switch (accion2) {
             case "actualizarPersonas":
 
-                personaDTO = new personaNaturalDTO();
-                usuarioDTO = new usuarioDTO();
-                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                personaDTO = usuarioDTO.getPersona();
-
-                ArrayList<String> lista1 = new ArrayList<>();
-                try {
-                    FileItemFactory file = new DiskFileItemFactory();
-                    ServletFileUpload fileUpload = new ServletFileUpload(file);
-                    List items = fileUpload.parseRequest(request);
-                    for (int i = 0; i < items.size(); i++) {
-                        FileItem fileItem = (FileItem) items.get(i);
-                        if (!fileItem.isFormField()) {
-                            String nombre = fileItem.getName();
-                            if (nombre.equals("")) {
-                            } else {
-                                File f = new File(this.url_serve + usuarioDTO.getIdUsuario() + ".jpg");
-                                if (f.exists() == true) {
-                                    f.delete();
-                                }
-                                System.out.println(f.toString());
-                                fileItem.write(f);
-                                personaDTO.setUrlImg(this.servidor + usuarioDTO.getIdUsuario() + ".jpg");
-                            }
-                        } else {
-                            lista1.add(new String(fileItem.getString().getBytes("ISO-8859-1"), "UTF-8"));
-                        }
-                    }
-                    personaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-                    personaDTO.setNombrePer(lista1.get(1));
-                    personaDTO.setApellidoPer(lista1.get(2));
-                    personaDTO.setIdCiudad(Integer.parseInt(lista1.get(3)));
-                    personaDTO.setIdTipoDoc(Integer.parseInt(lista1.get(4)));
-                    personaDTO.setNumeroDocPer(lista1.get(5));
-                    personaDTO.setIdGenero(Integer.parseInt((lista1.get(6))));
-                    personaDTO.setNumCelularPer(lista1.get(7));
-                    personaDTO.setTelPer(lista1.get(8));
-                    personaDTO.setDireccionPer(lista1.get(9));
-
-                    empresaDTO.setNombreEmpresa(lista1.get(1));
-                    empresaDTO.setIdCiudad(Integer.parseInt(lista1.get(3)));
-                    empresaDTO.setCelEmpresa(lista1.get(7));
-                    empresaDTO.setTelEmpresa(lista1.get(8));
-                    empresaDTO.setDirEmpresa(lista1.get(9));
-                    personaDAO.buscarCorreo(usuarioDTO.getIdUsuario());
-                    empresaDTO.setCorreoEmpresa(personaDTO.getCorreoPer());
-                    empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-
-                    empresaDTO empDAO = new empresaDAO().buscarEmpresa(usuarioDTO.getIdUsuario());
-                    personaNaturalDTO perDAO = new personaNaturalDAO().buscarDocumenPerson(personaDTO.getNumeroDocPer(), personaDTO.getNumCelularPer());
-                    if (personaDTO.getNumeroDocPer().equals(perDAO.getNumeroDocPer()) || personaDTO.getNumCelularPer().equals(perDAO.getNumCelularPer())) {
-
-                        personaDAO.actualizarPersona(personaDTO);
-
-                        if (empDAO.getEsEmpresa() < 1) {
-
-                            empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
-
-                        }
-
-                        response.getWriter().print(true);
-                        sesion.removeAttribute("USER");
-                        sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
-
-                    } else {
-
-                        if (personaDAO.actualizarPersona(personaDTO)) {
-
-                            if (empDAO.getEsEmpresa() < 1) {
-
-                                empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario());
-
-                            }
-
-                            response.getWriter().print(true);
-                            sesion.removeAttribute("USER");
-                            sesion.setAttribute("USER", datSesion.consultarDatos(usuarioDTO));
-
-                        } else {
-                            response.getWriter().print(false);
-                        }
-                    }
-
-                } catch (Exception e) {
-                    System.out.println("Error" + e);
-                    response.getWriter().print(false);
-                }
+                updateData(request, response);
 
                 break;
-            case "actualizarUsuarios":
+            case "actualizarUsuariosCla":
 
-                usuarioDTO = new usuarioDTO();
-                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                usuarioDTO.setClaveUsu(request.getParameter("clave0"));
-                usuarioDTO ecuentrapass = new usuarioDAO().Enecuentracontraseña(usuarioDTO);
-                if (ecuentrapass.getIdUsuario() != 0) {
-                    usuarioDTO.setClaveUsu(request.getParameter("clave1"));
-                    if (usuarioDAO.actualizarUsuario(usuarioDTO)) {
+                updateClave(request, response);
 
-                        response.getWriter().print(true);
-
-                    } else {
-
-                    }
-                } else {
-                    response.getWriter().print(false);
-                }
-
-                break;
-            case "actualizarEmpresa":
-
-                empresaDTO = new empresaDTO();
-                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-
-                empresaDTO.setNombreEmpresa(request.getParameter("nombreEmpresa"));
-                empresaDTO.setCelEmpresa(request.getParameter("celularEmpresa"));
-                empresaDTO.setTelEmpresa(request.getParameter("telefonoEmpresa"));
-                empresaDTO.setCorreoEmpresa(request.getParameter("correoEmpresa"));
-                empresaDTO.setDirEmpresa(request.getParameter("direccionEmpresa"));
-                empresaDTO.setIdCiudad(Integer.parseInt(request.getParameter("idCiudadEmpresa")));
-                empresaDTO.setEsEmpresa(1);
-                empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-
-                empresaDTO emDTO = new empresaDAO().buscarEmpresa(usuarioDTO.getIdUsuario());
-
-                if (emDTO.getIdEmpresa() > 0) {
-
-                    //de la sesion
-                    if (empresaDAO.actualizarEmpresa(empresaDTO, usuarioDTO.getIdUsuario())) {
-
-                        // sesion.removeAttribute("USER");
-                        response.getWriter().print(true);
-
-                        usuarioDTO = datSesion.consultarDatos(usuarioDTO);
-                        sesion.setAttribute("USER", usuarioDTO);
-                    } else {
-                        response.getWriter().print(false);
-                    }
-
-                } else {
-
-                    if (empresaDAO.registroEmpresa(empresaDTO, usuarioDTO.getIdUsuario())) {
-
-                        // sesion.removeAttribute("USER");
-                        response.getWriter().print(true);
-
-                        usuarioDTO = datSesion.consultarDatos(usuarioDTO);
-                        sesion.setAttribute("USER", usuarioDTO);
-                    } else {
-                        response.getWriter().print(false);
-                    }
-
-                }
                 break;
 
             case "actualizaDatosFaltantes":
-
+                
                 actualizarDatosFaltantes(request, response);
 
                 break;
 
             case "recuperarClave":
-                
-                System.out.println("--------");
-                System.out.println("REQUEST recover PASS");
-                request.setCharacterEncoding("UTF-8");
-                response.setCharacterEncoding("UTF-8");
-                response.setContentType("application/json");
-                String gRecaptchaResponse = request.getParameter("rec");
-                String correo = request.getParameter("email");
-                System.out.println(correo);
-                Catcha catcha = new Catcha();
-                boolean verify = catcha.verify(gRecaptchaResponse);
-                UsuarioDAOLogin usuarioDAOLogin = null;
-                Connection conn = null;
-                String pass = "";
 
-                try {
+                recoverPass(request, response);
 
-                    if (!verify) {
-                        System.out.println("MAL CATCHA");
-                        new Gson().toJson(0, response.getWriter());
-                        throw new Exception();
-                    }
-
-                    Conexion conexion = new Conexion();
-                    conn = conexion.getConnection();
-
-                    if (conn.getAutoCommit()) {
-                        conn.setAutoCommit(false);
-                    }
-
-                    usuarioDAOLogin = new UsuarioDAOLogin(conn);
-
-                    if (!usuarioDAOLogin.isUser(correo)) {
-                        new Gson().toJson(1, response.getWriter());
-                        throw new Exception();
-                    }
-                    pass = generatePassword();
-                    usuarioDAOLogin.updateHashPassword(pass, correo);
-                    correo co = new correo();
-                    co.recuperarCorreo(correo, pass);
-                    System.out.println("SEND---------------");
-                    System.out.println("-----");
-                    conn.commit();
-                    new Gson().toJson(3, response.getWriter());
-                } catch (SQLException ex) {
-                    System.out.println("SQL ROLL BACK");
-                    try {
-                        conn.rollback();
-                    } catch (SQLException ex1) {
-                        ex1.printStackTrace();
-                    }
-                    new Gson().toJson(2, response.getWriter());
-                    ex.printStackTrace();
-
-                } catch (Exception ex) {
-                    System.out.println("ROLL BACK");
-                     try {
-                        conn.rollback();
-                    } catch (SQLException ex1) {
-                        ex1.printStackTrace();
-                    }
-                    
-                    ex.printStackTrace();
-
-                } finally {
-
-                    usuarioDAOLogin.CloseAll();
-
-                }
-                
                 break;
             default:
-                throw new AssertionError("xxxxxxxxxxxxxxxxxxxxxx esa accion no existe");
+                
+                System.out.println("default actualiza usu");
+                response.sendRedirect(request.getContextPath() + "/home");
+                
+                break;
+
         }
     }
 
@@ -335,13 +117,9 @@ public class actualizaUsuEmp extends HttpServlet {
             perNaturalDAO = new PersonasNaturalDAO(conn);
 
             personaNaturalDTO personaDTO = getDatosPersonaNatutalDTO(request);
-            empresaDTO empresaDTO = getDatosEmpresaDTO(request, DTOusuarioDTO);
-            System.out.println("EMPRESA***************");
-            System.out.println(empresaDTO.toString());
-            empresaDAO.actualizarDatosFaltantes(empresaDTO, DTOusuarioDTO.getIdUsuario());
             perNaturalDAO.actualizarDatosFaltantes(personaDTO, DTOusuarioDTO.getIdUsuario());
 
-            DTOusuarioDTO = setDatosSession(DTOusuarioDTO, personaDTO, empresaDTO);
+            DTOusuarioDTO = setDatosSession(DTOusuarioDTO, personaDTO, new empresaDTO());
             sesion.setAttribute("USER", DTOusuarioDTO);
             conn.commit();
             new Gson().toJson(1, response.getWriter());
@@ -417,6 +195,78 @@ public class actualizaUsuEmp extends HttpServlet {
         return empresaDTO;
     }
 
+    private void updateData(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        usuarioDTO usuarioDTO = (usuarioDTO) request.getSession().getAttribute("USER");
+        personaNaturalDTO personaDTO = usuarioDTO.getPersona();
+
+        ArrayList<String> lista1 = new ArrayList<>();
+        Connection conn = null;
+        PersonasNaturalDAO perNaturalDAO = null;
+        try {
+            FileItemFactory file = new DiskFileItemFactory();
+            ServletFileUpload fileUpload = new ServletFileUpload(file);
+            List items = fileUpload.parseRequest(request);
+            for (int i = 0; i < items.size(); i++) {
+                FileItem fileItem = (FileItem) items.get(i);
+                if (!fileItem.isFormField()) {
+                    String nombre = fileItem.getName();
+                    if (nombre.equals("")) {
+                    } else {
+                        File f = new File(this.url_serve + usuarioDTO.getIdUsuario() + ".jpg");
+                        if (f.exists() == true) {
+                            f.delete();
+                        }
+                        System.out.println(f.toString());
+                        fileItem.write(f);
+                        personaDTO.setUrlImg(this.servidor + usuarioDTO.getIdUsuario() + ".jpg");
+                    }
+                } else {
+                    lista1.add(new String(fileItem.getString().getBytes("ISO-8859-1"), "UTF-8"));
+                }
+            }
+
+            personaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
+            personaDTO.setNombrePer(lista1.get(1));
+            personaDTO.setApellidoPer(lista1.get(2));
+            personaDTO.setIdCiudad(Integer.parseInt(lista1.get(3)));
+            personaDTO.setIdGenero(Integer.parseInt((lista1.get(4))));
+            personaDTO.setNumCelularPer(lista1.get(5));
+            personaDTO.setTelPer(lista1.get(6));
+            personaDTO.setDireccionPer(lista1.get(7));
+
+            System.out.println("UPDATE DATA");
+            System.out.println(personaDTO.toString());
+
+            Conexion conexion = new Conexion();
+            conn = conexion.getConnection();
+
+            if (conn.getAutoCommit()) {
+                conn.setAutoCommit(false);
+            }
+
+            perNaturalDAO = new PersonasNaturalDAO(conn);
+
+            perNaturalDAO.updateData(personaDTO);
+            conn.commit();
+
+            response.getWriter().print(true);
+        } catch (Exception e) {
+
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+            response.getWriter().print(false);
+
+        } finally {
+            perNaturalDAO.CloseAll();
+        }
+
+    }
+
     @Override
     public String getServletInfo() {
         return "Short description";
@@ -424,6 +274,135 @@ public class actualizaUsuEmp extends HttpServlet {
 
     public String generatePassword() {
         return RandomStringUtils.random(10, 0, 20, true, true, "qw32rfHIJk9iQ8Ud7h0X".toCharArray());
+    }
+
+    private void updateClave(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        System.out.println("CLAVEE");
+        usuarioDTO usuarioDTO = (usuarioDTO) request.getSession().getAttribute("USER");
+        usuarioDTO.setClaveUsu(request.getParameter("clave0"));
+
+        Connection conn = null;
+        PersonasNaturalDAO perNaturalDAO = null;
+        try {
+
+            Conexion conexion = new Conexion();
+            conn = conexion.getConnection();
+
+            if (conn.getAutoCommit()) {
+                conn.setAutoCommit(false);
+            }
+
+            perNaturalDAO = new PersonasNaturalDAO(conn);
+
+            usuarioDTO ecuentrapass = perNaturalDAO.Enecuentracontraseña(usuarioDTO);
+            if (ecuentrapass.getIdUsuario() == 0) {
+                System.out.println("CLAVE ERRADA");
+                throw new Exception();
+            }
+            usuarioDTO.setClaveUsu(request.getParameter("clave1"));
+            perNaturalDAO.updatePass(usuarioDTO);
+
+            conn.commit();
+
+            response.getWriter().print(1);
+        } catch (SQLException e) {
+
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+            response.getWriter().print(2);
+
+        } catch (Exception e) {
+
+            try {
+                conn.rollback();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
+            response.getWriter().print(3);
+
+        } finally {
+            perNaturalDAO.CloseAll();
+        }
+
+    }
+
+    private void recoverPass(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        System.out.println("--------");
+        System.out.println("REQUEST recover PASS");
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        response.setContentType("application/json");
+        String gRecaptchaResponse = request.getParameter("rec");
+        String correo = request.getParameter("email");
+        System.out.println(correo);
+        Catcha catcha = new Catcha();
+        boolean verify = catcha.verify(gRecaptchaResponse);
+        UsuarioDAOLogin usuarioDAOLogin = null;
+        Connection conn = null;
+        String pass = "";
+
+        try {
+
+            if (!verify) {
+                System.out.println("MAL CATCHA");
+                new Gson().toJson(0, response.getWriter());
+                throw new Exception();
+            }
+
+            Conexion conexion = new Conexion();
+            conn = conexion.getConnection();
+
+            if (conn.getAutoCommit()) {
+                conn.setAutoCommit(false);
+            }
+
+            usuarioDAOLogin = new UsuarioDAOLogin(conn);
+
+            if (!usuarioDAOLogin.isUser(correo)) {
+                new Gson().toJson(1, response.getWriter());
+                throw new Exception();
+            }
+            pass = generatePassword();
+            usuarioDAOLogin.updateHashPassword(pass, correo);
+            correo co = new correo();
+            co.recuperarCorreo(correo, pass);
+            System.out.println("SEND---------------");
+            System.out.println("-----");
+            conn.commit();
+            new Gson().toJson(3, response.getWriter());
+        } catch (SQLException ex) {
+            System.out.println("SQL ROLL BACK");
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                ex1.printStackTrace();
+            }
+            new Gson().toJson(2, response.getWriter());
+            ex.printStackTrace();
+
+        } catch (Exception ex) {
+            System.out.println("ROLL BACK");
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                ex1.printStackTrace();
+            }
+
+            ex.printStackTrace();
+
+        } finally {
+
+            usuarioDAOLogin.CloseAll();
+
+        }
+
     }
 
 }

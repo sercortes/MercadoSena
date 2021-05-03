@@ -8,6 +8,7 @@ package co.edu.sena.mercado.dao;
 
 import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.tipoDocumentoDTO;
+import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import java.sql.Connection;
@@ -138,7 +139,6 @@ public class PersonasNaturalDAO {
             throw new MySQLIntegrityConstraintViolationException();     
         }catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("........error al relizar el registro pde personaDAO " + e);
             System.out.println("........ consulta " + ps.toString());
             throw new Exception();
         }
@@ -192,7 +192,7 @@ public class PersonasNaturalDAO {
             System.out.println(ex);
             throw new MySQLIntegrityConstraintViolationException();     
         }catch (SQLException e) {
-            System.out.println("........error al relizar el registro pde personaDAO " + e);
+            e.printStackTrace();
             System.out.println("........ consulta " + ps.toString());
             throw new Exception();
         }
@@ -219,7 +219,78 @@ public class PersonasNaturalDAO {
         }
     }
      
+       public boolean updateData(personaNaturalDTO persona) throws MySQLIntegrityConstraintViolationException, Exception {
+        String consulta = "UPDATE personanatural SET nombrePersona = ?, apellidoPersona = ?, "
+                + "idCiudadFK = ?, idGeneroFK = ?, celularPersona = ?, telefonoPersona = ?, "
+                + "direccionPersona = ?, urlImgPersona = ? WHERE idUsuarioFK = ?";
+        try {
+            ps = conn.prepareStatement(consulta);
+            ps.setString(1, persona.getNombrePer());
+            ps.setString(2, persona.getApellidoPer());
+            ps.setInt(3, persona.getIdCiudad());
+            ps.setInt(4, persona.getIdGenero());
+            ps.setString(5, persona.getNumCelularPer());
+            ps.setString(6, persona.getTelPer());
+            ps.setString(7, persona.getDireccionPer());
+            ps.setString(8, persona.getUrlImg());
+            ps.setInt(9, persona.getIdUsuario());
+            ps.executeUpdate();
+            return true;
+        } catch (MySQLIntegrityConstraintViolationException ex) {
+            System.out.println(ex);
+            throw new MySQLIntegrityConstraintViolationException();     
+        }catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("........ consulta " + ps.toString());
+            throw new Exception();
+        }
+    }
+      
+     public boolean updatePass(usuarioDTO datosUsu) throws MySQLIntegrityConstraintViolationException, Exception {
+  
+        String consulta = "UPDATE usuario SET passwordUsuario=md5(?),fechaPassword=now() WHERE idUsuario=?";
+        try {
+            ps = conn.prepareStatement(consulta);
+            ps.setString(1, datosUsu.getClaveUsu());
+            ps.setInt(2, datosUsu.getIdUsuario());
+            ps.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("consulta " + ps.toString());
+            throw new Exception();
+        }
+    }
     
+      
+    public usuarioDTO Enecuentracontraseña(usuarioDTO usuario) throws MySQLIntegrityConstraintViolationException, Exception {
+
+        try {
+            String sql = "SELECT * FROM usuario WHERE emailUsuario = ? AND passwordUsuario"
+                    + " = md5(?) AND estadoUsuario = 1 limit 1";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, usuario.getCorreoUsu());
+            ps.setString(2, usuario.getClaveUsu());
+            ResultSet rs = ps.executeQuery();
+            usuarioDTO usua = new usuarioDTO();
+            while (rs.next()) {
+
+                usua.setIdUsuario(rs.getInt("idUsuario"));
+                usua.setCorreoUsu(rs.getString("emailUsuario"));
+                usua.setEstadoUsu(rs.getString("estadoUsuario"));
+                usua.setIdRol(rs.getInt("fkRol"));
+                usua.setNumIngreso(rs.getInt("numeroIngreso"));
+
+            }
+            return usua;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(ps.toString());
+            return null;
+        }
+
+    }
+       
     public void CloseAll(){
           Conexion.close(conn);
           Conexion.close(ps);

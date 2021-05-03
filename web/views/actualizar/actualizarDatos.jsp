@@ -1,8 +1,4 @@
-<%-- 
-    Document   : actualizarDatos
-    Created on : 15/06/2020, 03:40:35 PM
-    Author     : DELL
---%>
+
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -11,10 +7,6 @@
 <c:if test="${ empty USER.idRol}">
     <c:redirect url="./home"/>
 </c:if>
-
-
-<link href="./assets/files/image-uploader.css" rel="stylesheet" type="text/css" async>
-<link type="text/css" rel="stylesheet" href="./assets/files/material.css" async>
 
 <%@include file="/views/template/header.jspf"%>
 
@@ -96,22 +88,6 @@
                             </div>
                             <br>
                             <div id="contenido">
-
-                                <label>Tipo documento:</label><br>
-                                <div id="tipoDoc">
-
-                                    <input type="hidden" value="${USER.persona.idTipoDoc}" id="tipoDocUsusario">
-                                </div>
-                                <div class="invalid-feedback">
-                                    Completa este campo
-                                </div>
-                                <br>
-
-                                <label>Documento:</label><br>
-                                <input  value="${USER.persona.numeroDocPer}" type="text" pattern="[0-9]{5,10}" placeholder="Documento" class="form-control was-validated" id="documentoUsuario" name="documentoUsuario">
-                                <div class="invalid-feedback">
-                                    Completa este campo correctamente
-                                </div><br> 
                                 <label>Seleccione su género:</label><br>
                                 <div id="genero">
                                     <input type="hidden" value="${USER.persona.idGenero}" id="generoUsusario">
@@ -168,60 +144,12 @@
                     </div>
                     <!-- fin -->
 
-                    <!-- empresa -->
-                    <div id="nav-tab-empresa" class="tab-pane fade ocultar">
-                        <h4 style="color: rgb(238 82 68);margin-top: 36px;">Empresa: </h4>
-                        <form id="actualizarEmpresa" class="needs-validation" >
-                            <input type="hidden" name="esEmpresa" id="esEmpresa" value="${USER.empresa.esEmpresa}">
-                            <label>Nombre:</label><br>
-                            <input value="${USER.empresa.nombreEmpresa}" type="text" class="form-control was-validated" minlength="1" maxlength="100" placeholder="Nombre" id="nombreEmpresa" name="nombreEmpresa" required>
-                            <div class="invalid-feedback">
-                                Completa este campo correctamente
-                            </div>
-                            <br> 
-
-                            <label>Celular:</label><br>
-                            <input value="${USER.empresa.celEmpresa}" type="number" placeholder="Número" class="form-control was-validated" minlength="8" maxlength="50" id="celularEmpresa" name="celularEmpresa" required>
-                            <div class="invalid-feedback">
-                                Completa este campo correctamente
-                            </div><br> 
-                            <label>Teléfono:</label><br>
-                            <input type="number" placeholder="Teléfono" class="form-control was-validated" id="telefonoEmpresa"  maxlength="50" name="telefonoEmpresa" required value="${USER.empresa.telEmpresa}" >
-                            <div class="invalid-feedback">
-                                Completa este campo correctamente
-                            </div><br> 
-                            <label>Correo:</label><br>
-                            <input type="email" placeholder="example@misena.edu.co" class="form-control was-validated" maxlength="100" id="correoEmpresa" name="correoEmpresa" required value="${USER.empresa.correoEmpresa}" >
-                            <div class="invalid-feedback">
-                                Completa este campo correctamente
-                            </div><br> 
-                            <label>Seleccione su ciudad:</label><br>
-                            <div id='ciudadEmpresa'>
-
-                                <input type="hidden" id="ciudEmpresaActualizar" value="${USER.empresa.idCiudad}">
-
-                            </div><br>
-                            <label>Dirección:</label><br>
-                            <input type="text" placeholder="Dirección" class="form-control was-validated" minlength="1" maxlength="100" id="direccionEmpresa" name="direccionEmpresa" required value="${USER.empresa.dirEmpresa}">
-                            <div class="invalid-feedback">
-                                Completa este campo correctamente
-
-                            </div>
-                            <br> 
-
-                            <button class="btn btn-primary" id="btnActualizarEmpresa" style="width: 20%; height: 45px;">Registrar</button>
-
-                        </form>
-                    </div>
-                    <!-- fin -->
-
                 </div>
             </div>
         </div>
     </div>
 
-
-    <div id="cargando" class="loader loader-bouncing"></div>
+     <div id="cargas" class="loader loader-bouncing"></div>
 
 </div>
 </div>
