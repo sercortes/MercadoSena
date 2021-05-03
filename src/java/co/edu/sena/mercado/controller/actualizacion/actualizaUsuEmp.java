@@ -46,6 +46,9 @@ public class actualizaUsuEmp extends HttpServlet {
     datosSesion datSesion = new datosSesion();
     codActivacion cod = new codActivacion();
     correo correo = new correo();
+    
+    private final String url_serve = "/home/equipo/servers/apache-tomcat-8.0.27/webapps/ROOT/usuarios/";
+    private final String servidor = "http://192.168.20.48:8084/usuarios/";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -88,14 +91,13 @@ public class actualizaUsuEmp extends HttpServlet {
                             String nombre = fileItem.getName();
                             if (nombre.equals("")) {
                             } else {
-                                System.out.println("XXXXXXXXXXXXXXXXXx");
-                                File f = new File("/home/bienestar/Descargas/glassfish4/glassfish/domains/domain1/docroot/usuarios/" + usuarioDTO.getIdUsuario() + ".jpg");
+                                File f = new File(this.url_serve + usuarioDTO.getIdUsuario() + ".jpg");
                                 if (f.exists() == true) {
                                     f.delete();
                                 }
                                 System.out.println(f.toString());
                                 fileItem.write(f);
-                                personaDTO.setUrlImg("http://181.48.181.131/usuarios/" + usuarioDTO.getIdUsuario() + ".jpg");
+                                personaDTO.setUrlImg(this.servidor + usuarioDTO.getIdUsuario() + ".jpg");
                             }
                         } else {
                             lista1.add(new String(fileItem.getString().getBytes("ISO-8859-1"), "UTF-8"));
