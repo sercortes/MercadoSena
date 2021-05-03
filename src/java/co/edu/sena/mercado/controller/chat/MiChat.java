@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
+import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
@@ -32,6 +33,11 @@ public class MiChat {
         for(Session session: conectados){
             session.getBasicRemote().sendObject(mensaje);
         }
+    }
+    
+    @OnError
+    public void onError(Session session, Throwable thr) {
+        System.out.println("ERROR SOCKET CERRADO");
     }
     
 }
