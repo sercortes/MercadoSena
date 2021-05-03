@@ -116,23 +116,30 @@ public class chat extends HttpServlet {
         preguntasDTO preguntaDTOs = new preguntasDTO();
         Conexion conexion = new Conexion();
         PreguntassDAO preguntassDAO = new PreguntassDAO(conexion.getConnection());
+        
         preguntaDTOs.setEstadoPregunta(0);
         preguntaDTOs.setIdProducto(Integer.parseInt(request.getParameter("idProducto")));
         preguntaDTOs.setIdUsuarioPregunta(usu.getIdUsuario());
         preguntaDTOs.setPregunta(request.getParameter("mensaje"));
         
+        
         System.out.println("----------");
         System.out.println("PREGUNTA");
+        System.out.println(preguntaDTOs.toString());
         System.out.println(request.getParameter("mensaje"));
         System.out.println(usu.toString());
         System.out.println("-----------");
         
+        
         try {
             preguntassDAO.resgistroPregunta(preguntaDTOs);
-            response.getWriter().print(true);
+            response.getWriter().print(1);
         } catch (SQLException ex) {
-            response.getWriter().print(false);
-            System.out.println(ex);
+            response.getWriter().print(10);
+            ex.printStackTrace();
+        } catch (Exception ex) {
+            response.getWriter().print(11);
+            ex.printStackTrace();
         } finally {
             preguntassDAO.CloseAll();
         }

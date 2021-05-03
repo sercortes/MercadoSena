@@ -119,8 +119,9 @@ function generateQuestions(url, data) {
 
     let str = ``
     $('#chatPreguntas').html('')
+     let datas = data.sort(dynamicSort("idPregunta"));
 
-    for (var item of data) {
+    for (var item of datas) {
         str += `<div class="media w-50 mb-3"><img src="${url}" alt="user" width="50" class="rounded-circle">
                     <div class="media-body ml-3">
                         <div class="bg-light rounded py-2 px-3 mb-2">
