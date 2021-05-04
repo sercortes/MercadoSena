@@ -5,11 +5,14 @@
  */
 package co.edu.sena.mercado.dao;
 
+import co.edu.sena.mercado.dto.empresaDTO;
+import co.edu.sena.mercado.dto.personaNaturalDTO;
 import co.edu.sena.mercado.dto.usuarioDTO;
 import co.edu.sena.mercado.util.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -81,7 +84,7 @@ public class UsuarioDAOLogin {
 
             ps.setString(1, clave);
             ps.setString(2, correo);
-            
+
             int rows = ps.executeUpdate();
             boolean estado = rows > 0;
             return estado;
@@ -90,7 +93,7 @@ public class UsuarioDAOLogin {
             throw new Exception();
         }
     }
-    
+
     public usuarioDTO getHash(String correo, String hash) {
 
         try {
@@ -115,14 +118,14 @@ public class UsuarioDAOLogin {
         }
 
     }
-    
-     public boolean resetPass(String correo, String pass) {
+
+    public boolean resetPass(String correo, String pass) {
         try {
 
             String sql = "UPDATE usuario set passwordUsuario = md5(?), codActivacion = '', fechaPassword = NOW(), estadoUsuario = 1 "
                     + "WHERE emailusuario = ?";
             PreparedStatement ps = conn.prepareStatement(sql);
-            
+
             ps.setString(1, pass);
             ps.setString(2, correo);
             int rows = ps.executeUpdate();
@@ -134,7 +137,74 @@ public class UsuarioDAOLogin {
             return false;
         }
     }
-    
+
+    public personaNaturalDTO getDataById(String id) {
+
+        try {
+            String sql = "SELECT * FROM personanatural WHERE idUsuarioFK = ? ORDER BY idPersona LIMIT 1";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            personaNaturalDTO persona = new personaNaturalDTO();
+            while (rs.next()) {
+
+                persona.setIdPer(rs.getInt("idPersona"));
+                persona.setNumeroDocPer(rs.getString("documentoPersona"));
+                persona.setNombrePer(rs.getString("nombrePersona"));
+                persona.setApellidoPer(rs.getString("apellidoPersona"));
+                persona.setCorreoPer(rs.getString("correoPersona"));
+                persona.setDireccionPer(rs.getString("direccionPersona"));
+                persona.setNumCelularPer(rs.getString("celularPersona"));
+                persona.setTelPer(rs.getString("telefonoPersona"));
+                persona.setIdCiudad(rs.getInt("idCiudadFK"));
+                persona.setIdTipoDoc(rs.getInt("idTipoDocFK"));
+                persona.setIdGenero(rs.getInt("idGeneroFK"));
+                persona.setUrlImg(rs.getString("urlImgPersona"));
+                persona.setModifiData(rs.getTimestamp("modiData"));
+
+            }
+            return persona;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(ps.toString());
+            return null;
+        }
+
+    }
+
+    public empresaDTO buscarEmpresa(int idUsuario) {
+        String query = "SELECT * FROM empresa WHERE idUsuarioFK = ? limit 1";
+        try {
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, idUsuario);
+            rs = ps.executeQuery();
+            empresaDTO empresaDTO = null;
+            while (rs.next()) {
+                empresaDTO = new empresaDTO();
+                empresaDTO.setIdEmpresa(rs.getInt("idEmpresa"));
+                empresaDTO.setEsCentro(rs.getString("esCentro"));
+                empresaDTO.setNombreEmpresa(rs.getString("nombreEmpresa"));
+                empresaDTO.setDirEmpresa(rs.getString("direccionEmpresa"));
+                empresaDTO.setTelEmpresa(rs.getString("telefonoEmpresa"));
+                empresaDTO.setCelEmpresa(rs.getString("celularEmpresa"));
+                empresaDTO.setCorreoEmpresa(rs.getString("correoEmpresa"));
+//                empresaDTO.setCentro(rs.getString("idCentro"));
+                empresaDTO.setIdCiudad(rs.getInt("idCiudadFK"));
+                empresaDTO.setIdUsuario(rs.getInt("idUsuarioFK"));
+
+            }
+            //cerrarCon(ps, cn, rs);
+            return empresaDTO;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("xxxxxxxxxxxxxxxxxxx consulta " + ps.toString());
+            // cerrarCon(ps, cn, rs);
+            return null;
+        }
+
+    }
+
     public void CloseAll() {
         Conexion.close(conn);
         Conexion.close(ps);

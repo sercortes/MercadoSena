@@ -16,6 +16,8 @@ import co.edu.sena.mercado.util.Conexion;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -46,11 +48,7 @@ public class login extends HttpServlet {
 
         if (request.getParameter("fall") != null) {
 
-            try {
-                enterSystem(request, response);
-            } catch (Exception ex) {
-                System.out.println(ex);
-            }
+            enterSystem(request, response);
 
         } else {
 
@@ -60,60 +58,87 @@ public class login extends HttpServlet {
 
     }
 
-    private void enterSystem(HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
+    private void enterSystem(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         System.out.println("");
         String userParam = request.getParameter("email");
         String passParam = request.getParameter("pass");
 
         usuarioDTO UsuarioParam = new usuarioDTO(userParam, passParam);
+
+        Connection conn = null;
         Conexion conexion = new Conexion();
-        UsuarioDAOLogin userdao = new UsuarioDAOLogin(conexion.getConnection());
-        usuarioDTO usuario = userdao.login(UsuarioParam);
-        boolean isUser = userdao.isUser(userParam);
-        userdao.CloseAll();
+        conn = conexion.getConnection();
+        UsuarioDAOLogin userdao = null;
 
-        System.out.println("Intento");
-        System.out.println(usuario.toString());
-        System.out.println("");
+        try {
+            
+            if (conn.getAutoCommit()) {
+                conn.setAutoCommit(false);
+            }
 
-        if (!isUser) {
-            new Gson().toJson(00, response.getWriter());
-            throw new Exception();
+            userdao = new UsuarioDAOLogin(conn);
+            usuarioDTO usuario = userdao.login(UsuarioParam);
+            boolean isUser = userdao.isUser(userParam);
+
+            System.out.println("Intento");
+            System.out.println(usuario.toString());
+            System.out.println("");
+
+            if (!isUser) {
+                System.out.println("NO ES USUARIO");
+                new Gson().toJson(00, response.getWriter());
+                throw new Exception();
+            }
+
+            if (!(usuario.getIdUsuario() > 0)) {
+                System.out.println("DATOS INCORRECTOS");
+                new Gson().toJson(00, response.getWriter());
+                throw new Exception();
+            }
+
+            if (!usuario.getEstadoUsu().equals("1")) {
+                System.out.println("CUENTA NO ACTIVADA");
+                new Gson().toJson(10, response.getWriter());
+                throw new Exception();
+            }
+            System.out.println("");
+            System.out.println("INGRESO");
+            System.out.println(request.getParameter("email"));
+            System.out.println(request.getParameter("pass"));
+            System.out.println("");
+
+            //asignando persona
+            personaNaturalDTO perDTO = userdao.getDataById(Integer.toString(usuario.getIdUsuario()));
+            usuario.setPersona(perDTO);
+
+            if (usuario.getIdRol() == 3) {
+                // asignando empresa
+                empresaDTO emDTO = userdao.buscarEmpresa(usuario.getIdUsuario());
+                usuario.setEmpresa(emDTO);
+            } else {
+                usuario.setEmpresa(new empresaDTO());
+            }
+
+            request.getSession().setAttribute("USER", usuario);
+            System.out.println("INGRESO");
+            System.out.println(usuario.toString());
+            conn.rollback();
+            new Gson().toJson(11, response.getWriter());
+            
+        } catch (Exception ex) {
+            
+            try {
+                conn.rollback();
+            } catch (SQLException ex1) {
+                ex1.printStackTrace();
+            }
+            
+            ex.printStackTrace();
+
+        } finally {
+            userdao.CloseAll();
         }
-
-        if (!(usuario.getIdUsuario() > 0)) {
-            new Gson().toJson(00, response.getWriter());
-            throw new Exception();
-        }
-
-        if (!usuario.getEstadoUsu().equals("1")) {
-            new Gson().toJson(10, response.getWriter());
-            throw new Exception();
-        }
-        System.out.println("");
-        System.out.println("INGRESO");
-        System.out.println(request.getParameter("email"));
-        System.out.println(request.getParameter("pass"));
-        System.out.println("");
-        
-        HttpSession session = request.getSession();
-        //asignando persona
-        personaNaturalDTO perDTO = new personaNaturalDAO().getDataById(Integer.toString(usuario.getIdUsuario()));
-        usuario.setPersona(perDTO);
-
-        if (usuario.getIdRol() == 3) {
-            // asignando empresa
-            empresaDTO emDTO = new empresaDAO().buscarEmpresa(usuario.getIdUsuario());
-            usuario.setEmpresa(emDTO);
-        } else {
-            usuario.setEmpresa(new empresaDTO());
-        }
-
-        session.setAttribute("USER", usuario);
-        System.out.println("INGRESO");
-        System.out.println(usuario.toString());
-        new Gson().toJson(11, response.getWriter());
 
     }
 

@@ -16,6 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -222,7 +223,7 @@ public class PersonasNaturalDAO {
        public boolean updateData(personaNaturalDTO persona) throws MySQLIntegrityConstraintViolationException, Exception {
         String consulta = "UPDATE personanatural SET nombrePersona = ?, apellidoPersona = ?, "
                 + "idCiudadFK = ?, idGeneroFK = ?, celularPersona = ?, telefonoPersona = ?, "
-                + "direccionPersona = ?, urlImgPersona = ? WHERE idUsuarioFK = ?";
+                + "direccionPersona = ?, urlImgPersona = ?, modiData = NOW() WHERE idUsuarioFK = ?";
         try {
             ps = conn.prepareStatement(consulta);
             ps.setString(1, persona.getNombrePer());
@@ -291,6 +292,26 @@ public class PersonasNaturalDAO {
 
     }
        
+    public Timestamp getModifiData(String id) {
+
+        try {
+            Timestamp tiempo = null;
+            String sql = "SELECT modiData FROM personanatural WHERE idUsuarioFK = ? LIMIT 1";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                tiempo = rs.getTimestamp("modiData");
+            }
+            return tiempo;
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(ps.toString());
+            return null;
+        }
+
+    }
+    
     public void CloseAll(){
           Conexion.close(conn);
           Conexion.close(ps);
