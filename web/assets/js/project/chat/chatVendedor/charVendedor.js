@@ -43,7 +43,7 @@ function drawChat(data) {
     for (var item of data) {
 
         str += ` <a href="#" urlU="${item.urlPersona}" idUsuario="${item.idUsuarioPregunta}" idProducto="${item.idProducto}" class="usuarios list-group-item list-group-item-action text-white rounded-0">
-                    <div class="media"><img src="${item.urlPersona}" alt="user" width="100" class="rounded-circle img-fluid">
+                    <div class="media"><img src="${item.urlPersona}?${item.modiData}" alt="user" class="img-fluid fit-image1">
                         <div class="media-body ml-4">
                             <div class="d-flex align-items-center justify-content-between mb-1">
                                 <h6 class="mb-0">${item.nombreUsuario}</h6><small class="small font-weight-bold">${item.fechaPublicada}</small>

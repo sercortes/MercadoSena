@@ -34,6 +34,7 @@ public class preguntasDTO {
    private Producto producto;
    
    private String vista;
+    private Timestamp modiData;
 
     public preguntasDTO() {
     }
@@ -202,11 +203,17 @@ public class preguntasDTO {
         this.vista = vista;
     }
 
-    @Override
-    public String toString() {
-        return "preguntasDTO{" + "idPregunta=" + idPregunta + ", pregunta=" + pregunta + ", estadoPregunta=" + estadoPregunta + ", idUsuarioPregunta=" + idUsuarioPregunta + ", idProducto=" + idProducto + ", respuesta=" + respuesta + ", nombreUsuarioPregunta=" + nombreUsuarioPregunta + ", apellidoUsuarioPregunta=" + apellidoUsuarioPregunta + ", usuarioResponde=" + usuarioResponde + ", idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", urlPersona=" + urlPersona + ", nombreProducto=" + nombreProducto + ", fechaPublicada=" + fechaPublicada + ", uDTO=" + uDTO + ", perNaturalDTO=" + perNaturalDTO + ", producto=" + producto + ", vista=" + vista + '}';
+    public Timestamp getModiData() {
+        return modiData;
     }
 
+    public void setModiData(Timestamp modiData) {
+        this.modiData = modiData;
+    }
 
+    @Override
+    public String toString() {
+        return "preguntasDTO{" + "idPregunta=" + idPregunta + ", pregunta=" + pregunta + ", estadoPregunta=" + estadoPregunta + ", idUsuarioPregunta=" + idUsuarioPregunta + ", idProducto=" + idProducto + ", respuesta=" + respuesta + ", nombreUsuarioPregunta=" + nombreUsuarioPregunta + ", apellidoUsuarioPregunta=" + apellidoUsuarioPregunta + ", usuarioResponde=" + usuarioResponde + ", idUsuario=" + idUsuario + ", nombreUsuario=" + nombreUsuario + ", urlPersona=" + urlPersona + ", nombreProducto=" + nombreProducto + ", fechaPublicada=" + fechaPublicada + ", uDTO=" + uDTO + ", perNaturalDTO=" + perNaturalDTO + ", producto=" + producto + ", vista=" + vista + ", modiData=" + modiData + '}';
+    }
     
 }

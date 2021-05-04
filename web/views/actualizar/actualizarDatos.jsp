@@ -68,17 +68,10 @@
                             </div>
                             <br>
                             <label>Seleccione su ciudad:</label><br>
-                            <select required id="ciudadUsuarioActualizar" name="ciudadUsuarioActualizar" class="form-control">
-                                <option value="">Seleccione...</option>
-                                <c:forEach items="${listaCiudad}" var="ciudad"> 
-                                    <c:if test="${ciudad.idCiudad==USER.persona.idCiudad}">
-                                        <option value="${ciudad.idCiudad}" selected>${ciudad.nombreCiudad}</option> 
-                                    </c:if>
-                                    <c:if test="${ciudad.idCiudad!=USER.persona.idCiudad}">
-                                        <option value="${ciudad.idCiudad}">${ciudad.nombreCiudad}</option> 
-                                    </c:if>
-                                </c:forEach>
-                            </select>
+                           
+                            <input type="hidden" value="${USER.persona.idCiudad}" id="idCiudadd">
+                                     <select id="ciudadUsuarioActualizar" name="ciudadUsuarioActualizar" class="form-control" tabindex="4" required>
+                                    </select>
 
                             <hr>
 
@@ -89,10 +82,9 @@
                             <br>
                             <div id="contenido">
                                 <label>Seleccione su género:</label><br>
-                                <div id="genero">
                                     <input type="hidden" value="${USER.persona.idGenero}" id="generoUsusario">
-
-                                </div>
+                                     <select id="generoUsuario" name="generoUsuario" class="form-control" tabindex="4" required>
+                                    </select>
                                 <div class="invalid-feedback">
                                     Completa este campo
                                 </div>
