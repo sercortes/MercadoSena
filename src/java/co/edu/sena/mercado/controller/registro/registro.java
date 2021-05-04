@@ -34,36 +34,7 @@ import java.util.logging.Logger;
  * @author DELL
  */
 public class registro extends HttpServlet {
-
-//    personaNaturalDAO personaNaturalDAO = new personaNaturalDAO();
-//    personaNaturalDTO personaNaturalDTO = new personaNaturalDTO();
-    ArrayList<personaNaturalDTO> listaPersona = new ArrayList<>();
-    ArrayList<ciudadDTO> listaCiudad = new ArrayList<>();
-    tipoDocumentoDAO tipoDocDAO = new tipoDocumentoDAO();
-    tipoDocumentoDTO tipoDocDTO = new tipoDocumentoDTO();
-    ArrayList<tipoDocumentoDTO> listaTipoDoc = new ArrayList<>();
-    generoDAO generoDAO = new generoDAO();
-    generoDTO generoDTO = new generoDTO();
-    ArrayList<generoDTO> listaGenero = new ArrayList<>();
-    rolUsuarioDAO rolDAO = new rolUsuarioDAO();
-    rolDTO rolDTO = new rolDTO();
-    ArrayList<rolDTO> listaRol = new ArrayList<>();
-    usuarioDTO usuarioDTO = new usuarioDTO();
-//    usuarioDAO usuarioDAO = new usuarioDAO();
-    ArrayList<usuarioDTO> listaUsuario = new ArrayList<>();
-    correo enviar = new correo();
-    codActivacion codigo = new codActivacion();
-    empresaDAO empresaDAO = new empresaDAO();
-    empresaDTO empresaDTO = new empresaDTO();
-    ArrayList<empresaDTO> listaEmpresa = new ArrayList<>();
-    preguntasDAO preguntaDAO = new preguntasDAO();
-    preguntasDTO preguntaDTO = new preguntasDTO();
-    ArrayList<preguntasDTO> listaPregunta = new ArrayList<>();
-    respuestaDAO respuestaDAO = new respuestaDAO();
-    respuestaDTO respuestaDTO = new respuestaDTO();
-    ArrayList<respuestaDTO> listaRespuesta = new ArrayList<>();
-    datosSesion datSesion = new datosSesion();
-
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -75,23 +46,14 @@ public class registro extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        HttpSession sesion = (HttpSession) request.getSession();
+        response.setCharacterEncoding("UTF-8");
         String accion = request.getParameter("accion");
 
         switch (accion) {
-            case "consultaTipoDoc":
-                listaTipoDoc = new ArrayList<>();
-                listaTipoDoc = tipoDocDAO.listarTipoDoc();
-                System.out.println(new Gson().toJson(listaTipoDoc));
-                response.setContentType("application/json");
-                new Gson().toJson(listaTipoDoc, response.getWriter());
-
-                break;
             case "consultaGenero":
-                listaGenero = new ArrayList<>();
-                listaGenero = generoDAO.listarGenero();
-                response.setContentType("application/json");
-                new Gson().toJson(listaGenero, response.getWriter());
+
+                consultaGenero(request, response);
+
                 break;
             case "consultaCiudad":
 
@@ -103,75 +65,12 @@ public class registro extends HttpServlet {
                 generateCategorias(request, response);
 
                 break;
-                
+
             case "registrarUsuario":
 
                 registrarUsuario(request, response);
 
                 break;
-
-            case "registroEmpresa":
-
-                updateDatosCompany(request, response);
-
-                break;
-            case "listarPreguntas":
-                response.setContentType("application/json");
-                listaPregunta = new ArrayList<>();
-                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                try {
-                    listaPregunta = preguntaDAO.listarPregustas(usuarioDTO.getEmpresa().getIdEmpresa());
-                    if (listaPregunta != null) {
-                        new Gson().toJson(listaPregunta, response.getWriter());
-                    }
-                } catch (Exception e) {
-                    System.out.println("XXXXXXXXXXXXXXXXXXXXxxxx error al listarPreguntas ln 277 registro " + e);
-                }
-                break;
-            case "listarPreguntasRespuesta":
-                response.setContentType("application/json");
-                listaPregunta = new ArrayList<>();
-                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                try {
-                    listaPregunta = preguntaDAO.listarPregustasRespuesta(usuarioDTO.getIdUsuario());
-                    preguntaDAO.marcarVistaPregunta(usuarioDTO.getIdUsuario());
-                    new Gson().toJson(listaPregunta, response.getWriter());
-                } catch (Exception e) {
-                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXX error al listarPreguntasRespuesta registro ln 306" + e);
-                }
-                break;
-            case "consultaNotiPreguntas":
-
-                usuarioDTO = new usuarioDTO();
-                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                // if(usuarioDTO.getEmpresa().getIdEmpresa()==5){
-                int notPreguntas = 0;
-
-                try {
-                    notPreguntas = preguntaDAO.consultaNotiPreguntas(usuarioDTO.getEmpresa().getIdEmpresa());
-                } catch (Exception e) {
-                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX error al consultaNotiPreguntas regitro ln 313 " + e);
-                }
-
-                //System.out.println("........................preguntas " + notPreguntas);
-                response.getWriter().print(notPreguntas);//}
-                break;
-            case "consultaNotiRespuestas":
-                usuarioDTO = new usuarioDTO();
-                usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-                int notRespuestas = 0;
-                try {
-                    notRespuestas = preguntaDAO.consultaNotiRespuestas(usuarioDTO.getIdUsuario());
-                } catch (Exception e) {
-                    System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX error al consultaNotiRespuestas ln 328 registro " + e);
-                }
-
-                // System.out.println("........................" + notRespuestas);
-                response.getWriter().print(notRespuestas);
-                break;
-
-            default:
-                throw new AssertionError("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXx Esa accion no existe");
 
         }
 
@@ -225,11 +124,12 @@ public class registro extends HttpServlet {
             personaNaturalDAO = new PersonasNaturalDAO(conn);
             empresaDAO = new EmpresasDAO(conn);
 
-            usuarioDTO = new usuarioDTO();
+            usuarioDTO usuarioDTO = new usuarioDTO();
             usuarioDTO.setClaveUsu(request.getParameter("clave1"));
             usuarioDTO.setCorreoUsu(request.getParameter("correoUsuario"));
             usuarioDTO.setEstadoUsu("0");
             String clave = usuarioDTO.getClaveUsu();
+            codActivacion codigo = new codActivacion();
             usuarioDTO.setCodigo(codigo.generarCod());
             usuarioDTO.setIdRol(2);
 
@@ -244,6 +144,7 @@ public class registro extends HttpServlet {
             personaNaturalDTO.setIdUsuario(idUser);
 
             personaNaturalDAO.registrarPersona(personaNaturalDTO);
+            correo enviar = new correo();
 
             enviar.envCorreo(usuarioDTO.getCorreoUsu(), clave, usuarioDTO.getCodigo());
             System.out.println("REGISTRADO");
@@ -287,62 +188,6 @@ public class registro extends HttpServlet {
 
     }
 
-    private void updateDatosCompany(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-        HttpSession sesion = (HttpSession) request.getSession();
-
-        usuarioDTO usuarioDTO = (usuarioDTO) sesion.getAttribute("USER");
-        empresaDTO empresaDTO = getEmpresa(request, response);
-        empresaDTO.setIdUsuario(usuarioDTO.getIdUsuario());
-
-        Connection conn = null;
-        EmpresasDAO empresaDAO = null;
-
-        try {
-
-            Conexion conexion = new Conexion();
-            conn = conexion.getConnection();
-            empresaDAO = new EmpresasDAO(conn);
-
-            if (conn.getAutoCommit()) {
-                conn.setAutoCommit(false);
-            }
-
-            empresaDAO.updateCompanyFirst(empresaDTO, usuarioDTO.getIdUsuario());
-            conn.commit();
-
-            usuarioDTO = getDatosSession(usuarioDTO, empresaDTO);
-            sesion.setAttribute("USER", usuarioDTO);
-            new Gson().toJson(1, response.getWriter());
-
-        } catch (MySQLIntegrityConstraintViolationException ex1) {
-
-            System.out.println("ROLL BACK CONSTRAINT EXCEPTION");
-            System.out.println(ex1);
-            try {
-                conn.rollback();
-            } catch (SQLException ex3) {
-                System.out.println(ex3);
-            }
-            new Gson().toJson(2, response.getWriter());
-
-        } catch (Exception ex) {
-
-            System.out.println("ROLL BACK GENERAL EXCEPTION");
-            System.out.println(ex);
-            try {
-                conn.rollback();
-            } catch (SQLException ex1) {
-                System.out.println(ex1);
-            }
-            new Gson().toJson(3, response.getWriter());
-
-        } finally {
-            empresaDAO.CloseAll();
-        }
-
-    }
-
     private empresaDTO getEmpresa(HttpServletRequest request, HttpServletResponse response) {
 
         empresaDTO empresaDTO = new empresaDTO();
@@ -373,5 +218,18 @@ public class registro extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void consultaGenero(HttpServletRequest request, HttpServletResponse response) throws IOException {
+
+        Conexion conexion = new Conexion();
+        ArrayList<generoDTO> generos = new ArrayList<>();
+        Connection conn = conexion.getConnection();
+        generoDAO geAO = new generoDAO(conn);
+        generos = geAO.listarGenero();
+        geAO.CloseAll();
+        response.setContentType("application/json");
+        new Gson().toJson(generos, response.getWriter());
+
+    }
 
 }

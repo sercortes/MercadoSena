@@ -1,12 +1,61 @@
 $(document).ready(validarEmpresa());
 function validarEmpresa() {
     
-    consultaTipoDoc($('#tipoDocUsusario').val());
-    consultagenero($('#generoUsusario').val());
+    ciudad()
+    genero()
     $('.ocultar').hide();
     
 }
 
+function ciudad(){
+    
+     $.ajax({
+        url: "./registro?accion=consultaCiudad",
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+    }).done(function (data) {
+        
+        let text = ``
+        let actual = $('#idCiudadd').val()
+        let producto = data.find(element => element.idCiudad == actual);
+        text = `<option value="${producto.idCiudad}" selected>${producto.nombreCiudad}</option>`
+
+        for (var item of data) {
+            if (item.idGenero != actual) {
+                text += `<option value="${item.idCiudad}">${item.nombreCiudad}</option>`
+            }
+        }
+        document.getElementById('ciudadUsuarioActualizar').innerHTML = text
+
+    })
+    
+}
+
+function genero(){
+    
+      $.ajax({
+        url: "./registro?accion=consultaGenero",
+        type: 'POST',
+        async: true,
+        dataType: 'json',
+    }).done(function (data) {
+
+        let text = ``
+        let actual = $('#generoUsusario').val()
+        let producto = data.find(element => element.idGenero == actual);
+        text = `<option value="${producto.idGenero}" selected>${producto.genero}</option>`
+
+        for (var item of data) {
+            if (item.idGenero != actual) {
+                text += `<option value="${item.idGenero}">${item.genero}</option>`
+            }
+        }
+        document.getElementById('generoUsuario').innerHTML = text
+
+    })
+    
+}
 
 function validarEmail(correo) {
     if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.([a-zA-Z]{2,4})+$/.test(correo)) {
@@ -93,7 +142,7 @@ $('#datosActualizarpresona').submit(function (e) {
     } else {
 
         $('#datosActualizarpresona').addClass('was-validated');
-        
+
     }
 })
 

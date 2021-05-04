@@ -606,6 +606,12 @@ body{
     object-fit: cover;
     height: 350px; /* only if you want fixed height */
 }
+
+.fit-image1{
+    width: 30%;
+    object-fit: cover;
+    height: 120px; /* only if you want fixed height */
+}
 .enviar{
     border: none;
     width: 5px;

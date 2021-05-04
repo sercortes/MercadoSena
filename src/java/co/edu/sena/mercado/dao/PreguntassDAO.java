@@ -102,7 +102,7 @@ public class PreguntassDAO {
     public ArrayList<preguntasDTO> getAllPreguntas() {
         ArrayList<preguntasDTO> listaPregunta = new ArrayList<>();
         String consulta = "SELECT count(*), pn.nombrePersona, pn.apellidoPersona, p.idProductoFK, p.idUsuarioPreguntaFK, pr.nombreProducto, "
-                + "pn.urlImgPersona, p.fecha, max(p.fecha)"
+                + "pn.urlImgPersona, p.fecha, max(p.fecha), pn.modiData "
                 + "FROM preguntas p "
                 + "INNER JOIN usuario u ON p.idUsuarioPreguntaFK = u.idUsuario "
                 + "INNER JOIN personanatural pn ON u.idUsuario=pn.idUsuarioFK "
@@ -116,6 +116,7 @@ public class PreguntassDAO {
                 preguntasDTO preDTO = new preguntasDTO();
                 preDTO.setFechaPublicada(rs.getTimestamp("max(p.fecha)"));
                 preDTO.setUrlPersona(rs.getString("pn.urlImgPersona"));
+                preDTO.setModiData(rs.getTimestamp("pn.modiData"));
                 preDTO.setNombreProducto(rs.getString("pr.nombreProducto"));
                 preDTO.setNombreUsuario(rs.getString("pn.nombrePersona") + " " + rs.getString("pn.apellidoPersona"));
                 preDTO.setIdProducto(rs.getInt("p.idProductoFK"));

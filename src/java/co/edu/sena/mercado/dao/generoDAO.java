@@ -19,42 +19,39 @@ import java.util.ArrayList;
  */
 public class generoDAO {
     
-      Conexion con = new Conexion();
-    Connection cn;
-    PreparedStatement ps;
-    ResultSet rs;
-    String consulta;
-    generoDTO generoDTO = new generoDTO();
-    ArrayList<generoDTO> listaGenero = new ArrayList<>();
+   private Connection conn = null;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
+
+    public generoDAO(Connection conn) {
+        this.conn = conn;
+    }
 
     public ArrayList<generoDTO> listarGenero() {
-        listaGenero= new ArrayList<>();
-        con = new Conexion();
-        consulta = "select * from genero";
+        ArrayList listaGenero= new ArrayList<>();
+        String consulta = "select idGenero, nombreGenero from genero";
         try {
-            cn = con.getConnection();
-            ps = cn.prepareStatement(consulta);
+            ps = conn.prepareStatement(consulta);
             rs = ps.executeQuery();
+            generoDTO generoDTO = new generoDTO();
             while (rs.next()) {
                generoDTO =new generoDTO();
                generoDTO.setIdGenero(rs.getInt("idGenero"));
                generoDTO.setGenero(rs.getString("nombreGenero"));
                listaGenero.add(generoDTO);
-
             }
-           // System.out.println(".........resultado " + listaGenero.toString());
-           // System.out.println("......... consulta " + ps.toString());
             return listaGenero;
         } catch (SQLException e) {
-            System.out.println(".........Error al listar generos " + e);
+            e.printStackTrace();
             System.out.println("......... consulta" + ps.toString());
             return null;
-         }finally{
-            Conexion.close(cn);
-            Conexion.close(ps);
-            Conexion.close(rs);
-        }
+         }
     }
     
+        public void CloseAll() {
+        Conexion.close(conn);
+        Conexion.close(ps);
+        Conexion.close(rs);
+    }
     
 }
