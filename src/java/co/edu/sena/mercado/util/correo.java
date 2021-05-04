@@ -25,6 +25,10 @@ public class correo {
     private String urlActivate = "http://localhost:8084/Store/activarCuenta";
     private String recover = "http://localhost:8084/Store/reset";
     private String main = "http://localhost:8084/Store/";
+    
+//      private String urlActivate = "https://carwaystore.com/Store/activarCuenta";
+//    private String recover = "https://carwaystore.com/Store/reset";
+//    private String main = "https://carwaystore.com/Store";
 
      public boolean envCorreoVendedor(String dest, String clave) throws MessagingException {
         try {
