@@ -76,6 +76,7 @@ document.getElementById('formOnes').addEventListener('submit', e => {
             data: datas
         }).done(function (data) {
             
+            console.log(data)
             
             if (data === 11) {
                 

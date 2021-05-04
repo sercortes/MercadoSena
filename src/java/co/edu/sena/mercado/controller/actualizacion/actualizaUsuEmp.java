@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -249,6 +250,9 @@ public class actualizaUsuEmp extends HttpServlet {
 
             perNaturalDAO.updateData(personaDTO);
             conn.commit();
+            personaDTO.setModifiData(perNaturalDAO.getModifiData(Integer.toString(usuarioDTO.getIdUsuario())));
+            usuarioDTO.setPersona(personaDTO);
+            request.getSession().setAttribute("USER", usuarioDTO);
 
             response.getWriter().print(true);
         } catch (Exception e) {

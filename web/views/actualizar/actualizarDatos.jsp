@@ -46,7 +46,7 @@
 
                             <div class="contenedorImagen">
                                 <div id="previsualizar">
-                                    <img id="fotoPerfil" class="fotoPerfil"  src="${USER.persona.urlImg}" width="200px" height="200"/>                   
+                                    <img id="fotoPerfil" class="fotoPerfil"  src="${USER.persona.urlImg}?${USER.persona.modifiData}" width="200px" height="200"/>                   
                                 </div>
                                 <div class="file">
                                     <p class="texto"><i class="fa fa-file-image" aria-hidden="true"></i></p>

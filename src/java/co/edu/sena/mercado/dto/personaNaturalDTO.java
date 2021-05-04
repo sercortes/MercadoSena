@@ -5,6 +5,8 @@
  */
 package co.edu.sena.mercado.dto;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author DELL
@@ -25,6 +27,7 @@ public class personaNaturalDTO {
     int idGenero;
     int idTipoDoc;
     int idCiudad;
+    private Timestamp modifiData;
 
     public personaNaturalDTO() {
     }
@@ -158,12 +161,17 @@ public class personaNaturalDTO {
         this.idCiudad = idCiudad;
     }
 
+    public Timestamp getModifiData() {
+        return modifiData;
+    }
+
+    public void setModifiData(Timestamp modifiData) {
+        this.modifiData = modifiData;
+    }
+
     @Override
     public String toString() {
-        return "personaNaturalDTO{" + "idPer=" + idPer + ", numeroDocPer=" + numeroDocPer + ", nombrePer=" + nombrePer + ", apellidoPer=" + apellidoPer + ", correoPer=" + correoPer + ", direccionPer=" + direccionPer + ", numCelularPer=" + numCelularPer + ", telPer=" + telPer + ", urlImg=" + urlImg + ", idUsuario=" + idUsuario + ", idGenero=" + idGenero + ", idTipoDoc=" + idTipoDoc + ", idCiudad=" + idCiudad + '}';
+        return "personaNaturalDTO{" + "idPer=" + idPer + ", numeroDocPer=" + numeroDocPer + ", nombrePer=" + nombrePer + ", apellidoPer=" + apellidoPer + ", correoPer=" + correoPer + ", direccionPer=" + direccionPer + ", numCelularPer=" + numCelularPer + ", telPer=" + telPer + ", urlImg=" + urlImg + ", nombreCiudad=" + nombreCiudad + ", idUsuario=" + idUsuario + ", idGenero=" + idGenero + ", idTipoDoc=" + idTipoDoc + ", idCiudad=" + idCiudad + ", modifiData=" + modifiData + '}';
     }
-    
-    
-    
     
 }
