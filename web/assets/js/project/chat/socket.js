@@ -1,4 +1,5 @@
 var numero = 1
+//var url = 'wss://' + window.location.host + '/Store/chat',
 var url = 'ws://' + window.location.host + '/Store/chat',
         ws = new WebSocket(url)
 
