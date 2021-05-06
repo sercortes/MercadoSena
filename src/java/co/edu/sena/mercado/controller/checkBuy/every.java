@@ -51,6 +51,8 @@ public class every implements ServletContextListener {
 
         @Override
         public void run() {
+//            Thread hilo = new Thread(this);
+//            hilo.start();
             System.out.println("MENSAJE");
 
             Conexion conexion = new Conexion();
@@ -99,7 +101,6 @@ public class every implements ServletContextListener {
                 }
                 
             }
-
             
         }
 

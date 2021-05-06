@@ -17,18 +17,18 @@ $(function () {
     if (checkSession()) {
         getNotifys()
     }
-    
+
     checkSaless()
     updateIconNumber()
 
 })
 
-function checkSaless(){
-    
+function checkSaless() {
+
     if (getRol() == 3) {
         getNotifySales()
     }
-    
+
 }
 
 function checkInputGlobal(input, mensaje) {
@@ -42,15 +42,24 @@ $(document).on('click', '#buttonSearch', function () {
         $('#barraBusqueda').show('slow')
 
         bande = 1
-        if (firstTiime === 0) {
-            listarCategoriasS();
-            getMarcas();
-        }
+//        if (firstTiime === 0) {
+//            listarCategoriasS();
+//            getMarcas();
+//        }
         firstTiime++
 
     } else {
         $('#barraBusqueda').hide('slow')
         bande = 0
+    }
+
+})
+
+$(document).on('click', '#desplegarMenu', function () {
+
+    if (firstTiime === 1) {
+        listarCategoriasS();
+        getMarcas();
     }
 
 })
@@ -352,21 +361,21 @@ function getNotifySales() {
 
 }
 
-$(document).on('click', '#salirr', function(e){
-    
+$(document).on('click', '#salirr', function (e) {
+
     e.preventDefault()
     onClose()
     window.location.replace('./logout');
-    
+
 })
 
 function dynamicSort(property) {
     var sortOrder = 1;
-    if(property[0] === "-") {
+    if (property[0] === "-") {
         sortOrder = -1;
         property = property.substr(1);
     }
-    return function (a,b) {
+    return function (a, b) {
         /* next line works with strings and numbers, 
          * and you may want to customize it to your needs
          */

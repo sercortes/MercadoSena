@@ -46,6 +46,11 @@ function generatePageQuery(data, pages) {
         $('#content').hide()
     }
 
+    if (data === 'null') {
+        queryEmphy()
+        return false
+    }
+
     if (data.length <= 0) {
         queryEmphy()
         return false
