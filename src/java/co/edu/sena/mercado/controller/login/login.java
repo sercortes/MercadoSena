@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.apache.commons.validator.routines.EmailValidator;
 
 /**
  *
@@ -67,79 +68,96 @@ public class login extends HttpServlet {
         usuarioDTO UsuarioParam = new usuarioDTO(userParam, passParam);
 
         Connection conn = null;
-        Conexion conexion = new Conexion();
-        conn = conexion.getConnection();
         UsuarioDAOLogin userdao = null;
+        boolean corre = !isValidEmail(userParam);
 
-        try {
+        if (corre) {
             
-            if (conn.getAutoCommit()) {
-                conn.setAutoCommit(false);
-            }
-
-            userdao = new UsuarioDAOLogin(conn);
-            usuarioDTO usuario = userdao.login(UsuarioParam);
-            boolean isUser = userdao.isUser(userParam);
-
-            System.out.println("Intento");
-            System.out.println(usuario.toString());
-            System.out.println("");
-
-            if (!isUser) {
-                System.out.println("NO ES USUARIO");
-                new Gson().toJson(00, response.getWriter());
-                throw new Exception();
-            }
-
-            if (!(usuario.getIdUsuario() > 0)) {
-                System.out.println("DATOS INCORRECTOS");
-                new Gson().toJson(00, response.getWriter());
-                throw new Exception();
-            }
-
-            if (!usuario.getEstadoUsu().equals("1")) {
-                System.out.println("CUENTA NO ACTIVADA");
-                new Gson().toJson(10, response.getWriter());
-                throw new Exception();
-            }
-            System.out.println("");
-            System.out.println("INGRESO");
-            System.out.println(request.getParameter("email"));
-            System.out.println(request.getParameter("pass"));
-            System.out.println("");
-
-            //asignando persona
-            personaNaturalDTO perDTO = userdao.getDataById(Integer.toString(usuario.getIdUsuario()));
-            usuario.setPersona(perDTO);
-
-            if (usuario.getIdRol() == 3) {
-                // asignando empresa
-                empresaDTO emDTO = userdao.buscarEmpresa(usuario.getIdUsuario());
-                usuario.setEmpresa(emDTO);
-            } else {
-                usuario.setEmpresa(new empresaDTO());
-            }
-
-            request.getSession().setAttribute("USER", usuario);
-            System.out.println("INGRESO");
-            System.out.println(usuario.toString());
-            conn.rollback();
-            new Gson().toJson(11, response.getWriter());
+            System.out.println("Correo no válido");
+            new Gson().toJson(3, response.getWriter());
             
-        } catch (Exception ex) {
-            
+        } else {
+
             try {
-                conn.rollback();
-            } catch (SQLException ex1) {
-                ex1.printStackTrace();
-            }
-            
-            ex.printStackTrace();
 
-        } finally {
-            userdao.CloseAll();
+                conn = new Conexion().getConnection();
+
+                if (conn.getAutoCommit()) {
+                    conn.setAutoCommit(false);
+                }
+
+                userdao = new UsuarioDAOLogin(conn);
+                usuarioDTO usuario = userdao.login(UsuarioParam);
+                boolean isUser = userdao.isUser(userParam);
+
+                System.out.println("Intento");
+                System.out.println(usuario.toString());
+                System.out.println("");
+
+                if (!isUser) {
+                    System.out.println("NO ES USUARIO");
+                    new Gson().toJson(2, response.getWriter());
+                    throw new Exception();
+                }
+
+                if (!(usuario.getIdUsuario() > 0)) {
+                    System.out.println("DATOS INCORRECTOS");
+                    new Gson().toJson(3, response.getWriter());
+                    throw new Exception();
+                }
+
+                if (!usuario.getEstadoUsu().equals("1")) {
+                    System.out.println("CUENTA NO ACTIVADA");
+                    new Gson().toJson(4, response.getWriter());
+                    throw new Exception();
+                }
+                System.out.println("");
+                System.out.println("INGRESO");
+                System.out.println(request.getParameter("email"));
+                System.out.println(request.getParameter("pass"));
+
+                //asignando persona
+                personaNaturalDTO perDTO = userdao.getDataById(Integer.toString(usuario.getIdUsuario()));
+                usuario.setPersona(perDTO);
+
+                if (usuario.getIdRol() == 3) {
+                    // asignando empresa
+                    empresaDTO emDTO = userdao.buscarEmpresa(usuario.getIdUsuario());
+                    usuario.setEmpresa(emDTO);
+                } else {
+                    usuario.setEmpresa(new empresaDTO());
+                }
+
+                request.getSession().setAttribute("USER", usuario);
+                System.out.println(usuario.toString());
+                System.out.println("");
+                conn.rollback();
+                new Gson().toJson(1, response.getWriter());
+
+            } catch (Exception ex) {
+
+                try {
+                    conn.rollback();
+                } catch (SQLException ex1) {
+                    ex1.printStackTrace();
+                }
+
+                ex.printStackTrace();
+
+            } finally {
+                userdao.CloseAll();
+            }
+
         }
 
+    }
+
+    public static boolean isValidEmail(String email) {
+        // create the EmailValidator instance
+        EmailValidator validator = EmailValidator.getInstance();
+
+        // check for valid email addresses using isValid method
+        return validator.isValid(email);
     }
 
     @Override

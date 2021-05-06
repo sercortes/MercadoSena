@@ -5,7 +5,6 @@
  */
 package co.edu.sena.mercado.dao;
 
-import co.edu.sena.mercado.dto.Categorys;
 import co.edu.sena.mercado.dto.Producto;
 import co.edu.sena.mercado.util.Conexion;
 import java.sql.Connection;
@@ -115,9 +114,6 @@ public class ProductorDAOQuerys {
             + "OR m.nombreMarca LIKE ? "
             + "AND estadoProducto = 2 "
             + "AND PC.stockProducto > 0 "
-            + "OR CP.nombreCategoria LIKE ? "
-            + "AND estadoProducto = 2 "
-            + "AND PC.stockProducto > 0 "
             + "OR PR.descripcionProducto LIKE ? "
             + "AND estadoProducto = 2 "
             + "AND PC.stockProducto > 0 "
@@ -126,7 +122,6 @@ public class ProductorDAOQuerys {
             ps.setString(1, "%" + Text + "%");
             ps.setString(2, "%" + Text + "%");
             ps.setString(3, "%" + Text + "%");
-            ps.setString(4, "%" + Text + "%");
             rs = ps.executeQuery();
             Producto producto;
             while (rs.next()) {
@@ -383,9 +378,10 @@ public class ProductorDAOQuerys {
         List<Producto> list = new ArrayList<Producto>();
         try {
            String sql =   "SELECT COUNT(*) 'cantidadColores', PR.idProducto, PR.nombreProducto, PR.valorProducto, PR.descripcionProducto, "
-            + "C.nombreColor, PC.stockProducto, PC.idProductoColor FROM producto PR "
+            + "C.nombreColor, PC.stockProducto, PC.idProductoColor, MC.nombreMarca FROM producto PR "
             + "INNER JOIN ProductoColor PC ON PR.idProducto=PC.productoFK "
             + "INNER JOIN colorProducto C ON PC.colorFK = C.idColor "
+            + "INNER JOIN marcaProducto MC ON PR.marcaProductoFK = MC.idMarca "
                     + "WHERE PR.idCategoriaFK = ? "
                     + "AND PR.nombreProducto LIKE ? "
                     + "AND PR.marcaProductoFK = ? "
@@ -397,7 +393,7 @@ public class ProductorDAOQuerys {
                     + "AND estadoProducto = 2 "
                     + "AND PC.stockProducto > 0 "
                     + "OR PR.idCategoriaFK = ? "
-                    + "AND PR.marcaProductoFK LIKE ? "
+                    + "AND MC.nombreMarca LIKE ? "
                     + "AND PR.marcaProductoFK = ? "
                     + "AND estadoProducto = 2 "
                     + "AND PC.stockProducto > 0 "

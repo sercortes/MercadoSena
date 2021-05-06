@@ -76,26 +76,35 @@ document.getElementById('formOnes').addEventListener('submit', e => {
             data: datas
         }).done(function (data) {
             
-            console.log(data)
-            
-            if (data === 11) {
+            if (data == '1') {
                 
                 sessionStorage.setItem('falls', 0);
                 storege()
                 window.location.replace(window.location.pathname);
                 
-            } else if (data === 10) {
+            } else if (data == '2') {
+                
+                messageInfo('Usuario no existe')
+                document.getElementById('passs').value = ''
+                
+            } else if (data == '4') {
                 
                 messageInfo('no has activado tu cuenta')
                 document.getElementById('passs').value = ''
                 
-            } else{
+            }else{
                 
                 messageInfo('Datos Incorrectos')
                 document.getElementById('passs').value = ''
                 
             } 
             
+        }).fail(function(data){
+            
+            messageInfo('Error')
+            document.getElementById('passs').value = ''
+            window.location.replace(window.location.pathname);
+                           
         })
                 
     } 

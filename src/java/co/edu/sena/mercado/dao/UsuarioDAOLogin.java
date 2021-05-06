@@ -157,7 +157,7 @@ public class UsuarioDAOLogin {
                 persona.setNumCelularPer(rs.getString("celularPersona"));
                 persona.setTelPer(rs.getString("telefonoPersona"));
                 persona.setIdCiudad(rs.getInt("idCiudadFK"));
-                persona.setIdTipoDoc(rs.getInt("idTipoDocFK"));
+//                persona.setIdTipoDoc(rs.getInt("idTipoDocFK"));
                 persona.setIdGenero(rs.getInt("idGeneroFK"));
                 persona.setUrlImg(rs.getString("urlImgPersona"));
                 persona.setModifiData(rs.getTimestamp("modiData"));
