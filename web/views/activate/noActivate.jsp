@@ -41,20 +41,12 @@
         <div class="container-fluid" style="">
 
 
-            <c:if test="${ACTIVA}">
-                <div class="divActivacion" >
-                    <p class="textoActivacion">Su cuenta ha sido activada exitosamente, vuelve para iniciar sesión.</p>
-                    <i class="far fa-check-circle" aria-hidden="true" style="font-size: 45px;"></i>
-                </div>
-
-            </c:if>
-            <c:if test="${!ACTIVA}">
                 <div class="divActivacion" style="background: rgba(255, 103, 18, 0.76);">
                     <i class="fa fa-exclamation-triangle" style="font-size: 45px;"></i>
                     <p class="textoActivacion"> Enlace vencido, favor verificar los datos proporcinados.</p>
 
                 </div>
-            </c:if>
+            
             <center>
                 <a href="./" style="font-size: 20px; color: black; text-align: center"><i class="fa fa-home" style="color: #e04343; font-size: 20px;"></i> Volver al inicio</a>
             </center>

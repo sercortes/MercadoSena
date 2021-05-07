@@ -54,6 +54,29 @@ public class Rutas extends HttpServlet {
                 rd = request.getRequestDispatcher("index.jsp");
                 rd.forward(request, response);
                 break;
+            case "/Store/activarCuenta":
+                activateAccount(request, response);
+                break;
+            case "/Store/activate":
+                rd = request.getRequestDispatcher("/views/activate/activarCuenta.jsp");
+                rd.forward(request, response);
+                break;
+                
+            case "/Store/noActivate":
+                rd = request.getRequestDispatcher("/views/activate/noActivate.jsp");
+                rd.forward(request, response);
+                break;
+                 case "/Store/resetFull":
+                rd = request.getRequestDispatcher("/views/reset/reset.jsp");
+                rd.forward(request, response);
+                break;
+            case "/Store/noReset":
+                rd = request.getRequestDispatcher("/views/reset/noReset.jsp");
+                rd.forward(request, response);
+                break;
+            case "/Store/reset":
+                reset(request, response);
+                break;
             default:
                 System.out.println("error de la ruta RUTAS");
                 response.sendRedirect(request.getContextPath() + "/home");
@@ -65,38 +88,26 @@ public class Rutas extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        String direccion = request.getRequestURI();
-
-        switch (direccion) {
-            case "/Store/activarCuenta":
-                activateAccount(request, response);
-                break;
-            case "/Store/reset":
-                reset(request, response);
-                break;
-            default:
-                System.out.println("error de la ruta POST RUTAS");
-                response.sendRedirect(request.getContextPath() + "/home");
-                break;
-        }
+        System.out.println("error de la ruta POST RUTAS");
+        response.sendRedirect(request.getContextPath() + "/home");
 
     }
 
     private void activateAccount(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        RequestDispatcher rd;
         boolean activa;
         String usuario = request.getParameter("usuario");
         String codigo = request.getParameter("codigo");
         usuarioDAO usuarioDAO = new usuarioDAO();
         activa = usuarioDAO.activarUsuario(usuario, codigo);
+        System.out.println("USUARIO " + usuario);
         if (activa) {
+            System.out.println("ACTIVADO");
             request.setAttribute("ACTIVA", activa);
-            rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
-            rd.forward(request, response);
+            response.sendRedirect("./activate");
         } else {
-            rd = request.getRequestDispatcher("/views/activarCuenta.jsp");
-            rd.forward(request, response);
+            System.out.println("Enlace vencido");
+            response.sendRedirect("./noActivate");
         }
 
     }
@@ -133,17 +144,16 @@ public class Rutas extends HttpServlet {
             usuarioDTO usDTO = usuarioDAOLogin.getHash(usuario, hash);
 
             if (usDTO.getIdUsuario() == 0) {
-                rd = request.getRequestDispatcher("/views/reset.jsp");
-                rd.forward(request, response);
+                System.out.println("NO CAMBIADA");
+                response.sendRedirect("./noReset");
             } else {
-                request.setAttribute("ACTIVA", true);
                 pass = generatePassword();
                 usuarioDAOLogin.resetPass(usuario, pass);
-                rd = request.getRequestDispatcher("/views/reset.jsp");
-                rd.forward(request, response);
                 correo co = new correo();
                 co.passCorreo(usuario, pass);
                 conn.commit();
+                System.out.println("CLAVE CAMBIADA");
+                response.sendRedirect("./resetFull");
             }
         } catch (SQLException ex) {
             try {
@@ -169,8 +179,8 @@ public class Rutas extends HttpServlet {
 
     }
 
-       public String generatePassword() {
+    public String generatePassword() {
         return RandomStringUtils.random(10, 0, 20, true, true, "qw32rfHIJk9iQ8Ud7h0X".toCharArray());
     }
-    
+
 }
