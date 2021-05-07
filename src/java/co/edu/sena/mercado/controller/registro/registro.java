@@ -50,6 +50,7 @@ public class registro extends HttpServlet {
         String accion = request.getParameter("accion");
 
         switch (accion) {
+            
             case "consultaGenero":
 
                 consultaGenero(request, response);

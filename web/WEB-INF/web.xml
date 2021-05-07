@@ -116,6 +116,11 @@
         <url-pattern>/logout</url-pattern>
         <url-pattern>/home</url-pattern>
         <url-pattern>/Terminos</url-pattern>
+        
+        <url-pattern>/activate</url-pattern>
+        <url-pattern>/noActivate</url-pattern>
+        <url-pattern>/resetFull</url-pattern>
+        <url-pattern>/noReset</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>RutasVendedor</servlet-name>

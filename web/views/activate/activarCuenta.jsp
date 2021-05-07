@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="es"  style=" min-height: 100%;">
     <head>
-        <title>Estado</title>
+        <title>ActivarCuenta</title>
         <meta charset="utf-8">
         <meta name="description" content="shop project">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -40,21 +40,11 @@
 
         <div class="container-fluid" style="">
 
-
-            <c:if test="${ACTIVA}">
                 <div class="divActivacion" >
-                    <p class="textoActivacion">Tu contraseña ha sido restablecida, revisa el correo electrónico y vuelve para iniciar sesión.</p>
+                    <p class="textoActivacion">Su cuenta ha sido activada exitosamente, vuelve para iniciar sesión.</p>
                     <i class="far fa-check-circle" aria-hidden="true" style="font-size: 45px;"></i>
                 </div>
 
-            </c:if>
-            <c:if test="${!ACTIVA}">
-                <div class="divActivacion" style="background: rgba(255, 103, 18, 0.76);">
-                    <i class="fa fa-exclamation-triangle" style="font-size: 45px;"></i>
-                    <p class="textoActivacion"> Enlace vencido, favor verificar los datos proporcinados.</p>
-
-                </div>
-            </c:if>
             <center>
                 <a href="./" style="font-size: 20px; color: black; text-align: center"><i class="fa fa-home" style="color: #e04343; font-size: 20px;"></i> Volver al inicio</a>
             </center>
