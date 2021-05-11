@@ -17,7 +17,7 @@
 
 <div class="container py-3">
 
- 
+
 
     <div class="col-lg-2 col-sm-12 col-xs-12 float-right">
         <div class="form-group">
@@ -29,14 +29,14 @@
         </div>
     </div>
 
-    
+
     <div class="text-black text-center">
         <div id="tituloPagina">
             <h1 class="">Mis ventas</h1>   
         </div>
     </div>
-    
-       
+
+
     <div id="content" class="p-5 bg-white rounded shadow mb-5">
         <ul id="myTab" role="tablist" class="nav nav-tabs nav-pills flex-column flex-sm-row text-center bg-light border-0 rounded-nav">
             <li class="nav-item flex-sm-fill">
@@ -59,10 +59,18 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
+              <div id="pagee" class="row justify-content-center pb-2 pt-2">
+        <nav aria-label="Page navigation example">
+            <ul id="pagination" class="pagination"></ul>
+        </nav>
+    </div>
         </div> 
     </div>
 
+
+  
 
 
 </div>

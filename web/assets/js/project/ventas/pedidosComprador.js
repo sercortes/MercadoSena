@@ -1,3 +1,11 @@
+var $pagination = $('#pagination'),
+        totalRecords = 0,
+        records = [],
+        displayRecords = [],
+        recPerPage = 4,
+        page = 1,
+        totalPages = 0,
+        initiateStartPageClick = true
 
 $(function () {
     
@@ -16,6 +24,7 @@ $(function () {
 
 $(document).on('click', '.section', function (e) {
 
+    $pagination.twbsPagination('destroy');
     e.preventDefault()
     let papa = $(this)[0].id
         
@@ -42,9 +51,33 @@ function drawVentas(data) {
         return false;
     }
     
+    recPerPage = 5
+    records = data
+    totalRecords = data.length
+    totalPages = Math.ceil(totalRecords / recPerPage)
+    apply_paginations()
+
+}
+
+function apply_paginations() {
+
+    $pagination.twbsPagination({
+        totalPages: totalPages,
+        visiblePages: 4,
+        onPageClick: function (event, page) {
+            displayRecordsIndex = Math.max(page - 1, 0) * recPerPage;
+            endRec = (displayRecordsIndex) + recPerPage;
+            displayRecords = records.slice(displayRecordsIndex, endRec);
+            generate()
+        }
+    });
+}
+
+function generate(){
+    
     let str = ``
     let number = 0;
-    for (var item of data) {
+    for (var item of displayRecords) {
         str += `<div class="card">
           <div id="headingTwo" class="card-header bg-white shadow-sm border-0">
             <h6 class="mb-0 font-weight-bold"><a href="#" data-toggle="collapse" data-target="#collapseTwo${number}" aria-expanded="false" aria-controls="collapseTwo" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">Venta #${item.idVenta}</a></h6>
@@ -139,9 +172,8 @@ function drawVentas(data) {
         number++
     }
     document.getElementById('pedidos').innerHTML = str
-
+    
 }
-
 
 function getVentasByComprador(estado) {
 
