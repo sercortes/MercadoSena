@@ -42,24 +42,15 @@ $(document).on('click', '#buttonSearch', function () {
         $('#barraBusqueda').show('slow')
 
         bande = 1
-//        if (firstTiime === 0) {
-//            listarCategoriasS();
-//            getMarcas();
-//        }
+        if (firstTiime === 0) {
+            listarCategoriasS();
+            getMarcas();
+        }
         firstTiime++
 
     } else {
         $('#barraBusqueda').hide('slow')
         bande = 0
-    }
-
-})
-
-$(document).on('click', '#desplegarMenu', function () {
-
-    if (firstTiime === 1) {
-        listarCategoriasS();
-        getMarcas();
     }
 
 })

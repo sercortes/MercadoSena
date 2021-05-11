@@ -46,6 +46,11 @@
                     </div>
                 </div>
             </div>
+            <div id="pagee" class="row justify-content-center pb-2 pt-2">
+                <nav aria-label="Page navigation example">
+                    <ul id="pagination" class="pagination"></ul>
+                </nav>
+            </div>
         </div> 
     </div>
 
