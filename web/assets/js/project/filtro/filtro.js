@@ -5,7 +5,6 @@ $(document).ready(function () {
     
     if (window.location.pathname === '/Store/' || window.location.pathname === '/Store/home') {
         console.time('loop');
-        $('#pagee').hide()
         $('#cargas').addClass('is-active');
         productosRamdom();
         banner()
