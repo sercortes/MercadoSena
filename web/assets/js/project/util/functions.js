@@ -262,11 +262,11 @@ function checkProducts() {
         }
     }).done(function (data) {
 
-        if (data !== 0 || data !== 00) {
-            datas = false
+        if (data) {
+            datas = true
         } else {
             cleanCar()
-            datas = true
+            datas = false
         }
 
     })

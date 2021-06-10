@@ -114,7 +114,7 @@ public class Validation extends HttpServlet {
                 if (!productosPedidosDAO.checkProductsCustomer(item)) {
                     estatus = false;
                     System.out.println("ERROR verificación venta");
-                    new Gson().toJson(0, response.getWriter());
+//                    new Gson().toJson(0, response.getWriter());
                 }
             }
             
@@ -130,21 +130,17 @@ public class Validation extends HttpServlet {
                 }
             }
 
-            if (!estatus) {
-                System.out.println("Error un producto Vale 0");
-                estatus = false;
-                new Gson().toJson(0, response.getWriter());
-            }
-
-            if (total <= 0) {
+            if (total <= 0 || !estatus) {
                 System.out.println("Error Productos Valen 0");
                 estatus = false;
-                new Gson().toJson(0, response.getWriter());
+//                new Gson().toJson(0, response.getWriter());
             }
             
             System.out.println("");
             if (estatus) {
                 new Gson().toJson(true, response.getWriter());    
+            }else{
+                new Gson().toJson(false, response.getWriter());    
             }
             
         } catch (Exception ex) {

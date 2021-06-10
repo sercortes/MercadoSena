@@ -21,7 +21,7 @@ function productosRamdom() {
         datatype: 'json'
     }).done(function (data) {
 
-        generatePageQuery(data, 12)
+        generatePageQuery(data, 8)
 
     })
 
