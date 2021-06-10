@@ -180,7 +180,7 @@ function checkSubmit() {
 
     $('#cargas').addClass('is-active');
 
-    if (checkProducts()) {
+    if (!checkProducts()) {
         $('#cargas').removeClass('is-active');
         mensajeRedirectHome('¡Error en los productos!')
         return false
@@ -280,7 +280,7 @@ function checkSubmit2() {
 
     $('#cargas').addClass('is-active');
 
-    if (checkProducts()) {
+    if (!checkProducts()) {
         $('#cargas').removeClass('is-active');
         mensajeRedirectHome('¡Error en los productos!')
         return false
