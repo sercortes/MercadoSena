@@ -128,6 +128,11 @@ $('#send').click(function (e) {
         return false
     }
     
+    if (!checkPrice()){
+        messageInfo('El precio de los productos es incorrecto')
+        return false
+    }
+    
     if(arrayProducts <= 0){
       messageInfo('Selecione color y cantidad');
       return false
@@ -246,6 +251,18 @@ function checkOne() {
     if (array.length <= 0) {
         return false
     }
+    return true
+}
+
+function checkPrice() {
+
+    let price = document.getElementById('price').value
+    let priceV = document.getElementById('precioVendedor').value
+
+    if (price <= 1000 || priceV <=1000) {
+        return false
+    }
+
     return true
 }
 

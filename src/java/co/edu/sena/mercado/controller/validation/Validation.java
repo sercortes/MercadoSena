@@ -89,7 +89,7 @@ public class Validation extends HttpServlet {
     private void checkProducts(HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException, SQLException, IOException {
        
         usuarioDTO user = (usuarioDTO) request.getSession().getAttribute("USER");
-        System.out.println("CHECK PRODUCTO");
+        System.out.println("CHECK PRODUCTO VALIDATION......");
         System.out.println(user.toString());
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -108,6 +108,7 @@ public class Validation extends HttpServlet {
         try {
             productosPedidosDAO = new ProductosPedidosDAO(conn);
             boolean estatus = true;
+             double total = 0.0;
             
             for (ProducctoDTO item : producctoDTOs) {
                 if (!productosPedidosDAO.checkProductsCustomer(item)) {
@@ -121,6 +122,26 @@ public class Validation extends HttpServlet {
                 System.out.println("ARREGLO VACIO VENTA");
                 estatus = false;
             }
+            
+             for (ProducctoDTO item : producctoDTOs) {
+                total += item.getValorUnitario() * item.getCantidad();
+                if (item.getValorUnitario() <= 0) {
+                    estatus = false;
+                }
+            }
+
+            if (!estatus) {
+                System.out.println("Error un producto Vale 0");
+                estatus = false;
+                new Gson().toJson(0, response.getWriter());
+            }
+
+            if (total <= 0) {
+                System.out.println("Error Productos Valen 0");
+                estatus = false;
+                new Gson().toJson(0, response.getWriter());
+            }
+            
             System.out.println("");
             if (estatus) {
                 new Gson().toJson(true, response.getWriter());    
